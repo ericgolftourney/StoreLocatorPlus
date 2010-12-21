@@ -28,6 +28,19 @@ License: GPL3
 
 **/
 
+
+// Define our paths 
+//
+if (defined('SLPLUS_PLUGINDIR') === false) {
+    define('SLPLUS_PLUGINDIR', plugin_dir_path(__FILE__));
+}
+if (defined('SLPLUS_PLUGINURL') === false) {
+    define('SLPLUS_PLUGINURL', plugins_url('',__FILE__));
+}
+if (defined('SLPLUS_BASENAME') === false) {
+    define('SLPLUS_BASENAME', plugin_basename(__FILE__));
+}
+
 $sl_version="1.2.39.3";
 $sl_db_version=1.2;
 include_once("variables.sl.php");
