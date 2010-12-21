@@ -17,16 +17,12 @@ include_once("via-latest.php");
 
 register_activation_hook( __FILE__, 'install_table');
 
-//add_action('wp_head', 'install_table');
-
 add_action('wp_head', 'head_scripts');
-// add_action('wp_footer', 'foot_scripts');
-
-add_filter('the_content', 'ajax_map', 7);
-
 add_action('admin_menu', 'sl_add_options_page');
 add_action('admin_print_scripts', 'add_admin_javascript');
 add_action('admin_print_styles','add_admin_stylesheet');
+
+add_filter('the_content', 'ajax_map', 7);
 
 load_plugin_textdomain($text_domain, "/wp-content/uploads/sl-uploads/languages/");
 
@@ -37,11 +33,7 @@ function plugin_prevent_upgrade($opt) {
 	global $update_class;
 	$plugin = plugin_basename(__FILE__);
 	if ( $opt && isset($opt->response[$plugin]) ) {
-		//Theres an update. Remove automatic upgrade:
-		//$opt->response[$plugin]->package = '';
-		//Show div update class
 		$update_class="update-message";
-		//Now we've prevented the upgrade taking place, It might be worth to give users a note that theres an update available:
 	}
 	return $opt;
 }
