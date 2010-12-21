@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: Store Locator
-Plugin URI: http://www.viadat.com/store-locator
-Description: A store locator plugin that gives you the ability to effectively show important locations (stores, buildings, points of interest, etc.) in an easily searchable manner using Google Maps.
-Version: 1.2.39.3
-Author: Viadat Creations
-Author URI: http://www.viadat.com
+Plugin Name: Store Locator Plus
+Plugin URI: http://www.cybersprocket.com/producs/store-locator-plus/
+Description: Store Locator Plus is based on the popular Google Maps Store Locator with a few customizations we needed for our clients. Unfortunately the original author is on haitus, so we've had to create our ownupdate. Hopefully other WordPress users will find our additions useful. 
+Version: 0.1
+Author: Cyber Sprocket Labs
+Author URI: http://www.cybersprocket.com
 */
 
 $sl_version="1.2.39.3";
