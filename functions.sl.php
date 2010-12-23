@@ -582,18 +582,7 @@ function do_hyperlink(&$text, $target="'_blank'")
 
 return $text;
 }
-/*--------------------------------------------------------------*/
-function find_wp_config() {
-if (file_exists("./wp-config.php")){include("./wp-config.php");}
-elseif (file_exists("../wp-config.php")){include("../wp-config.php");}
-elseif (file_exists("../../wp-config.php")){include("../../wp-config.php");}
-elseif (file_exists("../../../wp-config.php")){include("../../../wp-config.php");}
-elseif (file_exists("../../../../wp-config.php")){include("../../../../wp-config.php");}
-elseif (file_exists("../../../../../wp-config.php")){include("../../../../../wp-config.php");}
-elseif (file_exists("../../../../../../wp-config.php")){include("../../../../../../wp-config.php");}
-elseif (file_exists("../../../../../../../wp-config.php")){include("../../../../../../../wp-config.php");}
-elseif (file_exists("../../../../../../../../wp-config.php")){include("../../../../../../../../wp-config.php");}
-}
+
 /*--------------------------------------------------------------*/
 function insert_matched_data() {
 	global $wpdb;
