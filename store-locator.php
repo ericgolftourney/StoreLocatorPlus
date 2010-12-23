@@ -41,8 +41,9 @@ if (defined('SLPLUS_BASENAME') === false) {
     define('SLPLUS_BASENAME', plugin_basename(__FILE__));
 }
 
-$sl_version="1.2.39.3";
-$sl_db_version=1.2;
+
+$sl_version="1.3";
+$sl_db_version=1.3;
 include_once("variables.sl.php");
 include_once("copyfolder.lib.php");
 include_once("functions.sl.php");

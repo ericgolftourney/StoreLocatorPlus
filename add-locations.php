@@ -70,56 +70,22 @@ print <<<EOQ
 </form-->
 EOQ;
 
-print "
-<table cellpadding='10px' cellspacing='0' style='width:100%' class='manual_add_table'><tr>
-<td style='/*border-right:solid silver 1px;*/ padding-top:0px;' valign='top'>
+// Show the manual location entry form
+//
+add_locations_form();
 
-<form name='manualAddForm' method=post>
-	<table cellpadding='0' class='widefat'>
-	<thead><tr><th>".__("Type&nbsp;Address", $text_domain)."</th></tr></thead>
-	<tr>
-		<td>
-		<b>".__("The General Address Format", $text_domain).": </b>(<a href=\"#\" onclick=\"show('format'); return false;\">".__("show/hide", $text_domain)."</a>)
-		<span id='format' style='display:none'><br><i>".__("Name of Location", $text_domain)."<br>
-		".__("Address (Street - Line1)", $text_domain)."<br>
-		".__("Address (Street - Line2 - optional)", $text_domain)."<br>
-		".__("City, State Zip", $text_domain)."</i></span><br><hr>
-		".__("Name of Location", $text_domain)."<br><input name='sl_store' size=40><br><br>
-		".__("Address", $text_domain)."<br><input name='sl_address' size=21>&nbsp;<small>(".__("Street - Line1", $text_domain).")</small><br>
-		<input name='sl_address2' size=21>&nbsp;<small>(".__("Street - Line 2 - optional", $text_domain).")</small><br>
-		<table cellpadding='0px' cellspacing='0px'><tr><td style='padding-left:0px' class='nobottom'><input name='sl_city' size='21'><br><small>".__("City", $text_domain)."</small></td>
-		<td><input name='sl_state' size='7'><br><small>".__("State", $text_domain)."</small></td>
-		<td><input name='sl_zip' size='10'><br><small>".__("Zip", $text_domain)."</small></td></tr></table><br>
-		Additional Information<br>
-		<textarea name='sl_description' rows='5' cols='17'></textarea>&nbsp;<small>".__("Description", $text_domain)."</small><br>
-		<input name='sl_tags'>&nbsp;<small>".__("Tags (seperate with commas)", $text_domain)."</small><br>		
-		<input name='sl_url'>&nbsp;<small>".__("URL", $text_domain)."</small><br>
-		<input name='sl_hours'>&nbsp;<small>".__("Hours", $text_domain)."</small><br>
-		<input name='sl_phone'>&nbsp;<small>".__("Phone", $text_domain)."</small><br>
-		<input name='sl_image'>&nbsp;<small>".__("Image URL (shown with location)", $text_domain)."</small><br><br>
-	<input type='submit' value='".__("Add Location", $text_domain)."' class='button-primary'>
-	</td>
-		</tr>
-	</table>
-</form>
 
-</td>
-<td style='/*border-right:solid silver 1px;*/ padding-top:0px;' valign='top'>";
-
-if (file_exists($sl_upload_path."/addons/csv-xml-importer-exporter/csv-import-form.php")) {
-	include($sl_upload_path."/addons/csv-xml-importer-exporter/csv-import-form.php");
-	print "<br>";
+/** function: add_locations_form
+ ** 
+ ** show the add locations form
+ **
+ **/
+function add_locations_form() {
+    ob_start();
+    include(SLPLUS_PLUGINDIR.'/templates/add_locations.php');
+    $content = ob_get_contents();
+    ob_end_clean();
+    print $content;
 }
 
-include($sl_path."/database-info.php");
-if (file_exists($sl_upload_path."/addons/db-importer/db-import-form.php")) {
-	include($sl_upload_path."/addons/db-importer/db-import-form.php");
-}
 
-print "</td><td valign='top' style='padding-top:0px;'>";
-
-if (file_exists($sl_upload_path."/addons/point-click-add/point-click-add-form.php")) {
-	include($sl_upload_path."/addons/point-click-add/point-click-add-form.php");
-}
-
-print "</td></tr></table></div>";

@@ -291,6 +291,7 @@ function install_table() {
 			sl_city varchar(255) NULL,
 			sl_state varchar(255) NULL,
 			sl_zip varchar(255) NULL,
+			sl_country varchar(255) NULL,
 			sl_latitude varchar(255) NULL,
 			sl_longitude varchar(255) NULL,
 			sl_tags mediumtext NULL,
