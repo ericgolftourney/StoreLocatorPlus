@@ -5,7 +5,7 @@ Donate link: http://www.cybersprocket.com/products/store-locator-plus/
 Tags: store locator, store locater, google, google maps, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus
 Requires at least: 3.0
 Tested up to: 3.0.3
-Stable tag: 0.1
+Stable tag: 1.3
 
 Store Locator Plus is based on the popular Google Maps Store Locator with a few customizations we needed for our clients. Unfortunately the original author is on haitus, so we've had to create our ownupdate. Hopefully other WordPress users will find our additions useful.
 
@@ -29,7 +29,7 @@ Its strength is in its flexibility to allow you to easily manage a few or a thou
 * Option to show dropdown list of cities allows visitors to quickly see where your locations are and choose their search accordingly
 
 = Upgrades =
-Viadat, the original author, was selling updated add-ons and themes but as of this release was on haitus.  You can check out his work here: http://www.viadat.com/products-page/
+Viadat, the original author, was selling updated add-ons and themes but as of this release was on haitus.  You can check out their work here: http://www.viadat.com/products-page/
 
 = Related Links =
 
@@ -64,6 +64,7 @@ You can modify the default 'store-locator.css' and place it under `/wp-content/u
 
 == Changelog ==
 
-= 0.1  (December 2010)=
+= 1.3  (December 2010) =
 
 * Initial release based on Google Maps Store Locator for WordPress v1.2.39.3
+* Add country field to the address

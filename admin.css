@@ -1,14 +1,30 @@
-.tableRowHeader,.tableRowHeader td,.tableRowHeader th {
-	background-color: black;
-	color: white;
-	font-weight: bold;
+.add_location_form label {
+    width: 120px;
+    float: left;
+    text-align: right;
+    margin-right: 0.5em;
+    display: block;
 }
 
-.tableRowHeader  td a,.tableRowHeader  th a,.widefat thead td a,.widefat thead th a
-	{
-	color: #00aa00;
-	font-weight: bold;
-	text-decoration: underline;
+.add_location_form INPUT {
+    width: 40em;
+}
+
+.add_location_form TEXTAREA {
+    width: 40em;
+}
+
+    .tableRowHeader,.tableRowHeader td,.tableRowHeader th {
+        background-color: black;
+        color: white;
+        font-weight: bold;
+    }
+
+    .tableRowHeader  td a,.tableRowHeader  th a,.widefat thead td a,.widefat thead th a
+        {
+        color: #00aa00;
+        font-weight: bold;
+        text-decoration: underline;
 }
 
 .widefat,.widefat thead td a,.widefat thead th a,.widefat td,.widefat th
@@ -51,11 +67,6 @@ div.feedburnerFeedBlock ul li span.headline {
 	margin: 12px 0 0 0;
 }
 
-/*div.feedburnerFeedBlock { 
-border:2px solid #ddd; 
-background-color:#ffe; 
-padding:12px; 
-}*/
 div.feedburnerFeedBlock ul li span.headline {
 	font-weight: bold;
 }
