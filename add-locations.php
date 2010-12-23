@@ -1,13 +1,18 @@
 <?php
-
-print "
-<div class='wrap'>
-<h2>".__("Add Locations", $text_domain)."</h2><br>";
+/****************************************************************************
+ ** file: add-locations.php
+ **
+ ** handles the add locations form
+ ***************************************************************************/
 
 global $wpdb;
+
+print "<div class='wrap'><h2>".__("Add Locations", $text_domain)."</h2><br>";
 initialize_variables();
 
+
 //Inserting addresses by manual input
+//
 if ($_POST[sl_store] && $_GET[mode]!="pca") {
 	foreach ($_POST as $key=>$value) {
 		if (ereg("sl_", $key)) {
@@ -18,43 +23,37 @@ if ($_POST[sl_store] && $_GET[mode]!="pca") {
 	}
 	$fieldList=substr($fieldList, 0, strlen($fieldList)-1);
 	$valueList=substr($valueList, 0, strlen($valueList)-1);
-	//$wpdb->query("INSERT into ". $wpdb->prefix . "store_locator (sl_store, sl_address, sl_city, sl_state, sl_zip) VALUES ('$_POST[sl_store]', '$_POST[sl_address]', '$_POST[sl_city]', '$_POST[sl_state]', '$_POST[sl_zip]')");
-	//print "INSERT into ". $wpdb->prefix . "store_locator ($fieldList) VALUES ($valueList)"; exit;
 	$wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fieldList) VALUES ($valueList)");
 	$address="$_POST[sl_address], $_POST[sl_city], $_POST[sl_state] $_POST[sl_zip]";
 	do_geocoding($address);
-	print "<div class='updated fade'>".__("Successful Addition",$text_domain).". $view_link</div> <!--meta http-equiv='refresh' content='0'-->"; //header("location:$_SERVER[HTTP_REFERER]");
+	print "<div class='updated fade'>".
+            __("Successful Addition",$text_domain).
+            ". $view_link</div> <!--meta http-equiv='refresh' content='0'-->"; 
 }
 
+
 //Importing addresses from an local or remote database
+//
 if ($_POST[remote] && trim($_POST[query])!="" || $_POST[finish_import]) {
-	
 	if (ereg(".*\..{2,}", $_POST[server])) {
 		include($sl_upload_path."/addons/db-importer/remoteConnect.php");
 	}
 	else {
-		/*if (file_exists("addons/db-importer/localImport.php")) {
-			include($sl_upload_path."/addons/db-importer/localImport.php");
-		}
-		else {*/
-			include($sl_path."/localImport.php");
-		//}
-	}
-	//for intermediate step match column data to field headers
+        include($sl_path."/localImport.php");
+    }
 	if ($_POST[finish_import]!="1") {exit();}
 }
 
 //Importing CSV file of addresses
+//
 $newfile="temp-file.csv"; 
 $target_path="$root/";
 $root=ABSPATH."wp-content/plugins/".dirname(plugin_basename(__FILE__));
-//print_r($_FILES);
-if (move_uploaded_file($_FILES['csv_import']['tmp_name'], "$root/$newfile") && file_exists($sl_upload_path."/addons/csv-xml-importer-exporter/csvImport.php")) {
+if (move_uploaded_file($_FILES['csv_import']['tmp_name'], "$root/$newfile") && 
+    file_exists($sl_upload_path."/addons/csv-xml-importer-exporter/csvImport.php")
+    ) {
 	include($sl_upload_path."/addons/csv-xml-importer-exporter/csvImport.php");
-}
-else{
-		//echo "<div style='background-color:salmon; padding:5px'>There was an error uploading the file, please try again. </div>";
-}
+} 
 
 //If adding via the Point, Click, Add map (accepting AJAX)
 if ($_GET[mode]=="pca") {
@@ -111,28 +110,16 @@ if (file_exists($sl_upload_path."/addons/csv-xml-importer-exporter/csv-import-fo
 	include($sl_upload_path."/addons/csv-xml-importer-exporter/csv-import-form.php");
 	print "<br>";
 }
-/*else {
-	print "<A href='http://www.viadat.com/products-page/store-locator-add-ons/csv-importer--exporter--xml-exporter/' target='_blank'><center><b>Addon:</b> CSV Importer/Exporter & XML Exporter</center><br><br><img src='$sl_base/screenshot-3.jpg' border='0'></a>";
-}*/
+
 include($sl_path."/database-info.php");
 if (file_exists($sl_upload_path."/addons/db-importer/db-import-form.php")) {
 	include($sl_upload_path."/addons/db-importer/db-import-form.php");
 }
 
-print "
-</td>
-<td valign='top' style='padding-top:0px;'>
-";
+print "</td><td valign='top' style='padding-top:0px;'>";
 
 if (file_exists($sl_upload_path."/addons/point-click-add/point-click-add-form.php")) {
 	include($sl_upload_path."/addons/point-click-add/point-click-add-form.php");
 }
-/*else {
-	print "<A href='http://www.viadat.com/products-page/store-locator-add-ons/point-click--add-mapper/' target='_blank'><center><b>Addon:</b> Point, Click, Add Mapper</center><br><br><img src='$sl_base/screenshot-4.jpg' border='0'></a>";
-}*/
 
-print "</td>
-</tr>
-</table>
-</div>";
-?>
+print "</td></tr></table></div>";
