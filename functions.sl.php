@@ -480,7 +480,7 @@ $form="
 function sl_add_options_page() {
 	global $sl_dir, $sl_base, $sl_upload_base, $text_domain, $map_character_encoding;
 	$api=get_option('store_locator_api_key');
-	add_menu_page(__("Store Locator", $text_domain), __("About", $text_domain), 9, $sl_dir.'/readme.php');
+	add_menu_page(__("Store Locator", $text_domain), __("Store Locator", $text_domain), 9, $sl_dir.'/readme.php');
 	if (trim($api)!=""){
 		add_submenu_page($sl_dir.'/readme.php', __("Manage Locations", $text_domain), __("Manage Locations", $text_domain), 9, $sl_dir.'/view-locations.php');
 		add_submenu_page($sl_dir.'/readme.php', __("Add Locations", $text_domain), __("Add Locations", $text_domain), 9, $sl_dir.'/add-locations.php');
