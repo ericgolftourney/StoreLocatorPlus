@@ -480,18 +480,13 @@ $form="
 function sl_add_options_page() {
 	global $sl_dir, $sl_base, $sl_upload_base, $text_domain, $map_character_encoding;
 	$api=get_option('store_locator_api_key');
-	add_menu_page(__("Store Locator", $text_domain), __("Store Locator", $text_domain), 9, $sl_dir.'/news-upgrades.php');
+	add_menu_page(__("Store Locator", $text_domain), __("About", $text_domain), 9, $sl_dir.'/readme.php');
 	if (trim($api)!=""){
-		add_submenu_page($sl_dir.'/news-upgrades.php', __("News & Upgrades", $text_domain), __("News & Upgrades", $text_domain), 9, $sl_dir.'/news-upgrades.php');
-		add_submenu_page($sl_dir.'/news-upgrades.php', __("Manage Locations", $text_domain), __("Manage Locations", $text_domain), 9, $sl_dir.'/view-locations.php');
-		add_submenu_page($sl_dir.'/news-upgrades.php', __("Add Locations", $text_domain), __("Add Locations", $text_domain), 9, $sl_dir.'/add-locations.php');
-		add_submenu_page($sl_dir.'/news-upgrades.php', __("Map Designer", $text_domain), __("Map Designer", $text_domain), 9, $sl_dir.'/map-designer.php');
+		add_submenu_page($sl_dir.'/readme.php', __("Manage Locations", $text_domain), __("Manage Locations", $text_domain), 9, $sl_dir.'/view-locations.php');
+		add_submenu_page($sl_dir.'/readme.php', __("Add Locations", $text_domain), __("Add Locations", $text_domain), 9, $sl_dir.'/add-locations.php');
+		add_submenu_page($sl_dir.'/readme.php', __("Map Designer", $text_domain), __("Map Designer", $text_domain), 9, $sl_dir.'/map-designer.php');
 	}
-	add_submenu_page($sl_dir.'/news-upgrades.php', __("Localization", $text_domain)." &amp; ".__("Google API Key", $text_domain),  __("Localization", $text_domain)." &amp; ".__("Google API Key", $text_domain), 9, $sl_dir.'/api-key.php');
-	if (trim($api)!=""){
-		
-		add_submenu_page($sl_dir.'/news-upgrades.php', __("ReadMe", $text_domain), __("ReadMe", $text_domain), 9, $sl_dir.'/readme.php');
-	}
+	add_submenu_page($sl_dir.'/readme.php', __("Localization", $text_domain)." &amp; ".__("Google API Key", $text_domain),  __("Localization", $text_domain)." &amp; ".__("Google API Key", $text_domain), 9, $sl_dir.'/api-key.php');
 }
 
 function add_admin_javascript() {
