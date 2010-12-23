@@ -319,12 +319,16 @@ function install_table() {
 	
 	move_upload_directories();
 }
-/*-------------------------------*/
+
+
+/***********************************
+ ** function: head_scripts
+ **
+ **/
 function head_scripts() {
 	global $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $wpdb, $sl_version, $pagename, $map_character_encoding;
 	
 	print "\n<!-- ========= Google Maps Store Locator for WordPress (v$sl_version) | http://www.viadat.com/store-locator/ ========== -->\n";
-	//print "<!-- ========= Learn More & Download Here: http://www.viadat.com/store-locator ========== -->\n";
 
 	//Check if currently on page with shortcode
 	$on_sl_page=$wpdb->get_results("SELECT post_name FROM ".$wpdb->prefix."posts WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_status IN ('publish', 'draft') AND (post_name='$pagename' OR ID='$_GET[p]' OR ID='$_GET[page_id]')", ARRAY_A);		
@@ -338,10 +342,14 @@ function head_scripts() {
 	else {		
 		$post_ids_array=array(9999999999999999999999999999999999999); //post number that'll never be reached
 	}
-	//print_r($post_ids_array);
 	
-	//If on page with store locator shortcode, on an archive, search, or 404 page while shortcode has been used in a post, on the front page, or a specific post with shortcode, display code, otherwise, don't
-	if ($on_sl_page || is_search() || ((is_archive() || is_404()) && $sl_code_is_used_in_posts) || is_front_page() || is_single($post_ids_array)) {
+	// If on page with store locator shortcode, on an archive, search, or 404 page 
+    // while shortcode has been used in a post, on the front page, or a specific 
+    // post with shortcode, display code, otherwise, don't
+	if ($on_sl_page || is_search() || 
+        ((is_archive() || is_404()) && $sl_code_is_used_in_posts) || 
+        is_front_page() || is_single($post_ids_array)
+        ) {
 		$api_key=get_option('store_locator_api_key');
 		$google_map_domain=(get_option('sl_google_map_domain')!="")? get_option('sl_google_map_domain') : "maps.google.com";
 	
@@ -688,4 +696,3 @@ function url_test($url)
 	else{
 		return FALSE; }
 }
-?>
