@@ -21,17 +21,12 @@ function move_upload_directories() {
 	if (is_dir($sl_path . "/images") && !is_dir($sl_upload_path . "/images")) {
 		copyr($sl_path . "/images", $sl_upload_path . "/images");
 	}
-	//mkdir($sl_upload_path . "/addons", 0755);
-	//mkdir($sl_upload_path . "/themes", 0755);
-	//mkdir($sl_upload_path . "/languages", 0755);
 	if (!is_dir($sl_upload_path . "/custom-icons")) {
 		mkdir($sl_upload_path . "/custom-icons", 0755);
 	}
-	//mkdir($sl_upload_path . "/images", 0755);
 	if (!is_dir($sl_upload_path . "/custom-css")) {
 		mkdir($sl_upload_path . "/custom-css", 0755);
 	}
-	//copyr($sl_path . "/store-locator.css", $sl_upload_path . "/custom-css/store-locator.css");
 }
 /* -----------------*/
 function parseToXML($htmlStr) 
@@ -224,7 +219,6 @@ $ccTLD_arr=explode(".", MAPS_HOST);
 $ccTLD=$ccTLD_arr[count($ccTLD_arr)-1];
 if ($ccTLD!="com") {
 	$base_url .= "&gl=".$ccTLD;
-	//die($base_url);
 }
 
 //Map Character Encoding
@@ -233,15 +227,13 @@ if (get_option("sl_map_character_encoding")!="") {
 }
 
 // Iterate through the rows, geocoding each address
-    $request_url = $base_url . "&q=" . urlencode($address);
-   
-//New code to accomdate those without 'file_get_contents' functionality for their server - added 3/27/09 8:56am - provided by Daniel C. - thank you
-   if (extension_loaded("curl") && function_exists("curl_init")) {
-$cURL = curl_init();
-curl_setopt($cURL, CURLOPT_URL, $request_url);
-curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
-$csv = curl_exec($cURL);
-curl_close($cURL);  
+$request_url = $base_url . "&q=" . urlencode($address);
+if (extension_loaded("curl") && function_exists("curl_init")) {
+        $cURL = curl_init();
+        curl_setopt($cURL, CURLOPT_URL, $request_url);
+        curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
+        $csv = curl_exec($cURL);
+        curl_close($cURL);  
 }else{
      $csv = file_get_contents($request_url) or die("url not loading");
 }
@@ -358,15 +350,12 @@ function head_scripts() {
 		print "<script src='".$sl_base."/js/store-locator-js.php' type='text/javascript'></script>
 <script src='".$sl_base."/js/store-locator.js' type='text/javascript'></script>
 <script src='".$sl_base."/js/functions.js' type='text/javascript'></script>\n";
-		//print "<link  href='".$sl_base."/base.css' type='text/css' rel='stylesheet'/>\n"; //merged into store-locator.css 12/31/09 (v1.2.37)
-		//if store-locator.css exists in custom-css/ folder in uploads/ dir it takes precedence over, store-locator.css in store-locator plugin directory to allow for css customizations to be preserved after updates
 		$has_custom_css=(file_exists($sl_upload_path."/custom-css/store-locator.css"))? $sl_upload_base."/custom-css" : $sl_base; 
 		print "<link  href='".$has_custom_css."/store-locator.css' type='text/css' rel='stylesheet'/>";
 		$theme=get_option('sl_map_theme');
 		if ($theme!="") {print "\n<link  href='".$sl_upload_base."/themes/$theme/style.css' rel='stylesheet' type='text/css'/>";}
 		$zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		
 
-			//print "<style></style>";
 		move_upload_directories();
 	}
 	else {
@@ -381,7 +370,6 @@ function head_scripts() {
 }
 /*-------------------------------*/
 function foot_scripts() {
-	//print "<script type='text/javascript'>if (document.getElementById('map')){load();}</script>";
 }
 /*-------------------------------*/
 function ajax_map($content) {
@@ -410,22 +398,12 @@ function ajax_map($content) {
 		
 		if (get_option('sl_use_city_search')==1) {
 			$cs_array=$wpdb->get_results("SELECT CONCAT(TRIM(sl_city), ', ', TRIM(sl_state)) as city_state FROM ".$wpdb->prefix."store_locator WHERE sl_city<>'' AND sl_state<>'' AND sl_latitude<>'' AND sl_longitude<>'' GROUP BY city_state ORDER BY city_state ASC", ARRAY_A);
-			//var_dump($cs_array); die();
 			if ($cs_array) {
 				foreach($cs_array as $value) {
 $cs_options.="<option value='$value[city_state]'>$value[city_state]</option>";
 				}
 			}
 		}
-		/*if (get_option('sl_use_name_search')==1) {
-			$name_array=$wpdb->get_results("SELECT sl_store FROM ".$wpdb->prefix."store_locator WHERE sl_store<>'' ORDER BY sl_store ASC", ARRAY_A);
-			//var_dump($cs_array); die();
-			if ($name_array) {
-				foreach($name_array as $value) {
-					$name_options.="<option value='".comma($value[sl_store])."'>".comma($value[sl_store])."</option>";
-				}
-			}
-		}*/
 	
 	if (get_option('sl_map_theme')!="") {
 		$theme_base=$sl_upload_base."/themes/".get_option('sl_map_theme');
@@ -443,7 +421,6 @@ $cs_options.="<option value='$value[city_state]'>$value[city_state]</option>";
 	$mousedown=(file_exists($theme_path."/search_button_down.png"))? "onmousedown=\"this.src='$theme_base/search_button_down.png'\" onmouseup=\"this.src='$theme_base/search_button.png'\"" : "";
 	$mouseover=(file_exists($theme_path."/search_button_over.png"))? "onmouseover=\"this.src='$theme_base/search_button_over.png'\" onmouseout=\"this.src='$theme_base/search_button.png'\"" : "";
 	$button_style=(file_exists($theme_path."/search_button.png"))? "type='image' src='$sub_img' $mousedown $mouseover" : "type='submit'";
-	//print "$sub_img | ".$sl_upload_path."/themes/".get_option('sl_map_theme')."/search_button.png";
 	$hide=(get_option('sl_remove_credits')==1)? "style='display:none;'" : "";
 	
 $form="
@@ -468,21 +445,6 @@ $form="
 	$form.="<select id='addressInput2' onchange='aI=document.getElementById(\"searchForm\").addressInput;if(this.value!=\"\"){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
 <option value=''>--Search By City--</option>$cs_options</select></td>";
 	}
-	
-	/*if ($name_array && get_option('sl_use_name_search')==1) {
-		$form.="<td valign='top'><nobr>&nbsp;<b>OR</b>&nbsp;</nobr></td>";
-	}
-	
-	if ($name_array && get_option('sl_use_name_search')==1) {
-	$form.="
-	<td valign='top'>";
-	$form.="<select id='addressInput3' onchange='aI=document.getElementById(\"searchForm\").addressInput;if(this.value!=\"\"){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
-	<option value=''>--Search By Name--</option>
-	$name_options
-    </select>";
-	
-	//$form.="<input name='addressInput3'><input type='hidden' value='1' name='name_search'></td>";
-	}*/
 	
 	$sl_radius_label=get_option('sl_radius_label');
 	$form.="
@@ -511,10 +473,6 @@ $form="
   </table></form>
 <p><script type=\"text/javascript\">if (document.getElementById(\"map\")){setTimeout(\"sl_load()\",1000);}</script></p>
 </div>";
-
-	//ereg("\[STORE-LOCATOR [tag=\"(.*)\"]?\]", $matched); 
-	//global $map_tag=$matched[1];
-	
 	return eregi_replace("\[STORE-LOCATOR(.*)?\]", $form, $content);
 	}
 }
@@ -522,7 +480,6 @@ $form="
 function sl_add_options_page() {
 	global $sl_dir, $sl_base, $sl_upload_base, $text_domain, $map_character_encoding;
 	$api=get_option('store_locator_api_key');
-	//add_menu_page('Edit Locations', 'View Locations', 9, '$sl_dir/options-store-locator.php');
 	add_menu_page(__("Store Locator", $text_domain), __("Store Locator", $text_domain), 9, $sl_dir.'/news-upgrades.php');
 	if (trim($api)!=""){
 		add_submenu_page($sl_dir.'/news-upgrades.php', __("News & Upgrades", $text_domain), __("News & Upgrades", $text_domain), 9, $sl_dir.'/news-upgrades.php');
@@ -534,8 +491,6 @@ function sl_add_options_page() {
 	if (trim($api)!=""){
 		
 		add_submenu_page($sl_dir.'/news-upgrades.php', __("ReadMe", $text_domain), __("ReadMe", $text_domain), 9, $sl_dir.'/readme.php');
-		//add_submenu_page($sl_dir.'/news-upgrades.php', 'Export Locations', 'Generate CSV Import File [+]', 9, $sl_dir.'/export-locations.php');
-		//add_submenu_page($sl_dir.'/news-upgrades.php', 'Statistics', 'Statistics [+]', 9, $sl_dir.'/statistics.php');
 	}
 }
 
@@ -605,11 +560,9 @@ foreach ($the_array as $key=>$value) {
 	$bgcolor="#ddd";
 	$ctr2=0;
 	foreach ($value as $key2=>$value2) {
-		//if (ereg("^[0-9]", $key2)) {
-			$bgcolor=($bgcolor=="#fff" || empty($bgcolor))? "#ddd" : "#fff";
-			print "<td style='background-color:$bgcolor'>$value2<input type='hidden' value='$value2' name='column{$ctr2}[]'></td>\n";
-			$ctr2++;
-		//}
+        $bgcolor=($bgcolor=="#fff" || empty($bgcolor))? "#ddd" : "#fff";
+        print "<td style='background-color:$bgcolor'>$value2<input type='hidden' value='$value2' name='column{$ctr2}[]'></td>\n";
+        $ctr2++;
 	}
 	print "</tr>\n";
 }
@@ -658,17 +611,11 @@ function insert_matched_data() {
 	
 	for ($entry_number=0; $entry_number<$_POST[total_entries]; $entry_number++) { 
 		for ($ctr2=0; $ctr2<count($column_number); $ctr2++) {
-			//print "'".$_POST["column{$column_number[$ctr2]}"][$entry_number]."',";
-			//die();
 			$value_string.="'".trim($_POST["column{$column_number[$ctr2]}"][$entry_number])."',";
-			//die($value_string);
 		}
 		$value_string=substr($value_string,0, strlen($value_string)-1);
-		//print "INSERT INTO ".$wpdb->prefix."store_locator ($selected_fields) VALUES ($value_string) <br>"; die();
 		$wpdb->query("INSERT INTO ".$wpdb->prefix."store_locator ($selected_fields) VALUES ($value_string)");
 		$for_geo=$wpdb->get_results("SELECT CONCAT(sl_address, ', ', sl_city, ', ', sl_state, ' ', sl_zip) as the_address FROM ".$wpdb->prefix."store_locator WHERE sl_id='".mysql_insert_id()."'", ARRAY_A);
-		//var_dump($for_geo);  
-		//exit();
 		do_geocoding($for_geo[0][the_address]);
 		$value_string="";
 

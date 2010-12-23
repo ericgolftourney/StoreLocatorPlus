@@ -1,19 +1,6 @@
 <?php
 header("Content-type: text/xml");
 include("database-info.php");
-//include("variables.sl.php");
-//include("functions.sl.php");
-
-/*
-function parseToXML($htmlStr) 
-{ 
-$xmlStr=str_replace('<','&lt;',$htmlStr); 
-$xmlStr=str_replace('>','&gt;',$xmlStr); 
-$xmlStr=str_replace('"','&quot;',$xmlStr); 
-$xmlStr=str_replace("'",'&#39;',$xmlStr); 
-$xmlStr=str_replace("&",'&amp;',$xmlStr); 
-return $xmlStr; 
-} */
 
 // Get parameters from URL
 $center_lat = $_GET["lat"];
@@ -21,7 +8,6 @@ $center_lng = $_GET["lng"];
 $radius = $_GET["radius"];
 
 //Since miles is default, if kilometers is selected, divide by 1.609344 in order to convert the kilometer value selection back in miles when generating the XML
-//$radius=(get_option('sl_distance_unit')=="km")? ($radius/1.609344) : $radius;  //Removed 12/16/09, messed up km search
 
 // Opens a connection to a MySQL server
 $connection=mysql_connect ($host, $username, $password);
@@ -41,7 +27,7 @@ $multiplier=3959;
 $multiplier=(get_option('sl_distance_unit')=="km")? ($multiplier*1.609344) : $multiplier;
 
 // Select all the rows in the markers table
-$query = sprintf("SELECT sl_address, sl_store, sl_city, sl_state, sl_zip, sl_latitude, sl_longitude, sl_description, sl_url, sl_hours, sl_phone, sl_image,( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance FROM ".$wpdb->prefix."store_locator HAVING sl_distance < '%s' ORDER BY sl_distance",
+$query = sprintf("SELECT sl_address, sl_store, sl_city, sl_state, sl_zip, sl_country, sl_latitude, sl_longitude, sl_description, sl_url, sl_hours, sl_phone, sl_image,( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance FROM ".$wpdb->prefix."store_locator HAVING sl_distance < '%s' ORDER BY sl_distance",
   mysql_real_escape_string($center_lat),
   mysql_real_escape_string($center_lng),
   mysql_real_escape_string($center_lat),
@@ -75,6 +61,3 @@ while ($row = @mysql_fetch_assoc($result)){
 
 // End XML file
 echo "</markers>\n";
-
-?>
-

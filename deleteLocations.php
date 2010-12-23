@@ -11,4 +11,3 @@ else {
 	$id_string=$sl_id;
 }
 $wpdb->query("DELETE FROM ".$wpdb->prefix."store_locator WHERE sl_id IN ($id_string)");
-?>

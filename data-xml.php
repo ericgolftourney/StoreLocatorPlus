@@ -1,15 +1,4 @@
 <?php
-/*
-include("$sl_upload_path/cache/cacher.php"); 
-
-var $total_xml;
-function cache_xml($buffer) {
-	global $total_xml;
-	$total_xml=$buffer;
-	return $buffer;
-}
-ob_start("cache_xml"); */
-
 header("Content-type: text/xml");
 include("database-info.php");
 
@@ -29,7 +18,7 @@ if (!$db_selected) {
 
 $num_initial_displayed=(trim(get_option('sl_num_initial_displayed'))!="")? get_option('sl_num_initial_displayed') : "25";
 // Select all the rows in the markers table
-$query = "SELECT sl_address, sl_store, sl_city, sl_state, sl_zip, sl_latitude, sl_longitude, sl_description, sl_url, sl_hours, sl_phone, sl_image FROM ".$wpdb->prefix."store_locator WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>'' LIMIT $num_initial_displayed";
+$query = "SELECT sl_address, sl_store, sl_city, sl_state, sl_zip, sl_country, sl_latitude, sl_longitude, sl_description, sl_url, sl_hours, sl_phone, sl_image FROM ".$wpdb->prefix."store_locator WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>'' LIMIT $num_initial_displayed";
 
 $result = mysql_query($query);
 if (!$result) {
@@ -57,8 +46,3 @@ while ($row = @mysql_fetch_assoc($result)){
 
 // End XML file
 echo "</markers>\n";
-
-/*include("$sl_upload_path/cache/cacher-end.php"); 
-*/
-?>
-
