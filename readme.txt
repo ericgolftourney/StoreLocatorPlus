@@ -67,4 +67,5 @@ You can modify the default 'store-locator.css' and place it under `/wp-content/u
 = 1.3  (December 2010) =
 
 * Initial release based on Google Maps Store Locator for WordPress v1.2.39.3
-* Add country field to the address
+* Add country field to address data.
+
