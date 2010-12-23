@@ -71,21 +71,4 @@ print <<<EOQ
 EOQ;
 
 // Show the manual location entry form
-//
-add_locations_form();
-
-
-/** function: add_locations_form
- ** 
- ** show the add locations form
- **
- **/
-function add_locations_form() {
-    ob_start();
-    include(SLPLUS_PLUGINDIR.'/templates/add_locations.php');
-    $content = ob_get_contents();
-    ob_end_clean();
-    print $content;
-}
-
-
+execute_and_output_template('add_locations.php');

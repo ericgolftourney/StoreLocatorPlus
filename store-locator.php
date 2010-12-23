@@ -44,6 +44,7 @@ if (defined('SLPLUS_BASENAME') === false) {
 
 $sl_version="1.3";
 $sl_db_version=1.3;
+include_once(SLPLUS_PLUGINDIR.'/libs/csl_helpers.php');
 include_once("variables.sl.php");
 include_once("copyfolder.lib.php");
 include_once("functions.sl.php");

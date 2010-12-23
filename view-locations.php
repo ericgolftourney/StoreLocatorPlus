@@ -24,10 +24,13 @@ if (!$slak) {
 	include("api-key.php");
 } else {
 
+	// If delete link is clicked
 	if ($_GET[delete]!="") {
-		//If delete link is clicked
 		$wpdb->query("DELETE FROM ".$wpdb->prefix."store_locator WHERE sl_id='$_GET[delete]'");
 	}
+
+    // Edit, any form
+    //
 	if ($_POST && $_GET[edit] && $_POST[act]!="delete") {
 		foreach ($_POST as $key=>$value) {
 			if (ereg("\-$_GET[edit]", $key)) {
@@ -95,7 +98,6 @@ if (!$slak) {
 			$updaterTypeText="Tagging";
 		}
 		$_SERVER[REQUEST_URI]=ereg_replace("&changeUpdater=1", "", $_SERVER[REQUEST_URI]);
-		//header("location:$_SERVER[REQUEST_URI]");
 		print "<script>location.replace('$_SERVER[REQUEST_URI]');</script>";
 	}
 	
@@ -121,7 +123,6 @@ print "<b>".__("Updater", $text_domain).":</b>&nbsp;".get_option('sl_location_up
 
 print "</td></tr></table><br>";
 include("mgmt-buttons-links.php");
-//print "<br>";
 
 set_query_defaults();
 
@@ -151,11 +152,16 @@ print "<br>
 <th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER[REQUEST_URI])."&o=sl_tags&d=$d'>".__("Tags", $text_domain)."</a></th>";
 
 if (get_option('sl_location_table_view')!="Normal") {
-print "<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER[REQUEST_URI])."&o=sl_description&d=$d'>".__("Description", $text_domain)."</a></th>
-<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER[REQUEST_URI])."&o=sl_url&d=$d'>".__("URL", $text_domain)."</a></th>
-<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER[REQUEST_URI])."&o=sl_hours&d=$d'>".__("Hours", $text_domain)."</th>
-<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER[REQUEST_URI])."&o=sl_phone&d=$d'>".__("Phone", $text_domain)."</a></th>
-<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER[REQUEST_URI])."&o=sl_image&d=$d'>".__("Image", $text_domain)."</a></th>";
+    print "<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER[REQUEST_URI]).
+            "&o=sl_description&d=$d'>".__("Description", $text_domain)."</a></th>".
+        "<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER[REQUEST_URI]).
+            "&o=sl_url&d=$d'>".__("URL", $text_domain)."</a></th>".
+        "<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER[REQUEST_URI]).
+            "&o=sl_hours&d=$d'>".__("Hours", $text_domain)."</th>".
+        "<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER[REQUEST_URI]).
+            "&o=sl_phone&d=$d'>".__("Phone", $text_domain)."</a></th>".
+        "<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER[REQUEST_URI]).
+            "&o=sl_image&d=$d'>".__("Image", $text_domain)."</a></th>";
 }
 
 print "<th>(Lat, Lon)</th></tr></thead>";
@@ -177,14 +183,13 @@ print "<th>(Lat, Lon)</th></tr></thead>";
 	<table cellpadding='0' class='manual_update_table'>
 	<!--thead><tr><td>".__("Type&nbsp;Address", $text_domain)."</td></tr></thead-->
 	<tr>
-		<td valign='top'><b>".__("Name of Location", $text_domain)."</b><br><input name='store-$value[sl_id]' value='$value[sl_store]' size=40><br><br>
-		<b>".__("Address", $text_domain)."</b><br><input name='address-$value[sl_id]' value='$value[sl_address]' size=21>&nbsp;<small>(".__("Street - Line1", $text_domain).")</small><br>
-		<input name='address2-$value[sl_id]' value='$value[sl_address2]' size=21>&nbsp;<small>(".__("Street - Line 2 - optional", $text_domain).")</small><br>
-		<table cellpadding='0px' cellspacing='0px'><tr><td style='padding-left:0px' class='nobottom'><input name='city-$value[sl_id]' value='$value[sl_city]' size='21'><br><small>".__("City", $text_domain)."</small></td>
-		<td><input name='state-$value[sl_id]' value='$value[sl_state]' size='7'><br><small>".__("State", $text_domain)."</small></td>
-		<td><input name='zip-$value[sl_id]' value='$value[sl_zip]' size='10'><br><small>".__("Zip", $text_domain)."</small></td></tr></table><br>
-		<nobr><input type='submit' value='".__("Update", $text_domain)."' class='button-primary'><input type='button' class='button' value='".__("Cancel", $text_domain)."' onclick='location.href=\"".ereg_replace("&edit=$_GET[edit]", "",$_SERVER[REQUEST_URI])."\"'></nobr>
-		</td><td>
+		<td valign='top'>";
+
+execute_and_output_template('edit_location_address.php');
+
+print "<br>
+        <nobr><input type='submit' value='".__("Update", $text_domain)."' class='button-primary'><input type='button' class='button' value='".__("Cancel", $text_domain)."' onclick='location.href=\"".ereg_replace("&edit=$_GET[edit]", "",$_SERVER[REQUEST_URI])."\"'></nobr>
+    </td><td>
 		<b>".__("Additional Information", $text_domain)."</b><br>
 		<textarea name='description-$value[sl_id]' rows='5' cols='17'>$value[sl_description]</textarea>&nbsp;<small>".__("Description", $text_domain)."</small><br>
 		<input name='tags-$value[sl_id]' value='$value[sl_tags]'>&nbsp;<small>".__("Tags (seperate with commas)", $text_domain)."</small><br>		
