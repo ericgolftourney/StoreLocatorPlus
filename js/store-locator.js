@@ -150,7 +150,7 @@ function searchLocationsNear(center, homeAddress) {
                 var image = markers[i].getAttribute('image');                
                 var marker = createMarker(point, name, address, homeAddress, description, url, hours, phone, image); 
                         map.addOverlay(marker);
-                var sidebarEntry = createSidebarEntry(marker, name, address, distance, homeAddress, url); 
+                var sidebarEntry = createSidebarEntry(marker, name, address, distance, homeAddress, url, phone); 
                 sidebar.appendChild(sidebarEntry);
                 bounds.extend(point);
             }
@@ -193,7 +193,7 @@ var bgcol="white";
 
 /**************************************
  */
-function createSidebarEntry(marker, name, address, distance, homeAddress, url) { 
+function createSidebarEntry(marker, name, address, distance, homeAddress, url,phone) { 
     document.getElementById('map_sidebar_td').style.display='block';
       var div = document.createElement('div');
       var street = address.split(',')[0]; 
@@ -202,7 +202,20 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url) {
       if(url.indexOf("http://")==-1) {url="http://"+url;} 
       if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {link="<a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + sl_website_label +"</nobr></a>&nbsp;|&nbsp;"} else {url=""; link="";}
       
-      var html = '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable"><tr><td class="results_row_left_column"><span class="location_name">' + name + '</span><br>' + distance.toFixed(1) + ' ' + sl_distance_unit + '</td><td class="results_row_center_column">' + street + '<br/>' + city + state_zip +' </td><td class="results_row_right_column">' + link + '<a href="http://' + sl_google_map_domain + '/maps?saddr=' + encodeURIComponent(homeAddress) + '&daddr=' + encodeURIComponent(address) + '" target="_blank" class="storelocatorlink">Directions</a></td></tr></table></center>'; 
+      var html = '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">' +
+                 '<tr>' +
+                    '<td class="results_row_left_column">' +
+                        '<span class="location_name">' + name + '</span><br>' + 
+                        distance.toFixed(1) + ' ' + sl_distance_unit + '</td>' +
+                    '<td class="results_row_center_column">' + street + '<br/>' + city + state_zip +'<br/>'+
+                    phone +
+                    '</td>' +
+                    '<td class="results_row_right_column">' + link + 
+                        '<a href="http://' + sl_google_map_domain + 
+                        '/maps?saddr=' + encodeURIComponent(homeAddress) + 
+                        '&daddr=' + encodeURIComponent(address) + 
+                        '" target="_blank" class="storelocatorlink">Directions</a></td>' +
+                        '</tr></table></center>'; 
       div.innerHTML = html;
       div.className='results_entry';
       resultsDisplayed++;
