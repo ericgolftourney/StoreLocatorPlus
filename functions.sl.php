@@ -321,19 +321,28 @@ function install_table() {
 function head_scripts() {
 	global $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $wpdb, $sl_version, $pagename, $map_character_encoding;
 	
-	print "\n<!-- ========= Google Maps Store Locator for WordPress (v$sl_version) | http://www.viadat.com/store-locator/ ========== -->\n";
+	print "\n<!-- ========= Store Locator Plus (v$sl_version) | http://www.cyberpsrocket.com/products/store-locator-plus/ ========== -->\n";
 
 	//Check if currently on page with shortcode
-	$on_sl_page=$wpdb->get_results("SELECT post_name FROM ".$wpdb->prefix."posts WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_status IN ('publish', 'draft') AND (post_name='$pagename' OR ID='$_GET[p]' OR ID='$_GET[page_id]')", ARRAY_A);		
+	$on_sl_page=$wpdb->get_results("SELECT post_name FROM ".$wpdb->prefix."posts ".
+	        "WHERE post_content LIKE '%[STORE-LOCATOR%' AND " .
+	        "post_status IN ('publish', 'draft') AND ".
+	        "(post_name='$pagename' OR ID='$_GET[p]' OR ID='$_GET[page_id]')", 
+	        ARRAY_A);
+	
 	//Checking if code used in posts	
-	$sl_code_is_used_in_posts=$wpdb->get_results("SELECT post_name FROM ".$wpdb->prefix."posts WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_type='post'");
+	$sl_code_is_used_in_posts=$wpdb->get_results(
+	    "SELECT post_name FROM ".$wpdb->prefix."posts ".
+	    "WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_type='post'"
+	    );
+	
 	//If shortcode used in posts, get post IDs, and put into array of numbers
 	if ($sl_code_is_used_in_posts) {
 		$sl_post_ids=$wpdb->get_results("SELECT ID FROM ".$wpdb->prefix."posts WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_type='post'", ARRAY_A);
 		foreach ($sl_post_ids as $val) { $post_ids_array[]=$val[ID];}
-	}		
-	else {		
-		$post_ids_array=array(9999999999999999999999999999999999999); //post number that'll never be reached
+	} else {			    
+	     //post number that'll never be reached
+		$post_ids_array=array(9999999999999999999999999999999999999);
 	}
 	
 	// If on page with store locator shortcode, on an archive, search, or 404 page 
@@ -344,21 +353,24 @@ function head_scripts() {
         is_front_page() || is_single($post_ids_array)
         ) {
 		$api_key=get_option('store_locator_api_key');
-		$google_map_domain=(get_option('sl_google_map_domain')!="")? get_option('sl_google_map_domain') : "maps.google.com";
+		$google_map_domain=(get_option('sl_google_map_domain')!="")? 
+		        get_option('sl_google_map_domain') : 
+		        "maps.google.com";
 	
-		print "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
-		print "<script src='".$sl_base."/js/store-locator-js.php' type='text/javascript'></script>
-<script src='".$sl_base."/js/store-locator.js' type='text/javascript'></script>
-<script src='".$sl_base."/js/functions.js' type='text/javascript'></script>\n";
-		$has_custom_css=(file_exists($sl_upload_path."/custom-css/store-locator.css"))? $sl_upload_base."/custom-css" : $sl_base; 
+		print  "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
+		print  "<script src='".$sl_base."/js/store-locator-js.php' type='text/javascript'></script>
+		        <script src='".$sl_base."/js/store-locator.js' type='text/javascript'></script>
+		        <script src='".$sl_base."/js/functions.js' type='text/javascript'></script>\n";
+		$has_custom_css=(file_exists($sl_upload_path."/custom-css/store-locator.css"))? 
+		    $sl_upload_base."/custom-css" : 
+		    $sl_base; 
 		print "<link  href='".$has_custom_css."/store-locator.css' type='text/css' rel='stylesheet'/>";
 		$theme=get_option('sl_map_theme');
 		if ($theme!="") {print "\n<link  href='".$sl_upload_base."/themes/$theme/style.css' rel='stylesheet' type='text/css'/>";}
 		$zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		
 
 		move_upload_directories();
-	}
-	else {
+	} else {
 		$sl_page_ids=$wpdb->get_results("SELECT ID FROM ".$wpdb->prefix."posts WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_status='publish'", ARRAY_A);
 		print "<!-- No store locator on this page, so no unnecessary scripts for better site performance. (";
 		if ($sl_page_ids) {
@@ -366,30 +378,52 @@ function head_scripts() {
 		}
 		print ")-->";
 	}
-	print "\n<!-- ========= End Google Maps Store Locator for WordPress ========== -->\n\n";
+	
 }
+
 /*-------------------------------*/
 function foot_scripts() {
 }
-/*-------------------------------*/
-function ajax_map($content) {
 
+
+/**************************************
+ ** function: ajax_map
+ **
+ ** render the google map.
+ **/
+function ajax_map($content) {
 	global $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb;
+
+    // If the shortcode for [STORE-LOCATOR] is not in the content
+    // just return the content.  This is a weird way to do this.
+    // WordPress has shortcode handling built in.  Hmmm...
+    //
 	if(! preg_match('|\[STORE-LOCATOR|', $content)) {
 		return $content;
-	}
-	else {
-		$height=(get_option('sl_map_height'))? get_option('sl_map_height') : "500" ;
-		$width=(get_option('sl_map_width'))? get_option('sl_map_width') : "100" ;
-		$radii=(get_option('sl_map_radii'))? get_option('sl_map_radii') : "1,5,10,(25),50,100,200,500" ;
-		$height_units=(get_option('sl_map_height_units'))? get_option('sl_map_height_units') : "px";
-		$width_units=(get_option('sl_map_width_units'))? get_option('sl_map_width_units') : "%";
-		$sl_instruction_message=(get_option('sl_instruction_message'))? get_option('sl_instruction_message') : "Enter Your Address or Zip Code Above.";
+
+    // Process [STORE-LOCATOR] inside of the content we are looking at
+    //
+	} else {
+		$height=(get_option('sl_map_height'))? 
+                get_option('sl_map_height') : "500" ;
+		$width=(get_option('sl_map_width'))? 
+                get_option('sl_map_width') : "100" ;
+		$radii=(get_option('sl_map_radii'))? 
+                get_option('sl_map_radii') : "1,5,10,(25),50,100,200,500" ;
+		$height_units=(get_option('sl_map_height_units'))? 
+                get_option('sl_map_height_units') : "px";
+		$width_units=(get_option('sl_map_width_units'))? 
+                get_option('sl_map_width_units') : "%";
+		$sl_instruction_message=(get_option('sl_instruction_message'))? 
+                get_option('sl_instruction_message') : "Enter Your Address or Zip Code Above.";
 	
 		$r_array=explode(",", $radii);
-		$search_label=(get_option('sl_search_label'))? get_option('sl_search_label') : "Address" ;
+		$search_label=(get_option('sl_search_label'))? 
+                get_option('sl_search_label') : "Address" ;
 		
-		$unit_display=(get_option('sl_distance_unit')=="km")? "km" : "mi";
+		$unit_display=(get_option('sl_distance_unit')=="km")? 
+                "km" : "mi";
+
 		foreach ($r_array as $value) {
 			$s=(ereg("\(.*\)", $value))? " selected='selected' " : "" ;
 			$value=ereg_replace("[^0-9]", "", $value);
@@ -397,10 +431,18 @@ function ajax_map($content) {
 		}
 		
 		if (get_option('sl_use_city_search')==1) {
-			$cs_array=$wpdb->get_results("SELECT CONCAT(TRIM(sl_city), ', ', TRIM(sl_state)) as city_state FROM ".$wpdb->prefix."store_locator WHERE sl_city<>'' AND sl_state<>'' AND sl_latitude<>'' AND sl_longitude<>'' GROUP BY city_state ORDER BY city_state ASC", ARRAY_A);
+			$cs_array=$wpdb->get_results(
+                "SELECT CONCAT(TRIM(sl_city), ', ', TRIM(sl_state)) as city_state " .
+                    "FROM ".$wpdb->prefix."store_locator " .
+                    "WHERE sl_city<>'' AND sl_state<>'' AND sl_latitude<>'' " .
+                            "AND sl_longitude<>'' " .
+                    "GROUP BY city_state " .
+                    "ORDER BY city_state ASC", 
+                ARRAY_A);
+
 			if ($cs_array) {
 				foreach($cs_array as $value) {
-$cs_options.="<option value='$value[city_state]'>$value[city_state]</option>";
+                    $cs_options.="<option value='$value[city_state]'>$value[city_state]</option>";
 				}
 			}
 		}
@@ -408,8 +450,7 @@ $cs_options.="<option value='$value[city_state]'>$value[city_state]</option>";
 	if (get_option('sl_map_theme')!="") {
 		$theme_base=$sl_upload_base."/themes/".get_option('sl_map_theme');
 		$theme_path=$sl_upload_path."/themes/".get_option('sl_map_theme');	
-	}
-	else {
+	} else {
 		$theme_base=$sl_upload_base."/images";
 		$theme_path=$sl_upload_path."/images";
 	}
@@ -447,15 +488,13 @@ $form="
 	}
 	
 	$sl_radius_label=get_option('sl_radius_label');
-	$form.="
-	</tr><tr>
+	$form.="</tr><tr>
 	 <td id='radius_label'>".__("$sl_radius_label", $text_domain)."</td>
 	 <td id='radiusSelect_td' ";
 	
 	if (get_option('sl_use_city_search')==1) {$form.="colspan='2'";}
 	 
-	$form.="><select id='radiusSelect'>$r_options</select>
-	</td>
+	$form.="><select id='radiusSelect'>$r_options</select> </td>
 	<td valign='top' ";
 	
 	if (get_option('sl_use_city_search')!=1) {$form.="colspan='2'";}
@@ -464,7 +503,16 @@ $form="
 	</tr></table>
 <table width='100%' cellspacing='0px' cellpadding='0px' style='/*border:solid silver 1px*/'> 
      <tr>
-        <td width='100%' valign='top'> <div id='map' style='width:$width$width_units; height:$height$height_units'></div><table cellpadding='0px' class='sl_footer' width='$width$width_units;' $hide><tr><td class='sl_footer_left_column'><a href='http://www.viadat.com/store-locator' target='_blank'>Lots of Locales</a></td><td class='sl_footer_right_column'> <a href='http://www.viadat.com' target='_blank' title='by Viadat Creations'>by Viadat</a></td></tr></table>
+        <td width='100%' valign='top'>" .
+            "<div id='map' style='width:$width$width_units; height:$height$height_units'></div>".
+            "<table cellpadding='0px' class='sl_footer' width='$width$width_units;' $hide>".
+             "<tr><td class='sl_footer_left_column'>".
+             "<a href='http://www.cybersprocket.com/products/store-locator-plus/' target='_blank'>".
+            "Store Locator Plus</a></td>".
+            "<td class='sl_footer_right_column'>".
+            "<a href='http://www.cybersprocket.com' target='_blank' " .
+                "title='by Cyber Sprocket Labs'>by Cyber Sprocket Labs</a>".
+            "</td></tr></table>
 		</td>
       </tr>
 	  <tr id='cm_mapTR'>
@@ -473,9 +521,14 @@ $form="
   </table></form>
 <p><script type=\"text/javascript\">if (document.getElementById(\"map\")){setTimeout(\"sl_load()\",1000);}</script></p>
 </div>";
+
+    // Replace the [STORE-LOCATOR] shortcode with the form created above
+    //
 	return eregi_replace("\[STORE-LOCATOR(.*)?\]", $form, $content);
 	}
 }
+
+
 /*-----------------------------------*/
 function sl_add_options_page() {
 	global $sl_dir, $sl_base, $sl_upload_base, $text_domain, $map_character_encoding;
