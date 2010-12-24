@@ -49,7 +49,7 @@ global $icon, $icon2, $google_map_domain, $google_map_country, $theme, $sl_base,
 global $search_label, $zoom_level, $sl_use_city_search, $sl_use_name_search, $sl_default_map;
 global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
 global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
-global $sl_map_character_encoding;
+global $sl_map_character_encoding, $sl_use_country_search;
 
 $sl_map_character_encoding=get_option('sl_map_character_encoding');
 if (empty($sl_map_character_encoding)) {
@@ -115,6 +115,11 @@ $sl_use_city_search=get_option('sl_use_city_search');
 if (empty($sl_use_city_search)) {
 	$sl_use_city_search="1";
 	add_option('sl_use_city_search', $sl_use_city_search);
+	}
+$sl_use_country_search=get_option('sl_use_country_search');
+if (empty($sl_use_country_search)) {
+	$sl_use_country_search="1";
+	add_option('sl_use_country_search', $sl_use_country_search);
 	}
 $zoom_level=get_option('sl_zoom_level');
 if (empty($zoom_level)) {
@@ -446,6 +451,24 @@ function ajax_map($content) {
 				}
 			}
 		}
+		
+		if (get_option('sl_use_country_search')==1) {
+			$cs_array=$wpdb->get_results(
+                "SELECT TRIM(sl_country) as country " .
+                    "FROM ".$wpdb->prefix."store_locator " .
+                    "WHERE sl_country<>'' " .
+                            "AND sl_latitude<>'' AND sl_longitude<>'' " .
+                    "GROUP BY country " .
+                    "ORDER BY country ASC", 
+                ARRAY_A);
+
+			if ($cs_array) {
+				foreach($cs_array as $value) {
+                    $country_options.="<option value='$value[country]'>" .
+                                 "$value[country]</option>";
+				}
+			}
+		}		
 	
 	if (get_option('sl_map_theme')!="") {
 		$theme_base=$sl_upload_base."/themes/".get_option('sl_map_theme');
@@ -463,45 +486,48 @@ function ajax_map($content) {
 	$mouseover=(file_exists($theme_path."/search_button_over.png"))? "onmouseover=\"this.src='$theme_base/search_button_over.png'\" onmouseout=\"this.src='$theme_base/search_button.png'\"" : "";
 	$button_style=(file_exists($theme_path."/search_button.png"))? "type='image' src='$sub_img' $mousedown $mouseover" : "type='submit'";
 	$hide=(get_option('sl_remove_credits')==1)? "style='display:none;'" : "";
+
+	$columns = 1;
+	$columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;
+	$columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
+	$sl_radius_label=get_option('sl_radius_label');
+
 	
-$form="
-<div id='sl_div'>
+	$form="<div id='sl_div'>
   <form onsubmit='searchLocations(); return false;' id='searchForm' action=''>
     <table border='0' cellpadding='3px' class='sl_header'><tr>
 	<td valign='top' id='search_label'>$search_label&nbsp;</td>
-	<td ";
-	
-	if (get_option('sl_use_city_search')!=1) {$form.=" colspan='2' ";}
-	
-	$form.=" valign='top'><input type='text' id='addressInput' size='50' /></td>
-	";
-	
-	if ($cs_array && get_option('sl_use_city_search')==1) {
-		$form.="<td valign='top'></td>";
-	}
-	
-	if ($cs_array && get_option('sl_use_city_search')==1) {
-	$form.="
-	<td id='addressInput2_container'>";
-	$form.="<select id='addressInput2' onchange='aI=document.getElementById(\"searchForm\").addressInput;if(this.value!=\"\"){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
-<option value=''>--Search By City--</option>$cs_options</select></td>";
-	}
-	
-	$sl_radius_label=get_option('sl_radius_label');
-	$form.="</tr><tr>
+	<td valign='top'><div id='addy_input'>
+	        <div id='addy_in_add'>
+                <input type='text' id='addressInput' size='50' />
+            </div>
+	        <div id='addy_in_city'>
+                <select id='addressInput2' onchange='aI=document.getElementById(\"searchForm\").addressInput;if(this.value!=\"\"){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
+                    <option value=''>--Search By City--</option>
+                    $cs_options
+                </select>
+            </div>
+	        <div id='addy_in_country'>
+                <select id='addressInput3' onchange='aI=document.getElementById(\"searchForm\").addressInput;if(this.value!=\"\"){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
+                <option value=''>--Search By Country--</option>
+                $country_options
+                </select>
+            </div>
+   </div></td>
+   </tr><tr>
 	 <td id='radius_label'>".__("$sl_radius_label", $text_domain)."</td>
-	 <td id='radiusSelect_td' ";
-	
-	if (get_option('sl_use_city_search')==1) {$form.="colspan='2'";}
-	 
-	$form.="><select id='radiusSelect'>$r_options</select> </td>
-	<td valign='top' ";
-	
-	if (get_option('sl_use_city_search')!=1) {$form.="colspan='2'";}
-	
-	$form.=" ><input $button_style value='Search Locations' id='addressSubmit'/> </td>
+	 <td id='radiusSelect_td'>
+	     <div id='radius_input'>
+	         <div id='radius_in_select'>
+	             <select id='radiusSelect'>$r_options</select>
+	         </div>
+	         <div id='radius_in_submit'>
+	             <input $button_style value='Search Locations' id='addressSubmit'/>
+	         </div>
+	      </div>
+	  </td>
 	</tr></table>
-<table width='100%' cellspacing='0px' cellpadding='0px' style='/*border:solid silver 1px*/'> 
+	<table width='100%' cellspacing='0px' cellpadding='0px'> 
      <tr>
         <td width='100%' valign='top'>" .
             "<div id='map' style='width:$width$width_units; height:$height$height_units'></div>".
@@ -516,7 +542,7 @@ $form="
 		</td>
       </tr>
 	  <tr id='cm_mapTR'>
-        <td width='' valign='top' style='/*display:hidden; border-right:solid silver 1px*/' id='map_sidebar_td'> <div id='map_sidebar' style='width:$width$width_units;/* $height$height_units; */'> <div class='text_below_map'>$sl_instruction_message</div></div>
+        <td width='' valign='top' id='map_sidebar_td'> <div id='map_sidebar' style='width:$width$width_units;/* $height$height_units; */'> <div class='text_below_map'>$sl_instruction_message</div></div>
         </td></tr>
   </table></form>
 <p><script type=\"text/javascript\">if (document.getElementById(\"map\")){setTimeout(\"sl_load()\",1000);}</script></p>

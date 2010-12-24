@@ -6,7 +6,7 @@
  ******************************************************************************/
  
 
-print '<div class='wrap'>';
+print '<div class="wrap">';
 
 if (!$_POST) {
     move_upload_directories();
@@ -29,6 +29,8 @@ if (!$_POST) {
     update_option('sl_zoom_level', $_POST[zoom_level]);
     $_POST[sl_use_city_search]=($_POST[sl_use_city_search]=="")? 0 : $_POST[sl_use_city_search];
     update_option('sl_use_city_search', $_POST[sl_use_city_search]);
+    $_POST[sl_use_country_search]=($_POST[sl_use_country_search]=="")? 0 : $_POST[sl_use_country_search];
+    update_option('sl_use_country_search', $_POST[sl_use_country_search]);
     $_POST[sl_remove_credits]=($_POST[sl_remove_credits]=="")? 0 : $_POST[sl_remove_credits];
     update_option('sl_remove_credits', $_POST[sl_remove_credits]);
     $_POST[sl_load_locations_default]=($_POST[sl_load_locations_default]=="")? 0 : $_POST[sl_load_locations_default];
@@ -104,7 +106,7 @@ foreach ($zl as $value) {
 $zoom.="</select>";
 
 $checked=(get_option('sl_use_city_search')==1)? " checked " : "";
-//$checked2=(get_option('sl_use_name_search')==1)? " checked " : "";
+$checked=(get_option('sl_use_country_search')==1)? " checked " : "";
 $checked3=(get_option('sl_remove_credits')==1)? " checked " : "";
 $checked4=(get_option('sl_load_locations_default')==1)? " checked " : "";
 $checked5=(get_option('sl_map_overview_control')==1)? " checked " : "";
@@ -123,9 +125,15 @@ print "
     <tr><td colspan='1' width='40%' class='left_side'><h2>".__("Defaults", $text_domain)."</h2>
     <table class='map_designer_section'><tr><td>".__("Choose Default Map Type Shown to Visitors", $text_domain).":</td>
     <td><select name='sl_map_type'>\n".$map_type_options."</select></td></tr>
+    
     <tr><td>".__("Allow User Search By City?", $text_domain).":</td>
     <td><input name='sl_use_city_search' value='1' type='checkbox' $checked></td></tr>
-    <tr><td>".__("Show Map Inset Box?", $text_domain).":</td>
+
+    <tr><td>".__("Allow User Search By Country?", $text_domain).":</td>
+    <td><input name='sl_use_country_search' value='1' type='checkbox' $checked></td></tr>
+
+    
+    <tr><td>".__("Show Map Inset Box?", $text_domain).":</td>    
     <td><input name='sl_map_overview_control' value='1' type='checkbox' $checked5></td></tr>
     <tr><td>".__("Show Locations By Default When Map Loads?", $text_domain).":</td>
     <td><input name='sl_load_locations_default' value='1' type='checkbox' $checked4></td></tr>

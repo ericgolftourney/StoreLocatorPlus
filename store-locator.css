@@ -12,30 +12,59 @@ border: none;
 
 
 /***** Search Form Inputs  *****/
-
+#search_label {
+	text-align: right;
+}
+#addy_input {
+    width: 500px;
+}
 #addressInput {
 	border:solid 1px silver;
 	padding-left:3px; 
 	background:white url(images/search-input.gif) repeat-x;
-	width:100%; 
 	margin:0px;
+	width: 150px;
 	padding-top:0px;
+	margin-right: 6px;
+}
+#addy_in_add {
+    float: left;
+}
+#addy_in_city {
+    float: left;
+	margin-right: 6px;
+}
+#addy_in_country {
+    float: left;
+}
+#addressInput2 {
+    width: 150px;
 }
 #addressInput2_container {
 	vertical-align:top;
 }
-#addressInput2 {
+#addressInput3 {
+    width: 150px;
 }
-#addressSubmit {	
+
+#radius_input {
+   width: 450px;
+}
+#radius_in_select {
+    float: left;
+    width: 150px;
+}
+#radious_in_submit {
+    float: left;
+    width: 150px;
 }
 #radius_label {
 	vertical-align:top;
+	text-align: right;
 }
 #radiusSelect_td {
 	width:33%;
 	vertical-align:top;
-}
-#radiusSelect { 
 }
 #addressInput, #addressSubmit, #radiusSelect { 
 	font-size:14px;
