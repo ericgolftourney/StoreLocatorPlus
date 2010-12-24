@@ -78,7 +78,10 @@ border: none;
 #sl_div a {
 }
 #sl_div a.storelocatorlink {
-	color:blue;
+	color:#0000FF;
+}
+#sl_div a:hover.storelocatorlink {
+	color:#4444FF;
 }
 #sl_div img {
 	background-color:transparent;
