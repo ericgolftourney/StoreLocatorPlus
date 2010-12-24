@@ -1,5 +1,5 @@
 <?php
-include WP_CONTENT_DIR . '/../wp-config.php';
+include ($_SERVER[DOCUMENT_ROOT] . '/wp-config.php');
 
 $username=DB_USER;
 $password=DB_PASSWORD;

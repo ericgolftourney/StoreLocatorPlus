@@ -76,7 +76,6 @@ function searchLocations() {
             if (!latlng) {
                 alert(address + ' not found');
             } else {
-                alert('Add Base : ' + add_base);
                 searchLocationsNear(latlng, address); 
             }
         }
