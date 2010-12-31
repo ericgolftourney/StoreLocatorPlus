@@ -1,0 +1,3 @@
+[submodule "WPCSL-generic"]
+	path = WPCSL-generic
+	url = ssh://git@cybersprocket.com/home/lobbrary/repos/modules/WPCSL-generic.git
