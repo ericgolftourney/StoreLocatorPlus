@@ -40,7 +40,7 @@ if (defined('SLPLUS_PLUGINURL') === false) {
 if (defined('SLPLUS_BASENAME') === false) {
     define('SLPLUS_BASENAME', plugin_basename(__FILE__));
 }
-
+include_once(SLPLUS_PLUGINDIR.'/include/config.php');
 
 $sl_version="1.3";
 $sl_db_version=1.3;
@@ -61,15 +61,5 @@ add_filter('the_content', 'ajax_map', 7);
 
 load_plugin_textdomain($text_domain, "/wp-content/uploads/sl-uploads/languages/");
 
-add_filter('option_update_plugins', 'plugin_prevent_upgrade');
-add_filter('transient_update_plugins', 'plugin_prevent_upgrade');
 
-function plugin_prevent_upgrade($opt) {
-	global $update_class;
-	$plugin = plugin_basename(__FILE__);
-	if ( $opt && isset($opt->response[$plugin]) ) {
-		$update_class="update-message";
-	}
-	return $opt;
-}
 
