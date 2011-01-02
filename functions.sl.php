@@ -322,9 +322,15 @@ function install_table() {
 /***********************************
  ** function: head_scripts
  **
+ ** Create the javascript elements needed for the google map for pages that use
+ ** the plugin only.   This was inherited and needs to be cleaned up a bit.
+ ** 
+ ** We'll still want to ensure we only load up scripts (and CSS, etc.) on pages
+ ** where the map will be displayed.
  **/
 function head_scripts() {
 	global $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $wpdb, $sl_version, $pagename, $map_character_encoding;
+	global $slplus_plugin;
 	
 	print "\n<!-- ========= Store Locator Plus (v$sl_version) | http://www.cyberpsrocket.com/products/store-locator-plus/ ========== -->\n";
 
@@ -357,37 +363,36 @@ function head_scripts() {
         ((is_archive() || is_404()) && $sl_code_is_used_in_posts) || 
         is_front_page() || is_single($post_ids_array)
         ) {
-		$api_key=get_option('store_locator_api_key');
-		$google_map_domain=(get_option('sl_google_map_domain')!="")? 
-		        get_option('sl_google_map_domain') : 
-		        "maps.google.com";
-	
-		print  "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
-		print  "<script src='".$sl_base."/js/store-locator-js.php' type='text/javascript'></script>
-		        <script src='".$sl_base."/js/store-locator.js' type='text/javascript'></script>
-		        <script src='".$sl_base."/js/functions.js' type='text/javascript'></script>\n";
-		$has_custom_css=(file_exists($sl_upload_path."/custom-css/store-locator.css"))? 
-		    $sl_upload_base."/custom-css" : 
-		    $sl_base; 
-		print "<link  href='".$has_custom_css."/store-locator.css' type='text/css' rel='stylesheet'/>";
-		$theme=get_option('sl_map_theme');
-		if ($theme!="") {print "\n<link  href='".$sl_upload_base."/themes/$theme/style.css' rel='stylesheet' type='text/css'/>";}
-		$zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		
-
-		move_upload_directories();
-	} else {
-		$sl_page_ids=$wpdb->get_results("SELECT ID FROM ".$wpdb->prefix."posts WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_status='publish'", ARRAY_A);
-		print "<!-- No store locator on this page, so no unnecessary scripts for better site performance. (";
-		if ($sl_page_ids) {
-			foreach ($sl_page_ids as $value) { print "$value[ID],";}
-		}
-		print ")-->";
-	}
-	
-}
-
-/*-------------------------------*/
-function foot_scripts() {
+        if ($slplus_plugin->ok_to_show()) {
+            $api_key=get_option('store_locator_api_key');
+            $google_map_domain=(get_option('sl_google_map_domain')!="")? 
+                    get_option('sl_google_map_domain') : 
+                    "maps.google.com";
+            
+            print  "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
+            print  "<script src='".$sl_base."/js/store-locator-js.php' type='text/javascript'></script>
+                    <script src='".$sl_base."/js/store-locator.js' type='text/javascript'></script>
+                    <script src='".$sl_base."/js/functions.js' type='text/javascript'></script>\n";
+            $has_custom_css=(file_exists($sl_upload_path."/custom-css/store-locator.css"))? 
+                $sl_upload_base."/custom-css" : 
+                $sl_base; 
+            print "<link  href='".$has_custom_css."/store-locator.css' type='text/css' rel='stylesheet'/>";
+            $theme=get_option('sl_map_theme');
+            if ($theme!="") {print "\n<link  href='".$sl_upload_base."/themes/$theme/style.css' rel='stylesheet' type='text/css'/>";}
+            $zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		
+            
+            move_upload_directories();
+            }
+        } else {
+            if ($slplus_plugin->debugging) {
+                $sl_page_ids=$wpdb->get_results("SELECT ID FROM ".$wpdb->prefix."posts WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_status='publish'", ARRAY_A);
+                print "<!-- No store locator on this page, so no unnecessary scripts for better site performance. (";
+                if ($sl_page_ids) {
+                    foreach ($sl_page_ids as $value) { print "$value[ID],";}
+                }
+                print ")-->";
+            }
+        }
 }
 
 
@@ -398,13 +403,17 @@ function foot_scripts() {
  **/
 function ajax_map($content) {
 	global $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb;
+	global $slplus_plugin;
 
     // If the shortcode for [STORE-LOCATOR] is not in the content
     // just return the content.  This is a weird way to do this.
     // WordPress has shortcode handling built in.  Hmmm...
     //
-	if(! preg_match('|\[STORE-LOCATOR|', $content)) {
-		return $content;
+	if( ! preg_match('|\[STORE-LOCATOR|', $content) ||
+        ! $slplus_plugin->ok_to_show()
+	    ) {
+	
+    	return eregi_replace("\[STORE-LOCATOR(.*)?\]", '', $content);
 
     // Process [STORE-LOCATOR] inside of the content we are looking at
     //
