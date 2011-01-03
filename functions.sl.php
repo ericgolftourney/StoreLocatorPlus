@@ -207,6 +207,7 @@ function choose_units($unit, $input_name) {
 	$select_field.="</select>";
 	return $select_field;
 }
+
 /*----------------------------*/
 function do_geocoding($address,$sl_id="") {
     
@@ -333,8 +334,6 @@ function head_scripts() {
 	global $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $wpdb, $sl_version, $pagename, $map_character_encoding;
 	global $slplus_plugin;
 	
-	print "\n<!-- ========= Store Locator Plus (v$sl_version) | http://www.cyberpsrocket.com/products/store-locator-plus/ ========== -->\n";
-
 	//Check if currently on page with shortcode
 	$on_sl_page=$wpdb->get_results("SELECT post_name FROM ".$wpdb->prefix."posts ".
 	        "WHERE post_content LIKE '%[STORE-LOCATOR%' AND " .
@@ -613,6 +612,7 @@ function set_query_defaults() {
 	$o=($_GET[o])? $_GET[o] : "sl_store";
 	$d=($_GET[d]=="" || $_GET[d]=="DESC")? "ASC" : "DESC";
 }
+
 /*----------------------------------*/
 function match_imported_data($the_array) {
     global $text_domain;
