@@ -7,31 +7,42 @@ Requires at least: 3.0
 Tested up to: 3.0.3
 Stable tag: 1.3
 
-Store Locator Plus is based on the popular Google Maps Store Locator with a few customizations we needed for our clients. Unfortunately the original author is on haitus, so we've had to create our ownupdate. Hopefully other WordPress users will find our additions useful.
+This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locactions.  Users search for stores within a specified radius, enter your address, or select a city or country from the pulldown.  Full admin panel data entry and management of stores.  
 
 == Description ==
 
-= Provides Mapping, Display, and Search of Locations For: =
-* Those of you who create sites for clients using WordPress
-* Those of you who want to show your important locations (stores, buildings, points of interest, etc.) in an easily searchable manner.
-
-Also referred to as a dealer locator (locater), shop finder, and zip code or zipcode search.
-Its strength is in its flexibility to allow you to easily manage a few or a thousand or more locations through the admin interface.
+This plugin puts a search form and an interactive Google map on your site so you 
+can show visitors your store locactions.  Users search for stores within a 
+specified radius, enter your address, or select a city or country from the 
+pulldown.  Full admin panel data entry and management of stores from a few to
+a few thousand.
 
 = Great Built-In Functionality & Features =
-* You can use it for numerous countries, which will continue to be added as Google adds new countries to their Google Maps API.  See the documentation for the latest
-* Supports international languages and character sets 
-* Allows you to use unique map icons or your own custom map icons --- great for branding your map
-* Gives your map the desired look by using our Map Designer&trade; interface in the WordPress admin section
-* Pick other cool Google Maps options, such as an inset box, zoom level, map types (street, satellite, hybrid, physical), and more
-* You can use miles or kilometers
-* Automatically restricts loading of Javascript & CSS to only pages that display the map (or that might need access to the JS & CSS) for better site performance
-* Option to show dropdown list of cities allows visitors to quickly see where your locations are and choose their search accordingly
 
-= Upgrades =
-Viadat, the original author, was selling updated add-ons and themes but as of this release was on haitus.  You can check out their work here: http://www.viadat.com/products-page/
+* You can use it for numerous countries, which will continue to be added as Google adds new countries to their Google Maps API.  See the documentation for the latest
+* Supports international languages and character sets.
+* Allows you to use unique map icons or your own custom map icons.
+* Tweak the map settings via the admin panel including:
+** Map type (terrain, satellite, street, etc.)
+** Inset map
+** Starting zoom level
+* You can use miles or kilometers
+* Pulldown list of cities and/or countries on search form can be toggled on/off.
+
+= Looking For Customized WordPress Plugins? =
+
+If you are looking for custom WordPress development for your own plugins, give 
+us a call.   Not only can we offer competitive rates but we can also leverage 
+our existing framework for WordPress applications which reduces development time 
+and costs.
+
+Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
 
 = Related Links =
+
+* <a href="http://redmine.cybersprocket.com/projects/mc-closeststore/wiki" title="Store Locator Plus Support Pages" alt="Store Locator Plus Support Pages">Store Locator Plus Support Pages</a>
+* <a href="http://wordpress.org/extend/plugins/profile/cybersprocket" title="Other Cyber Sprocket Plugins" alt="Other Cyber Sprocket Plugins">Other Cyber Sprocket Plugins</a> 
+* <a href="http://www.cybersprocket.com/services/wordpress-developers/" title="Custom WordPress Development" alt="Custom WordPress Development">Custom WordPress Development</a>
 
 == Installation ==
 
@@ -43,16 +54,6 @@ Viadat, the original author, was selling updated add-ons and themes but as of th
 4. Add your locations through the 'Add Locations' page in the Store Locator admin panel
 5. Place the code '[STORE-LOCATOR]' (case-sensitive) in the body of a page or a post to display your store locator
 
-= Addons =
-
-1. Unzip & Upload the entire add-on folder to the `/wp-content/uploads/sl-uploads/addons` directory.
-2. Activate the add-on by updating the Activation Key that you receive after purchase at the bottom of the "News & Upgrades" Page.
-
-= Themes =
-
-1. Unzip & Upload the entire theme folder to the `wp-content/uploads/sl-uploads/themes` directory.
-2. Select theme from the theme dropdown menu under the "Design" section on the "Map Designer"&trade; Page.
-
 = Icons =
 
 1. There are some default icons in the `/wp-content/plugins/store-locator/icons` directory. 
@@ -60,7 +61,12 @@ Viadat, the original author, was selling updated add-ons and themes but as of th
 
 = Custom CSS (Stylesheet) =
 
-You can modify the default 'store-locator.css' and place it under `/wp-content/uploads/sl-uploads/custom-css/`. The store locator will give priority to the 'store-locator.css' in the 'custom-css/' folder over the default 'store-locator.css' in the main 'store-locator/' folder. This allows you to upgrade the main store locator plugin without worrying about losing your custom styling. 
+You can modify the default style sheet included with the plugin at 
+./css/csl-slplus.css' and place it under `/wp-content/uploads/sl-uploads/custom-css/`. 
+The store locator will give priority to the 'csl-slplus.css' in the 'custom-css/' 
+folder over the default 'csl-slplus.css' file that is included.  This allows you 
+to upgrade the main store locator plugin without worrying about losing your 
+custom styling. 
 
 == Changelog ==
 

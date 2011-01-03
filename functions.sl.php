@@ -373,10 +373,10 @@ function head_scripts() {
             print  "<script src='".$sl_base."/js/store-locator-js.php' type='text/javascript'></script>
                     <script src='".$sl_base."/js/store-locator.js' type='text/javascript'></script>
                     <script src='".$sl_base."/js/functions.js' type='text/javascript'></script>\n";
-            $has_custom_css=(file_exists($sl_upload_path."/custom-css/store-locator.css"))? 
+            $has_custom_css=(file_exists($sl_upload_path."/custom-css/csl-slplus.css"))? 
                 $sl_upload_base."/custom-css" : 
                 $sl_base; 
-            print "<link  href='".$has_custom_css."/store-locator.css' type='text/css' rel='stylesheet'/>";
+            print "<link  href='".$has_custom_css."/csl-slplus.css' type='text/css' rel='stylesheet'/>";
             $theme=get_option('sl_map_theme');
             if ($theme!="") {print "\n<link  href='".$sl_upload_base."/themes/$theme/style.css' rel='stylesheet' type='text/css'/>";}
             $zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		
