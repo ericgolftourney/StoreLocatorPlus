@@ -29,168 +29,168 @@ function move_upload_directories() {
 	}
 }
 /* -----------------*/
-function parseToXML($htmlStr) 
-{ 
-$xmlStr=str_replace('<','&lt;',$htmlStr); 
-$xmlStr=str_replace('>','&gt;',$xmlStr); 
-$xmlStr=str_replace('"','&quot;',$xmlStr); 
-$xmlStr=str_replace("'",'&#39;',$xmlStr); 
-$xmlStr=str_replace("&",'&amp;',$xmlStr); 
-$xmlStr=str_replace("," ,"&#44;" ,$xmlStr);
-return $xmlStr; 
+function parseToXML($htmlStr) { 
+    $xmlStr=str_replace('<','&lt;',$htmlStr); 
+    $xmlStr=str_replace('>','&gt;',$xmlStr); 
+    $xmlStr=str_replace('"','&quot;',$xmlStr); 
+    $xmlStr=str_replace("'",'&#39;',$xmlStr); 
+    $xmlStr=str_replace("&",'&amp;',$xmlStr); 
+    $xmlStr=str_replace("," ,"&#44;" ,$xmlStr);
+    return $xmlStr; 
 } 
 
 /*-----------------*/
 
 function initialize_variables() {
-
-global $height, $width, $width_units, $height_units, $radii;
-global $icon, $icon2, $google_map_domain, $google_map_country, $theme, $sl_base, $sl_upload_base, $location_table_view;
-global $search_label, $zoom_level, $sl_use_city_search, $sl_use_name_search, $sl_default_map;
-global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
-global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
-global $sl_map_character_encoding, $sl_use_country_search;
-
-$sl_map_character_encoding=get_option('sl_map_character_encoding');
-if (empty($sl_map_character_encoding)) {
-	$sl_map_character_encoding="";
-	add_option('sl_map_character_encoding', $sl_map_character_encoding);
-	}
-$sl_instruction_message=get_option('sl_instruction_message');
-if (empty($sl_instruction_message)) {
-	$sl_instruction_message="Enter Your Address or Zip Code Above.";
-	add_option('sl_instruction_message', $sl_instruction_message);
-	}
-$sl_admin_locations_per_page=get_option('sl_admin_locations_per_page');
-if (empty($sl_admin_locations_per_page)) {
-	$sl_admin_locations_per_page="100";
-	add_option('sl_admin_locations_per_page', $sl_admin_locations_per_page);
-	}
-$sl_map_overview_control=get_option('sl_map_overview_control');
-if (empty($sl_map_overview_control)) {
-	$sl_map_overview_control="0";
-	add_option('sl_map_overview_control', $sl_map_overview_control);
-	}
-$sl_distance_unit=get_option('sl_distance_unit');
-if (empty($sl_distance_unit)) {
-	$sl_distance_unit="miles";
-	add_option('sl_distance_unit', $sl_distance_unit);
-	}
-$sl_load_locations_default=get_option('sl_load_locations_default');
-if (empty($sl_load_locations_default)) {
-	$sl_load_locations_default="1";
-	add_option('sl_load_locations_default', $sl_load_locations_default);
-	}
-$sl_num_initial_displayed=get_option('sl_num_initial_displayed');
-if (empty($sl_num_initial_displayed)) {
-	$sl_num_initial_displayed="25";
-	add_option('sl_num_initial_displayed', $sl_num_initial_displayed);
-	}
-$sl_website_label=get_option('sl_website_label');
-if (empty($sl_website_label)) {
-	$sl_website_label="Website";
-	add_option('sl_website_label', $sl_website_label);
-	}
-$sl_radius_label=get_option('sl_radius_label');
-if (empty($sl_radius_label)) {
-	$sl_radius_label="Radius";
-	add_option('sl_radius_label', $sl_radius_label);
-	}
-$sl_map_type=get_option('sl_map_type');
-if (empty($sl_map_type)) {
-	$sl_map_type=G_NORMAL_MAP;
-	add_option('sl_map_type', $sl_map_type);
-	}
-$sl_remove_credits=get_option('sl_remove_credits');
-if (empty($sl_remove_credits)) {
-	$sl_remove_credits="0";
-	add_option('sl_remove_credits', $sl_remove_credits);
-	}
-$sl_use_name_search=get_option('sl_use_name_search');
-if (empty($sl_use_name_search)) {
-	$sl_use_name_search="0";
-	add_option('sl_use_name_search', $sl_use_name_search);
-	}
-$sl_use_city_search=get_option('sl_use_city_search');
-if (empty($sl_use_city_search)) {
-	$sl_use_city_search="1";
-	add_option('sl_use_city_search', $sl_use_city_search);
-	}
-$sl_use_country_search=get_option('sl_use_country_search');
-if (empty($sl_use_country_search)) {
-	$sl_use_country_search="1";
-	add_option('sl_use_country_search', $sl_use_country_search);
-	}
-$zoom_level=get_option('sl_zoom_level');
-if (empty($zoom_level)) {
-	$zoom_level="4";
-	add_option('sl_zoom_level', $zoom_level);
-	}
-$search_label=get_option('sl_search_label');
-if (empty($search_label)) {
-	$search_label="Address";
-	add_option('sl_search_label', $search_label);
-	}
-$location_table_view=get_option('sl_location_table_view');
-if (empty($location_table_view)) {
-	$location_table_view="Normal";
-	add_option('sl_location_table_view', $location_table_view);
-	}
-$theme=get_option('sl_map_theme');
-if (empty($theme)) {
-	$theme="";
-	add_option('sl_map_theme', $theme);
-	}
-$google_map_country=get_option('sl_google_map_country');
-if (empty($google_map_country)) {
-	$google_map_country="United States";
-	add_option('sl_google_map_country', $google_map_country);
+    global $height, $width, $width_units, $height_units, $radii;
+    global $icon, $icon2, $google_map_domain, $google_map_country, $theme, $sl_base, $sl_upload_base, $location_table_view;
+    global $search_label, $zoom_level, $sl_use_city_search, $sl_use_name_search, $sl_default_map;
+    global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
+    global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
+    global $sl_map_character_encoding, $sl_use_country_search;
+    
+    $sl_map_character_encoding=get_option('sl_map_character_encoding');
+    if (empty($sl_map_character_encoding)) {
+        $sl_map_character_encoding="";
+        add_option('sl_map_character_encoding', $sl_map_character_encoding);
+        }
+    $sl_instruction_message=get_option('sl_instruction_message');
+    if (empty($sl_instruction_message)) {
+        $sl_instruction_message="Enter Your Address or Zip Code Above.";
+        add_option('sl_instruction_message', $sl_instruction_message);
+        }
+    $sl_admin_locations_per_page=get_option('sl_admin_locations_per_page');
+    if (empty($sl_admin_locations_per_page)) {
+        $sl_admin_locations_per_page="100";
+        add_option('sl_admin_locations_per_page', $sl_admin_locations_per_page);
+        }
+    $sl_map_overview_control=get_option('sl_map_overview_control');
+    if (empty($sl_map_overview_control)) {
+        $sl_map_overview_control="0";
+        add_option('sl_map_overview_control', $sl_map_overview_control);
+        }
+    $sl_distance_unit=get_option('sl_distance_unit');
+    if (empty($sl_distance_unit)) {
+        $sl_distance_unit="miles";
+        add_option('sl_distance_unit', $sl_distance_unit);
+        }
+    $sl_load_locations_default=get_option('sl_load_locations_default');
+    if (empty($sl_load_locations_default)) {
+        $sl_load_locations_default="1";
+        add_option('sl_load_locations_default', $sl_load_locations_default);
+        }
+    $sl_num_initial_displayed=get_option('sl_num_initial_displayed');
+    if (empty($sl_num_initial_displayed)) {
+        $sl_num_initial_displayed="25";
+        add_option('sl_num_initial_displayed', $sl_num_initial_displayed);
+        }
+    $sl_website_label=get_option('sl_website_label');
+    if (empty($sl_website_label)) {
+        $sl_website_label="Website";
+        add_option('sl_website_label', $sl_website_label);
+        }
+    $sl_radius_label=get_option('sl_radius_label');
+    if (empty($sl_radius_label)) {
+        $sl_radius_label="Radius";
+        add_option('sl_radius_label', $sl_radius_label);
+        }
+    $sl_map_type=get_option('sl_map_type');
+    if (empty($sl_map_type)) {
+        $sl_map_type=G_NORMAL_MAP;
+        add_option('sl_map_type', $sl_map_type);
+        }
+    $sl_remove_credits=get_option('sl_remove_credits');
+    if (empty($sl_remove_credits)) {
+        $sl_remove_credits="0";
+        add_option('sl_remove_credits', $sl_remove_credits);
+        }
+    $sl_use_name_search=get_option('sl_use_name_search');
+    if (empty($sl_use_name_search)) {
+        $sl_use_name_search="0";
+        add_option('sl_use_name_search', $sl_use_name_search);
+        }
+    $sl_use_city_search=get_option('sl_use_city_search');
+    if (empty($sl_use_city_search)) {
+        $sl_use_city_search="1";
+        add_option('sl_use_city_search', $sl_use_city_search);
+        }
+    $sl_use_country_search=get_option('sl_use_country_search');
+    if (empty($sl_use_country_search)) {
+        $sl_use_country_search="1";
+        add_option('sl_use_country_search', $sl_use_country_search);
+        }
+    $zoom_level=get_option('sl_zoom_level');
+    if (empty($zoom_level)) {
+        $zoom_level="4";
+        add_option('sl_zoom_level', $zoom_level);
+        }
+    $search_label=get_option('sl_search_label');
+    if (empty($search_label)) {
+        $search_label="Address";
+        add_option('sl_search_label', $search_label);
+        }
+    $location_table_view=get_option('sl_location_table_view');
+    if (empty($location_table_view)) {
+        $location_table_view="Normal";
+        add_option('sl_location_table_view', $location_table_view);
+        }
+    $theme=get_option('sl_map_theme');
+    if (empty($theme)) {
+        $theme="";
+        add_option('sl_map_theme', $theme);
+        }
+    $google_map_country=get_option('sl_google_map_country');
+    if (empty($google_map_country)) {
+        $google_map_country="United States";
+        add_option('sl_google_map_country', $google_map_country);
+    }
+    $google_map_domain=get_option('sl_google_map_domain');
+    if (empty($google_map_domain)) {
+        $google_map_domain="maps.google.com";
+        add_option('sl_google_map_domain', $google_map_domain);
+    }
+    $icon2=get_option('sl_map_end_icon');
+    if (empty($icon2)) {
+        add_option('sl_map_end_icon', $sl_base.'/icons/marker.png');
+        $icon2=get_option('sl_map_end_icon');
+    }
+    $icon=get_option('sl_map_home_icon');
+    if (empty($icon)) {
+        add_option('sl_map_home_icon', $sl_base.'/icons/arrow.png');
+        $icon=get_option('sl_map_home_icon');
+    }
+    $height=get_option('sl_map_height');
+    if (empty($height)) {
+        add_option('sl_map_height', '350');
+        $height=get_option('sl_map_height');
+        }
+    
+    $height_units=get_option('sl_map_height_units');
+    if (empty($height_units)) {
+        add_option('sl_map_height_units', "px");
+        $height_units=get_option('sl_map_height_units');
+        }	
+    
+    $width=get_option('sl_map_width');
+    if (empty($width)) {
+        add_option('sl_map_width', "100");
+        $width=get_option('sl_map_width');
+        }
+    
+    $width_units=get_option('sl_map_width_units');
+    if (empty($width_units)) {
+        add_option('sl_map_width_units', "%");
+        $width_units=get_option('sl_map_width_units');
+        }	
+    
+    $radii=get_option('sl_map_radii');
+    if (empty($radii)) {
+        add_option('sl_map_radii', "1,5,10,25,(50),100,200,500");
+        $radii=get_option('sl_map_radii');
+        }
 }
-$google_map_domain=get_option('sl_google_map_domain');
-if (empty($google_map_domain)) {
-	$google_map_domain="maps.google.com";
-	add_option('sl_google_map_domain', $google_map_domain);
-}
-$icon2=get_option('sl_map_end_icon');
-if (empty($icon2)) {
-	add_option('sl_map_end_icon', $sl_base.'/icons/marker.png');
-	$icon2=get_option('sl_map_end_icon');
-}
-$icon=get_option('sl_map_home_icon');
-if (empty($icon)) {
-	add_option('sl_map_home_icon', $sl_base.'/icons/arrow.png');
-	$icon=get_option('sl_map_home_icon');
-}
-$height=get_option('sl_map_height');
-if (empty($height)) {
-	add_option('sl_map_height', '350');
-	$height=get_option('sl_map_height');
-	}
 
-$height_units=get_option('sl_map_height_units');
-if (empty($height_units)) {
-	add_option('sl_map_height_units', "px");
-	$height_units=get_option('sl_map_height_units');
-	}	
 
-$width=get_option('sl_map_width');
-if (empty($width)) {
-	add_option('sl_map_width', "100");
-	$width=get_option('sl_map_width');
-	}
-
-$width_units=get_option('sl_map_width_units');
-if (empty($width_units)) {
-	add_option('sl_map_width_units', "%");
-	$width_units=get_option('sl_map_width_units');
-	}	
-
-$radii=get_option('sl_map_radii');
-if (empty($radii)) {
-	add_option('sl_map_radii', "1,5,10,25,(50),100,200,500");
-	$radii=get_option('sl_map_radii');
-	}
-}
 /*--------------------------*/
 function choose_units($unit, $input_name) {
 	$unit_arr[]="%";$unit_arr[]="px";$unit_arr[]="em";$unit_arr[]="pt";
@@ -209,40 +209,39 @@ function choose_units($unit, $input_name) {
 }
 /*----------------------------*/
 function do_geocoding($address,$sl_id="") {
-
-global $wpdb, $text_domain;
-define("MAPS_HOST", get_option('sl_google_map_domain'));
-$api_key=get_option('store_locator_api_key');
-define("KEY", "$api_key");
-
-// Initialize delay in geocode speed
-$delay = 0;
-$base_url = "http://" . MAPS_HOST . "/maps/geo?output=csv&key=" . KEY;
-
-//Adding ccTLD (Top Level Domain) to help perform more accurate geocoding according to selected Google Maps Domain - 12/16/09
-$ccTLD_arr=explode(".", MAPS_HOST);
-$ccTLD=$ccTLD_arr[count($ccTLD_arr)-1];
-if ($ccTLD!="com") {
-	$base_url .= "&gl=".$ccTLD;
-}
-
-//Map Character Encoding
-if (get_option("sl_map_character_encoding")!="") {
-	$base_url .= "&oe=".get_option("sl_map_character_encoding");
-}
-
-// Iterate through the rows, geocoding each address
-$request_url = $base_url . "&q=" . urlencode($address);
-if (extension_loaded("curl") && function_exists("curl_init")) {
-        $cURL = curl_init();
-        curl_setopt($cURL, CURLOPT_URL, $request_url);
-        curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
-        $csv = curl_exec($cURL);
-        curl_close($cURL);  
-}else{
-     $csv = file_get_contents($request_url) or die("url not loading");
-}
-//End of new code
+    
+    global $wpdb, $text_domain;
+    define("MAPS_HOST", get_option('sl_google_map_domain'));
+    $api_key=get_option('store_locator_api_key');
+    define("KEY", "$api_key");
+    
+    // Initialize delay in geocode speed
+    $delay = 0;
+    $base_url = "http://" . MAPS_HOST . "/maps/geo?output=csv&key=" . KEY;
+    
+    //Adding ccTLD (Top Level Domain) to help perform more accurate geocoding according to selected Google Maps Domain - 12/16/09
+    $ccTLD_arr=explode(".", MAPS_HOST);
+    $ccTLD=$ccTLD_arr[count($ccTLD_arr)-1];
+    if ($ccTLD!="com") {
+        $base_url .= "&gl=".$ccTLD;
+    }
+    
+    //Map Character Encoding
+    if (get_option("sl_map_character_encoding")!="") {
+        $base_url .= "&oe=".get_option("sl_map_character_encoding");
+    }
+    
+    // Iterate through the rows, geocoding each address
+    $request_url = $base_url . "&q=" . urlencode($address);
+    if (extension_loaded("curl") && function_exists("curl_init")) {
+            $cURL = curl_init();
+            curl_setopt($cURL, CURLOPT_URL, $request_url);
+            curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
+            $csv = curl_exec($cURL);
+            curl_close($cURL);  
+    }else{
+         $csv = file_get_contents($request_url) or die("url not loading");
+    }
 
     $csvSplit = split(",", $csv);
     $status = $csvSplit[0];
@@ -275,6 +274,8 @@ if (extension_loaded("curl") && function_exists("curl_init")) {
     }
     usleep($delay);
 }
+
+
 /*-------------------------------*/
 function install_table() {
 	global $wpdb, $sl_db_version, $sl_path, $sl_upload_path;
@@ -577,6 +578,7 @@ function sl_add_options_page() {
 	add_submenu_page($sl_dir.'/readme.php', __("Localization", $text_domain)." &amp; ".__("Google API Key", $text_domain),  __("Localization", $text_domain)." &amp; ".__("Google API Key", $text_domain), 9, $sl_dir.'/api-key.php');
 }
 
+/*---------------------------------*/
 function add_admin_javascript() {
         global $sl_base, $sl_upload_base, $sl_dir, $google_map_domain, $sl_path, $sl_upload_path, $map_character_encoding;
 		$api=get_option('store_locator_api_key');
@@ -597,10 +599,12 @@ function add_admin_javascript() {
         }
 }
 
+/*---------------------------------*/
 function add_admin_stylesheet() {
   global $sl_base;
   print "<link rel='stylesheet' type='text/css' href='".$sl_base."/admin.css'>\n";
 }
+
 /*---------------------------------*/
 function set_query_defaults() {
 	global $where, $o, $d;
@@ -611,47 +615,47 @@ function set_query_defaults() {
 }
 /*----------------------------------*/
 function match_imported_data($the_array) {
-	global $text_domain;
-	print "<h3>".__("Choose Heading That Matches Columns You Want to Import", $text_domain).":</h3>(".__("Leave headings for undesired columns unchanged", $text_domain).")<br><br>
-<form method='post'>
-<input type='button' value='".__("Cancel", $text_domain)."' class='button' onclick='history.go(-1)'>&nbsp;<input type='submit' value='".__("Import Locations", $text_domain)."' class='button'>
-<table class='widefat'><thead><tr style='/*background-color:black*/'>";
-
-$array_to_be_counted=(is_array($the_array[0]))? $the_array[0] : $the_array[1] ; //needed for the csv import (where first line is usually skipped)  vs the point-click-add import (where there's only the first line)
-for ($ctr=1; $ctr<=count($array_to_be_counted); $ctr++) {
-	print "<td><select name='field_map[]'>";
-	print "<option value=''>".__("Choose")."</option>
-			<option value='sl_store'>".__("Name", $text_domain)."</option>
-				<option value='sl_address'>".__("Street(Line1)", $text_domain)."</option>
-				<option value='sl_address2'>".__("Street(Line2)", $text_domain)."</option>
-				<option value='sl_city'>".__("City", $text_domain)."</option>
-				<option value='sl_state'>".__("State", $text_domain)."</option>
-				<option value='sl_zip'>".__("Zip", $text_domain)."</option>
-				<option value='sl_tags'>".__("Tags", $text_domain)."</option>
-				<option value='sl_description'>".__("Description", $text_domain)."</option>
-				<option value='sl_hours'>".__("Hours", $text_domain)."</option>
-				<option value='sl_url'>".__("URL", $text_domain)."</option>
-				<option value='sl_phone'>".__("Phone", $text_domain)."</option>
-				<option value='sl_image'>".__("Image", $text_domain)."</option>
-				<option value='sl_private'>".__("Is Private?", $text_domain)."</option>";
-	print "</select></td>";
-}
-print "</tr></thead>";
-
-foreach ($the_array as $key=>$value) {
-	print "<tr style='border-bottom:solid silver 1px'>";
-	$bgcolor="#ddd";
-	$ctr2=0;
-	foreach ($value as $key2=>$value2) {
+    global $text_domain;
+    print "<h3>".__("Choose Heading That Matches Columns You Want to Import", $text_domain).":</h3>(".__("Leave headings for undesired columns unchanged", $text_domain).")<br><br>
+    <form method='post'>
+    <input type='button' value='".__("Cancel", $text_domain)."' class='button' onclick='history.go(-1)'>&nbsp;<input type='submit' value='".__("Import Locations", $text_domain)."' class='button'>
+    <table class='widefat'><thead><tr style='/*background-color:black*/'>";
+    
+    $array_to_be_counted=(is_array($the_array[0]))? $the_array[0] : $the_array[1] ; //needed for the csv import (where first line is usually skipped)  vs the point-click-add import (where there's only the first line)
+    for ($ctr=1; $ctr<=count($array_to_be_counted); $ctr++) {
+    print "<td><select name='field_map[]'>";
+    print "<option value=''>".__("Choose")."</option>
+            <option value='sl_store'>".__("Name", $text_domain)."</option>
+                <option value='sl_address'>".__("Street(Line1)", $text_domain)."</option>
+                <option value='sl_address2'>".__("Street(Line2)", $text_domain)."</option>
+                <option value='sl_city'>".__("City", $text_domain)."</option>
+                <option value='sl_state'>".__("State", $text_domain)."</option>
+                <option value='sl_zip'>".__("Zip", $text_domain)."</option>
+                <option value='sl_tags'>".__("Tags", $text_domain)."</option>
+                <option value='sl_description'>".__("Description", $text_domain)."</option>
+                <option value='sl_hours'>".__("Hours", $text_domain)."</option>
+                <option value='sl_url'>".__("URL", $text_domain)."</option>
+                <option value='sl_phone'>".__("Phone", $text_domain)."</option>
+                <option value='sl_image'>".__("Image", $text_domain)."</option>
+                <option value='sl_private'>".__("Is Private?", $text_domain)."</option>";
+    print "</select></td>";
+    }
+    print "</tr></thead>";
+    
+    foreach ($the_array as $key=>$value) {
+    print "<tr style='border-bottom:solid silver 1px'>";
+    $bgcolor="#ddd";
+    $ctr2=0;
+    foreach ($value as $key2=>$value2) {
         $bgcolor=($bgcolor=="#fff" || empty($bgcolor))? "#ddd" : "#fff";
         print "<td style='background-color:$bgcolor'>$value2<input type='hidden' value='$value2' name='column{$ctr2}[]'></td>\n";
         $ctr2++;
-	}
-	print "</tr>\n";
-}
-print "</table><input type='hidden' name='finish_import' value='1'>
-<input type='hidden' name='total_entries' value='".(count($the_array))."'>
-<input type='button' value='".__("Cancel", $text_domain)."' class='button' onclick='history.go(-1)'>&nbsp;<input type='submit' value='".__("Import Locations", $text_domain)."' class='button'></form>";
+    }
+    print "</tr>\n";
+    }
+    print "</table><input type='hidden' name='finish_import' value='1'>
+    <input type='hidden' name='total_entries' value='".(count($the_array))."'>
+    <input type='button' value='".__("Cancel", $text_domain)."' class='button' onclick='history.go(-1)'>&nbsp;<input type='submit' value='".__("Import Locations", $text_domain)."' class='button'></form>";
 }
 /*--------------------------------------------------------------*/
 
@@ -659,11 +663,8 @@ function do_hyperlink(&$text, $target="'_blank'")
 {
    // match protocol://address/path/
    $text = ereg_replace("[a-zA-Z]+://([.]?[a-zA-Z0-9_/?&amp;%20,=-\+-])*", "<a href=\"\\0\" target=$target>\\0</a>", $text);
-
-   // match www.something
    $text = ereg_replace("(^| )(www([.]?[a-zA-Z0-9_/=-\+-])*)", "\\1<a href=\"http://\\2\" target=$target>\\2</a>", $text);
-
-return $text;
+   return $text;
 }
 
 /*--------------------------------------------------------------*/
@@ -703,11 +704,13 @@ function comma($a) {
 	return ereg_replace("," ,"&#44;" ,$a);
 	
 }
+
 /*------------------------------------------------------------*/
 function addon_activation_message($url_of_upgrade="") {
 	global $sl_dir, $text_domain;
 	print "<div style='background-color:#eee; border:solid silver 1px; padding:7px; color:black'>".__("You haven't activated this upgrade yet", $text_domain).". <a href='".get_option('siteurl')."/wp-admin/admin.php?page=$sl_dir/news-upgrades.php'>".__("Activate", $text_domain)."</a></div><br>";
 }
+
 /*-----------------------------------------------------------*/
 function url_test($url)
 {
