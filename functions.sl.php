@@ -712,10 +712,6 @@ function addon_activation_message($url_of_upgrade="") {
 }
 
 /*-----------------------------------------------------------*/
-function url_test($url)
-{
-	if(strtolower(substr($url,0,7))=="http://")	{
-		return TRUE; }
-	else{
-		return FALSE; }
+function url_test($url) {
+	return (strtolower(substr($url,0,7))=="http://");
 }
