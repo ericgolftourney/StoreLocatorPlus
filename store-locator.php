@@ -48,7 +48,6 @@ include_once(SLPLUS_PLUGINDIR.'/libs/csl_helpers.php');
 include_once("variables.sl.php");
 include_once("copyfolder.lib.php");
 include_once("functions.sl.php");
-include_once("via-latest.php");
 
 register_activation_hook( __FILE__, 'install_table');
 

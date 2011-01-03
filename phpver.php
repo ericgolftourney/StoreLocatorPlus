@@ -1,1 +1,0 @@
-<?php print "Current PHP Version is ".phpversion(); ?>
