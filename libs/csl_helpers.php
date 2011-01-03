@@ -6,6 +6,25 @@
  ***************************************************************************/
 
 /**************************************
+ ** function: get_string_from_phpexec()
+ ** 
+ ** Executes the included php (or html) file and returns the output as a string.
+ **
+ ** Parameters:
+ **  $file (string, required) - name of the file 
+ **/
+function get_string_from_phpexec($file) {
+    if (file_exists($file)) {
+        ob_start();
+        include($file);
+        $content = ob_get_contents();
+        ob_end_clean();
+        return $content;
+    }
+}
+ 
+ 
+/**************************************
  ** function: execute_and_output_template()
  ** 
  ** Executes the included php (or html) file and prints out the results.
@@ -17,13 +36,7 @@
  **/
 function execute_and_output_template($file) {
     $file = SLPLUS_PLUGINDIR.'/templates/'.$file;
-    if (file_exists($file)) {
-        ob_start();
-        include($file);
-        $content = ob_get_contents();
-        ob_end_clean();
-        print $content;
-    }
+    print get_string_from_phpexec($file);
 }
 
 /**************************************
