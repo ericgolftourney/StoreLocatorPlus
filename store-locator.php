@@ -40,11 +40,11 @@ if (defined('SLPLUS_PLUGINURL') === false) {
 if (defined('SLPLUS_BASENAME') === false) {
     define('SLPLUS_BASENAME', plugin_basename(__FILE__));
 }
+include_once(SLPLUS_PLUGINDIR.'/libs/csl_helpers.php');
 include_once(SLPLUS_PLUGINDIR.'/include/config.php');
 
 $sl_version="1.3";
 $sl_db_version=1.3;
-include_once(SLPLUS_PLUGINDIR.'/libs/csl_helpers.php');
 include_once("variables.sl.php");
 include_once("copyfolder.lib.php");
 include_once("functions.sl.php");
@@ -52,8 +52,7 @@ include_once("functions.sl.php");
 register_activation_hook( __FILE__, 'install_table');
 
 add_action('wp_head', 'head_scripts');
-add_action('admin_menu', 'sl_add_options_page');
-add_action('admin_init', 'csl_slplus_setup_admin_interface');
+add_action('admin_menu', 'csl_slplus_add_options_page');
 add_action('admin_print_scripts', 'add_admin_javascript');
 add_action('admin_print_styles','add_admin_stylesheet');
 
@@ -62,23 +61,4 @@ add_filter('the_content', 'ajax_map', 7);
 load_plugin_textdomain($text_domain, "/wp-content/uploads/sl-uploads/languages/");
 
 
-/**************************************
- ** function: setup_admin_interface
- **
- ** Builds the interface elements used by WPCSL-generic for the admin interface.
- **/
-function csl_slplus_setup_admin_interface() {
-    global $slplus_plugin;
-
-    //-------------------------
-    // How to Use Section
-    //-------------------------    
-    $slplus_plugin->settings->add_section(
-        array(
-            'name' => 'How to Use',
-            'description' => get_string_from_phpexec(SLPLUS_PLUGINDIR.'/how_to_use.txt')
-        )
-    );
-    
-}
 

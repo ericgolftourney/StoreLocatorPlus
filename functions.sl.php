@@ -209,12 +209,10 @@ function choose_units($unit, $input_name) {
 }
 
 /*----------------------------*/
-function do_geocoding($address,$sl_id="") {
-    
-    global $wpdb, $text_domain;
+function do_geocoding($address,$sl_id="") {    
+    global $wpdb, $text_domain,$slplus_plugin;    
     define("MAPS_HOST", get_option('sl_google_map_domain'));
-    $api_key=get_option('store_locator_api_key');
-    define("KEY", "$api_key");
+    define('KEY', $slplus_plugin->driver_args['api_key']);
     
     // Initialize delay in geocode speed
     $delay = 0;
@@ -364,7 +362,7 @@ function head_scripts() {
         is_front_page() || is_single($post_ids_array)
         ) {
         if ($slplus_plugin->ok_to_show()) {
-            $api_key=get_option('store_locator_api_key');
+            $api_key=$slplus_plugin->driver_args['api_key'];
             $google_map_domain=(get_option('sl_google_map_domain')!="")? 
                     get_option('sl_google_map_domain') : 
                     "maps.google.com";
@@ -564,23 +562,56 @@ function ajax_map($content) {
 }
 
 
-/*-----------------------------------*/
-function sl_add_options_page() {
-	global $sl_dir, $sl_base, $sl_upload_base, $text_domain, $map_character_encoding;
-	$api=get_option('store_locator_api_key');
-	add_menu_page(__("Store Locator", $text_domain), __("Store Locator", $text_domain), 9, $sl_dir.'/readme.php');
-	if (trim($api)!=""){
-		add_submenu_page($sl_dir.'/readme.php', __("Manage Locations", $text_domain), __("Manage Locations", $text_domain), 9, $sl_dir.'/view-locations.php');
-		add_submenu_page($sl_dir.'/readme.php', __("Add Locations", $text_domain), __("Add Locations", $text_domain), 9, $sl_dir.'/add-locations.php');
-		add_submenu_page($sl_dir.'/readme.php', __("Map Designer", $text_domain), __("Map Designer", $text_domain), 9, $sl_dir.'/map-designer.php');
+/**************************************
+ ** function: csl_slplus_add_options_page()
+ **
+ ** Add the Store Locator panel to the admin sidebar.
+ **
+ **/
+function csl_slplus_add_options_page() {
+	global $sl_dir, $sl_base, $sl_upload_base, $text_domain, 
+	       $map_character_encoding, $slplus_plugin;
+	       		
+	add_menu_page(
+	    __("SLPlus Locations", $text_domain),  
+	    __("SLPlus Locations", $text_domain), 
+	    'administrator', 
+	    $sl_dir.'/add-locations.php'
+	    );
+	
+    add_submenu_page(
+        $sl_dir.'/add-locations.php',
+        __("Google Settings", $text_domain), 
+        __("Google Settings", $text_domain), 
+        'administrator', 
+        $sl_dir.'/api-key.php'
+        );
+	
+	if (trim($slplus_plugin->driver_args['api_key'])!=""){
+		add_submenu_page(
+    	    $sl_dir.'/add-locations.php',
+		    __("Manage Locations", $text_domain), 
+		    __("Manage Locations", $text_domain), 
+		    'administrator', 
+		    $sl_dir.'/view-locations.php'
+		    );
+		add_submenu_page(
+    	    $sl_dir.'/add-locations.php',
+		    __("Map Appearance", $text_domain), 
+		    __("Map Appearance", $text_domain), 
+		    'administrator', 
+		    $sl_dir.'/map-designer.php'
+		    );
 	}
-	add_submenu_page($sl_dir.'/readme.php', __("Localization", $text_domain)." &amp; ".__("Google API Key", $text_domain),  __("Localization", $text_domain)." &amp; ".__("Google API Key", $text_domain), 9, $sl_dir.'/api-key.php');
+
 }
+
 
 /*---------------------------------*/
 function add_admin_javascript() {
-        global $sl_base, $sl_upload_base, $sl_dir, $google_map_domain, $sl_path, $sl_upload_path, $map_character_encoding;
-		$api=get_option('store_locator_api_key');
+        global $sl_base, $sl_upload_base, $sl_dir, $google_map_domain, $sl_path, 
+            $sl_upload_path, $map_character_encoding, $slplus_plugin;
+		$api=$slplus_plugin->driver_args['api_key'];
         print "<script src='".$sl_base."/js/functions.js'></script>\n
         <script type='text/javascript'>
         var sl_dir='".$sl_dir."';

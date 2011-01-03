@@ -19,7 +19,7 @@ print "<form><table cellpadding='0px' cellspacing='0px' width='100%'><tr><td>
 
 initialize_variables();
 
-$slak=get_option('store_locator_api_key');
+$slak=$slplus_plugin->driver_args['api_key'];
 if (!$slak) {
 	include("api-key.php");
 } else {
