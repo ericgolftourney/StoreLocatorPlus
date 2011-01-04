@@ -440,6 +440,10 @@ function ajax_map($content) {
 		$unit_display=(get_option('sl_distance_unit')=="km")? 
                 "km" : "mi";
 
+        $r_options      =(isset($r_options)         ?$r_options      :'');
+        $cs_options     =(isset($cs_options)        ?$cs_options     :'');
+        $country_options=(isset($country_options)   ?$country_options:'');
+        
 		foreach ($r_array as $value) {
 			$s=(ereg("\(.*\)", $value))? " selected='selected' " : "" ;
 			$value=ereg_replace("[^0-9]", "", $value);
