@@ -45,6 +45,8 @@ include_once(SLPLUS_PLUGINDIR.'/include/config.php');
 
 $sl_version="1.3";
 $sl_db_version=1.3;
+$sl_upload_path='';
+$sl_path='';
 include_once("variables.sl.php");
 include_once("copyfolder.lib.php");
 include_once("functions.sl.php");
@@ -58,7 +60,7 @@ add_action('admin_print_styles','add_admin_stylesheet');
 
 add_filter('the_content', 'ajax_map', 7);
 
-load_plugin_textdomain($text_domain, "/wp-content/uploads/sl-uploads/languages/");
+load_plugin_textdomain($text_domain, false, SLPLUS_PLUGINDIR . '/languages/');
 
 
 

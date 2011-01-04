@@ -145,6 +145,10 @@ print "
     </tr>
 </thead>";
 
+$checked2   =(isset($checked2)  ?$checked2  :'');
+$icon_str   =(isset($icon_str)  ?$icon_str  :'');
+$icon2_str  =(isset($icon2_str) ?$icon2_str :'');
+$map_type_options=(isset($map_type_options)?$map_typ_options:'');
 
 $icon_dir=opendir($sl_path."/icons/"); 
 while (false !== ($an_icon=readdir($icon_dir))) {

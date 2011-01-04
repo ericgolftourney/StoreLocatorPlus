@@ -72,6 +72,10 @@ custom styling.
 
 = 1.3  (December 2010) =
 
-* Initial release based on Google Maps Store Locator for WordPress v1.2.39.3
 * Add country field to address data.
+* Clean up various coding errors since WordPress 3.0 release
+** Deprecated function calls
+** non-quoted array references
+* Initial release based on Google Maps Store Locator for WordPress v1.2.39.3
+
 

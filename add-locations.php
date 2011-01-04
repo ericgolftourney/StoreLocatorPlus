@@ -5,7 +5,7 @@
  ** handles the add locations form
  ***************************************************************************/
 
-global $wpdb;
+global $wpdb, $sl_upload_path, $sl_path;
 
 print "<div class='wrap'><h2>".__("Add Locations", $text_domain)."</h2><br>";
 initialize_variables();
@@ -13,7 +13,7 @@ initialize_variables();
 
 //Inserting addresses by manual input
 //
-if ($_POST[sl_store] && $_GET[mode]!="pca") {
+if ( isset($_POST['sl_store']) && $_POST['sl_store'] && ($_GET['mode']!="pca") ) {
 	foreach ($_POST as $key=>$value) {
 		if (ereg("sl_", $key)) {
 			$fieldList.="$key,";
@@ -24,7 +24,8 @@ if ($_POST[sl_store] && $_GET[mode]!="pca") {
 	$fieldList=substr($fieldList, 0, strlen($fieldList)-1);
 	$valueList=substr($valueList, 0, strlen($valueList)-1);
 	$wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fieldList) VALUES ($valueList)");
-	$address="$_POST[sl_address], $_POST[sl_city], $_POST[sl_state] $_POST[sl_zip]";
+	$address    = $_POST['sl_address'].', '.
+	              $_POST['sl_city'].', '.$_POST['sl_state'].' '.$_POST['sl_zip'];
 	do_geocoding($address);
 	print "<div class='updated fade'>".
             __("Successful Addition",$text_domain).
@@ -34,7 +35,9 @@ if ($_POST[sl_store] && $_GET[mode]!="pca") {
 
 //Importing addresses from an local or remote database
 //
-if ($_POST[remote] && trim($_POST[query])!="" || $_POST[finish_import]) {
+if ( ( isset($_POST['remote']) && $_POST['remote'] && trim($_POST['query'])!="") ||        
+     ( isset($_POST['finish_import']) && $_POST['finish_import'])
+    ) {
 	if (ereg(".*\..{2,}", $_POST[server])) {
 		include($sl_upload_path."/addons/db-importer/remoteConnect.php");
 	}
@@ -47,16 +50,18 @@ if ($_POST[remote] && trim($_POST[query])!="" || $_POST[finish_import]) {
 //Importing CSV file of addresses
 //
 $newfile="temp-file.csv"; 
+$root = isset($root) ? $root : '';
 $target_path="$root/";
 $root=ABSPATH."wp-content/plugins/".dirname(plugin_basename(__FILE__));
-if (move_uploaded_file($_FILES['csv_import']['tmp_name'], "$root/$newfile") && 
+if (isset($_FILES['csv_import']) &&
+    move_uploaded_file($_FILES['csv_import']['tmp_name'], "$root/$newfile") && 
     file_exists($sl_upload_path."/addons/csv-xml-importer-exporter/csvImport.php")
     ) {
 	include($sl_upload_path."/addons/csv-xml-importer-exporter/csvImport.php");
 } 
 
 //If adding via the Point, Click, Add map (accepting AJAX)
-if ($_GET[mode]=="pca") {
+if (isset($_GET['mode']) && ($_GET['mode']=="pca")) {
 	include($sl_upload_path."/addons/point-click-add/pcaImport.php");
 }
 	

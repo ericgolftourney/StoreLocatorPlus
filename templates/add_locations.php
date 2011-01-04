@@ -1,4 +1,6 @@
-<?php ?>
+<?php
+global $text_domain, $sl_upload_path;
+?>
     <table cellpadding='10px' cellspacing='0' style='width:100%' class='manual_add_table'>
         <tr>
             <td style='padding-top:0px;' valign='top'>

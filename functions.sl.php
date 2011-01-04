@@ -193,6 +193,7 @@ function initialize_variables() {
 
 /*--------------------------*/
 function choose_units($unit, $input_name) {
+    $select_field = (isset($select_field)?$select_field:'');
 	$unit_arr[]="%";$unit_arr[]="px";$unit_arr[]="em";$unit_arr[]="pt";
 	$select_field.="<select name='$input_name'>";
 	
@@ -333,10 +334,13 @@ function head_scripts() {
 	global $slplus_plugin;
 	
 	//Check if currently on page with shortcode
+	$pageID = isset($_GET['p'])         ? $_GET['p']       : 
+	          isset($_GET['page_id'])   ? $_GET['page_id'] : 
+	          '';
 	$on_sl_page=$wpdb->get_results("SELECT post_name FROM ".$wpdb->prefix."posts ".
 	        "WHERE post_content LIKE '%[STORE-LOCATOR%' AND " .
 	        "post_status IN ('publish', 'draft') AND ".
-	        "(post_name='$pagename' OR ID='$_GET[p]' OR ID='$_GET[page_id]')", 
+	        "(post_name='$pagename' OR ID='$pageID')", 
 	        ARRAY_A);
 	
 	//Checking if code used in posts	
@@ -608,7 +612,7 @@ function add_admin_javascript() {
         var sl_dir='".$sl_dir."';
         var sl_google_map_country='".get_option('sl_google_map_country')."';
         </script>\n";
-        if (ereg("add-locations", $_GET[page])) {
+        if (ereg("add-locations", (isset($_GET['page'])?$_GET['page']:''))) {
             $google_map_domain=(get_option('sl_google_map_domain')!="")? get_option('sl_google_map_domain') : "maps.google.com";
 			
             print "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
@@ -630,9 +634,17 @@ function add_admin_stylesheet() {
 function set_query_defaults() {
 	global $where, $o, $d;
 	
-	$where=($_GET[q]!="")? " WHERE sl_store LIKE '%$_GET[q]%' OR sl_address LIKE '%$_GET[q]%' OR sl_city LIKE '%$_GET[q]%' OR sl_state LIKE '%$_GET[q]%' OR sl_zip LIKE '%$_GET[q]%' OR sl_tags LIKE '%$_GET[q]%'" : "" ;
-	$o=($_GET[o])? $_GET[o] : "sl_store";
-	$d=($_GET[d]=="" || $_GET[d]=="DESC")? "ASC" : "DESC";
+	$qry = isset($_GET['q']) ? $_GET['q'] : '';
+	$where=($qry!='')? 
+	        " WHERE sl_store LIKE '%$qry%' OR sl_address ".
+	        "LIKE '%$qry%' OR sl_city LIKE '%$qry%' OR sl_state ".
+	        "LIKE '%$qry%' OR sl_zip LIKE '%$qry%' OR sl_tags LIKE ".
+	        "'%$qry%'" : 
+	        '' ;
+	$o= (isset($_GET['o']) && (trim($_GET['o']) != ''))
+	    ? $_GET['o'] : "sl_store";
+	$d= (isset($_GET['d']) && (trim($_GET['d'])=='DESC')) 
+	    ? "DESC" : "ASC";
 }
 
 /*----------------------------------*/
