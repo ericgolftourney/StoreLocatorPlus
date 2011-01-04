@@ -284,7 +284,10 @@ print "</select></td></tr></table>
     <tr--><td colspan='1'><h3>".__("Design", $text_domain)."</h3>
     $icon_notification_msg
     <table class='map_designer_section right_side'><tr>
-    <tr><td valign='top'>".__("Choose Theme", $text_domain)."</td><td valign='top'> <select name='theme' onchange=\"\"><option value=''>".__("No Theme Selected", $text_domain)."</option>$theme_str</select>&nbsp;&nbsp;&nbsp;<a href='http://www.viadat.com/products-page/store-locator-themes/' target='_blank'>".__("Get&nbsp;Themes", $text_domain)." &raquo;</a></td></tr>
+    <tr><td valign='top'>".__("Choose Theme", $text_domain)."</td>
+    <td valign='top'> <select name='theme' onchange=\"\"><option value=''>".__("No Theme Selected", $text_domain)."</option>
+    $theme_str</select>
+    </td></tr>
     <tr><td>".__("Remove Credits", $text_domain).":</td>
     <td><input name='sl_remove_credits' value='1' type='checkbox' $checked3></td></tr>
     <tr><td valign='top'>".__("Home Icon", $text_domain).":</td>
@@ -292,7 +295,7 @@ print "</select></td></tr></table>
     <tr><td valign='top'>".__("Destination Icon", $text_domain).":</td>
     <td valign='top'> <input name='icon2' size='45' value='$icon2' onchange=\"document.getElementById('prev2').src=this.value\">&nbsp;&nbsp;<img id='prev2' src='$icon2'align='top'> <br><div style=''>$icon2_str</div>
     </td></tr>
-    <tr><td colspan='2'><div class=''><b>".__("Looking to create or find a unique icon? For ideas, visit", $text_domain)."<br> <a href='http://mapki.com/index.php?title=Icon_Image_Sets' target='_blank'>http://mapki.com/index.php?title=Icon_Image_Sets</a></b></div></td></tr></table>
+    </table>
     </td></tr>
     <tr><td colspan='2'><input type='submit' value='".__("Update", $text_domain)."' class='button-primary'></td></tr></table></form>
     </div>";
