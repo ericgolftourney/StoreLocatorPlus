@@ -1,6 +1,5 @@
-<?php
-include_once ($_SERVER['DOCUMENT_ROOT'] . '/wp-config.php');
-
+<?php   
+include_once($_SERVER['DOCUMENT_ROOT'] . '/wp-config.php');
 $username=DB_USER;
 $password=DB_PASSWORD;
 $database=DB_NAME;
