@@ -365,7 +365,7 @@ function head_scripts() {
         ((is_archive() || is_404()) && $sl_code_is_used_in_posts) || 
         is_front_page() || is_single($post_ids_array)
         ) {
-        if ($slplus_plugin->ok_to_show()) {
+        if (isset($slplus_plugin) && $slplus_plugin->ok_to_show()) {
             $api_key=$slplus_plugin->driver_args['api_key'];
             $google_map_domain=(get_option('sl_google_map_domain')!="")? 
                     get_option('sl_google_map_domain') : 
@@ -412,6 +412,7 @@ function ajax_map($content) {
     // WordPress has shortcode handling built in.  Hmmm...
     //
 	if( ! preg_match('|\[STORE-LOCATOR|', $content) ||
+	    ! isset($slplus_plugin)                     ||
         ! $slplus_plugin->ok_to_show()
 	    ) {
 	
