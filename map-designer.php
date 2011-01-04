@@ -6,12 +6,20 @@
  ******************************************************************************/
  
 
-print '<div class="wrap">';
+print '<div class="wrap"><h2>';
+_e('Map Settings',$text_domain);
+print '</h2>';
 
 if (!$_POST) {
     move_upload_directories();
     
 } else {
+    update_option('sl_language', $_POST[sl_language]);    
+    $sl_google_map_arr=explode(":", $_POST[google_map_domain]);
+    update_option('sl_google_map_country', $sl_google_map_arr[0]);
+    update_option('sl_google_map_domain', $sl_google_map_arr[1]);
+    update_option('sl_map_character_encoding', $_POST[sl_map_character_encoding]);
+    
     $_POST[height]=ereg_replace("[^0-9]", "", $_POST[height]);
     $_POST[width]=ereg_replace("[^0-9]", "", $_POST[width]);
     update_option('sl_map_height', $_POST[height]);
@@ -43,9 +51,100 @@ if (!$_POST) {
     print "<div class='highlight'>".__("Successful Update", $text_domain)." $view_link</div> <!--meta http-equiv='refresh' content='0'-->";
 }
 
-
-print "<h2>".__("Map Designer", $text_domain)."</h2><br><form method='post' name='mapDesigner'><table class='widefat'><thead><tr><th colspan='2'>".__("Map Designer", $text_domain)."</th><!--td><".__("Designer", $text_domain)."--></td--></tr></thead>";
+//---------------------------
+//
 initialize_variables();
+
+$the_domain["United States"]="maps.google.com";
+$the_domain["Argentina"]="maps.google.com.ar"; //added 12/5/09
+$the_domain["Australia"]="maps.google.com.au";
+$the_domain["Austria"]="maps.google.at"; //updated 6/13/09
+$the_domain["Belgium"]="maps.google.be";
+$the_domain["Brazil"]="maps.google.com.br";
+$the_domain["Canada"]="maps.google.ca";
+$the_domain["Chile"]="maps.google.cl"; //added 12/5/09
+$the_domain["China"]="ditu.google.com"; //added 6/13/09
+$the_domain["Czech Republic"]="maps.google.cz";
+$the_domain["Denmark"]="maps.google.dk";
+$the_domain["Finland"]="maps.google.fi";
+$the_domain["France"]="maps.google.fr";
+$the_domain["Germany"]="maps.google.de";
+$the_domain["Hong Kong"]="maps.google.com.hk"; //added 6/13/09
+$the_domain["India"]="maps.google.co.in"; //added 6/13/09
+$the_domain["Italy"]="maps.google.it";
+$the_domain["Japan"]="maps.google.co.jp"; //updated 6/13/09
+$the_domain["Liechtenstein"]="maps.google.li"; //added 6/13/09
+$the_domain["Mexico"]="maps.google.com.mx"; //added 12/5/09
+$the_domain["Netherlands"]="maps.google.nl";
+$the_domain["New Zealand"]="maps.google.co.nz";
+$the_domain["Norway"]="maps.google.no";
+$the_domain["Poland"]="maps.google.pl";
+$the_domain["Portugal"]="maps.google.pt"; //added 12/5/09
+$the_domain["Russia"]="maps.google.ru";
+$the_domain["Singapore"]="maps.google.com.sg"; //added 12/5/09
+$the_domain["South Korea"]="maps.google.co.kr"; //added 6/13/09
+$the_domain["Spain"]="maps.google.es";
+$the_domain["Sweden"]="maps.google.se";
+$the_domain["Switzerland"]="maps.google.ch";
+$the_domain["Taiwan"]="maps.google.com.tw"; //updated 6/13/09
+$the_domain["United Kingdom"]="maps.google.co.uk";
+
+$char_enc["Default (UTF-8)"]="utf-8";
+$char_enc["Western European (ISO-8859-1)"]="iso-8859-1";
+$char_enc["Western/Central European (ISO-8859-2)"]="iso-8859-2";
+$char_enc["Western/Southern European (ISO-8859-3)"]="iso-8859-3";
+$char_enc["Western European/Baltic Countries (ISO-8859-4)"]="iso-8859-4";
+$char_enc["Russian (Cyrillic)"]="iso-8859-5";
+$char_enc["Arabic (ISO-8859-6)"]="iso-8859-6";
+$char_enc["Greek (ISO-8859-7)"]="iso-8859-7";
+$char_enc["Hebrew (ISO-8859-8)"]="iso-8859-8";
+$char_enc["Western European w/amended Turkish (ISO-8859-9)"]="iso-8859-9";
+$char_enc["Western European w/Nordic characters (ISO-8859-10)"]="iso-8859-10";
+$char_enc["Thai (ISO-8859-11)"]="iso-8859-11";
+$char_enc["Baltic languages & Polish (ISO-8859-13)"]="iso-8859-13";
+$char_enc["Celtic languages (ISO-8859-14)"]="iso-8859-14";
+$char_enc["Japanese (Shift JIS)"]="shift_jis";
+$char_enc["Simplified Chinese (China)(GB 2312)"]="gb2312";
+$char_enc["Traditional Chinese (Taiwan)(Big 5)"]="big5";
+$char_enc["Hong Kong (HKSCS)"]="hkscs";
+$char_enc["Korea (EUS-KR)"]="eus-kr";
+
+// Print The Form
+//
+print  "<form method='post' name='mapDesigner'>
+<table class='widefat'>
+<thead>
+    <tr>
+        <th colspan='2'>".__("Google Map Interface", $text_domain)."</th>
+    </tr>
+</thead>
+<tr>
+    <td>".__("Select Your Location", $text_domain).
+    "<select name='google_map_domain'>";
+
+
+foreach ($the_domain as $key=>$value) {
+	$selected=(get_option('sl_google_map_domain')==$value)?" selected " : "";
+	print "<option value='$key:$value' $selected>$key ($value)</option>\n";
+}
+
+print "</select></td><td>".__("Select Character Encoding", $text_domain).
+"<select name='sl_map_character_encoding'>";
+
+foreach ($char_enc as $key=>$value) {
+	$selected=(get_option('sl_map_character_encoding')==$value)?" selected " : "";
+	print "<option value='$value' $selected>$key</option>\n";
+}
+print "
+            </select>
+        </td>
+    </tr>
+<thead>
+    <tr>
+        <th colspan='2'>".__("Map Designer", $text_domain)."</th>
+    </tr>
+</thead>";
+
 
 $icon_dir=opendir($sl_path."/icons/"); 
 while (false !== ($an_icon=readdir($icon_dir))) {
@@ -122,7 +221,7 @@ foreach($map_type as $key=>$value) {
 $icon_notification_msg=((ereg("wordpress-store-locator-location-finder", get_option('sl_map_home_icon')) && ereg("^store-locator", $sl_dir)) || (ereg("wordpress-store-locator-location-finder", get_option('sl_map_end_icon')) && ereg("^store-locator", $sl_dir)))? "<div class='highlight' style='background-color:LightYellow;color:red'><span style='color:red'>".__("You have switched from <strong>'wordpress-store-locator-location-finder'</strong> to <strong>'store-locator'</strong> --- great!<br>Now, please re-select your <b>'Home Icon'</b> and <b>'Destination Icon'</b> below, so that they show up properly on your store locator map.", $text_domain)."</span></div>" : "" ;
 	
 print "
-    <tr><td colspan='1' width='40%' class='left_side'><h2>".__("Defaults", $text_domain)."</h2>
+    <tr><td colspan='1' width='40%' class='left_side'><h3>".__("Defaults", $text_domain)."</h3>
     <table class='map_designer_section'><tr><td>".__("Choose Default Map Type Shown to Visitors", $text_domain).":</td>
     <td><select name='sl_map_type'>\n".$map_type_options."</select></td></tr>
     
@@ -143,7 +242,7 @@ print "
     </td><!--/tr-->
     <!--tr><td>".__("Allow User Search By Name of Location?", $text_domain).":</td>
     <td><input name='sl_use_name_search' value='1' type='checkbox' $checked2></td></tr-->
-    <!--tr--><td colspan='1' width='60%'><h2>".__("Labels", $text_domain)."</h2>
+    <!--tr--><td colspan='1' width='60%'><h3>".__("Labels", $text_domain)."</h3>
     <table class='map_designer_section right_side'>
     <tr><td>".__("Address Input Label", $text_domain).":</td>
     <td><input name='search_label' value=\"$search_label\"></td></tr>
@@ -156,7 +255,7 @@ print "
     </tr></table>
     
     </td></tr>
-    <tr><td colspan='1' class='left_side'><h2>".__("Dimensions", $text_domain)."</h2>
+    <tr><td colspan='1' class='left_side'><h3>".__("Dimensions", $text_domain)."</h3>
     <table class='map_designer_section'><tr><td><nobr>".__("Zoom Level", $text_domain).":</nobr></td>
     <td>$zoom</td></tr>
     <tr><td><nobr>".__("Map Height", $text_domain).":</nobr></td>
@@ -178,7 +277,7 @@ foreach ($the_distance_unit as $key=>$value) {
 print "</select></td></tr></table>
     
     </td><!--/tr>
-    <tr--><td colspan='1'><h2>".__("Design", $text_domain)."</h2>
+    <tr--><td colspan='1'><h3>".__("Design", $text_domain)."</h3>
     $icon_notification_msg
     <table class='map_designer_section right_side'><tr>
     <tr><td valign='top'>".__("Choose Theme", $text_domain)."</td><td valign='top'> <select name='theme' onchange=\"\"><option value=''>".__("No Theme Selected", $text_domain)."</option>$theme_str</select>&nbsp;&nbsp;&nbsp;<a href='http://www.viadat.com/products-page/store-locator-themes/' target='_blank'>".__("Get&nbsp;Themes", $text_domain)." &raquo;</a></td></tr>

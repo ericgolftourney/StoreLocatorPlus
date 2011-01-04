@@ -21,7 +21,9 @@ initialize_variables();
 
 $slak=$slplus_plugin->driver_args['api_key'];
 if (!$slak) {
-	include("api-key.php");
+    print '<div class="wrap">';
+	print 'Google API Key needs to be set to activate this feature.';
+	print '</div>';
 } else {
 
 	// If delete link is clicked
