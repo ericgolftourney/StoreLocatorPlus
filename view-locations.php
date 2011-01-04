@@ -38,9 +38,10 @@ if (!$slak) {
 
     // Edit, any form
     //
-	if ($_POST && 
-	    isset($_GET['edit']) && $_GET['edit'] && 
-	    isset($_POST['act']) && ($_POST['act']!="delete") ) {
+	if ($_POST                                                  && 
+	    (isset($_GET['edit']) && $_GET['edit'])                 &&
+	    (!isset($_POST['act']) || (isset($_POST['act']) && ($_POST['act']!="delete"))) 
+	    ) {
 		foreach ($_POST as $key=>$value) {
 			if (ereg("\-$_GET[edit]", $key)) {
 				$field_value_str.="sl_".ereg_replace("\-$_GET[edit]", "", $key)."='".
@@ -186,14 +187,14 @@ if (get_option('sl_location_table_view')!="Normal") {
             "&o=sl_image&d=$d'>".__("Image", $text_domain)."</a></th>";
 }
 
-$locID = $value['sl_id'];
 print "<th>(Lat, Lon)</th></tr></thead>";
 
-	if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix . 
-            "store_locator  $where ORDER BY $o $d LIMIT $start,$num_per_page", ARRAY_A)) {
+if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix . 
+        "store_locator  $where ORDER BY $o $d LIMIT $start,$num_per_page", ARRAY_A)) {
 		
         $bgcol = '#eee';
 		foreach ($locales as $value) {
+		    $locID = $value['sl_id'];
 			$bgcol=($bgcol=="#eee")?"#fff":"#eee";			
 			$bgcol=($value['sl_latitude']=="" || $value['sl_longitude']=="")? "salmon" : $bgcol;			
 			$value=array_map("trim",$value);
@@ -202,73 +203,73 @@ print "<th>(Lat, Lon)</th></tr></thead>";
 				print "<tr style='background-color:$bgcol'>";
 	            $colspan=(get_option('sl_location_table_view')!="Normal")? 	16 : 11;	
 				
-	print "<td colspan='$colspan'><form name='manualAddForm' method=post>
-	<a name='a".$locID."'></a>
-	<table cellpadding='0' class='manual_update_table'>
-	<!--thead><tr><td>".__("Type&nbsp;Address", $text_domain)."</td></tr></thead-->
-	<tr>
-		<td valign='top'>";
-
-execute_and_output_template('edit_location_address.php');
-
-print "<br>
-        <nobr><input type='submit' value='".__("Update", $text_domain)."' class='button-primary'><input type='button' class='button' value='".__("Cancel", $text_domain)."' onclick='location.href=\"".ereg_replace("&edit=$_GET[edit]", "",$_SERVER['REQUEST_URI'])."\"'></nobr>
-    </td><td>
-		<b>".__("Additional Information", $text_domain)."</b><br>
-		<textarea name='description-$locID' rows='5' cols='17'>$value[sl_description]</textarea>&nbsp;<small>".__("Description", $text_domain)."</small><br>
-		<input name='tags-$locID' value='$value[sl_tags]'>&nbsp;<small>".__("Tags (seperate with commas)", $text_domain)."</small><br>		
-		<input name='url-$locID' value='$value[sl_url]'>&nbsp;<small>".__("URL", $text_domain)."</small><br>
-		<input name='hours-$locID' value='$value[sl_hours]'>&nbsp;<small>".__("Hours", $text_domain)."</small><br>
-		<input name='phone-$locID' value='$value[sl_phone]'>&nbsp;<small>".__("Phone", $text_domain)."</small><br>
-		<input name='image-$locID' value='$value[sl_image]'>&nbsp;<small>".__("Image URL (shown with location)", $text_domain)."</small><br><br>
-	</td>
-		</tr>
-	</table>
-</form></td>
-</tr>";
+                print "<td colspan='$colspan'><form name='manualAddForm' method=post>
+                <a name='a".$locID."'></a>
+                <table cellpadding='0' class='manual_update_table'>
+                <!--thead><tr><td>".__("Type&nbsp;Address", $text_domain)."</td></tr></thead-->
+                <tr>
+                    <td valign='top'>";
+                
+                execute_and_output_template('edit_location_address.php');
+                
+                print "<br>
+                        <nobr><input type='submit' value='".__("Update", $text_domain)."' class='button-primary'><input type='button' class='button' value='".__("Cancel", $text_domain)."' onclick='location.href=\"".ereg_replace("&edit=$_GET[edit]", "",$_SERVER['REQUEST_URI'])."\"'></nobr>
+                    </td><td>
+                        <b>".__("Additional Information", $text_domain)."</b><br>
+                        <textarea name='description-$locID' rows='5' cols='17'>$value[sl_description]</textarea>&nbsp;<small>".__("Description", $text_domain)."</small><br>
+                        <input name='tags-$locID' value='$value[sl_tags]'>&nbsp;<small>".__("Tags (seperate with commas)", $text_domain)."</small><br>		
+                        <input name='url-$locID' value='$value[sl_url]'>&nbsp;<small>".__("URL", $text_domain)."</small><br>
+                        <input name='hours-$locID' value='$value[sl_hours]'>&nbsp;<small>".__("Hours", $text_domain)."</small><br>
+                        <input name='phone-$locID' value='$value[sl_phone]'>&nbsp;<small>".__("Phone", $text_domain)."</small><br>
+                        <input name='image-$locID' value='$value[sl_image]'>&nbsp;<small>".__("Image URL (shown with location)", $text_domain)."</small><br><br>
+                    </td>
+                        </tr>
+                    </table>
+                </form></td>
+                </tr>";
 			} else {
-			$value['sl_url']=(!url_test($value['sl_url']) && trim($value['sl_url'])!="")? 
+                $value['sl_url']=(!url_test($value['sl_url']) && trim($value['sl_url'])!="")? 
                     "http://".$value['sl_url'] : 
                     $value['sl_url'] ;
-			$value['sl_url']=($value['sl_url']!="")? 
+                $value['sl_url']=($value['sl_url']!="")? 
                     "<a href='$value[sl_url]' target='blank'>".__("View", $text_domain)."</a>" : 
                     "" ;
-			$value['sl_image']=($value['sl_image']!="")? 
+                $value['sl_image']=($value['sl_image']!="")? 
                     "<a href='$value[sl_image]' target='blank'>".__("View", $text_domain)."</a>" : 
                     "" ;
-			$value['sl_description']=($value['sl_description']!="")? 
+                $value['sl_description']=($value['sl_description']!="")? 
                     "<a onclick='alert(\"".comma($value['sl_description'])."\")' href='#'>".
                     __("View", $text_domain)."</a>" : 
                     "" ;
-			
-			print "<tr style='background-color:$bgcol'>
-			<th><input type='checkbox' name='sl_id[]' value='$locID'></th>
-			<th><a href='".ereg_replace("&edit=".(isset($_GET['edit'])?$_GET['edit']:''), "",$_SERVER['REQUEST_URI']).
+                
+                print "<tr style='background-color:$bgcol'>
+                <th><input type='checkbox' name='sl_id[]' value='$locID'></th>
+                <th><a href='".ereg_replace("&edit=".(isset($_GET['edit'])?$_GET['edit']:''), "",$_SERVER['REQUEST_URI']).
                 "&edit=" . $locID ."#a$locID'>".__("Edit", $text_domain).
                 "</a>&nbsp;|&nbsp;<a href='".$_SERVER['REQUEST_URI']."&delete=$locID' " .
                 "onclick=\"confirmClick('Sure?', this.href); return false;\">".
                 __("Delete", $text_domain)."</a></th>
-			<th> $locID </th>
-			<td> $value[sl_store] </td>
-<td>$value[sl_address]</td>
-<td>$value[sl_address2]</td>
-<td>$value[sl_city]</td>
-<td>$value[sl_state]</td>
-<td>$value[sl_zip]</td>
-<td>$value[sl_tags]</td>";
-
-if (get_option('sl_location_table_view')!="Normal") {
-    print "<td>$value[sl_description]</td>
-    <td>$value[sl_url]</td>
-    <td>$value[sl_hours]</td>
-    <td>$value[sl_phone]</td>
-    <td>$value[sl_image]</td>";
-}
-
-print "<td>(".$value['sl_latitude'].",&nbsp;".$value['sl_longitude'].")</td> </tr>";
+                <th> $locID </th>
+                <td> $value[sl_store] </td>
+                <td>$value[sl_address]</td>
+                <td>$value[sl_address2]</td>
+                <td>$value[sl_city]</td>
+                <td>$value[sl_state]</td>
+                <td>$value[sl_zip]</td>
+                <td>$value[sl_tags]</td>";
+                
+                if (get_option('sl_location_table_view')!="Normal") {
+                    print "<td>$value[sl_description]</td>
+                    <td>$value[sl_url]</td>
+                    <td>$value[sl_hours]</td>
+                    <td>$value[sl_phone]</td>
+                    <td>$value[sl_image]</td>";
+                }
+                
+                print "<td>(".$value['sl_latitude'].",&nbsp;".$value['sl_longitude'].")</td> </tr>";
 			}
 		}
-	} else {
+} else {
 		$notice=($_GET[q]!="")? 
                 __("No Locations Showing for this Search of ", $text_domain).
                     "<b>\"$_GET[q]\"</b>. $view_link" : 
