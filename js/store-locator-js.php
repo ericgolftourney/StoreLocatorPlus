@@ -1,6 +1,6 @@
 <?php
 header("Content-type: text/javascript");
-include($_SERVER[DOCUMENT_ROOT].'/wp-config.php');
+include($_SERVER['DOCUMENT_ROOT'].'/wp-config.php');
 include("../variables.sl.php");
 $zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;
 $mt=(trim(get_option('sl_map_type'))!="")? get_option('sl_map_type') : "G_NORMAL_MAP";
