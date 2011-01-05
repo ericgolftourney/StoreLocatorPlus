@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 header("Content-type: text/javascript");
 include($_SERVER['DOCUMENT_ROOT'].'/wp-config.php');
 include("../variables.sl.php");
