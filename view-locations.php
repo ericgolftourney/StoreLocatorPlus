@@ -155,7 +155,7 @@ set_query_defaults();
 		$start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
         //edit this to determine how many locations to view per page of 'Manage Locations' page
 		$num_per_page=$sl_admin_locations_per_page; 
-		if ($numMembers2!=0) {include("$sl_path/search-links.php");}
+		if ($numMembers2!=0) {include(SLPLUS_PLUGINDIR.'/search-links.php');}
 //end of for search links
 
 $opt = isset($_GET['o']) ? $_GET['o'] : '';
@@ -279,7 +279,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
 	}
 	print "</table>
 	<input name='act' type='hidden'><br>";
-if ($numMembers2!=0) {include("$sl_path/search-links.php");}
+if ($numMembers2!=0) {include(SLPLUS_PLUGINDIR.'/search-links.php');}
 
 print "</form>";
 	
