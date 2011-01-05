@@ -49,6 +49,8 @@ if (defined('SLPLUS_PLUGINDIR')) {
  **/
 function csl_slplus_setup_admin_interface() {
     global $slplus_plugin;
+    
+    if (!isset($slplus_plugin)) { return; }
 
     //-------------------------
     // How to Use Section
