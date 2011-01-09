@@ -29,7 +29,7 @@ if (ereg($sl_upload_base, get_option('sl_map_home_icon'))){
 else {
 	$home_icon_path=ereg_replace($sl_base, $sl_path, get_option('sl_map_home_icon'));
 }
-$home_size=(function_exists(getimagesize) && file_exists($home_icon_path))? getimagesize($home_icon_path) : array(0 => 20, 1 => 34);
+$home_size=(function_exists('getimagesize') && file_exists($home_icon_path))? getimagesize($home_icon_path) : array(0 => 20, 1 => 34);
 print "var sl_map_home_icon_width=$home_size[0];\n";
 print "var sl_map_home_icon_height=$home_size[1];\n";
 
@@ -39,7 +39,7 @@ if (ereg($sl_upload_base, get_option('sl_map_end_icon'))){
 else {
 	$end_icon_path=ereg_replace($sl_base, $sl_path, get_option('sl_map_end_icon'));
 }
-$end_size=(function_exists(getimagesize) && file_exists($end_icon_path))? getimagesize($end_icon_path) : array(0 => 20, 1 => 34);
+$end_size=(function_exists('getimagesize') && file_exists($end_icon_path))? getimagesize($end_icon_path) : array(0 => 20, 1 => 34);
 //$end_size=($end_size[0]=="")? array(0 => 20, 1 => 34) : $end_size;
 print "var sl_map_end_icon_width=$end_size[0];\n";
 print "var sl_map_end_icon_height=$end_size[1];\n";
