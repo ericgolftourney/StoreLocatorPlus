@@ -4,10 +4,10 @@ Contributors: cybersprocket
 Donate link: http://www.cybersprocket.com/products/store-locator-plus/
 Tags: store locator, store locater, google, google maps, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus
 Requires at least: 3.0
-Tested up to: 3.0.3
-Stable tag: 1.3
+Tested up to: 3.0.4
+Stable tag: 1.4
 
-This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locactions.  Users search for stores within a specified radius, enter your address, or select a city or country from the pulldown.  Full admin panel data entry and management of stores.  
+This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locactions.    
 
 == Description ==
 
@@ -40,6 +40,7 @@ Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
 
 = Related Links =
 
+* <a href="http://redmine.cybersprocket.com/products/store-locator-plus/" title="Store Locator Plus Product Info" alt="Store Locator Plus Product Info">Store Locator Plus Product Info</a>
 * <a href="http://redmine.cybersprocket.com/projects/mc-closeststore/wiki" title="Store Locator Plus Support Pages" alt="Store Locator Plus Support Pages">Store Locator Plus Support Pages</a>
 * <a href="http://wordpress.org/extend/plugins/profile/cybersprocket" title="Other Cyber Sprocket Plugins" alt="Other Cyber Sprocket Plugins">Other Cyber Sprocket Plugins</a> 
 * <a href="http://www.cybersprocket.com/services/wordpress-developers/" title="Custom WordPress Development" alt="Custom WordPress Development">Custom WordPress Development</a>
@@ -68,7 +69,21 @@ folder over the default 'csl-slplus.css' file that is included.  This allows you
 to upgrade the main store locator plugin without worrying about losing your 
 custom styling. 
 
+== Screenshots ==
+
+1. Admin Menus
+2. Adding Locations
+3. Manage Locations
+4. Map Settings
+5. Default Search Form
+6. Search By Address
+7. Map Mouse Over
+
 == Changelog ==
+
+= 1.4  (January 2010) =
+
+* Removed Store Locator Plugin addons support, addons support causing problems.
 
 = 1.3  (December 2010) =
 
