@@ -9,9 +9,6 @@ function move_upload_directories() {
 	if (!is_dir($sl_upload_path)) {
 			mkdir($sl_upload_path, 0755);
 	}
-	if (is_dir($sl_path . "/addons") && !is_dir($sl_upload_path . "/addons")) {
-		copyr($sl_path . "/addons", $sl_upload_path . "/addons");
-	}
 	if (is_dir($sl_path . "/themes") && !is_dir($sl_upload_path . "/themes")) {
 		copyr($sl_path . "/themes", $sl_upload_path . "/themes");
 	}
@@ -618,14 +615,8 @@ function add_admin_javascript() {
         var sl_google_map_country='".get_option('sl_google_map_country')."';
         </script>\n";
         if (ereg("add-locations", (isset($_GET['page'])?$_GET['page']:''))) {
-            $google_map_domain=(get_option('sl_google_map_domain')!="")? get_option('sl_google_map_domain') : "maps.google.com";
-			
+            $google_map_domain=(get_option('sl_google_map_domain')!="")? get_option('sl_google_map_domain') : "maps.google.com";			
             print "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
-            if (file_exists($sl_upload_path."/addons/point-click-add/point-click-add.js")) {
-				print "<script src='".$sl_upload_base."/addons/point-click-add/point-click-add.js'></script>\n";
-			} elseif (file_exists($sl_path."/js/point-click-add.js")) {
-				print "<script src='".$sl_base."/js/point-click-add.js'></script>\n";
-			}
         }
 }
 

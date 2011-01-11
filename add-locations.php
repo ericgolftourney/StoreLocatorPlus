@@ -32,38 +32,6 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && ($_GET['mode']!="pca") )
             ". $view_link</div> <!--meta http-equiv='refresh' content='0'-->"; 
 }
 
-
-//Importing addresses from an local or remote database
-//
-if ( ( isset($_POST['remote']) && $_POST['remote'] && trim($_POST['query'])!="") ||        
-     ( isset($_POST['finish_import']) && $_POST['finish_import'])
-    ) {
-	if (ereg(".*\..{2,}", $_POST[server])) {
-		include($sl_upload_path."/addons/db-importer/remoteConnect.php");
-	}
-	else {
-        include($sl_path."/localImport.php");
-    }
-	if ($_POST[finish_import]!="1") {exit();}
-}
-
-//Importing CSV file of addresses
-//
-$newfile="temp-file.csv"; 
-$root = isset($root) ? $root : '';
-$target_path="$root/";
-$root=ABSPATH."wp-content/plugins/".dirname(plugin_basename(__FILE__));
-if (isset($_FILES['csv_import']) &&
-    move_uploaded_file($_FILES['csv_import']['tmp_name'], "$root/$newfile") && 
-    file_exists($sl_upload_path."/addons/csv-xml-importer-exporter/csvImport.php")
-    ) {
-	include($sl_upload_path."/addons/csv-xml-importer-exporter/csvImport.php");
-} 
-
-//If adding via the Point, Click, Add map (accepting AJAX)
-if (isset($_GET['mode']) && ($_GET['mode']=="pca")) {
-	include($sl_upload_path."/addons/point-click-add/pcaImport.php");
-}
 	
 $base=get_option('siteurl');
 
