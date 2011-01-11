@@ -4,31 +4,33 @@
  **
  ** Manage the view locations admin panel action.
  ***************************************************************************/
-?>
-<div class='wrap'>
-<?php
-$hidden="";
+
+$hidden='';
 foreach($_GET as $key=>$val) {
 	//hidden keys to keep same view after form submission
 	if ($key!="q" && $key!="o" && $key!="d" && $key!="changeView" && $key!="start") {
 		$hidden.="<input type='hidden' value='$val' name='$key'>\n"; 
 	}
 }
-print "<form><table cellpadding='0px' cellspacing='0px' width='100%'><tr><td>
-<h2>".__("Manage Locations", $text_domain)."</h2></td><td align='right'>".
-"<h2 style='float:right; padding-right:0px; width:100%'>".
-"<input value='".(isset($_GET['q'])?$_GET['q']:'')."' name='q'><input type='submit' value='".
-__("Search Locations", $text_domain).
-"' class='button-primary'></h2>$hidden</td></tr></table></form><br>";
 
-initialize_variables();
+// Header Text
+//
+print "<div class='wrap'><h2>".__("Manage Locations", $text_domain)."</h2>";
 
+
+// Check Google API Key
+// Not present : show message
+//
 $slak=$slplus_plugin->driver_args['api_key'];
 if (!$slak) {
-    print '<div class="wrap">';
-	print 'Google API Key needs to be set to activate this feature.';
-	print '</div>';
+	print '<a href="/wp-admin/options-general.php?page=csl-slplus-options">';
+	_e('Google API Key needs to be set to activate this feature.', $text_domain);
+	print '</a>';
+
+// Got key - show forms and listing
+//
 } else {
+    initialize_variables();  
 
 	// If delete link is clicked
 	if (isset($_GET['delete']) && ($_GET['delete']!='')) {
@@ -116,7 +118,20 @@ if (!$slak) {
 		$_SERVER['REQUEST_URI']=ereg_replace("&changeUpdater=1", "", $_SERVER['REQUEST_URI']);
 		print "<script>location.replace('".$_SERVER['REQUEST_URI']."');</script>";
 	}
-	
+
+
+  
+print "
+<div class='top_listing_bar'>
+    <div class='floatright'>
+    <form>
+        <input value='".(isset($_GET['q'])?$_GET['q']:'')."' name='q'>
+        <input type='submit' value='".__("Search Locations", $text_domain)."'>
+        $hidden
+    </form>
+    </div>
+</div>    
+";  	
 print "<form name='locationForm' method='post'>";
 print "<table width=100%><tr><td width='33%'><b>".__("Current View", $text_domain).":</b>&nbsp;".get_option('sl_location_table_view')."&nbsp;(<a href='".ereg_replace("&changeView=1", "", $_SERVER['REQUEST_URI'])."&changeView=1'>".__("Change View", $text_domain)."</a>)</td>
 <td width='33%' align='center'>
@@ -275,6 +290,4 @@ if ($numMembers2!=0) {include(SLPLUS_PLUGINDIR.'/search-links.php');}
 print "</form>";
 	
 }
-	
-?>
-</div>
+print "</div>";
