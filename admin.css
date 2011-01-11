@@ -82,3 +82,39 @@ div.feedburnerFeedBlock ul li span.headline {
 .left_side {
 	border-right:solid #ddd 1px;
 }
+
+/*** Generic Formatting ***/
+.floatright {
+    float: right;
+}
+.floatleft {
+    float: left;
+}
+
+
+/**** Manage Locations Page ****/
+.addloclink {
+    float: left;
+    text-align: left;
+    vertical-align: bottom;
+    padding-top: 9px;
+    width: 100px;
+}
+.perpage {
+    float: left;
+    text-align: left;
+    padding-top: 7px;
+    width: 200px;
+}
+.searchlocations {
+    float: right;
+    text-align:right;
+    width: 400px;
+}
+.viewtype {
+    float: left;
+    text-align: left;
+    vertical-align: bottom;
+    padding-top: 9px;
+    width: 90px;
+}
