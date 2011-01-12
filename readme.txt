@@ -83,6 +83,8 @@ custom styling.
 
 = 1.4  (January 2010) =
 
+* Make search work with address 2 field
+* Make map and search results output show address 2 field
 * Revamp manage locations header 
 * Removed Store Locator Plugin addons support, addons support causing problems.
 
