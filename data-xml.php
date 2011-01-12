@@ -17,9 +17,16 @@ if (!$db_selected) {
 }
 
 
-$num_initial_displayed=(trim(get_option('sl_num_initial_displayed'))!="")? get_option('sl_num_initial_displayed') : "25";
+$num_initial_displayed=(trim(get_option('sl_num_initial_displayed'))!="")? 
+    get_option('sl_num_initial_displayed') : 
+    "25";
+    
 // Select all the rows in the markers table
-$query = "SELECT sl_address, sl_store, sl_city, sl_state, sl_zip, sl_country, sl_latitude, sl_longitude, sl_description, sl_url, sl_hours, sl_phone, sl_image FROM ".$wpdb->prefix."store_locator WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>'' LIMIT $num_initial_displayed";
+$query = "SELECT sl_address, sl_address2, sl_store, sl_city, sl_state, ".
+    "sl_zip, sl_country, sl_latitude, sl_longitude, sl_description, sl_url, ".
+    "sl_hours, sl_phone, sl_image FROM ".$wpdb->prefix."store_locator ".
+    "WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>'' ".
+    "LIMIT $num_initial_displayed";
 
 $result = mysql_query($query);
 if (!$result) {
@@ -33,7 +40,11 @@ while ($row = @mysql_fetch_assoc($result)){
   // ADD TO XML DOCUMENT NODE
   echo '<marker ';
   echo 'name="' . parseToXML($row['sl_store']) . '" ';
-  echo 'address="' . parseToXML($row['sl_address']) . ', '. parseToXML($row['sl_city']). ', ' .parseToXML($row['sl_state']).' ' .parseToXML($row['sl_zip']).'" ';
+  echo 'address="' . 
+    parseToXML($row['sl_address']) . ', '.
+    parseToXML($row['sl_address2']) . ', '.  
+    parseToXML($row['sl_city']). ', ' .parseToXML($row['sl_state']).' ' .
+    parseToXML($row['sl_zip']).'" ';
   echo 'lat="' . $row['sl_latitude'] . '" ';
   echo 'lng="' . $row['sl_longitude'] . '" ';
   echo 'distance="' . $row['sl_distance'] . '" ';

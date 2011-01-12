@@ -15,7 +15,14 @@ foreach($_GET as $key=>$val) {
 
 // Header Text
 //
-print "<div class='wrap'><h2>".__("Manage Locations", $text_domain)."</h2>";
+print "<div class='wrap'>
+            <div id='icon-edit-locations' class='icon32'><br/></div>
+            <h2>".
+            __('Manage Locations', $text_domain).
+            " <a href='/wp-admin/admin.php?page=$sl_dir/add-locations.php' class='button add-new-h2>".
+            __('Add Locations',$text_domain). 
+            "</a></h2>";
+break;            
 
 
 // Check Google API Key
@@ -134,12 +141,7 @@ if (!$slak) {
 
     // Form Output  
     print "
-    <div class='top_listing_bar'>
-        <div class='addloclink'>
-            <a href='/wp-admin/admin.php?page=$sl_dir/add-locations.php'>".
-            __('Add Locations',$text_domain). "</a>
-        </div>
-        
+    <div class='top_listing_bar'>        
         <div class='viewtype'>".
             __("View", $text_domain).':'.
             "<a href='".ereg_replace("&changeView=1", "", $_SERVER['REQUEST_URI'])."&changeView=1'>".                    
@@ -174,8 +176,13 @@ if (!$slak) {
     </div>";
     
 
-    include("mgmt-buttons-links.php");
-
+    print "<table width='100%' cellpadding='5px' cellspacing='0' style='border:solid silver 1px' id='rightnow' class='widefat'>
+    <thead><tr>
+    <td style='/*background-color:#000;*/ width:20%'><input class='button' type='button' value='".__("Delete Selected", $text_domain)."' onclick=\"if(confirm('".__("You sure", $text_domain)."?')){LF=document.forms['locationForm'];LF.act.value='delete';LF.submit();}else{return false;}\"></td>";
+    print "<td style='/*background-color:#000;*/ width:73%; text-align:right; color:white'>";
+    print "<strong>".__("Tags", $text_domain)."</strong>&nbsp;<input name='sl_tags'>&nbsp;<input class='button' type='button' value='".__("Tag Selected", $text_domain)."' onclick=\"LF=document.forms['locationForm'];LF.act.value='add_tag';LF.submit();\">&nbsp;<input class='button' type='button' value='".__("Remove Tag From Selected", $text_domain)."' onclick=\"if(confirm('".__("You sure", $text_domain)."?')){LF=document.forms['locationForm'];LF.act.value='remove_tag';LF.submit();}else{return false;}\">";
+    print "</td></tr></thead></table>
+    ";
     set_query_defaults();
 
     //for search links

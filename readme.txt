@@ -83,6 +83,7 @@ custom styling.
 
 = 1.4  (January 2010) =
 
+* Revamp manage locations header 
 * Removed Store Locator Plugin addons support, addons support causing problems.
 
 = 1.3  (December 2010) =

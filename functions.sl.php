@@ -429,7 +429,8 @@ function ajax_map($content) {
 		$width_units=(get_option('sl_map_width_units'))? 
                 get_option('sl_map_width_units') : "%";
 		$sl_instruction_message=(get_option('sl_instruction_message'))? 
-                get_option('sl_instruction_message') : "Enter Your Address or Zip Code Above.";
+                get_option('sl_instruction_message') : 
+                "Enter Your Address or Zip Code Above.";
 	
 		$r_array=explode(",", $radii);
 		$search_label=(get_option('sl_search_label'))? 
@@ -495,10 +496,18 @@ function ajax_map($content) {
 		$theme_path=$sl_path."/images";
 	}
 	$sub_img=$theme_base."/search_button.png";
-	$mousedown=(file_exists($theme_path."/search_button_down.png"))? "onmousedown=\"this.src='$theme_base/search_button_down.png'\" onmouseup=\"this.src='$theme_base/search_button.png'\"" : "";
-	$mouseover=(file_exists($theme_path."/search_button_over.png"))? "onmouseover=\"this.src='$theme_base/search_button_over.png'\" onmouseout=\"this.src='$theme_base/search_button.png'\"" : "";
-	$button_style=(file_exists($theme_path."/search_button.png"))? "type='image' src='$sub_img' $mousedown $mouseover" : "type='submit'";
-	$hide=(get_option('sl_remove_credits')==1)? "style='display:none;'" : "";
+	$mousedown=(file_exists($theme_path."/search_button_down.png"))? 
+	    "onmousedown=\"this.src='$theme_base/search_button_down.png'\" onmouseup=\"this.src='$theme_base/search_button.png'\"" : 
+	    "";
+	$mouseover=(file_exists($theme_path."/search_button_over.png"))? 
+	    "onmouseover=\"this.src='$theme_base/search_button_over.png'\" onmouseout=\"this.src='$theme_base/search_button.png'\"" : 
+	    "";
+	$button_style=(file_exists($theme_path."/search_button.png"))? 
+	    "type='image' src='$sub_img' $mousedown $mouseover" : 
+	    "type='submit'";
+	$hide=(get_option('sl_remove_credits')==1)? 
+	    "style='display:none;'" : 
+	    "";
 
 	$columns = 1;
 	$columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;
@@ -632,10 +641,15 @@ function set_query_defaults() {
 	
 	$qry = isset($_GET['q']) ? $_GET['q'] : '';
 	$where=($qry!='')? 
-	        " WHERE sl_store LIKE '%$qry%' OR sl_address ".
-	        "LIKE '%$qry%' OR sl_city LIKE '%$qry%' OR sl_state ".
-	        "LIKE '%$qry%' OR sl_zip LIKE '%$qry%' OR sl_tags LIKE ".
-	        "'%$qry%'" : 
+	        " WHERE ".
+	        "sl_store    LIKE '%$qry%' OR ".
+	        "sl_address  LIKE '%$qry%' OR ".
+	        "sl_address2 LIKE '%$qry%' OR ".
+	        "sl_city     LIKE '%$qry%' OR ".
+	        "sl_state    LIKE '%$qry%' OR ".
+	        "sl_zip      LIKE '%$qry%' OR ".
+	        "sl_tags     LIKE '%$qry%' " 
+	        : 
 	        '' ;
 	$o= (isset($_GET['o']) && (trim($_GET['o']) != ''))
 	    ? $_GET['o'] : "sl_store";
@@ -718,7 +732,7 @@ function insert_matched_data() {
 		}
 		$value_string=substr($value_string,0, strlen($value_string)-1);
 		$wpdb->query("INSERT INTO ".$wpdb->prefix."store_locator ($selected_fields) VALUES ($value_string)");
-		$for_geo=$wpdb->get_results("SELECT CONCAT(sl_address, ', ', sl_city, ', ', sl_state, ' ', sl_zip) as the_address FROM ".$wpdb->prefix."store_locator WHERE sl_id='".mysql_insert_id()."'", ARRAY_A);
+		$for_geo=$wpdb->get_results("SELECT CONCAT(sl_address, ', ',sl_address2,', ', sl_city, ', ', sl_state, ' ', sl_zip) as the_address FROM ".$wpdb->prefix."store_locator WHERE sl_id='".mysql_insert_id()."'", ARRAY_A);
 		do_geocoding($for_geo[0][the_address]);
 		$value_string="";
 

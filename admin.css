@@ -1,3 +1,10 @@
+/***************************
+ * Manage Locations Form
+ */
+
+#icon-edit-locations, #icon-locations {
+    background: url("/wp-content/plugins/closes-store/icon_location.png") no-repeat scroll -312px -5px transparent;
+}
 .add_location_form label {
     width: 120px;
     float: left;

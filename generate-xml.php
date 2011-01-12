@@ -28,7 +28,13 @@ $multiplier=3959;
 $multiplier=(get_option('sl_distance_unit')=="km")? ($multiplier*1.609344) : $multiplier;
 
 // Select all the rows in the markers table
-$query = sprintf("SELECT sl_address, sl_store, sl_city, sl_state, sl_zip, sl_country, sl_latitude, sl_longitude, sl_description, sl_url, sl_hours, sl_phone, sl_image,( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance FROM ".$wpdb->prefix."store_locator HAVING sl_distance < '%s' ORDER BY sl_distance",
+$query = sprintf(
+  "SELECT sl_address, sl_address2, sl_store, sl_city, sl_state, sl_zip, ".
+  "sl_country, sl_latitude, sl_longitude, sl_description, sl_url, sl_hours, ".
+  "sl_phone, sl_image,".
+  "( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
+  "FROM ".$wpdb->prefix."store_locator HAVING sl_distance < '%s' ".
+  "ORDER BY sl_distance",
   mysql_real_escape_string($center_lat),
   mysql_real_escape_string($center_lng),
   mysql_real_escape_string($center_lat),
@@ -48,7 +54,11 @@ while ($row = @mysql_fetch_assoc($result)){
   // ADD TO XML DOCUMENT NODE
   echo '<marker ';
   echo 'name="' . parseToXML($row['sl_store']) . '" ';
-  echo 'address="' . parseToXML($row['sl_address']) . ', '. parseToXML($row['sl_city']). ', ' .parseToXML($row['sl_state']).' ' .parseToXML($row['sl_zip']).'" ';
+  echo 'address="' . 
+        parseToXML($row['sl_address']) . ', '. 
+        parseToXML($row['sl_address2']) . ', '.
+        parseToXML($row['sl_city']). ', ' .parseToXML($row['sl_state']).' ' .
+        parseToXML($row['sl_zip']).'" ';
   echo 'lat="' . $row['sl_latitude'] . '" ';
   echo 'lng="' . $row['sl_longitude'] . '" ';
   echo 'distance="' . $row['sl_distance'] . '" ';

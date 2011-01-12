@@ -40,7 +40,6 @@ else {
 	$end_icon_path=ereg_replace($sl_base, $sl_path, get_option('sl_map_end_icon'));
 }
 $end_size=(function_exists('getimagesize') && file_exists($end_icon_path))? getimagesize($end_icon_path) : array(0 => 20, 1 => 34);
-//$end_size=($end_size[0]=="")? array(0 => 20, 1 => 34) : $end_size;
 print "var sl_map_end_icon_width=$end_size[0];\n";
 print "var sl_map_end_icon_height=$end_size[1];\n";
-?>
+

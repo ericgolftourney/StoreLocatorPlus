@@ -173,14 +173,30 @@ function createMarker(point, name, address, homeAddress, description, url, hours
   if (hours!="") {more_html+="<br/><span class='location_detail_label'>Hours:</span> "+hours;} else {hours=""}
   if (phone!="") {more_html+="<br/><span class='location_detail_label'>Phone:</span> "+phone;} else {phone=""}
   
-    var street = address.split(',')[0]; if (street.split(' ').join('')!=""){street+='<br/>';}else{street="";}
-    var city = address.split(',')[1]; if (city.split(' ').join('')!=""){city+=', ';}else{city="";}
-    var state_zip = address.split(',')[2]; 	  
+    var street    = address.split(',')[0]; 
+        if (street.split(' ').join('')!=""){
+            street+='<br/>';
+        }else{
+            street="";
+        }
+    var street2   = address.split(',')[1]; 
+        if (street2.split(' ').join('')!=""){
+            street2+='<br/>';
+        }else{
+            street2="";
+        }
+    var city      = address.split(',')[2]; 
+        if (city.split(' ').join('')!=""){
+            city+=', ';
+        }else{
+            city="";
+        }
+    var state_zip = address.split(',')[3]; 	  
   
   if (homeAddress.split(" ").join("")!="") {
-    var html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + name + '</strong><br>' + street + city + state_zip + '<br/> <a href="http://' + sl_google_map_domain + '/maps?saddr=' + encodeURIComponent(homeAddress) + '&daddr=' + encodeURIComponent(address) + '" target="_blank" class="storelocatorlink">Directions</a> ' + more_html + '<br/><!--/td></tr--></div>'; 
+    var html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + name + '</strong><br>' + street + street2 + city + state_zip + '<br/> <a href="http://' + sl_google_map_domain + '/maps?saddr=' + encodeURIComponent(homeAddress) + '&daddr=' + encodeURIComponent(address) + '" target="_blank" class="storelocatorlink">Directions</a> ' + more_html + '<br/><!--/td></tr--></div>'; 
   } else {
-    var html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + name + '</strong><br>' + street + city + state_zip + '<br/> <a href="http://' + sl_google_map_domain + '/maps?q=' + encodeURIComponent(address) + '" target="_blank" class="storelocatorlink">Map</a> ' + more_html + '<!--/td></tr--></div>';
+    var html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + name + '</strong><br>' + street + street2 + city + state_zip + '<br/> <a href="http://' + sl_google_map_domain + '/maps?q=' + encodeURIComponent(address) + '" target="_blank" class="storelocatorlink">Map</a> ' + more_html + '<!--/td></tr--></div>';
   }
   GEvent.addListener(marker, 'click', function() {
     marker.openInfoWindowHtml(html);
@@ -197,8 +213,15 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url,ph
     document.getElementById('map_sidebar_td').style.display='block';
       var div = document.createElement('div');
       var street = address.split(',')[0]; 
-      var city = address.split(',')[1]; if (city.split(' ').join('')!=""){city+=', ';}else{city="";}
-      var state_zip = address.split(',')[2]; 
+      var street2 = address.split(',')[1]; 
+      var city = address.split(',')[2]; 
+        if (city.split(' ').join('')!=""){
+            city+=', ';
+        }else{
+            city="";
+        }
+      var state_zip = address.split(',')[3];
+      
       if(url.indexOf("http://")==-1) {url="http://"+url;} 
       if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {link="<a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + sl_website_label +"</nobr></a>&nbsp;|&nbsp;"} else {url=""; link="";}
       
@@ -207,8 +230,11 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url,ph
                     '<td class="results_row_left_column">' +
                         '<span class="location_name">' + name + '</span><br>' + 
                         distance.toFixed(1) + ' ' + sl_distance_unit + '</td>' +
-                    '<td class="results_row_center_column">' + street + '<br/>' + city + state_zip +'<br/>'+
-                    phone +
+                    '<td class="results_row_center_column">' + 
+                        street + '<br/>' + 
+                        street2 + '<br/>' + 
+                        city + state_zip +'<br/>'+
+                        phone +
                     '</td>' +
                     '<td class="results_row_right_column">' + link + 
                         '<a href="http://' + sl_google_map_domain + 
