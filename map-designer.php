@@ -14,41 +14,42 @@ if (!$_POST) {
     move_upload_directories();
     
 } else {
-    update_option('sl_language', $_POST[sl_language]);    
-    $sl_google_map_arr=explode(":", $_POST[google_map_domain]);
+    update_option('sl_language', $_POST['sl_language']);    
+    $sl_google_map_arr=explode(":", $_POST['google_map_domain']);
     update_option('sl_google_map_country', $sl_google_map_arr[0]);
     update_option('sl_google_map_domain', $sl_google_map_arr[1]);
-    update_option('sl_map_character_encoding', $_POST[sl_map_character_encoding]);
+    update_option('sl_map_character_encoding', $_POST['sl_map_character_encoding']);
     
-    $_POST[height]=ereg_replace("[^0-9]", "", $_POST[height]);
-    $_POST[width]=ereg_replace("[^0-9]", "", $_POST[width]);
-    update_option('sl_map_height', $_POST[height]);
-    update_option('sl_map_width', $_POST[width]);
-    update_option('sl_map_radii', $_POST[radii]);
-    update_option('sl_map_height_units', $_POST[height_units]);
-    update_option('sl_map_width_units', $_POST[width_units]);
-    update_option('sl_map_home_icon', $_POST[icon]);
-    update_option('sl_map_end_icon', $_POST[icon2]);
-    update_option('sl_map_theme', $_POST[theme]);
-    update_option('sl_search_label', $_POST[search_label]);
-    update_option('sl_radius_label', $_POST[sl_radius_label]);
-    update_option('sl_website_label', $_POST[sl_website_label]);
-    update_option('sl_instruction_message', $_POST[sl_instruction_message]);
-    update_option('sl_zoom_level', $_POST[zoom_level]);
-    $_POST[sl_use_city_search]=($_POST[sl_use_city_search]=="")? 0 : $_POST[sl_use_city_search];
-    update_option('sl_use_city_search', $_POST[sl_use_city_search]);
-    $_POST[sl_use_country_search]=($_POST[sl_use_country_search]=="")? 0 : $_POST[sl_use_country_search];
-    update_option('sl_use_country_search', $_POST[sl_use_country_search]);
-    $_POST[sl_remove_credits]=($_POST[sl_remove_credits]=="")? 0 : $_POST[sl_remove_credits];
-    update_option('sl_remove_credits', $_POST[sl_remove_credits]);
-    $_POST[sl_load_locations_default]=($_POST[sl_load_locations_default]=="")? 0 : $_POST[sl_load_locations_default];
-    update_option('sl_load_locations_default', $_POST[sl_load_locations_default]);
-    update_option('sl_map_type', $_POST[sl_map_type]);
-    update_option('sl_num_initial_displayed', $_POST[sl_num_initial_displayed]);
-    update_option('sl_map_overview_control', $_POST[sl_map_overview_control]);
-    update_option('sl_distance_unit', $_POST[sl_distance_unit]);
+    $_POST['height']=ereg_replace("[^0-9]", "", $_POST['height']);
+    $_POST['width']=ereg_replace("[^0-9]", "", $_POST['width']);
+    update_option('sl_map_height', $_POST['height']);
+    update_option('sl_map_width', $_POST['width']);
+    update_option('sl_map_radii', $_POST['radii']);
+    update_option('sl_map_height_units', $_POST['height_units']);
+    update_option('sl_map_width_units', $_POST['width_units']);
+    update_option('sl_map_home_icon', $_POST['icon']);
+    update_option('sl_map_end_icon', $_POST['icon2']);
+    update_option('sl_map_theme', $_POST['theme']);
+    update_option('sl_search_label', $_POST['search_label']);
+    update_option('sl_radius_label', $_POST['sl_radius_label']);
+    update_option('sl_website_label', $_POST['sl_website_label']);
+    update_option('sl_instruction_message', $_POST['sl_instruction_message']);
+    update_option('sl_zoom_level', $_POST['zoom_level']);
+    $_POST['sl_use_city_search']=($_POST['sl_use_city_search']=="")? 0 : $_POST['sl_use_city_search'];
+    update_option('sl_use_city_search', $_POST['sl_use_city_search']);
+    $_POST['sl_use_country_search']=($_POST['sl_use_country_search']=="")? 0 : $_POST['sl_use_country_search'];
+    update_option('sl_use_country_search', $_POST['sl_use_country_search']);
+    $_POST['sl_remove_credits']=($_POST['sl_remove_credits']=="")? 0 : $_POST['sl_remove_credits'];
+    update_option('sl_remove_credits', $_POST['sl_remove_credits']);
+    $_POST['sl_load_locations_default']=($_POST['sl_load_locations_default']=="")? 0 : $_POST['sl_load_locations_default'];
+    update_option('sl_load_locations_default', $_POST['sl_load_locations_default']);
+    update_option('sl_map_type', $_POST['sl_map_type']);
+    update_option('sl_num_initial_displayed', $_POST['sl_num_initial_displayed']);
+    update_option('sl_map_overview_control', $_POST['sl_map_overview_control']);
+    update_option('sl_distance_unit', $_POST['sl_distance_unit']);
     
-    print "<div class='highlight'>".__("Successful Update", $text_domain)." $view_link</div> <!--meta http-equiv='refresh' content='0'-->";
+    print "<div class='highlight'>".__("Successful Update", $text_domain).
+        " $view_link</div> <!--meta http-equiv='refresh' content='0'-->";
 }
 
 //---------------------------
