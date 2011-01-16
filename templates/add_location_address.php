@@ -1,4 +1,6 @@
-<?php ?>
+<?php 
+global $text_domain, $sl_upload_path;
+?>
 <table cellpadding='10px' cellspacing='0' style='width:100%' class='manual_add_table'>
     <tr>
         <td style='padding-top:0px;' valign='top'>
@@ -26,7 +28,10 @@
                 
                             <label  for='sl_country'><?php _e('Country', $text_domain);?></label>
                             <input name='sl_country'><br/>
+                            <br/>
+                            <input type='submit' value='<?php _e("Add Location", $text_domain);?>' class='button-primary'>
                             </div>
+                            
                         </td>
                     </tr>
                 </table>
