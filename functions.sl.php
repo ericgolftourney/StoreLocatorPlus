@@ -537,7 +537,7 @@ function ajax_map($content) {
             </div>
    </div></td>
    </tr><tr>
-	 <td id='radius_label'>".__("$sl_radius_label", $text_domain)."</td>
+	 <td id='radius_label'>".__($sl_radius_label, $text_domain)."</td>
 	 <td id='radiusSelect_td'>
 	     <div id='radius_input'>
 	         <div id='radius_in_select'>
