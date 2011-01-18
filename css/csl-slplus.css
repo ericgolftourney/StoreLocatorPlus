@@ -73,12 +73,10 @@ border: none;
 
 #map_box_image {
     display: block; 
-/*    display: none; */
 }
 
 #map_box_map {
     display: none;
-/*    display: block; */ 
 }
 
 
