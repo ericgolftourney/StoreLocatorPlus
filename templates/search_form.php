@@ -53,7 +53,7 @@
 $sl_starting_image=get_option('sl_starting_image');
 if ($sl_starting_image != '') {    
 ?>
-            <div id='map_box_image'>      
+            <div id='map_box_image' style='width:<?=$width?><?=$width_units?>; height:<?=$height?><?=$height_units?>'>      
                 <img src='<?php echo SLPLUS_PLUGINURL."$sl_starting_image"; ?>'>
             </div>
             <div id='map_box_map'>

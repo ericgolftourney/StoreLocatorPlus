@@ -72,13 +72,13 @@ border: none;
  **/
 
 #map_box_image {
-    visibility: visible;
-    display: block;
+    display: block; 
+/*    display: none; */
 }
 
 #map_box_map {
-    visibility: hidden;
     display: none;
+/*    display: block; */ 
 }
 
 

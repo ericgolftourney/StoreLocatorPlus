@@ -80,6 +80,10 @@ function searchLocations() {
             }
         }
     );
+    
+    jQuery('#map_box_image').hide();
+    jQuery('#map_box_map').show();
+    map.checkResize();
 }
 
 
