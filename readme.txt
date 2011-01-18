@@ -17,15 +17,15 @@ specified radius, enter your address, or select a city or country from the
 pulldown.  Full admin panel data entry and management of stores from a few to
 a few thousand.
 
-= Great Built-In Functionality & Features =
+= Features =
 
-* You can use it for numerous countries, which will continue to be added as Google adds new countries to their Google Maps API.  See the documentation for the latest
+* You can use it for a variety of countries, as supported by Google Maps.
 * Supports international languages and character sets.
 * Allows you to use unique map icons or your own custom map icons.
 * Tweak the map settings via the admin panel including:
-** Map type (terrain, satellite, street, etc.)
-** Inset map
-** Starting zoom level
+* *Map type (terrain, satellite, street, etc.)*
+* *Inset map*
+* *Starting zoom level*
 * You can use miles or kilometers
 * Pulldown list of cities and/or countries on search form can be toggled on/off.
 
@@ -40,12 +40,17 @@ Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
 
 = Related Links =
 
-* <a href="http://redmine.cybersprocket.com/products/store-locator-plus/" title="Store Locator Plus Product Info" alt="Store Locator Plus Product Info">Store Locator Plus Product Info</a>
-* <a href="http://redmine.cybersprocket.com/projects/mc-closeststore/wiki" title="Store Locator Plus Support Pages" alt="Store Locator Plus Support Pages">Store Locator Plus Support Pages</a>
-* <a href="http://wordpress.org/extend/plugins/profile/cybersprocket" title="Other Cyber Sprocket Plugins" alt="Other Cyber Sprocket Plugins">Other Cyber Sprocket Plugins</a> 
-* <a href="http://www.cybersprocket.com/services/wordpress-developers/" title="Custom WordPress Development" alt="Custom WordPress Development">Custom WordPress Development</a>
+* [Store Locator Plus Product Info](http://redmine.cybersprocket.com/products/store-locator-plus/)
+* [Store Locator Plus Support Pages](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki)
+* [Other Cyber Sprocket Plugins](http://wordpress.org/extend/plugins/profile/cybersprocket/) 
+* [Custom WordPress Development](http://www.cybersprocket.com/services/wordpress-developers/)
 
 == Installation ==
+
+= Requirements =
+
+* PHP 5.1+
+* SimpleXML enabled (must be enabled manually during install for PHP versions before 5.1.2)
 
 = Main Plugin =
 
@@ -69,6 +74,23 @@ folder over the default 'csl-slplus.css' file that is included.  This allows you
 to upgrade the main store locator plugin without worrying about losing your 
 custom styling. 
 
+== Frequently Asked Questions ==
+
+= Why a license fee? =
+
+It helps us support the product and provide regular updates.
+
+= Are there any other fees? =
+
+No, just the initial license fee.  Upgrades are free.  
+
+= What are the terms of the license? =
+
+The license is based on GPL.  You get the code, feel free to modify it as you
+wish.  We prefer that our customers pay us because they like what we do and 
+want to support our efforts to bring useful software to market.  Learn more
+on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commercial-products/wiki/Cyber_Sprocket_Labs_Licensing_Terms "CSL License Terms page").
+
 == Screenshots ==
 
 1. Admin Menus
@@ -78,16 +100,6 @@ custom styling.
 5. Default Search Form
 6. Search By Address
 7. Map Mouse Over
-
-== Frequently Asked Questions ==
-
-Why a license fee?
-
-It helps us support the product and provide regular updates.
-
-== Upgrade Notice ==
-
-This upgrade has no special instructions.
 
 == Changelog ==
 
@@ -109,8 +121,9 @@ This upgrade has no special instructions.
 
 * Add country field to address data.
 * Clean up various coding errors since WordPress 3.0 release
-** Deprecated function calls
-** non-quoted array references
 * Initial release based on Google Maps Store Locator for WordPress v1.2.39.3
 
+== Upgrade Notice ==
+
+This upgrade has no special instructions.
 
