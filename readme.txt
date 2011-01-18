@@ -79,6 +79,16 @@ custom styling.
 6. Search By Address
 7. Map Mouse Over
 
+== Frequently Asked Questions ==
+
+Why a license fee?
+
+It helps us support the product and provide regular updates.
+
+== Upgrade Notice ==
+
+This upgrade has no special instructions.
+
 == Changelog ==
 
 = 1.5 (February 2010) =
