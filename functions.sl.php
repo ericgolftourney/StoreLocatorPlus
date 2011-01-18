@@ -401,8 +401,18 @@ function head_scripts() {
  ** render the google map.
  **/
 function ajax_map($content) {
-	global $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb;
-	global $slplus_plugin;
+	global  $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb,
+	        $slplus_plugin;
+	        
+    // Variables this function uses and passes to the template
+    // we need a better way to pass vars to the template parser so we don't
+    // carry around the weight of these global definitions.
+    // the other option is to unset($GLOBAL['<varname>']) at then end of this
+    // function call.
+    //
+    global $search_label, $width, $height, $width_units, $height_units, $hide,
+      $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
+      $sl_instruction_message, $cs_options, $country_options;
 
     // If the shortcode for [STORE-LOCATOR] is not in the content
     // just return the content.  This is a weird way to do this.
@@ -421,7 +431,7 @@ function ajax_map($content) {
 		$height=(get_option('sl_map_height'))? 
                 get_option('sl_map_height') : "500" ;
 		$width=(get_option('sl_map_width'))? 
-                get_option('sl_map_width') : "100" ;
+                get_option('sl_map_width') : "100" ;        
 		$radii=(get_option('sl_map_radii'))? 
                 get_option('sl_map_radii') : "1,5,10,(25),50,100,200,500" ;
 		$height_units=(get_option('sl_map_height_units'))? 
@@ -513,66 +523,14 @@ function ajax_map($content) {
 	$columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;
 	$columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
 	$sl_radius_label=get_option('sl_radius_label');
-
+	$file = SLPLUS_PLUGINDIR.'/templates/'.'search_form.php';
 	
-	$form="<div id='sl_div'>
-  <form onsubmit='searchLocations(); return false;' id='searchForm' action=''>
-    <table border='0' cellpadding='3px' class='sl_header'><tr>
-	<td valign='top' id='search_label'>$search_label&nbsp;</td>
-	<td valign='top'><div id='addy_input'>
-	        <div id='addy_in_add'>
-                <input type='text' id='addressInput' size='50' />
-            </div>
-	        <div id='addy_in_city'>
-                <select id='addressInput2' onchange='aI=document.getElementById(\"searchForm\").addressInput;if(this.value!=\"\"){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
-                    <option value=''>--Search By City--</option>
-                    $cs_options
-                </select>
-            </div>
-	        <div id='addy_in_country'>
-                <select id='addressInput3' onchange='aI=document.getElementById(\"searchForm\").addressInput;if(this.value!=\"\"){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
-                <option value=''>--Search By Country--</option>
-                $country_options
-                </select>
-            </div>
-   </div></td>
-   </tr><tr>
-	 <td id='radius_label'>".__($sl_radius_label, $text_domain)."</td>
-	 <td id='radiusSelect_td'>
-	     <div id='radius_input'>
-	         <div id='radius_in_select'>
-	             <select id='radiusSelect'>$r_options</select>
-	         </div>
-	         <div id='radius_in_submit'>
-	             <input $button_style value='Search Locations' id='addressSubmit'/>
-	         </div>
-	      </div>
-	  </td>
-	</tr></table>
-	<table width='100%' cellspacing='0px' cellpadding='0px'> 
-     <tr>
-        <td width='100%' valign='top'>" .
-            "<div id='map' style='width:$width$width_units; height:$height$height_units'></div>".
-            "<table cellpadding='0px' class='sl_footer' width='$width$width_units;' $hide>".
-             "<tr><td class='sl_footer_left_column'>".
-             "<a href='http://www.cybersprocket.com/products/store-locator-plus/' target='_blank'>".
-            "Store Locator Plus</a></td>".
-            "<td class='sl_footer_right_column'>".
-            "<a href='http://www.cybersprocket.com' target='_blank' " .
-                "title='by Cyber Sprocket Labs'>by Cyber Sprocket Labs</a>".
-            "</td></tr></table>
-		</td>
-      </tr>
-	  <tr id='cm_mapTR'>
-        <td width='' valign='top' id='map_sidebar_td'> <div id='map_sidebar' style='width:$width$width_units;/* $height$height_units; */'> <div class='text_below_map'>$sl_instruction_message</div></div>
-        </td></tr>
-  </table></form>
-<p><script type=\"text/javascript\">if (document.getElementById(\"map\")){setTimeout(\"sl_load()\",1000);}</script></p>
-</div>";
-
     // Replace the [STORE-LOCATOR] shortcode with the form created above
     //
-	return eregi_replace("\[STORE-LOCATOR(.*)?\]", $form, $content);
+	return eregi_replace("\[STORE-LOCATOR(.*)?\]", 
+	    get_string_from_phpexec($file), 
+	    $content
+	    );
 	}
 }
 

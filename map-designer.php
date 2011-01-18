@@ -37,16 +37,28 @@ if (!$_POST) {
     update_option('sl_website_label', $_POST['sl_website_label']);
     update_option('sl_instruction_message', $_POST['sl_instruction_message']);
     update_option('sl_zoom_level', $_POST['zoom_level']);
-    $_POST['sl_use_city_search']=($_POST['sl_use_city_search']=="")? 0 : $_POST['sl_use_city_search'];
+
+    if (isset($_POST['sl_use_city_search'])) { 
+        $_POST['sl_use_city_search']=($_POST['sl_use_city_search']=="")? 0 : $_POST['sl_use_city_search'];
+    } else {
+        $_POST['sl_use_city_search'] = 0;
+    }
     update_option('sl_use_city_search', $_POST['sl_use_city_search']);
+    
     if (isset($_POST['sl_use_country_search'])) { 
-            $_POST['sl_use_country_search']=($_POST['sl_use_country_search']=="")? 0 : $_POST['sl_use_country_search'];
+       $_POST['sl_use_country_search']=($_POST['sl_use_country_search']=="")? 0 : $_POST['sl_use_country_search'];
+    } else {
+       $_POST['sl_use_country_search']=0;
     }
     update_option('sl_use_country_search', $_POST['sl_use_country_search']);
+       
     if (isset($_POST['sl_remove_credits'])) { 
         $_POST['sl_remove_credits']=($_POST['sl_remove_credits']=="")? 0 : $_POST['sl_remove_credits'];
-        update_option('sl_remove_credits', $_POST['sl_remove_credits']);
+    } else {
+        $_POST['sl_remove_credits']=0;
     }
+    update_option('sl_remove_credits', $_POST['sl_remove_credits']);
+    
     $_POST['sl_load_locations_default']=($_POST['sl_load_locations_default']=="")? 0 : $_POST['sl_load_locations_default'];
     update_option('sl_load_locations_default', $_POST['sl_load_locations_default']);
     update_option('sl_map_type', $_POST['sl_map_type']);
@@ -217,8 +229,8 @@ foreach ($zl as $value) {
 }
 $zoom.="</select>";
 
-$checked=(get_option('sl_use_city_search')==1)? " checked " : "";
-$checked=(get_option('sl_use_country_search')==1)? " checked " : "";
+$city_checked=(get_option('sl_use_city_search')==1)? " checked " : "";
+$country_checked=(get_option('sl_use_country_search')==1)? " checked " : "";
 $checked3=(get_option('sl_remove_credits')==1)? " checked " : "";
 $checked4=(get_option('sl_load_locations_default')==1)? " checked " : "";
 $checked5=(get_option('sl_map_overview_control')==1)? " checked " : "";
@@ -239,10 +251,10 @@ print "
     <td><select name='sl_map_type'>\n".$map_type_options."</select></td></tr>
     
     <tr><td>".__("Allow User Search By City?", $text_domain).":</td>
-    <td><input name='sl_use_city_search' value='1' type='checkbox' $checked></td></tr>
+    <td><input name='sl_use_city_search' value='1' type='checkbox' $city_checked></td></tr>
 
     <tr><td>".__("Allow User Search By Country?", $text_domain).":</td>
-    <td><input name='sl_use_country_search' value='1' type='checkbox' $checked></td></tr>
+    <td><input name='sl_use_country_search' value='1' type='checkbox' $country_checked></td></tr>
 
     
     <tr><td>".__("Show Map Inset Box?", $text_domain).":</td>    

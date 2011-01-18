@@ -83,9 +83,14 @@ custom styling.
 
 = 1.4  (January 2010) =
 
+* City/County pulldown only shown if checked of on admin panel.
+* Updated layout of search form, using more CSS for easier layout changes
+* Add locations form cleaned up
+* Manage/view locations form cleaned up
 * Make search work with address 2 field
 * Make map and search results output show address 2 field
 * Revamp manage locations header 
+* More warnings in the main codebase have been fixed
 * Removed Store Locator Plugin addons support, addons support causing problems.
 
 = 1.3  (December 2010) =
