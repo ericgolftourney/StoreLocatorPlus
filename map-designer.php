@@ -6,9 +6,16 @@
  ******************************************************************************/
  
 
-print '<div class="wrap"><h2>';
-_e('Map Settings',$text_domain);
-print '</h2>';
+print '<div class="wrap"><h2>' . 
+    __('Map Settings',$text_domain) .
+    "<a href='/wp-admin/admin.php?page=$sl_dir/add-locations.php' class='button add-new-h2'>".
+     __('Add Locations',$text_domain). 
+    '</a>'.
+    "<a href='/wp-admin/admin.php?page=$sl_dir/view-locations.php' class='button add-new-h2'>".
+    __('Manage Locations',$text_domain). 
+    '</a>'.
+    '</h2>';
+
 
 if (!$_POST) {
     move_upload_directories();
@@ -68,8 +75,7 @@ if (!$_POST) {
     }
     update_option('sl_distance_unit', $_POST['sl_distance_unit']);
     
-    print "<div class='highlight'>".__("Successful Update", $text_domain).
-        " $view_link</div> <!--meta http-equiv='refresh' content='0'-->";
+    print "<div class='highlight'>".__("Successful Update", $text_domain).'</div>';
 }
 
 //---------------------------
@@ -133,8 +139,7 @@ $char_enc["Korea (EUS-KR)"]="eus-kr";
 // Print The Form
 //
 print  "<form method='post' name='mapDesigner'>
-<table class='widefat'>
-<thead>
+<table class='widefat'><thead>
     <tr>
         <th colspan='2'>".__("Google Map Interface", $text_domain)."</th>
     </tr>
@@ -264,10 +269,9 @@ print "
     <tr><td>".__("Number of Locations Shown By Default", $text_domain).":</td>
     <td><input name='sl_num_initial_displayed' value='$sl_num_initial_displayed'><br><span style='font-size:80%'>(".__("Recommended Max: 50", $text_domain).")</span></td></tr></table>
     
-    </td><!--/tr-->
-    <!--tr><td>".__("Allow User Search By Name of Location?", $text_domain).":</td>
-    <td><input name='sl_use_name_search' value='1' type='checkbox' $checked2></td></tr-->
-    <!--tr--><td colspan='1' width='60%'><h3>".__("Labels", $text_domain)."</h3>
+    </td><<td>".__("Allow User Search By Name of Location?", $text_domain).":</td>
+    <td><input name='sl_use_name_search' value='1' type='checkbox' $checked2></td>
+    <td colspan='1' width='60%'><h3>".__("Labels", $text_domain)."</h3>
     <table class='map_designer_section right_side'>
     <tr><td>".__("Address Input Label", $text_domain).":</td>
     <td><input name='search_label' value=\"$search_label\"></td></tr>
@@ -299,10 +303,8 @@ foreach ($the_distance_unit as $key=>$value) {
 	print "<option value='$value' $selected>$key</option>\n";
 }
 
-print "</select></td></tr></table>
-    
-    </td><!--/tr>
-    <tr--><td colspan='1'><h3>".__("Design", $text_domain)."</h3>
+print "</select></td></tr></table>    
+    </td><td colspan='1'><h3>".__("Design", $text_domain)."</h3>
     $icon_notification_msg
     <table class='map_designer_section right_side'><tr>
     <tr><td valign='top'>".__("Choose Theme", $text_domain)."</td>
