@@ -63,6 +63,25 @@ border: none;
     padding-top: 3px;
 }
 
+/**** Map Box
+ ** 
+ ** Since we only use these div IDs when a static image is present
+ ** we start with the image shown and map hidden.  JQuery will flip
+ ** this for us.
+ **
+ **/
+
+#map_box_image {
+    visibility: visible;
+    display: block;
+}
+
+#map_box_map {
+    visibility: hidden;
+    display: none;
+}
+
+
 /***** Store Locator Map DIV *****/
 #sl_div {
 	padding:10px;
