@@ -105,6 +105,8 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 
 = 1.5 (February 2010) =
 
+* Performance boost on overall WP site, using built-in shortcode processor v. custom regex processor.
+
 = 1.4  (January 2010) =
 
 * City/County pulldown only shown if checked of on admin panel.

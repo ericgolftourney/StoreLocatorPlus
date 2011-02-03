@@ -2,7 +2,7 @@
 /*
 Plugin Name: Store Locator Plus
 Plugin URI: http://www.cybersprocket.com/producs/store-locator-plus/
-Description: Store Locator Plus is based on the popular Google Maps Store Locator with a few customizations we needed for our clients. Unfortunately the original author is on haitus, so we've had to create our ownupdate. Hopefully other WordPress users will find our additions useful. 
+Description: Store Locator Plus is based on the popular Google Maps Store Locator with a few customizations we needed for our clients. Hopefully other WordPress users will find our additions useful. 
 Version: 1.5
 http://www.cybersprocket.com
 License: GPL3
@@ -47,7 +47,6 @@ $sl_db_version=1.3;
 $sl_upload_path='';
 $sl_path='';
 include_once("variables.sl.php");
-include_once("copyfolder.lib.php");
 include_once("functions.sl.php");
 
 register_activation_hook( __FILE__, 'install_table');
@@ -56,9 +55,6 @@ add_action('wp_head', 'head_scripts');
 add_action('admin_menu', 'csl_slplus_add_options_page');
 add_action('admin_print_scripts', 'add_admin_javascript');
 add_action('admin_print_styles','add_admin_stylesheet');
-
-// add_filter('the_content', 'ajax_map', 7);
-
 add_shortcode('STORE-LOCATOR','store_locator_shortcode');
 
 load_plugin_textdomain($text_domain, false, SLPLUS_PLUGINDIR . '/languages/');
