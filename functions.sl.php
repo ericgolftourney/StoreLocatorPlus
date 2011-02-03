@@ -209,8 +209,8 @@ function choose_units($unit, $input_name) {
 /*----------------------------*/
 function do_geocoding($address,$sl_id="") {    
     global $wpdb, $text_domain,$slplus_plugin;    
-    define("MAPS_HOST", get_option('sl_google_map_domain'));
-    define('KEY', $slplus_plugin->driver_args['api_key']);
+    if (!defined('MAPS_HOST')) { define("MAPS_HOST", get_option('sl_google_map_domain')); }
+    if (!defined('KEY')) { define('KEY', $slplus_plugin->driver_args['api_key']); }
     
     // Initialize delay in geocode speed
     $delay = 0;

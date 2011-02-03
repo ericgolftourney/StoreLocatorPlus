@@ -4,7 +4,7 @@ global $text_domain, $sl_upload_path;
 <table cellpadding='10px' cellspacing='0' style='width:100%' class='manual_add_table'>
     <tr>
         <td style='padding-top:0px;' valign='top'>
-            <form name='manualAddForm' method=post>
+            <form name='manualAddForm' method=post enctype="multipart/form-data">
                 <table cellpadding='0' class='widefat'>
                 <thead><tr><th><?php _e("Enter An Address", $text_domain);?></th></tr></thead>
                 <tr><td>
@@ -62,6 +62,13 @@ global $text_domain, $sl_upload_path;
             </div>
 	</div></td>
 		</tr>
+
+        <thead><tr><th><?php _e("Bulk Upload", $text_domain);?></th></tr></thead>
+        <tr><td><div class="add_location_form">
+        	<input type="file" name="csvfile" value="">
+                <input type='submit' value='<?php _e("Upload Locations", $text_domain);?>' class='button-primary'>
+  		</div>
+  	</td></tr>
 	</table>
 	</form>
 	</td>

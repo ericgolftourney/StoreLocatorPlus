@@ -305,7 +305,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
 			}
 		}
 } else {
-		$notice=($_GET[q]!="")? 
+		$notice=( isset($_GET['q']) && ($_GET['q']!="") )? 
                 __("No Locations Showing for this Search of ", $text_domain).
                     "<b>\"$_GET[q]\"</b>. $view_link" : 
                 __("No Locations Currently in Database", $text_domain);
