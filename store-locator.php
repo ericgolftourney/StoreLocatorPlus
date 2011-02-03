@@ -57,7 +57,9 @@ add_action('admin_menu', 'csl_slplus_add_options_page');
 add_action('admin_print_scripts', 'add_admin_javascript');
 add_action('admin_print_styles','add_admin_stylesheet');
 
-add_filter('the_content', 'ajax_map', 7);
+// add_filter('the_content', 'ajax_map', 7);
+
+add_shortcode('STORE-LOCATOR','store_locator_shortcode');
 
 load_plugin_textdomain($text_domain, false, SLPLUS_PLUGINDIR . '/languages/');
 
