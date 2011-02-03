@@ -14,13 +14,20 @@
  **  $file (string, required) - name of the file 
  **/
 function get_string_from_phpexec($file) {
-    if (file_exists($file)) {
+    if (file_exists_2($file)) {
         ob_start();
         include($file);
         $content = ob_get_contents();
         ob_end_clean();
         return $content;
     }
+}
+
+function file_exists_2($file) {
+   $dir = dirname($file);
+   $file = basename($file);
+   $ret = exec("ls ".$dir." | grep ".$file); 
+   return (!empty($ret));   
 }
  
  
