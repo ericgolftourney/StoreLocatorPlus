@@ -22,12 +22,13 @@ a few thousand.
 * You can use it for a variety of countries, as supported by Google Maps.
 * Supports international languages and character sets.
 * Allows you to use unique map icons or your own custom map icons.
-* Tweak the map settings via the admin panel including:
-* *Map type (terrain, satellite, street, etc.)*
-* *Inset map*
-* *Starting zoom level*
+* Change default map settings via the admin panel including:
+* Map type (terrain, satellite, street, etc.)
+* Inset map show/hide
+* Starting zoom level
 * You can use miles or kilometers
 * Pulldown list of cities and/or countries on search form can be toggled on/off.
+* Bulk upload your locations via the CSV loader.
 
 = Looking For Customized WordPress Plugins? =
 
@@ -105,6 +106,7 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 
 = 1.5 (February 2010) =
 
+* Added bulk upload feature via CSV files.
 * Performance boost on overall WP site, using built-in shortcode processor v. custom regex processor.
 
 = 1.4  (January 2010) =
