@@ -4,11 +4,18 @@ function move_upload_directories() {
 	global $sl_upload_path, $sl_path;
 	
 	if (!is_dir(ABSPATH . "wp-content/uploads")) {
-			mkdir(ABSPATH . "wp-content/uploads", 0755);
+		mkdir(ABSPATH . "wp-content/uploads", 0755);
 	}
 	if (!is_dir($sl_upload_path)) {
-			mkdir($sl_upload_path, 0755);
+		mkdir($sl_upload_path, 0755);
 	}
+	if (!is_dir($sl_upload_path . "/custom-icons")) {
+		mkdir($sl_upload_path . "/custom-icons", 0755);
+	}
+	if (!is_dir($sl_upload_path . "/custom-css")) {
+		mkdir($sl_upload_path . "/custom-css", 0755);
+	}
+	
 	if (is_dir($sl_path . "/themes") && !is_dir($sl_upload_path . "/themes")) {
 		copyr($sl_path . "/themes", $sl_upload_path . "/themes");
 	}
@@ -17,12 +24,6 @@ function move_upload_directories() {
 	}
 	if (is_dir($sl_path . "/images") && !is_dir($sl_upload_path . "/images")) {
 		copyr($sl_path . "/images", $sl_upload_path . "/images");
-	}
-	if (!is_dir($sl_upload_path . "/custom-icons")) {
-		mkdir($sl_upload_path . "/custom-icons", 0755);
-	}
-	if (!is_dir($sl_upload_path . "/custom-css")) {
-		mkdir($sl_upload_path . "/custom-css", 0755);
 	}
 }
 /* -----------------*/
@@ -378,9 +379,7 @@ function head_scripts() {
             print "<link  href='".$has_custom_css."/csl-slplus.css' type='text/css' rel='stylesheet'/>";
             $theme=get_option('sl_map_theme');
             if ($theme!="") {print "\n<link  href='".$sl_upload_base."/themes/$theme/style.css' rel='stylesheet' type='text/css'/>";}
-            $zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		
-            
-            move_upload_directories();
+            $zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		            
             }
         } else {
             if ($slplus_plugin->debugging) {

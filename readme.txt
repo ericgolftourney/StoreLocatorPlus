@@ -107,7 +107,9 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 = 1.5 (February 2010) =
 
 * Added bulk upload feature via CSV files.
-* Performance boost on overall WP site, using built-in shortcode processor v. custom regex processor.
+* Various performance tweaks for page loads:
+* ... built-in shortcode processor v. custom regex processor
+* ... removed customization backups on each page load
 
 = 1.4  (January 2010) =
 
