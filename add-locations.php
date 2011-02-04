@@ -60,46 +60,52 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
 	// Get the type of the uploaded file. This is returned as "type/extension"
 	$arr_file_type = wp_check_filetype(basename($_FILES['csvfile']['name']));
 	if ($arr_file_type['type'] == 'text/csv') {
-		
-		// Save the file to disk
-		//
-		if (move_uploaded_file($_FILES['csvfile']['tmp_name'], 
-			SLPLUS_PLUGINDIR.'uploads/'.$_FILES['csvfile']['name'])) {
-			$reccount = 1;
-			
-			if (($handle = fopen(SLPLUS_PLUGINDIR.'uploads/'.$_FILES['csvfile']['name'], "r")) !== FALSE) {
-			    $fldNames = array('sl_store','sl_address','sl_address2','sl_city','sl_state',
-					    'sl_zip','sl_country','sl_tags','sl_description','sl_url',
-					    'sl_hours','sl_phone');
-			    while (($data = fgetcsv($handle)) !== FALSE) {
-				$num = count($data);
-				$fieldList = '';
-				$valueList = '';        
-				$this_addy = '';
-				for ($fldno=0; $fldno < $num; $fldno++) {
-				    $fieldList.=$fldNames[$fldno].',';
-				    $valueList.="\"".stripslashes(comma($data[$fldno]))."\",";
-				    if (($fldno>=1) && ($fldno<=6)) {
-					$this_addy .= $data[$fldno] . ', ';
-				    }
-				}
-				$this_addy = substr($this_addy, 0, strlen($this_addy)-2);
-				add_this_addy($fieldList,$valueList,$this_addy);   
-				sleep(0.5);
-				$reccount++;
-			    }
-			    fclose($handle);
-			}
-			
-			print "<div class='updated fade'>".
-				sprintf("%d",$reccount) ." " .		    
-				__("locations added succesfully.",$text_domain) . '.</div>';
-				
-		// Could not save				
-		} else {			
-			print "<div class='updated fade'>".
-			__("File could not be saved, check the plugin directory permissions:",$text_domain) . 
-			    "<br/>" . SLPLUS_PLUGINDIR.'uploads/'. 
+
+                // Save the file to disk
+                //
+                $updir = wp_upload_dir();
+                $updir = $updir['basedir'].'/slplus_csv';
+                if(!is_dir($updir)) {
+                    mkdir($updir,0755);
+                }
+                if (move_uploaded_file($_FILES['csvfile']['tmp_name'],
+                        $updir.'/'.$_FILES['csvfile']['name'])) {
+                        $reccount = 1;
+
+                        if (($handle = fopen($updir.'/'.$_FILES['csvfile']['name'], "r")) !== FALSE) {
+                            $fldNames = array('sl_store','sl_address','sl_address2','sl_city','sl_state',
+                                            'sl_zip','sl_country','sl_tags','sl_description','sl_url',
+                                            'sl_hours','sl_phone');
+                            while (($data = fgetcsv($handle)) !== FALSE) {
+                                $num = count($data);
+                                $fieldList = '';
+                                $valueList = '';
+                                $this_addy = '';
+                                for ($fldno=0; $fldno < $num; $fldno++) {
+                                    $fieldList.=$fldNames[$fldno].',';
+                                    $valueList.="\"".stripslashes(comma($data[$fldno]))."\",";
+                                    if (($fldno>=1) && ($fldno<=6)) {
+                                        $this_addy .= $data[$fldno] . ', ';
+                                    }
+                                }
+                                $this_addy = substr($this_addy, 0, strlen($this_addy)-2);
+                                add_this_addy($fieldList,$valueList,$this_addy);
+                                sleep(0.5);
+                                $reccount++;
+                            }
+                            fclose($handle);
+                        }
+
+                        print "<div class='updated fade'>".
+                                sprintf("%d",$reccount) ." " .
+                                __("locations added succesfully.",$text_domain) . '.</div>';
+
+                // Could not save
+                } else {
+                        print "<div class='updated fade'>".
+                        __("File could not be saved, check the plugin directory permissions:",$text_domain) .
+                            "<br/>" . $updir.
+
 			    '.</div>';	
 		}
 					    
