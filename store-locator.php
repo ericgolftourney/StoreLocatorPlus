@@ -53,6 +53,7 @@ register_activation_hook( __FILE__, 'install_table');
 
 add_action('wp_head', 'head_scripts');
 add_action('admin_menu', 'csl_slplus_add_options_page');
+add_action('adminmenu','csl_slplus_setup_admin_interface');
 add_action('admin_print_scripts', 'add_admin_javascript');
 add_action('admin_print_styles','add_admin_stylesheet');
 add_shortcode('STORE-LOCATOR','store_locator_shortcode');
