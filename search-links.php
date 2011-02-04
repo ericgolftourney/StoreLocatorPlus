@@ -6,15 +6,13 @@ if ($num_per_page<0 || $num_per_page=="") {$num_per_page=10;}
 $prev=$start-$num_per_page;
 $next=$start+$num_per_page;
 if (ereg("&start=$start",$_SERVER['QUERY_STRING'])) {
-	$prev_page=str_replace("&start=$start","&start=$prev",$_SERVER['QUERY_STRING']);
-	$next_page=str_replace("&start=$start","&start=$next",$_SERVER['QUERY_STRING']); //echo($next_page);
-}
-else {
-	$prev_page=$_SERVER['QUERY_STRING']."&start=$prev";
-	$next_page=$_SERVER['QUERY_STRING']."&start=$next";
+	$prev_page=str_replace("&start=$start","&start=$prev",$_SERVER['REQUEST_URI']);
+	$next_page=str_replace("&start=$start","&start=$next",$_SERVER['REQUEST_URI']);
+} else {
+	$prev_page=$_SERVER['REQUEST_URI']."&start=$prev";
+	$next_page=$_SERVER['REQUEST_URI']."&start=$next";
 }
 if ($numMembers2>$num_per_page) {
-	//print "  | ";
 
 if ((($start/$num_per_page)+1)-5<1) {
 	$beginning_link=1;
@@ -68,18 +66,23 @@ $extra_text=(trim($qry)!='')? __("for your search of", $text_domain)." <strong>\
 <td align=right valign=bottom width='33%' style='padding-right:0px'>
 <table><tr><td width=75><nobr><img src='/images/spacer.gif' height=1 width=75 alt='' border=0>
 <?php 
-if (($start-$num_per_page)>=0) { ?>
-<a class='' href=".?<?php print $prev_page; ?>" rel='nofollow'><?php print __("Previous", $text_domain)."&nbsp;$num_per_page"; ?></a>
-<?php } 
+if (($start-$num_per_page)>=0) {
+  print "<a class='' href='$prev_page' rel='nofollow'>";
+  print __("Previous", $text_domain)."&nbsp;$num_per_page";
+  print "</a>";
+}
 if (($start-$num_per_page)>=0 && ($start+$num_per_page)<$numMembers2) { ?>
 &nbsp;&nbsp;|&nbsp;
 <?php } ?>
 </td>
 <td width='85px' valign=bottom><img src='/images/spacer.gif' height=1 width=45 alt='' border=0>
 <?php 
-if (($start+$num_per_page)<$numMembers2) { ?>
-<a class='' href=".?<?php print $next_page; ?>" rel='nofollow'><?php print __("Next", $text_domain)."&nbsp;$num_per_page"; ?></a><br>
-<?php } ?>
+if (($start+$num_per_page)<$numMembers2) { 
+ print "<a class='' href='$next_page' rel='nofollow'>";
+ print __("Next", $text_domain)."&nbsp;$num_per_page";
+ print "</a><br>";
+} 
+?>
 </nobr>
 </td></tr></table>
 </td>

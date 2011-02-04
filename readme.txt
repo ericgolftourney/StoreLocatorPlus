@@ -107,9 +107,13 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 = 1.5 (February 2010) =
 
 * Added bulk upload feature via CSV files.
+* Fixed problem with map display on subdomain installs.
+* Fixed a problem with map not showing up in v1.4 release.
+* Fixed paging problem on view locations.
 * Various performance tweaks for page loads:
 * ... built-in shortcode processor v. custom regex processor
 * ... removed customization backups on each page load
+* ... admin panel helper info setup only on settings page call
 
 = 1.4  (January 2010) =
 

@@ -84,7 +84,8 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
 				    }
 				}
 				$this_addy = substr($this_addy, 0, strlen($this_addy)-2);
-				add_this_addy($fieldList,$valueList,$this_addy);        
+				add_this_addy($fieldList,$valueList,$this_addy);   
+				sleep(0.5);
 				$reccount++;
 			    }
 			    fclose($handle);
