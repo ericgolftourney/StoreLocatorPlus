@@ -5,7 +5,7 @@ Donate link: http://www.cybersprocket.com/products/store-locator-plus/
 Tags: store locator, store locater, google, google maps, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus
 Requires at least: 3.0
 Tested up to: 3.0.4
-Stable tag: 1.5
+Stable tag: trunk
 
 This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locations.    
 
@@ -104,7 +104,11 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 
 == Changelog ==
 
-= 1.5 (February 2010) =
+= 1.6 =
+
+* Added bulk upload feature via CSV files.
+
+= 1.5 (February 2011) =
 
 * Added bulk upload feature via CSV files.
 * Fixed problem with map display on subdomain installs.
@@ -115,7 +119,7 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 * ... removed customization backups on each page load
 * ... admin panel helper info setup only on settings page call
 
-= 1.4  (January 2010) =
+= 1.4  (January 2011) =
 
 * City/County pulldown only shown if checked of on admin panel.
 * Updated layout of search form, using more CSS for easier layout changes
