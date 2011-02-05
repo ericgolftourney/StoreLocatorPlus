@@ -45,6 +45,9 @@ Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
 * [Store Locator Plus Support Pages](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki)
 * [Other Cyber Sprocket Plugins](http://wordpress.org/extend/plugins/profile/cybersprocket/) 
 * [Custom WordPress Development](http://www.cybersprocket.com/services/wordpress-developers/)
+* [Our Facebook Page](http://www.facebook.com/cyber.sprocket.labs)
+
+<iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FCyber-Sprocket-Labs%2F110608102290228&amp;width=292&amp;colorscheme=light&amp;show_faces=false&amp;stream=false&amp;header=false&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
 
 == Installation ==
 
@@ -104,9 +107,9 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 
 == Changelog ==
 
-= 1.6 =
+= 1.6 (February 5th 2011) =
 
-* Added bulk upload feature via CSV files.
+* Fix problem with subdomain installs not finding store locations.
 
 = 1.5 (February 2011) =
 
