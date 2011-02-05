@@ -5,9 +5,9 @@ Donate link: http://www.cybersprocket.com/products/store-locator-plus/
 Tags: store locator, store locater, google, google maps, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus
 Requires at least: 3.0
 Tested up to: 3.0.4
-Stable tag: trunk
+Stable tag: 1.7
 
-This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locations.    
+Updated February 2011.  This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locations.    
 
 == Description ==
 
@@ -94,6 +94,14 @@ The license is based on GPL.  You get the code, feel free to modify it as you
 wish.  We prefer that our customers pay us because they like what we do and 
 want to support our efforts to bring useful software to market.  Learn more
 on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commercial-products/wiki/Cyber_Sprocket_Labs_Licensing_Terms "CSL License Terms page").
+
+= How can i translate the plugin into my language? =
+
+* Find on internet the free program POEDIT, and learn how it works.
+* Use the file store-locator-plus.pot that is located in the languages directory of this plugin to create or update slplus-[your languagecode].po and slplus-[your languagecode].mo.
+* Place these file in the languages subdirectory.
+* If everything is ok, email the files to lobbyjones@cybersprocket.com and we will add them to the next release.
+* For more information on POT files, domains, gettext and i18n have a look at the I18n for WordPress developers Codex page and more specifically at the section about themes and plugins.
 
 == Screenshots ==
 

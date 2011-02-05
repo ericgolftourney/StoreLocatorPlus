@@ -2,7 +2,7 @@
 
 global $sl_dir, $sl_base, $sl_path, $sl_upload_path, $sl_upload_base;
 
-$text_domain='lol';
+$text_domain='slplus';
 
 $sl_dir =SLPLUS_PLUGINDIR;  //plugin absolute server directory name
 $sl_base=SLPLUS_PLUGINURL;  //URL to plugin directory
