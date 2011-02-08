@@ -5,9 +5,9 @@ Donate link: http://www.cybersprocket.com/products/store-locator-plus/
 Tags: store locator, store locater, google, google maps, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus
 Requires at least: 3.0
 Tested up to: 3.0.4
-Stable tag: 1.7
+Stable tag: 1.6.1
 
-Updated February 2011.  This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locations.    
+Updated February 7th 2011.  This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locations.    
 
 == Description ==
 
@@ -46,8 +46,6 @@ Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
 * [Other Cyber Sprocket Plugins](http://wordpress.org/extend/plugins/profile/cybersprocket/) 
 * [Custom WordPress Development](http://www.cybersprocket.com/services/wordpress-developers/)
 * [Our Facebook Page](http://www.facebook.com/cyber.sprocket.labs)
-
-<iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FCyber-Sprocket-Labs%2F110608102290228&amp;width=292&amp;colorscheme=light&amp;show_faces=false&amp;stream=false&amp;header=false&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
 
 == Installation ==
 
@@ -98,7 +96,7 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 = How can i translate the plugin into my language? =
 
 * Find on internet the free program POEDIT, and learn how it works.
-* Use the file store-locator-plus.pot that is located in the languages directory of this plugin to create or update slplus-[your languagecode].po and slplus-[your languagecode].mo.
+* Use the .pot file located in the languages directory of this plugin to create or update the .po and .mo files.
 * Place these file in the languages subdirectory.
 * If everything is ok, email the files to lobbyjones@cybersprocket.com and we will add them to the next release.
 * For more information on POT files, domains, gettext and i18n have a look at the I18n for WordPress developers Codex page and more specifically at the section about themes and plugins.
@@ -114,6 +112,10 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 7. Map Mouse Over
 
 == Changelog ==
+
+= 1.6.1 (February 7th 2011) =
+
+* Fix problem with Map API key not saving.
 
 = 1.6 (February 5th 2011) =
 
