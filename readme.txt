@@ -5,7 +5,7 @@ Donate link: http://www.cybersprocket.com/products/store-locator-plus/
 Tags: store locator, store locater, google, google maps, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus
 Requires at least: 3.0
 Tested up to: 3.0.4
-Stable tag: 1.6.2
+Stable tag: 1.6.4
 
 This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locations.    
 
@@ -113,10 +113,21 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 
 == Changelog ==
 
+= 1.6.4 (February 11th 2011) =
+
+* Set the SLPLUS CSS for images to have visibility & display to !important. 
+* Some themes & plugins force javascript images to be hidden, causing the map not to display.
+
+
+= 1.6.3 (February 10th 2011) =
+
+* Fix conflict errors when replacing Store Locator with SLPLUS.
+* The conflict errors would cause the Google Map to not display on some installs.
+
+
 = 1.6.2 (February 8th 2011) =
 
 * Re-distribute 1.6.1 patch, full kit did not make it to the WordPress system.
-
 
 = 1.6.1 (February 7th 2011) =
 
