@@ -328,7 +328,7 @@ function install_table() {
  ** where the map will be displayed.
  **/
 function head_scripts() {
-	global $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $wpdb, $sl_version, $pagename, $map_character_encoding;
+	global $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $wpdb, $pagename, $map_character_encoding;
 	global $slplus_plugin;
 	
 	//Check if currently on page with shortcode
