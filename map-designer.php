@@ -21,7 +21,7 @@ if (!$_POST) {
     move_upload_directories();
     
 } else {
-    if (isset($_POST['sl_language'])) { 
+    iff (isset($_POST['sl_language'])) { 
             update_option('sl_language', $_POST['sl_language']);
     }
     $sl_google_map_arr=explode(":", $_POST['google_map_domain']);
@@ -45,45 +45,29 @@ if (!$_POST) {
     update_option('sl_instruction_message', $_POST['sl_instruction_message']);
     update_option('sl_zoom_level', $_POST['zoom_level']);
     update_option('sl_starting_image', $_POST['sl_starting_image']);
+    update_option('sl_map_type', $_POST['sl_map_type']);
+    update_option('sl_num_initial_displayed', $_POST['sl_num_initial_displayed']);    
+    update_option('sl_distance_unit', $_POST['sl_distance_unit']);
 
-    
-    if (isset($_POST['sl_use_city_search'])) { 
-        $_POST['sl_use_city_search']=($_POST['sl_use_city_search']=="")? 0 : $_POST['sl_use_city_search'];
-    } else {
-        $_POST['sl_use_city_search'] = 0;
-    }
+    # Checkbox settings - can set to issset and save that because the
+    # post variable is only set if it is checked, if not checked it is
+    # false (0).
+    #
+    $_POST['sl_use_city_search']=isset($_POST['sl_use_city_search']);
     update_option('sl_use_city_search', $_POST['sl_use_city_search']);
     
-    if (isset($_POST['sl_use_country_search'])) { 
-       $_POST['sl_use_country_search']=($_POST['sl_use_country_search']=="")? 0 : $_POST['sl_use_country_search'];
-    } else {
-       $_POST['sl_use_country_search']=0;
-    }
+    $_POST['sl_use_country_search']=isset($_POST['sl_use_country_search']);
     update_option('sl_use_country_search', $_POST['sl_use_country_search']);
        
-    if (isset($_POST['sl_remove_credits'])) { 
-        $_POST['sl_remove_credits']=($_POST['sl_remove_credits']=="")? 0 : $_POST['sl_remove_credits'];
-    } else {
-        $_POST['sl_remove_credits']=0;
-    }
+    $_POST['sl_remove_credits']=isset($_POST['sl_remove_credits']); 
     update_option('sl_remove_credits', $_POST['sl_remove_credits']);
     
-    if (isset($_POST['sl_load_locations_default'])) { 
-        $_POST['sl_load_locations_default']=($_POST['sl_load_locations_default']=="")? 0 : $_POST['sl_load_locations_default'];
-    } else {
-        $_POST['sl_load_locations_default']=0;
-    }        
+    $_POST['sl_load_locations_default']=isset($_POST['sl_load_locations_default']);
     update_option('sl_load_locations_default', $_POST['sl_load_locations_default']);
 
-    
-    update_option('sl_map_type', $_POST['sl_map_type']);
-    update_option('sl_num_initial_displayed', $_POST['sl_num_initial_displayed']);
-    
-    # This is a checkbox setting, it only is passed if checked
     $_POST['sl_map_overview_control'] = isset($_POST['sl_map_overview_control']);  
     update_option('sl_map_overview_control', $_POST['sl_map_overview_control']);
     
-    update_option('sl_distance_unit', $_POST['sl_distance_unit']);
     
     print "<div class='highlight'>".__("Successful Update", $text_domain).'</div>';
 }
