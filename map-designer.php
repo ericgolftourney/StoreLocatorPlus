@@ -78,9 +78,11 @@ if (!$_POST) {
     
     update_option('sl_map_type', $_POST['sl_map_type']);
     update_option('sl_num_initial_displayed', $_POST['sl_num_initial_displayed']);
-    if (isset($_POST['sl_map_overview_control'])) {  
-            update_option('sl_map_overview_control', $_POST['sl_map_overview_control']);
-    }
+    
+    # This is a checkbox setting, it only is passed if checked
+    $_POST['sl_map_overview_control'] = isset($_POST['sl_map_overview_control']);  
+    update_option('sl_map_overview_control', $_POST['sl_map_overview_control']);
+    
     update_option('sl_distance_unit', $_POST['sl_distance_unit']);
     
     print "<div class='highlight'>".__("Successful Update", $text_domain).'</div>';
