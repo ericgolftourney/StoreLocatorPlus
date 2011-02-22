@@ -20,6 +20,8 @@ function get_string_from_phpexec($file) {
         $content = ob_get_contents();
         ob_end_clean();
         return $content;
+    } else {
+    	    print "No file: $file in ".getcwd()."<br/>";
     }
 }
  

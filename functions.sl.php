@@ -4,11 +4,18 @@ function move_upload_directories() {
 	global $sl_upload_path, $sl_path;
 	
 	if (!is_dir(ABSPATH . "wp-content/uploads")) {
-			mkdir(ABSPATH . "wp-content/uploads", 0755);
+		mkdir(ABSPATH . "wp-content/uploads", 0755);
 	}
 	if (!is_dir($sl_upload_path)) {
-			mkdir($sl_upload_path, 0755);
+		mkdir($sl_upload_path, 0755);
 	}
+	if (!is_dir($sl_upload_path . "/custom-icons")) {
+		mkdir($sl_upload_path . "/custom-icons", 0755);
+	}
+	if (!is_dir($sl_upload_path . "/custom-css")) {
+		mkdir($sl_upload_path . "/custom-css", 0755);
+	}
+	
 	if (is_dir($sl_path . "/themes") && !is_dir($sl_upload_path . "/themes")) {
 		copyr($sl_path . "/themes", $sl_upload_path . "/themes");
 	}
@@ -17,12 +24,6 @@ function move_upload_directories() {
 	}
 	if (is_dir($sl_path . "/images") && !is_dir($sl_upload_path . "/images")) {
 		copyr($sl_path . "/images", $sl_upload_path . "/images");
-	}
-	if (!is_dir($sl_upload_path . "/custom-icons")) {
-		mkdir($sl_upload_path . "/custom-icons", 0755);
-	}
-	if (!is_dir($sl_upload_path . "/custom-css")) {
-		mkdir($sl_upload_path . "/custom-css", 0755);
 	}
 }
 /* -----------------*/
@@ -209,8 +210,8 @@ function choose_units($unit, $input_name) {
 /*----------------------------*/
 function do_geocoding($address,$sl_id="") {    
     global $wpdb, $text_domain,$slplus_plugin;    
-    define("MAPS_HOST", get_option('sl_google_map_domain'));
-    define('KEY', $slplus_plugin->driver_args['api_key']);
+    if (!defined('MAPS_HOST')) { define("MAPS_HOST", get_option('sl_google_map_domain')); }
+    if (!defined('KEY')) { define('KEY', $slplus_plugin->driver_args['api_key']); }
     
     // Initialize delay in geocode speed
     $delay = 0;
@@ -378,9 +379,7 @@ function head_scripts() {
             print "<link  href='".$has_custom_css."/csl-slplus.css' type='text/css' rel='stylesheet'/>";
             $theme=get_option('sl_map_theme');
             if ($theme!="") {print "\n<link  href='".$sl_upload_base."/themes/$theme/style.css' rel='stylesheet' type='text/css'/>";}
-            $zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		
-            
-            move_upload_directories();
+            $zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		            
             }
         } else {
             if ($slplus_plugin->debugging) {
@@ -396,103 +395,92 @@ function head_scripts() {
 
 
 /**************************************
- ** function: ajax_map
+ ** function: store_locator_shortcode
  **
- ** render the google map.
+ ** Process the store locator shortcode.
+ **
  **/
-function ajax_map($content) {
-	global  $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb,
-	        $slplus_plugin;
-	        
+ function store_locator_shortcode($atts) {
     // Variables this function uses and passes to the template
     // we need a better way to pass vars to the template parser so we don't
     // carry around the weight of these global definitions.
     // the other option is to unset($GLOBAL['<varname>']) at then end of this
     // function call.
     //
-    global $search_label, $width, $height, $width_units, $height_units, $hide,
-      $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
-      $sl_instruction_message, $cs_options, $country_options;
-
-    // If the shortcode for [STORE-LOCATOR] is not in the content
-    // just return the content.  This is a weird way to do this.
-    // WordPress has shortcode handling built in.  Hmmm...
+    global  $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb,
+	    $slplus_plugin,	        
+	    $search_label, $width, $height, $width_units, $height_units, $hide,
+	    $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
+	    $sl_instruction_message, $cs_options, $country_options;
+	    
+    // Plugin is licensed or user is admin
     //
-	if( ! preg_match('|\[STORE-LOCATOR|', $content) ||
-	    ! isset($slplus_plugin)                     ||
-        ! $slplus_plugin->ok_to_show()
-	    ) {
-	
-    	return eregi_replace("\[STORE-LOCATOR(.*)?\]", '', $content);
+    if ($slplus_plugin->ok_to_show()) {	    
+	$height=(get_option('sl_map_height'))? 
+	get_option('sl_map_height') : "500" ;
+	$width=(get_option('sl_map_width'))? 
+	get_option('sl_map_width') : "100" ;        
+	$radii=(get_option('sl_map_radii'))? 
+	get_option('sl_map_radii') : "1,5,10,(25),50,100,200,500" ;
+	$height_units=(get_option('sl_map_height_units'))? 
+	get_option('sl_map_height_units') : "px";
+	$width_units=(get_option('sl_map_width_units'))? 
+	get_option('sl_map_width_units') : "%";
+	$sl_instruction_message=(get_option('sl_instruction_message'))? 
+	get_option('sl_instruction_message') : 
+	"Enter Your Address or Zip Code Above.";
 
-    // Process [STORE-LOCATOR] inside of the content we are looking at
-    //
-	} else {
-		$height=(get_option('sl_map_height'))? 
-                get_option('sl_map_height') : "500" ;
-		$width=(get_option('sl_map_width'))? 
-                get_option('sl_map_width') : "100" ;        
-		$radii=(get_option('sl_map_radii'))? 
-                get_option('sl_map_radii') : "1,5,10,(25),50,100,200,500" ;
-		$height_units=(get_option('sl_map_height_units'))? 
-                get_option('sl_map_height_units') : "px";
-		$width_units=(get_option('sl_map_width_units'))? 
-                get_option('sl_map_width_units') : "%";
-		$sl_instruction_message=(get_option('sl_instruction_message'))? 
-                get_option('sl_instruction_message') : 
-                "Enter Your Address or Zip Code Above.";
+	$r_array=explode(",", $radii);
+	$search_label=(get_option('sl_search_label'))? 
+	get_option('sl_search_label') : "Address" ;
 	
-		$r_array=explode(",", $radii);
-		$search_label=(get_option('sl_search_label'))? 
-                get_option('sl_search_label') : "Address" ;
-		
-		$unit_display=(get_option('sl_distance_unit')=="km")? 
-                "km" : "mi";
+	$unit_display=(get_option('sl_distance_unit')=="km")? 
+	"km" : "mi";
 
-        $r_options      =(isset($r_options)         ?$r_options      :'');
-        $cs_options     =(isset($cs_options)        ?$cs_options     :'');
-        $country_options=(isset($country_options)   ?$country_options:'');
+	$r_options      =(isset($r_options)         ?$r_options      :'');
+	$cs_options     =(isset($cs_options)        ?$cs_options     :'');
+	$country_options=(isset($country_options)   ?$country_options:'');
         
-		foreach ($r_array as $value) {
-			$s=(ereg("\(.*\)", $value))? " selected='selected' " : "" ;
-			$value=ereg_replace("[^0-9]", "", $value);
-			$r_options.="<option value='$value' $s>$value $unit_display</option>";
-		}
+	foreach ($r_array as $value) {
+		$s=(ereg("\(.*\)", $value))? " selected='selected' " : "" ;
+		$value=ereg_replace("[^0-9]", "", $value);
+		$r_options.="<option value='$value' $s>$value $unit_display</option>";
+	}
 		
-		if (get_option('sl_use_city_search')==1) {
-			$cs_array=$wpdb->get_results(
-                "SELECT CONCAT(TRIM(sl_city), ', ', TRIM(sl_state)) as city_state " .
-                    "FROM ".$wpdb->prefix."store_locator " .
-                    "WHERE sl_city<>'' AND sl_state<>'' AND sl_latitude<>'' " .
-                            "AND sl_longitude<>'' " .
-                    "GROUP BY city_state " .
-                    "ORDER BY city_state ASC", 
-                ARRAY_A);
-
-			if ($cs_array) {
-				foreach($cs_array as $value) {
-                    $cs_options.="<option value='$value[city_state]'>$value[city_state]</option>";
-				}
+	if (get_option('sl_use_city_search')==1) {
+		$cs_array=$wpdb->get_results(
+			"SELECT CONCAT(TRIM(sl_city), ', ', TRIM(sl_state)) as city_state " .
+			    "FROM ".$wpdb->prefix."store_locator " .
+			    "WHERE sl_city<>'' AND sl_state<>'' AND sl_latitude<>'' " .
+				    "AND sl_longitude<>'' " .
+			    "GROUP BY city_state " .
+			    "ORDER BY city_state ASC", 
+			ARRAY_A);
+	
+		if ($cs_array) {
+			foreach($cs_array as $value) {
+	    $cs_options.="<option value='$value[city_state]'>$value[city_state]</option>";
 			}
 		}
+	}
 		
-		if (get_option('sl_use_country_search')==1) {
-			$cs_array=$wpdb->get_results(
-                "SELECT TRIM(sl_country) as country " .
-                    "FROM ".$wpdb->prefix."store_locator " .
-                    "WHERE sl_country<>'' " .
-                            "AND sl_latitude<>'' AND sl_longitude<>'' " .
-                    "GROUP BY country " .
-                    "ORDER BY country ASC", 
-                ARRAY_A);
-
-			if ($cs_array) {
-				foreach($cs_array as $value) {
-                    $country_options.="<option value='$value[country]'>" .
-                                 "$value[country]</option>";
-				}
+	if (get_option('sl_use_country_search')==1) {
+		$cs_array=$wpdb->get_results(
+			"SELECT TRIM(sl_country) as country " .
+			    "FROM ".$wpdb->prefix."store_locator " .
+			    "WHERE sl_country<>'' " .
+				    "AND sl_latitude<>'' AND sl_longitude<>'' " .
+			    "GROUP BY country " .
+			    "ORDER BY country ASC", 
+			ARRAY_A);
+	
+		if ($cs_array) {
+			foreach($cs_array as $value) {
+	    $country_options.="<option value='$value[country]'>" .
+			 "$value[country]</option>";
 			}
-		}		
+		}
+	}		
 	
 	if (get_option('sl_map_theme')!="") {
 		$theme_base=$sl_upload_base."/themes/".get_option('sl_map_theme');
@@ -523,16 +511,13 @@ function ajax_map($content) {
 	$columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;
 	$columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
 	$sl_radius_label=get_option('sl_radius_label');
-	$file = SLPLUS_PLUGINDIR.'/templates/'.'search_form.php';
+	$file = SLPLUS_PLUGINDIR . '/templates/search_form.php';
 	
-    // Replace the [STORE-LOCATOR] shortcode with the form created above
-    //
-	return eregi_replace("\[STORE-LOCATOR(.*)?\]", 
-	    get_string_from_phpexec($file), 
-	    $content
-	    );
-	}
-}
+	return get_string_from_phpexec($file); 
+    } 
+ }
+
+
 
 
 /**************************************
@@ -717,3 +702,48 @@ function addon_activation_message($url_of_upgrade="") {
 function url_test($url) {
 	return (strtolower(substr($url,0,7))=="http://");
 }
+
+/************************************************************
+ * Copy a file, or recursively copy a folder and its contents
+ *
+ * @author      Aidan Lister <aidan@php.net>
+ * @version     1.0.1
+ * @link        http://aidanlister.com/repos/v/function.copyr.php
+ * @param       string   $source    Source path
+ * @param       string   $dest      Destination path
+ * @return      bool     Returns TRUE on success, FALSE on failure
+ */
+function copyr($source, $dest)
+{
+    // Check for symlinks
+    if (is_link($source)) {
+        return symlink(readlink($source), $dest);
+    }
+
+    // Simple copy for a file
+    if (is_file($source)) {
+        return copy($source, $dest);
+    }
+
+    // Make destination directory
+    if (!is_dir($dest)) {
+        mkdir($dest, 0755);
+    }
+
+    // Loop through the folder
+    $dir = dir($source);
+    while (false !== $entry = $dir->read()) {
+        // Skip pointers
+        if ($entry == '.' || $entry == '..') {
+            continue;
+        }
+
+        // Deep copy directories
+        copyr("$source/$entry", "$dest/$entry");
+    }
+
+    // Clean up
+    $dir->close();
+    return true;
+}
+

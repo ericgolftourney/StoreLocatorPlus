@@ -35,11 +35,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
                     'api_key'   => get_option($prefix.'-api_key'),
                     )
         )
-    );
-    
-    // Setup the admin panel
-    // may need to be called in an admin_init handler someday
-    csl_slplus_setup_admin_interface();
+    );    
 }    
     
 /**************************************
@@ -50,8 +46,13 @@ if (defined('SLPLUS_PLUGINDIR')) {
 function csl_slplus_setup_admin_interface() {
     global $slplus_plugin;
     
+    // Don't have what we need? Leave.
     if (!isset($slplus_plugin)) { return; }
 
+    // Already been here?  Get out.
+    if (isset($slplus_plugin->settings->sections['How to Use'])) { return; }
+    
+    
     //-------------------------
     // How to Use Section
     //-------------------------    
