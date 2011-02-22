@@ -5,24 +5,14 @@
  * provide the map designer admin interface
  ******************************************************************************/
  
-
-print '<div class="wrap"><h2>' . 
-    __('Map Settings',$text_domain) .
-    "<a href='/wp-admin/admin.php?page=$sl_dir/add-locations.php' class='button add-new-h2'>".
-     __('Add Locations',$text_domain). 
-    '</a>'.
-    "<a href='/wp-admin/admin.php?page=$sl_dir/view-locations.php' class='button add-new-h2'>".
-    __('Manage Locations',$text_domain). 
-    '</a>'.
-    '</h2>';
-
+$update_msg ='';
 
 if (!$_POST) {
     move_upload_directories();
     
 } else {
     if (isset($_POST['sl_language'])) { 
-            update_option('sl_language', $_POST['sl_language']);
+    	    update_option('sl_language', $_POST['sl_language']);
     }
     $sl_google_map_arr=explode(":", $_POST['google_map_domain']);
     update_option('sl_google_map_country', $sl_google_map_arr[0]);
@@ -45,45 +35,32 @@ if (!$_POST) {
     update_option('sl_instruction_message', $_POST['sl_instruction_message']);
     update_option('sl_zoom_level', $_POST['zoom_level']);
     update_option('sl_starting_image', $_POST['sl_starting_image']);
-
-    
-    if (isset($_POST['sl_use_city_search'])) { 
-        $_POST['sl_use_city_search']=($_POST['sl_use_city_search']=="")? 0 : $_POST['sl_use_city_search'];
-    } else {
-        $_POST['sl_use_city_search'] = 0;
-    }
-    update_option('sl_use_city_search', $_POST['sl_use_city_search']);
-    
-    if (isset($_POST['sl_use_country_search'])) { 
-       $_POST['sl_use_country_search']=($_POST['sl_use_country_search']=="")? 0 : $_POST['sl_use_country_search'];
-    } else {
-       $_POST['sl_use_country_search']=0;
-    }
-    update_option('sl_use_country_search', $_POST['sl_use_country_search']);
-       
-    if (isset($_POST['sl_remove_credits'])) { 
-        $_POST['sl_remove_credits']=($_POST['sl_remove_credits']=="")? 0 : $_POST['sl_remove_credits'];
-    } else {
-        $_POST['sl_remove_credits']=0;
-    }
-    update_option('sl_remove_credits', $_POST['sl_remove_credits']);
-    
-    if (isset($_POST['sl_load_locations_default'])) { 
-        $_POST['sl_load_locations_default']=($_POST['sl_load_locations_default']=="")? 0 : $_POST['sl_load_locations_default'];
-    } else {
-        $_POST['sl_load_locations_default']=0;
-    }        
-    update_option('sl_load_locations_default', $_POST['sl_load_locations_default']);
-
-    
     update_option('sl_map_type', $_POST['sl_map_type']);
-    update_option('sl_num_initial_displayed', $_POST['sl_num_initial_displayed']);
-    if (isset($_POST['sl_map_overview_control'])) {  
-            update_option('sl_map_overview_control', $_POST['sl_map_overview_control']);
-    }
+    update_option('sl_num_initial_displayed', $_POST['sl_num_initial_displayed']);    
     update_option('sl_distance_unit', $_POST['sl_distance_unit']);
+
+    # Checkbox settings - can set to issset and save that because the
+    # post variable is only set if it is checked, if not checked it is
+    # false (0).
+    #
+    $_POST['sl_use_city_search']=isset($_POST['sl_use_city_search'])?1:0;
+    update_option('sl_use_city_search',       $_POST['sl_use_city_search']);
+
     
-    print "<div class='highlight'>".__("Successful Update", $text_domain).'</div>';
+    $_POST['sl_use_country_search']=isset($_POST['sl_use_country_search'])?1:0;
+    update_option('sl_use_country_search',       $_POST['sl_use_country_search']);
+       
+    $_POST['sl_remove_credits']=isset($_POST['sl_remove_credits'])?1:0; 
+    update_option('sl_remove_credits',       $_POST['sl_remove_credits']);
+    
+    $_POST['sl_load_locations_default']=isset($_POST['sl_load_locations_default'])?1:0;
+    update_option('sl_load_locations_default',      $_POST['sl_load_locations_default']);
+
+    $_POST['sl_map_overview_control'] = isset($_POST['sl_map_overview_control'])?1:0;  
+    update_option('sl_map_overview_control',         $_POST['sl_map_overview_control']);
+    
+    
+    $update_msg = "<div class='highlight'>".__("Successful Update", $text_domain).'</div>';
 }
 
 //---------------------------
@@ -144,45 +121,24 @@ $char_enc["Traditional Chinese (Taiwan)(Big 5)"]="big5";
 $char_enc["Hong Kong (HKSCS)"]="hkscs";
 $char_enc["Korea (EUS-KR)"]="eus-kr";
 
-// Print The Form
-//
-print  "<form method='post' name='mapDesigner'>
-<table class='widefat'><thead>
-    <tr>
-        <th colspan='2'>".__("Google Map Interface", $text_domain)."</th>
-    </tr>
-</thead>
-<tr>
-    <td>".__("Select Your Location", $text_domain).
-    "<select name='google_map_domain'>";
 
 
-foreach ($the_domain as $key=>$value) {
-	$selected=(get_option('sl_google_map_domain')==$value)?" selected " : "";
-	print "<option value='$key:$value' $selected>$key ($value)</option>\n";
-}
+$checked2   	=(isset($checked2)  ?$checked2  :'');
+$city_checked	=(get_option('sl_use_city_search')==1)	 	? " checked " : "";
+$country_checked=(get_option('sl_use_country_search')==1)	? " checked " : "";
+$checked3	=(get_option('sl_remove_credits')==1)		? " checked " : "";
+$checked4	=(get_option('sl_load_locations_default')==1)	? " checked " : "";
+$checked5	=(get_option('sl_map_overview_control')==1)	? " checked " : "";
 
-print "</select></td><td>".__("Select Character Encoding", $text_domain).
-"<select name='sl_map_character_encoding'>";
+$map_type_options=(isset($map_type_options)?$map_type_options:'');
+$map_type["".__("Normal", $text_domain).""]="G_NORMAL_MAP";
+$map_type["".__("Satellite", $text_domain).""]="G_SATELLITE_MAP";
+$map_type["".__("Hybrid", $text_domain).""]="G_HYBRID_MAP";
+$map_type["".__("Physical", $text_domain).""]="G_PHYSICAL_MAP";
 
-foreach ($char_enc as $key=>$value) {
-	$selected=(get_option('sl_map_character_encoding')==$value)?" selected " : "";
-	print "<option value='$value' $selected>$key</option>\n";
-}
-print "
-            </select>
-        </td>
-    </tr>
-<thead>
-    <tr>
-        <th colspan='2'>".__("Map Designer", $text_domain)."</th>
-    </tr>
-</thead>";
-
-$checked2   =(isset($checked2)  ?$checked2  :'');
 $icon_str   =(isset($icon_str)  ?$icon_str  :'');
 $icon2_str  =(isset($icon2_str) ?$icon2_str :'');
-$map_type_options=(isset($map_type_options)?$map_typ_options:'');
+
 
 $icon_dir=opendir(SLPLUS_PLUGINDIR."/icons/"); 
 while (false !== ($an_icon=readdir($icon_dir))) {
@@ -217,7 +173,6 @@ if (is_dir($sl_upload_path."/custom-icons/")) {
 		}
 	}
 }
-
 if (is_dir($sl_upload_path."/themes/")) {
 	$theme_dir=opendir($sl_upload_path."/themes/"); 
 
@@ -242,24 +197,59 @@ foreach ($zl as $value) {
 }
 $zoom.="</select>";
 
-$city_checked=(get_option('sl_use_city_search')==1)? " checked " : "";
-$country_checked=(get_option('sl_use_country_search')==1)? " checked " : "";
-$checked3=(get_option('sl_remove_credits')==1)? " checked " : "";
-$checked4=(get_option('sl_load_locations_default')==1)? " checked " : "";
-$checked5=(get_option('sl_map_overview_control')==1)? " checked " : "";
-$map_type["".__("Normal", $text_domain).""]="G_NORMAL_MAP";
-$map_type["".__("Satellite", $text_domain).""]="G_SATELLITE_MAP";
-$map_type["".__("Hybrid", $text_domain).""]="G_HYBRID_MAP";
-$map_type["".__("Physical", $text_domain).""]="G_PHYSICAL_MAP";
-
 foreach($map_type as $key=>$value) {
 	$selected2=(get_option('sl_map_type')==$value)? " selected " : "";
 	$map_type_options.="<option value='$value' $selected2>$key</option>\n";
 }
 $icon_notification_msg=((ereg("wordpress-store-locator-location-finder", get_option('sl_map_home_icon')) && ereg("^store-locator", $sl_dir)) || (ereg("wordpress-store-locator-location-finder", get_option('sl_map_end_icon')) && ereg("^store-locator", $sl_dir)))? "<div class='highlight' style='background-color:LightYellow;color:red'><span style='color:red'>".__("You have switched from <strong>'wordpress-store-locator-location-finder'</strong> to <strong>'store-locator'</strong> --- great!<br>Now, please re-select your <b>'Home Icon'</b> and <b>'Destination Icon'</b> below, so that they show up properly on your store locator map.", $text_domain)."</span></div>" : "" ;
 $sl_starting_image=get_option('sl_starting_image');
-	
+
+
+# KMap Settings
+#
+
+print '<div class="wrap"><h2>' . 
+    __('Map Settings',$text_domain) .
+    "<a href='/wp-admin/admin.php?page=$sl_dir/add-locations.php' class='button add-new-h2'>".
+     __('Add Locations',$text_domain). 
+    '</a>'.
+    "<a href='/wp-admin/admin.php?page=$sl_dir/view-locations.php' class='button add-new-h2'>".
+    __('Manage Locations',$text_domain). 
+    '</a>'.
+    '</h2>'.
+    $update_msg .
+    "<form method='post' name='mapDesigner'>
+<table class='widefat'><thead>
+    <tr>
+        <th colspan='2'>".__("Google Map Interface", $text_domain)."</th>
+    </tr>
+</thead>
+<tr>
+    <td>".__("Select Your Location", $text_domain).
+    "<select name='google_map_domain'>";
+
+
+foreach ($the_domain as $key=>$value) {
+	$selected=(get_option('sl_google_map_domain')==$value)?" selected " : "";
+	print "<option value='$key:$value' $selected>$key ($value)</option>\n";
+}
+
+print "</select></td><td>".__("Select Character Encoding", $text_domain).
+"<select name='sl_map_character_encoding'>";
+
+foreach ($char_enc as $key=>$value) {
+	$selected=(get_option('sl_map_character_encoding')==$value)?" selected " : "";
+	print "<option value='$value' $selected>$key</option>\n";
+}
 print "
+            </select>
+        </td>
+    </tr>
+<thead>
+    <tr>
+        <th colspan='2'>".__("Map Designer", $text_domain)."</th>
+    </tr>
+</thead>
     <tr><td colspan='1' width='40%' class='left_side'>
         <div class='map_designer_settings'>
             <h3>".__("Defaults", $text_domain)."</h3>    
