@@ -205,9 +205,8 @@ $icon_notification_msg=((ereg("wordpress-store-locator-location-finder", get_opt
 $sl_starting_image=get_option('sl_starting_image');
 
 
-# KMap Settings
+# Design Header
 #
-
 print '<div class="wrap"><h2>' . 
     __('Map Settings',$text_domain) .
     "<a href='/wp-admin/admin.php?page=$sl_dir/add-locations.php' class='button add-new-h2'>".
@@ -219,38 +218,51 @@ print '<div class="wrap"><h2>' .
     '</h2>'.
     $update_msg .
     "<form method='post' name='mapDesigner'>
-<table class='widefat'><thead>
-    <tr>
-        <th colspan='2'>".__("Google Map Interface", $text_domain)."</th>
-    </tr>
-</thead>
-<tr>
-    <td>".__("Select Your Location", $text_domain).
-    "<select name='google_map_domain'>";
-
-
-foreach ($the_domain as $key=>$value) {
-	$selected=(get_option('sl_google_map_domain')==$value)?" selected " : "";
-	print "<option value='$key:$value' $selected>$key ($value)</option>\n";
-}
-
-print "</select></td><td>".__("Select Character Encoding", $text_domain).
-"<select name='sl_map_character_encoding'>";
-
-foreach ($char_enc as $key=>$value) {
-	$selected=(get_option('sl_map_character_encoding')==$value)?" selected " : "";
-	print "<option value='$value' $selected>$key</option>\n";
-}
+        <table class='widefat'>"
+        ;
+    
+# Search Section
+#
 print "
-            </select>
-        </td>
-    </tr>
-<thead>
-    <tr>
-        <th colspan='2'>".__("Map Designer", $text_domain)."</th>
-    </tr>
-</thead>
-    <tr><td colspan='1' width='40%' class='left_side'>
+    <thead>
+        <tr>
+            <th colspan='2'>".__("Search Settings", $text_domain)."</th>
+        </tr>
+    </thead>
+    ";
+
+# Search : Left Side
+#
+print "<tr><td class='left_side'>".
+      '<h3>'.__('Search Features', $text_domain).'</h3>'.
+      '</td>';
+
+
+# Search : Right Side
+#
+print "<td class='right_side'>" .
+        '<h3>'.__("Labels", $text_domain).'</h3>'.
+    __("Address Input Label", $text_domain).
+    "<input name='search_label' value='$search_label'><br/>".
+    __("Radius Dropdown Label", $text_domain).
+    "<input name='sl_radius_label' value='$sl_radius_label'><br/>".
+    __("Website URL Label", $text_domain).
+    "<input name='sl_website_label' value='$sl_website_label'><br/>".
+    __("Instruction Message to Users", $text_domain).
+    "<input name='sl_instruction_message' value='$sl_instruction_message' size='50'><br/>".
+    "</td></tr>"
+    ;
+
+
+# Map Designer
+#    
+print "<thead>
+    <tr><th colspan='2'>".__("Map Designer", $text_domain)."</th></tr>
+    </thead>";
+    
+# Map Designer : Left Side
+#
+print "<tr><td width='40%' class='left_side'>
         <div class='map_designer_settings'>
             <h3>".__("Defaults", $text_domain)."</h3>    
             <div><label for='sl_map_type'>".__("Default Map Type", $text_domain).":</label>
@@ -278,24 +290,34 @@ print "
             <span class='input_note' style='width:99%;'>".__("If set, this image will be displayed until a search is performed.",$text_domain)."</span>
             </div>
         </div>            
-    </td>
+    </td>";
+
+# Map Designer : Right Side
+#    
+print "<td class='right_side'>".
+    "<h3>".__("Google Map Interface", $text_domain)."</h3>".
+    __("Select Your Location", $text_domain).
+    "<select name='google_map_domain'>";
+
+foreach ($the_domain as $key=>$value) {
+	$selected=(get_option('sl_google_map_domain')==$value)?" selected " : "";
+	print "<option value='$key:$value' $selected>$key ($value)</option>\n";
+}
+
+print "</select><br/>".
+    __("Select Character Encoding", $text_domain).
+    "<select name='sl_map_character_encoding'>";
+
+foreach ($char_enc as $key=>$value) {
+	$selected=(get_option('sl_map_character_encoding')==$value)?" selected " : "";
+	print "<option value='$value' $selected>$key</option>\n";
+}
+print "</select></td></tr>";
     
-    <td colspan='1' width='60%'><h3>".__("Labels", $text_domain)."</h3>
-    <table class='map_designer_section right_side'>
-    <tr><td>".__("Address Input Label", $text_domain).":</td>
-    <td><input name='search_label' value=\"$search_label\"></td></tr>
-    <tr><td>".__("Radius Dropdown Label", $text_domain).":</td>
-    <td><input name='sl_radius_label' value=\"$sl_radius_label\"></td></tr>
-    <tr><td>".__("Website URL Label", $text_domain).":</td>
-    <td><input name='sl_website_label' value=\"$sl_website_label\"></td>
-    <tr><td>".__("Instruction Message to Users", $text_domain).":</td>
-    <td><input name='sl_instruction_message' value=\"".$sl_instruction_message."\" size='50'></td>
-    </tr></table>    
-    </td></tr>
-    
-    
-    
-    <tr><td colspan='1' class='left_side'>    
+
+# Map Designer : Left Side Row 2
+#        
+print "<tr><td class='left_side'>    
         <div class='map_designer_settings'>
             <h3>".__("Dimensions", $text_domain)."</h3>
     
@@ -328,14 +350,13 @@ $the_distance_unit["".__("Miles", $text_domain).""]="miles";
 foreach ($the_distance_unit as $key=>$value) {
 	$selected=(get_option('sl_distance_unit')==$value)?" selected " : "";
 	print "<option value='$value' $selected>$key</option>\n";
-}
-            
+}            
     
 print "</select>
             </div>            
         </div>
     </td>    
-    </td><td colspan='1'><h3>".__("Design", $text_domain)."</h3>
+    </td><td class='rightside'><h3>".__("Design", $text_domain)."</h3>
     $icon_notification_msg
     <table class='map_designer_section right_side'><tr>
     <tr><td valign='top'>".__("Choose Theme", $text_domain)."</td>
