@@ -6,49 +6,84 @@
  ******************************************************************************/
  
 
-print '<div class="wrap"><h2>';
-_e('Map Settings',$text_domain);
-print '</h2>';
+print '<div class="wrap"><h2>' . 
+    __('Map Settings',$text_domain) .
+    "<a href='/wp-admin/admin.php?page=$sl_dir/add-locations.php' class='button add-new-h2'>".
+     __('Add Locations',$text_domain). 
+    '</a>'.
+    "<a href='/wp-admin/admin.php?page=$sl_dir/view-locations.php' class='button add-new-h2'>".
+    __('Manage Locations',$text_domain). 
+    '</a>'.
+    '</h2>';
+
 
 if (!$_POST) {
     move_upload_directories();
     
 } else {
-    update_option('sl_language', $_POST[sl_language]);    
-    $sl_google_map_arr=explode(":", $_POST[google_map_domain]);
+    if (isset($_POST['sl_language'])) { 
+            update_option('sl_language', $_POST['sl_language']);
+    }
+    $sl_google_map_arr=explode(":", $_POST['google_map_domain']);
     update_option('sl_google_map_country', $sl_google_map_arr[0]);
     update_option('sl_google_map_domain', $sl_google_map_arr[1]);
-    update_option('sl_map_character_encoding', $_POST[sl_map_character_encoding]);
+    update_option('sl_map_character_encoding', $_POST['sl_map_character_encoding']);
     
-    $_POST[height]=ereg_replace("[^0-9]", "", $_POST[height]);
-    $_POST[width]=ereg_replace("[^0-9]", "", $_POST[width]);
-    update_option('sl_map_height', $_POST[height]);
-    update_option('sl_map_width', $_POST[width]);
-    update_option('sl_map_radii', $_POST[radii]);
-    update_option('sl_map_height_units', $_POST[height_units]);
-    update_option('sl_map_width_units', $_POST[width_units]);
-    update_option('sl_map_home_icon', $_POST[icon]);
-    update_option('sl_map_end_icon', $_POST[icon2]);
-    update_option('sl_map_theme', $_POST[theme]);
-    update_option('sl_search_label', $_POST[search_label]);
-    update_option('sl_radius_label', $_POST[sl_radius_label]);
-    update_option('sl_website_label', $_POST[sl_website_label]);
-    update_option('sl_instruction_message', $_POST[sl_instruction_message]);
-    update_option('sl_zoom_level', $_POST[zoom_level]);
-    $_POST[sl_use_city_search]=($_POST[sl_use_city_search]=="")? 0 : $_POST[sl_use_city_search];
-    update_option('sl_use_city_search', $_POST[sl_use_city_search]);
-    $_POST[sl_use_country_search]=($_POST[sl_use_country_search]=="")? 0 : $_POST[sl_use_country_search];
-    update_option('sl_use_country_search', $_POST[sl_use_country_search]);
-    $_POST[sl_remove_credits]=($_POST[sl_remove_credits]=="")? 0 : $_POST[sl_remove_credits];
-    update_option('sl_remove_credits', $_POST[sl_remove_credits]);
-    $_POST[sl_load_locations_default]=($_POST[sl_load_locations_default]=="")? 0 : $_POST[sl_load_locations_default];
-    update_option('sl_load_locations_default', $_POST[sl_load_locations_default]);
-    update_option('sl_map_type', $_POST[sl_map_type]);
-    update_option('sl_num_initial_displayed', $_POST[sl_num_initial_displayed]);
-    update_option('sl_map_overview_control', $_POST[sl_map_overview_control]);
-    update_option('sl_distance_unit', $_POST[sl_distance_unit]);
+    $_POST['height']=ereg_replace("[^0-9]", "", $_POST['height']);
+    $_POST['width']=ereg_replace("[^0-9]", "", $_POST['width']);
+    update_option('sl_map_height', $_POST['height']);
+    update_option('sl_map_width', $_POST['width']);
+    update_option('sl_map_radii', $_POST['radii']);
+    update_option('sl_map_height_units', $_POST['height_units']);
+    update_option('sl_map_width_units', $_POST['width_units']);
+    update_option('sl_map_home_icon', $_POST['icon']);
+    update_option('sl_map_end_icon', $_POST['icon2']);
+    update_option('sl_map_theme', $_POST['theme']);
+    update_option('sl_search_label', $_POST['search_label']);
+    update_option('sl_radius_label', $_POST['sl_radius_label']);
+    update_option('sl_website_label', $_POST['sl_website_label']);
+    update_option('sl_instruction_message', $_POST['sl_instruction_message']);
+    update_option('sl_zoom_level', $_POST['zoom_level']);
+    update_option('sl_starting_image', $_POST['sl_starting_image']);
+
     
-    print "<div class='highlight'>".__("Successful Update", $text_domain)." $view_link</div> <!--meta http-equiv='refresh' content='0'-->";
+    if (isset($_POST['sl_use_city_search'])) { 
+        $_POST['sl_use_city_search']=($_POST['sl_use_city_search']=="")? 0 : $_POST['sl_use_city_search'];
+    } else {
+        $_POST['sl_use_city_search'] = 0;
+    }
+    update_option('sl_use_city_search', $_POST['sl_use_city_search']);
+    
+    if (isset($_POST['sl_use_country_search'])) { 
+       $_POST['sl_use_country_search']=($_POST['sl_use_country_search']=="")? 0 : $_POST['sl_use_country_search'];
+    } else {
+       $_POST['sl_use_country_search']=0;
+    }
+    update_option('sl_use_country_search', $_POST['sl_use_country_search']);
+       
+    if (isset($_POST['sl_remove_credits'])) { 
+        $_POST['sl_remove_credits']=($_POST['sl_remove_credits']=="")? 0 : $_POST['sl_remove_credits'];
+    } else {
+        $_POST['sl_remove_credits']=0;
+    }
+    update_option('sl_remove_credits', $_POST['sl_remove_credits']);
+    
+    if (isset($_POST['sl_load_locations_default'])) { 
+        $_POST['sl_load_locations_default']=($_POST['sl_load_locations_default']=="")? 0 : $_POST['sl_load_locations_default'];
+    } else {
+        $_POST['sl_load_locations_default']=0;
+    }        
+    update_option('sl_load_locations_default', $_POST['sl_load_locations_default']);
+
+    
+    update_option('sl_map_type', $_POST['sl_map_type']);
+    update_option('sl_num_initial_displayed', $_POST['sl_num_initial_displayed']);
+    if (isset($_POST['sl_map_overview_control'])) {  
+            update_option('sl_map_overview_control', $_POST['sl_map_overview_control']);
+    }
+    update_option('sl_distance_unit', $_POST['sl_distance_unit']);
+    
+    print "<div class='highlight'>".__("Successful Update", $text_domain).'</div>';
 }
 
 //---------------------------
@@ -112,8 +147,7 @@ $char_enc["Korea (EUS-KR)"]="eus-kr";
 // Print The Form
 //
 print  "<form method='post' name='mapDesigner'>
-<table class='widefat'>
-<thead>
+<table class='widefat'><thead>
     <tr>
         <th colspan='2'>".__("Google Map Interface", $text_domain)."</th>
     </tr>
@@ -208,8 +242,8 @@ foreach ($zl as $value) {
 }
 $zoom.="</select>";
 
-$checked=(get_option('sl_use_city_search')==1)? " checked " : "";
-$checked=(get_option('sl_use_country_search')==1)? " checked " : "";
+$city_checked=(get_option('sl_use_city_search')==1)? " checked " : "";
+$country_checked=(get_option('sl_use_country_search')==1)? " checked " : "";
 $checked3=(get_option('sl_remove_credits')==1)? " checked " : "";
 $checked4=(get_option('sl_load_locations_default')==1)? " checked " : "";
 $checked5=(get_option('sl_map_overview_control')==1)? " checked " : "";
@@ -223,30 +257,40 @@ foreach($map_type as $key=>$value) {
 	$map_type_options.="<option value='$value' $selected2>$key</option>\n";
 }
 $icon_notification_msg=((ereg("wordpress-store-locator-location-finder", get_option('sl_map_home_icon')) && ereg("^store-locator", $sl_dir)) || (ereg("wordpress-store-locator-location-finder", get_option('sl_map_end_icon')) && ereg("^store-locator", $sl_dir)))? "<div class='highlight' style='background-color:LightYellow;color:red'><span style='color:red'>".__("You have switched from <strong>'wordpress-store-locator-location-finder'</strong> to <strong>'store-locator'</strong> --- great!<br>Now, please re-select your <b>'Home Icon'</b> and <b>'Destination Icon'</b> below, so that they show up properly on your store locator map.", $text_domain)."</span></div>" : "" ;
+$sl_starting_image=get_option('sl_starting_image');
 	
 print "
-    <tr><td colspan='1' width='40%' class='left_side'><h3>".__("Defaults", $text_domain)."</h3>
-    <table class='map_designer_section'><tr><td>".__("Choose Default Map Type Shown to Visitors", $text_domain).":</td>
-    <td><select name='sl_map_type'>\n".$map_type_options."</select></td></tr>
+    <tr><td colspan='1' width='40%' class='left_side'>
+        <div class='map_designer_settings'>
+            <h3>".__("Defaults", $text_domain)."</h3>    
+            <div><label for='sl_map_type'>".__("Default Map Type", $text_domain).":</label>
+            <select name='sl_map_type'>\n".$map_type_options."</select></div>
+            
+            <div><label for='sl_use_city_search'>".__("Allow User Search By City?", $text_domain).":</label>
+            <input name='sl_use_city_search' value='1' type='checkbox' $city_checked></div>
+        
+            <div><label for='sl_use_country_search'>".__("Allow User Search By Country?", $text_domain).":</label>
+            <input name='sl_use_country_search' value='1' type='checkbox' $country_checked></div>
+            
+            <div><label for='sl_map_overview_control'>".__("Show Map Inset Box?", $text_domain).":</label>    
+            <input name='sl_map_overview_control' value='1' type='checkbox' $checked5></div>
+            
+            <div><label for='sl_load_locations_default'>".__("Show Locations When Map Loads?", $text_domain).":</label>
+            <input name='sl_load_locations_default' value='1' type='checkbox' $checked4></div>
+            
+            <div><label for='sl_num_initial_displayed'>".__("Default Locations Shown", $text_domain).":</label>
+            <input name='sl_num_initial_displayed' value='$sl_num_initial_displayed' size='5'>
+            <span class='input_note'>".__("Recommended Max: 50", $text_domain)."</span>
+            </div>
+            
+            <div><label for='sl_starting_image'>".__("Starting Image",$text_domain).":</label>
+            <input name='sl_starting_image' value='$sl_starting_image' size='25'>
+            <span class='input_note' style='width:99%;'>".__("If set, this image will be displayed until a search is performed.",$text_domain)."</span>
+            </div>
+        </div>            
+    </td>
     
-    <tr><td>".__("Allow User Search By City?", $text_domain).":</td>
-    <td><input name='sl_use_city_search' value='1' type='checkbox' $checked></td></tr>
-
-    <tr><td>".__("Allow User Search By Country?", $text_domain).":</td>
-    <td><input name='sl_use_country_search' value='1' type='checkbox' $checked></td></tr>
-
-    
-    <tr><td>".__("Show Map Inset Box?", $text_domain).":</td>    
-    <td><input name='sl_map_overview_control' value='1' type='checkbox' $checked5></td></tr>
-    <tr><td>".__("Show Locations By Default When Map Loads?", $text_domain).":</td>
-    <td><input name='sl_load_locations_default' value='1' type='checkbox' $checked4></td></tr>
-    <tr><td>".__("Number of Locations Shown By Default", $text_domain).":</td>
-    <td><input name='sl_num_initial_displayed' value='$sl_num_initial_displayed'><br><span style='font-size:80%'>(".__("Recommended Max: 50", $text_domain).")</span></td></tr></table>
-    
-    </td><!--/tr-->
-    <!--tr><td>".__("Allow User Search By Name of Location?", $text_domain).":</td>
-    <td><input name='sl_use_name_search' value='1' type='checkbox' $checked2></td></tr-->
-    <!--tr--><td colspan='1' width='60%'><h3>".__("Labels", $text_domain)."</h3>
+    <td colspan='1' width='60%'><h3>".__("Labels", $text_domain)."</h3>
     <table class='map_designer_section right_side'>
     <tr><td>".__("Address Input Label", $text_domain).":</td>
     <td><input name='search_label' value=\"$search_label\"></td></tr>
@@ -256,19 +300,37 @@ print "
     <td><input name='sl_website_label' value=\"$sl_website_label\"></td>
     <tr><td>".__("Instruction Message to Users", $text_domain).":</td>
     <td><input name='sl_instruction_message' value=\"".$sl_instruction_message."\" size='50'></td>
-    </tr></table>
-    
+    </tr></table>    
     </td></tr>
-    <tr><td colspan='1' class='left_side'><h3>".__("Dimensions", $text_domain)."</h3>
-    <table class='map_designer_section'><tr><td><nobr>".__("Zoom Level", $text_domain).":</nobr></td>
-    <td>$zoom</td></tr>
-    <tr><td><nobr>".__("Map Height", $text_domain).":</nobr></td>
-    <td><input name='height' value='$height'>&nbsp;".choose_units($height_units, "height_units")."</td></tr>
-    <tr><td><nobr>".__("Map Width", $text_domain).":</nobr></td>
-    <td><input name='width' value='$width'>&nbsp;".choose_units($width_units, "width_units")."</td></tr>
-    <tr><td><nobr>".__("Radii Options<br>(in ".get_option('sl_distance_unit').")", $text_domain).":</nobr></td>
-    <td><input  name='radii' value='$radii' size='30'><br><span style='font-size:80%'>".__("Note: Seperate each number with a comma ',' , and put paratheseses '( )' around the default radius you would like to show</span>", $text_domain)."</td></tr>
-    <tr><td><nobr>".__("Distance Unit", $text_domain).":</td><td><select name='sl_distance_unit'>";
+    
+    
+    
+    <tr><td colspan='1' class='left_side'>    
+        <div class='map_designer_settings'>
+            <h3>".__("Dimensions", $text_domain)."</h3>
+    
+            <div><label for='zoom_level'>".__("Zoom Level", $text_domain).":</label>
+            $zoom
+            <span class='input_note'>".__("0=street level, 19=world view. Show locations overrides this setting.",$text_domain)."</span>
+            </div>
+            
+            <div><label for='height'>".__("Map Height", $text_domain).":</label>
+            <input name='height' value='$height' size='5'>&nbsp;".choose_units($height_units, "height_units")."
+            </div>
+            
+            <div><label for='height'>".__("Map Width", $text_domain).":</label>
+            <input name='width' value='$width' size='5'>&nbsp;".choose_units($width_units, "width_units")."
+            </div>
+
+            <div><label for='radii'>".__("Radii Options", $text_domain).":</label>
+            <input  name='radii' value='$radii' size='25'>
+            <span class='input_note' style='width:99%;'>".
+            __("Separate each number with a comma ',' , and put parenthesis '( )' around the default.</span>", $text_domain).
+            "</span>
+            </div>  
+            
+            <div><label for='height'>".__("Distance Unit", $text_domain).":</label>
+            <select name='sl_distance_unit'>".
 
 $the_distance_unit["".__("Kilometers", $text_domain).""]="km";
 $the_distance_unit["".__("Miles", $text_domain).""]="miles";
@@ -277,11 +339,13 @@ foreach ($the_distance_unit as $key=>$value) {
 	$selected=(get_option('sl_distance_unit')==$value)?" selected " : "";
 	print "<option value='$value' $selected>$key</option>\n";
 }
-
-print "</select></td></tr></table>
+            
     
-    </td><!--/tr>
-    <tr--><td colspan='1'><h3>".__("Design", $text_domain)."</h3>
+print "</select>
+            </div>            
+        </div>
+    </td>    
+    </td><td colspan='1'><h3>".__("Design", $text_domain)."</h3>
     $icon_notification_msg
     <table class='map_designer_section right_side'><tr>
     <tr><td valign='top'>".__("Choose Theme", $text_domain)."</td>

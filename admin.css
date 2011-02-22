@@ -1,3 +1,10 @@
+/***************************
+ * Manage Locations Form
+ */
+
+#icon-edit-locations, #icon-locations {
+    background: url("/wp-content/plugins/closes-store/icon_location.png") no-repeat scroll -312px -5px transparent;
+}
 .add_location_form label {
     width: 120px;
     float: left;
@@ -81,4 +88,40 @@ div.feedburnerFeedBlock ul li span.headline {
 }
 .left_side {
 	border-right:solid #ddd 1px;
+}
+
+/*** Generic Formatting ***/
+.floatright {
+    float: right;
+}
+.floatleft {
+    float: left;
+}
+
+
+/**** Manage Locations Page ****/
+.addloclink {
+    float: left;
+    text-align: left;
+    vertical-align: bottom;
+    padding-top: 9px;
+    width: 100px;
+}
+.perpage {
+    float: left;
+    text-align: left;
+    padding-top: 7px;
+    width: 200px;
+}
+.searchlocations {
+    float: right;
+    text-align:right;
+    width: 400px;
+}
+.viewtype {
+    float: left;
+    text-align: left;
+    vertical-align: bottom;
+    padding-top: 9px;
+    width: 90px;
 }

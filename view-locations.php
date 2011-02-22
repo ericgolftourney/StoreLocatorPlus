@@ -4,31 +4,42 @@
  **
  ** Manage the view locations admin panel action.
  ***************************************************************************/
-?>
-<div class='wrap'>
-<?php
-$hidden="";
+
+$hidden='';
 foreach($_GET as $key=>$val) {
 	//hidden keys to keep same view after form submission
 	if ($key!="q" && $key!="o" && $key!="d" && $key!="changeView" && $key!="start") {
 		$hidden.="<input type='hidden' value='$val' name='$key'>\n"; 
 	}
 }
-print "<form><table cellpadding='0px' cellspacing='0px' width='100%'><tr><td>
-<h2>".__("Manage Locations", $text_domain)."</h2></td><td align='right'>".
-"<h2 style='float:right; padding-right:0px; width:100%'>".
-"<input value='".(isset($_GET['q'])?$_GET['q']:'')."' name='q'><input type='submit' value='".
-__("Search Locations", $text_domain).
-"' class='button-primary'></h2>$hidden</td></tr></table></form><br>";
 
-initialize_variables();
+// Header Text
+//
+print "<div class='wrap'>
+            <div id='icon-edit-locations' class='icon32'><br/></div>
+            <h2>".
+            __('Manage Locations', $text_domain).
+            "<a href='/wp-admin/admin.php?page=$sl_dir/add-locations.php' class='button add-new-h2'>".
+            __('Add Locations',$text_domain). 
+            "</a></h2>";
 
+
+// Check Google API Key
+// Not present : show message
+//
 $slak=$slplus_plugin->driver_args['api_key'];
 if (!$slak) {
-    print '<div class="wrap">';
-	print 'Google API Key needs to be set to activate this feature.';
-	print '</div>';
+	print '<a href="/wp-admin/options-general.php?page=csl-slplus-options">';
+	_e('Google API Key needs to be set to activate this feature.', $text_domain);
+	print '</a>';
+
+// Got key - show forms and listing
+//
 } else {
+    
+    // Initialize Variables
+    //
+    initialize_variables();  
 
 	// If delete link is clicked
 	if (isset($_GET['delete']) && ($_GET['delete']!='')) {
@@ -84,12 +95,6 @@ if (!$slak) {
             include("tagLocations.php");
         }
         
-        // Multi Action
-        if (eregi("multi", $_POST['act'])) {
-            //if bulk updating is used
-            include($sl_upload_path."/addons/multiple-field-updater/multiLocationUpdate.php");
-        }
-        
         // Locations Per Page Action
         if ($_POST['act']=="locationsPerPage") {
             //If bulk delete is used
@@ -98,19 +103,9 @@ if (!$slak) {
         }
     }
     
-	if (isset($_GET['changeView']) && ($_GET['changeView']==1)) {
-		if (get_option('sl_location_table_view')=="Normal") {
-			update_option('sl_location_table_view', 'Expanded');
-			$tabViewText="Expanded";
-		} else {
-			update_option('sl_location_table_view', 'Normal');
-			$tabViewText="Normal";
-		}
-		$_SERVER['REQUEST_URI']=ereg_replace("&changeView=1", "", $_SERVER['REQUEST_URI']);
-		print "<script>location.replace('".$_SERVER['REQUEST_URI']."');</script>";
-	}
-	
-	
+    
+	// Changing Updater
+	//
 	if (isset($_GET['changeUpdater']) && ($_GET['changeUpdater']==1)) {
 		if (get_option('sl_location_updater_type')=="Tagging") {
 			update_option('sl_location_updater_type', 'Multiple Fields');
@@ -122,41 +117,81 @@ if (!$slak) {
 		$_SERVER['REQUEST_URI']=ereg_replace("&changeUpdater=1", "", $_SERVER['REQUEST_URI']);
 		print "<script>location.replace('".$_SERVER['REQUEST_URI']."');</script>";
 	}
-	
-print "<form name='locationForm' method='post'>";
-print "<table width=100%><tr><td width='33%'><b>".__("Current View", $text_domain).":</b>&nbsp;".get_option('sl_location_table_view')."&nbsp;(<a href='".ereg_replace("&changeView=1", "", $_SERVER['REQUEST_URI'])."&changeView=1'>".__("Change View", $text_domain)."</a>)</td>
-<td width='33%' align='center'>
-<nobr><b>".__("Locations Per Page", $text_domain).":</b> <select name='sl_admin_locations_per_page'>
-<option value=''>".__("Choose", $text_domain)."</option>";
 
-$opt_arr=array(10,25,50,100,200,300,400,500,1000,2000,4000,5000,10000);
-foreach ($opt_arr as $value) {
-	$selected=($sl_admin_locations_per_page==$value)? " selected " : "";
-	print "<option value='$value' $selected>$value</option>";
-}
-print "</select><input type='button' value='".__("Change", $text_domain)."' class='button-primary' onclick=\"LF=document.forms['locationForm'];LF.act.value='locationsPerPage';LF.submit();\">
-</nobr>
-</td>
-<td align=right width='33%'>";
+    // Changing View
+    //
+    $tabViewText = get_option('sl_location_table_view');
+	if (isset($_GET['changeView']) && ($_GET['changeView']==1)) {
+		if ($tabViewText=="Normal") {
+			update_option('sl_location_table_view', 'Expanded');
+			$tabViewText=__('Expanded',$text_domain);
+		} else {
+			update_option('sl_location_table_view', 'Normal');
+			$tabViewText=__('Normal',$text_domain);
+		}
+		$_SERVER['REQUEST_URI']=ereg_replace("&changeView=1", "", $_SERVER['REQUEST_URI']);
+		print "<script>location.replace('".$_SERVER['REQUEST_URI']."');</script>";
+	} else {
+	    $tabViewText = ($tabViewText == 'Normal') ? 
+	        __('Normal',$text_domain) :
+	        __('Expanded',$text_domain);
+	}
+		
 
-if (file_exists($sl_upload_path."/addons/multiple-field-updater/multiLocationUpdate.php")) {
-print "<b>".__("Updater", $text_domain).":</b>&nbsp;".get_option('sl_location_updater_type')."&nbsp;(<a href='".ereg_replace("&changeUpdater=1", "", $_SERVER['REQUEST_URI'])."&changeUpdater=1'>".__("Change Updater", $text_domain)."</a>)";
-}
+    // Form Output  
+    print "
+    <div class='top_listing_bar'>        
+        <div class='viewtype'>".
+            __("View", $text_domain).':'.
+            "<a href='".ereg_replace("&changeView=1", "", $_SERVER['REQUEST_URI'])."&changeView=1'>".                    
+            $tabViewText.                        
+       "</a>
+       </div>
+       
+       <div class='searchlocations'>
+        <form>
+            <input value='".(isset($_GET['q'])?$_GET['q']:'')."' name='q'>
+            <input type='submit' value='".__("Search Locations", $text_domain)."'>
+            $hidden
+        </form>
+       </div>
+      
+       <div class='perpage'>
+        <form name='locationForm' method='post'>".
+        __("Locations Per Page", $text_domain).": 
+        <select name='sl_admin_locations_per_page'
+           onchange=\"LF=document.forms['locationForm'];".
+                     "LF.act.value='locationsPerPage';LF.submit();\">                
+            >
+            <option value=''>".__("Choose", $text_domain)."</option>";
+    $opt_arr=array(10,25,50,100,200,300,400,500,1000,2000,4000,5000,10000);
+    foreach ($opt_arr as $value) {
+        $selected=($sl_admin_locations_per_page==$value)? " selected " : "";
+        print "<option value='$value' $selected>$value</option>";
+    }
+    print "</select>
+       </div>
+        <div style='clear:both;'></div>
+    </div>";
+    
 
-print "</td></tr></table><br>";
-include("mgmt-buttons-links.php");
+    print "<table width='100%' cellpadding='5px' cellspacing='0' style='border:solid silver 1px' id='rightnow' class='widefat'>
+    <thead><tr>
+    <td style='/*background-color:#000;*/ width:20%'><input class='button' type='button' value='".__("Delete Selected", $text_domain)."' onclick=\"if(confirm('".__("You sure", $text_domain)."?')){LF=document.forms['locationForm'];LF.act.value='delete';LF.submit();}else{return false;}\"></td>";
+    print "<td style='/*background-color:#000;*/ width:73%; text-align:right; color:white'>";
+    print "<strong>".__("Tags", $text_domain)."</strong>&nbsp;<input name='sl_tags'>&nbsp;<input class='button' type='button' value='".__("Tag Selected", $text_domain)."' onclick=\"LF=document.forms['locationForm'];LF.act.value='add_tag';LF.submit();\">&nbsp;<input class='button' type='button' value='".__("Remove Tag From Selected", $text_domain)."' onclick=\"if(confirm('".__("You sure", $text_domain)."?')){LF=document.forms['locationForm'];LF.act.value='remove_tag';LF.submit();}else{return false;}\">";
+    print "</td></tr></thead></table>
+    ";
+    set_query_defaults();
 
-set_query_defaults();
-
-//for search links
-		$numMembers=$wpdb->get_results(
-            "SELECT sl_id FROM " . $wpdb->prefix . "store_locator $where");
-		$numMembers2=count($numMembers); 
-		$start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
-        //edit this to determine how many locations to view per page of 'Manage Locations' page
-		$num_per_page=$sl_admin_locations_per_page; 
-		if ($numMembers2!=0) {include(SLPLUS_PLUGINDIR.'/search-links.php');}
-//end of for search links
+    //for search links
+    $numMembers=$wpdb->get_results(
+        "SELECT sl_id FROM " . $wpdb->prefix . "store_locator $where");
+    $numMembers2=count($numMembers); 
+    $start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
+    //edit this to determine how many locations to view per page of 'Manage Locations' page
+    $num_per_page=$sl_admin_locations_per_page; 
+    if ($numMembers2!=0) {include(SLPLUS_PLUGINDIR.'/search-links.php');}
 
 $opt = isset($_GET['o']) ? $_GET['o'] : '';
 $dir = isset($_GET['d']) ? $_GET['d'] : '';
@@ -284,6 +319,4 @@ if ($numMembers2!=0) {include(SLPLUS_PLUGINDIR.'/search-links.php');}
 print "</form>";
 	
 }
-	
-?>
-</div>
+print "</div>";

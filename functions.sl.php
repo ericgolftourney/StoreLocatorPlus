@@ -9,9 +9,6 @@ function move_upload_directories() {
 	if (!is_dir($sl_upload_path)) {
 			mkdir($sl_upload_path, 0755);
 	}
-	if (is_dir($sl_path . "/addons") && !is_dir($sl_upload_path . "/addons")) {
-		copyr($sl_path . "/addons", $sl_upload_path . "/addons");
-	}
 	if (is_dir($sl_path . "/themes") && !is_dir($sl_upload_path . "/themes")) {
 		copyr($sl_path . "/themes", $sl_upload_path . "/themes");
 	}
@@ -404,8 +401,18 @@ function head_scripts() {
  ** render the google map.
  **/
 function ajax_map($content) {
-	global $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb;
-	global $slplus_plugin;
+	global  $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb,
+	        $slplus_plugin;
+	        
+    // Variables this function uses and passes to the template
+    // we need a better way to pass vars to the template parser so we don't
+    // carry around the weight of these global definitions.
+    // the other option is to unset($GLOBAL['<varname>']) at then end of this
+    // function call.
+    //
+    global $search_label, $width, $height, $width_units, $height_units, $hide,
+      $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
+      $sl_instruction_message, $cs_options, $country_options;
 
     // If the shortcode for [STORE-LOCATOR] is not in the content
     // just return the content.  This is a weird way to do this.
@@ -424,7 +431,7 @@ function ajax_map($content) {
 		$height=(get_option('sl_map_height'))? 
                 get_option('sl_map_height') : "500" ;
 		$width=(get_option('sl_map_width'))? 
-                get_option('sl_map_width') : "100" ;
+                get_option('sl_map_width') : "100" ;        
 		$radii=(get_option('sl_map_radii'))? 
                 get_option('sl_map_radii') : "1,5,10,(25),50,100,200,500" ;
 		$height_units=(get_option('sl_map_height_units'))? 
@@ -432,7 +439,8 @@ function ajax_map($content) {
 		$width_units=(get_option('sl_map_width_units'))? 
                 get_option('sl_map_width_units') : "%";
 		$sl_instruction_message=(get_option('sl_instruction_message'))? 
-                get_option('sl_instruction_message') : "Enter Your Address or Zip Code Above.";
+                get_option('sl_instruction_message') : 
+                "Enter Your Address or Zip Code Above.";
 	
 		$r_array=explode(",", $radii);
 		$search_label=(get_option('sl_search_label'))? 
@@ -498,75 +506,31 @@ function ajax_map($content) {
 		$theme_path=$sl_path."/images";
 	}
 	$sub_img=$theme_base."/search_button.png";
-	$mousedown=(file_exists($theme_path."/search_button_down.png"))? "onmousedown=\"this.src='$theme_base/search_button_down.png'\" onmouseup=\"this.src='$theme_base/search_button.png'\"" : "";
-	$mouseover=(file_exists($theme_path."/search_button_over.png"))? "onmouseover=\"this.src='$theme_base/search_button_over.png'\" onmouseout=\"this.src='$theme_base/search_button.png'\"" : "";
-	$button_style=(file_exists($theme_path."/search_button.png"))? "type='image' src='$sub_img' $mousedown $mouseover" : "type='submit'";
-	$hide=(get_option('sl_remove_credits')==1)? "style='display:none;'" : "";
+	$mousedown=(file_exists($theme_path."/search_button_down.png"))? 
+	    "onmousedown=\"this.src='$theme_base/search_button_down.png'\" onmouseup=\"this.src='$theme_base/search_button.png'\"" : 
+	    "";
+	$mouseover=(file_exists($theme_path."/search_button_over.png"))? 
+	    "onmouseover=\"this.src='$theme_base/search_button_over.png'\" onmouseout=\"this.src='$theme_base/search_button.png'\"" : 
+	    "";
+	$button_style=(file_exists($theme_path."/search_button.png"))? 
+	    "type='image' src='$sub_img' $mousedown $mouseover" : 
+	    "type='submit'";
+	$hide=(get_option('sl_remove_credits')==1)? 
+	    "style='display:none;'" : 
+	    "";
 
 	$columns = 1;
 	$columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;
 	$columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
 	$sl_radius_label=get_option('sl_radius_label');
-
+	$file = SLPLUS_PLUGINDIR.'/templates/'.'search_form.php';
 	
-	$form="<div id='sl_div'>
-  <form onsubmit='searchLocations(); return false;' id='searchForm' action=''>
-    <table border='0' cellpadding='3px' class='sl_header'><tr>
-	<td valign='top' id='search_label'>$search_label&nbsp;</td>
-	<td valign='top'><div id='addy_input'>
-	        <div id='addy_in_add'>
-                <input type='text' id='addressInput' size='50' />
-            </div>
-	        <div id='addy_in_city'>
-                <select id='addressInput2' onchange='aI=document.getElementById(\"searchForm\").addressInput;if(this.value!=\"\"){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
-                    <option value=''>--Search By City--</option>
-                    $cs_options
-                </select>
-            </div>
-	        <div id='addy_in_country'>
-                <select id='addressInput3' onchange='aI=document.getElementById(\"searchForm\").addressInput;if(this.value!=\"\"){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
-                <option value=''>--Search By Country--</option>
-                $country_options
-                </select>
-            </div>
-   </div></td>
-   </tr><tr>
-	 <td id='radius_label'>".__("$sl_radius_label", $text_domain)."</td>
-	 <td id='radiusSelect_td'>
-	     <div id='radius_input'>
-	         <div id='radius_in_select'>
-	             <select id='radiusSelect'>$r_options</select>
-	         </div>
-	         <div id='radius_in_submit'>
-	             <input $button_style value='Search Locations' id='addressSubmit'/>
-	         </div>
-	      </div>
-	  </td>
-	</tr></table>
-	<table width='100%' cellspacing='0px' cellpadding='0px'> 
-     <tr>
-        <td width='100%' valign='top'>" .
-            "<div id='map' style='width:$width$width_units; height:$height$height_units'></div>".
-            "<table cellpadding='0px' class='sl_footer' width='$width$width_units;' $hide>".
-             "<tr><td class='sl_footer_left_column'>".
-             "<a href='http://www.cybersprocket.com/products/store-locator-plus/' target='_blank'>".
-            "Store Locator Plus</a></td>".
-            "<td class='sl_footer_right_column'>".
-            "<a href='http://www.cybersprocket.com' target='_blank' " .
-                "title='by Cyber Sprocket Labs'>by Cyber Sprocket Labs</a>".
-            "</td></tr></table>
-		</td>
-      </tr>
-	  <tr id='cm_mapTR'>
-        <td width='' valign='top' id='map_sidebar_td'> <div id='map_sidebar' style='width:$width$width_units;/* $height$height_units; */'> <div class='text_below_map'>$sl_instruction_message</div></div>
-        </td></tr>
-  </table></form>
-<p><script type=\"text/javascript\">if (document.getElementById(\"map\")){setTimeout(\"sl_load()\",1000);}</script></p>
-</div>";
-
     // Replace the [STORE-LOCATOR] shortcode with the form created above
     //
-	return eregi_replace("\[STORE-LOCATOR(.*)?\]", $form, $content);
+	return eregi_replace("\[STORE-LOCATOR(.*)?\]", 
+	    get_string_from_phpexec($file), 
+	    $content
+	    );
 	}
 }
 
@@ -618,14 +582,8 @@ function add_admin_javascript() {
         var sl_google_map_country='".get_option('sl_google_map_country')."';
         </script>\n";
         if (ereg("add-locations", (isset($_GET['page'])?$_GET['page']:''))) {
-            $google_map_domain=(get_option('sl_google_map_domain')!="")? get_option('sl_google_map_domain') : "maps.google.com";
-			
+            $google_map_domain=(get_option('sl_google_map_domain')!="")? get_option('sl_google_map_domain') : "maps.google.com";			
             print "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
-            if (file_exists($sl_upload_path."/addons/point-click-add/point-click-add.js")) {
-				print "<script src='".$sl_upload_base."/addons/point-click-add/point-click-add.js'></script>\n";
-			} elseif (file_exists($sl_path."/js/point-click-add.js")) {
-				print "<script src='".$sl_base."/js/point-click-add.js'></script>\n";
-			}
         }
 }
 
@@ -641,10 +599,15 @@ function set_query_defaults() {
 	
 	$qry = isset($_GET['q']) ? $_GET['q'] : '';
 	$where=($qry!='')? 
-	        " WHERE sl_store LIKE '%$qry%' OR sl_address ".
-	        "LIKE '%$qry%' OR sl_city LIKE '%$qry%' OR sl_state ".
-	        "LIKE '%$qry%' OR sl_zip LIKE '%$qry%' OR sl_tags LIKE ".
-	        "'%$qry%'" : 
+	        " WHERE ".
+	        "sl_store    LIKE '%$qry%' OR ".
+	        "sl_address  LIKE '%$qry%' OR ".
+	        "sl_address2 LIKE '%$qry%' OR ".
+	        "sl_city     LIKE '%$qry%' OR ".
+	        "sl_state    LIKE '%$qry%' OR ".
+	        "sl_zip      LIKE '%$qry%' OR ".
+	        "sl_tags     LIKE '%$qry%' " 
+	        : 
 	        '' ;
 	$o= (isset($_GET['o']) && (trim($_GET['o']) != ''))
 	    ? $_GET['o'] : "sl_store";
@@ -727,7 +690,7 @@ function insert_matched_data() {
 		}
 		$value_string=substr($value_string,0, strlen($value_string)-1);
 		$wpdb->query("INSERT INTO ".$wpdb->prefix."store_locator ($selected_fields) VALUES ($value_string)");
-		$for_geo=$wpdb->get_results("SELECT CONCAT(sl_address, ', ', sl_city, ', ', sl_state, ' ', sl_zip) as the_address FROM ".$wpdb->prefix."store_locator WHERE sl_id='".mysql_insert_id()."'", ARRAY_A);
+		$for_geo=$wpdb->get_results("SELECT CONCAT(sl_address, ', ',sl_address2,', ', sl_city, ', ', sl_state, ' ', sl_zip) as the_address FROM ".$wpdb->prefix."store_locator WHERE sl_id='".mysql_insert_id()."'", ARRAY_A);
 		do_geocoding($for_geo[0][the_address]);
 		$value_string="";
 
