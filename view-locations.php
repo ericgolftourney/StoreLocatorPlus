@@ -53,10 +53,12 @@ if (!$slak) {
 	    (isset($_GET['edit']) && $_GET['edit'])                 &&
 	    (!isset($_POST['act']) || (isset($_POST['act']) && ($_POST['act']!="delete"))) 
 	    ) {
+		$field_value_str = '';
 		foreach ($_POST as $key=>$value) {
 			if (ereg("\-$_GET[edit]", $key)) {
 				$field_value_str.="sl_".ereg_replace("\-$_GET[edit]", "", $key)."='".
                     trim(comma($value))."', ";
+                    
                 // strip off number at the end 
                 $key=ereg_replace("\-$_GET[edit]", "", $key); 
 				$_POST["$key"]=$value; 
@@ -70,13 +72,21 @@ if (!$slak) {
                         $wpdb->prefix."store_locator WHERE sl_id=$_GET[edit]", ARRAY_A);
 		$wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET $field_value_str " .
                         "WHERE sl_id=$_GET[edit]");
+                
+                if (!isset($old_address['sl_address'])) { $old_address['sl_address'] = ''; 	} 
+                if (!isset($old_address['sl_address2'])){ $old_address['sl_address2'] = ''; 	} 
+                if (!isset($old_address['sl_city'])) 	{ $old_address['sl_city'] = ''; 	} 
+                if (!isset($old_address['sl_state'])) 	{ $old_address['sl_state'] = ''; 	} 
+                if (!isset($old_address['sl_zip'])) 	{ $old_address['sl_zip'] = ''; 		} 
+                
 		if ($the_address!=
-            "$old_address[sl_address] $old_address[sl_address2], $old_address[sl_city], " .
-            "$old_address[sl_state] $old_address[sl_zip]" || 
-            ($old_address['sl_latitude']=="" || $old_address['sl_longitutde']=="")
-        ) {
-			do_geocoding($the_address,$_GET[edit]);
+		    "$old_address[sl_address] $old_address[sl_address2], $old_address[sl_city], " .
+		    "$old_address[sl_state] $old_address[sl_zip]" || 
+		    ($old_address['sl_latitude']=="" || $old_address['sl_longitutde']=="")
+            	) {
+			do_geocoding($the_address,$_GET['edit']);
 		}
+		
 		print "<script>location.replace('".ereg_replace("&edit=$_GET[edit]", "", 
                     $_SERVER['REQUEST_URI'])."');</script>";
 	}
