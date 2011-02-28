@@ -115,7 +115,8 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 
 = 1.7 (March 2011) =
 
-* Can now search locations by tags
+* Can now search locations by tags.
+* Cleaned up map settings page.
 
 = 1.6.5 (February 15th 2011) =
 

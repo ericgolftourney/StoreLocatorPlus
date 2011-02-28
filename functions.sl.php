@@ -447,6 +447,10 @@ function head_scripts() {
 		$r_options.="<option value='$value' $s>$value $unit_display</option>";
 	}
 		
+	//-------------------
+	// Show City Search option is checked
+	// setup the pulldown list
+	//
 	if (get_option('sl_use_city_search')==1) {
 		$cs_array=$wpdb->get_results(
 			"SELECT CONCAT(TRIM(sl_city), ', ', TRIM(sl_state)) as city_state " .
@@ -463,7 +467,12 @@ function head_scripts() {
 			}
 		}
 	}
-		
+
+	
+	//-------------------
+	// Show Country Search option is checked
+	// setup the pulldown list
+	//
 	if (get_option('sl_use_country_search')==1) {
 		$cs_array=$wpdb->get_results(
 			"SELECT TRIM(sl_country) as country " .
@@ -482,13 +491,8 @@ function head_scripts() {
 		}
 	}		
 	
-	if (get_option('sl_map_theme')!="") {
-		$theme_base=$sl_upload_base."/themes/".get_option('sl_map_theme');
-		$theme_path=$sl_upload_path."/themes/".get_option('sl_map_theme');	
-	} else {
-		$theme_base=$sl_upload_base."/images";
-		$theme_path=$sl_upload_path."/images";
-	}
+	$theme_base=$sl_upload_base."/images";
+	$theme_path=$sl_upload_path."/images";
 	if (!file_exists($theme_path."/search_button.png")) {
 		$theme_base=$sl_base."/images";
 		$theme_path=$sl_path."/images";
