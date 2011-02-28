@@ -207,7 +207,7 @@ $sl_starting_image=get_option('sl_starting_image');
 
 # Design Header
 #
-print '<div class="wrap"><h2>' . 
+print '<div class="map_settings"><div class="wrap"><h2>' . 
     __('Map Settings',$text_domain) .
     "<a href='/wp-admin/admin.php?page=$sl_dir/add-locations.php' class='button add-new-h2'>".
      __('Add Locations',$text_domain). 
@@ -235,6 +235,15 @@ print "
 #
 print "<tr><td class='left_side'>".
       '<h3>'.__('Search Features', $text_domain).'</h3>'.
+      '<h4>'.__('Show Search By...',$text_domain).'</h4>'.
+       "<div class='form_entry'><label for='sl_use_city_search'>".
+            __("City", $text_domain).":</label>" .
+            "<input name='sl_use_city_search' value='1' type='checkbox' $city_checked>".
+       "</div>".
+       "<div class='form_entry'><label for='sl_use_country_search'>".
+            __("Country", $text_domain).":</label>".
+            "<input name='sl_use_country_search' value='1' type='checkbox' $country_checked>".
+       "</div>".
       '</td>';
 
 
@@ -242,13 +251,21 @@ print "<tr><td class='left_side'>".
 #
 print "<td class='right_side'>" .
         '<h3>'.__("Labels", $text_domain).'</h3>'.
-    __("Address Input Label", $text_domain).
+    "<label for='search_label'>".
+        __("Address Input", $text_domain).
+        "</label>".
     "<input name='search_label' value='$search_label'><br/>".
-    __("Radius Dropdown Label", $text_domain).
+    "<label for='sl_radius_label'>".
+        __("Radius Dropdown", $text_domain).
+        "</label>".
     "<input name='sl_radius_label' value='$sl_radius_label'><br/>".
-    __("Website URL Label", $text_domain).
+    "<label for='sl_website_label'>".
+        __("Website URL", $text_domain).
+        "</label>".
     "<input name='sl_website_label' value='$sl_website_label'><br/>".
-    __("Instruction Message to Users", $text_domain).
+    "<label for='sl_instruction_message'>".
+        __("Instruction Message", $text_domain).
+        "</label>".
     "<input name='sl_instruction_message' value='$sl_instruction_message' size='50'><br/>".
     "</td></tr>"
     ;
@@ -265,29 +282,23 @@ print "<thead>
 print "<tr><td width='40%' class='left_side'>
         <div class='map_designer_settings'>
             <h3>".__("Defaults", $text_domain)."</h3>    
-            <div><label for='sl_map_type'>".__("Default Map Type", $text_domain).":</label>
+            <div class='form_entry'><label for='sl_map_type'>".__("Default Map Type", $text_domain).":</label>
             <select name='sl_map_type'>\n".$map_type_options."</select></div>
             
-            <div><label for='sl_use_city_search'>".__("Allow User Search By City?", $text_domain).":</label>
-            <input name='sl_use_city_search' value='1' type='checkbox' $city_checked></div>
-        
-            <div><label for='sl_use_country_search'>".__("Allow User Search By Country?", $text_domain).":</label>
-            <input name='sl_use_country_search' value='1' type='checkbox' $country_checked></div>
-            
-            <div><label for='sl_map_overview_control'>".__("Show Map Inset Box?", $text_domain).":</label>    
+            <div class='form_entry'><label for='sl_map_overview_control'>".__("Show Map Inset Box", $text_domain).":</label>    
             <input name='sl_map_overview_control' value='1' type='checkbox' $checked5></div>
             
-            <div><label for='sl_load_locations_default'>".__("Show Locations When Map Loads?", $text_domain).":</label>
+            <div class='form_entry'><label for='sl_load_locations_default'>".__("Immediately Show Locations", $text_domain).":</label>
             <input name='sl_load_locations_default' value='1' type='checkbox' $checked4></div>
             
-            <div><label for='sl_num_initial_displayed'>".__("Default Locations Shown", $text_domain).":</label>
-            <input name='sl_num_initial_displayed' value='$sl_num_initial_displayed' size='5'>
+            <div class='form_entry'><label for='sl_num_initial_displayed'>".__("Default Locations Shown", $text_domain).":</label>
+            <input name='sl_num_initial_displayed' value='$sl_num_initial_displayed' class='small'><br/>
             <span class='input_note'>".__("Recommended Max: 50", $text_domain)."</span>
             </div>
             
-            <div><label for='sl_starting_image'>".__("Starting Image",$text_domain).":</label>
-            <input name='sl_starting_image' value='$sl_starting_image' size='25'>
-            <span class='input_note' style='width:99%;'>".__("If set, this image will be displayed until a search is performed.",$text_domain)."</span>
+            <div class='form_entry'><label for='sl_starting_image'>".__("Starting Image",$text_domain).":</label>
+            <input name='sl_starting_image' value='$sl_starting_image' size='25'><br/>
+            <span class='input_note'>".__("If set, this image will be displayed until a search is performed.",$text_domain)."</span>
             </div>
         </div>            
     </td>";
@@ -296,23 +307,29 @@ print "<tr><td width='40%' class='left_side'>
 #    
 print "<td class='right_side'>".
     "<h3>".__("Google Map Interface", $text_domain)."</h3>".
-    __("Select Your Location", $text_domain).
-    "<select name='google_map_domain'>";
+    "<div class='form_entry'>".
+        "<label for='google_map_domain'>".
+        __("Select Your Location", $text_domain).
+        "</label>".
+        "<select name='google_map_domain'>";
 
 foreach ($the_domain as $key=>$value) {
 	$selected=(get_option('sl_google_map_domain')==$value)?" selected " : "";
 	print "<option value='$key:$value' $selected>$key ($value)</option>\n";
 }
 
-print "</select><br/>".
-    __("Select Character Encoding", $text_domain).
-    "<select name='sl_map_character_encoding'>";
+print "</select></div>".
+    "<div class='form_entry'>".
+        "<label for='sl_map_character_encoding'>".    
+        __("Select Character Encoding", $text_domain).
+        "</label>".
+        "<select name='sl_map_character_encoding'>";
 
 foreach ($char_enc as $key=>$value) {
 	$selected=(get_option('sl_map_character_encoding')==$value)?" selected " : "";
 	print "<option value='$value' $selected>$key</option>\n";
 }
-print "</select></td></tr>";
+print "</select></div></td></tr>";
     
 
 # Map Designer : Left Side Row 2
@@ -327,17 +344,17 @@ print "<tr><td class='left_side'>
             </div>
             
             <div><label for='height'>".__("Map Height", $text_domain).":</label>
-            <input name='height' value='$height' size='5'>&nbsp;".choose_units($height_units, "height_units")."
+            <input name='height' value='$height' class='small'>&nbsp;".choose_units($height_units, "height_units")."
             </div>
             
             <div><label for='height'>".__("Map Width", $text_domain).":</label>
-            <input name='width' value='$width' size='5'>&nbsp;".choose_units($width_units, "width_units")."
+            <input name='width' value='$width'  class='small'>&nbsp;".choose_units($width_units, "width_units")."
             </div>
 
             <div><label for='radii'>".__("Radii Options", $text_domain).":</label>
             <input  name='radii' value='$radii' size='25'>
-            <span class='input_note' style='width:99%;'>".
-            __("Separate each number with a comma ',' , and put parenthesis '( )' around the default.</span>", $text_domain).
+            <span class='input_note'>".
+            __("Separate each number with a comma ','. Put parenthesis '( )' around the default.</span>", $text_domain).
             "</span>
             </div>  
             
@@ -356,21 +373,39 @@ print "</select>
             </div>            
         </div>
     </td>    
-    </td><td class='rightside'><h3>".__("Design", $text_domain)."</h3>
-    $icon_notification_msg
-    <table class='map_designer_section right_side'><tr>
-    <tr><td valign='top'>".__("Choose Theme", $text_domain)."</td>
-    <td valign='top'> <select name='theme' onchange=\"\"><option value=''>".__("No Theme Selected", $text_domain)."</option>
-    $theme_str</select>
-    </td></tr>
-    <tr><td>".__("Remove Credits", $text_domain).":</td>
-    <td><input name='sl_remove_credits' value='1' type='checkbox' $checked3></td></tr>
-    <tr><td valign='top'>".__("Home Icon", $text_domain).":</td>
-    <td valign='top'> <input name='icon' size='45' value='$icon' onchange=\"document.getElementById('prev').src=this.value\">&nbsp;&nbsp;<img id='prev' src='$icon' align='top'> <br><div style=''>$icon_str</div></td></tr>
-    <tr><td valign='top'>".__("Destination Icon", $text_domain).":</td>
-    <td valign='top'> <input name='icon2' size='45' value='$icon2' onchange=\"document.getElementById('prev2').src=this.value\">&nbsp;&nbsp;<img id='prev2' src='$icon2'align='top'> <br><div style=''>$icon2_str</div>
-    </td></tr>
-    </table>
-    </td></tr>
-    <tr><td colspan='2'><input type='submit' value='".__("Update", $text_domain)."' class='button-primary'></td></tr></table></form>
-    </div>";
+    </td>
+    <td class='rightside'>
+    <h3>".__("Design", $text_domain)."</h3>".
+    
+    $icon_notification_msg.
+    
+    "<div class='form_entry'>".
+        "<label for='sl_remove_credits'>".
+        __("Remove Credits", $text_domain).
+        "</label>".
+        "<input name='sl_remove_credits' value='1' type='checkbox' $checked3>".
+    "</div>".
+    
+    "<div class='form_entry'>".
+        "<label for='icon'>".
+        __("Home Icon", $text_domain).
+        "</label>".
+        "<input name='icon' size='45' value='$icon' onchange=\"document.getElementById('prev').src=this.value\">".
+        "&nbsp;&nbsp;<img id='prev' src='$icon' align='top'><br/>".
+        "<div style='margin-left: 150px;'>$icon_str</div>".        
+    "</div>".
+    
+    "<div class='form_entry'>".
+        "<label for='icon'>".
+        __("Destination Icon", $text_domain).
+        "</label>".
+        "<input name='icon2' size='45' value='$icon2' onchange=\"document.getElementById('prev2').src=this.value\">".
+        "&nbsp;&nbsp;<img id='prev2' src='$icon2'align='top'><br/>".
+        "<div style='margin-left: 150px;'>$icon2_str</div>".
+    "</div>".
+    "</td></tr>".
+    "<tr><td colspan='2'>".
+    "<input type='submit' value='".__("Update", $text_domain)."' class='button-primary'>".
+    "</td></tr>".
+    "</table></form>".
+    "</div></div>";

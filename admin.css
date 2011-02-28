@@ -5,6 +5,7 @@
 #icon-edit-locations, #icon-locations {
     background: url("/wp-content/plugins/closes-store/icon_location.png") no-repeat scroll -312px -5px transparent;
 }
+
 .add_location_form label {
     width: 120px;
     float: left;
@@ -21,6 +22,52 @@
     width: 40em;
 }
 
+
+
+/***************************
+ * Map Settings Forms
+ */
+
+.form_entry {
+    clear:both;
+}
+
+.map_settings H3 {
+	margin: 0px;
+}
+
+.map_settings H4 {
+	margin: 0px 0px 3px 6px;
+}
+
+.map_settings label {
+    width: 180px;
+    float: left;
+    text-align: right;
+    margin: 0px 3px 0px 6px;
+    display: block;
+}
+
+.map_settings INPUT {
+    width: 20em;
+}
+
+.map_settings .input_note {
+	clear: both;
+	text-align: left;
+	margin-left: 185px;
+	display: block;
+	color: #888;
+	width: 260px;
+}
+
+.map_settings .small {
+	width: 3em;
+}
+
+/***************************
+ * General Settings
+ **/
     .tableRowHeader,.tableRowHeader td,.tableRowHeader th {
         background-color: black;
         color: white;
