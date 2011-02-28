@@ -28,7 +28,6 @@ if (!$_POST) {
     update_option('sl_map_width_units', $_POST['width_units']);
     update_option('sl_map_home_icon', $_POST['icon']);
     update_option('sl_map_end_icon', $_POST['icon2']);
-    update_option('sl_map_theme', $_POST['theme']);
     update_option('sl_search_label', $_POST['search_label']);
     update_option('sl_radius_label', $_POST['sl_radius_label']);
     update_option('sl_website_label', $_POST['sl_website_label']);
@@ -44,20 +43,24 @@ if (!$_POST) {
     # false (0).
     #
     $_POST['sl_use_city_search']=isset($_POST['sl_use_city_search'])?1:0;
-    update_option('sl_use_city_search',       $_POST['sl_use_city_search']);
+    update_option('sl_use_city_search',$_POST['sl_use_city_search']);
 
     
     $_POST['sl_use_country_search']=isset($_POST['sl_use_country_search'])?1:0;
-    update_option('sl_use_country_search',       $_POST['sl_use_country_search']);
+    update_option('sl_use_country_search',$_POST['sl_use_country_search']);
        
     $_POST['sl_remove_credits']=isset($_POST['sl_remove_credits'])?1:0; 
-    update_option('sl_remove_credits',       $_POST['sl_remove_credits']);
+    update_option('sl_remove_credits',$_POST['sl_remove_credits']);
     
     $_POST['sl_load_locations_default']=isset($_POST['sl_load_locations_default'])?1:0;
-    update_option('sl_load_locations_default',      $_POST['sl_load_locations_default']);
+    update_option('sl_load_locations_default',$_POST['sl_load_locations_default']);
 
     $_POST['sl_map_overview_control'] = isset($_POST['sl_map_overview_control'])?1:0;  
-    update_option('sl_map_overview_control',         $_POST['sl_map_overview_control']);
+    update_option('sl_map_overview_control',$_POST['sl_map_overview_control']);
+
+    $_POST[$prefix.'_show_tag_search'] = isset($_POST[$prefix.'_show_tag_search'])?1:0;  
+    update_option($prefix.'_show_tag_search',$_POST[$prefix.'_show_tag_search']);
+
     
     
     $update_msg = "<div class='highlight'>".__("Successful Update", $text_domain).'</div>';
@@ -122,13 +125,17 @@ $char_enc["Hong Kong (HKSCS)"]="hkscs";
 $char_enc["Korea (EUS-KR)"]="eus-kr";
 
 
+//-- Set Checkboxes
+//
+$checked2   	  = (isset($checked2)  ?$checked2  :'');
+$city_checked	  = (get_option('sl_use_city_search')       ==1)?' checked ':'';
+$country_checked  = (get_option('sl_use_country_search')    ==1)?' checked ':'';
+$checked3	      = (get_option('sl_remove_credits')        ==1)?' checked ':'';
+$checked4	      = (get_option('sl_load_locations_default')==1)?' checked ':'';
+$checked5	      = (get_option('sl_map_overview_control')  ==1)?' checked ':'';
+$show_tag_checked = (get_option($prefix.'_show_tag_search') ==1)?' checked ':'';
 
-$checked2   	=(isset($checked2)  ?$checked2  :'');
-$city_checked	=(get_option('sl_use_city_search')==1)	 	? " checked " : "";
-$country_checked=(get_option('sl_use_country_search')==1)	? " checked " : "";
-$checked3	=(get_option('sl_remove_credits')==1)		? " checked " : "";
-$checked4	=(get_option('sl_load_locations_default')==1)	? " checked " : "";
-$checked5	=(get_option('sl_map_overview_control')==1)	? " checked " : "";
+
 
 $map_type_options=(isset($map_type_options)?$map_type_options:'');
 $map_type["".__("Normal", $text_domain).""]="G_NORMAL_MAP";
@@ -236,14 +243,25 @@ print "
 print "<tr><td class='left_side'>".
       '<h3>'.__('Search Features', $text_domain).'</h3>'.
       '<h4>'.__('Show Search By...',$text_domain).'</h4>'.
+      
        "<div class='form_entry'><label for='sl_use_city_search'>".
-            __("City", $text_domain).":</label>" .
+            __('City Pulldown', $text_domain).":</label>" .
             "<input name='sl_use_city_search' value='1' type='checkbox' $city_checked>".
        "</div>".
-       "<div class='form_entry'><label for='sl_use_country_search'>".
-            __("Country", $text_domain).":</label>".
+       
+       "<div class='form_entry'>".
+            "<label for='sl_use_country_search'>".
+            __('Country Pulldown', $text_domain).":".
+            "</label>".
             "<input name='sl_use_country_search' value='1' type='checkbox' $country_checked>".
        "</div>".
+       
+       "<div class='form_entry'><label for='{$prefix}_show_tag_search'>".
+            __('Tag Input', $text_domain).":</label>".
+            "<input name='{$prefix}_show_tag_search' value='1' type='checkbox' $show_tag_checked>".
+       "</div>".
+
+       
       '</td>';
 
 
