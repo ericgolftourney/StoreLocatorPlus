@@ -29,6 +29,7 @@ if (!$_POST) {
     update_option('sl_map_home_icon', $_POST['icon']);
     update_option('sl_map_end_icon', $_POST['icon2']);
     update_option('sl_search_label', $_POST['search_label']);
+    update_option($prefix.'_search_tag_label', $_POST[$prefix.'_search_tag_label']);
     update_option('sl_radius_label', $_POST['sl_radius_label']);
     update_option('sl_website_label', $_POST['sl_website_label']);
     update_option('sl_instruction_message', $_POST['sl_instruction_message']);
@@ -266,25 +267,63 @@ print "<tr><td class='left_side'>".
 
 
 # Search : Right Side
+# Search Labels
 #
 print "<td class='right_side'>" .
         '<h3>'.__("Labels", $text_domain).'</h3>'.
-    "<label for='search_label'>".
-        __("Address Input", $text_domain).
-        "</label>".
-    "<input name='search_label' value='$search_label'><br/>".
-    "<label for='sl_radius_label'>".
-        __("Radius Dropdown", $text_domain).
-        "</label>".
-    "<input name='sl_radius_label' value='$sl_radius_label'><br/>".
-    "<label for='sl_website_label'>".
-        __("Website URL", $text_domain).
-        "</label>".
-    "<input name='sl_website_label' value='$sl_website_label'><br/>".
-    "<label for='sl_instruction_message'>".
-        __("Instruction Message", $text_domain).
-        "</label>".
-    "<input name='sl_instruction_message' value='$sl_instruction_message' size='50'><br/>".
+        
+       "<div class='form_entry'>".
+            "<label for='search_label'>".
+                __("Address Input", $text_domain).':'.
+                "</label>".
+            "<input name='search_label' value='$search_label'>".
+            "<span class='input_note'>".
+            __("Label for search form address entry.</span>", $text_domain).
+            "</span>".                    
+       "</div>".
+       
+       "<div class='form_entry'>".
+            "<label for='search_tag_label'>".
+                __("Search By Tag Label", $text_domain).':'.
+                "</label>".
+                "<input name='{$prefix}_search_tag_label' value='".
+                    get_option($prefix.'_search_tag_label').
+                    "'>".
+            "<span class='input_note'>".
+            __("Label for search form tags field.</span>", $text_domain).
+            "</span>".                    
+       "</div>".       
+        
+       "<div class='form_entry'>".
+            "<label for='sl_radius_label'>".
+                __("Radius Dropdown", $text_domain).':'.
+                "</label>".
+            "<input name='sl_radius_label' value='$sl_radius_label'><br/>".
+            "<span class='input_note'>".
+            __("Label for search form radius pulldown.</span>", $text_domain).
+            "</span>".                    
+       "</div>".
+    
+       "<div class='form_entry'>".
+            "<label for='sl_website_label'>".
+                __("Website URL", $text_domain).':'.
+                "</label>".
+            "<input name='sl_website_label' value='$sl_website_label'><br/>".
+            "<span class='input_note'>".
+            __("Label for website URL in search results.</span>", $text_domain).
+            "</span>".                    
+        "</div>" .            
+    
+       "<div class='form_entry'>".
+            "<label for='sl_instruction_message'>".
+                __("Instruction Message", $text_domain).':'.
+                "</label>".
+            "<input name='sl_instruction_message' value='$sl_instruction_message' size='50'><br/>".
+            "<span class='input_note'>".
+            __("Instruction text when map is first displayed.</span>", $text_domain).
+            "</span>".                    
+        "</div>".
+    
     "</td></tr>"
     ;
 

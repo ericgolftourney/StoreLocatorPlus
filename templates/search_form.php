@@ -1,7 +1,7 @@
 <?php
   global $search_label, $width, $height, $width_units, $height_units, $hide,
       $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
-      $sl_instruction_message, $cs_options, $country_options;
+      $sl_instruction_message, $cs_options, $country_options, $prefix;
 ?>
 <div id='sl_div'>
   <form onsubmit='searchLocations(); return false;' id='searchForm' action=''>
@@ -10,7 +10,12 @@
 	    <div id='address_search'>
 
               
-            <?php if ($cs_options != '') { ?>
+            <?php
+            //------------------------------------------------
+            // Show City Pulldown Is Enabled
+            //
+            if ($cs_options != '') { 
+            ?>
             <div id='addy_in_city'>
                 <select id='addressInput2' 
                     onchange='aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
@@ -21,7 +26,12 @@
             <?php } ?>
             
             
-            <?php if ($country_options != '') { ?>
+            <?php
+            //------------------------------------------------
+            // Show Country Pulldown Is Enabled
+            //
+            if ($country_options != '') { 
+            ?>
             <div id='addy_in_country'>
                 <select id='addressInput3' onchange='aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
                 <option value=''>--Search By Country--</option>
@@ -30,7 +40,23 @@
             </div>
             <?php } ?>
 
-            <div id='addy_in_address'>
+            
+            <?php
+            //------------------------------------------------
+            // Show Tag Search Is Enabled
+            //
+            if (get_option($prefix.'_show_tag_search') ==1) { 
+            ?>
+            <div id='search_by_tag' class='search_item'>   
+                <label for='tag_to_search_for'><?php 
+                	print get_option($prefix.'_search_tag_label');                
+                	?></label>
+                <input type='text' id='tag_to_search_for' size='50' />
+            </div>	   
+	   <?php } ?>
+
+	   
+            <div id='addy_in_address' class='search_item'>
                 <label for="addressInput"><?=$search_label?></label>
                 <input type='text' id='addressInput' size='50' />
            </div>

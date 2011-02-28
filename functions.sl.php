@@ -415,17 +415,23 @@ function head_scripts() {
 	    
     // Plugin is licensed or user is admin
     //
-    if ($slplus_plugin->ok_to_show()) {	    
+    if ($slplus_plugin->ok_to_show()) {	  
+    	    
 	$height=(get_option('sl_map_height'))? 
 	get_option('sl_map_height') : "500" ;
+	
 	$width=(get_option('sl_map_width'))? 
-	get_option('sl_map_width') : "100" ;        
+	get_option('sl_map_width') : "100" ;
+        
 	$radii=(get_option('sl_map_radii'))? 
 	get_option('sl_map_radii') : "1,5,10,(25),50,100,200,500" ;
+	
 	$height_units=(get_option('sl_map_height_units'))? 
 	get_option('sl_map_height_units') : "px";
+	
 	$width_units=(get_option('sl_map_width_units'))? 
 	get_option('sl_map_width_units') : "%";
+	
 	$sl_instruction_message=(get_option('sl_instruction_message'))? 
 	get_option('sl_instruction_message') : 
 	"Enter Your Address or Zip Code Above.";
@@ -485,8 +491,9 @@ function head_scripts() {
 	
 		if ($cs_array) {
 			foreach($cs_array as $value) {
-	    $country_options.="<option value='$value[country]'>" .
-			 "$value[country]</option>";
+			  $country_options.=
+			  	"<option value='$value[country]'>" .
+			  	"$value[country]</option>";
 			}
 		}
 	}		

@@ -55,7 +55,7 @@
 .map_settings .input_note {
 	clear: both;
 	text-align: left;
-	margin-left: 185px;
+	margin: 0px 0px 6px 190px;
 	display: block;
 	color: #888;
 	width: 260px;
