@@ -71,6 +71,7 @@ function sl_load() {
  */
 function searchLocations() {
     var address = document.getElementById('addressInput').value;
+    
     geocoder.getLatLng(address, 
         function(latlng) {
             if (!latlng) {
@@ -90,8 +91,16 @@ function searchLocations() {
 /**************************************
  */
 function searchLocationsNear(center, homeAddress) {
-    var radius = document.getElementById('radiusSelect').value;
-    var searchUrl = add_base + '/generate-xml.php?lat=' + center.lat() + '&lng=' + center.lng() + '&radius=' + radius;
+    var radius  = document.getElementById('radiusSelect').value;
+    var taglist = document.getElementById('tag_to_search_for').value;
+    
+    var searchUrl = add_base + '/generate-xml.php?' + 
+    	'lat='     + center.lat() + 
+    	'&lng='    + center.lng() + 
+    	'&radius=' + radius +
+    	'&tags='   + taglist
+    	;
+    	
     GDownloadUrl(searchUrl, 
         function(data) {
             var xml = GXml.parse(data);

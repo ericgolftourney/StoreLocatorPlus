@@ -397,7 +397,7 @@ print "<tr><td class='left_side'>
     
             <div><label for='zoom_level'>".__("Zoom Level", $text_domain).":</label>
             $zoom
-            <span class='input_note'>".__("0=street level, 19=world view. Show locations overrides this setting.",$text_domain)."</span>
+            <span class='input_note'>".__("19=street level, 0=world view. Show locations overrides this setting.",$text_domain)."</span>
             </div>
             
             <div><label for='height'>".__("Map Height", $text_domain).":</label>
