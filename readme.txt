@@ -4,7 +4,7 @@ Contributors: cybersprocket
 Donate link: http://www.cybersprocket.com/products/store-locator-plus/
 Tags: store locator, store locater, google, google maps, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus
 Requires at least: 3.0
-Tested up to: 3.0.4
+Tested up to: 3.1
 Stable tag: 1.7
 
 This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locations.    
@@ -16,6 +16,8 @@ can show visitors your store locactions.  Users search for stores within a
 specified radius, enter your address, or select a city or country from the 
 pulldown.  Full admin panel data entry and management of stores from a few to
 a few thousand.
+
+Note: This is a premium plugin.  See the FAQ for details about the license.
 
 = Features =
 
@@ -117,6 +119,8 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 
 * Can now search locations by tags.
 * Cleaned up map settings page.
+* Fixed bulk upload record count.
+* Added CSV mime type for some WP installs that blocked it on bulk uploads.
 
 = 1.6.5 (February 15th 2011) =
 
