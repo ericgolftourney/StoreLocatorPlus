@@ -5,6 +5,37 @@
  ** handles the add locations form
  ***************************************************************************/
 
+ 
+function add_this_addy($fields,$values,$theaddress) {
+	global $wpdb;
+	$fields=substr($fields, 0, strlen($fields)-1);
+	$values=substr($values, 0, strlen($values)-1);	
+	$wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fields) VALUES ($values)");
+	do_geocoding($theaddress);
+	
+}
+
+/***************************************
+ ** function custom_upload_mimes
+ **
+ ** allows WordPress to process csv file types
+ **
+ **/
+function custom_upload_mimes ( $existing_mimes=array() ) {
+	 
+	 // add CSV type 	
+	$existing_mimes['csv'] = 'text/csv'; 
+	
+	// and return the new full result
+	return $existing_mimes;
+
+ 
+} 
+
+
+/****************************************************************************
+ ***************************************************************************/
+
 global $wpdb, $sl_upload_path, $sl_path;
 
 print "<div class='wrap'>
@@ -17,15 +48,6 @@ print "<div class='wrap'>
 
 
 initialize_variables();
-
-function add_this_addy($fields,$values,$theaddress) {
-	global $wpdb;
-	$fields=substr($fields, 0, strlen($fields)-1);
-	$values=substr($values, 0, strlen($values)-1);	
-	$wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fields) VALUES ($values)");
-	do_geocoding($theaddress);
-	
-}
 
 
 //Inserting addresses by manual input
@@ -57,6 +79,8 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
 	    ($_FILES['csvfile']['size'] > 0)
 	) {	
 
+	add_filter('upload_mimes', 'custom_upload_mimes');
+
 	// Get the type of the uploaded file. This is returned as "type/extension"
 	$arr_file_type = wp_check_filetype(basename($_FILES['csvfile']['name']));
 	if ($arr_file_type['type'] == 'text/csv') {
@@ -70,7 +94,7 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
                 }
                 if (move_uploaded_file($_FILES['csvfile']['tmp_name'],
                         $updir.'/'.$_FILES['csvfile']['name'])) {
-                        $reccount = 1;
+                        $reccount = 0;
 
                         if (($handle = fopen($updir.'/'.$_FILES['csvfile']['name'], "r")) !== FALSE) {
                             $fldNames = array('sl_store','sl_address','sl_address2','sl_city','sl_state',
