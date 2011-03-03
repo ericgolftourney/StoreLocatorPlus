@@ -92,7 +92,10 @@ function searchLocations() {
  */
 function searchLocationsNear(center, homeAddress) {
     var radius  = document.getElementById('radiusSelect').value;
-    var taglist = document.getElementById('tag_to_search_for').value;
+    var taglist = '';     
+    if (document.getElementById('tag_to_search_for') != null) {     
+    	taglist = document.getElementById('tag_to_search_for').value;
+    }
     
     var searchUrl = add_base + '/generate-xml.php?' + 
     	'lat='     + center.lat() + 
