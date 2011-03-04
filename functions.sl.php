@@ -412,121 +412,123 @@ function head_scripts() {
 	    $search_label, $width, $height, $width_units, $height_units, $hide,
 	    $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
 	    $sl_instruction_message, $cs_options, $country_options;
+	       
 	    
-    // Plugin is licensed or user is admin
+    // Plugin is not licensed or user is not admin
     //
-    if ($slplus_plugin->ok_to_show()) {	  
-    	    
-	$height=(get_option('sl_map_height'))? 
-	get_option('sl_map_height') : "500" ;
-	
-	$width=(get_option('sl_map_width'))? 
-	get_option('sl_map_width') : "100" ;
+    if (!$slplus_plugin->ok_to_show()) {
+        return;
+    }
+                
+    $height=(get_option('sl_map_height'))? 
+    get_option('sl_map_height') : "500" ;
+    
+    $width=(get_option('sl_map_width'))? 
+    get_option('sl_map_width') : "100" ;
         
-	$radii=(get_option('sl_map_radii'))? 
-	get_option('sl_map_radii') : "1,5,10,(25),50,100,200,500" ;
-	
-	$height_units=(get_option('sl_map_height_units'))? 
-	get_option('sl_map_height_units') : "px";
-	
-	$width_units=(get_option('sl_map_width_units'))? 
-	get_option('sl_map_width_units') : "%";
-	
-	$sl_instruction_message=(get_option('sl_instruction_message'))? 
-	get_option('sl_instruction_message') : 
-	"Enter Your Address or Zip Code Above.";
+    $radii=(get_option('sl_map_radii'))? 
+    get_option('sl_map_radii') : "1,5,10,(25),50,100,200,500" ;
+    
+    $height_units=(get_option('sl_map_height_units'))? 
+    get_option('sl_map_height_units') : "px";
+    
+    $width_units=(get_option('sl_map_width_units'))? 
+    get_option('sl_map_width_units') : "%";
+    
+    $sl_instruction_message=(get_option('sl_instruction_message'))? 
+    get_option('sl_instruction_message') : 
+    "Enter Your Address or Zip Code Above.";
 
-	$r_array=explode(",", $radii);
-	$search_label=(get_option('sl_search_label'))? 
-	get_option('sl_search_label') : "Address" ;
-	
-	$unit_display=(get_option('sl_distance_unit')=="km")? 
-	"km" : "mi";
+    $r_array=explode(",", $radii);
+    $search_label=(get_option('sl_search_label'))? 
+    get_option('sl_search_label') : "Address" ;
+    
+    $unit_display=(get_option('sl_distance_unit')=="km")? 
+    "km" : "mi";
 
-	$r_options      =(isset($r_options)         ?$r_options      :'');
-	$cs_options     =(isset($cs_options)        ?$cs_options     :'');
-	$country_options=(isset($country_options)   ?$country_options:'');
+    $r_options      =(isset($r_options)         ?$r_options      :'');
+    $cs_options     =(isset($cs_options)        ?$cs_options     :'');
+    $country_options=(isset($country_options)   ?$country_options:'');
         
-	foreach ($r_array as $value) {
-		$s=(ereg("\(.*\)", $value))? " selected='selected' " : "" ;
-		$value=ereg_replace("[^0-9]", "", $value);
-		$r_options.="<option value='$value' $s>$value $unit_display</option>";
-	}
-		
-	//-------------------
-	// Show City Search option is checked
-	// setup the pulldown list
-	//
-	if (get_option('sl_use_city_search')==1) {
-		$cs_array=$wpdb->get_results(
-			"SELECT CONCAT(TRIM(sl_city), ', ', TRIM(sl_state)) as city_state " .
-			    "FROM ".$wpdb->prefix."store_locator " .
-			    "WHERE sl_city<>'' AND sl_state<>'' AND sl_latitude<>'' " .
-				    "AND sl_longitude<>'' " .
-			    "GROUP BY city_state " .
-			    "ORDER BY city_state ASC", 
-			ARRAY_A);
-	
-		if ($cs_array) {
-			foreach($cs_array as $value) {
-	    $cs_options.="<option value='$value[city_state]'>$value[city_state]</option>";
-			}
-		}
-	}
+    foreach ($r_array as $value) {
+        $s=(ereg("\(.*\)", $value))? " selected='selected' " : "" ;
+        $value=ereg_replace("[^0-9]", "", $value);
+        $r_options.="<option value='$value' $s>$value $unit_display</option>";
+    }
+        
+    //-------------------
+    // Show City Search option is checked
+    // setup the pulldown list
+    //
+    if (get_option('sl_use_city_search')==1) {
+        $cs_array=$wpdb->get_results(
+            "SELECT CONCAT(TRIM(sl_city), ', ', TRIM(sl_state)) as city_state " .
+                "FROM ".$wpdb->prefix."store_locator " .
+                "WHERE sl_city<>'' AND sl_state<>'' AND sl_latitude<>'' " .
+                    "AND sl_longitude<>'' " .
+                "GROUP BY city_state " .
+                "ORDER BY city_state ASC", 
+            ARRAY_A);
+    
+        if ($cs_array) {
+            foreach($cs_array as $value) {
+        $cs_options.="<option value='$value[city_state]'>$value[city_state]</option>";
+            }
+        }
+    }
 
-	
-	//-------------------
-	// Show Country Search option is checked
-	// setup the pulldown list
-	//
-	if (get_option('sl_use_country_search')==1) {
-		$cs_array=$wpdb->get_results(
-			"SELECT TRIM(sl_country) as country " .
-			    "FROM ".$wpdb->prefix."store_locator " .
-			    "WHERE sl_country<>'' " .
-				    "AND sl_latitude<>'' AND sl_longitude<>'' " .
-			    "GROUP BY country " .
-			    "ORDER BY country ASC", 
-			ARRAY_A);
-	
-		if ($cs_array) {
-			foreach($cs_array as $value) {
-			  $country_options.=
-			  	"<option value='$value[country]'>" .
-			  	"$value[country]</option>";
-			}
-		}
-	}		
-	
-	$theme_base=$sl_upload_base."/images";
-	$theme_path=$sl_upload_path."/images";
-	if (!file_exists($theme_path."/search_button.png")) {
-		$theme_base=$sl_base."/images";
-		$theme_path=$sl_path."/images";
-	}
-	$sub_img=$theme_base."/search_button.png";
-	$mousedown=(file_exists($theme_path."/search_button_down.png"))? 
-	    "onmousedown=\"this.src='$theme_base/search_button_down.png'\" onmouseup=\"this.src='$theme_base/search_button.png'\"" : 
-	    "";
-	$mouseover=(file_exists($theme_path."/search_button_over.png"))? 
-	    "onmouseover=\"this.src='$theme_base/search_button_over.png'\" onmouseout=\"this.src='$theme_base/search_button.png'\"" : 
-	    "";
-	$button_style=(file_exists($theme_path."/search_button.png"))? 
-	    "type='image' src='$sub_img' $mousedown $mouseover" : 
-	    "type='submit'";
-	$hide=(get_option('sl_remove_credits')==1)? 
-	    "style='display:none;'" : 
-	    "";
+    
+    //-------------------
+    // Show Country Search option is checked
+    // setup the pulldown list
+    //
+    if (get_option('sl_use_country_search')==1) {
+        $cs_array=$wpdb->get_results(
+            "SELECT TRIM(sl_country) as country " .
+                "FROM ".$wpdb->prefix."store_locator " .
+                "WHERE sl_country<>'' " .
+                    "AND sl_latitude<>'' AND sl_longitude<>'' " .
+                "GROUP BY country " .
+                "ORDER BY country ASC", 
+            ARRAY_A);
+    
+        if ($cs_array) {
+            foreach($cs_array as $value) {
+              $country_options.=
+                "<option value='$value[country]'>" .
+                "$value[country]</option>";
+            }
+        }
+    }		
+    
+    $theme_base=$sl_upload_base."/images";
+    $theme_path=$sl_upload_path."/images";
+    if (!file_exists($theme_path."/search_button.png")) {
+        $theme_base=$sl_base."/images";
+        $theme_path=$sl_path."/images";
+    }
+    $sub_img=$theme_base."/search_button.png";
+    $mousedown=(file_exists($theme_path."/search_button_down.png"))? 
+        "onmousedown=\"this.src='$theme_base/search_button_down.png'\" onmouseup=\"this.src='$theme_base/search_button.png'\"" : 
+        "";
+    $mouseover=(file_exists($theme_path."/search_button_over.png"))? 
+        "onmouseover=\"this.src='$theme_base/search_button_over.png'\" onmouseout=\"this.src='$theme_base/search_button.png'\"" : 
+        "";
+    $button_style=(file_exists($theme_path."/search_button.png"))? 
+        "type='image' src='$sub_img' $mousedown $mouseover" : 
+        "type='submit'";
+    $hide=(get_option('sl_remove_credits')==1)? 
+        "style='display:none;'" : 
+        "";
 
-	$columns = 1;
-	$columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;
-	$columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
-	$sl_radius_label=get_option('sl_radius_label');
-	$file = SLPLUS_PLUGINDIR . '/templates/search_form.php';
-	
-	return get_string_from_phpexec($file); 
-    } 
- }
+    $columns = 1;
+    $columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;
+    $columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
+    $sl_radius_label=get_option('sl_radius_label');
+    $file = SLPLUS_PLUGINDIR . '/templates/search_form.php';
+    
+    return get_string_from_phpexec($file); 
+}
 
 
 
