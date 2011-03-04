@@ -29,7 +29,6 @@ if (!$_POST) {
     update_option('sl_map_home_icon', $_POST['icon']);
     update_option('sl_map_end_icon', $_POST['icon2']);
     update_option('sl_search_label', $_POST['search_label']);
-    update_option($prefix.'_search_tag_label', $_POST[$prefix.'_search_tag_label']);
     update_option('sl_radius_label', $_POST['sl_radius_label']);
     update_option('sl_website_label', $_POST['sl_website_label']);
     update_option('sl_instruction_message', $_POST['sl_instruction_message']);
@@ -39,6 +38,9 @@ if (!$_POST) {
     update_option('sl_num_initial_displayed', $_POST['sl_num_initial_displayed']);    
     update_option('sl_distance_unit', $_POST['sl_distance_unit']);
 
+    update_option($prefix.'_search_tag_label', $_POST[$prefix.'_search_tag_label']);
+    update_option($prefix.'_tag_search_selections', $_POST[$prefix.'_tag_search_selections']);    
+    
     # Checkbox settings - can set to issset and save that because the
     # post variable is only set if it is checked, if not checked it is
     # false (0).

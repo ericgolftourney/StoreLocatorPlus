@@ -46,6 +46,7 @@
     text-align: right;
     margin: 0px 3px 0px 6px;
     display: block;
+    clear: left;
 }
 
 .map_settings INPUT {
