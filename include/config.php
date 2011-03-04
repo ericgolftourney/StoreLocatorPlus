@@ -81,7 +81,7 @@ function csl_slplus_setup_admin_interface() {
         'text', 
         false,
         'Your Google API Key.  You will need to ' .
-        '<a href="http://code.google.com/apis/maps/signup.html">'.
+        '<a href="http://code.google.com/apis/maps/signup.html" target="newinfo">'.
         'go to Google</a> to get your Google Maps API Key.'
     );
     
