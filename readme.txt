@@ -105,21 +105,24 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 
 == Screenshots ==
 
-1. Admin Menus
-2. Adding Locations
-3. Manage Locations
-4. Map Settings
-5. Default Search Form
-6. Search By Address
-7. Map Mouse Over
+1. Location Details
+2. Basic Address Search
+3. All Options Search
+4. Tag Filter, Pulldown (any with zip)
+5. Tag Filter, PUlldown (green with zip)
+6. Admin Map Settings
+7. Admin Add Locations
+8. Admin Manage Locations
+
+More screenshots are available via our [online documentation](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki).
 
 == Changelog ==
 
-= 1.7.2 (March xx 2011) =
+= 1.7.2 (March 3rd 2011) =
 
 * Add pulldown selection for tag searches.
 
-= 1.7.1 (March 2 2011) =
+= 1.7.1 (March 2nd 2011) =
 
 * Fix search when tag searches are not enabled.
 
