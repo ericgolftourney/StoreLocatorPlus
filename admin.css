@@ -53,6 +53,11 @@
     width: 20em;
 }
 
+.map_settings INPUT[type="checkbox"] {
+    width: 2em;
+    text-align:left;
+}
+
 .map_settings .input_note {
 	clear: both;
 	text-align: left;

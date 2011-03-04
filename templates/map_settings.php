@@ -66,7 +66,7 @@
                             >
                    </div>     
                                       
-                    <div>
+                    <div class='form_entry'>
                         <label for='<?=$prefix?>_tag_search_selections'>
                             <?php _e('Preselected Tag Searches', $text_domain); ?>:
                         </label>
