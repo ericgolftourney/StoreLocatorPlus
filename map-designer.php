@@ -64,6 +64,8 @@ if (!$_POST) {
     $_POST[$prefix.'_show_tag_search'] = isset($_POST[$prefix.'_show_tag_search'])?1:0;  
     update_option($prefix.'_show_tag_search',$_POST[$prefix.'_show_tag_search']);
 
+    $_POST[$prefix.'_show_tag_any'] = isset($_POST[$prefix.'_show_tag_any'])?1:0;  
+    update_option($prefix.'_show_tag_any',$_POST[$prefix.'_show_tag_any']);
     
     
     $update_msg = "<div class='highlight'>".__("Successful Update", $text_domain).'</div>';
@@ -137,8 +139,7 @@ $checked3	      = (get_option('sl_remove_credits')        ==1)?' checked ':'';
 $checked4	      = (get_option('sl_load_locations_default')==1)?' checked ':'';
 $checked5	      = (get_option('sl_map_overview_control')  ==1)?' checked ':'';
 $show_tag_checked = (get_option($prefix.'_show_tag_search') ==1)?' checked ':'';
-
-
+$show_any_checked = (get_option($prefix.'_show_tag_any')    ==1)?' checked ':'';
 
 $map_type_options=(isset($map_type_options)?$map_type_options:'');
 $map_type["".__("Normal", $text_domain).""]="G_NORMAL_MAP";

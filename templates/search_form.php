@@ -51,10 +51,39 @@
                 <label for='tag_to_search_for'><?php 
                 	print get_option($prefix.'_search_tag_label');                
                 	?></label>
-                <input type='text' id='tag_to_search_for' size='50' />
+                <?php
+                    $tag_selections = get_option($prefix.'_tag_search_selections');
+                    
+                    // No pre-selected tags, use input box
+                    //
+                    if ($tag_selections == '') {?>                                            
+                        <input type='text' id='tag_to_search_for' size='50' />                        
+                    <?php
+                    // Pulldown for pre-selected list
+                    //
+                    } else {
+                        print "<select id='tag_to_search_for'>";
+                        
+                        // Show Any Option (blank value)
+                        //
+                        if (get_option($prefix.'_show_tag_any')==1) {
+                            print "<option value=''>".
+                                        __('Any',$text_domain).
+                                        '</option>';
+                        }
+                        
+                        $tag_selections = explode(",", $tag_selections);
+                        foreach ($tag_selections as $selection) {
+                            $clean_selection = preg_replace('/\((.*)\)/','$1',$selection);
+                            print "<option value='$clean_selection' ";
+                            print (ereg("\(.*\)", $selection))? " selected='selected' " : '';
+                            print ">$clean_selection</option>";                            
+                        }
+                        print "</select>";
+                    }                        
+                ?>
             </div>	   
 	   <?php } ?>
-
 	   
             <div id='addy_in_address' class='search_item'>
                 <label for="addressInput"><?=$search_label?></label>

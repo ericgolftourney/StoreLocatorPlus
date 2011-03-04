@@ -3,7 +3,7 @@
     
     global $prefix, $text_domain, $update_msg;
     
-    global $city_checked, $country_checked, $show_tag_checked;
+    global $city_checked, $country_checked, $show_tag_checked, $show_any_checked;
 ?>
 
 <div class='map_settings'>
@@ -78,7 +78,23 @@
                             _e("Enter a list of tags to show in the search pulldown, mark the default selection with parenthesis '( )'.", $text_domain); 
                           ?>
                        </span>
-                    </div>                                                    
+                    </div>        
+                    
+                   <div class='form_entry'>
+                        <label for='<?=$prefix?>_show_tag_any'>
+                            <?php _e('Show "any" on tag pulldown', $text_domain); ?>:
+                        </label>
+                        <input name='<?=$prefix?>_show_tag_any' 
+                            value='1' 
+                            type='checkbox' 
+                            <?=$show_any_checked?> 
+                            >
+                        <span class='input_note'>
+                          <?php 
+                            _e("If checked the tag pulldown list will have an 'any' option that returns any location.", $text_domain); 
+                          ?>
+                       </span>
+                   </div>                       
                </td>
             
             
