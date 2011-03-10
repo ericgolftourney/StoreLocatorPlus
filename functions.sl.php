@@ -552,6 +552,13 @@ function csl_slplus_add_options_page() {
             );	
 		add_submenu_page(
     	    $sl_dir.'/add-locations.php',
+		    __("Add Locations", $text_domain), 
+		    __("Add Locations", $text_domain), 
+		    'administrator', 
+		    $sl_dir.'/add-locations.php'
+		    );
+		add_submenu_page(
+    	    $sl_dir.'/add-locations.php',
 		    __("Manage Locations", $text_domain), 
 		    __("Manage Locations", $text_domain), 
 		    'administrator', 
