@@ -118,6 +118,11 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 == Changelog ==
 
+= 1.7.3 (March 12th 2011) =
+
+* Extended debugging output.
+* Change menu to read "Add Locations" v. "SLP Locations"
+
 = 1.7.2 (March 3rd 2011) =
 
 * Add pulldown selection for tag searches.
