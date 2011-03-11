@@ -408,7 +408,7 @@ function head_scripts() {
     // function call.
     //
     global  $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb,
-	    $slplus_plugin,	        
+	    $slplus_plugin, $prefix,	        
 	    $search_label, $width, $height, $width_units, $height_units, $hide,
 	    $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
 	    $sl_instruction_message, $cs_options, $country_options;
@@ -417,6 +417,9 @@ function head_scripts() {
     // Plugin is not licensed or user is not admin
     //
     if (!$slplus_plugin->ok_to_show()) {
+        if(get_option($prefix.'-debugging') == 'on') {
+            print 'Store Locator Plus is not licensed.';
+        }
         return;
     }
                 
