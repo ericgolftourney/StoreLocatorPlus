@@ -118,7 +118,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 == Changelog ==
 
-= 1.7.3 (March 14th 2011) =
+= 1.7.4 (March 14th 2011) =
 
 * Force CSL-helper class into distribution kit.
 
