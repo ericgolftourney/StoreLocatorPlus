@@ -543,36 +543,35 @@ function head_scripts() {
  **
  **/
 function csl_slplus_add_options_page() {
-	global $sl_dir, $sl_base, $sl_upload_base, $text_domain, 
-	       $map_character_encoding, $slplus_plugin;
+	global $text_domain, $slplus_plugin;
 	       		
 	if (trim($slplus_plugin->driver_args['api_key'])!=""){
         add_menu_page(
             __("SLP Locations", $text_domain),  
             __("SLP Locations", $text_domain), 
             'administrator', 
-            $sl_dir.'/add-locations.php'
+            SLPLUS_PLUGINDIR.'/add-locations.php'
             );	
 		add_submenu_page(
-    	    $sl_dir.'/add-locations.php',
+    	    SLPLUS_PLUGINDIR.'/add-locations.php',
 		    __("Add Locations", $text_domain), 
 		    __("Add Locations", $text_domain), 
 		    'administrator', 
-		    $sl_dir.'/add-locations.php'
+		    SLPLUS_PLUGINDIR.'/add-locations.php'
 		    );
 		add_submenu_page(
-    	    $sl_dir.'/add-locations.php',
+    	    SLPLUS_PLUGINDIR.'/add-locations.php',
 		    __("Manage Locations", $text_domain), 
 		    __("Manage Locations", $text_domain), 
 		    'administrator', 
-		    $sl_dir.'/view-locations.php'
+		    SLPLUS_PLUGINDIR.'/view-locations.php'
 		    );
 		add_submenu_page(
-    	    $sl_dir.'/add-locations.php',
+    	    SLPLUS_PLUGINDIR.'/add-locations.php',
 		    __("Map Settings", $text_domain), 
 		    __("Map Settings", $text_domain), 
 		    'administrator', 
-		    $sl_dir.'/map-designer.php'
+		    SLPLUS_PLUGINDIR.'/map-designer.php'
 		    );
 	}
 
