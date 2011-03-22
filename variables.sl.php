@@ -19,3 +19,5 @@ $map_character_encoding=(get_option('sl_map_character_encoding')!="")?
     "&amp;oe=".get_option('sl_map_character_encoding') : 
     "";
 $sl_upload_base=get_option('siteurl')."/wp-content/uploads/sl-uploads"; //URL to store locator uploads directory
+
+if (!defined($prefix)) { $prefix = 'csl-slplus'; }

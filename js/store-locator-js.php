@@ -6,8 +6,10 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/wp-config.php')) {
 } else if (file_exists($_SERVER['SUBDOMAIN_DOCUMENT_ROOT'].'/wp-config.php')) {
     include($_SERVER['SUBDOMAIN_DOCUMENT_ROOT'].'/wp-config.php');    
 }
-
 include("../variables.sl.php");
+if(get_option($prefix.'-debugging') == 'on') {
+    error_reporting(1);
+}
 $zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;
 $mt=(trim(get_option('sl_map_type'))!="")? get_option('sl_map_type') : "G_NORMAL_MAP";
 $wl=(trim(get_option('sl_website_label'))!="")? parseToXML(get_option('sl_website_label')) : "Website";

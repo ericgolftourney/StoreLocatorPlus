@@ -125,6 +125,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Strip extra whitespace around tags to improve search
 * Updated CSV loader to detect and process Mac based line endings.
 * CSV loader checks number of columns and reports error message if too many are found.
+* Debugging mode turns on debugging in store-locator-js.php for JavaScript issues.
 
 = 1.7.4 (March 14th 2011) =
 
