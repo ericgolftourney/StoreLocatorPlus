@@ -369,10 +369,10 @@ function head_scripts() {
                     get_option('sl_google_map_domain') : 
                     "maps.google.com";
             
-            print  "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
-            print  "<script src='".$sl_base."/js/store-locator-js.php' type='text/javascript'></script>
-                    <script src='".$sl_base."/js/store-locator.js' type='text/javascript'></script>
-                    <script src='".$sl_base."/js/functions.js' type='text/javascript'></script>\n";
+            print  "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>
+                    <script src='".SLPLUS_PLUGINURL."/js/store-locator-js.php' type='text/javascript'></script>
+                    <script src='".SLPLUS_PLUGINURL."/js/store-locator.js' type='text/javascript'></script>
+                    <script src='".SLPLUS_PLUGINURL."/js/functions.js' type='text/javascript'></script>\n";
             $has_custom_css=(file_exists($sl_upload_path."/custom-css/csl-slplus.css"))? 
                 $sl_upload_base."/custom-css" : 
                 $sl_base; 

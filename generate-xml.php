@@ -33,7 +33,9 @@ if (
 	(get_option($prefix.'_show_tag_search') ==1) &&
 	isset($_GET['tags']) && ($_GET['tags'] != '')
    ){
-	$tag_filter = " AND ( sl_tags LIKE '%%". $_GET['tags'] ."%%') ";
+    $posted_tag = preg_replace('/\s+(.*?)/','$1',$_GET['tags']);
+    $posted_tag = preg_replace('/(.*?)\s+/','$1',$posted_tag);
+	$tag_filter = " AND ( sl_tags LIKE '%%". $posted_tag ."%%') ";
 }
 
 // Select all the rows in the markers table
@@ -89,4 +91,5 @@ while ($row = @mysql_fetch_assoc($result)){
 echo "</markers>\n";
 
 //print $query;
+//print "\nPosted Tag: *$posted_tag*\n";
 

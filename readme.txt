@@ -118,10 +118,13 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 == Changelog ==
 
-= 1.7.5 (March 15th 2011) =
+= 1.7.5 (March 21st 2011) =
 
 * Rename base php file to prevent "not a valid header" messages.
-
+* Update various links to prevent double-slash and possible URL issues on WAMP systems.
+* Strip extra whitespace around tags to improve search
+* Updated CSV loader to detect and process Mac based line endings.
+* CSV loader checks number of columns and reports error message if too many are found.
 
 = 1.7.4 (March 14th 2011) =
 
