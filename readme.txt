@@ -118,7 +118,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 == Changelog ==
 
-= 1.7.6 (April 2011) =
+= 1.7.6 (March 26th 2011) =
 
 * Better path processing in javascript files to find wp-config.php (fixes missing maps on some installs)
 * Added author name to main plugin source.
