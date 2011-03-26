@@ -1,11 +1,15 @@
 <?php
 error_reporting(0);
 header("Content-type: text/javascript");
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/wp-config.php')) {
-    include($_SERVER['DOCUMENT_ROOT'].'/wp-config.php');
-} else if (file_exists($_SERVER['SUBDOMAIN_DOCUMENT_ROOT'].'/wp-config.php')) {
-    include($_SERVER['SUBDOMAIN_DOCUMENT_ROOT'].'/wp-config.php');    
+
+include('../load_wp_config.php');
+    
+
+if (!function_exists('get_option')) {
+    echo "alert('Unable to load WordPress configuration. [Store Locator Plus]');";
+    return;
 }
+
 include("../variables.sl.php");
 if(get_option($prefix.'-debugging') == 'on') {
     error_reporting(1);
