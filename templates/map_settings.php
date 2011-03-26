@@ -11,10 +11,10 @@
         <h2>
             <?php _e('Map Settings',$text_domain); ?>
             
-            <a href='/wp-admin/admin.php?page=<?=SLPLUS_PLUGINDIR?>/add-locations.php' 
+            <a href='/wp-admin/admin.php?page=<?=SLPLUS_PLUGINDIR?>add-locations.php' 
                 class='button add-new-h2'><?php _e('Add Locations',$text_domain); ?></a>
             
-            <a href='/wp-admin/admin.php?page=<?=SLPLUS_PLUGINDIR?>/view-locations.php' 
+            <a href='/wp-admin/admin.php?page=<?=SLPLUS_PLUGINDIR?>view-locations.php' 
                 class='button add-new-h2'><?php _e('Manage Locations',$text_domain); ?></a>            
         </h2>
         

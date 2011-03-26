@@ -42,7 +42,7 @@ print "<div class='wrap'>
             <div id='icon-add-locations' class='icon32'><br/></div>
             <h2>".
             __('Add Locations', $text_domain).
-            "<a href='/wp-admin/admin.php?page=$sl_dir/view-locations.php' class='button add-new-h2'>".
+            "<a href='/wp-admin/admin.php?page=".SLPLUS_PLUGINDIR."view-locations.php' class='button add-new-h2'>".
             __('Manage Locations',$text_domain). 
             "</a></h2>";
 
@@ -95,34 +95,52 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
                 if (move_uploaded_file($_FILES['csvfile']['tmp_name'],
                         $updir.'/'.$_FILES['csvfile']['name'])) {
                         $reccount = 0;
-
+                             
+                        $adle_setting = ini_get('auto_detect_line_endings');
+                        ini_set('auto_detect_line_endings', true);                         
                         if (($handle = fopen($updir.'/'.$_FILES['csvfile']['name'], "r")) !== FALSE) {
                             $fldNames = array('sl_store','sl_address','sl_address2','sl_city','sl_state',
                                             'sl_zip','sl_country','sl_tags','sl_description','sl_url',
                                             'sl_hours','sl_phone');
+                            $maxcols = count($fldNames);
                             while (($data = fgetcsv($handle)) !== FALSE) {
                                 $num = count($data);
-                                $fieldList = '';
-                                $valueList = '';
-                                $this_addy = '';
-                                for ($fldno=0; $fldno < $num; $fldno++) {
-                                    $fieldList.=$fldNames[$fldno].',';
-                                    $valueList.="\"".stripslashes(comma($data[$fldno]))."\",";
-                                    if (($fldno>=1) && ($fldno<=6)) {
-                                        $this_addy .= $data[$fldno] . ', ';
+                                if ($num <= $maxcols) {
+                                    $fieldList = '';
+                                    $valueList = '';
+                                    $this_addy = '';
+                                    for ($fldno=0; $fldno < $num; $fldno++) {
+                                        $fieldList.=$fldNames[$fldno].',';
+                                        $valueList.="\"".stripslashes(comma($data[$fldno]))."\",";
+                                        if (($fldno>=1) && ($fldno<=6)) {
+                                            $this_addy .= $data[$fldno] . ', ';
+                                        }
                                     }
-                                }
-                                $this_addy = substr($this_addy, 0, strlen($this_addy)-2);
-                                add_this_addy($fieldList,$valueList,$this_addy);
-                                sleep(0.5);
-                                $reccount++;
+                                    $this_addy = substr($this_addy, 0, strlen($this_addy)-2);
+                                    add_this_addy($fieldList,$valueList,$this_addy);
+                                    sleep(0.5);
+                                    $reccount++;
+                                } else {
+                                     print "<div class='updated fade'>".
+                                        __('The CSV file has too many fields.',
+                                            SLPLUS_TXTDOMAIN
+                                            );
+                                     print ' ';
+                                     printf(__('Got %d expected less than %d.', SLPLUS_TXTDOMAIN),
+                                        $num,$maxcols);
+                                     print '</div>';                                    
+                                }                                    
                             }
                             fclose($handle);
                         }
+                        ini_set('auto_detect_line_endings', $adle_setting);                         
+                        
 
-                        print "<div class='updated fade'>".
-                                sprintf("%d",$reccount) ." " .
-                                __("locations added succesfully.",$text_domain) . '.</div>';
+                        if ($reccount > 0) {
+                            print "<div class='updated fade'>".
+                                    sprintf("%d",$reccount) ." " .
+                                    __("locations added succesfully.",$text_domain) . '</div>';
+                        }                                
 
                 // Could not save
                 } else {

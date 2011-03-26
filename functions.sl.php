@@ -369,10 +369,10 @@ function head_scripts() {
                     get_option('sl_google_map_domain') : 
                     "maps.google.com";
             
-            print  "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
-            print  "<script src='".$sl_base."/js/store-locator-js.php' type='text/javascript'></script>
-                    <script src='".$sl_base."/js/store-locator.js' type='text/javascript'></script>
-                    <script src='".$sl_base."/js/functions.js' type='text/javascript'></script>\n";
+            print  "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>
+                    <script src='".SLPLUS_PLUGINURL."/js/store-locator-js.php' type='text/javascript'></script>
+                    <script src='".SLPLUS_PLUGINURL."/js/store-locator.js' type='text/javascript'></script>
+                    <script src='".SLPLUS_PLUGINURL."/js/functions.js' type='text/javascript'></script>\n";
             $has_custom_css=(file_exists($sl_upload_path."/custom-css/csl-slplus.css"))? 
                 $sl_upload_base."/custom-css" : 
                 $sl_base; 
@@ -543,36 +543,35 @@ function head_scripts() {
  **
  **/
 function csl_slplus_add_options_page() {
-	global $sl_dir, $sl_base, $sl_upload_base, $text_domain, 
-	       $map_character_encoding, $slplus_plugin;
+	global $text_domain, $slplus_plugin;
 	       		
 	if (trim($slplus_plugin->driver_args['api_key'])!=""){
         add_menu_page(
             __("SLP Locations", $text_domain),  
             __("SLP Locations", $text_domain), 
             'administrator', 
-            $sl_dir.'/add-locations.php'
+            SLPLUS_PLUGINDIR.'/add-locations.php'
             );	
 		add_submenu_page(
-    	    $sl_dir.'/add-locations.php',
+    	    SLPLUS_PLUGINDIR.'/add-locations.php',
 		    __("Add Locations", $text_domain), 
 		    __("Add Locations", $text_domain), 
 		    'administrator', 
-		    $sl_dir.'/add-locations.php'
+		    SLPLUS_PLUGINDIR.'/add-locations.php'
 		    );
 		add_submenu_page(
-    	    $sl_dir.'/add-locations.php',
+    	    SLPLUS_PLUGINDIR.'/add-locations.php',
 		    __("Manage Locations", $text_domain), 
 		    __("Manage Locations", $text_domain), 
 		    'administrator', 
-		    $sl_dir.'/view-locations.php'
+		    SLPLUS_PLUGINDIR.'/view-locations.php'
 		    );
 		add_submenu_page(
-    	    $sl_dir.'/add-locations.php',
+    	    SLPLUS_PLUGINDIR.'/add-locations.php',
 		    __("Map Settings", $text_domain), 
 		    __("Map Settings", $text_domain), 
 		    'administrator', 
-		    $sl_dir.'/map-designer.php'
+		    SLPLUS_PLUGINDIR.'/map-designer.php'
 		    );
 	}
 
@@ -715,11 +714,6 @@ function comma($a) {
 	
 }
 
-/*------------------------------------------------------------*/
-function addon_activation_message($url_of_upgrade="") {
-	global $sl_dir, $text_domain;
-	print "<div style='background-color:#eee; border:solid silver 1px; padding:7px; color:black'>".__("You haven't activated this upgrade yet", $text_domain).". <a href='".get_option('siteurl')."/wp-admin/admin.php?page=$sl_dir/news-upgrades.php'>".__("Activate", $text_domain)."</a></div><br>";
-}
 
 /*-----------------------------------------------------------*/
 function url_test($url) {

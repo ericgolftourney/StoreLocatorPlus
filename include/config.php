@@ -48,6 +48,12 @@ function csl_slplus_setup_admin_interface() {
     
     // Don't have what we need? Leave.
     if (!isset($slplus_plugin)) { return; }
+    
+    
+    // No SimpleXML Support
+    if (!function_exists('parsetoxml')) {
+        $slplus_plugin->notifications->add_notice(1, __('SimpleXML is required but not enabled.',SLPLUS_TXTDOMAIN));
+    }
 
     // Already been here?  Get out.
     if (isset($slplus_plugin->settings->sections['How to Use'])) { return; }
