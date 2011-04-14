@@ -41,7 +41,7 @@ if (defined('SLPLUS_BASENAME') === false) {
     define('SLPLUS_BASENAME', plugin_basename(__FILE__));
 }
 if (defined('SLPLUS_PREFIX') === false) {
-    define('SLPLUS_PREFIX', 'slplus');
+    define('SLPLUS_PREFIX', 'csl-slplus');
 }
 include_once(SLPLUS_PLUGINDIR.'/libs/csl_helpers.php');
 include_once(SLPLUS_PLUGINDIR.'/include/config.php');
