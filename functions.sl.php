@@ -400,32 +400,41 @@ function head_scripts() {
  ** Process the store locator shortcode.
  **
  **/
- function store_locator_shortcode($atts) {
+ function store_locator_shortcode($attributes, $content = null) {
     // Variables this function uses and passes to the template
     // we need a better way to pass vars to the template parser so we don't
     // carry around the weight of these global definitions.
-    // the other option is to unset($GLOBAL['<varname>']) at then end of this
+    // the other option is to unset($GLOBAL['<varname>']) at then end of this    
     // function call.
+    //
+    // Let's start using a SINGLE named array called "fnvars" to pass along anything
+    // we want.
     //
     global  $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb,
 	    $slplus_plugin, $prefix,	        
 	    $search_label, $width, $height, $width_units, $height_units, $hide,
 	    $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
-	    $sl_instruction_message, $cs_options, $country_options,
-	    $attributes;	       
-
-	// Get any attributes passed with the shortcode
-	//
-    extract(
-        shortcode_atts(
-            array(
-                'tags_for_pulldown'=> null, 
-                'only_with_tag'    => null,
-            ),
-            $attributes
-        )
-    );
+	    $sl_instruction_message, $cs_options, $country_options,$fnvars;	 
 	    
+	    $fnvars = array();
+
+	// Set the entire list of accepted attributes.
+	//
+	// The shortcode_atts function ensures that all possible
+	// attributes that *could* be passed are given a value which
+	// makes later processing in the code a bit easier.
+	//
+	// This is basically the equivalent of the php array_merge()
+	// function.
+	//
+    shortcode_atts(
+        array(
+            'tags_for_pulldown'=> null, 
+            'only_with_tag'    => null,
+            ),
+        $attributes
+        );
+    
     // Plugin is not licensed or user is not admin
     //
     if (!$slplus_plugin->ok_to_show()) {
@@ -541,12 +550,13 @@ function head_scripts() {
     $columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
     $sl_radius_label=get_option('sl_radius_label');
     $file = SLPLUS_PLUGINDIR . '/templates/search_form.php';
-    
+
+    // Prep fnvars for passing to our template
+    //
+    $fnvars = array_merge($fnvars,$attributes);       // merge in passed attributes
+
     return get_string_from_phpexec($file); 
 }
-
-
-
 
 /**************************************
  ** function: csl_slplus_add_options_page()
