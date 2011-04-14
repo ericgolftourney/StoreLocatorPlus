@@ -411,8 +411,20 @@ function head_scripts() {
 	    $slplus_plugin, $prefix,	        
 	    $search_label, $width, $height, $width_units, $height_units, $hide,
 	    $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
-	    $sl_instruction_message, $cs_options, $country_options;
-	       
+	    $sl_instruction_message, $cs_options, $country_options,
+	    $attributes;	       
+
+	// Get any attributes passed with the shortcode
+	//
+    extract(
+        shortcode_atts(
+            array(
+                'tags_for_pulldown'=> null, 
+                'only_with_tag'    => null,
+            ),
+            $attributes
+        )
+    );
 	    
     // Plugin is not licensed or user is not admin
     //

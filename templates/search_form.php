@@ -1,7 +1,7 @@
 <?php
   global $search_label, $width, $height, $width_units, $height_units, $hide,
       $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
-      $sl_instruction_message, $cs_options, $country_options, $prefix;
+      $sl_instruction_message, $cs_options, $country_options, $prefix, $attributes;
 ?>
 <div id='sl_div'>
   <form onsubmit='searchLocations(); return false;' id='searchForm' action=''>
@@ -51,8 +51,15 @@
                 <label for='tag_to_search_for'><?php 
                 	print get_option($prefix.'_search_tag_label');                
                 	?></label>
-                <?php
-                    $tag_selections = get_option($prefix.'_tag_search_selections');
+                <?php                
+                    // Tag selections
+                    //
+                    if (isset($attributes['tags_for_pulldown'])) {
+                        $tag_selections = $attributes['tags_for_pulldown'];
+                    }
+                    else {
+                        $tag_selections = get_option($prefix.'_tag_search_selections');
+                    }                
                     
                     // No pre-selected tags, use input box
                     //
