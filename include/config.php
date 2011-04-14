@@ -15,14 +15,11 @@ if (defined('SLPLUS_PLUGINDIR')) {
     
     /**
      * This section defines the settings for the admin menu.
-     */
-    
-    $prefix = 'csl-slplus';
-    
+     */       
     $slplus_plugin = new wpCSL_plugin__slplus(
         array(
             'use_obj_defaults'      => true,        
-            'prefix'                => $prefix,
+            'prefix'                => SLPLUS_PREFIX,
             'name'                  => 'Store Locator Plus',
             'url'                   => 'http://www.cybersprocket.com/products/store-locator-plus/',
             'paypal_button_id'      => '2D864VACHMK5A',
@@ -32,7 +29,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'cache_path'            => SLPLUS_PLUGINDIR . 'cache',
             'driver_type'           => 'none',
             'driver_args'           => array(
-                    'api_key'   => get_option($prefix.'-api_key'),
+                    'api_key'   => get_option(SLPLUS_PREFIX.'-api_key'),
                     )
         )
     );    
