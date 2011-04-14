@@ -61,6 +61,8 @@ add_action('admin_init','csl_slplus_setup_admin_interface',10);
 add_action('admin_print_scripts', 'add_admin_javascript');
 add_action('admin_print_styles','add_admin_stylesheet');
 add_shortcode('STORE-LOCATOR','store_locator_shortcode');
+add_shortcode('SLPLUS','store_locator_shortcode');
+add_shortcode('slplus','store_locator_shortcode');
 
 load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_PLUGINDIR . '/languages/');
 
