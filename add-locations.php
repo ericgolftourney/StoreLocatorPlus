@@ -123,10 +123,10 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
                                 } else {
                                      print "<div class='updated fade'>".
                                         __('The CSV file has too many fields.',
-                                            SLPLUS_TXTDOMAIN
+                                            SLPLUS_PREFIX
                                             );
                                      print ' ';
-                                     printf(__('Got %d expected less than %d.', SLPLUS_TXTDOMAIN),
+                                     printf(__('Got %d expected less than %d.', SLPLUS_PREFIX),
                                         $num,$maxcols);
                                      print '</div>';                                    
                                 }                                    
