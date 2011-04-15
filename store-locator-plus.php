@@ -52,7 +52,7 @@ $sl_path='';
 include_once("variables.sl.php");
 include_once("functions.sl.php");
 
-register_activation_hook( __FILE__, 'install_table');
+register_activation_hook( __FILE__, 'activate_slplus');
 
 add_action('wp_head', 'head_scripts');
 add_action('admin_menu', 'csl_slplus_add_options_page');
@@ -65,6 +65,10 @@ add_shortcode('slplus','store_locator_shortcode');
 
 load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_PLUGINDIR . '/languages/');
 
+// Ensure short open tags are possible
+//
 ini_set( "short_open_tag", 1 );
+
+
 
 

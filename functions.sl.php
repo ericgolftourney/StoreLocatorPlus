@@ -273,13 +273,50 @@ function do_geocoding($address,$sl_id="") {
     usleep($delay);
 }
 
-//-------------------------------------
-// Create the Store Locator Plus table during an installation or upgrade.
-//
-// You must change the sl_db_verion whenever you change the stucture.
-// This will allow the built-in WordPress db_delta function to perform
-// an automatic table structure upgrade from the prior installed version.
-// 
+
+/***********************************
+ ** Run install/update activation routines
+ **/
+
+function activate_slplus() {
+    install_table();
+    add_slplus_roles_and_caps();
+}
+
+/***********************************
+ ** Add the Editor with SLPLUS role and the manage_slp capability.
+ **
+ **/
+function add_slplus_roles_and_caps() {
+    // Add SLP Editor Role
+    //
+    // Has same access as Editor role plus access to SL Plus stuff
+    //
+    if (get_role('slp_editor') == null) {
+        $editorrole =& get_role('editor');
+        $result = add_role('slp_editor', 'Editor with Store Locator Plus', 
+            array_merge(
+                (array) $editorrole->capabilities,
+                array('manage_slp' => true)
+                )
+            );
+        
+        // Make sure admin has that role
+        //
+        $role = get_role('administrator');
+        if(!$role->has_cap('manage_slp')) {
+            $role->add_cap('manage_slp');
+        }    
+    }    
+}
+
+/***********************************
+ ** Create the Store Locator Plus table during an installation or upgrade.
+ **
+ ** You must change the sl_db_verion whenever you change the stucture.
+ ** This will allow the built-in WordPress db_delta function to perform
+ ** an automatic table structure upgrade from the prior installed version.
+ **/ 
 function install_table() {
 	global $wpdb, $sl_path, $sl_upload_path;
 
@@ -366,7 +403,7 @@ function head_scripts() {
 	
 	//If shortcode used in posts, get post IDs, and put into array of numbers
 	if ($sl_code_is_used_in_posts) {
-		$sl_post_ids=$wpdb->get_results("SELECT ID FROM ".$wpdb->prefix."posts WHERE (post_content LIKE '%[STORE-LOCATOR%' OR post_content LIKE '%[SLPLUS%') AND post_type='post'", ARRAY_A);
+		$sl_post_ids=$wpdb->get_results("SELECT ID FROM ".$wpdb->prefix."posts WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_type='post'", ARRAY_A);
 		foreach ($sl_post_ids as $val) { $post_ids_array[]=$val[ID];}
 	} else {			    
 	     //post number that'll never be reached
@@ -583,8 +620,14 @@ function head_scripts() {
  **/
 function csl_slplus_add_options_page() {
 	global $text_domain, $slplus_plugin;
-	       		
-	if (trim($slplus_plugin->driver_args['api_key'])!=""){
+
+	
+	
+	if ( 
+	    (trim($slplus_plugin->driver_args['api_key'])!="") &&
+	    current_user_can('manage_slp')
+	    )
+	{
         add_menu_page(
             __("SLP Locations", $text_domain),  
             __("SLP Locations", $text_domain), 
