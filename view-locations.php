@@ -220,15 +220,22 @@ print "<br>
 <th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI'])."&o=sl_tags&d=$d'>".__("Tags", $text_domain)."</a></th>";
 
 if (get_option('sl_location_table_view')!="Normal") {
-    print "<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI']).
+    print "<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI']).
             "&o=sl_description&d=$d'>".__("Description", $text_domain)."</a></th>".
-        "<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI']).
+            
+        "<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI']).
             "&o=sl_url&d=$d'>".__("URL", $text_domain)."</a></th>".
-        "<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI']).
+            
+        "<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI']).
+            "&o=sl_email&d=$d'>".__("Email", $text_domain)."</a></th>".
+            
+        "<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI']).
             "&o=sl_hours&d=$d'>".__("Hours", $text_domain)."</th>".
-        "<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI']).
+            
+        "<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI']).
             "&o=sl_phone&d=$d'>".__("Phone", $text_domain)."</a></th>".
-        "<th><a href='".ereg_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI']).
+            
+        "<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI']).
             "&o=sl_image&d=$d'>".__("Image", $text_domain)."</a></th>";
 }
 
@@ -244,6 +251,8 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
 			$bgcol=($value['sl_latitude']=="" || $value['sl_longitude']=="")? "salmon" : $bgcol;			
 			$value=array_map("trim",$value);
 			
+			// EDIT MODE
+			//
 			if (isset($_GET['edit']) && ($locID==$_GET['edit'])) {
 				print "<tr style='background-color:$bgcol'>";
 	            $colspan=(get_option('sl_location_table_view')!="Normal")? 	16 : 11;	
@@ -264,6 +273,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                         <textarea name='description-$locID' rows='5' cols='17'>$value[sl_description]</textarea>&nbsp;<small>".__("Description", $text_domain)."</small><br>
                         <input name='tags-$locID' value='$value[sl_tags]'>&nbsp;<small>".__("Tags (seperate with commas)", $text_domain)."</small><br>		
                         <input name='url-$locID' value='$value[sl_url]'>&nbsp;<small>".__("URL", $text_domain)."</small><br>
+                        <input name='email-$locID' value='$value[sl_email]'>&nbsp;<small>".__("Send", $text_domain)."</small><br>
                         <input name='hours-$locID' value='$value[sl_hours]'>&nbsp;<small>".__("Hours", $text_domain)."</small><br>
                         <input name='phone-$locID' value='$value[sl_phone]'>&nbsp;<small>".__("Phone", $text_domain)."</small><br>
                         <input name='image-$locID' value='$value[sl_image]'>&nbsp;<small>".__("Image URL (shown with location)", $text_domain)."</small><br><br>
@@ -272,12 +282,18 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                     </table>
                 </form></td>
                 </tr>";
+                
+			// DISPLAY MODE
+			//
 			} else {
                 $value['sl_url']=(!url_test($value['sl_url']) && trim($value['sl_url'])!="")? 
                     "http://".$value['sl_url'] : 
                     $value['sl_url'] ;
                 $value['sl_url']=($value['sl_url']!="")? 
                     "<a href='$value[sl_url]' target='blank'>".__("View", $text_domain)."</a>" : 
+                    "" ;
+                $value['sl_email']=($value['sl_email']!="")? 
+                    "<a href='mailto:$value[sl_email]' target='blank'>".__("Email", $text_domain)."</a>" : 
                     "" ;
                 $value['sl_image']=($value['sl_image']!="")? 
                     "<a href='$value[sl_image]' target='blank'>".__("View", $text_domain)."</a>" : 
@@ -306,6 +322,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                 if (get_option('sl_location_table_view')!="Normal") {
                     print "<td>$value[sl_description]</td>
                     <td>$value[sl_url]</td>
+                    <td>$value[sl_email]</td>
                     <td>$value[sl_hours]</td>
                     <td>$value[sl_phone]</td>
                     <td>$value[sl_image]</td>";
