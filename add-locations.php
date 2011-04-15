@@ -72,7 +72,7 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
             $_POST['sl_store'] ." " .
             __("Added Succesfully",$text_domain) . '.</div>';
             
-/** Bulk Upload? 
+/** Bulk Upload
  **/
 } elseif ( isset($_FILES['csvfile']['name']) && 
 	   ($_FILES['csvfile']['name']!='')  &&
@@ -101,7 +101,7 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
                         if (($handle = fopen($updir.'/'.$_FILES['csvfile']['name'], "r")) !== FALSE) {
                             $fldNames = array('sl_store','sl_address','sl_address2','sl_city','sl_state',
                                             'sl_zip','sl_country','sl_tags','sl_description','sl_url',
-                                            'sl_hours','sl_phone');
+                                            'sl_hours','sl_phone','sl_email');
                             $maxcols = count($fldNames);
                             while (($data = fgetcsv($handle)) !== FALSE) {
                                 $num = count($data);
