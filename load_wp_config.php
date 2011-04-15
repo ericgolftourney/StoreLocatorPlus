@@ -3,12 +3,12 @@ $possible_path = preg_replace('/\/wp-content\/.*/','',$_SERVER['SCRIPT_FILENAME'
 
 // Document Root Install
 //
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/wp-config.php')) {
+if (isset($_SERVER['DOCUMENT_ROOT']) && file_exists($_SERVER['DOCUMENT_ROOT'].'/wp-config.php')) {
     include($_SERVER['DOCUMENT_ROOT'].'/wp-config.php');
     
 // Subdomain Install of WordPress
 //
-} else if (file_exists($_SERVER['SUBDOMAIN_DOCUMENT_ROOT'].'/wp-config.php')) {
+} else if (isset($_SERVER['SUBDOMAIN_DOCUMENT_ROOT']) && file_exists($_SERVER['SUBDOMAIN_DOCUMENT_ROOT'].'/wp-config.php')) {
     include($_SERVER['SUBDOMAIN_DOCUMENT_ROOT'].'/wp-config.php');
 
 // A sub-directory
