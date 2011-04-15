@@ -122,8 +122,9 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 * Can now override the search form tag list pulldown via the shortcode (tags_for_pulldown).
 * Can now specify a search form only produce results for a single tag via the shortcode (only_with_tag).
-* [Shortcode documentation](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki/How_To_Implement)
 * Set search form input font to black, the background is currently forced white in the CSS.
+* Added new email field to store locator data.
+* [Shortcode documentation](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki/How_To_Implement)
 
 
 = 1.7.6 (March 26th 2011) =
