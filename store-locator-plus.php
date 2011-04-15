@@ -46,8 +46,7 @@ if (defined('SLPLUS_PREFIX') === false) {
 include_once(SLPLUS_PLUGINDIR.'/libs/csl_helpers.php');
 include_once(SLPLUS_PLUGINDIR.'/include/config.php');
 
-global $sl_db_version, $sl_upload_path, $sl_path;
-$sl_db_version='1.3';
+global $sl_upload_path, $sl_path;
 $sl_upload_path='';
 $sl_path='';
 include_once("variables.sl.php");

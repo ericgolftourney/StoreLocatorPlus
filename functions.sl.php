@@ -273,10 +273,21 @@ function do_geocoding($address,$sl_id="") {
     usleep($delay);
 }
 
-
-/*-------------------------------*/
+//-------------------------------------
+// Create the Store Locator Plus table during an installation or upgrade.
+//
+// You must change the sl_db_verion whenever you change the stucture.
+// This will allow the built-in WordPress db_delta function to perform
+// an automatic table structure upgrade from the prior installed version.
+// 
 function install_table() {
-	global $wpdb, $sl_db_version, $sl_path, $sl_upload_path;
+	global $wpdb, $sl_path, $sl_upload_path;
+
+
+	/******************************************************
+	 * CHANGE THIS WHENVER YOU CHANGE THE DB STRUCTURE!!! *
+	 ******************************************************/
+	$sl_db_version='1.8';
 
 	$table_name = $wpdb->prefix . "store_locator";
 	$sql = "CREATE TABLE " . $table_name . " (
@@ -292,6 +303,7 @@ function install_table() {
 			sl_longitude varchar(255) NULL,
 			sl_tags mediumtext NULL,
 			sl_description varchar(255) NULL,
+			sl_email varchar(255) NULL,
 			sl_url varchar(255) NULL,
 			sl_hours varchar(255) NULL,
 			sl_phone varchar(255) NULL,
@@ -301,18 +313,23 @@ function install_table() {
 			PRIMARY KEY  (sl_id)
 			) ENGINE=innoDB  DEFAULT CHARACTER SET=utf8  DEFAULT COLLATE=utf8_unicode_ci;";
 	
+    // New installation
+    //
 	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
 		add_option("sl_db_version", $sl_db_version);
-	}
-	
-	$installed_ver = get_option( "sl_db_version" );
-	if( $installed_ver != $sl_db_version ) {
-		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-		dbDelta($sql);
-		update_option("sl_db_version", $sl_db_version);
-	}
+		
+    // Installation upgrade
+    //
+	} else {        
+        $installed_ver = get_option( "sl_db_version" );
+        if( $installed_ver != $sl_db_version ) {
+            require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+            dbDelta($sql);
+            update_option("sl_db_version", $sl_db_version);
+        }
+    }        
 	
 	move_upload_directories();
 }
