@@ -353,7 +353,7 @@ function head_scripts() {
 	          isset($_GET['page_id'])   ? $_GET['page_id'] : 
 	          '';
 	$on_sl_page=$wpdb->get_results("SELECT post_name FROM ".$wpdb->prefix."posts ".
-	        "WHERE post_content LIKE '%[STORE-LOCATOR%' AND " .
+	        "WHERE (post_content LIKE '%[STORE-LOCATOR%' OR post_content LIKE '%[SLPLUS%') AND " .
 	        "post_status IN ('publish', 'draft') AND ".
 	        "(post_name='$pagename' OR ID='$pageID')", 
 	        ARRAY_A);
@@ -361,12 +361,12 @@ function head_scripts() {
 	//Checking if code used in posts	
 	$sl_code_is_used_in_posts=$wpdb->get_results(
 	    "SELECT post_name FROM ".$wpdb->prefix."posts ".
-	    "WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_type='post'"
+	    "WHERE (post_content LIKE '%[STORE-LOCATOR%' OR post_content LIKE '%[SLPLUS%') AND post_type='post'"
 	    );
 	
 	//If shortcode used in posts, get post IDs, and put into array of numbers
 	if ($sl_code_is_used_in_posts) {
-		$sl_post_ids=$wpdb->get_results("SELECT ID FROM ".$wpdb->prefix."posts WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_type='post'", ARRAY_A);
+		$sl_post_ids=$wpdb->get_results("SELECT ID FROM ".$wpdb->prefix."posts WHERE (post_content LIKE '%[STORE-LOCATOR%' OR post_content LIKE '%[SLPLUS%') AND post_type='post'", ARRAY_A);
 		foreach ($sl_post_ids as $val) { $post_ids_array[]=$val[ID];}
 	} else {			    
 	     //post number that'll never be reached
