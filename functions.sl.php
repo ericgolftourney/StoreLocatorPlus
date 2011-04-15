@@ -570,7 +570,7 @@ function head_scripts() {
 
     // Prep fnvars for passing to our template
     //
-    $fnvars = array_merge($fnvars,$attributes);       // merge in passed attributes
+    $fnvars = array_merge($fnvars,(array) $attributes);       // merge in passed attributes
 
     return get_string_from_phpexec($file); 
 }

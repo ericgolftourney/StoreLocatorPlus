@@ -52,10 +52,11 @@ function sl_load() {
                     parseFloat(markers[i].getAttribute('lng')));
                     var description = markers[i].getAttribute('description');
                     var url = markers[i].getAttribute('url');
+                    var email = markers[i].getAttribute('email');
                     var hours = markers[i].getAttribute('hours');
                     var phone = markers[i].getAttribute('phone');
                     var image = markers[i].getAttribute('image');
-                    var marker = createMarker(point, name, address, "", description, url, hours, phone, image);
+                    var marker = createMarker(point, name, address, "", description, url, email, hours, phone, image);
                     map.addOverlay(marker);
                     bounds.extend(point);
                 }
@@ -161,12 +162,13 @@ function searchLocationsNear(center, homeAddress) {
                         parseFloat(markers[i].getAttribute('lng')));
                 var description = markers[i].getAttribute('description');
                 var url = markers[i].getAttribute('url');
+                var email = markers[i].getAttribute('email');
                 var hours = markers[i].getAttribute('hours');
                 var phone = markers[i].getAttribute('phone');
                 var image = markers[i].getAttribute('image');                
-                var marker = createMarker(point, name, address, homeAddress, description, url, hours, phone, image); 
+                var marker = createMarker(point, name, address, homeAddress, description, url, email, hours, phone, image); 
                         map.addOverlay(marker);
-                var sidebarEntry = createSidebarEntry(marker, name, address, distance, homeAddress, url, phone); 
+                var sidebarEntry = createSidebarEntry(marker, name, address, distance, homeAddress, url, email, phone); 
                 sidebar.appendChild(sidebarEntry);
                 bounds.extend(point);
             }
@@ -177,13 +179,16 @@ function searchLocationsNear(center, homeAddress) {
 
 /**************************************
  */
-function createMarker(point, name, address, homeAddress, description, url, hours, phone, image) { 
+function createMarker(point, name, address, homeAddress, description, url, email, hours, phone, image) { 
   markerOpts = { icon:theIcon };
   var marker = new GMarker(point, markerOpts);
   
   var more_html="";
   if(url.indexOf("http://")==-1) {url="http://"+url;} 
   if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {more_html+="| <a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + sl_website_label +"</nobr></a>"} else {url=""}
+  
+  if (email.indexOf("@")!=-1 && email.indexOf(".")!=-1) {more_html+="| <a href='mailto:"+email+"' target='_blank' class='storelocatorlink'><nobr>" + email +"</nobr></a>"}
+  
   if (image.indexOf(".")!=-1) {more_html+="<br/><img src='"+image+"' class='sl_info_bubble_main_image'>"} else {image=""}
   if (description!="") {more_html+="<br/>"+description+"";} else {description=""}
   if (hours!="") {more_html+="<br/><span class='location_detail_label'>Hours:</span> "+hours;} else {hours=""}
@@ -225,7 +230,7 @@ var bgcol="white";
 
 /**************************************
  */
-function createSidebarEntry(marker, name, address, distance, homeAddress, url,phone) { 
+function createSidebarEntry(marker, name, address, distance, homeAddress, url, email, phone) { 
     document.getElementById('map_sidebar_td').style.display='block';
       var div = document.createElement('div');
       var street = address.split(',')[0]; 
@@ -238,8 +243,13 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url,ph
         }
       var state_zip = address.split(',')[3];
       
+      var link = '';
       if(url.indexOf("http://")==-1) {url="http://"+url;} 
-      if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {link="<a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + sl_website_label +"</nobr></a>&nbsp;|&nbsp;"} else {url=""; link="";}
+      if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {link="<a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + sl_website_label +"</nobr></a><br/>"} else {url="";}
+
+      var elink = "";
+      if (email.indexOf("@")!=-1 && email.indexOf(".")!=-1) {elink="<a href='mailto:"+email+"' target='_blank' class='storelocatorlink'><nobr>" + email +"</nobr></a><br/>"}
+
       
       var html = '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">' +
                  '<tr>' +
@@ -252,11 +262,14 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url,ph
                         city + state_zip +'<br/>'+
                         phone +
                     '</td>' +
-                    '<td class="results_row_right_column">' + link + 
+                    '<td class="results_row_right_column">' + 
+                        link + 
+                        elink +
                         '<a href="http://' + sl_google_map_domain + 
                         '/maps?saddr=' + encodeURIComponent(homeAddress) + 
                         '&daddr=' + encodeURIComponent(address) + 
-                        '" target="_blank" class="storelocatorlink">Directions</a></td>' +
+                        '" target="_blank" class="storelocatorlink">Directions</a>'+
+                        '</td>' +
                         '</tr></table></center>'; 
       div.innerHTML = html;
       div.className='results_entry';

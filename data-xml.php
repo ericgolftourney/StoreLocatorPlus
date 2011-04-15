@@ -24,7 +24,7 @@ $num_initial_displayed=(trim(get_option('sl_num_initial_displayed'))!="")?
 // Select all the rows in the markers table
 $query = "SELECT sl_address, sl_address2, sl_store, sl_city, sl_state, ".
     "sl_zip, sl_country, sl_latitude, sl_longitude, sl_description, sl_url, ".
-    "sl_hours, sl_phone, sl_image FROM ".$wpdb->prefix."store_locator ".
+    "sl_email, sl_hours, sl_phone, sl_image FROM ".$wpdb->prefix."store_locator ".
     "WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>'' ".
     "LIMIT $num_initial_displayed";
 
@@ -50,6 +50,7 @@ while ($row = @mysql_fetch_assoc($result)){
   echo 'distance="' . $row['sl_distance'] . '" ';
   echo 'description="' . parseToXML($row['sl_description']) . '" ';
   echo 'url="' . parseToXML($row['sl_url']) . '" ';
+  echo 'email="' . parseToXML($row['sl_email']) . '" ';
   echo 'hours="' . parseToXML($row['sl_hours']) . '" ';
   echo 'phone="' . parseToXML($row['sl_phone']) . '" ';
   echo 'image="' . parseToXML($row['sl_image']) . '" ';
