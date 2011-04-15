@@ -124,6 +124,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Can now specify a search form only produce results for a single tag via the shortcode (only_with_tag).
 * Set search form input font to black, the background is currently forced white in the CSS.
 * Added new email field to store locator data.
+* Fix errors on javascript processing on some systems with no subdomain support.
 * [Shortcode documentation](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki/How_To_Implement)
 
 
