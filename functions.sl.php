@@ -284,29 +284,17 @@ function activate_slplus() {
 }
 
 /***********************************
- ** Add the Editor with SLPLUS role and the manage_slp capability.
+ ** Add the capability manage_slp to administrators
+ ** People using roles & caps plugins can use this to allow
+ ** people with the manage_slp functionality to manage locations.
  **
  **/
 function add_slplus_roles_and_caps() {
-    // Add SLP Editor Role
+    // Make sure admin has that role
     //
-    // Has same access as Editor role plus access to SL Plus stuff
-    //
-    if (get_role('slp_editor') == null) {
-        $editorrole =& get_role('editor');
-        $result = add_role('slp_editor', 'Editor with Store Locator Plus', 
-            array_merge(
-                (array) $editorrole->capabilities,
-                array('manage_slp' => true)
-                )
-            );
-        
-        // Make sure admin has that role
-        //
-        $role = get_role('administrator');
-        if(!$role->has_cap('manage_slp')) {
-            $role->add_cap('manage_slp');
-        }    
+    $role = get_role('administrator');
+    if(!$role->has_cap('manage_slp')) {
+        $role->add_cap('manage_slp');
     }    
 }
 
