@@ -65,5 +65,6 @@ add_shortcode('slplus','store_locator_shortcode');
 
 load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_PLUGINDIR . '/languages/');
 
+ini_set( "short_open_tag", 1 );
 
 

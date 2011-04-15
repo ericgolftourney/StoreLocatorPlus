@@ -1,4 +1,7 @@
 <?php
+
+// Find the Wordpress Config File...
+//
 $possible_path = preg_replace('/\/wp-content\/.*/','',$_SERVER['SCRIPT_FILENAME']);
 
 // Document Root Install
@@ -24,3 +27,6 @@ if (isset($_SERVER['DOCUMENT_ROOT']) && file_exists($_SERVER['DOCUMENT_ROOT'].'/
 } else if (file_exists('../../../../wp-config.php')) {
     include('../../../../wp-config.php');    
 }
+
+// Turn on short open tags
+ini_set( "short_open_tag", 1 );
