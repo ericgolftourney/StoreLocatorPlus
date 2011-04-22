@@ -3,12 +3,10 @@
 Plugin Name: Store Locator Plus
 Plugin URI: http://www.cybersprocket.com/products/store-locator-plus/
 Description: Store Locator Plus is based on the popular Google Maps Store Locator with a few customizations we needed for our clients. Hopefully other WordPress users will find our additions useful. 
-Version: 1.8
+Version: 1.8.1
 Author: Cyber Sprocket Labs
 Author URI: http://www.cybersprocket.com
 License: GPL3
-
-=====================
 
 	Copyright 2010  Cyber Sprocket Labs (info@cybersprocket.com)
 
@@ -26,7 +24,7 @@ License: GPL3
         along with this program; if not, write to the Free Software
         Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-**/
+*/
 
 
 // Define our paths 
