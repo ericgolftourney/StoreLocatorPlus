@@ -273,7 +273,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                         <textarea name='description-$locID' rows='5' cols='17'>$value[sl_description]</textarea>&nbsp;<small>".__("Description", $text_domain)."</small><br>
                         <input name='tags-$locID' value='$value[sl_tags]'>&nbsp;<small>".__("Tags (seperate with commas)", $text_domain)."</small><br>		
                         <input name='url-$locID' value='$value[sl_url]'>&nbsp;<small>".__("URL", $text_domain)."</small><br>
-                        <input name='email-$locID' value='$value[sl_email]'>&nbsp;<small>".__("Send", $text_domain)."</small><br>
+                        <input name='email-$locID' value='$value[sl_email]'>&nbsp;<small>".__("Email", $text_domain)."</small><br>
                         <input name='hours-$locID' value='$value[sl_hours]'>&nbsp;<small>".__("Hours", $text_domain)."</small><br>
                         <input name='phone-$locID' value='$value[sl_phone]'>&nbsp;<small>".__("Phone", $text_domain)."</small><br>
                         <input name='image-$locID' value='$value[sl_image]'>&nbsp;<small>".__("Image URL (shown with location)", $text_domain)."</small><br><br>
