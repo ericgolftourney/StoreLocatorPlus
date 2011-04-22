@@ -11,14 +11,14 @@
         <h2>
             <?php _e('Map Settings',$text_domain); ?>
             
-            <a href='/wp-admin/admin.php?page=<?=SLPLUS_PLUGINDIR?>add-locations.php' 
+            <a href='/wp-admin/admin.php?page=<?php echo SLPLUS_PLUGINDIR?>add-locations.php' 
                 class='button add-new-h2'><?php _e('Add Locations',$text_domain); ?></a>
             
-            <a href='/wp-admin/admin.php?page=<?=SLPLUS_PLUGINDIR?>view-locations.php' 
+            <a href='/wp-admin/admin.php?page=<?php echo SLPLUS_PLUGINDIR?>view-locations.php' 
                 class='button add-new-h2'><?php _e('Manage Locations',$text_domain); ?></a>            
         </h2>
         
-    <?=$update_msg?>
+    <?php echo $update_msg?>
     
     <form method='post' name='mapDesigner'>
         <table class='widefat'>
@@ -40,7 +40,7 @@
                         <input name='sl_use_city_search' 
                             value='1' 
                             type='checkbox' 
-                            <?=$city_checked?> 
+                            <?php echo $city_checked?> 
                             >
                     </div>
        
@@ -51,26 +51,26 @@
                         <input name='sl_use_country_search' 
                             value='1' 
                             type='checkbox' 
-                            <?=$country_checked?> 
+                            <?php echo $country_checked?> 
                             >
                    </div>
                    
                    <div class='form_entry'>
-                        <label for='<?=$prefix?>_show_tag_search'>
+                        <label for='<?php echo $prefix?>_show_tag_search'>
                             <?php _e('Tag Input', $text_domain); ?>:
                         </label>
-                        <input name='<?=$prefix?>_show_tag_search' 
+                        <input name='<?php echo $prefix?>_show_tag_search' 
                             value='1' 
                             type='checkbox' 
-                            <?=$show_tag_checked?> 
+                            <?php echo $show_tag_checked?> 
                             >
                    </div>     
                                       
                     <div class='form_entry'>
-                        <label for='<?=$prefix?>_tag_search_selections'>
+                        <label for='<?php echo $prefix?>_tag_search_selections'>
                             <?php _e('Preselected Tag Searches', $text_domain); ?>:
                         </label>
-                        <input  name='<?=$prefix?>_tag_search_selections' 
+                        <input  name='<?php echo $prefix?>_tag_search_selections' 
                             value='<?php print get_option($prefix.'_tag_search_selections'); ?>' 
                             >
                         <span class='input_note'>
@@ -81,13 +81,13 @@
                     </div>        
                     
                    <div class='form_entry'>
-                        <label for='<?=$prefix?>_show_tag_any'>
+                        <label for='<?php echo $prefix?>_show_tag_any'>
                             <?php _e('Show "any" on tag pulldown', $text_domain); ?>:
                         </label>
-                        <input name='<?=$prefix?>_show_tag_any' 
+                        <input name='<?php echo $prefix?>_show_tag_any' 
                             value='1' 
                             type='checkbox' 
-                            <?=$show_any_checked?> 
+                            <?php echo $show_any_checked?> 
                             >
                         <span class='input_note'>
                           <?php 
