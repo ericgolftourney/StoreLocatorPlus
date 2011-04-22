@@ -3,7 +3,7 @@
 Plugin Name: Store Locator Plus
 Plugin URI: http://www.cybersprocket.com/products/store-locator-plus/
 Description: Store Locator Plus is based on the popular Google Maps Store Locator with a few customizations we needed for our clients. Hopefully other WordPress users will find our additions useful. 
-Version: 1.7.6
+Version: 1.8
 Author: Cyber Sprocket Labs
 Author URI: http://www.cybersprocket.com
 License: GPL3
@@ -40,20 +40,19 @@ if (defined('SLPLUS_PLUGINURL') === false) {
 if (defined('SLPLUS_BASENAME') === false) {
     define('SLPLUS_BASENAME', plugin_basename(__FILE__));
 }
-if (defined('SLPLUS_TXTDOMAIN') === false) {
-    define('SLPLUS_TXTDOMAIN', 'slplus');
+if (defined('SLPLUS_PREFIX') === false) {
+    define('SLPLUS_PREFIX', 'csl-slplus');
 }
 include_once(SLPLUS_PLUGINDIR.'/libs/csl_helpers.php');
 include_once(SLPLUS_PLUGINDIR.'/include/config.php');
 
-global $sl_db_version, $sl_upload_path, $sl_path;
-$sl_db_version='1.3';
+global $sl_upload_path, $sl_path;
 $sl_upload_path='';
 $sl_path='';
 include_once("variables.sl.php");
 include_once("functions.sl.php");
 
-register_activation_hook( __FILE__, 'install_table');
+register_activation_hook( __FILE__, 'activate_slplus');
 
 add_action('wp_head', 'head_scripts');
 add_action('admin_menu', 'csl_slplus_add_options_page');
@@ -61,8 +60,14 @@ add_action('admin_init','csl_slplus_setup_admin_interface',10);
 add_action('admin_print_scripts', 'add_admin_javascript');
 add_action('admin_print_styles','add_admin_stylesheet');
 add_shortcode('STORE-LOCATOR','store_locator_shortcode');
+add_shortcode('SLPLUS','store_locator_shortcode');
+add_shortcode('slplus','store_locator_shortcode');
 
-load_plugin_textdomain(SLPLUS_TXTDOMAIN, false, SLPLUS_PLUGINDIR . '/languages/');
+load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_PLUGINDIR . '/languages/');
+
+// Ensure short open tags are possible
+//
+ini_set( "short_open_tag", 1 );
 
 
 

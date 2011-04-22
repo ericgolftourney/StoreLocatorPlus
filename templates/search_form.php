@@ -1,7 +1,7 @@
 <?php
   global $search_label, $width, $height, $width_units, $height_units, $hide,
       $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
-      $sl_instruction_message, $cs_options, $country_options, $prefix;
+      $sl_instruction_message, $cs_options, $country_options, $prefix, $fnvars;
 ?>
 <div id='sl_div'>
   <form onsubmit='searchLocations(); return false;' id='searchForm' action=''>
@@ -45,20 +45,36 @@
             //------------------------------------------------
             // Show Tag Search Is Enabled
             //
-            if (get_option($prefix.'_show_tag_search') ==1) { 
+            if (get_option($prefix.'_show_tag_search') ==1) {                
             ?>
-            <div id='search_by_tag' class='search_item'>   
+            <div id='search_by_tag' class='search_item' <?php if (isset($fnvars['only_with_tag'])) { print "style='display:none;'"; }?>>   
                 <label for='tag_to_search_for'><?php 
                 	print get_option($prefix.'_search_tag_label');                
                 	?></label>
-                <?php
-                    $tag_selections = get_option($prefix.'_tag_search_selections');
+                <?php       
+                    // Tag selections
+                    //
+                    if (isset($fnvars['tags_for_pulldown'])) {
+                        $tag_selections = $fnvars['tags_for_pulldown'];
+                    }
+                    else {
+                        $tag_selections = get_option($prefix.'_tag_search_selections');
+                    }
+                    
+                    // Tag selections
+                    //
+                    if (isset($fnvars['only_with_tag'])) {
+                        $tag_selections = '';
+                    }
                     
                     // No pre-selected tags, use input box
                     //
-                    if ($tag_selections == '') {?>                                            
-                        <input type='text' id='tag_to_search_for' size='50' />                        
-                    <?php
+                    if ($tag_selections == '') {
+                        print "<input type='". (isset($fnvars['only_with_tag']) ? 'hidden' : 'text') . "' ". 
+                                "id='tag_to_search_for' size='50' " .
+                                "value='" . (isset($fnvars['only_with_tag']) ? $fnvars['only_with_tag'] : '') . "' ".                                
+                                "/>";
+                        
                     // Pulldown for pre-selected list
                     //
                     } else {

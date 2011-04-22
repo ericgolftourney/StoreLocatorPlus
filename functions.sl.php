@@ -274,9 +274,45 @@ function do_geocoding($address,$sl_id="") {
 }
 
 
-/*-------------------------------*/
+/***********************************
+ ** Run install/update activation routines
+ **/
+
+function activate_slplus() {
+    install_table();
+    add_slplus_roles_and_caps();
+}
+
+/***********************************
+ ** Add the capability manage_slp to administrators
+ ** People using roles & caps plugins can use this to allow
+ ** people with the manage_slp functionality to manage locations.
+ **
+ **/
+function add_slplus_roles_and_caps() {
+    // Make sure admin has that role
+    //
+    $role = get_role('administrator');
+    if(!$role->has_cap('manage_slp')) {
+        $role->add_cap('manage_slp');
+    }    
+}
+
+/***********************************
+ ** Create the Store Locator Plus table during an installation or upgrade.
+ **
+ ** You must change the sl_db_verion whenever you change the stucture.
+ ** This will allow the built-in WordPress db_delta function to perform
+ ** an automatic table structure upgrade from the prior installed version.
+ **/ 
 function install_table() {
-	global $wpdb, $sl_db_version, $sl_path, $sl_upload_path;
+	global $wpdb, $sl_path, $sl_upload_path;
+
+
+	/******************************************************
+	 * CHANGE THIS WHENVER YOU CHANGE THE DB STRUCTURE!!! *
+	 ******************************************************/
+	$sl_db_version='1.8';
 
 	$table_name = $wpdb->prefix . "store_locator";
 	$sql = "CREATE TABLE " . $table_name . " (
@@ -292,6 +328,7 @@ function install_table() {
 			sl_longitude varchar(255) NULL,
 			sl_tags mediumtext NULL,
 			sl_description varchar(255) NULL,
+			sl_email varchar(255) NULL,
 			sl_url varchar(255) NULL,
 			sl_hours varchar(255) NULL,
 			sl_phone varchar(255) NULL,
@@ -301,18 +338,23 @@ function install_table() {
 			PRIMARY KEY  (sl_id)
 			) ENGINE=innoDB  DEFAULT CHARACTER SET=utf8  DEFAULT COLLATE=utf8_unicode_ci;";
 	
+    // New installation
+    //
 	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
 		add_option("sl_db_version", $sl_db_version);
-	}
-	
-	$installed_ver = get_option( "sl_db_version" );
-	if( $installed_ver != $sl_db_version ) {
-		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-		dbDelta($sql);
-		update_option("sl_db_version", $sl_db_version);
-	}
+		
+    // Installation upgrade
+    //
+	} else {        
+        $installed_ver = get_option( "sl_db_version" );
+        if( $installed_ver != $sl_db_version ) {
+            require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+            dbDelta($sql);
+            update_option("sl_db_version", $sl_db_version);
+        }
+    }        
 	
 	move_upload_directories();
 }
@@ -336,7 +378,7 @@ function head_scripts() {
 	          isset($_GET['page_id'])   ? $_GET['page_id'] : 
 	          '';
 	$on_sl_page=$wpdb->get_results("SELECT post_name FROM ".$wpdb->prefix."posts ".
-	        "WHERE post_content LIKE '%[STORE-LOCATOR%' AND " .
+	        "WHERE (post_content LIKE '%[STORE-LOCATOR%' OR post_content LIKE '%[SLPLUS%') AND " .
 	        "post_status IN ('publish', 'draft') AND ".
 	        "(post_name='$pagename' OR ID='$pageID')", 
 	        ARRAY_A);
@@ -344,7 +386,7 @@ function head_scripts() {
 	//Checking if code used in posts	
 	$sl_code_is_used_in_posts=$wpdb->get_results(
 	    "SELECT post_name FROM ".$wpdb->prefix."posts ".
-	    "WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_type='post'"
+	    "WHERE (post_content LIKE '%[STORE-LOCATOR%' OR post_content LIKE '%[SLPLUS%') AND post_type='post'"
 	    );
 	
 	//If shortcode used in posts, get post IDs, and put into array of numbers
@@ -400,20 +442,41 @@ function head_scripts() {
  ** Process the store locator shortcode.
  **
  **/
- function store_locator_shortcode($atts) {
+ function store_locator_shortcode($attributes, $content = null) {
     // Variables this function uses and passes to the template
     // we need a better way to pass vars to the template parser so we don't
     // carry around the weight of these global definitions.
-    // the other option is to unset($GLOBAL['<varname>']) at then end of this
+    // the other option is to unset($GLOBAL['<varname>']) at then end of this    
     // function call.
+    //
+    // Let's start using a SINGLE named array called "fnvars" to pass along anything
+    // we want.
     //
     global  $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb,
 	    $slplus_plugin, $prefix,	        
 	    $search_label, $width, $height, $width_units, $height_units, $hide,
 	    $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
-	    $sl_instruction_message, $cs_options, $country_options;
-	       
+	    $sl_instruction_message, $cs_options, $country_options,$fnvars;	 
 	    
+	    $fnvars = array();
+
+	// Set the entire list of accepted attributes.
+	//
+	// The shortcode_atts function ensures that all possible
+	// attributes that *could* be passed are given a value which
+	// makes later processing in the code a bit easier.
+	//
+	// This is basically the equivalent of the php array_merge()
+	// function.
+	//
+    shortcode_atts(
+        array(
+            'tags_for_pulldown'=> null, 
+            'only_with_tag'    => null,
+            ),
+        $attributes
+        );
+    
     // Plugin is not licensed or user is not admin
     //
     if (!$slplus_plugin->ok_to_show()) {
@@ -529,12 +592,13 @@ function head_scripts() {
     $columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
     $sl_radius_label=get_option('sl_radius_label');
     $file = SLPLUS_PLUGINDIR . '/templates/search_form.php';
-    
+
+    // Prep fnvars for passing to our template
+    //
+    $fnvars = array_merge($fnvars,(array) $attributes);       // merge in passed attributes
+
     return get_string_from_phpexec($file); 
 }
-
-
-
 
 /**************************************
  ** function: csl_slplus_add_options_page()
@@ -544,8 +608,14 @@ function head_scripts() {
  **/
 function csl_slplus_add_options_page() {
 	global $text_domain, $slplus_plugin;
-	       		
-	if (trim($slplus_plugin->driver_args['api_key'])!=""){
+
+	
+	
+	if ( 
+	    (trim($slplus_plugin->driver_args['api_key'])!="") &&
+	    current_user_can('manage_slp')
+	    )
+	{
         add_menu_page(
             __("SLP Locations", $text_domain),  
             __("SLP Locations", $text_domain), 

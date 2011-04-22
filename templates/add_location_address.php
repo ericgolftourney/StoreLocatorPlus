@@ -48,6 +48,9 @@ global $text_domain, $sl_upload_path;
             <label for='sl_url'><?php _e("URL", $text_domain);?></label>
             <input name='sl_url'><br/>
             
+            <label for='sl_email'><?php _e("email", $text_domain);?></label>
+            <input name='sl_email'><br/>
+            
             <label for='sl_hours'><?php _e("Hours", $text_domain);?></label>
             <input name='sl_hours'><br/>
             
@@ -65,8 +68,8 @@ global $text_domain, $sl_upload_path;
 
         <thead><tr><th><?php _e("Bulk Upload", $text_domain);?></th></tr></thead>
         <tr><td><div class="add_location_form">
-        	<input type="file" name="csvfile" value="">
-                <input type='submit' value='<?php _e("Upload Locations", $text_domain);?>' class='button-primary'>
+        	<input type="file" name="csvfile" value="" width="150"><br/>
+            <input type='submit' value='<?php _e("Upload Locations", $text_domain);?>' class='button-primary'>
   		</div>
   	</td></tr>
 	</table>

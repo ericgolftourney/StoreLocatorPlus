@@ -46,6 +46,7 @@ border: none;
 	border:solid 1px silver;
 	padding-left:3px; 
 	background:white url(images/search-input.gif) repeat-x;
+	color: black;
 	margin:0px 6px 0px 0px;
 	width: 256px;
 	padding-top:0px;

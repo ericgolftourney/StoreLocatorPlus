@@ -75,7 +75,7 @@
                             >
                         <span class='input_note'>
                           <?php 
-                            _e("Enter a comma (,) separated list of tags to show in the search pulldown, mark the default selection with parenthesis '( )'.", $text_domain); 
+                            _e("Enter a comma (,) separated list of tags to show in the search pulldown, mark the default selection with parenthesis '( )'. This is a default setting that can be overriden on each page within the shortcode.", $text_domain); 
                           ?>
                        </span>
                     </div>        

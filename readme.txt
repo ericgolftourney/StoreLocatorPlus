@@ -4,8 +4,8 @@ Contributors: cybersprocket
 Donate link: http://www.cybersprocket.com/products/store-locator-plus/
 Tags: store locator, store locater, google, google maps, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus
 Requires at least: 3.0
-Tested up to: 3.1
-Stable tag: 1.7.6
+Tested up to: 3.1.1
+Stable tag: 1.8
 
 This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locations.    
 
@@ -117,6 +117,16 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 More screenshots are available via our [online documentation](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki).
 
 == Changelog ==
+
+= 1.8 (April 2011) =
+
+* Can now override the search form tag list pulldown via the shortcode (tags_for_pulldown).
+* Can now specify a search form only produce results for a single tag via the shortcode (only_with_tag).
+* Set search form input font to black, the background is currently forced white in the CSS.
+* Added new email field to store locator data.
+* Fix errors on javascript processing on some systems with no subdomain support.
+* [Shortcode documentation](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki/How_To_Implement)
+
 
 = 1.7.6 (March 26th 2011) =
 
