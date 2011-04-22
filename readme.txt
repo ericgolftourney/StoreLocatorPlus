@@ -121,6 +121,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 = 1.8.1 (Easter Weekend 2011) =
 
 * Short open tag fix.
+* Look for wp-config in secure location (one level up) for secured installs
 
 = 1.8 (April 2011) =
 

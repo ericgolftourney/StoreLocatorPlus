@@ -8,6 +8,14 @@ $possible_path = preg_replace('/\/wp-content\/.*/','',$_SERVER['SCRIPT_FILENAME'
 //
 if (isset($_SERVER['DOCUMENT_ROOT']) && file_exists($_SERVER['DOCUMENT_ROOT'].'/wp-config.php')) {
     include($_SERVER['DOCUMENT_ROOT'].'/wp-config.php');
+
+// One Level Up and not part of another install
+//
+if (isset($_SERVER['DOCUMENT_ROOT']) && file_exists(dirname($_SERVER['DOCUMENT_ROOT']).'/wp-config.php')
+    && !file_exists(dirname($_SERVER['DOCUMENT_ROOT']).'/wp-settings.php')
+    ) {
+    include(dirname($_SERVER['DOCUMENT_ROOT']).'/wp-config.php');
+
     
 // Subdomain Install of WordPress
 //
