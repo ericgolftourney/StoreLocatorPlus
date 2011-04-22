@@ -11,7 +11,7 @@ if (isset($_SERVER['DOCUMENT_ROOT']) && file_exists($_SERVER['DOCUMENT_ROOT'].'/
 
 // One Level Up and not part of another install
 //
-if (isset($_SERVER['DOCUMENT_ROOT']) && file_exists(dirname($_SERVER['DOCUMENT_ROOT']).'/wp-config.php')
+} else if (isset($_SERVER['DOCUMENT_ROOT']) && file_exists(dirname($_SERVER['DOCUMENT_ROOT']).'/wp-config.php')
     && !file_exists(dirname($_SERVER['DOCUMENT_ROOT']).'/wp-settings.php')
     ) {
     include(dirname($_SERVER['DOCUMENT_ROOT']).'/wp-config.php');
