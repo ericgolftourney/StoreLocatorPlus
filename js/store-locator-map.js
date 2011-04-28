@@ -56,14 +56,18 @@ function sl_load() {
                     var name = markers[i].getAttribute('name');
                     var address = markers[i].getAttribute('address');
                     var distance = parseFloat(markers[i].getAttribute('distance'));
-                    var point = new GLatLng(parseFloat(markers[i].getAttribute('lat')),
-                    parseFloat(markers[i].getAttribute('lng')));
                     var description = markers[i].getAttribute('description');
                     var url = markers[i].getAttribute('url');
                     var email = markers[i].getAttribute('email');
                     var hours = markers[i].getAttribute('hours');
                     var phone = markers[i].getAttribute('phone');
                     var image = markers[i].getAttribute('image');
+                    var maplat = markers[i].getAttribute('lat');
+                    var maplong = markers[i].getAttribute('lng');
+                    var point = new GLatLng(
+                        parseFloat(maplat),
+                        parseFloat(maplong)
+                        );
                     var marker = createMarker(point, name, address, "", description, url, email, hours, phone, image);
                     map.addOverlay(marker);
                     bounds.extend(point);
@@ -172,11 +176,14 @@ function searchLocationsNear(center, homeAddress) {
                 var hours = markers[i].getAttribute('hours');
                 var phone = markers[i].getAttribute('phone');
                 var image = markers[i].getAttribute('image');                
-                var point = new GLatLng(parseFloat(markers[i].getAttribute('lat')),
+                var point = new GLatLng(
+                    parseFloat(markers[i].getAttribute('lat')),                
+                    parseFloat(markers[i].getAttribute('lng'))
+                    );
+
                 var marker = createMarker(point, name, address, homeAddress, description, url, email, hours, phone, image); 
                 var sidebarEntry = createSidebarEntry(marker, name, address, distance, homeAddress, url, email, phone);
                 
-                parseFloat(markers[i].getAttribute('lng')));
                 map.addOverlay(marker);
                 sidebar.appendChild(sidebarEntry);
                 bounds.extend(point);
