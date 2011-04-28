@@ -200,10 +200,23 @@ function createMarker(point, name, address, homeAddress, description, url, email
   var marker = new GMarker(point, markerOpts);
   
   var more_html="";
-  if(url.indexOf("http://")==-1) {url="http://"+url;} 
-  if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {more_html+="| <a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + sl_website_label +"</nobr></a>"} else {url=""}
+  if(url.indexOf("http://")==-1) {
+    url="http://"+url;
+  }
   
-  if (email.indexOf("@")!=-1 && email.indexOf(".")!=-1) {more_html+="| <a href='mailto:"+email+"' target='_blank' class='storelocatorlink'><nobr>" + email +"</nobr></a>"}
+  if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {
+    more_html+="| <a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + sl_website_label +"</nobr></a>"
+  } else {
+    url="";
+  }
+  
+  if (email.indexOf("@")!=-1 && email.indexOf(".")!=-1) {
+    if (!slp_use_email_form) { 
+      more_html+="| <a href='mailto:"+email+"' target='_blank' class='storelocatorlink'><nobr>" + email +"</nobr></a>";
+    } else {
+      more_html+="| <a href='javascript:slp_show_email_form("+'"'+email+'"'+");' class='storelocatorlink'><nobr>" + email +"</nobr></a><br/>";
+    }                    
+  }
   
   if (image.indexOf(".")!=-1) {more_html+="<br/><img src='"+image+"' class='sl_info_bubble_main_image'>"} else {image=""}
   if (description!="") {more_html+="<br/>"+description+"";} else {description=""}
@@ -264,7 +277,13 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url, e
       if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {link="<a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + sl_website_label +"</nobr></a><br/>"} else {url="";}
 
       var elink = "";
-      if (email.indexOf("@")!=-1 && email.indexOf(".")!=-1) {elink="<a href='mailto:"+email+"' target='_blank' class='storelocatorlink'><nobr>" + email +"</nobr></a><br/>"}
+      if (email.indexOf("@")!=-1 && email.indexOf(".")!=-1) {
+          if (!slp_use_email_form) { 
+              elink="<a href='mailto:"+email+"' target='_blank' class='storelocatorlink'><nobr>" + email +"</nobr></a><br/>";
+          } else {
+              elink="<a href='javascript:slp_show_email_form("+'"'+email+'"'+");' class='storelocatorlink'><nobr>" + email +"</nobr></a><br/>";
+          }              
+      }
 
       
       var html = '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">' +
