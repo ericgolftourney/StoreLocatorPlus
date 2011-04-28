@@ -13,6 +13,6 @@ if (typeof add_base == 'undefined') {
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'js/store-locator-map.js';
+    script.src = sl_js_path + 'store-locator-map.js';
     head.appendChild(script);
 }

@@ -8,7 +8,7 @@
  *
  ******************************************************************************/
 
-error_reporting(1);
+error_reporting(0);
 header("Content-type: text/javascript");
 
 // Make the connection to the WordPress environment
@@ -84,11 +84,12 @@ var sl_load_locations_default='".get_option('sl_load_locations_default')."';
 var sl_distance_unit='$du';
 var sl_map_overview_control='$oc';
 var slp_use_email_form='".
-    (get_option(SLPLUS_PREFIX.'_email_form')==1)?'true':'false'.
+    ((get_option(SLPLUS_PREFIX.'_email_form')==1)?'true':'false').
     "'
 var sl_map_home_icon_width=$home_size[0];
 var sl_map_home_icon_height=$home_size[1];
 var sl_map_end_icon_width=$end_size[0];
 var sl_map_end_icon_height=$end_size[1];
+var sl_js_path='$sl_base/js/';
 ";
 
