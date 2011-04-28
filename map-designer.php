@@ -68,7 +68,7 @@ if (!$_POST) {
     update_option($prefix.'_show_tag_any',$_POST[$prefix.'_show_tag_any']);
     
     
-    $update_msg = "<div class='highlight'>".__("Successful Update", $text_domain).'</div>';
+    $update_msg = "<div class='highlight'>".__("Successful Update", SLPLUS_PREFIX).'</div>';
 }
 
 //---------------------------
@@ -142,10 +142,10 @@ $show_tag_checked = (get_option($prefix.'_show_tag_search') ==1)?' checked ':'';
 $show_any_checked = (get_option($prefix.'_show_tag_any')    ==1)?' checked ':'';
 
 $map_type_options=(isset($map_type_options)?$map_type_options:'');
-$map_type["".__("Normal", $text_domain).""]="G_NORMAL_MAP";
-$map_type["".__("Satellite", $text_domain).""]="G_SATELLITE_MAP";
-$map_type["".__("Hybrid", $text_domain).""]="G_HYBRID_MAP";
-$map_type["".__("Physical", $text_domain).""]="G_PHYSICAL_MAP";
+$map_type["".__("Normal", SLPLUS_PREFIX).""]="G_NORMAL_MAP";
+$map_type["".__("Satellite", SLPLUS_PREFIX).""]="G_SATELLITE_MAP";
+$map_type["".__("Hybrid", SLPLUS_PREFIX).""]="G_HYBRID_MAP";
+$map_type["".__("Physical", SLPLUS_PREFIX).""]="G_PHYSICAL_MAP";
 
 $icon_str   =(isset($icon_str)  ?$icon_str  :'');
 $icon2_str  =(isset($icon2_str) ?$icon2_str :'');
@@ -212,7 +212,7 @@ foreach($map_type as $key=>$value) {
 	$selected2=(get_option('sl_map_type')==$value)? " selected " : "";
 	$map_type_options.="<option value='$value' $selected2>$key</option>\n";
 }
-$icon_notification_msg=((ereg("wordpress-store-locator-location-finder", get_option('sl_map_home_icon')) && ereg("^store-locator", $sl_dir)) || (ereg("wordpress-store-locator-location-finder", get_option('sl_map_end_icon')) && ereg("^store-locator", $sl_dir)))? "<div class='highlight' style='background-color:LightYellow;color:red'><span style='color:red'>".__("You have switched from <strong>'wordpress-store-locator-location-finder'</strong> to <strong>'store-locator'</strong> --- great!<br>Now, please re-select your <b>'Home Icon'</b> and <b>'Destination Icon'</b> below, so that they show up properly on your store locator map.", $text_domain)."</span></div>" : "" ;
+$icon_notification_msg=((ereg("wordpress-store-locator-location-finder", get_option('sl_map_home_icon')) && ereg("^store-locator", $sl_dir)) || (ereg("wordpress-store-locator-location-finder", get_option('sl_map_end_icon')) && ereg("^store-locator", $sl_dir)))? "<div class='highlight' style='background-color:LightYellow;color:red'><span style='color:red'>".__("You have switched from <strong>'wordpress-store-locator-location-finder'</strong> to <strong>'store-locator'</strong> --- great!<br>Now, please re-select your <b>'Home Icon'</b> and <b>'Destination Icon'</b> below, so that they show up properly on your store locator map.", SLPLUS_PREFIX)."</span></div>" : "" ;
 $sl_starting_image=get_option('sl_starting_image');
 
 
@@ -224,57 +224,57 @@ execute_and_output_template('map_settings.php');
 # Search Labels
 #
 print "<td class='right_side'>" .
-        '<h3>'.__("Labels", $text_domain).'</h3>'.
+        '<h3>'.__("Labels", SLPLUS_PREFIX).'</h3>'.
         
        "<div class='form_entry'>".
             "<label for='search_label'>".
-                __("Address Input", $text_domain).':'.
+                __("Address Input", SLPLUS_PREFIX).':'.
                 "</label>".
             "<input name='search_label' value='$search_label'>".
             "<span class='input_note'>".
-            __("Label for search form address entry.</span>", $text_domain).
+            __("Label for search form address entry.</span>", SLPLUS_PREFIX).
             "</span>".                    
        "</div>".
        
        "<div class='form_entry'>".
             "<label for='search_tag_label'>".
-                __("Search By Tag Label", $text_domain).':'.
+                __("Search By Tag Label", SLPLUS_PREFIX).':'.
                 "</label>".
                 "<input name='{$prefix}_search_tag_label' value='".
                     get_option($prefix.'_search_tag_label').
                     "'>".
             "<span class='input_note'>".
-            __("Label for search form tags field.</span>", $text_domain).
+            __("Label for search form tags field.</span>", SLPLUS_PREFIX).
             "</span>".                    
        "</div>".       
         
        "<div class='form_entry'>".
             "<label for='sl_radius_label'>".
-                __("Radius Dropdown", $text_domain).':'.
+                __("Radius Dropdown", SLPLUS_PREFIX).':'.
                 "</label>".
             "<input name='sl_radius_label' value='$sl_radius_label'><br/>".
             "<span class='input_note'>".
-            __("Label for search form radius pulldown.</span>", $text_domain).
+            __("Label for search form radius pulldown.</span>", SLPLUS_PREFIX).
             "</span>".                    
        "</div>".
     
        "<div class='form_entry'>".
             "<label for='sl_website_label'>".
-                __("Website URL", $text_domain).':'.
+                __("Website URL", SLPLUS_PREFIX).':'.
                 "</label>".
             "<input name='sl_website_label' value='$sl_website_label'><br/>".
             "<span class='input_note'>".
-            __("Label for website URL in search results.</span>", $text_domain).
+            __("Label for website URL in search results.</span>", SLPLUS_PREFIX).
             "</span>".                    
         "</div>" .            
     
        "<div class='form_entry'>".
             "<label for='sl_instruction_message'>".
-                __("Instruction Message", $text_domain).':'.
+                __("Instruction Message", SLPLUS_PREFIX).':'.
                 "</label>".
             "<input name='sl_instruction_message' value='$sl_instruction_message' size='50'><br/>".
             "<span class='input_note'>".
-            __("Instruction text when map is first displayed.</span>", $text_domain).
+            __("Instruction text when map is first displayed.</span>", SLPLUS_PREFIX).
             "</span>".                    
         "</div>".
     
@@ -285,31 +285,31 @@ print "<td class='right_side'>" .
 # Map Designer
 #    
 print "<thead>
-    <tr><th colspan='2'>".__("Map Designer", $text_domain)."</th></tr>
+    <tr><th colspan='2'>".__("Map Designer", SLPLUS_PREFIX)."</th></tr>
     </thead>";
     
 # Map Designer : Left Side
 #
 print "<tr><td width='40%' class='left_side'>
         <div class='map_designer_settings'>
-            <h3>".__("Defaults", $text_domain)."</h3>    
-            <div class='form_entry'><label for='sl_map_type'>".__("Default Map Type", $text_domain).":</label>
+            <h3>".__("Defaults", SLPLUS_PREFIX)."</h3>    
+            <div class='form_entry'><label for='sl_map_type'>".__("Default Map Type", SLPLUS_PREFIX).":</label>
             <select name='sl_map_type'>\n".$map_type_options."</select></div>
             
-            <div class='form_entry'><label for='sl_map_overview_control'>".__("Show Map Inset Box", $text_domain).":</label>    
+            <div class='form_entry'><label for='sl_map_overview_control'>".__("Show Map Inset Box", SLPLUS_PREFIX).":</label>    
             <input name='sl_map_overview_control' value='1' type='checkbox' $checked5></div>
             
-            <div class='form_entry'><label for='sl_load_locations_default'>".__("Immediately Show Locations", $text_domain).":</label>
+            <div class='form_entry'><label for='sl_load_locations_default'>".__("Immediately Show Locations", SLPLUS_PREFIX).":</label>
             <input name='sl_load_locations_default' value='1' type='checkbox' $checked4></div>
             
-            <div class='form_entry'><label for='sl_num_initial_displayed'>".__("Default Locations Shown", $text_domain).":</label>
+            <div class='form_entry'><label for='sl_num_initial_displayed'>".__("Default Locations Shown", SLPLUS_PREFIX).":</label>
             <input name='sl_num_initial_displayed' value='$sl_num_initial_displayed' class='small'><br/>
-            <span class='input_note'>".__("Recommended Max: 50", $text_domain)."</span>
+            <span class='input_note'>".__("Recommended Max: 50", SLPLUS_PREFIX)."</span>
             </div>
             
-            <div class='form_entry'><label for='sl_starting_image'>".__("Starting Image",$text_domain).":</label>
+            <div class='form_entry'><label for='sl_starting_image'>".__("Starting Image",SLPLUS_PREFIX).":</label>
             <input name='sl_starting_image' value='$sl_starting_image' size='25'><br/>
-            <span class='input_note'>".__("If set, this image will be displayed until a search is performed.",$text_domain)."</span>
+            <span class='input_note'>".__("If set, this image will be displayed until a search is performed.",SLPLUS_PREFIX)."</span>
             </div>
         </div>            
     </td>";
@@ -317,10 +317,10 @@ print "<tr><td width='40%' class='left_side'>
 # Map Designer : Right Side
 #    
 print "<td class='right_side'>".
-    "<h3>".__("Google Map Interface", $text_domain)."</h3>".
+    "<h3>".__("Google Map Interface", SLPLUS_PREFIX)."</h3>".
     "<div class='form_entry'>".
         "<label for='google_map_domain'>".
-        __("Select Your Location", $text_domain).
+        __("Select Your Location", SLPLUS_PREFIX).
         "</label>".
         "<select name='google_map_domain'>";
 
@@ -332,7 +332,7 @@ foreach ($the_domain as $key=>$value) {
 print "</select></div>".
     "<div class='form_entry'>".
         "<label for='sl_map_character_encoding'>".    
-        __("Select Character Encoding", $text_domain).
+        __("Select Character Encoding", SLPLUS_PREFIX).
         "</label>".
         "<select name='sl_map_character_encoding'>";
 
@@ -347,33 +347,33 @@ print "</select></div></td></tr>";
 #        
 print "<tr><td class='left_side'>    
         <div class='map_designer_settings'>
-            <h3>".__("Dimensions", $text_domain)."</h3>
+            <h3>".__("Dimensions", SLPLUS_PREFIX)."</h3>
     
-            <div><label for='zoom_level'>".__("Zoom Level", $text_domain).":</label>
+            <div><label for='zoom_level'>".__("Zoom Level", SLPLUS_PREFIX).":</label>
             $zoom
-            <span class='input_note'>".__("19=street level, 0=world view. Show locations overrides this setting.",$text_domain)."</span>
+            <span class='input_note'>".__("19=street level, 0=world view. Show locations overrides this setting.",SLPLUS_PREFIX)."</span>
             </div>
             
-            <div><label for='height'>".__("Map Height", $text_domain).":</label>
+            <div><label for='height'>".__("Map Height", SLPLUS_PREFIX).":</label>
             <input name='height' value='$height' class='small'>&nbsp;".choose_units($height_units, "height_units")."
             </div>
             
-            <div><label for='height'>".__("Map Width", $text_domain).":</label>
+            <div><label for='height'>".__("Map Width", SLPLUS_PREFIX).":</label>
             <input name='width' value='$width'  class='small'>&nbsp;".choose_units($width_units, "width_units")."
             </div>
 
-            <div><label for='radii'>".__("Radii Options", $text_domain).":</label>
+            <div><label for='radii'>".__("Radii Options", SLPLUS_PREFIX).":</label>
             <input  name='radii' value='$radii' size='25'>
             <span class='input_note'>".
-            __("Separate each number with a comma ','. Put parenthesis '( )' around the default.</span>", $text_domain).
+            __("Separate each number with a comma ','. Put parenthesis '( )' around the default.</span>", SLPLUS_PREFIX).
             "</span>
             </div>  
             
-            <div><label for='height'>".__("Distance Unit", $text_domain).":</label>
+            <div><label for='height'>".__("Distance Unit", SLPLUS_PREFIX).":</label>
             <select name='sl_distance_unit'>".
 
-$the_distance_unit["".__("Kilometers", $text_domain).""]="km";
-$the_distance_unit["".__("Miles", $text_domain).""]="miles";
+$the_distance_unit["".__("Kilometers", SLPLUS_PREFIX).""]="km";
+$the_distance_unit["".__("Miles", SLPLUS_PREFIX).""]="miles";
 
 foreach ($the_distance_unit as $key=>$value) {
 	$selected=(get_option('sl_distance_unit')==$value)?" selected " : "";
@@ -386,20 +386,20 @@ print "</select>
     </td>    
     </td>
     <td class='rightside'>
-    <h3>".__("Design", $text_domain)."</h3>".
+    <h3>".__("Design", SLPLUS_PREFIX)."</h3>".
     
     $icon_notification_msg.
     
     "<div class='form_entry'>".
         "<label for='sl_remove_credits'>".
-        __("Remove Credits", $text_domain).
+        __("Remove Credits", SLPLUS_PREFIX).
         "</label>".
         "<input name='sl_remove_credits' value='1' type='checkbox' $checked3>".
     "</div>".
     
     "<div class='form_entry'>".
         "<label for='icon'>".
-        __("Home Icon", $text_domain).
+        __("Home Icon", SLPLUS_PREFIX).
         "</label>".
         "<input name='icon' size='45' value='$icon' onchange=\"document.getElementById('prev').src=this.value\">".
         "&nbsp;&nbsp;<img id='prev' src='$icon' align='top'><br/>".
@@ -408,7 +408,7 @@ print "</select>
     
     "<div class='form_entry'>".
         "<label for='icon'>".
-        __("Destination Icon", $text_domain).
+        __("Destination Icon", SLPLUS_PREFIX).
         "</label>".
         "<input name='icon2' size='45' value='$icon2' onchange=\"document.getElementById('prev2').src=this.value\">".
         "&nbsp;&nbsp;<img id='prev2' src='$icon2'align='top'><br/>".
@@ -416,7 +416,7 @@ print "</select>
     "</div>".
     "</td></tr>".
     "<tr><td colspan='2'>".
-    "<input type='submit' value='".__("Update", $text_domain)."' class='button-primary'>".
+    "<input type='submit' value='".__("Update", SLPLUS_PREFIX)."' class='button-primary'>".
     "</td></tr>".
     "</tbody></table></form>".
     "</div></div>";
