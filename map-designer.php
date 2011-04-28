@@ -61,13 +61,16 @@ if (!$_POST) {
     $_POST['sl_map_overview_control'] = isset($_POST['sl_map_overview_control'])?1:0;  
     update_option('sl_map_overview_control',$_POST['sl_map_overview_control']);
 
-    $_POST[$prefix.'_show_tag_search'] = isset($_POST[$prefix.'_show_tag_search'])?1:0;  
-    update_option($prefix.'_show_tag_search',$_POST[$prefix.'_show_tag_search']);
+    $_POST[SLPLUS_PREFIX.'_show_tag_search'] = isset($_POST[SLPLUS_PREFIX.'_show_tag_search'])?1:0;  
+    update_option(SLPLUS_PREFIX.'_show_tag_search',$_POST[SLPLUS_PREFIX.'_show_tag_search']);
 
-    $_POST[$prefix.'_show_tag_any'] = isset($_POST[$prefix.'_show_tag_any'])?1:0;  
-    update_option($prefix.'_show_tag_any',$_POST[$prefix.'_show_tag_any']);
+    $_POST[SLPLUS_PREFIX.'_show_tag_any'] = isset($_POST[SLPLUS_PREFIX.'_show_tag_any'])?1:0;  
+    update_option(SLPLUS_PREFIX.'_show_tag_any',$_POST[SLPLUS_PREFIX.'_show_tag_any']);
     
+    $_POST[SLPLUS_PREFIX.'_email_form'] = isset($_POST[SLPLUS_PREFIX.'_email_form'])?1:0;  
+    update_option(SLPLUS_PREFIX.'_email_form',$_POST[SLPLUS_PREFIX.'_email_form']);
     
+       
     $update_msg = "<div class='highlight'>".__("Successful Update", SLPLUS_PREFIX).'</div>';
 }
 
@@ -134,14 +137,15 @@ $char_enc["Korea (EUS-KR)"]="eus-kr";
 
 //-- Set Checkboxes
 //
-$checked2   	  = (isset($checked2)  ?$checked2  :'');
-$city_checked	  = (get_option('sl_use_city_search')       ==1)?' checked ':'';
-$country_checked  = (get_option('sl_use_country_search')    ==1)?' checked ':'';
-$checked3	      = (get_option('sl_remove_credits')        ==1)?' checked ':'';
-$checked4	      = (get_option('sl_load_locations_default')==1)?' checked ':'';
-$checked5	      = (get_option('sl_map_overview_control')  ==1)?' checked ':'';
-$show_tag_checked = (get_option($prefix.'_show_tag_search') ==1)?' checked ':'';
-$show_any_checked = (get_option($prefix.'_show_tag_any')    ==1)?' checked ':'';
+$checked2   	    = (isset($checked2)  ?$checked2  :'');
+$city_checked	    = (get_option('sl_use_city_search')             ==1)?' checked ':'';
+$country_checked    = (get_option('sl_use_country_search')          ==1)?' checked ':'';
+$checked3	        = (get_option('sl_remove_credits')              ==1)?' checked ':'';
+$checked4	        = (get_option('sl_load_locations_default')      ==1)?' checked ':'';
+$checked5	        = (get_option('sl_map_overview_control')        ==1)?' checked ':'';
+$show_tag_checked   = (get_option(SLPLUS_PREFIX.'_show_tag_search') ==1)?' checked ':'';
+$show_any_checked   = (get_option(SLPLUS_PREFIX.'_show_tag_any')    ==1)?' checked ':'';
+$email_form_checked = (get_option(SLPLUS_PREFIX.'_email_form')      ==1)?' checked ':'';
 
 $map_type_options=(isset($map_type_options)?$map_type_options:'');
 $map_type["".__("Normal", SLPLUS_PREFIX).""]="G_NORMAL_MAP";
@@ -218,7 +222,9 @@ $icon_notification_msg=((ereg("wordpress-store-locator-location-finder", get_opt
 $sl_starting_image=get_option('sl_starting_image');
 
 
-# Output Form
+# Output Form 
+# Top Section (Search & Labels)
+#
 execute_and_output_template('map_settings.php');
 
 # Map Designer
@@ -233,13 +239,16 @@ print "<tr><td width='40%' class='left_side'>
         <div class='map_designer_settings'>
             <h3>".__("Defaults", SLPLUS_PREFIX)."</h3>    
             <div class='form_entry'><label for='sl_map_type'>".__("Default Map Type", SLPLUS_PREFIX).":</label>
-            <select name='sl_map_type'>\n".$map_type_options."</select></div>
+            <select name='sl_map_type'>\n".$map_type_options."</select>
+            </div>
             
             <div class='form_entry'><label for='sl_map_overview_control'>".__("Show Map Inset Box", SLPLUS_PREFIX).":</label>    
-            <input name='sl_map_overview_control' value='1' type='checkbox' $checked5></div>
+            <input name='sl_map_overview_control' value='1' type='checkbox' $checked5>
+            </div>
             
             <div class='form_entry'><label for='sl_load_locations_default'>".__("Immediately Show Locations", SLPLUS_PREFIX).":</label>
-            <input name='sl_load_locations_default' value='1' type='checkbox' $checked4></div>
+            <input name='sl_load_locations_default' value='1' type='checkbox' $checked4>
+            </div>
             
             <div class='form_entry'><label for='sl_num_initial_displayed'>".__("Default Locations Shown", SLPLUS_PREFIX).":</label>
             <input name='sl_num_initial_displayed' value='$sl_num_initial_displayed' class='small'><br/>
@@ -249,6 +258,11 @@ print "<tr><td width='40%' class='left_side'>
             <div class='form_entry'><label for='sl_starting_image'>".__("Starting Image",SLPLUS_PREFIX).":</label>
             <input name='sl_starting_image' value='$sl_starting_image' size='25'><br/>
             <span class='input_note'>".__("If set, this image will be displayed until a search is performed.",SLPLUS_PREFIX)."</span>
+            </div>
+            
+            <div class='form_entry'><label for='".SLPLUS_PREFIX."_use_email_form'>".__("Use Email Form",SLPLUS_PREFIX).":</label>
+            <input name='".SLPLUS_PREFIX."_email_form' value='1' type='checkbox' $email_form_checked>
+            <span class='input_note'>".__("Use email form instead of mailto: link when showing email addresses.",SLPLUS_PREFIX)."</span>
             </div>
         </div>            
     </td>";
