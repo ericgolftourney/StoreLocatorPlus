@@ -71,7 +71,8 @@ $end_size =(function_exists('getimagesize') && file_exists($end_icon_path)) ?
 //
 print "
 if (document.getElementById('map')){window.onunload = function (){ GUnload(); }}
-var add_base='$sl_base';
+var allScripts=document.getElementsByTagName('script');
+var add_base=allScripts[allScripts.length -1].src.replace('/js/store-locator-js.php','');
 var add_upload_base='$sl_upload_base';
 var sl_zoom_level=$zl;
 var sl_map_type=$mt;
