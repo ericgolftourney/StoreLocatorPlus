@@ -219,69 +219,6 @@ $sl_starting_image=get_option('sl_starting_image');
 # Output Form
 execute_and_output_template('map_settings.php');
 
-
-# Search : Right Side
-# Search Labels
-#
-print "<td class='right_side'>" .
-        '<h3>'.__("Labels", SLPLUS_PREFIX).'</h3>'.
-        
-       "<div class='form_entry'>".
-            "<label for='search_label'>".
-                __("Address Input", SLPLUS_PREFIX).':'.
-                "</label>".
-            "<input name='search_label' value='$search_label'>".
-            "<span class='input_note'>".
-            __("Label for search form address entry.</span>", SLPLUS_PREFIX).
-            "</span>".                    
-       "</div>".
-       
-       "<div class='form_entry'>".
-            "<label for='search_tag_label'>".
-                __("Search By Tag Label", SLPLUS_PREFIX).':'.
-                "</label>".
-                "<input name='{$prefix}_search_tag_label' value='".
-                    get_option($prefix.'_search_tag_label').
-                    "'>".
-            "<span class='input_note'>".
-            __("Label for search form tags field.</span>", SLPLUS_PREFIX).
-            "</span>".                    
-       "</div>".       
-        
-       "<div class='form_entry'>".
-            "<label for='sl_radius_label'>".
-                __("Radius Dropdown", SLPLUS_PREFIX).':'.
-                "</label>".
-            "<input name='sl_radius_label' value='$sl_radius_label'><br/>".
-            "<span class='input_note'>".
-            __("Label for search form radius pulldown.</span>", SLPLUS_PREFIX).
-            "</span>".                    
-       "</div>".
-    
-       "<div class='form_entry'>".
-            "<label for='sl_website_label'>".
-                __("Website URL", SLPLUS_PREFIX).':'.
-                "</label>".
-            "<input name='sl_website_label' value='$sl_website_label'><br/>".
-            "<span class='input_note'>".
-            __("Label for website URL in search results.</span>", SLPLUS_PREFIX).
-            "</span>".                    
-        "</div>" .            
-    
-       "<div class='form_entry'>".
-            "<label for='sl_instruction_message'>".
-                __("Instruction Message", SLPLUS_PREFIX).':'.
-                "</label>".
-            "<input name='sl_instruction_message' value='$sl_instruction_message' size='50'><br/>".
-            "<span class='input_note'>".
-            __("Instruction text when map is first displayed.</span>", SLPLUS_PREFIX).
-            "</span>".                    
-        "</div>".
-    
-    "</td></tr>"
-    ;
-
-
 # Map Designer
 #    
 print "<thead>
