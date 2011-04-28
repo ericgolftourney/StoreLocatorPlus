@@ -123,6 +123,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Add email contact via forms option.
 * Better reporting of failed PHP connector loading.
 * More checking & user reporting on failed map interface loading.
+* Fix problem with multisite installs where plugin was only installed in parent.
 
 = 1.8.2 (April 22 2011) =
 
