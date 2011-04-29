@@ -24,7 +24,6 @@ if (typeof add_base == 'undefined') {
     // Load the email form script if we want it
     //
     if (slp_use_email_form) {
-        alert('use email');
         var script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = add_base + '/js/store-locator-emailform.js';
