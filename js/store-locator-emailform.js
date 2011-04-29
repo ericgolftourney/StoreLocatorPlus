@@ -23,7 +23,7 @@
         writeln("INPUT type=['submit']{ padding-left: 120px; } ");
         writeln("</style>");
         
-        writeln("<form onsubmit='close();' id='emailForm' method='GET'");
+        writeln("<form id='emailForm' method='GET'");
         writeln(    " action='"+add_base+"/send-email.php'>");
         
         writeln("    <div id='email_form_content'>");
@@ -57,7 +57,7 @@
         writeln("    </div>");    
 
         writeln("    <div class='form_submit'>");
-        writeln("        <input type='submit' value='Send Message'>");
+        writeln("        <input type='submit' value='Send Message' onclick='document.forms[0].submit(); self.close();'>");
         writeln("    </div>");
         writeln("</form>");
         writeln("</body></html>");
