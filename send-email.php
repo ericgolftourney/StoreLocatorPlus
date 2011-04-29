@@ -12,5 +12,9 @@ $message_headers =
 
 wp_mail($_GET['email_to'],$_GET['email_subject'],$_GET['email_message'],$message_headers);
 
-
+if(get_option(SLPLUS_PREFIX.'-debugging') == 'on') {
+    $fh = fopen('emaillog.txt', 'a') or die("can't open file");
+    fwrite($fh, date("Y-m-d H:m:s")." ".$_GET['email_subject']."\n");
+    fclose($fh);
+}
 

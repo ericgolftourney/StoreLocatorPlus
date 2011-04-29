@@ -57,7 +57,7 @@
         writeln("    </div>");    
 
         writeln("    <div class='form_submit'>");
-        writeln("        <input type='submit' value='Send Message' onclick='document.forms[0].submit(); self.close();'>");
+        writeln("        <input type='submit' value='Send Message' onclick='submit(); self.close();'>");
         writeln("    </div>");
         writeln("</form>");
         writeln("</body></html>");
