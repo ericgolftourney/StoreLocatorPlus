@@ -1,24 +1,20 @@
 /* ============== AJAX =================================== */
-function GetXmlHttpObject()
+function GetXmlHttpObject() 
 { 
-var objXMLHttp=null;
-if (window.XMLHttpRequest)
-{
-objXMLHttp=new XMLHttpRequest();
-}
-else if (window.ActiveXObject)
-{
-objXMLHttp=new ActiveXObject("Microsoft.XMLHTTP");
-}
-return objXMLHttp;
+    var objXMLHttp=null;
+    if (window.XMLHttpRequest) {
+        objXMLHttp=new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        objXMLHttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    return objXMLHttp;
 } 
 
 function stateChanged() 
 { 
-if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete")
-{ 
-document.getElementById("ajaxMsg").innerHTML="Submission Successful.";
-} 
+    if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete") { 
+        document.getElementById("ajaxMsg").innerHTML="Submission Successful.";
+    } 
 } 
 
 var xmlHttp;
@@ -145,8 +141,7 @@ if (document.forms['loginForm']!=null) {
 	document.forms['loginForm'].flogname.value=lname;
 	document.forms['loginForm'].fpassword.focus();
 }
-//alert(the_name+",length:"+the_name.length);
-//alert(the_name);
+
 /* ============== */
 function emailSelectCheck(emailObj,inputObj) {
 	if (inputObj.value.indexOf(emailObj.innerHTML)!=-1) {
@@ -156,6 +151,7 @@ function emailSelectCheck(emailObj,inputObj) {
 		emailObj.style.fontWeight='normal';
 	}
 }
+
 /* ================ */
 function bolden(type,prefix,count) {
 	
@@ -167,23 +163,24 @@ function bolden(type,prefix,count) {
 
 function showPic(pic,imageTitle,description)
 {
-picWin=window.open("about:blank","","height=100,width=150,scrollbars=no,left=50,top=50");
-with (picWin.document) {
-writeln("<html><head><title>...Loading...</title><style>body{margin:0px;background:"+document.body.bgColor+"} a{text-decoration:none; font-family:Verdana;}</style>");
-writeln('<sc'+'ript>');
-writeln('var isNN,isIE;');writeln('if (parseInt(navigator.appVersion.charAt(0))>=4){');
-writeln('isNN=(navigator.appName=="Netscape")?1:0;');writeln('isIE=(navigator.appName.indexOf("Microsoft")!=-1)?1:0;}');
-writeln('function reSizeToImage(){');writeln('if (isIE){');writeln('window.resizeTo(100,100);');
-writeln('width=100-(document.body.clientWidth-document.images[0].width)+50;');
-writeln('height=200-(document.body.clientHeight-document.images[0].height)+50;');
-writeln('window.resizeTo(width,height);}');writeln('if (isNN){');       
-writeln('window.innerWidth=document.images["randPic"].width+50;');writeln('window.innerHeight=document.images["randPic"].height+90;}}');
-writeln('function doTitle(){document.title="'+imageTitle+'";}');writeln('</sc'+'ript>');
-writeln("</head><body class=frame scroll='no' onload='reSizeToImage();doTitle();self.focus()' onblur='close()'><table width=100% height=100%><tr><td style='vertical-align:middle'><center><span style='font-size:24;font-family:Monotype Corsiva;color:white'>"+imageTitle+"</span><img src="+pic+" name=randPic style='display:block'><p style='color:silver'>"+description+"<br><a href=javascript:window.close()>close</a></center></td></tr></table>");
-writeln("</body></html>");
-close();
+    picWin=window.open("about:blank","","height=100,width=150,scrollbars=no,left=50,top=50");
+    with (picWin.document) {
+        writeln("<html><head><title>...Loading...</title><style>body{margin:0px;background:"+document.body.bgColor+"} a{text-decoration:none; font-family:Verdana;}</style>");
+        writeln('<sc'+'ript>');
+        writeln('var isNN,isIE;');writeln('if (parseInt(navigator.appVersion.charAt(0))>=4){');
+        writeln('isNN=(navigator.appName=="Netscape")?1:0;');writeln('isIE=(navigator.appName.indexOf("Microsoft")!=-1)?1:0;}');
+        writeln('function reSizeToImage(){');writeln('if (isIE){');writeln('window.resizeTo(100,100);');
+        writeln('width=100-(document.body.clientWidth-document.images[0].width)+50;');
+        writeln('height=200-(document.body.clientHeight-document.images[0].height)+50;');
+        writeln('window.resizeTo(width,height);}');writeln('if (isNN){');       
+        writeln('window.innerWidth=document.images["randPic"].width+50;');writeln('window.innerHeight=document.images["randPic"].height+90;}}');
+        writeln('function doTitle(){document.title="'+imageTitle+'";}');writeln('</sc'+'ript>');
+        writeln("</head><body class=frame scroll='no' onload='reSizeToImage();doTitle();self.focus()' onblur='close()'><table width=100% height=100%><tr><td style='vertical-align:middle'><center><span style='font-size:24;font-family:Monotype Corsiva;color:white'>"+imageTitle+"</span><img src="+pic+" name=randPic style='display:block'><p style='color:silver'>"+description+"<br><a href=javascript:window.close()>close</a></center></td></tr></table>");
+        writeln("</body></html>");
+        close();
+    }
 }
-}
+
 /*
 	var mediaItems = document.getElementsByTagName("td");
 	for (var i=0; i<mediaItems.length; i++) {
