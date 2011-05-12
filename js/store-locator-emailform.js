@@ -7,7 +7,7 @@
 
  function slp_show_email_form(to) {
     emailWin=window.open("about:blank","",
-        "height=180,width=310,scrollbars=no,top=50,left=50,status=0,toolbar=0,location=0,menubar=0,directories=0,resizable=0");
+        "height=220,width=310,scrollbars=no,top=50,left=50,status=0,toolbar=0,location=0,menubar=0,directories=0,resizable=0");
     with (emailWin.document) {
         writeln("<html><head><title>Send Email To " + to + "</title></head>");
                 
@@ -21,6 +21,7 @@
         writeln(      " font-size: 11px; color: #888888; margin: 3px 3px 0px 0px;} ");
         writeln("INPUT type=['text']{ float: left; width: 225px; text-align:left; } ");
         writeln("INPUT type=['submit']{ padding-left: 120px; } ");
+        writeln("TEXTAREA { width: 185px; clear: both; padding-left: 120px; } ");
         writeln("</style>");
         
         writeln("<form id='emailForm' method='GET'");
@@ -52,7 +53,7 @@
                 
         writeln("        <div class='form_entry'>");
         writeln("            <label for='email_message'>Message:</label>");
-        writeln("            <input name='email_message'  value='' />");
+        writeln("            <textarea name='email_message'></textarea>");
         writeln("        </div>");                
         writeln("    </div>");    
 
