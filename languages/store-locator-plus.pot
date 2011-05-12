@@ -1,10 +1,10 @@
-# Copyright (C) 2010 
-# This file is distributed under the same license as the  package.
+# Copyright (C) 2010 Store Locator Plus
+# This file is distributed under the same license as the Store Locator Plus package.
 msgid ""
 msgstr ""
-"Project-Id-Version:  \n"
+"Project-Id-Version: Store Locator Plus 1.8.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/store-locator-plus\n"
-"POT-Creation-Date: 2011-03-01 04:35:50+00:00\n"
+"POT-Creation-Date: 2011-05-12 02:13:04+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,86 +12,13 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: templates/add_location_address.php:9
-msgid "Enter An Address"
-msgstr ""
-
-#: templates/add_location_address.php:14 templates/edit_location_address.php:8
-msgid "Name of Location"
-msgstr ""
-
-#: templates/add_location_address.php:17
-#: templates/edit_location_address.php:11
-msgid "Street - Line 1"
-msgstr ""
-
-#: templates/add_location_address.php:20
-#: templates/edit_location_address.php:14
-msgid "Street - Line 2"
-msgstr ""
-
-#: templates/add_location_address.php:23
-#: templates/edit_location_address.php:17
-msgid "City, State, ZIP"
-msgstr ""
-
-#: templates/add_location_address.php:29
-#: templates/edit_location_address.php:22
-msgid "Country"
-msgstr ""
-
-#: templates/add_location_address.php:32 templates/add_location_address.php:61
-msgid "Add Location"
-msgstr ""
-
-#: templates/add_location_address.php:39 view-locations.php:253
-msgid "Additional Information"
-msgstr ""
-
-#: templates/add_location_address.php:41 view-locations.php:214
-#: view-locations.php:254 functions.sl.php:622
-msgid "Description"
-msgstr ""
-
-#: templates/add_location_address.php:44 view-locations.php:182
-#: view-locations.php:210 functions.sl.php:621
-msgid "Tags"
-msgstr ""
-
-#: templates/add_location_address.php:48 view-locations.php:216
-#: view-locations.php:256 functions.sl.php:624
-msgid "URL"
-msgstr ""
-
-#: templates/add_location_address.php:51 view-locations.php:218
-#: view-locations.php:257 functions.sl.php:623
-msgid "Hours"
-msgstr ""
-
-#: templates/add_location_address.php:54 view-locations.php:220
-#: view-locations.php:258 functions.sl.php:625
-msgid "Phone"
-msgstr ""
-
-#: templates/add_location_address.php:57 view-locations.php:259
-msgid "Image URL (shown with location)"
-msgstr ""
-
-#: templates/add_location_address.php:66
-msgid "Bulk Upload"
-msgstr ""
-
-#: templates/add_location_address.php:69
-msgid "Upload Locations"
-msgstr ""
-
-#: view-locations.php:21 variables.sl.php:14 functions.sl.php:542
-#: functions.sl.php:543 map-designer.php:15 add-locations.php:15
+#: variables.sl.php:15 view-locations.php:21 add-locations.php:46
+#: templates/map_settings.php:18 functions.sl.php:634 functions.sl.php:635
 msgid "Manage Locations"
 msgstr ""
 
-#: view-locations.php:23 view-locations.php:313 map-designer.php:12
-#: add-locations.php:13
+#: view-locations.php:23 view-locations.php:340 add-locations.php:44
+#: templates/map_settings.php:15 functions.sl.php:627 functions.sl.php:628
 msgid "Add Locations"
 msgstr ""
 
@@ -99,153 +26,178 @@ msgstr ""
 msgid "Google API Key needs to be set to activate this feature."
 msgstr ""
 
-#: view-locations.php:127 view-locations.php:137
+#: view-locations.php:137 view-locations.php:147
 msgid "Expanded"
 msgstr ""
 
-#: view-locations.php:130 view-locations.php:136 map-designer.php:250
+#: view-locations.php:140 view-locations.php:146 map-designer.php:145
 msgid "Normal"
 msgstr ""
 
-#: view-locations.php:145 view-locations.php:270 view-locations.php:273
-#: view-locations.php:277
+#: view-locations.php:155 view-locations.php:293 view-locations.php:299
+#: view-locations.php:303
 msgid "View"
 msgstr ""
 
-#: view-locations.php:154
+#: view-locations.php:164
 msgid "Search Locations"
 msgstr ""
 
-#: view-locations.php:161
+#: view-locations.php:171
 msgid "Locations Per Page"
 msgstr ""
 
-#: view-locations.php:166 functions.sl.php:614
+#: view-locations.php:176 functions.sl.php:706
 msgid "Choose"
 msgstr ""
 
-#: view-locations.php:180
+#: view-locations.php:190
 msgid "Delete Selected"
 msgstr ""
 
-#: view-locations.php:180 view-locations.php:182
+#: view-locations.php:190 view-locations.php:192
 msgid "You sure"
 msgstr ""
 
-#: view-locations.php:182
+#: view-locations.php:192 view-locations.php:220
+#: templates/add_location_address.php:44 functions.sl.php:713
+msgid "Tags"
+msgstr ""
+
+#: view-locations.php:192
 msgid "Tag Selected"
 msgstr ""
 
-#: view-locations.php:182
+#: view-locations.php:192
 msgid "Remove Tag From Selected"
 msgstr ""
 
-#: view-locations.php:202
+#: view-locations.php:212
 msgid "Actions"
 msgstr ""
 
-#: view-locations.php:203
+#: view-locations.php:213
 msgid "ID"
 msgstr ""
 
-#: view-locations.php:204 functions.sl.php:615
+#: view-locations.php:214 functions.sl.php:707
 msgid "Name"
 msgstr ""
 
-#: view-locations.php:205
+#: view-locations.php:215
 msgid "Street"
 msgstr ""
 
-#: view-locations.php:206
+#: view-locations.php:216
 msgid "Street2"
 msgstr ""
 
-#: view-locations.php:207 functions.sl.php:618
+#: view-locations.php:217 functions.sl.php:710
 msgid "City"
 msgstr ""
 
-#: view-locations.php:208 functions.sl.php:619
+#: view-locations.php:218 functions.sl.php:711
 msgid "State"
 msgstr ""
 
-#: view-locations.php:209 functions.sl.php:620
+#: view-locations.php:219 functions.sl.php:712
 msgid "Zip"
 msgstr ""
 
-#: view-locations.php:222 functions.sl.php:626
+#: view-locations.php:224 view-locations.php:273
+#: templates/add_location_address.php:41 functions.sl.php:714
+msgid "Description"
+msgstr ""
+
+#: view-locations.php:227 view-locations.php:275
+#: templates/add_location_address.php:48 functions.sl.php:716
+msgid "URL"
+msgstr ""
+
+#: view-locations.php:230 view-locations.php:276 view-locations.php:296
+msgid "Email"
+msgstr ""
+
+#: view-locations.php:233 view-locations.php:277
+#: templates/add_location_address.php:54 functions.sl.php:715
+msgid "Hours"
+msgstr ""
+
+#: view-locations.php:236 view-locations.php:278
+#: templates/add_location_address.php:57 functions.sl.php:717
+msgid "Phone"
+msgstr ""
+
+#: view-locations.php:239 functions.sl.php:718
 msgid "Image"
 msgstr ""
 
-#: view-locations.php:244
+#: view-locations.php:263
 msgid "Type&nbsp;Address"
 msgstr ""
 
-#: view-locations.php:251 map-designer.php:364
+#: view-locations.php:270 map-designer.php:419
 msgid "Update"
 msgstr ""
 
-#: view-locations.php:251 functions.sl.php:608 functions.sl.php:645
+#: view-locations.php:270 functions.sl.php:700 functions.sl.php:737
 msgid "Cancel"
 msgstr ""
 
-#: view-locations.php:255
+#: view-locations.php:272 templates/add_location_address.php:39
+msgid "Additional Information"
+msgstr ""
+
+#: view-locations.php:274
 msgid "Tags (seperate with commas)"
 msgstr ""
 
-#: view-locations.php:283
-msgid "Edit"
-msgstr ""
-
-#: view-locations.php:286
-msgid "Delete"
+#: view-locations.php:279 templates/add_location_address.php:60
+msgid "Image URL (shown with location)"
 msgstr ""
 
 #: view-locations.php:309
+msgid "Edit"
+msgstr ""
+
+#: view-locations.php:312
+msgid "Delete"
+msgstr ""
+
+#: view-locations.php:336
 msgid "No Locations Showing for this Search of "
 msgstr ""
 
-#: view-locations.php:311
+#: view-locations.php:338
 msgid "No Locations Currently in Database"
 msgstr ""
 
-#: functions.sl.php:535 functions.sl.php:536
-msgid "SLP Locations"
+#: add-locations.php:73
+msgid "Added Succesfully"
 msgstr ""
 
-#: functions.sl.php:549 functions.sl.php:550 map-designer.php:10
-msgid "Map Settings"
+#: add-locations.php:125
+msgid "The CSV file has too many fields."
 msgstr ""
 
-#: functions.sl.php:606
-msgid "Choose Heading That Matches Columns You Want to Import"
+#: add-locations.php:129
+msgid "Got %d expected less than %d."
 msgstr ""
 
-#: functions.sl.php:606
-msgid "Leave headings for undesired columns unchanged"
+#: add-locations.php:142
+msgid "locations added succesfully."
 msgstr ""
 
-#: functions.sl.php:608 functions.sl.php:645
-msgid "Import Locations"
+#: add-locations.php:148
+msgid "File could not be saved, check the plugin directory permissions:"
 msgstr ""
 
-#: functions.sl.php:616
-msgid "Street(Line1)"
+#: add-locations.php:157
+msgid "Uploaded file needs to be in CSV format."
 msgstr ""
 
-#: functions.sl.php:617
-msgid "Street(Line2)"
-msgstr ""
-
-#: functions.sl.php:627
-msgid "Is Private?"
-msgstr ""
-
-#: functions.sl.php:698
-msgid "You haven't activated this upgrade yet"
-msgstr ""
-
-#: functions.sl.php:698
-msgid "Activate"
+#: include/config.php:52
+msgid "SimpleXML is required but not enabled."
 msgstr ""
 
 #: search-links.php:50
@@ -272,57 +224,120 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-settings_class.php:327
-msgid "Save Changes"
+#: templates/search_form.php:87
+msgid "Any"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:360
-msgid "Settings"
+#: templates/edit_location_address.php:8 templates/add_location_address.php:14
+msgid "Name of Location"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:362
-#: WPCSL-generic/classes/CSL-plugin.php:363
-msgid "Support"
+#: templates/edit_location_address.php:11
+#: templates/add_location_address.php:17
+msgid "Street - Line 1"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:366
-#: WPCSL-generic/classes/CSL-plugin.php:367
-msgid "Purchase"
+#: templates/edit_location_address.php:14
+#: templates/add_location_address.php:20
+msgid "Street - Line 2"
 msgstr ""
 
-#: map-designer.php:86
+#: templates/edit_location_address.php:17
+#: templates/add_location_address.php:23
+msgid "City, State, ZIP"
+msgstr ""
+
+#: templates/edit_location_address.php:22
+#: templates/add_location_address.php:29
+msgid "Country"
+msgstr ""
+
+#: templates/map_settings.php:12 functions.sl.php:641 functions.sl.php:642
+msgid "Map Settings"
+msgstr ""
+
+#: templates/map_settings.php:27
+msgid "Search Settings"
+msgstr ""
+
+#: templates/map_settings.php:33
+msgid "Search Features"
+msgstr ""
+
+#: templates/map_settings.php:34
+msgid "Show Search By..."
+msgstr ""
+
+#: templates/map_settings.php:38
+msgid "City Pulldown"
+msgstr ""
+
+#: templates/map_settings.php:49
+msgid "Country Pulldown"
+msgstr ""
+
+#: templates/map_settings.php:60
+msgid "Tag Input"
+msgstr ""
+
+#: templates/map_settings.php:71
+msgid "Preselected Tag Searches"
+msgstr ""
+
+#: templates/map_settings.php:78
+msgid ""
+"Enter a comma (,) separated list of tags to show in the search pulldown, "
+"mark the default selection with parenthesis '( )'. This is a default setting "
+"that can be overriden on each page within the shortcode."
+msgstr ""
+
+#: templates/map_settings.php:85
+msgid "Show \"any\" on tag pulldown"
+msgstr ""
+
+#: templates/map_settings.php:94
+msgid ""
+"If checked the tag pulldown list will have an 'any' option that returns any "
+"location."
+msgstr ""
+
+#: templates/add_location_address.php:9
+msgid "Enter An Address"
+msgstr ""
+
+#: templates/add_location_address.php:32 templates/add_location_address.php:64
+msgid "Add Location"
+msgstr ""
+
+#: templates/add_location_address.php:51
+msgid "email"
+msgstr ""
+
+#: templates/add_location_address.php:69
+msgid "Bulk Upload"
+msgstr ""
+
+#: templates/add_location_address.php:72
+msgid "Upload Locations"
+msgstr ""
+
+#: map-designer.php:71
 msgid "Successful Update"
 msgstr ""
 
-#: map-designer.php:152
-msgid "Google Map Interface"
-msgstr ""
-
-#: map-designer.php:156
-msgid "Select Your Location"
-msgstr ""
-
-#: map-designer.php:165
-msgid "Select Character Encoding"
-msgstr ""
-
-#: map-designer.php:178
-msgid "Map Designer"
-msgstr ""
-
-#: map-designer.php:251
+#: map-designer.php:146
 msgid "Satellite"
 msgstr ""
 
-#: map-designer.php:252
+#: map-designer.php:147
 msgid "Hybrid"
 msgstr ""
 
-#: map-designer.php:253
+#: map-designer.php:148
 msgid "Physical"
 msgstr ""
 
-#: map-designer.php:259
+#: map-designer.php:215
 msgid ""
 "You have switched from <strong>'wordpress-store-locator-location-finder'</"
 "strong> to <strong>'store-locator'</strong> --- great!<br>Now, please re-"
@@ -330,144 +345,221 @@ msgid ""
 "they show up properly on your store locator map."
 msgstr ""
 
-#: map-designer.php:265
-msgid "Defaults"
-msgstr ""
-
-#: map-designer.php:266
-msgid "Default Map Type"
-msgstr ""
-
-#: map-designer.php:269
-msgid "Allow User Search By City?"
-msgstr ""
-
-#: map-designer.php:272
-msgid "Allow User Search By Country?"
-msgstr ""
-
-#: map-designer.php:275
-msgid "Show Map Inset Box?"
-msgstr ""
-
-#: map-designer.php:278
-msgid "Show Locations When Map Loads?"
-msgstr ""
-
-#: map-designer.php:281
-msgid "Default Locations Shown"
-msgstr ""
-
-#: map-designer.php:283
-msgid "Recommended Max: 50"
-msgstr ""
-
-#: map-designer.php:286
-msgid "Starting Image"
-msgstr ""
-
-#: map-designer.php:288
-msgid "If set, this image will be displayed until a search is performed."
-msgstr ""
-
-#: map-designer.php:293
+#: map-designer.php:227
 msgid "Labels"
 msgstr ""
 
-#: map-designer.php:295
-msgid "Address Input Label"
+#: map-designer.php:231
+msgid "Address Input"
 msgstr ""
 
-#: map-designer.php:297
-msgid "Radius Dropdown Label"
+#: map-designer.php:235
+msgid "Label for search form address entry.</span>"
+msgstr ""
+
+#: map-designer.php:241
+msgid "Search By Tag Label"
+msgstr ""
+
+#: map-designer.php:247
+msgid "Label for search form tags field.</span>"
+msgstr ""
+
+#: map-designer.php:253
+msgid "Radius Dropdown"
+msgstr ""
+
+#: map-designer.php:257
+msgid "Label for search form radius pulldown.</span>"
+msgstr ""
+
+#: map-designer.php:263
+msgid "Website URL"
+msgstr ""
+
+#: map-designer.php:267
+msgid "Label for website URL in search results.</span>"
+msgstr ""
+
+#: map-designer.php:273
+msgid "Instruction Message"
+msgstr ""
+
+#: map-designer.php:277
+msgid "Instruction text when map is first displayed.</span>"
+msgstr ""
+
+#: map-designer.php:288
+msgid "Map Designer"
+msgstr ""
+
+#: map-designer.php:295
+msgid "Defaults"
+msgstr ""
+
+#: map-designer.php:296
+msgid "Default Map Type"
 msgstr ""
 
 #: map-designer.php:299
-msgid "Website URL Label"
+msgid "Show Map Inset Box"
 msgstr ""
 
-#: map-designer.php:301
-msgid "Instruction Message to Users"
+#: map-designer.php:302
+msgid "Immediately Show Locations"
+msgstr ""
+
+#: map-designer.php:305
+msgid "Default Locations Shown"
+msgstr ""
+
+#: map-designer.php:307
+msgid "Recommended Max: 50"
 msgstr ""
 
 #: map-designer.php:310
-msgid "Dimensions"
+msgid "Starting Image"
 msgstr ""
 
 #: map-designer.php:312
-msgid "Zoom Level"
+msgid "If set, this image will be displayed until a search is performed."
 msgstr ""
 
-#: map-designer.php:314
-msgid "0=street level, 19=world view. Show locations overrides this setting."
+#: map-designer.php:320
+msgid "Google Map Interface"
 msgstr ""
 
-#: map-designer.php:317
-msgid "Map Height"
-msgstr ""
-
-#: map-designer.php:321
-msgid "Map Width"
-msgstr ""
-
-#: map-designer.php:325
-msgid "Radii Options"
-msgstr ""
-
-#: map-designer.php:328
-msgid ""
-"Separate each number with a comma ',' , and put parenthesis '( )' around the "
-"default.</span>"
-msgstr ""
-
-#: map-designer.php:332
-msgid "Distance Unit"
+#: map-designer.php:323
+msgid "Select Your Location"
 msgstr ""
 
 #: map-designer.php:335
-msgid "Kilometers"
+msgid "Select Character Encoding"
 msgstr ""
 
-#: map-designer.php:336
-msgid "Miles"
-msgstr ""
-
-#: map-designer.php:348
-msgid "Design"
-msgstr ""
-
-#: map-designer.php:351
-msgid "Choose Theme"
+#: map-designer.php:350
+msgid "Dimensions"
 msgstr ""
 
 #: map-designer.php:352
-msgid "No Theme Selected"
+msgid "Zoom Level"
 msgstr ""
 
-#: map-designer.php:355
-msgid "Remove Credits"
+#: map-designer.php:354
+msgid "19=street level, 0=world view. Show locations overrides this setting."
 msgstr ""
 
 #: map-designer.php:357
+msgid "Map Height"
+msgstr ""
+
+#: map-designer.php:361
+msgid "Map Width"
+msgstr ""
+
+#: map-designer.php:365
+msgid "Radii Options"
+msgstr ""
+
+#: map-designer.php:368
+msgid ""
+"Separate each number with a comma ','. Put parenthesis '( )' around the "
+"default.</span>"
+msgstr ""
+
+#: map-designer.php:372
+msgid "Distance Unit"
+msgstr ""
+
+#: map-designer.php:375
+msgid "Kilometers"
+msgstr ""
+
+#: map-designer.php:376
+msgid "Miles"
+msgstr ""
+
+#: map-designer.php:389
+msgid "Design"
+msgstr ""
+
+#: map-designer.php:395
+msgid "Remove Credits"
+msgstr ""
+
+#: map-designer.php:402
 msgid "Home Icon"
 msgstr ""
 
-#: map-designer.php:359
+#: map-designer.php:411
 msgid "Destination Icon"
 msgstr ""
 
-#: add-locations.php:51
-msgid "Added Succesfully"
+#: WPCSL-generic/classes/CSL-settings_class.php:341
+msgid "Save Changes"
 msgstr ""
 
-#: add-locations.php:101
-msgid "locations added succesfully."
+#: WPCSL-generic/classes/CSL-plugin.php:460
+msgid "Settings"
 msgstr ""
 
-#: add-locations.php:106
-msgid "File could not be saved, check the plugin directory permissions:"
+#: WPCSL-generic/classes/CSL-plugin.php:462
+#: WPCSL-generic/classes/CSL-plugin.php:463
+msgid "Support"
 msgstr ""
 
-#: add-locations.php:115
-msgid "Uploaded file needs to be in CSV format."
+#: WPCSL-generic/classes/CSL-plugin.php:466
+#: WPCSL-generic/classes/CSL-plugin.php:467
+msgid "Purchase"
+msgstr ""
+
+#: functions.sl.php:620 functions.sl.php:621
+msgid "SLP Locations"
+msgstr ""
+
+#: functions.sl.php:698
+msgid "Choose Heading That Matches Columns You Want to Import"
+msgstr ""
+
+#: functions.sl.php:698
+msgid "Leave headings for undesired columns unchanged"
+msgstr ""
+
+#: functions.sl.php:700 functions.sl.php:737
+msgid "Import Locations"
+msgstr ""
+
+#: functions.sl.php:708
+msgid "Street(Line1)"
+msgstr ""
+
+#: functions.sl.php:709
+msgid "Street(Line2)"
+msgstr ""
+
+#: functions.sl.php:719
+msgid "Is Private?"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Store Locator Plus"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.cybersprocket.com/products/store-locator-plus/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Store Locator Plus is based on the popular Google Maps Store Locator with a "
+"few customizations we needed for our clients. Hopefully other WordPress "
+"users will find our additions useful."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Cyber Sprocket Labs"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.cybersprocket.com"
 msgstr ""
