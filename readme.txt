@@ -118,12 +118,13 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 == Changelog ==
 
-= 1.9 (April 28th 2011) =
+= 1.9 (May 11th 2011) =
 
 * Add email contact via forms option.
 * Better reporting of failed PHP connector loading.
 * More checking & user reporting on failed map interface loading.
 * Fix problem with multisite installs where plugin was only installed in parent.
+* Updated language file.
 
 = 1.8.2 (April 22 2011) =
 
