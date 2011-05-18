@@ -620,9 +620,9 @@ function add_admin_javascript() {
         global $sl_base, $sl_upload_base, $sl_dir, $google_map_domain, $sl_path, 
             $sl_upload_path, $map_character_encoding, $slplus_plugin;
 		$api=$slplus_plugin->driver_args['api_key'];
-        print "<script src='".$sl_base."/js/functions.js'></script>\n
+        print "<script src='".SLPLUS_PLUGINURL."/core/js/functions.js'></script>\n
         <script type='text/javascript'>
-        var sl_dir='".$sl_dir."';
+        var sl_dir='".SLPLUS_PLUGINDIR."';
         var sl_google_map_country='".get_option('sl_google_map_country')."';
         </script>\n";
         if (ereg("add-locations", (isset($_GET['page'])?$_GET['page']:''))) {
@@ -634,7 +634,7 @@ function add_admin_javascript() {
 /*---------------------------------*/
 function add_admin_stylesheet() {
   global $sl_base;
-  print "<link rel='stylesheet' type='text/css' href='".$sl_base."/admin.css'>\n";
+  print "<link rel='stylesheet' type='text/css' href='".SLPLUS_PLUGINURL."/admin.css'>\n";
 }
 
 /*---------------------------------*/
