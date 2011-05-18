@@ -19,7 +19,7 @@ print "<div class='wrap'>
             <div id='icon-edit-locations' class='icon32'><br/></div>
             <h2>".
             __('Manage Locations', $text_domain).
-            "<a href='/wp-admin/admin.php?page=".SLPLUS_PLUGINDIR."add-locations.php' class='button add-new-h2'>".
+            "<a href='/wp-admin/admin.php?page=".SLPLUS_PLUGINDIR."core/add-locations.php' class='button add-new-h2'>".
             __('Add Locations',$text_domain). 
             "</a></h2>";
 
@@ -336,12 +336,12 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                 __("No Locations Showing for this Search of ", $text_domain).
                     "<b>\"$_GET[q]\"</b>. $view_link" : 
                 __("No Locations Currently in Database", $text_domain);
-		print "<tr><td colspan='5'>$notice | <a href='admin.php?page=$sl_dir/add-locations.php'>".
+		print "<tr><td colspan='5'>$notice | <a href='admin.php?page=$sl_dir/core/add-locations.php'>".
             __("Add Locations", $text_domain)."</a></td></tr>";
 	}
 	print "</table>
 	<input name='act' type='hidden'><br>";
-if ($numMembers2!=0) {include(SLPLUS_PLUGINDIR.'/search-links.php');}
+if ($numMembers2!=0) {include(SLPLUS_PLUGINDIR.'/core/search-links.php');}
 
 print "</form>";
 	
