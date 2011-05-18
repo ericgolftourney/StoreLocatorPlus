@@ -37,7 +37,7 @@ function get_string_from_phpexec($file) {
  **  $file (string, required) - name of the file in the plugin/templates dir
  **/
 function execute_and_output_template($file) {
-    $file = SLPLUS_PLUGINDIR.'/templates/'.$file;
+    $file = SLPLUS_PLUGINDIR.'/core/templates/'.$file;
     print get_string_from_phpexec($file);
 }
 
