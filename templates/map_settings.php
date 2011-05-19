@@ -43,8 +43,8 @@
                     </div>
                    
                 <?php
-                if (function_exists('template_mapsettings_searchfeatures')) {
-                    template_mapsettings_searchfeatures();
+                if (function_exists('execute_and_output_plustemplate')) {
+                    execute_and_output_plustemplate('mapsettings_searchfeatures.php');
                 }                
                 ?>                   
                    
@@ -59,17 +59,17 @@
                     <span class='input_note'><?php _e("Label for search form address entry.", SLPLUS_PREFIX); ?></span>                    
                 </div>
                 
-                <div class='form_entry'>
-                    <label for='search_tag_label'><?php _e("Search By Tag Label", SLPLUS_PREFIX); ?>:</label>
-                    <input name='<?php echo SLPLUS_PREFIX;?>_search_tag_label' value='<?php echo get_option(SLPLUS_PREFIX.'_search_tag_label'); ?>'>
-                    <span class='input_note'><?php _e("Label for search form tags field.", SLPLUS_PREFIX); ?></span>                    
-                </div>       
-        
+                <?php
+                if (function_exists('execute_and_output_plustemplate')) {
+                    execute_and_output_plustemplate('mapsettings_labels.php');
+                }                
+                ?>                     
+
                 <div class='form_entry'>
                     <label for='sl_radius_label'><?php _e("Radius Dropdown", SLPLUS_PREFIX); ?>:</label>
                     <input name='sl_radius_label' value='<?php echo $sl_radius_label; ?>'><br/>
                     <span class='input_note'><?php _e("Label for search form radius pulldown.", SLPLUS_PREFIX);?></span>                    
-                </div>
+                </div>                
     
                 <div class='form_entry'>
                     <label for='sl_website_label'><?php _e("Website URL", SLPLUS_PREFIX);?>:</label>
@@ -83,7 +83,8 @@
                     <span class='input_note'><?php _e("Instruction text when map is first displayed.", SLPLUS_PREFIX);?></span>                    
                 </div>
             </td>
-        </tr>               
-            
-            
-            
+        </tr>
+        
+    <thead>
+        <tr><th colspan='2'><?php _e("Map Designer", SLPLUS_PREFIX); ?></th></tr>
+    </thead>            
