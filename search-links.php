@@ -1,4 +1,6 @@
-<table width=100% class='' cellpadding='3px'><tr><td valign=bottom width='33%' style='padding-left:0px'>
+<table width=100% class='' cellpadding='3px'>
+    <tr>
+        <td valign=bottom width='33%' style='padding-left:0px'>
 <?php
 $pos=0;
 if ($start<0 || $start=="" || !isset($start) || empty($start)) {$start=0;}
@@ -45,9 +47,15 @@ $pos=($beginning_link-1)*$num_per_page;
 		print "&nbsp;&nbsp;";
 	}
 }
+
 $qry = isset($_GET['q'])?$_GET['q']:'';
 $cleared=ereg_replace("q=$qry", "", $_SERVER['REQUEST_URI']);
-$extra_text=(trim($qry)!='')? __("for your search of", $text_domain)." <strong>\"$qry\"</strong>&nbsp;|&nbsp;<a href='$cleared'>".__("Clear&nbsp;Results", $text_domain)."</a>" : "" ;
+
+$extra_text=(trim($qry)!='')    ? 
+    __("for your search of", $text_domain).
+        " <strong>\"$qry\"</strong>&nbsp;|&nbsp;<a href='$cleared'>".
+        __("Clear&nbsp;Results", $text_domain)."</a>" : 
+    "" ;
 ?>
 </td>
 <td align='center' valign='bottom' width='33%'><div class='' style='padding:5px; font-weight:normal'>
@@ -64,7 +72,7 @@ $extra_text=(trim($qry)!='')? __("for your search of", $text_domain)." <strong>\
 </div>
 </td>
 <td align=right valign=bottom width='33%' style='padding-right:0px'>
-<table><tr><td width=75><nobr><img src='/images/spacer.gif' height=1 width=75 alt='' border=0>
+<table><tr><td width=75><nobr><img src='/core/images/spacer.gif' height=1 width=75 alt='' border=0>
 <?php 
 if (($start-$num_per_page)>=0) {
   print "<a class='' href='$prev_page' rel='nofollow'>";
@@ -75,7 +83,7 @@ if (($start-$num_per_page)>=0 && ($start+$num_per_page)<$numMembers2) { ?>
 &nbsp;&nbsp;|&nbsp;
 <?php } ?>
 </td>
-<td width='85px' valign=bottom><img src='/images/spacer.gif' height=1 width=45 alt='' border=0>
+<td width='85px' valign=bottom><img src='/core/images/spacer.gif' height=1 width=45 alt='' border=0>
 <?php 
 if (($start+$num_per_page)<$numMembers2) { 
  print "<a class='' href='$next_page' rel='nofollow'>";
