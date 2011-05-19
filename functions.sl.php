@@ -560,7 +560,7 @@ function head_scripts() {
     $columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;
     $columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
     $sl_radius_label=get_option('sl_radius_label');
-    $file = SLPLUS_PLUGINDIR . '/templates/search_form.php';
+    $file = SLPLUS_PLUGINDIR . 'templates/search_form.php';
 
     // Prep fnvars for passing to our template
     //
