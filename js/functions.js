@@ -69,11 +69,11 @@ function anim2(imgObj,url) {
 function anim(name,type) {
 
 	if (type==0)
-		document.images[name].src="/images/"+name+".gif";
+		document.images[name].src="/core/images/"+name+".gif";
 	if (type==1)
-		document.images[name].src="/images/"+name+"_over.gif";
+		document.images[name].src="/core/images/"+name+"_over.gif";
 	if (type==2)
-		document.images[name].src="/images/"+name+"_down.gif";
+		document.images[name].src="/core/images/"+name+"_down.gif";
 }
 
 /* ================= For Player Form: Checks All or None ======== */
