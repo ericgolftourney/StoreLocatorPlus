@@ -587,28 +587,28 @@ function csl_slplus_add_options_page() {
             __("SLP Locations", $text_domain),  
             __("SLP Locations", $text_domain), 
             'administrator', 
-            SLPLUS_PLUGINDIR.'/add-locations.php'
+            SLPLUS_PLUGINDIR.'/core/add-locations.php'
             );	
 		add_submenu_page(
-    	    SLPLUS_PLUGINDIR.'/add-locations.php',
+    	    SLPLUS_PLUGINDIR.'/core/add-locations.php',
 		    __("Add Locations", $text_domain), 
 		    __("Add Locations", $text_domain), 
 		    'administrator', 
-		    SLPLUS_PLUGINDIR.'/add-locations.php'
+		    SLPLUS_PLUGINDIR.'/core/add-locations.php'
 		    );
 		add_submenu_page(
-    	    SLPLUS_PLUGINDIR.'/add-locations.php',
+    	    SLPLUS_PLUGINDIR.'/core/add-locations.php',
 		    __("Manage Locations", $text_domain), 
 		    __("Manage Locations", $text_domain), 
 		    'administrator', 
-		    SLPLUS_PLUGINDIR.'/view-locations.php'
+		    SLPLUS_PLUGINDIR.'/core/view-locations.php'
 		    );
 		add_submenu_page(
-    	    SLPLUS_PLUGINDIR.'/add-locations.php',
+    	    SLPLUS_PLUGINDIR.'/core/add-locations.php',
 		    __("Map Settings", $text_domain), 
 		    __("Map Settings", $text_domain), 
 		    'administrator', 
-		    SLPLUS_PLUGINDIR.'/map-designer.php'
+		    SLPLUS_PLUGINDIR.'/core/map-designer.php'
 		    );
 	}
 
