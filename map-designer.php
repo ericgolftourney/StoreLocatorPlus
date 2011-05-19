@@ -157,7 +157,7 @@ $icon_str   =(isset($icon_str)  ?$icon_str  :'');
 $icon2_str  =(isset($icon2_str) ?$icon2_str :'');
 
 
-$icon_dir=opendir(SLPLUS_PLUGINDIR."/core/icons/"); 
+$icon_dir=opendir(SLPLUS_PLUGINDIR."core/images/"); 
 while (false !== ($an_icon=readdir($icon_dir))) {
 	if (!ereg("^\.{1,2}$", $an_icon) && !ereg("shadow", $an_icon) && !ereg("\.db", $an_icon)) {
 
@@ -174,11 +174,11 @@ if (is_dir($sl_upload_path."/custom-icons/")) {
 	}
 }
 
-$icon_dir=opendir(SLPLUS_PLUGINDIR."/core/icons/");
+$icon_dir=opendir(SLPLUS_PLUGINDIR."core/images/");
 while (false !== ($an_icon=readdir($icon_dir))) {
 	if (!ereg("^\.{1,2}$", $an_icon) && !ereg("shadow", $an_icon) && !ereg("\.db", $an_icon)) {
 
-		$icon2_str.="<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' src='$sl_base/core/icons/$an_icon' onclick='document.forms[\"mapDesigner\"].icon2.value=this.src;document.getElementById(\"prev2\").src=this.src;' onmouseover='style.borderColor=\"red\";' onmouseout='style.borderColor=\"white\";'>";
+		$icon2_str.="<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' src='${sl_base}core/icons/$an_icon' onclick='document.forms[\"mapDesigner\"].icon2.value=this.src;document.getElementById(\"prev2\").src=this.src;' onmouseover='style.borderColor=\"red\";' onmouseout='style.borderColor=\"white\";'>";
 	}
 }
 if (is_dir($sl_upload_path."/custom-icons/")) {

@@ -201,7 +201,7 @@ if (!$slak) {
     $start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
     //edit this to determine how many locations to view per page of 'Manage Locations' page
     $num_per_page=$sl_admin_locations_per_page; 
-    if ($numMembers2!=0) {include(SLPLUS_PLUGINDIR.'/search-links.php');}
+    if ($numMembers2!=0) {include(SLPLUS_PLUGINDIR.'/core/search-links.php');}
 
 $opt = isset($_GET['o']) ? $_GET['o'] : '';
 $dir = isset($_GET['d']) ? $_GET['d'] : '';

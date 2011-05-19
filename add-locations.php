@@ -42,7 +42,7 @@ print "<div class='wrap'>
             <div id='icon-add-locations' class='icon32'><br/></div>
             <h2>".
             __('Add Locations', $text_domain).
-            "<a href='/wp-admin/admin.php?page=".SLPLUS_PLUGINDIR."view-locations.php' class='button add-new-h2'>".
+            "<a href='/wp-admin/admin.php?page=".SLPLUS_PLUGINDIR."core/view-locations.php' class='button add-new-h2'>".
             __('Manage Locations',$text_domain). 
             "</a></h2>";
 
