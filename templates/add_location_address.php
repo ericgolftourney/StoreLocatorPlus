@@ -66,12 +66,13 @@ global $text_domain, $sl_upload_path;
 	</div></td>
 		</tr>
 
-        <thead><tr><th><?php _e("Bulk Upload", $text_domain);?></th></tr></thead>
-        <tr><td><div class="add_location_form">
-        	<input type="file" name="csvfile" value="" width="150"><br/>
-            <input type='submit' value='<?php _e("Upload Locations", $text_domain);?>' class='button-primary'>
-  		</div>
-  	</td></tr>
+        <?php
+        if (function_exists('execute_and_output_plustemplate')) {
+            execute_and_output_plustemplate('addlocations_bulkupload.php');
+        } else {
+            print "<tr><td>Need more? <a href='http://www.cybersprocket.com/'>Check out our other WordPress offerings.</a></td></tr>";
+        }
+        ?>  		
 	</table>
 	</form>
 	</td>
