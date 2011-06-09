@@ -9,10 +9,10 @@
         <h2>
             <?php _e('Map Settings',SLPLUS_PREFIX); ?>
             
-            <a href='/wp-admin/admin.php?page=<?php echo SLPLUS_PLUGINDIR?>core/add-locations.php' 
+            <a href='/wp-admin/admin.php?page=<?php echo SLPLUS_COREDIR?>add-locations.php' 
                 class='button add-new-h2'><?php _e('Add Locations',SLPLUS_PREFIX); ?></a>
             
-            <a href='/wp-admin/admin.php?page=<?php echo SLPLUS_PLUGINDIR?>core/view-locations.php' 
+            <a href='/wp-admin/admin.php?page=<?php echo SLPLUS_COREDIR?>view-locations.php' 
                 class='button add-new-h2'><?php _e('Manage Locations',SLPLUS_PREFIX); ?></a>            
         </h2>
         

@@ -560,7 +560,7 @@ function head_scripts() {
     $columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;
     $columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
     $sl_radius_label=get_option('sl_radius_label');
-    $file = SLPLUS_PLUGINDIR . 'core/templates/search_form.php';
+    $file = SLPLUS_COREDIR . 'templates/search_form.php';
 
     // Prep fnvars for passing to our template
     //
@@ -587,28 +587,28 @@ function csl_slplus_add_options_page() {
             __("SLP Locations", $text_domain),  
             __("SLP Locations", $text_domain), 
             'administrator', 
-            SLPLUS_PLUGINDIR.'/core/add-locations.php'
+            SLPLUS_COREDIR.'add-locations.php'
             );	
 		add_submenu_page(
-    	    SLPLUS_PLUGINDIR.'/core/add-locations.php',
+    	    SLPLUS_COREDIR.'add-locations.php',
 		    __("Add Locations", $text_domain), 
 		    __("Add Locations", $text_domain), 
 		    'administrator', 
-		    SLPLUS_PLUGINDIR.'/core/add-locations.php'
+		    SLPLUS_COREDIR.'add-locations.php'
 		    );
 		add_submenu_page(
-    	    SLPLUS_PLUGINDIR.'/core/add-locations.php',
+    	    SLPLUS_COREDIR.'add-locations.php',
 		    __("Manage Locations", $text_domain), 
 		    __("Manage Locations", $text_domain), 
 		    'administrator', 
-		    SLPLUS_PLUGINDIR.'/core/view-locations.php'
+		    SLPLUS_COREDIR.'view-locations.php'
 		    );
 		add_submenu_page(
-    	    SLPLUS_PLUGINDIR.'/core/add-locations.php',
+    	    SLPLUS_COREDIR.'add-locations.php',
 		    __("Map Settings", $text_domain), 
 		    __("Map Settings", $text_domain), 
 		    'administrator', 
-		    SLPLUS_PLUGINDIR.'/core/map-designer.php'
+		    SLPLUS_COREDIR.'map-designer.php'
 		    );
 	}
 

@@ -159,7 +159,7 @@ $icon_str   =(isset($icon_str)  ?$icon_str  :'');
 $icon2_str  =(isset($icon2_str) ?$icon2_str :'');
 
 
-$icon_dir=opendir(SLPLUS_PLUGINDIR."core/images/"); 
+$icon_dir=opendir(SLPLUS_COREDIR."images/"); 
 while (false !== ($an_icon=readdir($icon_dir))) {
 	if (!ereg("^\.{1,2}$", $an_icon) && !ereg("shadow", $an_icon) && !ereg("\.db", $an_icon)) {
 
@@ -176,7 +176,7 @@ if (is_dir($sl_upload_path."/custom-icons/")) {
 	}
 }
 
-$icon_dir=opendir(SLPLUS_PLUGINDIR."core/images/");
+$icon_dir=opendir(SLPLUS_COREDIR."images/");
 while (false !== ($an_icon=readdir($icon_dir))) {
 	if (!ereg("^\.{1,2}$", $an_icon) && !ereg("shadow", $an_icon) && !ereg("\.db", $an_icon)) {
 
