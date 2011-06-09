@@ -4,20 +4,14 @@ Contributors: cybersprocket
 Donate link: http://www.cybersprocket.com/products/store-locator-plus/
 Tags: store locator, store locater, google, google maps, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus
 Requires at least: 3.0
-Tested up to: 3.1.1
-Stable tag: 1.9
+Tested up to: 3.1.3
+Stable tag: 2.0
 
-This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locations.    
+Store Locator Plus is an advanced system for managing multiple physical locations via a fully integrated WordPress solution. Store just a few or as many as a few thousand locations in the WordPress database using the built-in location management system.     
 
 == Description ==
 
-This plugin puts a search form and an interactive Google map on your site so you 
-can show visitors your store locactions.  Users search for stores within a 
-specified radius, enter your address, or select a city or country from the 
-pulldown.  Full admin panel data entry and management of stores from a few to
-a few thousand.
-
-Note: This is a premium plugin.  See the FAQ for details about the license.
+Store Locator Plus is an advanced system for managing multiple physical locations via a fully integrated WordPress solution. Store just a few or as many as a few thousand locations in the WordPress database using the built-in location management system. You can add details such as a store description, hours, a website address, an email address, and tags for each location and then display those locations easily on any page using a shortcode. The location search form and Google Map will automatically be displayed.
 
 = Features =
 
@@ -31,6 +25,7 @@ Note: This is a premium plugin.  See the FAQ for details about the license.
 * You can use miles or kilometers
 * Pulldown list of cities and/or countries on search form can be toggled on/off.
 * Bulk upload your locations via the CSV loader.
+* Location search tracking and reporting, find out what your visitors are looking for.
 
 = Looking For Customized WordPress Plugins? =
 
@@ -117,6 +112,13 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 More screenshots are available via our [online documentation](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki).
 
 == Changelog ==
+
+= 2.0 (June 2011) =
+
+* Added tracking and reporting system.
+* Re-factored the code to share components with the light edition (LE) version.
+* Fix conflict with copyr() with other plugins.
+
 
 = 1.9 (May 11th 2011) =
 
