@@ -57,7 +57,10 @@ function execute_and_output_plustemplate($file) {
  **
  **/
 function slplus_create_country_pd() {
-
+    global $wpdb;
+    
+    $myOptions = '';
+    
     // If Use Country Search option is enabled
     // build our country pulldown.
     //
@@ -75,12 +78,13 @@ function slplus_create_country_pd() {
         //
         if ($cs_array) {
             foreach($cs_array as $value) {
-              $country_options.=
-                "&lt;option value='$value[country]'&gt;" .
-                "$value[country]&lt;/option&gt;";
+              $myOptions.=
+                "<option value='$value[country]'>" .
+                $value['country']."</option>";
             }
         }
-    }        
+    }    
+    return $myOptions;
 }
 
 
@@ -95,7 +99,8 @@ function slplus_create_country_pd() {
  ** function.
  **
  **/
-function slplus_shortcode_atts() {
+function slplus_shortcode_atts($attributes) {
+    
     shortcode_atts(
         array(
             'tags_for_pulldown'=> null, 
