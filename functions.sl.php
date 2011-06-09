@@ -18,13 +18,13 @@ function move_upload_directories() {
 	}
 	
 	if (is_dir($sl_path . "/themes") && !is_dir($sl_upload_path . "/themes")) {
-		copyr($sl_path . "/themes", $sl_upload_path . "/themes");
+		csl_copyr($sl_path . "/themes", $sl_upload_path . "/themes");
 	}
 	if (is_dir($sl_path . "/languages") && !is_dir($sl_upload_path . "/languages")) {
-		copyr($sl_path . "/languages", $sl_upload_path . "/languages");
+		csl_copyr($sl_path . "/languages", $sl_upload_path . "/languages");
 	}
 	if (is_dir($sl_path . "/images") && !is_dir($sl_upload_path . "/images")) {
-		copyr($sl_path . "/images", $sl_upload_path . "/images");
+		csl_copyr($sl_path . "/images", $sl_upload_path . "/images");
 	}
 }
 
@@ -759,15 +759,8 @@ function url_test($url) {
 
 /************************************************************
  * Copy a file, or recursively copy a folder and its contents
- *
- * @author      Aidan Lister <aidan@php.net>
- * @version     1.0.1
- * @link        http://aidanlister.com/repos/v/function.copyr.php
- * @param       string   $source    Source path
- * @param       string   $dest      Destination path
- * @return      bool     Returns TRUE on success, FALSE on failure
  */
-function copyr($source, $dest)
+function csl_copyr($source, $dest)
 {
     // Check for symlinks
     if (is_link($source)) {
@@ -793,7 +786,7 @@ function copyr($source, $dest)
         }
 
         // Deep copy directories
-        copyr("$source/$entry", "$dest/$entry");
+        csl_copyr("$source/$entry", "$dest/$entry");
     }
 
     // Clean up
