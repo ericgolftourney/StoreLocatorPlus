@@ -50,7 +50,8 @@ if (defined('SLPLUS_PREFIX') === false) {
     define('SLPLUS_PREFIX', 'csl-slplus');
 }
 include_once(SLPLUS_PLUGINDIR . '/include/config.php'   );
-include_once(SLPLUS_COREDIR   . 'csl_helpers.php' );
+include_once(SLPLUS_PLUGINDIR . 'plus.php'              );
+include_once(SLPLUS_COREDIR   . 'csl_helpers.php'       );
 include_once(SLPLUS_COREDIR   . 'variables.sl.php'      );
 include_once(SLPLUS_COREDIR   . 'functions.sl.php'      );
 
