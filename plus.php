@@ -6,6 +6,20 @@
  ***************************************************************************/
 
 /**************************************
+ ** function: add_slplus_roles_and_caps()
+ ** 
+ ** Make sure the administrator role has the manage_slp capability.
+ **
+ **/
+function add_slplus_roles_and_caps() {
+    $role = get_role('administrator');
+    if(!$role->has_cap('manage_slp')) {
+        $role->add_cap('manage_slp');
+    }
+}
+
+ 
+/**************************************
  ** function: slplus_create_country_pd()
  ** 
  ** Create the county pulldown list, mark the checked item.
@@ -37,6 +51,5 @@ function slplus_create_country_pd() {
         }
     }        
 }
-
 
 
