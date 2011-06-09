@@ -141,13 +141,9 @@ $char_enc["Korea (EUS-KR)"]="eus-kr";
 //
 $checked2   	    = (isset($checked2)  ?$checked2  :'');
 $city_checked	    = (get_option('sl_use_city_search')             ==1)?' checked ':'';
-$country_checked    = (get_option('sl_use_country_search')          ==1)?' checked ':'';
 $checked3	        = (get_option('sl_remove_credits')              ==1)?' checked ':'';
 $checked4	        = (get_option('sl_load_locations_default')      ==1)?' checked ':'';
 $checked5	        = (get_option('sl_map_overview_control')        ==1)?' checked ':'';
-$show_tag_checked   = (get_option(SLPLUS_PREFIX.'_show_tag_search') ==1)?' checked ':'';
-$show_any_checked   = (get_option(SLPLUS_PREFIX.'_show_tag_any')    ==1)?' checked ':'';
-$email_form_checked = (get_option(SLPLUS_PREFIX.'_email_form')      ==1)?' checked ':'';
 
 $map_type_options=(isset($map_type_options)?$map_type_options:'');
 $map_type["".__("Normal", SLPLUS_PREFIX).""]="G_NORMAL_MAP";
@@ -221,7 +217,6 @@ foreach($map_type as $key=>$value) {
 	$map_type_options.="<option value='$value' $selected2>$key</option>\n";
 }
 $icon_notification_msg=((ereg("wordpress-store-locator-location-finder", get_option('sl_map_home_icon')) && ereg("^store-locator", $sl_dir)) || (ereg("wordpress-store-locator-location-finder", get_option('sl_map_end_icon')) && ereg("^store-locator", $sl_dir)))? "<div class='highlight' style='background-color:LightYellow;color:red'><span style='color:red'>".__("You have switched from <strong>'wordpress-store-locator-location-finder'</strong> to <strong>'store-locator'</strong> --- great!<br>Now, please re-select your <b>'Home Icon'</b> and <b>'Destination Icon'</b> below, so that they show up properly on your store locator map.", SLPLUS_PREFIX)."</span></div>" : "" ;
-$sl_starting_image=get_option('sl_starting_image');
 
 
 # Output Form 
