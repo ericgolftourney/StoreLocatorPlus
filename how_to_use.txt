@@ -26,7 +26,4 @@ http://redmine.cybersprocket.com/account/register</a>
 <br/><br/>Review the forum here:<br/>
 <a href="http://redmine.cybersprocket.com/projects/commercial-products/boards">
 http://redmine.cybersprocket.com/projects/commercial-products/boards</a><br/>
-<br/>
-<strong>Looking for more info? 
-<a href="/wp-admin/admin.php?page=<?php print SLPLUS_PLUGINDIR; ?>/readme.php">Check the Read Me file.</a></strong>
 </p>
