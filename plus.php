@@ -53,3 +53,25 @@ function slplus_create_country_pd() {
 }
 
 
+/**************************************
+ ** function: slplus_shortcode_atts()
+ ** 
+ ** Set the entire list of accepted attributes.
+ ** The shortcode_atts function ensures that all possible
+ ** attributes that could be passed are given a value which
+ ** makes later processing in the code a bit easier.
+ ** This is basically the equivalent of the php array_merge()
+ ** function.
+ **
+ **/
+function slplus_shortcode_atts() {
+    shortcode_atts(
+        array(
+            'tags_for_pulldown'=> null, 
+            'only_with_tag'    => null,
+            ),
+        $attributes
+        );
+
+}
+
