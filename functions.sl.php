@@ -456,7 +456,7 @@ function head_scripts() {
     // [LE/PLUS]
     //    
     if (function_exists('slplus_shortcode_atts')) {
-        slplus_shortcode_atts();
+        slplus_shortcode_atts($attributes);
     }
     
     // Plugin is not licensed or user is not admin
@@ -530,12 +530,11 @@ function head_scripts() {
     // [LE/PLUS]
     //
     if (function_exists('slplus_create_country_pd')) {
-        slplus_create_country_pd();
+        $country_options = slplus_create_country_pd();
     } else {
         $country_options = '';
     }
-	
-    
+        
     $theme_base=$sl_upload_base."/images";
     $theme_path=$sl_upload_path."/images";
     if (!file_exists($theme_path."/search_button.png")) {
