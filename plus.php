@@ -18,6 +18,22 @@ function add_slplus_roles_and_caps() {
     }
 }
 
+/**************************************
+ ** function: custom_upload_mimes
+ **
+ ** Allows WordPress to process csv file types
+ **
+ **/
+function custom_upload_mimes ( $existing_mimes=array() ) {
+
+     // add CSV type     
+    $existing_mimes['csv'] = 'text/csv'; 
+
+    // and return the new full result
+    return $existing_mimes;
+
+} 
+
  
 /**************************************
  ** function: slplus_create_country_pd()
