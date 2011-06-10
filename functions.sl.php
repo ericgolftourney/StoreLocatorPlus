@@ -1,4 +1,10 @@
 <?php
+/****************************************************************************
+ ** file: functions.sl.php
+ **
+ ** The collection of main core functions for Store Locator Plus
+ ***************************************************************************/
+
 
 /* -----------------*/
 function move_upload_directories() {
