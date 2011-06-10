@@ -217,7 +217,7 @@ function choose_units($unit, $input_name) {
 
 /*----------------------------*/
 function do_geocoding($address,$sl_id="") {    
-    global $wpdb, $text_domain,$slplus_plugin;    
+    global $wpdb, $slplus_plugin;    
     if (!defined('MAPS_HOST')) { define("MAPS_HOST", get_option('sl_google_map_domain')); }
     if (!defined('KEY')) { define('KEY', $slplus_plugin->driver_args['api_key']); }
     
@@ -237,49 +237,80 @@ function do_geocoding($address,$sl_id="") {
         $base_url .= "&oe=".get_option("sl_map_character_encoding");
     }
     
-    // Iterate through the rows, geocoding each address
-    $request_url = $base_url . "&q=" . urlencode($address);
-    if (extension_loaded("curl") && function_exists("curl_init")) {
-            $cURL = curl_init();
-            curl_setopt($cURL, CURLOPT_URL, $request_url);
-            curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
-            $csv = curl_exec($cURL);
-            curl_close($cURL);  
-    }else{
-         $csv = file_get_contents($request_url) or die("url not loading");
-    }
+    // Loop through for X retries
+    //
+    $iterations = 6; 
+    while($iterations){
+    	$iterations--;     
+    
+        // Iterate through the rows, geocoding each address
+        $request_url = $base_url . "&q=" . urlencode($address);
+        if (extension_loaded("curl") && function_exists("curl_init")) {
+                $cURL = curl_init();
+                curl_setopt($cURL, CURLOPT_URL, $request_url);
+                curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
+                $csv = curl_exec($cURL);
+                curl_close($cURL);  
+        }else{
+             $csv = file_get_contents($request_url) or die("url not loading");
+        }
+    
+        $csvSplit = split(",", $csv);
+        $status = $csvSplit[0];
+        $lat = $csvSplit[2];
+        $lng = $csvSplit[3];
+        
+        // Geocode completed successfully
+        //
+        if (strcmp($status, "200") == 0) {
+            $iterations = 0;      // Break out of retry loop if we are OK
+            
+            // successful geocode
+            $geocode_pending = false;
+            $lat = $csvSplit[2];
+            $lng = $csvSplit[3];
+            
+            if ($sl_id=="") {
+                $query = sprintf("UPDATE " . $wpdb->prefix ."store_locator SET sl_latitude = '%s', sl_longitude = '%s' WHERE sl_id = ".mysql_insert_id()." LIMIT 1;", mysql_real_escape_string($lat), mysql_real_escape_string($lng));
+            }
+            else {
+                $query = sprintf("UPDATE " . $wpdb->prefix ."store_locator SET sl_latitude = '%s', sl_longitude = '%s' WHERE sl_id = $sl_id LIMIT 1;", mysql_real_escape_string($lat), mysql_real_escape_string($lng));
+            }
+            
+            $update_result = mysql_query($query);
+            if (!$update_result) {
+                die("Invalid query: " . mysql_error());
+            }
 
-    $csvSplit = split(",", $csv);
-    $status = $csvSplit[0];
-    $lat = $csvSplit[2];
-    $lng = $csvSplit[3];
-    if (strcmp($status, "200") == 0) {
-      // successful geocode
-      $geocode_pending = false;
-      $lat = $csvSplit[2];
-      $lng = $csvSplit[3];
+        // Geocoding done too quickly
+        //
+        } else if (strcmp($status, "620") == 0) {
+            
+          // No iterations left, tell user of failure
+          //
+	      if(!$iterations){
+            echo sprintf(__("Address %s <font color=red>failed to geocode</font>.", SLPLUS_PREFIX),$address);
+            echo sprintf(__("Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
+	      }                       
+          $delay += 100000;
 
-	if ($sl_id=="") {
-		$query = sprintf("UPDATE " . $wpdb->prefix ."store_locator SET sl_latitude = '%s', sl_longitude = '%s' WHERE sl_id = ".mysql_insert_id()." LIMIT 1;", mysql_real_escape_string($lat), mysql_real_escape_string($lng));
-	}
-	else {
-		$query = sprintf("UPDATE " . $wpdb->prefix ."store_locator SET sl_latitude = '%s', sl_longitude = '%s' WHERE sl_id = $sl_id LIMIT 1;", mysql_real_escape_string($lat), mysql_real_escape_string($lng));
-	}
-      $update_result = mysql_query($query);
-	if (!$update_result) {
-        die("Invalid query: " . mysql_error());
-      }
-    } else if (strcmp($status, "620") == 0) {
-      // sent geocodes too fast
-      $delay += 100000;
-    } else {
-      // failure to geocode
-      $geocode_pending = false;
-      echo __("Address " . $address . " <font color=red>failed to geocode</font>. ", $text_domain);
-      echo __("Received status " . $status , $text_domain)."\n<br>";
+        // Invalid address
+        //
+        } else if (strcmp($status, '602') == 0) {
+	    	$iterations = 0; 
+	    	echo sprintf(__("Address %s <font color=red>failed to geocode</font>.", SLPLUS_PREFIX),$address);
+	      	echo sprintf(__("Unknown Address! Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
+          
+        // Could Not Geocode
+        //
+        } else {
+            $geocode_pending = false;
+            echo sprintf(__("Address %s <font color=red>failed to geocode</font>.", SLPLUS_PREFIX),$address);
+            echo sprintf(__("Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
+        }
+        usleep($delay);
     }
-    usleep($delay);
-}
+}    
 
 
 /***********************************
@@ -453,7 +484,7 @@ function head_scripts() {
     global  $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb,
 	    $slplus_plugin, $prefix,	        
 	    $search_label, $width, $height, $width_units, $height_units, $hide,
-	    $sl_radius, $sl_radius_label, $text_domain, $r_options, $button_style,
+	    $sl_radius, $sl_radius_label, $r_options, $button_style,
 	    $sl_instruction_message, $cs_options, $country_options,$fnvars;	 	    
     $fnvars = array();
 
@@ -581,7 +612,7 @@ function head_scripts() {
  **
  **/
 function csl_slplus_add_options_page() {
-	global $text_domain, $slplus_plugin;
+	global $slplus_plugin;
 	
 	if ( 
 	    (trim($slplus_plugin->driver_args['api_key'])!="") &&
@@ -589,29 +620,29 @@ function csl_slplus_add_options_page() {
 	    )
 	{
         add_menu_page(
-            __("SLP Locations", $text_domain),  
-            __("SLP Locations", $text_domain), 
+            __("SLP Locations", SLPLUS_PREFIX),  
+            __("SLP Locations", SLPLUS_PREFIX), 
             'administrator', 
             SLPLUS_COREDIR.'add-locations.php'
             );	
 		add_submenu_page(
     	    SLPLUS_COREDIR.'add-locations.php',
-		    __("Add Locations", $text_domain), 
-		    __("Add Locations", $text_domain), 
+		    __("Add Locations", SLPLUS_PREFIX), 
+		    __("Add Locations", SLPLUS_PREFIX), 
 		    'administrator', 
 		    SLPLUS_COREDIR.'add-locations.php'
 		    );
 		add_submenu_page(
     	    SLPLUS_COREDIR.'add-locations.php',
-		    __("Manage Locations", $text_domain), 
-		    __("Manage Locations", $text_domain), 
+		    __("Manage Locations", SLPLUS_PREFIX), 
+		    __("Manage Locations", SLPLUS_PREFIX), 
 		    'administrator', 
 		    SLPLUS_COREDIR.'view-locations.php'
 		    );
 		add_submenu_page(
     	    SLPLUS_COREDIR.'add-locations.php',
-		    __("Map Settings", $text_domain), 
-		    __("Map Settings", $text_domain), 
+		    __("Map Settings", SLPLUS_PREFIX), 
+		    __("Map Settings", SLPLUS_PREFIX), 
 		    'administrator', 
 		    SLPLUS_COREDIR.'map-designer.php'
 		    );
@@ -666,29 +697,28 @@ function set_query_defaults() {
 
 /*----------------------------------*/
 function match_imported_data($the_array) {
-    global $text_domain;
-    print "<h3>".__("Choose Heading That Matches Columns You Want to Import", $text_domain).":</h3>(".__("Leave headings for undesired columns unchanged", $text_domain).")<br><br>
+    print "<h3>".__("Choose Heading That Matches Columns You Want to Import", SLPLUS_PREFIX).":</h3>(".__("Leave headings for undesired columns unchanged", SLPLUS_PREFIX).")<br><br>
     <form method='post'>
-    <input type='button' value='".__("Cancel", $text_domain)."' class='button' onclick='history.go(-1)'>&nbsp;<input type='submit' value='".__("Import Locations", $text_domain)."' class='button'>
+    <input type='button' value='".__("Cancel", SLPLUS_PREFIX)."' class='button' onclick='history.go(-1)'>&nbsp;<input type='submit' value='".__("Import Locations", SLPLUS_PREFIX)."' class='button'>
     <table class='widefat'><thead><tr style='/*background-color:black*/'>";
     
     $array_to_be_counted=(is_array($the_array[0]))? $the_array[0] : $the_array[1] ; //needed for the csv import (where first line is usually skipped)  vs the point-click-add import (where there's only the first line)
     for ($ctr=1; $ctr<=count($array_to_be_counted); $ctr++) {
     print "<td><select name='field_map[]'>";
     print "<option value=''>".__("Choose")."</option>
-            <option value='sl_store'>".__("Name", $text_domain)."</option>
-                <option value='sl_address'>".__("Street(Line1)", $text_domain)."</option>
-                <option value='sl_address2'>".__("Street(Line2)", $text_domain)."</option>
-                <option value='sl_city'>".__("City", $text_domain)."</option>
-                <option value='sl_state'>".__("State", $text_domain)."</option>
-                <option value='sl_zip'>".__("Zip", $text_domain)."</option>
-                <option value='sl_tags'>".__("Tags", $text_domain)."</option>
-                <option value='sl_description'>".__("Description", $text_domain)."</option>
-                <option value='sl_hours'>".__("Hours", $text_domain)."</option>
-                <option value='sl_url'>".__("URL", $text_domain)."</option>
-                <option value='sl_phone'>".__("Phone", $text_domain)."</option>
-                <option value='sl_image'>".__("Image", $text_domain)."</option>
-                <option value='sl_private'>".__("Is Private?", $text_domain)."</option>";
+            <option value='sl_store'>".__("Name", SLPLUS_PREFIX)."</option>
+                <option value='sl_address'>".__("Street(Line1)", SLPLUS_PREFIX)."</option>
+                <option value='sl_address2'>".__("Street(Line2)", SLPLUS_PREFIX)."</option>
+                <option value='sl_city'>".__("City", SLPLUS_PREFIX)."</option>
+                <option value='sl_state'>".__("State", SLPLUS_PREFIX)."</option>
+                <option value='sl_zip'>".__("Zip", SLPLUS_PREFIX)."</option>
+                <option value='sl_tags'>".__("Tags", SLPLUS_PREFIX)."</option>
+                <option value='sl_description'>".__("Description", SLPLUS_PREFIX)."</option>
+                <option value='sl_hours'>".__("Hours", SLPLUS_PREFIX)."</option>
+                <option value='sl_url'>".__("URL", SLPLUS_PREFIX)."</option>
+                <option value='sl_phone'>".__("Phone", SLPLUS_PREFIX)."</option>
+                <option value='sl_image'>".__("Image", SLPLUS_PREFIX)."</option>
+                <option value='sl_private'>".__("Is Private?", SLPLUS_PREFIX)."</option>";
     print "</select></td>";
     }
     print "</tr></thead>";
@@ -706,7 +736,7 @@ function match_imported_data($the_array) {
     }
     print "</table><input type='hidden' name='finish_import' value='1'>
     <input type='hidden' name='total_entries' value='".(count($the_array))."'>
-    <input type='button' value='".__("Cancel", $text_domain)."' class='button' onclick='history.go(-1)'>&nbsp;<input type='submit' value='".__("Import Locations", $text_domain)."' class='button'></form>";
+    <input type='button' value='".__("Cancel", SLPLUS_PREFIX)."' class='button' onclick='history.go(-1)'>&nbsp;<input type='submit' value='".__("Import Locations", SLPLUS_PREFIX)."' class='button'></form>";
 }
 /*--------------------------------------------------------------*/
 
