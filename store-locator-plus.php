@@ -43,12 +43,21 @@ if (defined('SLPLUS_COREDIR') === false) {
 if (defined('SLPLUS_PLUGINURL') === false) {
     define('SLPLUS_PLUGINURL', plugins_url('',__FILE__));
 }
+
+// The relative path from the plugins directory
+//
 if (defined('SLPLUS_BASENAME') === false) {
     define('SLPLUS_BASENAME', plugin_basename(__FILE__));
 }
+
+// Our product prefix
+//
 if (defined('SLPLUS_PREFIX') === false) {
     define('SLPLUS_PREFIX', 'csl-slplus');
 }
+
+// Include our needed files
+//
 include_once(SLPLUS_PLUGINDIR . '/include/config.php'   );
 include_once(SLPLUS_PLUGINDIR . 'plus.php'              );
 include_once(SLPLUS_COREDIR   . 'csl_helpers.php'       );
@@ -73,5 +82,5 @@ add_shortcode('slplus','store_locator_shortcode');
 
 // Text Domains
 //
-load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_PLUGINDIR . '/languages/');
+load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_BASENAME . '/core/languages/');
 
