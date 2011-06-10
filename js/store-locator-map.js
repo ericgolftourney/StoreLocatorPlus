@@ -12,17 +12,17 @@ var geocoder;
 var theIcon = new GIcon(G_DEFAULT_ICON);
 theIcon.image = sl_map_end_icon;
 if (sl_map_end_icon.indexOf('flag')!='-1') {
-    theIcon.shadow = add_base + "/core/icons/flag_shadow.png";
+    theIcon.shadow = add_base + "/images/flag_shadow.png";
 } else if (sl_map_end_icon.indexOf('arrow')!='-1') {
-    theIcon.shadow = add_base + "/core/icons/arrow_shadow.png";
+    theIcon.shadow = add_base + "/images/arrow_shadow.png";
 } else if (sl_map_end_icon.indexOf('bubble')!='-1') {
-    theIcon.shadow = add_base + "/core/icons/bubble_shadow.png";
+    theIcon.shadow = add_base + "/images/bubble_shadow.png";
 } else if (sl_map_end_icon.indexOf('marker')!='-1') {
-    theIcon.shadow = add_base + "/core/icons/marker_shadow.png";
+    theIcon.shadow = add_base + "/images/marker_shadow.png";
 } else if (sl_map_end_icon.indexOf('sign')!='-1') {
-    theIcon.shadow = add_base + "/core/icons/sign_shadow.png";
+    theIcon.shadow = add_base + "/images/sign_shadow.png";
 } else {
-    theIcon.shadow = add_base + "/core/icons/blank.png";
+    theIcon.shadow = add_base + "/images/blank.png";
 }
 theIcon.iconSize = new GSize(sl_map_end_icon_width, sl_map_end_icon_height);
 
@@ -126,17 +126,17 @@ function searchLocationsNear(center, homeAddress) {
             var theIcon = new GIcon(G_DEFAULT_ICON);
             theIcon.image = sl_map_home_icon;
             if (sl_map_home_icon.indexOf('flag')!='-1') {
-                theIcon.shadow = add_base + "/core/icons/flag_shadow.png";
+                theIcon.shadow = add_base + "/images/flag_shadow.png";
             } else if (sl_map_home_icon.indexOf('arrow')!='-1') {
-                theIcon.shadow = add_base + "/core/icons/arrow_shadow.png";
+                theIcon.shadow = add_base + "/images/arrow_shadow.png";
             } else if (sl_map_home_icon.indexOf('bubble')!='-1') {
-                theIcon.shadow = add_base + "/core/icons/bubble_shadow.png";
+                theIcon.shadow = add_base + "/images/bubble_shadow.png";
             } else if (sl_map_home_icon.indexOf('marker')!='-1') {
-                theIcon.shadow = add_base + "/core/icons/marker_shadow.png";
+                theIcon.shadow = add_base + "/images/marker_shadow.png";
             } else if (sl_map_home_icon.indexOf('sign')!='-1') {
-                theIcon.shadow = add_base + "/core/icons/sign_shadow.png";
+                theIcon.shadow = add_base + "/images/sign_shadow.png";
             } else {
-                theIcon.shadow = add_base + "/core/icons/blank.png";
+                theIcon.shadow = add_base + "/images/blank.png";
             }
             theIcon.iconSize = new GSize(sl_map_home_icon_width, sl_map_home_icon_height);
 

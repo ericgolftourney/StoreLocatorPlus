@@ -91,6 +91,4 @@ while ($row = @mysql_fetch_assoc($result)){
 // End XML file
 echo "</markers>\n";
 
-//print $query;
-//print "\nPosted Tag: *$posted_tag*\n";
 
