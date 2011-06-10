@@ -151,43 +151,7 @@ $map_type["".__("Satellite", SLPLUS_PREFIX).""]="G_SATELLITE_MAP";
 $map_type["".__("Hybrid", SLPLUS_PREFIX).""]="G_HYBRID_MAP";
 $map_type["".__("Physical", SLPLUS_PREFIX).""]="G_PHYSICAL_MAP";
 
-$icon_str   =(isset($icon_str)  ?$icon_str  :'');
-$icon2_str  =(isset($icon2_str) ?$icon2_str :'');
-
-
-$icon_dir=opendir(SLPLUS_COREDIR."images/"); 
-while (false !== ($an_icon=readdir($icon_dir))) {
-	if (!ereg("^\.{1,2}$", $an_icon) && !ereg("shadow", $an_icon) && !ereg("\.db", $an_icon)) {
-
-		$icon_str.="<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' src='$sl_base/core/icons/$an_icon' onclick='document.forms[\"mapDesigner\"].icon.value=this.src;document.getElementById(\"prev\").src=this.src;' onmouseover='style.borderColor=\"red\";' onmouseout='style.borderColor=\"white\";'>";
-	}
-}
-if (is_dir($sl_upload_path."/custom-icons/")) {
-	$icon_upload_dir=opendir($sl_upload_path."/custom-icons/");
-	while (false !== ($an_icon=readdir($icon_upload_dir))) {
-		if (!ereg("^\.{1,2}$", $an_icon) && !ereg("shadow", $an_icon) && !ereg("\.db", $an_icon)) {
-
-			$icon_str.="<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' src='$sl_upload_base/custom-icons/$an_icon' onclick='document.forms[\"mapDesigner\"].icon.value=this.src;document.getElementById(\"prev\").src=this.src;' onmouseover='style.borderColor=\"red\";' onmouseout='style.borderColor=\"white\";'>";
-		}
-	}
-}
-
-$icon_dir=opendir(SLPLUS_COREDIR."images/");
-while (false !== ($an_icon=readdir($icon_dir))) {
-	if (!ereg("^\.{1,2}$", $an_icon) && !ereg("shadow", $an_icon) && !ereg("\.db", $an_icon)) {
-
-		$icon2_str.="<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' src='${sl_base}core/icons/$an_icon' onclick='document.forms[\"mapDesigner\"].icon2.value=this.src;document.getElementById(\"prev2\").src=this.src;' onmouseover='style.borderColor=\"red\";' onmouseout='style.borderColor=\"white\";'>";
-	}
-}
-if (is_dir($sl_upload_path."/custom-icons/")) {
-	$icon_upload_dir=opendir($sl_upload_path."/custom-icons/");
-	while (false !== ($an_icon=readdir($icon_upload_dir))) {
-		if (!ereg("^\.{1,2}$", $an_icon) && !ereg("shadow", $an_icon) && !ereg("\.db", $an_icon)) {
-
-			$icon2_str.="<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' src='$sl_upload_base/custom-icons/$an_icon' onclick='document.forms[\"mapDesigner\"].icon2.value=this.src;document.getElementById(\"prev2\").src=this.src;' onmouseover='style.borderColor=\"red\";' onmouseout='style.borderColor=\"white\";'>";
-		}
-	}
-}
+// Custom Themes
 if (is_dir($sl_upload_path."/themes/")) {
 	$theme_dir=opendir($sl_upload_path."/themes/"); 
 
@@ -216,7 +180,63 @@ foreach($map_type as $key=>$value) {
 	$selected2=(get_option('sl_map_type')==$value)? " selected " : "";
 	$map_type_options.="<option value='$value' $selected2>$key</option>\n";
 }
-$icon_notification_msg=((ereg("wordpress-store-locator-location-finder", get_option('sl_map_home_icon')) && ereg("^store-locator", $sl_dir)) || (ereg("wordpress-store-locator-location-finder", get_option('sl_map_end_icon')) && ereg("^store-locator", $sl_dir)))? "<div class='highlight' style='background-color:LightYellow;color:red'><span style='color:red'>".__("You have switched from <strong>'wordpress-store-locator-location-finder'</strong> to <strong>'store-locator'</strong> --- great!<br>Now, please re-select your <b>'Home Icon'</b> and <b>'Destination Icon'</b> below, so that they show up properly on your store locator map.", SLPLUS_PREFIX)."</span></div>" : "" ;
+
+//---- ICONS ----
+
+$icon_str   =(isset($icon_str)  ?$icon_str  :'');
+$icon2_str  =(isset($icon2_str) ?$icon2_str :'');
+$icon_dir=opendir(SLPLUS_ICONDIR);
+
+// List icons
+while (false !== ($an_icon=readdir($icon_dir))) {
+	if (!ereg("^\.{1,2}$", $an_icon) && !ereg("shadow", $an_icon) && !ereg("\.db", $an_icon)) {
+		$icon_str.=
+		"<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' 
+		     src='".SLPLUS_ICONURL.$an_icon."'
+		     onclick='document.forms[\"mapDesigner\"].icon.value=this.src;document.getElementById(\"prev\").src=this.src;'
+		     onmouseover='style.borderColor=\"red\";' 
+		     onmouseout='style.borderColor=\"white\";'
+		     >";
+	}
+}
+// Custom icon directory?
+if (is_dir($sl_upload_path."/custom-icons/")) {
+	$icon_upload_dir=opendir($sl_upload_path."/custom-icons/");
+	while (false !== ($an_icon=readdir($icon_upload_dir))) {
+		if (!ereg("^\.{1,2}$", $an_icon) && !ereg("shadow", $an_icon) && !ereg("\.db", $an_icon)) {
+			$icon_str.=
+			"<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' 
+			src='$sl_upload_base/custom-icons/$an_icon' 
+			onclick='document.forms[\"mapDesigner\"].icon.value=this.src;document.getElementById(\"prev\").src=this.src;' 
+			onmouseover='style.borderColor=\"red\";' 
+			onmouseout='style.borderColor=\"white\";'
+			>";
+		}
+	}
+}
+
+$icon2_str = preg_replace('/\.icon\.value/','.icon2.value',$icon_str);
+$icon2_str = preg_replace('/getElementById\("prev"\)/','getElementById("prev2")',$icon2_str);
+
+// Icon is the old path, notify them to re-select
+//
+$icon_notification_msg=
+(
+    ( !ereg("/core/images/icons/", get_option('sl_map_home_icon')) 
+        && 
+      !ereg("/custom-icons/", get_option('sl_map_home_icon'))
+    )
+        || 
+    ( !ereg("/core/images/icons/", get_option('sl_map_end_icon')) 
+        && 
+      !ereg("/custom-icons/", get_option('sl_map_end_icon'))
+    )
+)
+    ? 
+"<div class='highlight' style='background-color:LightYellow;color:red'><span style='color:red'>".
+__("Please re-select your <b>Home Icon</b> and <b>Destination Icon</b> below, so that they show up properly on your map.", SLPLUS_PREFIX).
+"</span></div>" : 
+"" ;
 
 
 # Output Form 
