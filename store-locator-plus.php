@@ -32,16 +32,28 @@ global $sl_upload_path,$slpath;
 $sl_upload_path='';
 $sl_path='';
 
-// Define our paths 
+// Drive Path Defines 
 //
 if (defined('SLPLUS_PLUGINDIR') === false) {
     define('SLPLUS_PLUGINDIR', plugin_dir_path(__FILE__));
 }
 if (defined('SLPLUS_COREDIR') === false) {
-    define('SLPLUS_COREDIR', plugin_dir_path(__FILE__) . 'core/');
+    define('SLPLUS_COREDIR', SLPLUS_PLUGINDIR . '/core/');
 }
+if (defined('SLPLUS_ICONDIR') === false) {
+    define('SLPLUS_ICONDIR', SLPLUS_COREDIR . 'images/icons/');
+}
+
+// URL Defines
+//
 if (defined('SLPLUS_PLUGINURL') === false) {
     define('SLPLUS_PLUGINURL', plugins_url('',__FILE__));
+}
+if (defined('SLPLUS_COREURL') === false) {
+    define('SLPLUS_COREURL', SLPLUS_PLUGINURL . '/core/');
+}
+if (defined('SLPLUS_ICONURL') === false) {
+    define('SLPLUS_ICONURL', SLPLUS_COREURL . 'images/icons/');
 }
 
 // The relative path from the plugins directory

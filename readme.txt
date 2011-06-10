@@ -118,6 +118,8 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Added tracking and reporting system.
 * Re-factored the code to share components with the light edition (LE) version.
 * Fix conflict with copyr() with other plugins.
+* Fix language file loading.
+* Icon paths have changed - make sure you reset your icons via the map designer.
 
 
 = 1.9 (May 11th 2011) =
