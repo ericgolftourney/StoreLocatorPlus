@@ -289,7 +289,7 @@ function do_geocoding($address,$sl_id="") {
           // No iterations left, tell user of failure
           //
 	      if(!$iterations){
-            echo sprintf(__("Address %s <font color=red>failed to geocode</font>.", SLPLUS_PREFIX),$address);
+            echo sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
             echo sprintf(__("Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
 	      }                       
           $delay += 100000;
@@ -298,14 +298,14 @@ function do_geocoding($address,$sl_id="") {
         //
         } else if (strcmp($status, '602') == 0) {
 	    	$iterations = 0; 
-	    	echo sprintf(__("Address %s <font color=red>failed to geocode</font>.", SLPLUS_PREFIX),$address);
+	    	echo sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
 	      	echo sprintf(__("Unknown Address! Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
           
         // Could Not Geocode
         //
         } else {
             $geocode_pending = false;
-            echo sprintf(__("Address %s <font color=red>failed to geocode</font>.", SLPLUS_PREFIX),$address);
+            echo sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
             echo sprintf(__("Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
         }
         usleep($delay);
