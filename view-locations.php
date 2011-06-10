@@ -96,13 +96,12 @@ if (!$slak) {
 
         // Delete Action	    
         if ($_POST['act']=="delete") {
-            include("deleteLocations.php");
+            include_once(SLPLUS_COREDIR   . 'deleteLocations.php'       );            
         }        
         
         // Tagging Action
         if (eregi("tag", $_POST['act'])) {
-            //if bulk tagging is used
-            include("tagLocations.php");
+            include_once(SLPLUS_COREDIR   . 'tagLocations.php'       );            
         }
         
         // Locations Per Page Action
