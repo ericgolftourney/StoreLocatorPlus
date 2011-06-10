@@ -216,7 +216,7 @@ function choose_units($unit, $input_name) {
 }
 
 /*----------------------------*/
-function do_geocoding($address,$sl_id="") {    
+function do_geocoding($address,$sl_id='') {    
     global $wpdb, $slplus_plugin;    
     if (!defined('MAPS_HOST')) { define("MAPS_HOST", get_option('sl_google_map_domain')); }
     if (!defined('KEY')) { define('KEY', $slplus_plugin->driver_args['api_key']); }
@@ -270,16 +270,30 @@ function do_geocoding($address,$sl_id="") {
             $lat = $csvSplit[2];
             $lng = $csvSplit[3];
             
-            if ($sl_id=="") {
-                $query = sprintf("UPDATE " . $wpdb->prefix ."store_locator SET sl_latitude = '%s', sl_longitude = '%s' WHERE sl_id = ".mysql_insert_id()." LIMIT 1;", mysql_real_escape_string($lat), mysql_real_escape_string($lng));
+            // Perform Insert of New Address
+            //
+            if ($sl_id=='') {
+                $query = sprintf("UPDATE " . $wpdb->prefix ."store_locator " .
+                       "SET sl_latitude = '%s', sl_longitude = '%s' " .
+                       "WHERE sl_id = ".mysql_insert_id().
+                       " LIMIT 1;", 
+                       mysql_real_escape_string($lat), 
+                       mysql_real_escape_string($lng)
+                       );
             }
+            
+            // Update an existing address
+            //
             else {
                 $query = sprintf("UPDATE " . $wpdb->prefix ."store_locator SET sl_latitude = '%s', sl_longitude = '%s' WHERE sl_id = $sl_id LIMIT 1;", mysql_real_escape_string($lat), mysql_real_escape_string($lng));
             }
             
+            
+            // Run insert/update
+            //
             $update_result = mysql_query($query);
             if (!$update_result) {
-                die("Invalid query: " . mysql_error());
+                echo sprintf(__("Could not add/update address.  Error: %s.", SLPLUS_PREFIX),mysql_error())."\n<br>";
             }
 
         // Geocoding done too quickly
