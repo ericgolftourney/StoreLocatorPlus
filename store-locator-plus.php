@@ -8,7 +8,7 @@ Author: Cyber Sprocket Labs
 Author URI: http://www.cybersprocket.com
 License: GPL3
 
-	Copyright 2010  Cyber Sprocket Labs (info@cybersprocket.com)
+	Copyright 2011  Cyber Sprocket Labs (info@cybersprocket.com)
 
         This program is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
