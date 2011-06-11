@@ -6,6 +6,62 @@
  ***************************************************************************/
 
 /**************************************
+ ** function: csl_slplus_setup_admin_interface
+ **
+ ** Builds the interface elements used by WPCSL-generic for the admin interface.
+ **/
+function csl_slplus_setup_admin_interface() {
+    global $slplus_plugin;
+    
+    // Don't have what we need? Leave.
+    if (!isset($slplus_plugin)) { return; }
+    
+    
+    // No SimpleXML Support
+    if (!function_exists('parsetoxml')) {
+        $slplus_plugin->notifications->add_notice(1, __('SimpleXML is required but not enabled.',SLPLUS_PREFIX));
+    }
+
+    // Already been here?  Get out.
+    if (isset($slplus_plugin->settings->sections['How to Use'])) { return; }
+    
+    
+    //-------------------------
+    // How to Use Section
+    //-------------------------    
+    $slplus_plugin->settings->add_section(
+        array(
+            'name' => 'How to Use',
+            'description' => get_string_from_phpexec(SLPLUS_PLUGINDIR.'/how_to_use.txt')
+        )
+    );
+
+    //-------------------------
+    // General Settings
+    //-------------------------    
+    $slplus_plugin->settings->add_section(
+        array(
+            'name'        => 'Google Communication',
+            'description' => 'These settings affect how the plugin communicates with Google to create your map.'.
+                                '<br/><br/>'
+        )
+    );
+    
+    $slplus_plugin->settings->add_item(
+        'Google Communication', 
+        'Google API Key', 
+        'api_key', 
+        'text', 
+        false,
+        'Your Google API Key.  You will need to ' .
+        '<a href="http://code.google.com/apis/maps/signup.html" target="newinfo">'.
+        'go to Google</a> to get your Google Maps API Key.'
+    );
+    
+}
+ 
+ 
+/**************************************
  ** function: get_string_from_phpexec()
  ** 
  ** Executes the included php (or html) file and returns the output as a string.
@@ -40,4 +96,6 @@ function execute_and_output_template($file) {
     $file = SLPLUS_COREDIR.'/templates/'.$file;
     print get_string_from_phpexec($file);
 }
+
+
 
