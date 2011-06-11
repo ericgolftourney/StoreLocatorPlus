@@ -66,20 +66,21 @@ function csl_slplus_setup_admin_interface() {
         'list', 
         false,
         'How many times should we try to set the latitude/longitude for a new address. ' .
-        'Higher numbers mean slower bulk uploads (plus version), lower numbers mean more '.
-        'chances the location will not be set.',
+        'Higher numbers mean slower bulk uploads ('.
+        '<a href="http://www.cybersprocket.com/products/store-locator-plus/">plus version</a>'.
+        '), lower numbers makes it more likely the location will not be set during bulk uploads.',
         array (
               'None' => 0,
-              '1' => 1,
-              '2' => 2,
-              '3' => 3,
-              '4' => 4,
-              '5' => 5,
-              '6' => 6,
-              '7' => 7,
-              '8' => 8,
-              '9' => 9,
-              '10' => 10,
+              '1' => '1',
+              '2' => '2',
+              '3' => '3',
+              '4' => '4',
+              '5' => '5',
+              '6' => '6',
+              '7' => '7',
+              '8' => '8',
+              '9' => '9',
+              '10' => '10',
             )
     );
     
