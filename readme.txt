@@ -120,6 +120,8 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Fix conflict with copyr() with other plugins.
 * Fix language file loading.
 * Icon paths have changed - make sure you reset your icons via the map designer.
+* Multiple retries available for better geocoding() on bulk or single-item uploads.
+* Improved failed goecode reporting.
 
 
 = 1.9 (May 11th 2011) =
