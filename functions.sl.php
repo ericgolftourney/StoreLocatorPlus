@@ -270,12 +270,12 @@ function do_geocoding($address,$sl_id='') {
             $lat = $csvSplit[2];
             $lng = $csvSplit[3];
             
-            // Perform Insert of New Address
+            // Update newly inserted address
             //
             if ($sl_id=='') {
                 $query = sprintf("UPDATE " . $wpdb->prefix ."store_locator " .
                        "SET sl_latitude = '%s', sl_longitude = '%s' " .
-                       "WHERE sl_id = ".mysql_insert_id().
+                       "WHERE sl_id = ".mysql_insert_id() .
                        " LIMIT 1;", 
                        mysql_real_escape_string($lat), 
                        mysql_real_escape_string($lng)
@@ -762,33 +762,7 @@ function do_hyperlink(&$text, $target="'_blank'")
    return $text;
 }
 
-/*--------------------------------------------------------------*/
-function insert_matched_data() {
-	global $wpdb;
 
-	$ctr=0;
-	foreach ($_POST[field_map] as $value) {
-		if($value!="") {
-			$selected_fields.="$value,";
-			$column_number[]=$ctr;
-		}
-		$ctr++;
-	}
-	$selected_fields=substr($selected_fields,0, strlen($selected_fields)-1);
-
-	
-	for ($entry_number=0; $entry_number<$_POST[total_entries]; $entry_number++) { 
-		for ($ctr2=0; $ctr2<count($column_number); $ctr2++) {
-			$value_string.="'".trim($_POST["column{$column_number[$ctr2]}"][$entry_number])."',";
-		}
-		$value_string=substr($value_string,0, strlen($value_string)-1);
-		$wpdb->query("INSERT INTO ".$wpdb->prefix."store_locator ($selected_fields) VALUES ($value_string)");
-		$for_geo=$wpdb->get_results("SELECT CONCAT(sl_address, ', ',sl_address2,', ', sl_city, ', ', sl_state, ' ', sl_zip) as the_address FROM ".$wpdb->prefix."store_locator WHERE sl_id='".mysql_insert_id()."'", ARRAY_A);
-		do_geocoding($for_geo[0][the_address]);
-		$value_string="";
-
-		}
-}
 /*-------------------------------------------------------------*/
 function comma($a) {
 	$a=ereg_replace('"', "&quot;", $a);
