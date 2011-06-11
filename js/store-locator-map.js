@@ -48,7 +48,16 @@ function sl_load() {
     if (sl_load_locations_default=="1") {
         var bounds = new GLatLngBounds();
         markerOpts = { icon:theIcon };
-        GDownloadUrl(add_base + "/data-xml.php",
+
+        // Check if tag searching is enabled/shown
+        //
+        if (document.getElementById('tag_to_search_for') != null) { 
+            taglist = document.getElementById('tag_to_search_for').value; 
+        } else {
+            taglist = NULL;
+        }
+        
+        GDownloadUrl(add_base + "/data-xml.php?tags="+taglist,
             function(data, responseCode) {
                 var xml = GXml.parse(data);
                 var markers = xml.documentElement.getElementsByTagName("marker");
