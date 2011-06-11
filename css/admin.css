@@ -73,21 +73,27 @@
 /***************************
  * General Settings
  **/
-    .tableRowHeader,.tableRowHeader td,.tableRowHeader th {
-        background-color: black;
-        color: white;
-        font-weight: bold;
-    }
+#wpcontent .csl_select, #wpcontent .csl_option
+{
+    padding-right: 6px;
+}
+ 
+.tableRowHeader,.tableRowHeader td,.tableRowHeader th 
+{
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
 
-    .tableRowHeader  td a,.tableRowHeader  th a,.widefat thead td a,.widefat thead th a
-        {
-        color: #00aa00;
-        font-weight: bold;
-        text-decoration: underline;
+.tableRowHeader  td a,.tableRowHeader  th a,.widefat thead td a,.widefat thead th a
+{
+    color: #00aa00;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 .widefat,.widefat thead td a,.widefat thead th a,.widefat td,.widefat th
-	{
+{
 	font-size: 12px;
 }
 

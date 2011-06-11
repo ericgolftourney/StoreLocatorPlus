@@ -57,6 +57,31 @@ function csl_slplus_setup_admin_interface() {
         '<a href="http://code.google.com/apis/maps/signup.html" target="newinfo">'.
         'go to Google</a> to get your Google Maps API Key.'
     );
+
+
+    $slplus_plugin->settings->add_item(
+        'Google Communication', 
+        'Geocode Retries', 
+        'goecode_retries', 
+        'list', 
+        false,
+        'How many times should we try to set the latitude/longitude for a new address. ' .
+        'Higher numbers mean slower bulk uploads (plus version), lower numbers mean more '.
+        'chances the location will not be set.',
+        array (
+              'None' => 0,
+              '1' => 1,
+              '2' => 2,
+              '3' => 3,
+              '4' => 4,
+              '5' => 5,
+              '6' => 6,
+              '7' => 7,
+              '8' => 8,
+              '9' => 9,
+              '10' => 10,
+            )
+    );
     
 }
  
