@@ -28,7 +28,11 @@ theIcon.iconSize = new GSize(sl_map_end_icon_width, sl_map_end_icon_height);
 
 
 /**************************************
-*/
+ * function: sl_load()
+ *
+ * Initial map loading, before search is performed.
+ *
+ */
 function sl_load() {
     if (GBrowserIsCompatible()) {
         geocoder = new GClientGeocoder();
@@ -90,6 +94,11 @@ function sl_load() {
 
 
 /**************************************
+ * function: searchLocations()
+ *
+ * Run this when we do a search, first get the lat/long of the address entered
+ * then call find locations near that address.
+ *
  */
 function searchLocations() {
     var address = document.getElementById('addressInput').value;
@@ -111,6 +120,12 @@ function searchLocations() {
 
 
 /**************************************
+ * function: searchLocations()
+ *
+ * Run this when we do a search, first get the lat/long of the address entered
+ * then call find locations near that address.
+ *
+
  */
 function searchLocationsNear(center, homeAddress) {
     var radius  = document.getElementById('radiusSelect').value;
@@ -123,7 +138,8 @@ function searchLocationsNear(center, homeAddress) {
         'lat='     + center.lat() + 
         '&lng='    + center.lng() + 
         '&radius=' + radius +
-        '&tags='   + taglist
+        '&tags='   + taglist +
+        '&address=' + address
         ;
         
     GDownloadUrl(searchUrl, 
