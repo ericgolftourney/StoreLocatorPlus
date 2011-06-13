@@ -203,8 +203,6 @@ function choose_units($unit, $input_name) {
 	$unit_arr[]="%";$unit_arr[]="px";$unit_arr[]="em";$unit_arr[]="pt";
 	$select_field.="<select name='$input_name'>";
 	
-	//global $height_units, $width_units;
-	
 	foreach ($unit_arr as $value) {
 		$selected=($value=="$unit")? " selected='selected' " : "" ;
 		if (!($input_name=="height_units" && $unit=="%")) {
