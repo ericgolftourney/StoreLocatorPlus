@@ -122,6 +122,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Icon paths have changed - make sure you reset your icons via the map designer.
 * Multiple retries available for better geocoding() on bulk or single-item uploads.
 * Improved failed goecode reporting.
+* If the search-by-tags box is shown it takes precedence over the only_with attribute.
 
 
 = 1.9 (May 11th 2011) =
