@@ -15,7 +15,6 @@ else {
 }
 if ($act=="add_tag") {
 	//adding tags
-	//print "UPDATE ".$wpdb->prefix."store_locator SET sl_tags=CONCAT(sl_tags, '".strtolower($sl_tags).", ') WHERE sl_id IN ($id_string)"; exit;
 	$wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_tags=CONCAT(sl_tags, '".strtolower($sl_tags).", ') WHERE sl_id IN ($id_string)");
 }
 elseif ($act=="remove_tag") {
