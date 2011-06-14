@@ -41,7 +41,7 @@ if (!$db_selected) {
 //
 $tag_filter = ''; 
 if (
-	(get_option($prefix.'_show_tag_search') ==1) &&
+	(get_option(SLPLUS_PREFIX.'_show_tag_search') ==1) &&
 	isset($_GET['tags']) && ($_GET['tags'] != '')
    ){
     $posted_tag = preg_replace('/\s+(.*?)/','$1',$_GET['tags']);
@@ -74,13 +74,12 @@ if (!$result) {
 // Reporting
 // Insert the query into the query DB
 // 
-if (true) {
+if (get_option(SLPLUS_PREFIX.'-reporting_enabled') === 'on') {
     $qry = sprintf(                                              
             "INSERT INTO ${dbPrefix}slp_rep_query 
                 (slp_repq_query) values ('%s')",
                 mysql_real_escape_string($_SERVER['QUERY_STRING'])
             );
-//die($qry);    
     $wpdb->query(
               sprintf(
             "INSERT INTO ${dbPrefix}slp_rep_query 
@@ -122,7 +121,7 @@ while ($row = @mysql_fetch_assoc($result)){
     // Reporting
     // Insert the results into the reporting table
     //
-    if (true) {
+    if (get_option(SLPLUS_PREFIX.'-reporting_enabled') === "on") {
         $wpdb->query(
             sprintf(
                 "INSERT INTO ${dbPrefix}slp_rep_query_results 
