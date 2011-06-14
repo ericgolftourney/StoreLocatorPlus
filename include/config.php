@@ -11,8 +11,6 @@ if (defined('SLPLUS_PLUGINDIR')) {
         require_once(SLPLUS_PLUGINDIR.'WPCSL-generic/classes/CSL-plugin.php');
     }
     
-    //// SETTINGS ////////////////////////////////////////////////////////
-    
     /**
      * This section defines the settings for the admin menu.
      */       
