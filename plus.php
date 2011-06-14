@@ -97,6 +97,26 @@ function install_reporting_tables() {
 }
  
 /**************************************
+ ** function: slplus_add_report_settings()
+ ** 
+ ** Add reporting settings to the admin interface.
+ **
+ **/
+function slplus_add_report_settings() {
+    global $slplus_plugin;
+    
+    $slplus_plugin->settings->add_item(
+        'Reporting', 
+        'Enable reporting', 
+        'reporting_enabled', 
+        'checkbox', 
+        false,
+        'Enables tracking of searches and returned results.  The added overhead ' .
+        'can increase how long it takes to return location search results.'
+    );    
+}
+
+/**************************************
  ** function: slplus_create_country_pd()
  ** 
  ** Create the county pulldown list, mark the checked item.
