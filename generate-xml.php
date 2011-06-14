@@ -1,4 +1,14 @@
 <?php
+/******************************************************************************
+ * File: generate-xml.php 
+ * 
+ * Create the XML document that the Google Maps interface needs to show points
+ * on the map.  This is what we run when a user does a search.  The JavaScript
+ * function eventually calls this on the backend via an AJAX style interface.
+ *
+ ******************************************************************************/
+
+
 error_reporting(0);
 header("Content-type: text/xml");
 include("database-info.php");
