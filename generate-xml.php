@@ -2,6 +2,7 @@
 error_reporting(0);
 header("Content-type: text/xml");
 include("database-info.php");
+$dbPrefix = $wpdb->prefix;
 
 // Get parameters from URL
 $center_lat = $_GET["lat"];
@@ -40,11 +41,11 @@ if (
 
 // Select all the rows in the markers table
 $query = sprintf(
-	"SELECT sl_address, sl_address2, sl_store, sl_city, sl_state, sl_zip, ".
+	"SELECT sl_id,sl_address, sl_address2, sl_store, sl_city, sl_state, sl_zip, ".
 	"sl_country, sl_latitude, sl_longitude, sl_description, sl_url, sl_email, sl_hours, ".
 	"sl_phone, sl_tags, sl_image,".
 	"( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
-	"FROM ".$wpdb->prefix."store_locator HAVING (sl_distance < '%s') ".
+	"FROM ${dbPrefix}store_locator HAVING (sl_distance < '%s') ".
 	$tag_filter .
 	'ORDER BY sl_distance',
 	mysql_real_escape_string($center_lat),
@@ -57,6 +58,27 @@ $query = sprintf(
 $result = mysql_query($query);
 if (!$result) {
   die('Invalid query: ' . mysql_error());
+}
+
+
+// Reporting
+// Insert the query into the query DB
+// 
+if (true) {
+    $qry = sprintf(                                              
+            "INSERT INTO ${dbPrefix}slp_rep_query 
+                (slp_repq_query) values ('%s')",
+                mysql_real_escape_string($_SERVER['QUERY_STRING'])
+            );
+//die($qry);    
+    $wpdb->query(
+              sprintf(
+            "INSERT INTO ${dbPrefix}slp_rep_query 
+                (slp_repq_query) values ('%s')",
+                mysql_real_escape_string($_SERVER['QUERY_STRING'])
+            )
+        );
+    $slp_QueryID = mysql_insert_id();
 }
 
 
@@ -86,9 +108,24 @@ while ($row = @mysql_fetch_assoc($result)){
   	  echo 'tags="'  . parseToXML($row['sl_tags']) . '" ';
   }  	  
   echo "/>\n";
+  
+    // Reporting
+    // Insert the results into the reporting table
+    //
+    if (true) {
+        $wpdb->query(
+            sprintf(
+                "INSERT INTO ${dbPrefix}slp_rep_query_results 
+                    (slp_repq_id,sl_id) values (%d,%d)",
+                    $slp_QueryID,
+                    $row['sl_id']  
+                )
+            );           
+    }  
 }
 
 // End XML file
 echo "</markers>\n";
 
+    
 

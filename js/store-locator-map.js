@@ -139,7 +139,7 @@ function searchLocationsNear(center, homeAddress) {
         '&lng='    + center.lng() + 
         '&radius=' + radius +
         '&tags='   + taglist +
-        '&address=' + address
+        '&address=' + homeAddress
         ;
         
     GDownloadUrl(searchUrl, 
