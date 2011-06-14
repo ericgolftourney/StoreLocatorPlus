@@ -339,10 +339,7 @@ function activate_slplus() {
     global $sl_db_version, $sl_installed_ver;
 	$sl_db_version='2.0';     //***** CHANGE THIS ON EVERY STRUCT CHANGE
     $sl_installed_ver = get_option( "sl_db_version" );
-    
-    // TEMPORARY TESTING...
-    $sl_installed_ver = 1.9;
-    
+
 	install_main_table();
 	if (function_exists('install_reporting_tables')) {
 	    install_reporting_tables();
