@@ -671,8 +671,8 @@ function csl_slplus_add_options_page() {
 	    )
 	{
         add_menu_page(
-            __("SLP Locations", SLPLUS_PREFIX),  
-            __("SLP Locations", SLPLUS_PREFIX), 
+            __($slplus_plugin->name, SLPLUS_PREFIX),  
+            __($slplus_plugin->name, SLPLUS_PREFIX), 
             'administrator', 
             SLPLUS_COREDIR.'add-locations.php'
             );	
@@ -697,6 +697,18 @@ function csl_slplus_add_options_page() {
 		    'administrator', 
 		    SLPLUS_COREDIR.'map-designer.php'
 		    );
+		
+		// Plus Reporting
+		//
+		if (function_exists('slplus_add_report_settings')) {
+            add_submenu_page(
+                SLPLUS_COREDIR.'add-locations.php',
+                __("Reports", SLPLUS_PREFIX), 
+                __("Reports", SLPLUS_PREFIX), 
+                'administrator', 
+                SLPLUS_PLUGINDIR.'reporting.php'
+                );		    
+		}
 	}
 
 }
