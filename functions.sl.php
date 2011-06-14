@@ -333,31 +333,46 @@ function do_geocoding($address,$sl_id='') {
  **/
 
 function activate_slplus() {
-    install_table();
+    
+    // Data Updates
+    //
+    global $sl_db_version, $sl_installed_ver;
+	$sl_db_version='2.0';     //***** CHANGE THIS ON EVERY STRUCT CHANGE
+    $sl_installed_ver = get_option( "sl_db_version" );
+    
+    // TEMPORARY TESTING...
+    $sl_installed_ver = 1.9;
+    
+	install_main_table();
+	if (function_exists('install_reporting_tables')) {
+	    install_reporting_tables();
+    }	 
+    update_option("sl_db_version", $sl_db_version);
+    
+    
     if (function_exists('add_slplus_roles_and_caps')) {
         add_slplus_roles_and_caps();
-    }    
+    }        
+	move_upload_directories();
 }
 
 
 /***********************************
- ** Create the Store Locator Plus table during an installation or upgrade.
+ ** function: install_main_table
  **
- ** You must change the sl_db_verion whenever you change the stucture.
- ** This will allow the built-in WordPress db_delta function to perform
- ** an automatic table structure upgrade from the prior installed version.
- **/ 
-function install_table() {
-	global $wpdb, $sl_path, $sl_upload_path;
-
-
-	/******************************************************
-	 * CHANGE THIS WHENVER YOU CHANGE THE DB STRUCTURE!!! *
-	 ******************************************************/
-	$sl_db_version='1.8';
-
+ ** Install/update the main locations table.
+ **
+ **/
+function install_main_table() {
+	global $wpdb, $sl_installed_ver;
+    
+	
+	//*****
+	//***** CHANGE sl_db_version IN activate_slplus() 
+	//***** ANYTIME YOU CHANGE THIS STRUCTURE
+	//*****	
 	$table_name = $wpdb->prefix . "store_locator";
-	$sql = "CREATE TABLE " . $table_name . " (
+	$sql = "CREATE TABLE $table_name (
 			sl_id mediumint(8) unsigned NOT NULL auto_increment,
 			sl_store varchar(255) NULL,
 			sl_address varchar(255) NULL,
@@ -377,28 +392,54 @@ function install_table() {
 			sl_image varchar(255) NULL,
 			sl_private varchar(1) NULL,
 			sl_neat_title varchar(255) NULL,
+			sl_lastupdated  timestamp NOT NULL default current_timestamp,			
 			PRIMARY KEY  (sl_id)
-			) ENGINE=innoDB  DEFAULT CHARACTER SET=utf8  DEFAULT COLLATE=utf8_unicode_ci;";
-	
+			) 
+			ENGINE=innoDB  
+			DEFAULT CHARACTER SET=utf8  
+			DEFAULT COLLATE=addasfutf8_unicode_ci;
+			";
+						
+    // If we updated an existing DB, do some mods to the data
+    //
+    if (slplus_dbupdater($sql,$table_name) === 'updated') {
+        
+        // We are upgrading from something less than 2.0
+        //
+	    if (floatval($sl_installed_ver) < 2.0) {
+            dbDelta("UPDATE $table_name SET sl_lastupdated=current_timestamp " . 
+                "WHERE sl_lastupdated < '2011-06-01'"
+                );
+        }            
+    }
+}
+
+/***********************************
+ ** function: slplus_dbupdater
+ ** 
+ ** Update the data structures on new db versions.
+ **sl
+ **/ 
+function slplus_dbupdater($sql,$table_name) {
+    global $wpdb, $sl_db_version, $sl_installed_ver;
+    
     // New installation
     //
 	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
 		add_option("sl_db_version", $sl_db_version);
+		return 'new';
 		
     // Installation upgrade
     //
 	} else {        
-        $installed_ver = get_option( "sl_db_version" );
-        if( $installed_ver != $sl_db_version ) {
+        if( $sl_installed_ver != $sl_db_version ) {
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
             dbDelta($sql);
-            update_option("sl_db_version", $sl_db_version);
+            return 'updated';    
         }
-    }        
-	
-	move_upload_directories();
+    }    
 }
 
 
