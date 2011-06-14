@@ -1,9 +1,17 @@
 /***************************
+ * Reporting Interface
+ */
+#icon-csl-slplus_reporting {
+    background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -12px -5px transparent;
+}
+
+
+/***************************
  * Manage Locations Form
  */
 
 #icon-edit-locations, #icon-locations {
-    background: url("/wp-content/plugins/closes-store/icon_location.png") no-repeat scroll -312px -5px transparent;
+    background: url("../../core/images/icon_location.png") no-repeat scroll -312px -5px transparent;
 }
 
 .add_location_form label {
