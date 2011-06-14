@@ -49,6 +49,52 @@ function execute_and_output_plustemplate($file) {
     print get_string_from_phpexec($file);
 }
 
+
+/***********************************
+ ** function: install_reporting_tables
+ **
+ ** Install/update the reporting table.
+ **
+ **/
+function install_reporting_tables() {
+	global $wpdb;
+    
+    if ( ! empty($wpdb->charset) )
+        $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+    if ( ! empty($wpdb->collate) )
+        $charset_collate .= " COLLATE $wpdb->collate";
+
+	//*****
+	//***** CHANGE sl_db_version IN slplus_dbupdater() 
+	//***** ANYTIME YOU CHANGE THIS STRUCTURE
+	//*****		
+	$table_name = $wpdb->prefix . "slp_rep_query";
+	$sql = "CREATE TABLE $table_name (
+			slp_repq_id    bigint(20) unsigned NOT NULL auto_increment,
+			slp_repq_time  timestamp NOT NULL default current_timestamp,
+			slp_repq_query varchar(255) NOT NULL,
+			PRIMARY KEY  (slp_repq_id)
+			)
+			$charset_collate						
+			";
+    slplus_dbupdater($sql,$table_name);	
+    
+
+	//*****
+	//***** CHANGE sl_db_version IN slplus_dbupdater() 
+	//***** ANYTIME YOU CHANGE THIS STRUCTURE
+	//*****		
+	$table_name = $wpdb->prefix . "slp_rep_query_results";
+	$sql = "CREATE TABLE $table_name (
+			slp_repqr_id    bigint(20) unsigned NOT NULL auto_increment,
+			slp_repq_id     bigint(20) unsigned NOT NULL,
+			sl_id           mediumint(8) unsigned NOT NULL,
+			PRIMARY KEY  (slp_repqr_id)
+			)
+			$charset_collate						
+			";
+	slplus_dbupdater($sql, $table_name );
+}
  
 /**************************************
  ** function: slplus_create_country_pd()
