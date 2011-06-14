@@ -37,7 +37,7 @@ function csl_slplus_setup_admin_interface() {
     );
 
     //-------------------------
-    // General Settings
+    // Google Communiations
     //-------------------------    
     $slplus_plugin->settings->add_section(
         array(
@@ -84,6 +84,28 @@ function csl_slplus_setup_admin_interface() {
             )
     );
     
+    //-------------------------
+    // Reporting
+    //-------------------------   
+    $slp_rep_desc = __('These settings affect how the reporting system behaves. ', SLPLUS_PREFIX);
+    if (!function_exists('slplus_add_report_settings')) {
+        $slp_rep_desc .= '<br/><br/>'.
+            __('This is a <a href="http://www.cybersprocket.com/products/store-locator-plus/">plus version</a>'.
+            ' feature.  It provides a way to generate reports on what locations' .
+            ' people have searched for and what results they received back. ', SLPLUS_PREFIX);
+    }
+    $slp_rep_desc .= '<br/><br/>'; 
+        
+    $slplus_plugin->settings->add_section(
+        array(
+            'name'        => 'Reporting',
+            'description' => $slp_rep_desc
+        )
+    );
+    
+    if (function_exists('slplus_add_report_settings')) {
+        slplus_add_report_settings();
+    }    
 }
  
  
