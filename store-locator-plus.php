@@ -38,7 +38,7 @@ if (defined('SLPLUS_PLUGINDIR') === false) {
     define('SLPLUS_PLUGINDIR', plugin_dir_path(__FILE__));
 }
 if (defined('SLPLUS_COREDIR') === false) {
-    define('SLPLUS_COREDIR', SLPLUS_PLUGINDIR . '/core/');
+    define('SLPLUS_COREDIR', SLPLUS_PLUGINDIR . 'core/');
 }
 if (defined('SLPLUS_ICONDIR') === false) {
     define('SLPLUS_ICONDIR', SLPLUS_COREDIR . 'images/icons/');
