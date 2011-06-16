@@ -5,6 +5,9 @@
     background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -12px -5px transparent;
 }
 
+.section_description {
+    padding-bottom: 6px;
+}
 
 /***************************
  * Manage Locations Form
