@@ -61,6 +61,10 @@ $slpReportSettings->add_item(
 $slpReportEndDate = (isset($_POST[SLPLUS_PREFIX.'-end_date'])) ?
     $_POST[SLPLUS_PREFIX.'-end_date'] :
     date('Y-m-d',time()) . ' 11:59:59';
+    if (!preg_match('/\d\d:\d\d$/',$slpReportEndDate)) {
+        $slpReportEndDate .= ' 11:59:59';
+    }
+    
 $slpReportSettings->add_item(
     'Report Parameters', 
     __('End Date: ',SLPLUS_PREFIX),   
@@ -70,6 +74,17 @@ $slpReportSettings->add_item(
     null,
     null,
     $slpReportEndDate
+);     
+
+$slpReportSettings->add_item(
+    'Report Parameters', 
+    '',   
+    'runreport',    
+    'submit_button',
+    null,
+    null,
+    null,
+    __('Run Report',SLPLUS_PREFIX)
 );     
 
 
