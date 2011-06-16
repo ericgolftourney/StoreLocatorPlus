@@ -146,7 +146,7 @@ foreach ($slpReportDataset as $slpReportDatapoint) {
 
 $slpGoogleChartType = ($slpGoogleChartRows < 2)  ?
     'ColumnChart' :
-    'LineChart';
+    'AreaChart';
 
 
 //------------------------------------
