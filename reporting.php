@@ -93,9 +93,9 @@ $slpReportSettings->add_section(
 // from wp_slp_rep_query QRY2 group by TheDate;
 //
 $slpReportQuery = sprintf(
-    "select count(*) as TheCount," . 
+    "select count(*) as QueryCount," . 
         "sum((select count(*) from %s ". 
-                    "where slp_repq_id = qry2.slp_repq_id)) as TheResults," .
+                    "where slp_repq_id = qry2.slp_repq_id)) as ResultCount," .
         "DATE(slp_repq_time) as TheDate " .        
         "FROM %s qry2 " .
         "WHERE slp_repq_time > '%s' AND " .
@@ -110,6 +110,8 @@ $slpReportDataset = $wpdb->get_results($slpReportQuery);
 
 $slpGoogleChartRows = 0;
 $slpGoogleChartData = '';
+$slpRepTotalQueries = 0;
+$slpRepTotalResults = 0;
 foreach ($slpReportDataset as $slpReportDatapoint) {
     $slpGoogleChartData .= sprintf(
         "data.setValue(%d, 0, '%s');".
@@ -118,11 +120,13 @@ foreach ($slpReportDataset as $slpReportDatapoint) {
         $slpGoogleChartRows,
         $slpReportDatapoint->TheDate,
         $slpGoogleChartRows,
-        $slpReportDatapoint->TheCount,
+        $slpReportDatapoint->QueryCount,
         $slpGoogleChartRows,        
-        $slpReportDatapoint->TheResults
+        $slpReportDatapoint->ResultCount
         );
     $slpGoogleChartRows++;        
+    $slpRepTotalQueries += $slpReportDatapoint->QueryCount;
+    $slpRepTotalResults += $slpReportDatapoint->ResultCount;
 }    
 
 $slpGoogleChartType = ($slpGoogleChartRows < 2)  ?
@@ -151,9 +155,11 @@ $slpReportDatapoint = $wpdb->get_var($slpReportQuery);
 
 $slpSectionDesc = sprintf(
     '<div class="reportline total">' .
-        __('Total searches: %s', SLPLUS_PREFIX). 
+        __('Total searches: <strong>%s</strong>', SLPLUS_PREFIX). "<br/>" . 
+        __('Total results: <strong>%s</strong>', SLPLUS_PREFIX). 
     '</div>',
-     $slpReportDatapoint
+     $slpRepTotalQueries,
+     $slpRepTotalResults
     );    
 
 $slpReportSettings->add_section(
@@ -179,7 +185,7 @@ $slpReportSettings->add_section(
         data.addRows(<?php echo $slpGoogleChartRows; ?>);
         <?php echo $slpGoogleChartData; ?>
         var chart = new google.visualization.<?php echo $slpGoogleChartType; ?>(document.getElementById('chart_div'));
-        chart.draw(data, {width: 800, height: 400});
+        chart.draw(data, {width: 800, height: 400, pointSize: 4});
       }
     </script>
 
