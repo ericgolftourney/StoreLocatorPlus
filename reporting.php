@@ -84,22 +84,30 @@ $slpReportSettings->add_section(
         )
  );
 
-// Total searches each day
+// Total results each day
+// select 
+//      count(*) as TheCount, 
+//      sum((select count(*) from wp_slp_rep_query_results RES 
+//                  where slp_repq_id = QRY2.slp_repq_id)) as TheResults,
+//      DATE(slp_repq_time) as TheDate 
+// from wp_slp_rep_query QRY2 group by TheDate;
 //
-// select count(*) as TheCount,DATE(slp_repq_time) as TheDate from wp_slp_rep_query 
-//      where slp_repq_time > '2011-05-17' and 
-//            slp_repq_time <= '2011-06-16 11:59:59' 
-//      group by TheDate;
 $slpReportQuery = sprintf(
-    "SELECT count(*) as TheCount, DATE(slp_repq_time) as TheDate FROM %s " .
+    "select count(*) as TheCount," . 
+        "sum((select count(*) from %s ". 
+                    "where slp_repq_id = qry2.slp_repq_id)) as TheResults," .
+        "DATE(slp_repq_time) as TheDate " .        
+        "FROM %s qry2 " .
         "WHERE slp_repq_time > '%s' AND " .
-        "      slp_repq_time <= '%s' " .
+        "      slp_repq_time <= '%s' " .       
         "GROUP BY TheDate",
+    $slpResultsTable,
     $slpQueryTable,
     $slpReportStartDate,
     $slpReportEndDate
     );
 $slpReportDataset = $wpdb->get_results($slpReportQuery);
+
 $slpGoogleChartRows = 0;
 $slpGoogleChartData = '';
 foreach ($slpReportDataset as $slpReportDatapoint) {
@@ -112,7 +120,7 @@ foreach ($slpReportDataset as $slpReportDatapoint) {
         $slpGoogleChartRows,
         $slpReportDatapoint->TheCount,
         $slpGoogleChartRows,        
-        $slpReportDatapoint->TheCount+5
+        $slpReportDatapoint->TheResults
         );
     $slpGoogleChartRows++;        
 }    
