@@ -6,7 +6,7 @@
  ***************************************************************************/
  global $slplus_plugin;
  
- $slp_report_settings = new wpCSL_settings__slplus(
+ $slpReportSettings = new wpCSL_settings__slplus(
         array(
                 'no_license'        => true,
                 'prefix'            => $slplus_plugin->prefix,
@@ -18,7 +18,7 @@
             )
      ); 
  
-    $slp_report_settings->add_section(
+    $slpReportSettings->add_section(
         array(
                 'name'          => __('Report Parameters',SLPLUS_PREFIX),
                 'description'   => __('Use these settings to select which data to
@@ -26,8 +26,14 @@
                 'auto'          => true
             )
      );
- 
-    $slp_report_settings->add_item(
+
+    // Start of date range to report on
+    // default: 30 days ago
+    //
+    $slpReportStartDate = isset($_POST[SLPLUS_PREFIX.'-start_date']) ?
+        $_POST[SLPLUS_PREFIX.'-start_date'] :
+        date('Y-m-d',time() - (30 * 24 * 60 * 60));
+    $slpReportSettings->add_item(
         'Report Parameters', 
         __('Start Date: ',SLPLUS_PREFIX),   
         'start_date',    
@@ -35,10 +41,16 @@
         null,
         null,
         null,
-        $_POST[SLPLUS_PREFIX.'-start_date']
+        $slpReportStartDate
     ); 
  
-    $slp_report_settings->add_item(
+    // Start of date range to report on
+    // default: today
+    //
+    $slpReportEndDate = (isset($_POST[SLPLUS_PREFIX.'-end_date'])) ?
+        $_POST[SLPLUS_PREFIX.'-end_date'] :
+        date('Y-m-d',time());
+    $slpReportSettings->add_item(
         'Report Parameters', 
         __('End Date: ',SLPLUS_PREFIX),   
         'end_date',    
@@ -46,10 +58,11 @@
         null,
         null,
         null,
-        $_POST[SLPLUS_PREFIX.'-end_date']
+        $slpReportEndDate
     );     
 ?>
 
 <?php     
-    $slp_report_settings->render_settings_page(); 
+    $slpReportSettings->render_settings_page();
+
 ?>
