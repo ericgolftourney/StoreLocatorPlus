@@ -60,9 +60,9 @@ $slpReportSettings->add_item(
 //
 $slpReportEndDate = (isset($_POST[SLPLUS_PREFIX.'-end_date'])) ?
     $_POST[SLPLUS_PREFIX.'-end_date'] :
-    date('Y-m-d',time()) . ' 11:59:59';
+    date('Y-m-d',time()) . ' 23:59:59';
     if (!preg_match('/\d\d:\d\d$/',$slpReportEndDate)) {
-        $slpReportEndDate .= ' 11:59:59';
+        $slpReportEndDate .= ' 23:59:59';
     }
     
 $slpReportSettings->add_item(
@@ -156,7 +156,7 @@ $slpGoogleChartType = ($slpGoogleChartRows < 2)  ?
 //
 // select count(*) from wp_slp_rep_query 
 //      where slp_repq_time > '2011-05-17' and 
-//            slp_repq_time <= '2011-06-16 11:59:59';
+//            slp_repq_time <= '2011-06-16 23:59:59';
 //
 $slpReportQuery = sprintf(
     "SELECT count(*) FROM %s " .
