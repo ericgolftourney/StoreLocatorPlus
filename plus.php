@@ -74,7 +74,8 @@ function install_reporting_tables() {
 			slp_repq_time  timestamp NOT NULL default current_timestamp,
 			slp_repq_query varchar(255) NOT NULL,
 			slp_repq_tags  varchar(255),
-			slp_repq_address varchar(255)
+			slp_repq_address varchar(255),
+			slp_repq_radius varchar(5),
 			PRIMARY KEY  (slp_repq_id)
 			)
 			$charset_collate						
