@@ -5,10 +5,23 @@
     background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -12px -5px transparent;
 }
 
+#rb_details th {
+    font-size: 12px;
+}
+
+#rb_details td {
+    line-height: 1.5em;
+}
+
 .section_description {
     padding-bottom: 6px;
     color: #666666;
 }
+
+.alignright {
+    text-align: right;
+}
+
 
 /***************************
  * Manage Locations Form
