@@ -76,17 +76,15 @@ if (!$result) {
 // 
 if (get_option(SLPLUS_PREFIX.'-reporting_enabled') === 'on') {
     $qry = sprintf(                                              
-            "INSERT INTO ${dbPrefix}slp_rep_query 
-                (slp_repq_query) values ('%s')",
-                mysql_real_escape_string($_SERVER['QUERY_STRING'])
+            "INSERT INTO ${dbPrefix}slp_rep_query ". 
+                       "(slp_repq_query,slp_repq_tags,slp_repq_address,slp_repq_radius) ". 
+                "values ('%s','%s','%s')",
+                mysql_real_escape_string($_SERVER['QUERY_STRING']),
+                mysql_real_escape_string($_GET['tags']),
+                mysql_real_escape_string($_GET['address']),
+                mysql_real_escape_string($_GET['radius']),
             );
-    $wpdb->query(
-              sprintf(
-            "INSERT INTO ${dbPrefix}slp_rep_query 
-                (slp_repq_query) values ('%s')",
-                mysql_real_escape_string($_SERVER['QUERY_STRING'])
-            )
-        );
+    $wpdb->query($qry);
     $slp_QueryID = mysql_insert_id();
 }
 
