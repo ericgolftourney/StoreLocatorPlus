@@ -76,6 +76,27 @@ $slpReportSettings->add_item(
     $slpReportEndDate
 );     
 
+// How many detail records to report back
+// default: 10
+//
+$slpReportLimit = isset($_POST[SLPLUS_PREFIX.'-report_limit']) ?
+    $_POST[SLPLUS_PREFIX.'-report_limit'] :
+    '10';
+$slpReportSettings->add_item(
+    'Report Parameters', 
+    __('How many detail records? ',SLPLUS_PREFIX),   
+    'report_limit',    
+    'text',
+    false,
+    __('Determines how many detail records are reported. ' .
+       'More records take longer to report. '.
+       '(Default: 10, recommended maximum: 500)',
+       SLPLUS_PREFIX
+       ),
+    null,
+    $slpReportLimit
+);
+
 $slpReportSettings->add_item(
     'Report Parameters', 
     '',   
@@ -185,6 +206,75 @@ $slpReportSettings->add_section(
         )
  );
 
+
+//------------------------------------
+// The Details Data Panel
+//
+
+//....
+//
+// What are the top addresses searched?
+//
+// SELECT slp_repq_address,count(*) as QueryCount 
+//      FROM wp_slp_rep_query 
+//      WHERE slp_repq_time > '%s' AND slp_repq_time <= '%s'
+//      GROUP BY slp_repq_address 
+//      ORDER BY QueryCount DESC;
+//
+//
+$slpReportQuery = sprintf(
+    "SELECT slp_repq_address, count(*)  as QueryCount FROM %s " .
+        "WHERE slp_repq_time > '%s' AND " .
+        "      slp_repq_time <= '%s' " .
+        "GROUP BY slp_repq_address ".
+        "ORDER BY QueryCount DESC " .
+        "LIMIT %s"
+        ,
+    $slpQueryTable,
+    $slpReportStartDate,
+    $slpReportEndDate,
+    $slpReportLimit
+    );
+$slpReportDataset = $wpdb->get_results($slpReportQuery);
+
+$slpSectionDesc = 
+    '<div id="rb_details" class="reportblock">' .
+        '<h2>' . sprintf(__('Top %s Addresses Searched', SLPLUS_PREFIX),$slpReportLimit) . '</h2>' .
+        '<table>' .
+            '<thead>' .
+                '<tr>' .
+                    '<th>' . __('Address',SLPLUS_PREFIX)    . '</th>' .
+                    '<th>' . __('Total',SLPLUS_PREFIX)      . '</th>' .
+                '</tr>' .
+            '</thead>' .
+            '<tbody>'
+            ;
+                
+foreach ($slpReportDataset as $slpReportDatapoint) {
+    $slpSectionDesc .= sprintf(
+        '<tr>' .
+            '<td>%s</td>'.           
+            '<td class="alignright">%s</td>'.           
+        '</tr>'
+        ,
+         $slpReportDatapoint->slp_repq_address,
+         $slpReportDatapoint->QueryCount
+        );    
+}
+
+$slpSectionDesc .=
+            '</tbody>' .
+        '</table>'.
+    '</div>';
+
+
+$slpReportSettings->add_section(
+    array(
+            'name'          => __('Details',SLPLUS_PREFIX),
+            'description'   => $slpSectionDesc,
+            'auto'          => true
+        )
+ );
 
 ?>
 
