@@ -13,6 +13,16 @@
     line-height: 1.5em;
 }
 
+#rb_details .rb_column {
+    float: left;
+}
+
+
+#poststuff #rb_details h2 {
+    margin-bottom: 0px;  
+    margin-top: 0px;
+}
+
 .section_description {
     padding-bottom: 6px;
     color: #666666;
