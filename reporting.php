@@ -18,7 +18,7 @@ function DetailDataSection($theQuery, $SectionHeader, $columnHeaders, $columnDat
         '<div id="rb_details" class="reportblock">' .
             '<div class="rb_column">'.
                 '<h2>' . $SectionHeader . '</h2>' .
-                '<table>' .
+                '<table cellpadding="0" cellspacing="0">' .
                     '<thead>' .
                         '<tr>';
                         
@@ -30,15 +30,18 @@ function DetailDataSection($theQuery, $SectionHeader, $columnHeaders, $columnDat
                     '</thead>' .
                     '<tbody>'
                     ;
-                    
+
+    $slpReportRowClass = 'rowon';                    
     foreach ($thisDataset as $thisDatapoint) {
+        $slpReportRowClass = ($slpReportRowClass === 'rowoff') ? 'rowon' : 'rowoff';
         $thisSectionDesc .= '<tr>';
         foreach ($columnDataLines as $columnDataLine) {            
             $columnName = $columnDataLine['columnName'];
             $columnClass= $columnDataLine['columnClass'];
             $thisSectionDesc .= sprintf(
-                '<td class="%s">%s</td>',
+                '<td class="%s %s">%s</td>',
                 $columnClass,
+                $slpReportRowClass,
                 $thisDatapoint->$columnName
                 );           
         }
