@@ -194,6 +194,17 @@ div.feedburnerFeedBlock ul li span.headline {
     float: left;
 }
 
+.helpicon {
+    padding-left: 5px;
+    position: relative;
+    vertical-align: top;
+}
+
+.form-table .input_label {
+    vertical-align: middle;
+    padding: 0px;
+    text-align: right;
+}
 
 /**** Manage Locations Page ****/
 .addloclink {
