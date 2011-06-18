@@ -7,10 +7,64 @@
  
 global $slplus_plugin, $wpdb;
 
+//===========================================================================
+// Supporting Functions
+//===========================================================================
+function DetailDataSection($theQuery, $SectionHeader, $columnHeaders, $columnDataLines) {
+    global $wpdb;
+    $thisDataset = $wpdb->get_results($theQuery);
+    
+    $thisSectionDesc = 
+        '<div id="rb_details" class="reportblock">' .
+            '<div class="rb_column">'.
+                '<h2>' . $SectionHeader . '</h2>' .
+                '<table>' .
+                    '<thead>' .
+                        '<tr>';
+                        
+    foreach ($columnHeaders as $columnHeader) {                        
+       $thisSectionDesc .= "<th>$columnHeader</th>";
+    }                            
+                            
+    $thisSectionDesc .=  '</tr>' .
+                    '</thead>' .
+                    '<tbody>'
+                    ;
+                    
+    foreach ($thisDataset as $thisDatapoint) {
+        $thisSectionDesc .= '<tr>';
+        foreach ($columnDataLines as $columnDataLine) {            
+            $columnName = $columnDataLine['columnName'];
+            $columnClass= $columnDataLine['columnClass'];
+            $thisSectionDesc .= sprintf(
+                '<td class="%s">%s</td>',
+                $columnClass,
+                $thisDatapoint->$columnName
+                );           
+        }
+        $thisSectionDesc .= '</tr>';
+    }
+    
+    $thisSectionDesc .=
+                    '</tbody>' .
+                '</table>'.
+            '</div>' .
+        '</div>'
+        ;   
+        
+    return $thisSectionDesc;        
+}
+
+
+//===========================================================================
+// Main Processing
+//===========================================================================
+
 // Data Settings
 //
 $slpQueryTable     = $wpdb->prefix . 'slp_rep_query';
 $slpResultsTable   = $wpdb->prefix . 'slp_rep_query_results';
+$slpLocationsTable = $wpdb->prefix . 'store_locator';
  
 // Instantiate the form rendering object
 //
@@ -210,6 +264,7 @@ $slpReportSettings->add_section(
 //------------------------------------
 // The Details Data Panel
 //
+$slpSectionDescription = '';
 
 //....
 //
@@ -235,49 +290,83 @@ $slpReportQuery = sprintf(
     $slpReportEndDate,
     $slpReportLimit
     );
-$slpReportDataset = $wpdb->get_results($slpReportQuery);
+$slpSectionHeader = sprintf(__('Top %s Addresses Searched', SLPLUS_PREFIX),$slpReportLimit);
+$slpColumnHeaders = array(
+    __('Address',SLPLUS_PREFIX),
+    __('Total',SLPLUS_PREFIX)
+    );
+$slpDataLines = array(
+        array('columnName' => 'slp_repq_address', 'columnClass'=> ''            ),
+        array('columnName' => 'QueryCount',       'columnClass'=> 'alignright'  ),
+    );
+$slpSectionDescription .= DetailDataSection(
+                $slpReportQuery, $slpSectionHeader, 
+                $slpColumnHeaders, $slpDataLines
+                );
 
-$slpSectionDesc = 
-    '<div id="rb_details" class="reportblock">' .
-        '<div class="rb_column">'.
-            '<h2>' . sprintf(__('Top %s Addresses Searched', SLPLUS_PREFIX),$slpReportLimit) . '</h2>' .
-            '<table>' .
-                '<thead>' .
-                    '<tr>' .
-                        '<th>' . __('Address',SLPLUS_PREFIX)    . '</th>' .
-                        '<th>' . __('Total',SLPLUS_PREFIX)      . '</th>' .
-                    '</tr>' .
-                '</thead>' .
-                '<tbody>'
-                ;
-                
-foreach ($slpReportDataset as $slpReportDatapoint) {
-    $slpSectionDesc .= sprintf(
-        '<tr>' .
-            '<td>%s</td>'.           
-            '<td class="alignright">%s</td>'.           
-        '</tr>'
+//....
+//
+// What are the top results returned?
+//
+// SELECT sl_store,sl_city,sl_state, sl_zip, sl_tags, count(*) as ResultCount 
+//      FROM wp_slp_rep_query_results res 
+//          LEFT JOIN wp_store_locator sl 
+//              ON (res.sl_id = sl.sl_id)  
+//      WHERE slp_repq_time > '%s' AND slp_repq_time <= '%s'
+//      GROUP BY sl_store,sl_city,sl_state,sl_zip,sl_tags
+//      ORDER BY ResultCount DESC
+//      LIMIT %s
+//
+$slpReportQuery = sprintf(
+    "SELECT sl_store,sl_city,sl_state, sl_zip, sl_tags, count(*) as ResultCount " . 
+        "FROM %s res ".
+            "LEFT JOIN %s sl ". 
+                "ON (res.sl_id = sl.sl_id) ".  
+            "LEFT JOIN %s qry ". 
+                "ON (res.slp_repq_id = qry.slp_repq_id) ".  
+            "WHERE slp_repq_time > '%s' AND slp_repq_time <= '%s' ".
+        "GROUP BY sl_store,sl_city,sl_state,sl_zip,sl_tags ".
+        "ORDER BY ResultCount DESC ".
+        "LIMIT %s"
         ,
-         $slpReportDatapoint->slp_repq_address,
-         $slpReportDatapoint->QueryCount
-        );    
-}
-
-$slpSectionDesc .=
-                '</tbody>' .
-            '</table>'.
-        '</div>' .
-    '</div>'
-    ;
-
+    $slpResultsTable,
+    $slpLocationsTable,
+    $slpQueryTable,
+    $slpReportStartDate,
+    $slpReportEndDate,
+    $slpReportLimit
+    );
+$slpSectionHeader = sprintf(__('Top %s Results Returned', SLPLUS_PREFIX),$slpReportLimit);
+$slpColumnHeaders = array(
+    __('Store',SLPLUS_PREFIX),
+    __('City',SLPLUS_PREFIX),
+    __('State',SLPLUS_PREFIX),
+    __('Zip',SLPLUS_PREFIX),
+    __('Tags',SLPLUS_PREFIX),
+    __('Total',SLPLUS_PREFIX)
+    );
+$slpDataLines = array(
+        array('columnName' => 'sl_store',   'columnClass'=> ''            ),
+        array('columnName' => 'sl_city',    'columnClass'=> ''            ),
+        array('columnName' => 'sl_state',   'columnClass'=> ''            ),
+        array('columnName' => 'sl_zip',     'columnClass'=> ''            ),
+        array('columnName' => 'sl_tags',    'columnClass'=> ''            ),
+        array('columnName' => 'ResultCount','columnClass'=> 'alignright'  ),
+    );
+$slpSectionDescription .= DetailDataSection(
+                $slpReportQuery, $slpSectionHeader, 
+                $slpColumnHeaders, $slpDataLines
+                );
 
 $slpReportSettings->add_section(
     array(
             'name'          => __('Details',SLPLUS_PREFIX),
-            'description'   => $slpSectionDesc,
+            'description'   => $slpSectionDescription,
             'auto'          => true
         )
  );
+
+
 
 ?>
 
