@@ -7,6 +7,8 @@
 
 #rb_details th {
     font-size: 12px;
+    background: #F0F4F0;
+    padding: 6px;
 }
 
 #rb_details td {
@@ -33,6 +35,17 @@
 
 .alignright {
     text-align: right;
+}
+
+.rowon {
+    background: #F4F4FF;
+    padding-right: 6px;
+    min-width: 39px;
+}
+.rowoff {
+    background: #FFFFFF;
+    padding-right: 6px;
+    min-width: 39px;
 }
 
 
