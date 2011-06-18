@@ -239,16 +239,17 @@ $slpReportDataset = $wpdb->get_results($slpReportQuery);
 
 $slpSectionDesc = 
     '<div id="rb_details" class="reportblock">' .
-        '<h2>' . sprintf(__('Top %s Addresses Searched', SLPLUS_PREFIX),$slpReportLimit) . '</h2>' .
-        '<table>' .
-            '<thead>' .
-                '<tr>' .
-                    '<th>' . __('Address',SLPLUS_PREFIX)    . '</th>' .
-                    '<th>' . __('Total',SLPLUS_PREFIX)      . '</th>' .
-                '</tr>' .
-            '</thead>' .
-            '<tbody>'
-            ;
+        '<div class="rb_column">'.
+            '<h2>' . sprintf(__('Top %s Addresses Searched', SLPLUS_PREFIX),$slpReportLimit) . '</h2>' .
+            '<table>' .
+                '<thead>' .
+                    '<tr>' .
+                        '<th>' . __('Address',SLPLUS_PREFIX)    . '</th>' .
+                        '<th>' . __('Total',SLPLUS_PREFIX)      . '</th>' .
+                    '</tr>' .
+                '</thead>' .
+                '<tbody>'
+                ;
                 
 foreach ($slpReportDataset as $slpReportDatapoint) {
     $slpSectionDesc .= sprintf(
@@ -263,9 +264,11 @@ foreach ($slpReportDataset as $slpReportDatapoint) {
 }
 
 $slpSectionDesc .=
-            '</tbody>' .
-        '</table>'.
-    '</div>';
+                '</tbody>' .
+            '</table>'.
+        '</div>' .
+    '</div>'
+    ;
 
 
 $slpReportSettings->add_section(
