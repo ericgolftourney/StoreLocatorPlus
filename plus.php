@@ -181,26 +181,9 @@ function slplus_shortcode_atts($attributes) {
 }
 
 /**************************************
- ** function: wp_ajax_SLPDownloadReport()
- ** 
- ** Handles the AJAX processing for report downloads.
- ** This allows us to hook into the built-in WordPress
- ** AJAX system.
- **
- **/
-function slplus_download_report() {
-    echo "Hello AJAX Interface sent me ".$_POST['whatever']."<br/>";
-    die();
-}
-
-/**************************************
  ** function: slpreport_downloads()
  **
  ** Setup the javascript hook for reporting AJAX
- 
-                     e.preventDefault();                    
-                    window.location.href = '<?php echo SLPLUS_PLUGINURL; ?>/downloadcsv.php';
-
  **
  **/
 function slpreport_downloads() {
