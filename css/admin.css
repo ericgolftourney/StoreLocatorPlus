@@ -48,6 +48,10 @@
     min-width: 39px;
 }
 
+#rb_details input[type="button"] {
+    width: 100px;
+}
+
 
 /***************************
  * Manage Locations Form
