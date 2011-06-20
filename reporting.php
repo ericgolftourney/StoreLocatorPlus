@@ -361,6 +361,12 @@ $slpSectionDescription .= DetailDataSection(
                 $slpColumnHeaders, $slpDataLines
                 );
 
+$slpSectionDescription .= '
+    <p class="submit">
+    <input id="export_results" class="button-secondary" type="button" value="Download CSV File" name="submit">
+    </p>
+    ';
+
 $slpReportSettings->add_section(
     array(
             'name'          => __('Details',SLPLUS_PREFIX),
