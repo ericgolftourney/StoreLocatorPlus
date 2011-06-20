@@ -158,6 +158,48 @@ function slplus_create_country_pd() {
 
 
 /**************************************
+ ** function: slpreport_downloads()
+ **
+ ** Setup the javascript hook for reporting AJAX
+ **
+ **/
+function slpreport_downloads() {
+    ?>
+    <script type="text/javascript" >
+    jQuery(document).ready( 
+        function($) {
+            
+            // Export Results Button Click
+            //
+            $("#export_results").click(
+                function(e) {
+                    jQuery('<form action="<?php echo SLPLUS_PLUGINURL; ?>/downloadcsv.php" method="post">'+
+                            '<input type="hidden" name="filename" value="topresults">' +
+                            '<input type="hidden" name="query" value="' + $("[name=topresults]").val() + '">' +                            
+                            '</form>'
+                            ).appendTo('body').submit().remove();                    
+                }
+            );
+            
+            // Export Searches Button Click
+            //
+            $("#export_searches").click(
+                function(e) {
+                    jQuery('<form action="<?php echo SLPLUS_PLUGINURL; ?>/downloadcsv.php" method="post">'+
+                            '<input type="hidden" name="filename" value="topsearches">' +
+                            '<input type="hidden" name="query" value="' + $("[name=topsearches]").val() + '">' +                            
+                            '</form>'
+                            ).appendTo('body').submit().remove();                    
+                }
+            );
+            
+        }
+    );
+    </script>
+    <?php
+}
+
+/**************************************
  ** function: slplus_shortcode_atts()
  ** 
  ** Set the entire list of accepted attributes.
@@ -180,28 +222,4 @@ function slplus_shortcode_atts($attributes) {
 
 }
 
-/**************************************
- ** function: slpreport_downloads()
- **
- ** Setup the javascript hook for reporting AJAX
- **
- **/
-function slpreport_downloads() {
-    ?>
-    <script type="text/javascript" >
-    jQuery(document).ready( 
-        function($) {
-            $("#export_results").click(
-                function(e) {
-                    jQuery('<form action="<?php echo SLPLUS_PLUGINURL; ?>/downloadcsv.php" method="post">'+
-                            '<input type="hidden" name="filename" value="results">' +
-                            '</form>'
-                            ).appendTo('body').submit().remove();                    
-                }
-            );
-        }
-    );
-    </script>
-    <?php
-}
 

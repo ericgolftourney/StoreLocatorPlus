@@ -10,14 +10,25 @@ global $slplus_plugin, $wpdb;
 //===========================================================================
 // Supporting Functions
 //===========================================================================
-function DetailDataSection($theQuery, $SectionHeader, $columnHeaders, $columnDataLines) {
+
+
+/**************************************
+ ** function: DetailDataSection()
+ **
+ ** Create a standard details section with a data table based on a MySQL Query
+ **
+ **/
+function DetailDataSection($theQuery, $SectionHeader, $columnHeaders, $columnDataLines, $Qryname) {
     global $wpdb;
     $thisDataset = $wpdb->get_results($theQuery);
+    $thisQryname = strtolower(preg_replace('/\s/','_',$Qryname));
+    $thisQryvalue= htmlspecialchars($theQuery,ENT_QUOTES,'UTF-8');
     
     $thisSectionDesc = 
         '<div id="rb_details" class="reportblock">' .
             '<div class="rb_column">'.
                 '<h2>' . $SectionHeader . '</h2>' .
+                '<input type="hidden" name="'.$thisQryname.'" value="'.$thisQryvalue.'">' .
                 '<table cellpadding="0" cellspacing="0">' .
                     '<thead>' .
                         '<tr>';
@@ -304,7 +315,8 @@ $slpDataLines = array(
     );
 $slpSectionDescription .= DetailDataSection(
                 $slpReportQuery, $slpSectionHeader, 
-                $slpColumnHeaders, $slpDataLines
+                $slpColumnHeaders, $slpDataLines, 
+                __('topsearches',SLPLUS_PREFIX)
                 );
 
 //....
@@ -358,13 +370,20 @@ $slpDataLines = array(
     );
 $slpSectionDescription .= DetailDataSection(
                 $slpReportQuery, $slpSectionHeader, 
-                $slpColumnHeaders, $slpDataLines
+                $slpColumnHeaders, $slpDataLines,
+                __('topresults',SLPLUS_PREFIX)
                 );
 
 $slpSectionDescription .= '
-    <p class="submit">
-    <input id="export_results" class="button-secondary" type="button" value="Download CSV File" name="submit">
-    </p>
+    <div id="rb_details" class="reportblock">
+        <div class="rb_column">
+          <h2>' . __('Export To CSV',SLPLUS_PREFIX) . '</h2>
+          <p class="submit">
+          <input id="export_searches" class="button-secondary button-export" type="button" value="'.__('Top Searches',SLPLUS_PREFIX).'"><br/>
+          <input id="export_results"  class="button-secondary button-export" type="button" value="'.__('Top Results',SLPLUS_PREFIX).'">
+          </p>
+        </div>
+    </div>
     ';
 
 $slpReportSettings->add_section(
