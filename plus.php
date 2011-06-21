@@ -170,8 +170,8 @@ function slpreport_downloads() {
     jQuery(document).ready( 
         function($) {
             // Make tables sortable
-             $("#topsearches_table").tablesorter( {sortList: [[1,1]]} ); 
-             $("#topresults_table").tablesorter( {sortList: [[5,1]]} ); 
+             var tstts = $("#topsearches_table").tablesorter( {sortList: [[1,1]]} ); 
+             var trtts = $("#topresults_table").tablesorter( {sortList: [[5,1]]} ); 
              
             // Export Results Button Click
             //
@@ -179,7 +179,8 @@ function slpreport_downloads() {
                 function(e) {
                     jQuery('<form action="<?php echo SLPLUS_PLUGINURL; ?>/downloadcsv.php" method="post">'+
                             '<input type="hidden" name="filename" value="topresults">' +
-                            '<input type="hidden" name="query" value="' + $("[name=topresults]").val() + '">' +                            
+                            '<input type="hidden" name="query" value="' + $("[name=topresults]").val() + '">' +
+                            '<input type="hidden" name="sort"  value="' + trtts[0].config.sortList.toString() + '">' +                                
                             '</form>'
                             ).appendTo('body').submit().remove();                    
                 }
@@ -191,7 +192,8 @@ function slpreport_downloads() {
                 function(e) {
                     jQuery('<form action="<?php echo SLPLUS_PLUGINURL; ?>/downloadcsv.php" method="post">'+
                             '<input type="hidden" name="filename" value="topsearches">' +
-                            '<input type="hidden" name="query" value="' + $("[name=topsearches]").val() + '">' +                            
+                            '<input type="hidden" name="query" value="' + $("[name=topsearches]").val() + '">' + 
+                            '<input type="hidden" name="sort"  value="' + tstts[0].config.sortList.toString() + '">' +                                                            
                             '</form>'
                             ).appendTo('body').submit().remove();                    
                 }

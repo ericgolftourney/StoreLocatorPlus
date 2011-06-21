@@ -91,6 +91,7 @@ $slpReportSettings = new wpCSL_settings__slplus(
             'plugin_url'        => $slplus_plugin->plugin_url,
             'render_csl_blocks' => false,
             'form_action'       => '/wp-admin/admin.php?page='.SLPLUS_PLUGINDIR.'reporting.php',
+            'save_text'         => 'Run Report'
         )
  ); 
  
