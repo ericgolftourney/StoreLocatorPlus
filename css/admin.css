@@ -8,7 +8,7 @@
 #rb_details th {
     font-size: 12px;
     background: #F0F4F0;
-    padding: 6px;
+    padding: 6px 20px 6px 6px;
 }
 
 #rb_details td {
@@ -37,17 +37,35 @@
     text-align: right;
 }
 
+/* Table Header */
+#rb_details thead tr .header {
+  	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;    
+}
+
+#rb_details .headerSortUp {
+    background-image: url("../../core/images/arrow_sm_black_down.png");
+}
+
+#rb_details .headerSortDown {
+    background-image: url("../../core/images/arrow_sm_black_up.png");
+}
+
+
+/* Table Body */
+#rb_details tbody td {
+    padding-right: 6px;
+    min-width: 53px;    
+}
 .rowon {
     background: #F4F4FF;
-    padding-right: 6px;
-    min-width: 39px;
 }
 .rowoff {
     background: #FFFFFF;
-    padding-right: 6px;
-    min-width: 39px;
 }
 
+/* Report Block Buttons */
 #rb_details input[type="button"] {
     width: 100px;
 }
