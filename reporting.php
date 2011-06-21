@@ -29,7 +29,7 @@ function DetailDataSection($theQuery, $SectionHeader, $columnHeaders, $columnDat
             '<div class="rb_column">'.
                 '<h2>' . $SectionHeader . '</h2>' .
                 '<input type="hidden" name="'.$thisQryname.'" value="'.$thisQryvalue.'">' .
-                '<table cellpadding="0" cellspacing="0">' .
+                '<table id="'.$Qryname.'_table" cellpadding="0" cellspacing="0">' .
                     '<thead>' .
                         '<tr>';
                         

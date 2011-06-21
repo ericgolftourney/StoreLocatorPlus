@@ -165,10 +165,14 @@ function slplus_create_country_pd() {
  **/
 function slpreport_downloads() {
     ?>
+    <script type="text/javascript" src="<?php echo SLPLUS_COREURL; ?>js/jquery.tablesorter.min.js"></script>
     <script type="text/javascript" >
     jQuery(document).ready( 
         function($) {
-            
+            // Make tables sortable
+             $("#topsearches_table").tablesorter( {sortList: [[1,1]]} ); 
+             $("#topresults_table").tablesorter( {sortList: [[5,1]]} ); 
+             
             // Export Results Button Click
             //
             $("#export_results").click(
