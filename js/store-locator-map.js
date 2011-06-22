@@ -41,58 +41,83 @@ function sl_load() {
             map.addControl(new GOverviewMapControl());
         }
         map.addMapType(G_PHYSICAL_MAP);
+        
+        // This is asynchronous, as such we have no idea when it will return
+        //
         geocoder.getLatLng(sl_google_map_country, 
             function(latlng) {
                 map.setCenter(latlng, sl_zoom_level, sl_map_type);
-                map.setUIToDefault();
+                map.setUIToDefault();                
+                if (sl_load_locations_default) {                    
+                    sl_load_locations(map,latlng.lat(),latlng.lng());
+                }
             }
         );
     }
-  
-    if (sl_load_locations_default) {
-        var bounds = new GLatLngBounds();
-        markerOpts = { icon:theIcon };
-
-        // Check if tag searching is enabled/shown
-        //
-        if (document.getElementById('tag_to_search_for') != null) { 
-            taglist = document.getElementById('tag_to_search_for').value; 
-        } else {
-            taglist = NULL;
-        }
-        
-        GDownloadUrl(add_base + "/data-xml.php?tags="+taglist,
-            function(data, responseCode) {
-                var xml = GXml.parse(data);
-                var markers = xml.documentElement.getElementsByTagName("marker");
-                for (var i = 0; i < markers.length; i++) {
-                    var name = markers[i].getAttribute('name');
-                    var address = markers[i].getAttribute('address');
-                    var distance = parseFloat(markers[i].getAttribute('distance'));
-                    var description = markers[i].getAttribute('description');
-                    var url = markers[i].getAttribute('url');
-                    var email = markers[i].getAttribute('email');
-                    var hours = markers[i].getAttribute('hours');
-                    var phone = markers[i].getAttribute('phone');
-                    var image = markers[i].getAttribute('image');
-                    var maplat = markers[i].getAttribute('lat');
-                    var maplong = markers[i].getAttribute('lng');
-                    var point = new GLatLng(
-                        parseFloat(maplat),
-                        parseFloat(maplong)
-                        );
-                    var marker = createMarker(point, name, address, "", description, url, email, hours, phone, image);
-                    map.addOverlay(marker);
-                    bounds.extend(point);
-                }
-                map.setCenter(bounds.getCenter(), (map.getBoundsZoomLevel(bounds)-1));
-                map.setUIToDefault();
-                if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }                 
-            }
-        );
-     }
 }
 
+/**************************************
+ * function: sl_load_locations()
+ *
+ * Show the locations on the map when it is first loaded.
+ * Run in the asynchronous map display above if the load locations
+ * at startup is set.
+ *
+ */
+function sl_load_locations(map,lat,lng) {
+    var bounds = new GLatLngBounds();
+    markerOpts = { icon:theIcon };
+
+    // Check if tag searching is enabled/shown
+    //
+    if (document.getElementById('tag_to_search_for') != null) { 
+        taglist = document.getElementById('tag_to_search_for').value; 
+    } else {
+        taglist = NULL;
+    }
+
+    if (!slp_disableinitialdirectory) {
+        var sidebar = document.getElementById('map_sidebar');
+        sidebar.innerHTML = '';           
+    }
+    
+    GDownloadUrl(add_base + "/data-xml.php?lat="+lat+"&lng="+lng+"&tags="+taglist,
+        function(data, responseCode) {
+            var xml = GXml.parse(data);
+            var markers = xml.documentElement.getElementsByTagName("marker");
+            for (var i = 0; i < markers.length; i++) {
+                var name = markers[i].getAttribute('name');
+                var address = markers[i].getAttribute('address');
+                var distance = parseFloat(markers[i].getAttribute('distance'));
+                var description = markers[i].getAttribute('description');
+                var url = markers[i].getAttribute('url');
+                var email = markers[i].getAttribute('email');
+                var hours = markers[i].getAttribute('hours');
+                var phone = markers[i].getAttribute('phone');
+                var image = markers[i].getAttribute('image');
+                var maplat = markers[i].getAttribute('lat');
+                var maplong = markers[i].getAttribute('lng');
+                var point = new GLatLng(
+                    parseFloat(maplat),
+                    parseFloat(maplong)
+                    );
+                var marker = createMarker(point, name, address, "", description, url, email, hours, phone, image);
+                                    
+                map.addOverlay(marker);
+    
+                if (!slp_disableinitialdirectory) {
+                    var sidebarEntry = createSidebarEntry(marker, name, address, distance, '', url, email, phone);
+                    sidebar.appendChild(sidebarEntry);
+                }
+                                    
+                bounds.extend(point);
+            }
+            map.setCenter(bounds.getCenter(), (map.getBoundsZoomLevel(bounds)-1));
+            map.setUIToDefault();
+            if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }                 
+        }
+    );
+ }
 
 /**************************************
  * function: searchLocations()

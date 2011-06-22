@@ -90,9 +90,10 @@ var sl_google_map_domain='"     .get_option('sl_google_map_domain')     ."';
 
 var sl_google_map_country='".parseToXML(get_option('sl_google_map_country'))."';
 
-var sl_load_locations_default=" .((get_option('sl_load_locations_default')         ==1)?'true':'false').";
-var slp_use_email_form="        .((get_option(SLPLUS_PREFIX.'_email_form')         ==1)?'true':'false').";
-var slp_disablescrollwheel="    .((get_option(SLPLUS_PREFIX.'_disable_scrollwheel')==1)?'true':'false').";
+var sl_load_locations_default="  .((get_option('sl_load_locations_default')         ==1)?'true':'false').";
+var slp_use_email_form="         .((get_option(SLPLUS_PREFIX.'_email_form')         ==1)?'true':'false').";
+var slp_disablescrollwheel="     .((get_option(SLPLUS_PREFIX.'_disable_scrollwheel')==1)?'true':'false').";
+var slp_disableinitialdirectory=".((get_option(SLPLUS_PREFIX.'_disable_initialdirectory')==1)?'true':'false').";
 
 ";
 

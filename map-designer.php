@@ -75,6 +75,8 @@ if (!$_POST) {
     $_POST[SLPLUS_PREFIX.'_disable_scrollwheel'] = isset($_POST[SLPLUS_PREFIX.'_disable_scrollwheel'])?1:0;  
     update_option(SLPLUS_PREFIX.'_disable_scrollwheel',$_POST[SLPLUS_PREFIX.'_disable_scrollwheel']);
     
+    $_POST[SLPLUS_PREFIX.'_disable_initialdirectory'] = isset($_POST[SLPLUS_PREFIX.'_disable_initialdirectory'])?1:0;  
+    update_option(SLPLUS_PREFIX.'_disable_initialdirectory',$_POST[SLPLUS_PREFIX.'_disable_initialdirectory']);
        
     $update_msg = "<div class='highlight'>".__("Successful Update", SLPLUS_PREFIX).'</div>';
 }
