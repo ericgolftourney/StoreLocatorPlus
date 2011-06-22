@@ -1,3 +1,16 @@
+<!-- No Initial Directory -->
+<div class='form_entry'>
+    <label  for='<?php echo SLPLUS_PREFIX; ?>_disable_initialdirectory'><?php _e('Disable Initial Directory',SLPLUS_PREFIX); ?>:</label>
+    <input name='<?php echo SLPLUS_PREFIX; ?>_disable_initialdirectory' value='1' type='checkbox'
+    <?php
+               if (get_option(SLPLUS_PREFIX.'_disable_initialdirectory') ==1) {
+                   echo ' checked';
+               }
+    ?>
+    >
+    <span class='input_note'><?php _e('Disable the scrollwheel zoom on the maps interface.',SLPLUS_PREFIX); ?></span>
+</div>
+
 <!-- Disable ScrollWheel -->
 <div class='form_entry'>
     <label  for='<?php echo SLPLUS_PREFIX; ?>_disable_scrollwheel'><?php _e('Disable Scroll Wheel',SLPLUS_PREFIX); ?>:</label>
@@ -10,7 +23,6 @@
     >
     <span class='input_note'><?php _e('Disable the scrollwheel zoom on the maps interface.',SLPLUS_PREFIX); ?></span>
 </div>
-
 
 <!-- Starting Image -->
 <div class='form_entry'>
