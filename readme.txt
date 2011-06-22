@@ -26,6 +26,7 @@ Store Locator Plus is an advanced system for managing multiple physical location
 * Pulldown list of cities and/or countries on search form can be toggled on/off.
 * Bulk upload your locations via the CSV loader.
 * Location search tracking and reporting, find out what your visitors are looking for.
+* Popup email form.
 
 = Looking For Customized WordPress Plugins? =
 
@@ -123,6 +124,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Multiple retries available for better geocoding() on bulk or single-item uploads.
 * Improved failed goecode reporting.
 * If the search-by-tags box is shown it takes precedence over the only_with attribute.
+* Scroll wheel zoom can be disabled via a map settings checkbox.
 
 
 = 1.9 (May 11th 2011) =
