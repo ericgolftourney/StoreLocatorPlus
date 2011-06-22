@@ -49,7 +49,7 @@ function sl_load() {
         );
     }
   
-    if (sl_load_locations_default=="1") {
+    if (sl_load_locations_default) {
         var bounds = new GLatLngBounds();
         markerOpts = { icon:theIcon };
 
