@@ -87,6 +87,7 @@ function sl_load() {
                 }
                 map.setCenter(bounds.getCenter(), (map.getBoundsZoomLevel(bounds)-1));
                 map.setUIToDefault();
+                if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }                 
             }
         );
      }

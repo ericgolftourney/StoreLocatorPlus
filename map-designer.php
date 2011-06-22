@@ -72,6 +72,9 @@ if (!$_POST) {
     $_POST[SLPLUS_PREFIX.'_email_form'] = isset($_POST[SLPLUS_PREFIX.'_email_form'])?1:0;  
     update_option(SLPLUS_PREFIX.'_email_form',$_POST[SLPLUS_PREFIX.'_email_form']);
     
+    $_POST[SLPLUS_PREFIX.'_disable_scrollwheel'] = isset($_POST[SLPLUS_PREFIX.'_disable_scrollwheel'])?1:0;  
+    update_option(SLPLUS_PREFIX.'_disable_scrollwheel',$_POST[SLPLUS_PREFIX.'_disable_scrollwheel']);
+    
        
     $update_msg = "<div class='highlight'>".__("Successful Update", SLPLUS_PREFIX).'</div>';
 }
