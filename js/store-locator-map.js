@@ -10,7 +10,7 @@ var map;
 var geocoder;
 
 var theIcon = new GIcon(G_DEFAULT_ICON);
-theIcon.image = sl_map_end_icon;
+    theIcon.image = sl_map_end_icon;
 if (sl_map_end_icon.indexOf('flag')!='-1') {
     theIcon.shadow = add_base + "/images/flag_shadow.png";
 } else if (sl_map_end_icon.indexOf('arrow')!='-1') {
@@ -174,25 +174,25 @@ function searchLocationsNear(center, homeAddress) {
             var markers = xml.documentElement.getElementsByTagName('marker');
             map.clearOverlays();
    
-            var theIcon = new GIcon(G_DEFAULT_ICON);
-            theIcon.image = sl_map_home_icon;
+            var homeIcon = new GIcon(G_DEFAULT_ICON);
+            homeIcon.image = sl_map_home_icon;
             if (sl_map_home_icon.indexOf('flag')!='-1') {
-                theIcon.shadow = add_base + "/images/icons/flag_shadow.png";
+                homeIcon.shadow = add_base + "/images/icons/flag_shadow.png";
             } else if (sl_map_home_icon.indexOf('arrow')!='-1') {
-                theIcon.shadow = add_base + "/images/icons/arrow_shadow.png";
+                homeIcon.shadow = add_base + "/images/icons/arrow_shadow.png";
             } else if (sl_map_home_icon.indexOf('bubble')!='-1') {
-                theIcon.shadow = add_base + "/images/icons/bubble_shadow.png";
+                homeIcon.shadow = add_base + "/images/icons/bubble_shadow.png";
             } else if (sl_map_home_icon.indexOf('marker')!='-1') {
-                theIcon.shadow = add_base + "/images/icons/marker_shadow.png";
+                homeIcon.shadow = add_base + "/images/icons/marker_shadow.png";
             } else if (sl_map_home_icon.indexOf('sign')!='-1') {
-                theIcon.shadow = add_base + "/images/icons/sign_shadow.png";
+                homeIcon.shadow = add_base + "/images/icons/sign_shadow.png";
             } else {
-                theIcon.shadow = add_base + "/images/icons/blank.png";
+                homeIcon.shadow = add_base + "/images/icons/blank.png";
             }
-            theIcon.iconSize = new GSize(sl_map_home_icon_width, sl_map_home_icon_height);
+            homeIcon.iconSize = new GSize(sl_map_home_icon_width, sl_map_home_icon_height);
 
             var bounds = new GLatLngBounds(); 
-            markerOpts = { icon:theIcon };
+            markerOpts = { icon:homeIcon };
             point = new GLatLng (center.lat(), center.lng());
             bounds.extend(point); 
             var homeMarker = new GMarker(point, markerOpts);
