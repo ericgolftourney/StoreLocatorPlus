@@ -51,6 +51,7 @@ function sl_load() {
                 if (sl_load_locations_default) {                    
                     sl_load_locations(map,latlng.lat(),latlng.lng());
                 }
+                if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }                                 
             }
         );
     }
