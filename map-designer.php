@@ -259,6 +259,7 @@ __("Please re-select your <b>Home Icon</b> and <b>Destination Icon</b> below, so
 
 // Instantiate the form rendering object
 //
+global $slpMapSettings;
 $slpMapSettings = new wpCSL_settings__slplus(
     array(
             'no_license'        => true,
@@ -283,7 +284,6 @@ $slpMapSettings->add_section(
             'auto'          => true
         )
  );
-
    
 //------------------------------------
 // Create The Map Settings Panel

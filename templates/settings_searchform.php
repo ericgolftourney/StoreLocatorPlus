@@ -1,6 +1,6 @@
 <?php 
     global  $city_checked, $country_checked, $show_tag_checked, $show_any_checked,
-        $sl_radius_label, $sl_website_label,$sl_instruction_message,
+        $sl_radius_label, $sl_website_label,$sl_instruction_message,$slpMapSettings,
         $radii, $the_distance_unit;
 ?>       
 <div id='search_settings'>
@@ -17,22 +17,16 @@
                     <?php echo $city_checked?> 
                     >
             </div>
-           
-        <?php
-        if (function_exists('execute_and_output_plustemplate')) {
-            execute_and_output_plustemplate('mapsettings_searchfeatures.php');
-        } else {
-            print "<div class='form_entry' style='text-align:right;padding-top:136px;'>Want more?<br/> <a href='http://www.cybersprocket.com/'>Check out our other WordPress offerings.</a></div>";
-        }                    
-        ?>
         
         <div class='form_entry'>
             <label for='radii'><?php _e('Radii Options', SLPLUS_PREFIX);?>:</label>
             <input  name='radii' value='<?php echo $radii;?>' size='25'>
-            <span class='input_note'><?php 
-            _e("Separate each number with a comma ','. Put parenthesis '( )' around the default.</span>", SLPLUS_PREFIX);?>
-            </span>
-            </div>  
+            <?php
+            echo slp_createhelpdiv('radii',
+                __("Separate each number with a comma ','. Put parenthesis '( )' around the default.</span>", SLPLUS_PREFIX)
+                );
+            ?>              
+        </div>  
             
         <div class='form_entry'>
             <label for='sl_distance_unit'><?php _e('Distance Unit', SLPLUS_PREFIX);?>:</label>
@@ -47,7 +41,16 @@
                 }
                 ?>
             </select>
-        </div>         
+        </div>    
+        
+           
+        <?php
+        if (function_exists('execute_and_output_plustemplate')) {
+            execute_and_output_plustemplate('mapsettings_searchfeatures.php');
+        } else {
+            print "<div class='form_entry' style='text-align:right;padding-top:136px;'>Want more?<br/> <a href='http://www.cybersprocket.com/'>Check out our other WordPress offerings.</a></div>";
+        }                    
+        ?>        
     </div>
     
     
