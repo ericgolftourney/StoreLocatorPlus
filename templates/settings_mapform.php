@@ -23,8 +23,12 @@
             
             <div class='form_entry'>
                 <label for='sl_num_initial_displayed'><? _e("Default Locations Shown", SLPLUS_PREFIX); ?>:</label>
-                <input name='sl_num_initial_displayed' value='<?php echo $sl_num_initial_displayed;?>' class='small'><br/>
-                <span class='input_note'><? _e("Recommended Max: 50", SLPLUS_PREFIX); ?></span>
+                <input name='sl_num_initial_displayed' value='<?php echo $sl_num_initial_displayed;?>' class='small'>
+                <?php
+                echo slp_createhelpdiv('sl_num_initial_displayed',
+                    __('Recommended Max: 50', SLPLUS_PREFIX)
+                    );
+                ?>                 
             </div>
 
             <?php
@@ -43,7 +47,12 @@
             <div class='form_entry'>
                 <label for='zoom_level'><?php _e("Zoom Level", SLPLUS_PREFIX);?>:</label>
                 <?php echo $zoom; ?>
-                <span class='input_note'><?php _e("19=street level, 0=world view. Show locations overrides this setting.",SLPLUS_PREFIX);?></span>
+                <?php
+                echo slp_createhelpdiv('sl_num_initial_displayed',
+                    __('19=street level, 0=world view. "Immediately show locations" will overrides this setting.', SLPLUS_PREFIX)
+                    );
+                ?>                 
+                
             </div>
             
             <div class='form_entry'>
