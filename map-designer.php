@@ -5,7 +5,16 @@
  * provide the map designer admin interface
  ******************************************************************************/
  
-/*--------------------------*/
+//===========================================================================
+// Supporting Functions
+//===========================================================================
+
+/**************************************
+ ** function: choose_units
+ **
+ ** Display the map size units pulldown (%,px,em,pt)
+ **
+ **/
 function choose_units($unit, $input_name) {   
 	$unit_arr     = array('%','px','em','pt');
 	$select_field = "<select name='$input_name'>";	
@@ -15,11 +24,23 @@ function choose_units($unit, $input_name) {
 	}
 	$select_field.="</select>";
 	return $select_field;
-} 
+}
+
+/**************************************
+ ** function: SaveCheckboxToDB
+ **
+ ** Update the checkbox setting in the database.
+ **
+ **/
+function SaveCheckboxToDB($boxname,$prefix = SLPLUS_PREFIX) {
+    $whichbox = $prefix.$boxname; 
+    $_POST[$whichbox] = isset($_POST[$whichbox])?1:0;  
+    update_option($whichbox,$_POST[$whichbox]); 
+}
  
-//------------------------
-// MAIN Code Loop
-//------------------------
+//===========================================================================
+// Main Processing
+//===========================================================================
 $update_msg ='';
 
 if (!$_POST) {
@@ -77,21 +98,18 @@ if (!$_POST) {
 
     $_POST['sl_map_overview_control'] = isset($_POST['sl_map_overview_control'])?1:0;  
     update_option('sl_map_overview_control',$_POST['sl_map_overview_control']);
-
-    $_POST[SLPLUS_PREFIX.'_show_tag_search'] = isset($_POST[SLPLUS_PREFIX.'_show_tag_search'])?1:0;  
-    update_option(SLPLUS_PREFIX.'_show_tag_search',$_POST[SLPLUS_PREFIX.'_show_tag_search']);
-
-    $_POST[SLPLUS_PREFIX.'_show_tag_any'] = isset($_POST[SLPLUS_PREFIX.'_show_tag_any'])?1:0;  
-    update_option(SLPLUS_PREFIX.'_show_tag_any',$_POST[SLPLUS_PREFIX.'_show_tag_any']);
     
-    $_POST[SLPLUS_PREFIX.'_email_form'] = isset($_POST[SLPLUS_PREFIX.'_email_form'])?1:0;  
-    update_option(SLPLUS_PREFIX.'_email_form',$_POST[SLPLUS_PREFIX.'_email_form']);
-    
-    $_POST[SLPLUS_PREFIX.'_disable_scrollwheel'] = isset($_POST[SLPLUS_PREFIX.'_disable_scrollwheel'])?1:0;  
-    update_option(SLPLUS_PREFIX.'_disable_scrollwheel',$_POST[SLPLUS_PREFIX.'_disable_scrollwheel']);
-    
-    $_POST[SLPLUS_PREFIX.'_disable_initialdirectory'] = isset($_POST[SLPLUS_PREFIX.'_disable_initialdirectory'])?1:0;  
-    update_option(SLPLUS_PREFIX.'_disable_initialdirectory',$_POST[SLPLUS_PREFIX.'_disable_initialdirectory']);
+    $BoxesToHit = array(
+        '_show_tag_search',
+        '_show_tag_any',
+        '_email_form',
+        '_disable_scrollwheel',
+        '_disable_initialdirectory',
+        '_largemapcontrol3d',
+        );
+    foreach ($BoxesToHit as $JustAnotherBox) {        
+        SaveCheckBoxToDB($JustAnotherBox);
+    }
        
     $update_msg = "<div class='highlight'>".__("Successful Update", SLPLUS_PREFIX).'</div>';
 }
