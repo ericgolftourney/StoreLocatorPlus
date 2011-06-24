@@ -49,9 +49,9 @@ function sl_load() {
                 map.setCenter(latlng, sl_zoom_level, sl_map_type);
                 
                 var customUI = map.getDefaultUI();
-                customUI.controls.largemapcontrol3d = slp_disable_largemapcontrol3d;   
-                customUI.controls.scalecontrol = slp_disable_scalecontrol;
-                customUI.controls.hierarchicalmaptypecontrol = slp_disable_maptypecontrol;                
+                customUI.controls.largemapcontrol3d = slp_largemapcontrol3d;   
+                customUI.controls.scalecontrol = slp_scalecontrol;
+                customUI.controls.hierarchicalmaptypecontrol = slp_maptypecontrol;                
                 map.setUI(customUI);
                 
                 if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }
@@ -123,9 +123,9 @@ function sl_load_locations(map,lat,lng) {
             map.setCenter(bounds.getCenter(), (map.getBoundsZoomLevel(bounds)-1));
             
             var customUI = map.getDefaultUI();
-            customUI.controls.largemapcontrol3d = slp_disable_largemapcontrol3d;   
-            customUI.controls.scalecontrol = slp_disable_scalecontrol;
-            customUI.controls.hierarchicalmaptypecontrol = slp_disable_maptypecontrol;                
+            customUI.controls.largemapcontrol3d = slp_largemapcontrol3d;   
+            customUI.controls.scalecontrol = slp_scalecontrol;
+            customUI.controls.hierarchicalmaptypecontrol = slp_maptypecontrol;                
             map.setUI(customUI);
             
             if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }
