@@ -167,6 +167,7 @@ $the_domain = array(
     "Germany"=>"maps.google.de",
     "Hong Kong"=>"maps.google.com.hk",
     "India"=>"maps.google.co.in", 
+    "Republic of Ireland"=>"maps.google.ie",
     "Italy"=>"maps.google.it",
     "Japan"=>"maps.google.co.jp", 
     "Liechtenstein"=>"maps.google.li", 
