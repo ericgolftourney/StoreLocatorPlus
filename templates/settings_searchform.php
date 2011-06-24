@@ -9,7 +9,7 @@
             
             <div class='form_entry'>
                 <label for='sl_use_city_search'>
-                    <?php _e('City Pulldown', SLPLUS_PREFIX); ?>:
+                    <?php _e('Show City Pulldown', SLPLUS_PREFIX); ?>:
                 </label>
                 <input name='sl_use_city_search' 
                     value='1' 

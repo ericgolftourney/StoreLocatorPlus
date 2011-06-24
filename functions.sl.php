@@ -571,11 +571,22 @@ function head_scripts() {
     $r_options      =(isset($r_options)         ?$r_options      :'');
     $cs_options     =(isset($cs_options)        ?$cs_options     :'');
     $country_options=(isset($country_options)   ?$country_options:'');
-        
+
     foreach ($r_array as $value) {
         $s=(ereg("\(.*\)", $value))? " selected='selected' " : "" ;
-        $value=ereg_replace("[^0-9]", "", $value);
-        $r_options.="<option value='$value' $s>$value $unit_display</option>";
+        
+        // Hiding Radius?
+        if (get_option(SLPLUS_PREFIX.'_hide_radius_selections') == 1) {
+            if ($s == " selected='selected' ") {
+                $value=ereg_replace("[^0-9]", "", $value);
+                $r_options = "<input type='hidden' id='radiusSelect' name='radiusSelect' value='$value'>";
+            }
+            
+        // Not hiding radius, build pulldown.
+        } else {
+            $value=ereg_replace("[^0-9]", "", $value);
+            $r_options.="<option value='$value' $s>$value $unit_display</option>";
+        }
     }
         
     //-------------------

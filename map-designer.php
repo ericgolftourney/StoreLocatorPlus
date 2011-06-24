@@ -135,6 +135,9 @@ if (!$_POST) {
         '_disable_largemapcontrol3d',
         '_disable_scalecontrol',
         '_disable_maptypecontrol',
+        '_hide_radius_selections',
+        '_hide_address_entry',
+        '_disable_search'
         );
     foreach ($BoxesToHit as $JustAnotherBox) {        
         SaveCheckBoxToDB($JustAnotherBox);
