@@ -131,9 +131,12 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Feature: Multiple retries available for better geocoding() on bulk or single-item uploads.
 * Feature: Improved failed goecode reporting.
 * Feature: Scroll wheel zoom can be disabled via a map settings checkbox.
-* If the search-by-tags box is shown it takes precedence over the only_with attribute.
-* Re-factored the code to share components with the light edition (LE) version.
-* Icon paths have changed - make sure you reset your icons via the map designer.
+* Feature: Search form address, radius, and search buttons can be hidden.
+* Feature: Google maps scale, 3d controls, type of map overlays can be hidden.
+* Update: If the search-by-tags box is shown it takes precedence over the only_with attribute.
+* Update: Re-factored the code to share components with the light edition (LE) version.
+* Update: Icon paths have changed - make sure you reset your icons via the map designer.
+* Update: Added Republic of Ireland to the countries list.
 * Fix: conflict with copyr() with other plugins.
 * Fix: language file loading.
 * Fix: Custom icons are back for Internet Explorer.
