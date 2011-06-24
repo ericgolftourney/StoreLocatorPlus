@@ -1,6 +1,27 @@
+<?php
+    echo CreateCheckboxDiv(
+        '_hide_radius_selections',
+        __('Hide radius selection',SLPLUS_PREFIX),
+        __('Hides the radius selection from the user, the default radius will be used.', SLPLUS_PREFIX)
+        );
+    
+    echo CreateCheckboxDiv(
+        '_hide_address_entry',
+        __('Hide address entry box',SLPLUS_PREFIX),
+        __('Hides the address entry box from the user.', SLPLUS_PREFIX)
+        );
+    
+    echo CreateCheckboxDiv(
+        '_disable_search',
+        __('Disable search',SLPLUS_PREFIX),
+        __('This makes the search form non-interactive.  Typically used with the immediately show locations feature with a smaller listing set.', SLPLUS_PREFIX)
+        );            
+    
+?>
+
 <div class='form_entry'>
     <label for='sl_use_country_search'>
-        <?php _e('Country Pulldown', SLPLUS_PREFIX); ?>:
+        <?php _e('Show Country Pulldown', SLPLUS_PREFIX); ?>:
     </label>
     <input name='sl_use_country_search' 
         value='1' 
@@ -13,20 +34,13 @@
         >
 </div>
 
-<div class='form_entry'>
-    <label for='<?php echo SLPLUS_PREFIX; ?>_show_tag_search'>
-        <?php _e('Tag Input', SLPLUS_PREFIX); ?>:
-    </label>
-    <input name='<?php echo SLPLUS_PREFIX; ?>_show_tag_search' 
-        value='1' 
-        type='checkbox' 
-        <?php
-        if (get_option(SLPLUS_PREFIX.'_show_tag_search') ==1) {
-            echo ' checked';
-        }                
-        ?> 
-        >
-</div>     
+<?php
+    echo CreateCheckboxDiv(
+        '_show_tag_search',
+        __('Tag Input',SLPLUS_PREFIX),
+        __('Show the tag entry box on the search form.', SLPLUS_PREFIX)
+        );        
+?>
 
 <div class='form_entry'>
     <label for='<?php echo SLPLUS_PREFIX; ?>_tag_search_selections'>
@@ -42,13 +56,12 @@
     ?>      
 </div>        
 
-<div class='form_entry'>
-    <label for='<?php echo SLPLUS_PREFIX; ?>_show_tag_any'><?php _e('Show "any" on tag pulldown', SLPLUS_PREFIX); ?>:</label>
-    <input name='<?php echo SLPLUS_PREFIX; ?>_show_tag_any' value='1' type='checkbox' <?php if (get_option(SLPLUS_PREFIX.'_show_tag_any')==1) { echo ' checked'; }?> >
-    <?php
-    echo slp_createhelpdiv('show_tag_any',
-        __("If checked the tag pulldown list will have an 'any' option that returns any location.",SLPLUS_PREFIX)
-        );
-    ?> 
-</div>
+
+<?php
+    echo CreateCheckboxDiv(
+        '_show_tag_any',
+        __('Add "any" to tags pulldown',SLPLUS_PREFIX),
+        __('Add an "any" selection on the tag pulldown list thus allowing the user to show all locations in the area, not just those matching a selected tag.', SLPLUS_PREFIX)
+        );        
+?>
 
