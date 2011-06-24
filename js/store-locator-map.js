@@ -51,13 +51,14 @@ function sl_load() {
                 var customUI = map.getDefaultUI();
                 customUI.controls.largemapcontrol3d = slp_disable_largemapcontrol3d;   
                 customUI.controls.scalecontrol = slp_disable_scalecontrol;
+                customUI.controls.hierarchicalmaptypecontrol = slp_disable_maptypecontrol;                
                 map.setUI(customUI);
                 
-                //map.setUIToDefault();                
+                if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }
+                
                 if (sl_load_locations_default) {                    
                     sl_load_locations(map,latlng.lat(),latlng.lng());
                 }
-                if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }  
             }
         );
     }
@@ -124,9 +125,10 @@ function sl_load_locations(map,lat,lng) {
             var customUI = map.getDefaultUI();
             customUI.controls.largemapcontrol3d = slp_disable_largemapcontrol3d;   
             customUI.controls.scalecontrol = slp_disable_scalecontrol;
-            map.setUI(customUI);            
+            customUI.controls.hierarchicalmaptypecontrol = slp_disable_maptypecontrol;                
+            map.setUI(customUI);
             
-            if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }                 
+            if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }
         }
     );
  }

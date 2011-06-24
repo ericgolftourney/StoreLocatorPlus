@@ -134,6 +134,7 @@ if (!$_POST) {
         '_disable_initialdirectory',
         '_disable_largemapcontrol3d',
         '_disable_scalecontrol',
+        '_disable_maptypecontrol',
         );
     foreach ($BoxesToHit as $JustAnotherBox) {        
         SaveCheckBoxToDB($JustAnotherBox);
