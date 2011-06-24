@@ -33,7 +33,7 @@
 
             <?php
             if (function_exists('execute_and_output_plustemplate')) {
-                execute_and_output_plustemplate('mapsettings_designerdefaults.php');
+                execute_and_output_plustemplate('mapsettings_mapfeatures.php');
             }    
             ?>
         </div>
