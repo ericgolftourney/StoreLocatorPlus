@@ -62,22 +62,17 @@
     ?>      
 </div>
 
-<!-- LargeMapControl3D On/Off -->
-<div class='form_entry'>
-    <label  for='<?php echo SLPLUS_PREFIX; ?>_largemapcontrol3d'><?php _e('Hide map 3d control',SLPLUS_PREFIX); ?>:</label>
-    <input name='<?php echo SLPLUS_PREFIX; ?>_largemapcontrol3d' value='1' type='checkbox'
-    <?php
-               if (get_option(SLPLUS_PREFIX.'_largemapcontrol3d') ==1) {
-                   echo ' checked';
-               }
-    ?>
-    >
-    <?php
-    echo slp_createhelpdiv('largemapcontrol3d',
-        __('Turn the large map 3D control on/off.', SLPLUS_PREFIX)
+<?php 
+    echo CreateCheckboxDiv(
+        '_disable_largemapcontrol3d',
+        __('Hide map 3d control',SLPLUS_PREFIX),
+        __('Turn the large map 3D control off.', SLPLUS_PREFIX)
         );
-    ?>      
-</div>
-
-
-
+    
+    echo CreateCheckboxDiv(
+        '_disable_scalecontrol',
+        __('Hide map scale',SLPLUS_PREFIX),
+        __('Turn the map scale off.', SLPLUS_PREFIX)
+        );
+    
+?>        
