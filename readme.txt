@@ -99,6 +99,17 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 * If everything is ok, email the files to lobbyjones@cybersprocket.com and we will add them to the next release.
 * For more information on POT files, domains, gettext and i18n have a look at the I18n for WordPress developers Codex page and more specifically at the section about themes and plugins.
 
+= What browsers are supported? =
+
+All major browsers should work, however Cyber Sprocket Labs only officially supports the current and prior releases of Internet Explorer, Firefox, Chrome, and Safari.
+
+As of June, 2011 this includes:
+
+* Internet Explorer (IE) 8/9
+* Firefox 4/5
+* Chrome 11/12
+* Safari 4/5
+
 == Screenshots ==
 
 1. Location Details
@@ -116,16 +127,16 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 = 2.0 (June 2011) =
 
-* Added tracking and reporting system.
-* Re-factored the code to share components with the light edition (LE) version.
-* Fix conflict with copyr() with other plugins.
-* Fix language file loading.
-* Icon paths have changed - make sure you reset your icons via the map designer.
-* Multiple retries available for better geocoding() on bulk or single-item uploads.
-* Improved failed goecode reporting.
+* Feature: Added tracking and reporting system.
+* Feature: Multiple retries available for better geocoding() on bulk or single-item uploads.
+* Feature: Improved failed goecode reporting.
+* Feature: Scroll wheel zoom can be disabled via a map settings checkbox.
 * If the search-by-tags box is shown it takes precedence over the only_with attribute.
-* Scroll wheel zoom can be disabled via a map settings checkbox.
-
+* Re-factored the code to share components with the light edition (LE) version.
+* Icon paths have changed - make sure you reset your icons via the map designer.
+* Fix: conflict with copyr() with other plugins.
+* Fix: language file loading.
+* Fix: Custom icons are back for Internet Explorer.
 
 = 1.9 (May 11th 2011) =
 
