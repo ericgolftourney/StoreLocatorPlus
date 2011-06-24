@@ -47,11 +47,17 @@ function sl_load() {
         geocoder.getLatLng(sl_google_map_country, 
             function(latlng) {
                 map.setCenter(latlng, sl_zoom_level, sl_map_type);
-                map.setUIToDefault();                
+                
+                var customUI = map.getDefaultUI();
+                customUI.controls.largemapcontrol3d = slp_disable_largemapcontrol3d;   
+                customUI.controls.scalecontrol = slp_disable_scalecontrol;
+                map.setUI(customUI);
+                
+                //map.setUIToDefault();                
                 if (sl_load_locations_default) {                    
                     sl_load_locations(map,latlng.lat(),latlng.lng());
                 }
-                if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }                                 
+                if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }  
             }
         );
     }
@@ -114,7 +120,12 @@ function sl_load_locations(map,lat,lng) {
                 bounds.extend(point);
             }
             map.setCenter(bounds.getCenter(), (map.getBoundsZoomLevel(bounds)-1));
-            map.setUIToDefault();
+            
+            var customUI = map.getDefaultUI();
+            customUI.controls.largemapcontrol3d = slp_disable_largemapcontrol3d;   
+            customUI.controls.scalecontrol = slp_disable_scalecontrol;
+            map.setUI(customUI);            
+            
             if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }                 
         }
     );

@@ -31,13 +31,40 @@ function choose_units($unit, $input_name) {
  **
  ** Update the checkbox setting in the database.
  **
+ ** Parameters:
+ **  $boxname (string, required) - the name of the checkbox (db option name)
+ **  $prefix (string, optional) - defaults to SLPLUS_PREFIX, can be '' 
  **/
 function SaveCheckboxToDB($boxname,$prefix = SLPLUS_PREFIX) {
     $whichbox = $prefix.$boxname; 
     $_POST[$whichbox] = isset($_POST[$whichbox])?1:0;  
     update_option($whichbox,$_POST[$whichbox]); 
 }
- 
+
+/**************************************
+** function: CreateCheckboxDiv
+ **
+ ** Update the checkbox setting in the database.
+ **
+ ** Parameters:
+ **  $boxname (string, required) - the name of the checkbox (db option name)
+ **  $label (string, optional) - default '', the label to go in front of the checkbox
+ **  $message (string, optional) - default '', the help message 
+ **  $prefix (string, optional) - defaults to SLPLUS_PREFIX, can be ''  
+ **/
+function CreateCheckboxDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX) {
+    $whichbox = $prefix.$boxname; 
+    return 
+        "<div class='form_entry'>".
+            "<label  for='$whichbox'>$label:</label>".
+            "<input name='$whichbox' value='1' type='checkbox' ".((get_option($whichbox) ==1)?' checked':'').">".
+            slp_createhelpdiv($boxname,$msg).
+        "</div>"
+        ;
+}
+
+
+
 //===========================================================================
 // Main Processing
 //===========================================================================
@@ -105,7 +132,8 @@ if (!$_POST) {
         '_email_form',
         '_disable_scrollwheel',
         '_disable_initialdirectory',
-        '_largemapcontrol3d',
+        '_disable_largemapcontrol3d',
+        '_disable_scalecontrol',
         );
     foreach ($BoxesToHit as $JustAnotherBox) {        
         SaveCheckBoxToDB($JustAnotherBox);
