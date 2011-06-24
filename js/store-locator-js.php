@@ -74,6 +74,7 @@ if (document.getElementById('map')){window.onunload = function (){ GUnload(); }}
 var allScripts=document.getElementsByTagName('script');
 var add_base=allScripts[allScripts.length -1].src.replace('/js/store-locator-js.php','');
 var add_upload_base='$sl_upload_base';
+var slp_encryption_code='".$slp_enc_key."';
 var sl_zoom_level=$zl;
 var sl_map_type=$mt;
 var sl_website_label='$wl';
