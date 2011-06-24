@@ -102,7 +102,7 @@ function initialize_variables() {
         }
     $sl_map_type=get_option('sl_map_type');
     if (empty($sl_map_type)) {
-        $sl_map_type=G_NORMAL_MAP;
+        $sl_map_type='G_NORMAL_MAP';
         add_option('sl_map_type', $sl_map_type);
         }
     $sl_remove_credits=get_option('sl_remove_credits');
@@ -197,21 +197,7 @@ function initialize_variables() {
 }
 
 
-/*--------------------------*/
-function choose_units($unit, $input_name) {
-    $select_field = (isset($select_field)?$select_field:'');
-	$unit_arr[]="%";$unit_arr[]="px";$unit_arr[]="em";$unit_arr[]="pt";
-	$select_field.="<select name='$input_name'>";
-	
-	foreach ($unit_arr as $value) {
-		$selected=($value=="$unit")? " selected='selected' " : "" ;
-		if (!($input_name=="height_units" && $unit=="%")) {
-			$select_field.="\n<option value='$value' $selected>$value</option>";
-		}
-	}
-	$select_field.="</select>";
-	return $select_field;
-}
+
 
 /*----------------------------*/
 function do_geocoding($address,$sl_id='') {    

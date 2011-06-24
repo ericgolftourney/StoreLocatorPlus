@@ -1,7 +1,7 @@
 <?php 
-    global $prefix, $update_msg,   
-        $city_checked, $country_checked, $show_tag_checked, $show_any_checked,
-        $sl_radius_label, $sl_website_label,$sl_instruction_message, $slpMapSettings;
+    global  $city_checked, $country_checked, $show_tag_checked, $show_any_checked,
+        $sl_radius_label, $sl_website_label,$sl_instruction_message,
+        $radii, $the_distance_unit;
 ?>       
 <div id='search_settings'>
     <div class='section_column'>              
@@ -24,8 +24,33 @@
         } else {
             print "<div class='form_entry' style='text-align:right;padding-top:136px;'>Want more?<br/> <a href='http://www.cybersprocket.com/'>Check out our other WordPress offerings.</a></div>";
         }                    
-        ?>                   
-    </div>           
+        ?>
+        
+        <div class='form_entry'>
+            <label for='radii'><?php _e('Radii Options', SLPLUS_PREFIX);?>:</label>
+            <input  name='radii' value='<?php echo $radii;?>' size='25'>
+            <span class='input_note'><?php 
+            _e("Separate each number with a comma ','. Put parenthesis '( )' around the default.</span>", SLPLUS_PREFIX);?>
+            </span>
+            </div>  
+            
+        <div class='form_entry'>
+            <label for='sl_distance_unit'><?php _e('Distance Unit', SLPLUS_PREFIX);?>:</label>
+            <select name='sl_distance_unit'>
+            <?php
+                $the_distance_unit[__("Kilometers", SLPLUS_PREFIX)]="km";
+                $the_distance_unit[__("Miles", SLPLUS_PREFIX)]="miles";
+                
+                foreach ($the_distance_unit as $key=>$value) {
+                    $selected=(get_option('sl_distance_unit')==$value)?" selected " : "";
+                    print "<option value='$value' $selected>$key</option>\n";
+                }
+                ?>
+            </select>
+        </div>         
+    </div>
+    
+    
     <div class='section_column'>                     
         <h2><?php _e("Labels", SLPLUS_PREFIX); ?></h2>
         
@@ -57,6 +82,6 @@
             <label for='sl_instruction_message'><?php _e("Instruction Message", SLPLUS_PREFIX); ?>:</label>
             <input name='sl_instruction_message' value='<?php echo $sl_instruction_message; ?>' size='50'><br/>
             <span class='input_note'><?php _e("Instruction text when map is first displayed.", SLPLUS_PREFIX);?></span>                    
-        </div>
+        </div>                          
     </div>
 </div>

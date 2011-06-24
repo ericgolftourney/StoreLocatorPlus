@@ -5,6 +5,21 @@
  * provide the map designer admin interface
  ******************************************************************************/
  
+/*--------------------------*/
+function choose_units($unit, $input_name) {   
+	$unit_arr     = array('%','px','em','pt');
+	$select_field = "<select name='$input_name'>";	
+	foreach ($unit_arr as $value) {
+		$selected=($value=="$unit")? " selected='selected' " : "" ;
+        $select_field.="\n<option value='$value' $selected>$value</option>";
+	}
+	$select_field.="</select>";
+	return $select_field;
+} 
+ 
+//------------------------
+// MAIN Code Loop
+//------------------------
 $update_msg ='';
 
 if (!$_POST) {
@@ -76,7 +91,7 @@ if (!$_POST) {
     update_option(SLPLUS_PREFIX.'_disable_scrollwheel',$_POST[SLPLUS_PREFIX.'_disable_scrollwheel']);
     
     $_POST[SLPLUS_PREFIX.'_disable_initialdirectory'] = isset($_POST[SLPLUS_PREFIX.'_disable_initialdirectory'])?1:0;  
-    update_option(SLPLUS_PREFIX.'_disable_initialdirectory',$_POST[SLPLUS_PREFIX.'_disable_initialdirectoryf']);
+    update_option(SLPLUS_PREFIX.'_disable_initialdirectory',$_POST[SLPLUS_PREFIX.'_disable_initialdirectory']);
        
     $update_msg = "<div class='highlight'>".__("Successful Update", SLPLUS_PREFIX).'</div>';
 }
@@ -147,8 +162,6 @@ $char_enc["Korea (EUS-KR)"]="eus-kr";
 $checked2   	    = (isset($checked2)  ?$checked2  :'');
 $city_checked	    = (get_option('sl_use_city_search')             ==1)?' checked ':'';
 $checked3	        = (get_option('sl_remove_credits')              ==1)?' checked ':'';
-$checked4	        = (get_option('sl_load_locations_default')      ==1)?' checked ':'';
-$checked5	        = (get_option('sl_map_overview_control')        ==1)?' checked ':'';
 
 $map_type_options=(isset($map_type_options)?$map_type_options:'');
 $map_type["".__("Normal", SLPLUS_PREFIX).""]="G_NORMAL_MAP";
@@ -198,7 +211,7 @@ while (false !== ($an_icon=readdir($icon_dir))) {
 		$icon_str.=
 		"<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' 
 		     src='".SLPLUS_ICONURL.$an_icon."'
-		     onclick='document.forms[\"mapDesigner\"].icon.value=this.src;document.getElementById(\"prev\").src=this.src;'
+		     onclick='document.forms[0].icon.value=this.src;document.getElementById(\"prev\").src=this.src;'
 		     onmouseover='style.borderColor=\"red\";' 
 		     onmouseout='style.borderColor=\"white\";'
 		     >";
@@ -251,7 +264,7 @@ $slpMapSettings = new wpCSL_settings__slplus(
             'no_license'        => true,
             'prefix'            => $slplus_plugin->prefix,
             'url'               => $slplus_plugin->url,
-            'name'              => $slplus_plugin->name . ' Map Settings',
+            'name'              => $slplus_plugin->name . ' Display Settings',
             'plugin_url'        => $slplus_plugin->plugin_url,
             'render_csl_blocks' => false,
             'form_action'       => '/wp-admin/admin.php?page='.SLPLUS_COREDIR.'map-designer.php',
@@ -265,158 +278,28 @@ $slpMapSettings = new wpCSL_settings__slplus(
 $slpDescription = get_string_from_phpexec(SLPLUS_COREDIR.'/templates/settings_searchform.php');
 $slpMapSettings->add_section(
     array(
-            'name'          => __('Saerch Form',SLPLUS_PREFIX),
+            'name'          => __('Search Form',SLPLUS_PREFIX),
             'description'   => $slpDescription,
             'auto'          => true
         )
  );
 
+   
+//------------------------------------
+// Create The Map Settings Panel
+//  
+$slpDescription = get_string_from_phpexec(SLPLUS_COREDIR.'/templates/settings_mapform.php');
+$slpMapSettings->add_section(
+    array(
+            'name'          => __('Map',SLPLUS_PREFIX),
+            'description'   => $slpDescription,
+            'auto'          => true
+        )
+ );
+    
+    
 //------------------------------------
 // Render It 
 //
 print $update_msg;
-$slpMapSettings->render_settings_page();
-
-
-   
-# Map Designer : Left Side
-#
-print "
-    <thead>
-        <tr><th colspan='2'>".__('Map Designer', SLPLUS_PREFIX)."</th></tr>
-    </thead>            
-    <tr><td width='40%' class='left_side'>
-        <div class='map_designer_settings'>
-            <h3>".__("Defaults", SLPLUS_PREFIX)."</h3>    
-            <div class='form_entry'><label for='sl_map_type'>".__("Default Map Type", SLPLUS_PREFIX).":</label>
-            <select name='sl_map_type'>\n".$map_type_options."</select>
-            </div>
-            
-            <div class='form_entry'><label for='sl_map_overview_control'>".__("Show Map Inset Box", SLPLUS_PREFIX).":</label>    
-            <input name='sl_map_overview_control' value='1' type='checkbox' $checked5>
-            </div>
-            
-            <div class='form_entry'><label for='sl_load_locations_default'>".__("Immediately Show Locations", SLPLUS_PREFIX).":</label>
-            <input name='sl_load_locations_default' value='1' type='checkbox' $checked4>
-            </div>
-            
-            <div class='form_entry'><label for='sl_num_initial_displayed'>".__("Default Locations Shown", SLPLUS_PREFIX).":</label>
-            <input name='sl_num_initial_displayed' value='$sl_num_initial_displayed' class='small'><br/>
-            <span class='input_note'>".__("Recommended Max: 50", SLPLUS_PREFIX)."</span>
-            </div>
-            ";
-            
-            if (function_exists('execute_and_output_plustemplate')) {
-                execute_and_output_plustemplate('mapsettings_designerdefaults.php');
-            }              
-
-print "            
-        </div>            
-    </td>";
-
-# Map Designer : Right Side
-#    
-print "<td class='right_side'>".
-    "<h3>".__("Google Map Interface", SLPLUS_PREFIX)."</h3>".
-    "<div class='form_entry'>".
-        "<label for='google_map_domain'>".
-        __("Select Your Location", SLPLUS_PREFIX).
-        "</label>".
-        "<select name='google_map_domain'>";
-
-foreach ($the_domain as $key=>$value) {
-	$selected=(get_option('sl_google_map_domain')==$value)?" selected " : "";
-	print "<option value='$key:$value' $selected>$key ($value)</option>\n";
-}
-
-print "</select></div>".
-    "<div class='form_entry'>".
-        "<label for='sl_map_character_encoding'>".    
-        __("Select Character Encoding", SLPLUS_PREFIX).
-        "</label>".
-        "<select name='sl_map_character_encoding'>";
-
-foreach ($char_enc as $key=>$value) {
-	$selected=(get_option('sl_map_character_encoding')==$value)?" selected " : "";
-	print "<option value='$value' $selected>$key</option>\n";
-}
-print "</select></div></td></tr>";
-    
-
-# Map Designer : Left Side Row 2
-#        
-print "<tr><td class='left_side'>    
-        <div class='map_designer_settings'>
-            <h3>".__("Dimensions", SLPLUS_PREFIX)."</h3>
-    
-            <div><label for='zoom_level'>".__("Zoom Level", SLPLUS_PREFIX).":</label>
-            $zoom
-            <span class='input_note'>".__("19=street level, 0=world view. Show locations overrides this setting.",SLPLUS_PREFIX)."</span>
-            </div>
-            
-            <div><label for='height'>".__("Map Height", SLPLUS_PREFIX).":</label>
-            <input name='height' value='$height' class='small'>&nbsp;".choose_units($height_units, "height_units")."
-            </div>
-            
-            <div><label for='height'>".__("Map Width", SLPLUS_PREFIX).":</label>
-            <input name='width' value='$width'  class='small'>&nbsp;".choose_units($width_units, "width_units")."
-            </div>
-
-            <div><label for='radii'>".__("Radii Options", SLPLUS_PREFIX).":</label>
-            <input  name='radii' value='$radii' size='25'>
-            <span class='input_note'>".
-            __("Separate each number with a comma ','. Put parenthesis '( )' around the default.</span>", SLPLUS_PREFIX).
-            "</span>
-            </div>  
-            
-            <div><label for='height'>".__("Distance Unit", SLPLUS_PREFIX).":</label>
-            <select name='sl_distance_unit'>".
-
-$the_distance_unit["".__("Kilometers", SLPLUS_PREFIX).""]="km";
-$the_distance_unit["".__("Miles", SLPLUS_PREFIX).""]="miles";
-
-foreach ($the_distance_unit as $key=>$value) {
-	$selected=(get_option('sl_distance_unit')==$value)?" selected " : "";
-	print "<option value='$value' $selected>$key</option>\n";
-}            
-    
-print "</select>
-            </div>            
-        </div>
-    </td>    
-    </td>
-    <td class='rightside'>
-    <h3>".__("Design", SLPLUS_PREFIX)."</h3>".
-    
-    $icon_notification_msg.
-    
-    "<div class='form_entry'>".
-        "<label for='sl_remove_credits'>".
-        __("Remove Credits", SLPLUS_PREFIX).
-        "</label>".
-        "<input name='sl_remove_credits' value='1' type='checkbox' $checked3>".
-    "</div>".
-    
-    "<div class='form_entry'>".
-        "<label for='icon'>".
-        __("Home Icon", SLPLUS_PREFIX).
-        "</label>".
-        "<input name='icon' size='45' value='$icon' onchange=\"document.getElementById('prev').src=this.value\">".
-        "&nbsp;&nbsp;<img id='prev' src='$icon' align='top'><br/>".
-        "<div style='margin-left: 150px;'>$icon_str</div>".        
-    "</div>".
-    
-    "<div class='form_entry'>".
-        "<label for='icon'>".
-        __("Destination Icon", SLPLUS_PREFIX).
-        "</label>".
-        "<input name='icon2' size='45' value='$icon2' onchange=\"document.getElementById('prev2').src=this.value\">".
-        "&nbsp;&nbsp;<img id='prev2' src='$icon2'align='top'><br/>".
-        "<div style='margin-left: 150px;'>$icon2_str</div>".
-    "</div>".
-    "</td></tr>".
-    "<tr><td colspan='2'>".
-    "<input type='submit' value='".__("Update", SLPLUS_PREFIX)."' class='button-primary'>".
-    "</td></tr>".
-    "</tbody></table></form>".
-    "</div></div>";
+$slpMapSettings->render_settings_page();    
