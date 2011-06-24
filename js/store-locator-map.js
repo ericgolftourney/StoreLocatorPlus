@@ -81,7 +81,7 @@ function sl_load_locations(map,lat,lng) {
     if (document.getElementById('tag_to_search_for') != null) { 
         taglist = document.getElementById('tag_to_search_for').value; 
     } else {
-        taglist = NULL;
+        taglist = null;
     }
 
     if (!slp_disableinitialdirectory) {
