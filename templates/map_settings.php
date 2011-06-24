@@ -29,7 +29,6 @@
             <tr>
                 <td class='left_side'>                
                     <h3><?php _e('Search Features', SLPLUS_PREFIX);?></h3>
-                    <h4><?php _e('Show Search By...',SLPLUS_PREFIX);?></h4>
                     
                     <div class='form_entry'>
                         <label for='sl_use_city_search'>
