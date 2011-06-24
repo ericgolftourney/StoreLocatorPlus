@@ -75,4 +75,10 @@
         __('Turn the map scale off.', SLPLUS_PREFIX)
         );
     
+    echo CreateCheckboxDiv(
+        '_disable_maptypecontrol',
+        __('Hide map type',SLPLUS_PREFIX),
+        __('Turn the map type selector off.', SLPLUS_PREFIX)
+        );
+    
 ?>        
