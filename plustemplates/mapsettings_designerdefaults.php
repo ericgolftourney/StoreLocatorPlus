@@ -8,7 +8,11 @@
                }
     ?>
     >
-    <span class='input_note'><?php _e('Disable the scrollwheel zoom on the maps interface.',SLPLUS_PREFIX); ?></span>
+    <?php
+    echo slp_createhelpdiv('disable_initialdirectory',
+        __('Do not display the listings under the map when "immediately show locations" is checked.', SLPLUS_PREFIX)
+        );
+    ?>      
 </div>
 
 <!-- Disable ScrollWheel -->
@@ -21,14 +25,23 @@
                }
     ?>
     >
-    <span class='input_note'><?php _e('Disable the scrollwheel zoom on the maps interface.',SLPLUS_PREFIX); ?></span>
+    <?php
+    echo slp_createhelpdiv('disable_scrollwheel',
+        __('Disable the scrollwheel zoom on the maps interface.', SLPLUS_PREFIX)
+        );
+    ?>      
 </div>
 
 <!-- Starting Image -->
 <div class='form_entry'>
     <label  for='sl_starting_image'><?php _e("Starting Image",SLPLUS_PREFIX); ?>:</label>
-    <input name='sl_starting_image' value='<?php echo get_option('sl_starting_image'); ?>' size='25'><br/>
-    <span class='input_note'><?php _e("If set, this image will be displayed until a search is performed.",SLPLUS_PREFIX); ?></span>
+    <input name='sl_starting_image' value='<?php echo get_option('sl_starting_image'); ?>' size='25'>
+    <?php
+    echo slp_createhelpdiv('sl_starting_image',
+        __('If set, this image will be displayed until a search is performed.', SLPLUS_PREFIX)
+        );
+    ?>      
+    
 </div>
 
 <!-- Email Form -->
@@ -41,7 +54,11 @@
         }
     ?>
     >
-    <span class='input_note'><?php _e("Use email form instead of mailto: link when showing email addresses.",SLPLUS_PREFIX); ?></span>
+    <?php
+    echo slp_createhelpdiv('use_email_form',
+        __('Use email form instead of mailto: link when showing email addresses.', SLPLUS_PREFIX)
+        );
+    ?>      
 </div>
 
 
