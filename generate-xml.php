@@ -51,9 +51,7 @@ if (
 
 // Select all the rows in the markers table
 $query = sprintf(
-	"SELECT sl_id,sl_address, sl_address2, sl_store, sl_city, sl_state, sl_zip, ".
-	"sl_country, sl_latitude, sl_longitude, sl_description, sl_url, sl_email, sl_hours, ".
-	"sl_phone, sl_tags, sl_image,".
+	"SELECT *,".
 	"( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
 	"FROM ${dbPrefix}store_locator HAVING (sl_distance < '%s') ".
 	$tag_filter .
@@ -94,6 +92,7 @@ if (get_option(SLPLUS_PREFIX.'-reporting_enabled') === 'on') {
 echo "<markers>\n";
 // Iterate through the rows, printing XML nodes for each
 while ($row = @mysql_fetch_assoc($result)){
+    
   // ADD TO XML DOCUMENT NODE
   echo '<marker ';
   echo 'name="' . parseToXML($row['sl_store']) . '" ';
