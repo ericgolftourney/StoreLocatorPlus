@@ -3,11 +3,9 @@
         $city_checked, $country_checked, $show_tag_checked, $show_any_checked,
         $sl_radius_label, $sl_website_label,$sl_instruction_message, $slpMapSettings;
 ?>       
-<table class='widefat'>
-    <tbody>
-    <tr>
-        <td class='left_side'>                
-            <h3><?php _e('Features', SLPLUS_PREFIX);?></h3>
+<div id='search_settings'>
+    <div class='section_column'>              
+            <h2><?php _e('Features', SLPLUS_PREFIX);?></h2>
             
             <div class='form_entry'>
                 <label for='sl_use_city_search'>
@@ -27,11 +25,9 @@
             print "<div class='form_entry' style='text-align:right;padding-top:136px;'>Want more?<br/> <a href='http://www.cybersprocket.com/'>Check out our other WordPress offerings.</a></div>";
         }                    
         ?>                   
-           
-       </td>               
-       <td class='right_side'>
-       
-        <h3><?php _e("Labels", SLPLUS_PREFIX); ?></h3>
+    </div>           
+    <div class='section_column'>                     
+        <h2><?php _e("Labels", SLPLUS_PREFIX); ?></h2>
         
         <div class='form_entry'>
             <label for='search_label'><?php _e("Address Input", SLPLUS_PREFIX); ?>:</label>
@@ -62,5 +58,5 @@
             <input name='sl_instruction_message' value='<?php echo $sl_instruction_message; ?>' size='50'><br/>
             <span class='input_note'><?php _e("Instruction text when map is first displayed.", SLPLUS_PREFIX);?></span>                    
         </div>
-    </td>
-</tr>        
+    </div>
+</div>

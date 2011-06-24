@@ -15,7 +15,7 @@
     line-height: 1.5em;
 }
 
-#rb_details .rb_column {
+#rb_details .rb_column, .section_column {
     float: left;
     border: solid 1px #F0F0FF;
     margin-right: 24px;
@@ -23,7 +23,7 @@
 }
 
 
-#poststuff #rb_details h2 {
+#poststuff #rb_details h2, #poststuff .section_column h2 {
     margin-bottom: 0px;  
     margin-top: 0px;
 }
@@ -104,15 +104,15 @@
     clear:both;
 }
 
-.map_settings H3 {
+.section_description H3 {
 	margin: 0px;
 }
 
-.map_settings H4 {
+.section_description H4 {
 	margin: 0px 0px 3px 6px;
 }
 
-.map_settings label {
+.section_description label {
     width: 180px;
     float: left;
     text-align: right;
@@ -121,16 +121,16 @@
     clear: left;
 }
 
-.map_settings INPUT {
+.section_description INPUT {
     width: 20em;
 }
 
-.map_settings INPUT[type="checkbox"] {
+.section_description INPUT[type="checkbox"] {
     width: 2em;
     text-align:left;
 }
 
-.map_settings .input_note {
+.section_description .input_note {
 	clear: both;
 	text-align: left;
 	margin: 0px 0px 6px 190px;
@@ -139,9 +139,16 @@
 	width: 260px;
 }
 
-.map_settings .small {
+.section_description .small {
 	width: 3em;
 }
+
+.slplus_innertable td {
+    vertical-align: top;
+    border: none;
+    width: 100%;
+}
+
 
 /***************************
  * General Settings
@@ -168,6 +175,7 @@
 .widefat,.widefat thead td a,.widefat thead th a,.widefat td,.widefat th
 {
 	font-size: 12px;
+	border: none;
 }
 
 .widefat td td, .widefat td, .widefat th {

@@ -259,16 +259,33 @@ $slpMapSettings = new wpCSL_settings__slplus(
         )
  ); 
 
+//------------------------------------
+// Create The Search Form Settings Panel
+//  
+$slpDescription = get_string_from_phpexec(SLPLUS_COREDIR.'/templates/settings_searchform.php');
+$slpMapSettings->add_section(
+    array(
+            'name'          => __('Saerch Form',SLPLUS_PREFIX),
+            'description'   => $slpDescription,
+            'auto'          => true
+        )
+ );
 
-# Output Form 
-# Top Section (Search & Labels)
-#
-execute_and_output_template('map_settings.php');
+//------------------------------------
+// Render It 
+//
+print $update_msg;
+$slpMapSettings->render_settings_page();
+
 
    
 # Map Designer : Left Side
 #
-print "<tr><td width='40%' class='left_side'>
+print "
+    <thead>
+        <tr><th colspan='2'>".__('Map Designer', SLPLUS_PREFIX)."</th></tr>
+    </thead>            
+    <tr><td width='40%' class='left_side'>
         <div class='map_designer_settings'>
             <h3>".__("Defaults", SLPLUS_PREFIX)."</h3>    
             <div class='form_entry'><label for='sl_map_type'>".__("Default Map Type", SLPLUS_PREFIX).":</label>
