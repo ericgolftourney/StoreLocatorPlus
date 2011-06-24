@@ -7,7 +7,7 @@
 
 #rb_details th {
     font-size: 12px;
-    background: #F0F4F0;
+    background: #F4F4DD;
     padding: 6px 20px 6px 6px;
 }
 
@@ -19,13 +19,16 @@
     float: left;
     border: solid 1px #F0F0FF;
     margin-right: 24px;
-    padding: 0px 6px;
+    padding: 0px;
+    margin-top: 3px;
 }
 
 
 #poststuff #rb_details h2, #poststuff .section_column h2 {
-    margin-bottom: 0px;  
+    margin-bottom: 3px;  
     margin-top: 0px;
+    padding: 0px 6px;
+    background: #F4F4FF;
 }
 
 .section_description {
@@ -59,7 +62,7 @@
     min-width: 53px;    
 }
 .rowon {
-    background: #F4F4FF;
+    background: #F4F4F4;
 }
 .rowoff {
     background: #FFFFFF;
