@@ -76,7 +76,7 @@ if (!$_POST) {
     update_option(SLPLUS_PREFIX.'_disable_scrollwheel',$_POST[SLPLUS_PREFIX.'_disable_scrollwheel']);
     
     $_POST[SLPLUS_PREFIX.'_disable_initialdirectory'] = isset($_POST[SLPLUS_PREFIX.'_disable_initialdirectory'])?1:0;  
-    update_option(SLPLUS_PREFIX.'_disable_initialdirectory',$_POST[SLPLUS_PREFIX.'_disable_initialdirectory']);
+    update_option(SLPLUS_PREFIX.'_disable_initialdirectory',$_POST[SLPLUS_PREFIX.'_disable_initialdirectoryf']);
        
     $update_msg = "<div class='highlight'>".__("Successful Update", SLPLUS_PREFIX).'</div>';
 }
@@ -242,6 +242,22 @@ $icon_notification_msg=
 __("Please re-select your <b>Home Icon</b> and <b>Destination Icon</b> below, so that they show up properly on your map.", SLPLUS_PREFIX).
 "</span></div>" : 
 "" ;
+
+
+// Instantiate the form rendering object
+//
+$slpMapSettings = new wpCSL_settings__slplus(
+    array(
+            'no_license'        => true,
+            'prefix'            => $slplus_plugin->prefix,
+            'url'               => $slplus_plugin->url,
+            'name'              => $slplus_plugin->name . ' Map Settings',
+            'plugin_url'        => $slplus_plugin->plugin_url,
+            'render_csl_blocks' => false,
+            'form_action'       => '/wp-admin/admin.php?page='.SLPLUS_COREDIR.'map-designer.php',
+            'save_text'         => 'Save Settings'
+        )
+ ); 
 
 
 # Output Form 
