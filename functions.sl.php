@@ -224,7 +224,7 @@ function do_geocoding($address,$sl_id='') {
     // Loop through for X retries
     //
     $iterations = get_option(SLPLUS_PREFIX.'-goecode_retries');
-    if ($iterations == '') { $iterations = 0; }
+    if ($iterations <= 0) { $iterations = 1; }
     while($iterations){
     	$iterations--;     
     
