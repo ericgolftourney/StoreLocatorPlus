@@ -379,10 +379,14 @@ $slpSectionDescription .= '
     <div id="rb_details" class="reportblock">
         <div class="rb_column">
           <h2>' . __('Export To CSV',SLPLUS_PREFIX) . '</h2>
-          <p class="submit">
-          <input id="export_searches" class="button-secondary button-export" type="button" value="'.__('Top Searches',SLPLUS_PREFIX).'"><br/>
-          <input id="export_results"  class="button-secondary button-export" type="button" value="'.__('Top Results',SLPLUS_PREFIX).'">
-          </p>
+          <div class="form_entry">
+              <label for="export_all">'.__('Export all records',SLPLUS_PREFIX).'</label>
+              <input id="export_all" type="checkbox"  name="export_all" value="1">
+          </div>
+          <div class="form_entry">
+              <input id="export_searches" class="button-secondary button-export" type="button" value="'.__('Top Searches',SLPLUS_PREFIX).'"><br/>
+              <input id="export_results"  class="button-secondary button-export" type="button" value="'.__('Top Results',SLPLUS_PREFIX).'">
+          </div>
         </div>
     </div>
     ';

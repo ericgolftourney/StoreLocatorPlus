@@ -32,6 +32,7 @@ function array_to_CSV($data)
 
 // Database Connection
 include("./core/database-info.php");
+$query = $_POST['query'];
 
 // CSV Header
 header( 'Content-Description: File Transfer' );
@@ -40,8 +41,17 @@ header( 'Content-Type: application/csv;');
 header( 'Pragma: no-cache');
 header( 'Expires: 0');
 
+// All records - revise query
+//
+if (isset($_POST['all']) && ($_POST['all'] == 'true')) {
+    $query = preg_replace('/\s+LIMIT \d+(\s+|$)/','',$query);    
+}
+$query = stripslashes(htmlspecialchars_decode($query,ENT_QUOTES));
+
+print $query."\n";
+
 // Run the query & output the data in a CSV
-$thisDataset = $wpdb->get_results(stripslashes(htmlspecialchars_decode($_POST['query'],ENT_QUOTES)),ARRAY_N);
+$thisDataset = $wpdb->get_results($query,ARRAY_N);
 
 
 // Sorting
