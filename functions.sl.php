@@ -319,6 +319,15 @@ function do_geocoding($address,$sl_id='') {
  **/
 
 function activate_slplus() {
+    global $slplus_plugin;
+    // Check Registration
+    //
+    if (!$slplus_plugin->license->check_license_key()) {
+        $slplus_plugin->notifications->add_notice(
+            2,
+            "Your license " . get_option(SLPLUS_PREFIX . '-license_key') . " could not be validated."
+        );            
+    }
     
     // Data Updates
     //
