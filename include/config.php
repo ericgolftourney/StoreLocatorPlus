@@ -13,7 +13,8 @@ if (defined('SLPLUS_PLUGINDIR')) {
     
     /**
      * This section defines the settings for the admin menu.
-     */       
+     */ 
+    global $slplus_plugin;
     $slplus_plugin = new wpCSL_plugin__slplus(
         array(
             'use_obj_defaults'      => true,        
