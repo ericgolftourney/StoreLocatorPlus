@@ -333,7 +333,7 @@ function activate_slplus() {
     //
     global $sl_db_version, $sl_installed_ver;
 	$sl_db_version='2.0';     //***** CHANGE THIS ON EVERY STRUCT CHANGE
-    $sl_installed_ver = get_option( "sl_db_version" );
+    $sl_installed_ver = get_option( SLPLUS_PREFIX."-db_version" );
 
 	install_main_table();
 	if (function_exists('install_reporting_tables')) {
@@ -420,7 +420,7 @@ function slplus_dbupdater($sql,$table_name) {
 	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
-		add_option("sl_db_version", $sl_db_version);
+		add_option(SLPLUS_PREFIX."-db_version", $sl_db_version);
 		return 'new';
 		
     // Installation upgrade
