@@ -81,7 +81,6 @@ register_activation_hook( __FILE__, 'activate_slplus');
 // Actions
 //
 add_action('wp_head', 'head_scripts');
-add_action('admin_head', 'slpreport_downloads');
 add_action('admin_menu', 'csl_slplus_add_options_page');
 add_action('admin_init','csl_slplus_setup_admin_interface',10);
 add_action('admin_print_scripts', 'add_admin_javascript');

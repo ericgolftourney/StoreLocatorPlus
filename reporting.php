@@ -401,8 +401,12 @@ $slpReportSettings->add_section(
 
 
 
-?>
-
+//----------------------------
+// If we have data to report on
+//
+if ($slpRepTotalQueries > 0) {
+    add_action('admin_head', 'slpreport_downloads');    
+    ?>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
   google.load("visualization", "1", {packages:["corechart"]});
@@ -418,9 +422,22 @@ $slpReportSettings->add_section(
         chart.draw(data, {width: 800, height: 400, pointSize: 4});
       }
     </script>
-
-
 <?php
+
+// No Data Yet - Tell Them
+//
+} else {
+    ?>
+<script type="text/javascript">
+    jQuery(document).ready(
+            function($) {
+                  $("#chart_div").html("<p>No data recorded yet.  Chart will be available after a Store Locator Plus search has been performed.</p>");
+            }
+        );
+</script>    
+<?    
+}
+
 
 //------------------------------------
 // Render It 
