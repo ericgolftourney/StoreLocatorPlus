@@ -320,26 +320,30 @@ function do_geocoding($address,$sl_id='') {
 
 function activate_slplus() {
     global $slplus_plugin;
+    
     // Check Registration
-    //
-    if (!$slplus_plugin->license->check_license_key()) {
-        $slplus_plugin->notifications->add_notice(
-            2,
-            "Your license " . get_option(SLPLUS_PREFIX . '-license_key') . " could not be validated."
-        );            
-    }
+    //    
+    $slplus_plugin->license->check_license_key();
     
     // Data Updates
     //
     global $sl_db_version, $sl_installed_ver;
-	$sl_db_version='2.0';     //***** CHANGE THIS ON EVERY STRUCT CHANGE
+	$sl_db_version='2.0.1';     //***** CHANGE THIS ON EVERY STRUCT CHANGE
     $sl_installed_ver = get_option( SLPLUS_PREFIX."-db_version" );
 
 	install_main_table();
 	if (function_exists('install_reporting_tables')) {
 	    install_reporting_tables();
-    }	 
-    update_option("sl_db_version", $sl_db_version);
+    }
+    
+    
+    // Update the version
+    //
+    if ($sl_installed_ver == '') {
+        add_option(SLPLUS_PREFIX."-db_version", $sl_db_version);
+    } else {
+        update_option(SLPLUS_PREFIX."-db_version", $sl_db_version);
+    }
     
     
     if (function_exists('add_slplus_roles_and_caps')) {
@@ -363,6 +367,11 @@ function install_main_table() {
 	//***** CHANGE sl_db_version IN activate_slplus() 
 	//***** ANYTIME YOU CHANGE THIS STRUCTURE
 	//*****	
+	$charset_collate = '';
+    if ( ! empty($wpdb->charset) )
+        $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+    if ( ! empty($wpdb->collate) )
+        $charset_collate .= " COLLATE $wpdb->collate";	
 	$table_name = $wpdb->prefix . "store_locator";
 	$sql = "CREATE TABLE $table_name (
 			sl_id mediumint(8) unsigned NOT NULL auto_increment,
@@ -387,9 +396,7 @@ function install_main_table() {
 			sl_lastupdated  timestamp NOT NULL default current_timestamp,			
 			PRIMARY KEY  (sl_id)
 			) 
-			ENGINE=innoDB  
-			DEFAULT CHARACTER SET=utf8  
-			DEFAULT COLLATE=addasfutf8_unicode_ci;
+			$charset_collate
 			";
 						
     // If we updated an existing DB, do some mods to the data
@@ -410,17 +417,16 @@ function install_main_table() {
  ** function: slplus_dbupdater
  ** 
  ** Update the data structures on new db versions.
- **sl
+ **
  **/ 
 function slplus_dbupdater($sql,$table_name) {
     global $wpdb, $sl_db_version, $sl_installed_ver;
-    
+        
     // New installation
     //
 	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
-		add_option(SLPLUS_PREFIX."-db_version", $sl_db_version);
 		return 'new';
 		
     // Installation upgrade
@@ -431,7 +437,7 @@ function slplus_dbupdater($sql,$table_name) {
             dbDelta($sql);
             return 'updated';    
         }
-    }    
+    }   
 }
 
 
