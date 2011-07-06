@@ -59,6 +59,7 @@ function execute_and_output_plustemplate($file) {
 function install_reporting_tables() {
 	global $wpdb;
     
+	$charset_collate = '';
     if ( ! empty($wpdb->charset) )
         $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
     if ( ! empty($wpdb->collate) )
