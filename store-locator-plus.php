@@ -85,7 +85,7 @@ add_action('admin_menu', 'csl_slplus_add_options_page');
 add_action('admin_init','csl_slplus_setup_admin_interface',10);
 add_action('admin_print_scripts', 'add_admin_javascript');
 add_action('admin_print_styles','add_admin_stylesheet');
-
+add_action('admin_head', 'slpreport_downloads');    
 
 // Short Codes
 //
