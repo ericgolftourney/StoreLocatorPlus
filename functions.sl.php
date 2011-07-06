@@ -456,8 +456,7 @@ function head_scripts() {
 	
 	//Check if currently on page with shortcode
 	$pageID = isset($_GET['p'])         ? $_GET['p']       : 
-	          isset($_GET['page_id'])   ? $_GET['page_id'] : 
-	          '';
+	          (isset($_GET['page_id'])   ? $_GET['page_id'] : '');
 	$on_sl_page=$wpdb->get_results("SELECT post_name FROM ".$wpdb->prefix."posts ".
 	        "WHERE (post_content LIKE '%[STORE-LOCATOR%' OR post_content LIKE '%[SLPLUS%') AND " .
 	        "post_status IN ('publish', 'draft') AND ".
@@ -473,7 +472,7 @@ function head_scripts() {
 	//If shortcode used in posts, get post IDs, and put into array of numbers
 	if ($sl_code_is_used_in_posts) {
 		$sl_post_ids=$wpdb->get_results("SELECT ID FROM ".$wpdb->prefix."posts WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_type='post'", ARRAY_A);
-		foreach ($sl_post_ids as $val) { $post_ids_array[]=$val[ID];}
+		foreach ($sl_post_ids as $val) { $post_ids_array[]=$val['ID'];}
 	} else {			    
 	     //post number that'll never be reached
 		$post_ids_array=array(9999999999999999999999999999999999999);
