@@ -27,6 +27,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'plugin_url'            => SLPLUS_PLUGINURL,
             'cache_path'            => SLPLUS_PLUGINDIR . 'cache',
             'driver_type'           => 'none',
+            'uses_money'            => false,
             'driver_args'           => array(
                     'api_key'   => get_option(SLPLUS_PREFIX.'-api_key'),
                     )
