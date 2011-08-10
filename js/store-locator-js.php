@@ -51,7 +51,7 @@ $mt=(trim(get_option('sl_map_type'))!="")?
     get_option('sl_map_type') : 
     "G_NORMAL_MAP";
 $wl=(trim(get_option('sl_website_label'))!="")? 
-    parseToXML(get_option('sl_website_label')) : 
+    htmlentities(get_option('sl_website_label')) : 
     "Website";
 $du=(trim(get_option('sl_distance_unit'))!="")? 
     get_option('sl_distance_unit') : 
