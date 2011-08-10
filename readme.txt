@@ -50,7 +50,6 @@ Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
 = Requirements =
 
 * PHP 5.1+
-* SimpleXML enabled (must be enabled manually during install for PHP versions before 5.1.2)
 
 = Main Plugin =
 
