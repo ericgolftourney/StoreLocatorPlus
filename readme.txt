@@ -75,14 +75,6 @@ custom styling.
 
 == Frequently Asked Questions ==
 
-= Why a license fee? =
-
-It helps us support the product and provide regular updates.
-
-= Are there any other fees? =
-
-No, just the initial license fee.  Upgrades are free.  
-
 = What are the terms of the license? =
 
 The license is based on GPL.  You get the code, feel free to modify it as you
@@ -123,6 +115,10 @@ As of June, 2011 this includes:
 More screenshots are available via our [online documentation](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki).
 
 == Changelog ==
+
+= 2.0.2 (TBD) =
+
+* Minor edits.
 
 = 2.0.1 (August 2011) =
 
