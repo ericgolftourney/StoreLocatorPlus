@@ -359,6 +359,7 @@ $slpDescription .=
         "Basename:  ".SLPLUS_BASENAME    ."<br/>" .
         "Core Directory:   ".SLPLUS_COREDIR     ."<br/>" .
         "Plugin Directory: ".SLPLUS_PLUGINDIR   ."<br/>" .
+        "Core URL: ".SLPLUS_COREURL   ."<br/>" .
         "Plugin URL: ".SLPLUS_PLUGINURL   ."<br/>" .
         "Admin Page: ".SLPLUS_ADMINPAGE   ."<br/>" .
         ""
