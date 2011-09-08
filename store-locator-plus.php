@@ -55,6 +55,9 @@ if (defined('SLPLUS_COREURL') === false) {
 if (defined('SLPLUS_ICONURL') === false) {
     define('SLPLUS_ICONURL', SLPLUS_COREURL . 'images/icons/');
 }
+if (defined('SLPLUS_ADMINPAGE') === false) {
+    define('SLPLUS_ADMINPAGE', get_option('siteurl') . '/wp-admin/admin.php?page=' . SLPLUS_COREDIR );
+}
 
 // The relative path from the plugins directory
 //
