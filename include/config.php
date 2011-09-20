@@ -21,6 +21,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'prefix'                => SLPLUS_PREFIX,
             'css_prefix'            => SLPLUS_PREFIX,
             'name'                  => 'Store Locator Plus',
+            'sku'                   => 'SLPLUS',
             'url'                   => 'http://www.cybersprocket.com/products/store-locator-plus/',
             'paypal_button_id'      => '2D864VACHMK5A',
             'basefile'              => SLPLUS_BASENAME,
