@@ -305,3 +305,33 @@ div.feedburnerFeedBlock ul li span.headline {
     clear: both;
     margin-top: 12px;
 }
+
+div#slplus_navbar {
+    background: none;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    left: -15px;
+}
+
+#slplus_navbar ul {
+    margin: 0px;
+}
+#slplus_navbar li {
+  background: none repeat scroll 0 0 #DEDEDE;
+  border: 1px solid black;
+  float: left;
+  margin: 6px;
+  padding: 3px;
+  width: 150px;
+}
+#slplus_navbar div.handlediv {
+    display: none;
+    visibility: hidden;
+}
+#slplus_navbar h3.hndle {
+    display: none;
+    visibility: hidden;
+}
+
+
