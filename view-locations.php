@@ -18,7 +18,7 @@ foreach($_GET as $key=>$val) {
 print "<div class='wrap'>
             <div id='icon-edit-locations' class='icon32'><br/></div>
             <h2>".
-            __('Manage Locations', $text_domain).
+            __('Store Locator Plus - Manage Locations', $text_domain).
             "</h2>";
 
             
