@@ -1,97 +1,51 @@
 /***************************
- * Reporting Interface
+ * The Navbar
  */
-#icon-Store_Locator_Plus_Reporting {
-    background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -12px -3px transparent;
-}
-
-#rb_details th {
-    font-size: 12px;
-    background: #F4F4DD;
-    padding: 6px 20px 6px 6px;
-}
-
-#rb_details td {
-    line-height: 1.5em;
-}
-
-#rb_details.reportblock .form_entry {
-    width: 120px;
-    text-align: center;
-}
-
-#rb_details.reportblock label {
-    width: 90px;
-    text-align: right;
-}
-
-
-
-#rb_details .rb_column, .section_column {
-    float: left;
-    border: solid 1px #F0F0FF;
-    margin-right: 24px;
+div#slplus_navbar {
+    background: none;
+    border: none;
+    margin: 0px;
     padding: 0px;
-    margin-top: 3px;
+    left: -15px;
 }
 
-
-#poststuff #rb_details h2, #poststuff .section_column h2 {
-    margin-bottom: 3px;  
-    margin-top: 0px;
-    padding: 0px 6px;
-    background: #F4F4FF;
+#slplus_navbar ul {
+    margin: 0px;
+}
+#slplus_navbar li {
+  background: none repeat scroll 0 0 #DEDEDE;
+  border: 1px solid #BBBBBB;
+  float: left;
+  margin: 6px;
+  padding: 3px;
+  width: 150px;
+  border-radius: 3px;  
+  text-align: center;
+}
+#slplus_navbar li a {
+    text-decoration: none;
+}
+#slplus_navbar li:hover {
+    background: #BEBEBE;
 }
 
-.section_description {
-    padding-bottom: 6px;
-    color: #666666;
+#slplus_navbar div.handlediv {
+    display: none;
+    visibility: hidden;
+}
+#slplus_navbar h3.hndle {
+    display: none;
+    visibility: hidden;
 }
 
-.alignright {
-    text-align: right;
-}
-
-/* Table Header */
-#rb_details thead tr .header {
-  	background-repeat: no-repeat;
-	background-position: center right;
-	cursor: pointer;    
-}
-
-#rb_details .headerSortUp {
-    background-image: url("../../core/images/arrow_sm_black_down.png");
-}
-
-#rb_details .headerSortDown {
-    background-image: url("../../core/images/arrow_sm_black_up.png");
-}
-
-
-/* Table Body */
-#rb_details tbody td {
-    padding-right: 6px;
-    min-width: 53px;    
-}
-.rowon {
-    background: #F4F4F4;
-}
-.rowoff {
-    background: #FFFFFF;
-}
-
-/* Report Block Buttons */
-#rb_details input[type="button"] {
-    width: 100px;
-}
 
 
 /***************************
- * Manage Locations Form
+ * Locations: Manage
  */
 
 #icon-edit-locations, #icon-locations {
-    background: url("../../core/images/icon_location.png") no-repeat scroll -312px -5px transparent;
+    background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -75px -3px transparent;
 }
 
 .add_location_form label {
@@ -111,8 +65,18 @@
 }
 
 
+
 /***************************
- * Map Settings
+ * Locations: Add
+ */
+
+#icon-add-locations, #icon-locations {
+    background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -75px -3px transparent;
+}
+
+
+/***************************
+ * Settings: Map
  */
  
  #icon-Store_Locator_Plus_Display_Settings {
@@ -170,8 +134,12 @@
 
 
 /***************************
- * General Settings
+ * Settings: General
  **/
+ #icon-Store_Locator_Plus {
+    background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -75px -3px transparent;
+}  
+ 
 #wpcontent .csl_select, #wpcontent .csl_option
 {
     padding-right: 6px;
@@ -280,7 +248,7 @@ div.feedburnerFeedBlock ul li span.headline {
     float: left;
     text-align: left;
     padding-top: 7px;
-    width: 200px;
+    width: 250px;
 }
 .searchlocations {
     float: right;
@@ -295,7 +263,11 @@ div.feedburnerFeedBlock ul li span.headline {
     width: 110px;
 }
 
-/**** Default CSL Settings Page ****/
+.top_listing_bar {
+    clear:both;
+}
+
+
 .cybersprocket-csllogo {
     clear: both;
     text-align: center;    
@@ -306,41 +278,92 @@ div.feedburnerFeedBlock ul li span.headline {
     margin-top: 12px;
 }
 
-div#slplus_navbar {
-    background: none;
-    border: none;
-    margin: 0px;
+
+/***************************
+ * Reporting Interface
+ */
+#icon-Store_Locator_Plus_Reporting {
+    background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -75px -3px transparent;
+}
+
+#rb_details th {
+    font-size: 12px;
+    background: #F4F4DD;
+    padding: 6px 20px 6px 6px;
+}
+
+#rb_details td {
+    line-height: 1.5em;
+}
+
+#rb_details.reportblock .form_entry {
+    width: 120px;
+    text-align: center;
+}
+
+#rb_details.reportblock label {
+    width: 90px;
+    text-align: right;
+}
+
+
+
+#rb_details .rb_column, .section_column {
+    float: left;
+    border: solid 1px #F0F0FF;
+    margin-right: 24px;
     padding: 0px;
-    left: -15px;
+    margin-top: 3px;
 }
 
-#slplus_navbar ul {
-    margin: 0px;
-}
-#slplus_navbar li {
-  background: none repeat scroll 0 0 #DEDEDE;
-  border: 1px solid #BBBBBB;
-  float: left;
-  margin: 6px;
-  padding: 3px;
-  width: 150px;
-  border-radius: 3px;  
-  text-align: center;
-}
-#slplus_navbar li a {
-    text-decoration: none;
-}
-#slplus_navbar li:hover {
-    background: #BEBEBE;
+
+#poststuff #rb_details h2, #poststuff .section_column h2 {
+    margin-bottom: 3px;  
+    margin-top: 0px;
+    padding: 0px 6px;
+    background: #F4F4FF;
 }
 
-#slplus_navbar div.handlediv {
-    display: none;
-    visibility: hidden;
-}
-#slplus_navbar h3.hndle {
-    display: none;
-    visibility: hidden;
+.section_description {
+    padding-bottom: 6px;
+    color: #666666;
 }
 
+.alignright {
+    text-align: right;
+}
+
+
+/* Table Header */
+#rb_details thead tr .header {
+  	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;    
+}
+
+#rb_details .headerSortUp {
+    background-image: url("../../core/images/arrow_sm_black_down.png");
+}
+
+#rb_details .headerSortDown {
+    background-image: url("../../core/images/arrow_sm_black_up.png");
+}
+
+
+/* Table Body */
+#rb_details tbody td {
+    padding-right: 6px;
+    min-width: 53px;    
+}
+.rowon {
+    background: #F4F4F4;
+}
+.rowoff {
+    background: #FFFFFF;
+}
+
+/* Report Block Buttons */
+#rb_details input[type="button"] {
+    width: 100px;
+}
 
