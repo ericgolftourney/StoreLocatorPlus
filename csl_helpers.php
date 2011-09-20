@@ -27,6 +27,17 @@ function csl_slplus_setup_admin_interface() {
 
     // Already been here?  Get out.
     if (isset($slplus_plugin->settings->sections['How to Use'])) { return; }
+
+    //-------------------------
+    // Navbar Section
+    //-------------------------    
+    $slplus_plugin->settings->add_section(
+        array(
+            'name' => 'Navigation',
+            'description' => get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php')
+        )
+    );
+
     
     
     //-------------------------
