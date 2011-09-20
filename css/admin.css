@@ -319,12 +319,21 @@ div#slplus_navbar {
 }
 #slplus_navbar li {
   background: none repeat scroll 0 0 #DEDEDE;
-  border: 1px solid black;
+  border: 1px solid #BBBBBB;
   float: left;
   margin: 6px;
   padding: 3px;
   width: 150px;
+  border-radius: 3px;  
+  text-align: center;
 }
+#slplus_navbar li a {
+    text-decoration: none;
+}
+#slplus_navbar li:hover {
+    background: #BEBEBE;
+}
+
 #slplus_navbar div.handlediv {
     display: none;
     visibility: hidden;
