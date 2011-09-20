@@ -9,7 +9,7 @@
 ?>
 
 <ul>
-    <li><a href="">Locations: All</a></li>
+    <li><a href="<?php echo SLPLUS_ADMINPAGE;?>view-locations.php">Locations: Manage</a></li>
     <li><a href="">Locations: Add</a></li>
     <li><a href="">Settings: Map</a></li>    
     <li><a href="">Settings: General</a></li>    
