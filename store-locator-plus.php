@@ -58,7 +58,9 @@ if (defined('SLPLUS_ICONURL') === false) {
 if (defined('SLPLUS_ADMINPAGE') === false) {
     define('SLPLUS_ADMINPAGE', get_option('siteurl') . '/wp-admin/admin.php?page=' . SLPLUS_COREDIR );
 }
-
+if (defined('SLPLUS_PLUSPAGE') === false) {
+    define('SLPLUS_PLUSPAGE', get_option('siteurl') . '/wp-admin/admin.php?page=' . SLPLUS_PLUGINDIR );
+}
 // The relative path from the plugins directory
 //
 if (defined('SLPLUS_BASENAME') === false) {
