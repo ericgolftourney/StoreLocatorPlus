@@ -34,6 +34,7 @@ function csl_slplus_setup_admin_interface() {
     $slplus_plugin->settings->add_section(
         array(
             'name' => 'Navigation',
+            'div_id' => 'slplus_navbar',
             'description' => get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php')
         )
     );
