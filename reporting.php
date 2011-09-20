@@ -94,6 +94,19 @@ $slpReportSettings = new wpCSL_settings__slplus(
             'save_text'         => 'Run Report'
         )
  ); 
+
+//-------------------------
+// Navbar Section
+//-------------------------    
+$slpReportSettings->add_section(
+    array(
+        'name' => 'Navigation',
+        'div_id' => 'slplus_navbar',
+        'description' => get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php'),
+        'is_topmenu' => true,
+        'auto' => false
+    )
+);
  
 //------------------------------------
 // Create The Report Parameters Panel
