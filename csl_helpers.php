@@ -40,9 +40,7 @@ function csl_slplus_setup_admin_interface() {
             'auto' => false
         )
     );
-
-    
-    
+  
     //-------------------------
     // How to Use Section
     //-------------------------    
