@@ -49,7 +49,8 @@ function csl_slplus_setup_admin_interface() {
     $slplus_plugin->settings->add_section(
         array(
             'name' => 'How to Use',
-            'description' => get_string_from_phpexec(SLPLUS_PLUGINDIR.'/how_to_use.txt')
+            'description' => get_string_from_phpexec(SLPLUS_PLUGINDIR.'/how_to_use.txt'),
+            'start_collapsed' => true
         )
     );
 
