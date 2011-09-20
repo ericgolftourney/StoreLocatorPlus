@@ -119,6 +119,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 = 2.1 (October 2011) =
 
 * Fix error when debug mode is enabled.
+* Updated administrative pages header with new menu button bar.
 
 = 2.0.3 (September 9th 2011) =
 
