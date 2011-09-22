@@ -1,4 +1,46 @@
 /***************************
+ * Anywhere
+ */
+ 
+/* A div that looks like a button. */
+.like-a-button {
+	background: #FFF; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#DDDDDD'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#FFF), to(#DDD)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #FFF,  #DDD); /* for firefox 3.6+ */  
+  
+  border: 1px solid #BBBBBB;
+  border-radius: 3px 3px 3px 3px;
+  margin: 6px;
+  padding: 3px;
+  text-align: center;
+  width: 150px;
+  cursor: pointer;
+  color: #5F5E5E;
+  display: block;
+  
+  /* Corners */
+  -webkit-border-radius:6px;
+  -moz-border-radius:6px;
+  border-radius:6px;
+   -khtml-border-radius: 6px;
+   
+   /* Shadow */
+   -moz-box-shadow: 0px 1px 3px #AAA;
+   -webkit-box-shadow: 0px 1px 3px #AAA;
+   box-shadow: 0px 1px 3px #AAA;   
+}
+.like-a-button:hover {
+	background: #DDD; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DDDDDD', endColorstr='#FFFFFF'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#DDD), to(#FFF)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #DDD,  #FFF); /* for firefox 3.6+ */  
+}
+.like-a-button A {
+    text-decoration:none;
+}
+
+/***************************
  * The Navbar
  */
 div#slplus_navbar {
@@ -13,20 +55,9 @@ div#slplus_navbar {
     margin: 0px;
 }
 #slplus_navbar li {
-  background: none repeat scroll 0 0 #DEDEDE;
-  border: 1px solid #BBBBBB;
   float: left;
   margin: 6px;
   padding: 3px;
-  width: 150px;
-  border-radius: 3px;  
-  text-align: center;
-}
-#slplus_navbar li a {
-    text-decoration: none;
-}
-#slplus_navbar li:hover {
-    background: #BEBEBE;
 }
 
 #slplus_navbar div.handlediv {
