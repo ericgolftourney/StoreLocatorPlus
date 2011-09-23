@@ -2,7 +2,10 @@
  * Anywhere
  */
  
-/* A div that looks like a button. */
+/*----------------------------------
+ *
+ * A div that looks like a button. 
+ */
 .like-a-button {
 	background: #FFF; /* for non-css3 browsers */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#DDDDDD'); /* for IE */
@@ -39,6 +42,36 @@
 .like-a-button A {
     text-decoration:none;
 }
+
+
+/*----------------------------------
+ *
+ * jQuery Modal Dialogue 
+ */
+ div.ui-dialog {
+     border: solid 1px #BFBFBF;
+     background: white;
+     padding: 0px;
+     margin: 12px;
+ }
+
+ div.ui-dialog div.ui-dialog-titlebar {
+     padding: 3px;
+     background: #BFBFBF;
+     text-align: center;
+     font-weight: bold;
+     margin: 0px;
+ }
+ 
+ div.ui-dialog div.ui-dialog-titlebar a.ui-dialog-titlebar-close span.ui-icon {
+     float: right;
+     margin-left: 3px;
+ }
+ 
+ div.ui-dialog div.ui-dialog-content {
+     padding: 9px;
+ }
+
 
 /***************************
  * The Navbar
@@ -254,11 +287,11 @@ td.optionpack {
    background-color:#D4D4D4;
 }
 .form-table td.optionpack_topline {
-  border-top: 1px solid #B4B4B4;
-  height: 1px;
-  line-height: 1px;
+  border-top: 1px solid #949494;
+  background: #B4B4B4;
+  line-height: 1em;
   margin: 0;
-  padding: 0;
+  padding: 5px 3px;
 }
 
 /*** Generic Formatting ***/
