@@ -1,6 +1,20 @@
 /***************************
  * Anywhere
  */
+
+ #icon-Store_Locator_Plus_-_Map_Settings,
+ #icon-Store_Locator_LE_-_Map_Settings,
+ #icon-Store_Locator_Plus_-_Reporting,
+ #icon-Store_Locator_LE_-_Reporting,
+ #icon-Store_Locator_Plus,
+ #icon-Store_Locator_LE,
+ #icon-edit-locations, 
+ #icon-add-locations, 
+ #icon-locations 
+ {
+    background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -75px -3px transparent;
+}
+
  
 /*----------------------------------
  *
@@ -108,10 +122,6 @@ div#slplus_navbar {
  * Locations: Manage
  */
 
-#icon-edit-locations, #icon-locations {
-    background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -75px -3px transparent;
-}
-
 .add_location_form label {
     width: 120px;
     float: left;
@@ -131,21 +141,9 @@ div#slplus_navbar {
 
 
 /***************************
- * Locations: Add
- */
-
-#icon-add-locations, #icon-locations {
-    background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -75px -3px transparent;
-}
-
-
-/***************************
  * Settings: Map
  */
  
- #icon-Store_Locator_Plus_-_Map_Settings {
-    background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -75px -3px transparent;
-}
 
 .form_entry {
     clear:both;
@@ -200,9 +198,6 @@ div#slplus_navbar {
 /***************************
  * Settings: General
  **/
- #icon-Store_Locator_Plus {
-    background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -75px -3px transparent;
-}  
  
 #wpcontent .csl_select, #wpcontent .csl_option
 {
@@ -361,9 +356,6 @@ td.optionpack {
 /***************************
  * Reporting Interface
  */
-#icon-Store_Locator_Plus_-_Reporting {
-    background: url("../../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -75px -3px transparent;
-}
 
 #rb_details th {
     font-size: 12px;
