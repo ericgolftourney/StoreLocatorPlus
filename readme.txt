@@ -101,6 +101,21 @@ As of June, 2011 this includes:
 * Chrome 11/12
 * Safari 4/5
 
+= What happened to the LE version? =
+
+The light edition (LE) and Plus versions have been merged back into a single product.   The LE version remains fully functional and now has a lot of the main features that were only available in the Plus Pack.
+
+= What is the Plus Pack? =
+
+The Plus Pack is a paid add-on for the main Store Locator Plus product.  When you purchase the Plus Pack the system will automatically install a variety of new features in the base product.  The features that are added by the Plus Pack change on a regular basis.  Please see the [support pages](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki) for the latest list.
+
+Some of the features in the Plus Pack include:
+
+* A searched-locations report.
+* Ability to input addresses in bulk via a CSV upload.
+* Ability to associate tags with locations and filter search results by those tags.
+* Additional search form elements.
+
 == Screenshots ==
 
 1. Location Details
@@ -119,6 +134,9 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 = 2.2 (December 2011) = 
 
 * Store Locator Plus and LE are now merged, allowing for direct-from-WordPress upgrades.
+* General performance improvements via reduced memory usage while running searches.
+* New map controls: disable initial directory, set starting image, popup email form, disable scroll wheel, disable map controls
+
 
 = 2.1 (October 2011) =
 
