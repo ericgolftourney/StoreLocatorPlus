@@ -84,7 +84,7 @@ function add_options_packages_for_slplus() {
         );
 
     if ($slplus_plugin->license->packages['Plus Pack']->isenabled_after_forcing_recheck()) {
-        $slplus_plugin->themes_enabled = true;
+        // do nothing (for now)
     }       
 
 }
