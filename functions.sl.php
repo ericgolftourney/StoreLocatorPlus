@@ -310,12 +310,7 @@ function do_geocoding($address,$sl_id='') {
 function activate_slplus() {
     global $slplus_plugin;
     
-    // Check Registration
-    //
-    if (isset($slplus_plugin->license)) {    
-        $slplus_plugin->license->check_license_key();
-    }
-    
+   
     // Data Updates
     //
     global $sl_db_version, $sl_installed_ver;
@@ -537,16 +532,7 @@ function head_scripts() {
     if (function_exists('slplus_shortcode_atts')) {
         slplus_shortcode_atts($attributes);
     }
-    
-    // Plugin is not licensed or user is not admin
-    //
-    if (!$slplus_plugin->ok_to_show()) {
-        if(get_option($prefix.'-debugging') == 'on') {
-            print 'Store Locator Plus is not licensed.';
-        }
-        return;
-    }
-                
+                   
     $height=(get_option('sl_map_height'))? 
     get_option('sl_map_height') : "500" ;
     
@@ -702,15 +688,17 @@ function csl_slplus_add_options_page() {
 		
 		// Plus Reporting
 		//
-		if (function_exists('slplus_add_report_settings')) {
-            add_submenu_page(
-                SLPLUS_COREDIR.'add-locations.php',
-                __("Reports", SLPLUS_PREFIX), 
-                __("Reports", SLPLUS_PREFIX), 
-                'administrator', 
-                SLPLUS_PLUGINDIR.'reporting.php'
-                );		    
-		}
+		if ($slplus_plugin->license->packages['Plus Pack']->isenabled) { 		
+            if (function_exists('slplus_add_report_settings')) {
+                add_submenu_page(
+                    SLPLUS_COREDIR.'add-locations.php',
+                    __("Reports", SLPLUS_PREFIX), 
+                    __("Reports", SLPLUS_PREFIX), 
+                    'administrator', 
+                    SLPLUS_PLUGINDIR.'reporting.php'
+                    );		    
+            }
+        }            
 	}
 
 }
