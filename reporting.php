@@ -454,5 +454,10 @@ if ($slpRepTotalQueries > 0) {
 //------------------------------------
 // Render It 
 //
-$slpReportSettings->render_settings_page();
+if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {      
+    $slpReportSettings->render_settings_page();
+} else {
+    $slplus_plugin->notifications->add_notice(9,__('This is a Plus Pack feature.',SLPLUS_PREFIX));
+    $slplus_plugin->notifications->display();    
+}    
 

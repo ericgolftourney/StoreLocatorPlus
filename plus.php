@@ -109,15 +109,17 @@ function install_reporting_tables() {
 function slplus_add_report_settings() {
     global $slplus_plugin;
     
-    $slplus_plugin->settings->add_item(
-        'Reporting', 
-        'Enable reporting', 
-        'reporting_enabled', 
-        'checkbox', 
-        false,
-        'Enables tracking of searches and returned results.  The added overhead ' .
-        'can increase how long it takes to return location search results.'
-    );    
+    if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {    
+        $slplus_plugin->settings->add_item(
+            'Reporting', 
+            'Enable reporting', 
+            'reporting_enabled', 
+            'checkbox', 
+            false,
+            'Enables tracking of searches and returned results.  The added overhead ' .
+            'can increase how long it takes to return location search results.'
+        );    
+    }
 }
 
 /**************************************
@@ -128,33 +130,43 @@ function slplus_add_report_settings() {
  **/
 function slplus_create_country_pd() {
     global $wpdb;
+    global $slplus_plugin;
     
-    $myOptions = '';
-    
-    // If Use Country Search option is enabled
-    // build our country pulldown.
+    // Plus Pack Enabled
     //
-    if (get_option('sl_use_country_search')==1) {
-        $cs_array=$wpdb->get_results(
-            "SELECT TRIM(sl_country) as country " .
-                "FROM ".$wpdb->prefix."store_locator " .
-                "WHERE sl_country<>'' " .
-                    "AND sl_latitude<>'' AND sl_longitude<>'' " .
-                "GROUP BY country " .
-                "ORDER BY country ASC", 
-            ARRAY_A);
-    
-        // If we have country data show it in the pulldown
+    if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {            
+        $myOptions = '';
+        
+        // If Use Country Search option is enabled
+        // build our country pulldown.
         //
-        if ($cs_array) {
-            foreach($cs_array as $value) {
-              $myOptions.=
-                "<option value='$value[country]'>" .
-                $value['country']."</option>";
+        if (get_option('sl_use_country_search')==1) {
+            $cs_array=$wpdb->get_results(
+                "SELECT TRIM(sl_country) as country " .
+                    "FROM ".$wpdb->prefix."store_locator " .
+                    "WHERE sl_country<>'' " .
+                        "AND sl_latitude<>'' AND sl_longitude<>'' " .
+                    "GROUP BY country " .
+                    "ORDER BY country ASC", 
+                ARRAY_A);
+        
+            // If we have country data show it in the pulldown
+            //
+            if ($cs_array) {
+                foreach($cs_array as $value) {
+                  $myOptions.=
+                    "<option value='$value[country]'>" .
+                    $value['country']."</option>";
+                }
             }
-        }
-    }    
-    return $myOptions;
+        }    
+        return $myOptions;
+
+    // No Plus Pack
+    //
+    } else {
+        return '';
+    }        
 }
 
 
@@ -220,15 +232,19 @@ function slpreport_downloads() {
  **
  **/
 function slplus_shortcode_atts($attributes) {
-    
-    shortcode_atts(
-        array(
-            'tags_for_pulldown'=> null, 
-            'only_with_tag'    => null,
-            ),
-        $attributes
-        );
+    global $slplus_plugin;
 
+    // Plus Pack Enabled
+    //
+    if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {                
+        shortcode_atts(
+            array(
+                'tags_for_pulldown'=> null, 
+                'only_with_tag'    => null,
+                ),
+            $attributes
+            );
+    }
 }
 
 

@@ -16,7 +16,12 @@
         __('Disable search',SLPLUS_PREFIX),
         __('This makes the search form non-interactive.  Typically used with the immediately show locations feature with a smaller listing set.', SLPLUS_PREFIX)
         );            
-    
+
+    //----------------------------------------------------------------------
+    // Plus Pack Enabled
+    //
+    global $slplus_plugin;
+    if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {                
 ?>
 
 <div class='form_entry'>
@@ -62,6 +67,7 @@
         '_show_tag_any',
         __('Add "any" to tags pulldown',SLPLUS_PREFIX),
         __('Add an "any" selection on the tag pulldown list thus allowing the user to show all locations in the area, not just those matching a selected tag.', SLPLUS_PREFIX)
-        );        
+        );
+    }    
 ?>
 
