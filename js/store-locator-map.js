@@ -143,7 +143,7 @@ function sl_load_locations(map,lat,lng) {
 function searchLocations() {
     var address = document.getElementById('addressInput').value;
     
-    geocoder.getLatLng(address, 
+    geocoder.getLatLng(escape(address), 
         function(latlng) {
             if (!latlng) {
                 alert(address + ' not found');
