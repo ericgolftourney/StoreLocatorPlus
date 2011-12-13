@@ -169,6 +169,54 @@ function slplus_create_country_pd() {
     }        
 }
 
+/**************************************
+ ** function: slplus_create_state_pd()
+ ** 
+ ** Create the state pulldown list, mark the checked item.
+ **
+ **/
+function slplus_create_state_pd() {
+    global $wpdb;
+    global $slplus_plugin;
+    
+    // Plus Pack Enabled
+    //
+    if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {            
+        $myOptions = '';
+        
+        // If Use State Search option is enabled
+        // build our state pulldown.
+        //
+        if (get_option('slplus_show_state_pd')==1) {
+            $cs_array=$wpdb->get_results(
+                "SELECT TRIM(sl_state) as state " .
+                    "FROM ".$wpdb->prefix."store_locator " .
+                    "WHERE sl_state<>'' " .
+                        "AND sl_latitude<>'' AND sl_longitude<>'' " .
+                    "GROUP BY state " .
+                    "ORDER BY state ASC", 
+                ARRAY_A);
+        
+            // If we have country data show it in the pulldown
+            //
+            if ($cs_array) {
+                foreach($cs_array as $value) {
+                  $myOptions.=
+                    "<option value='$value[state]'>" .
+                    $value['state']."</option>";
+                }
+            }
+        }    
+        return $myOptions;
+
+    // No Plus Pack
+    //
+    } else {
+        return '';
+    }        
+}
+
+
 
 /**************************************
  ** function: slpreport_downloads()
