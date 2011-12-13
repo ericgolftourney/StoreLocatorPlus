@@ -42,7 +42,7 @@ function initialize_variables() {
     global $search_label, $zoom_level, $sl_use_city_search, $sl_use_name_search, $sl_default_map;
     global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
     global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
-    global $sl_map_character_encoding, $sl_use_country_search;
+    global $sl_map_character_encoding, $sl_use_country_search, $slplus_show_state_pd;
     
     $sl_map_character_encoding=get_option('sl_map_character_encoding');
     if (empty($sl_map_character_encoding)) {
@@ -113,6 +113,11 @@ function initialize_variables() {
     if (empty($sl_use_country_search)) {
         $sl_use_country_search="1";
         add_option('sl_use_country_search', $sl_use_country_search);
+        }
+    $slplus_show_state_pd=get_option('slplus_show_state_pd');
+    if (empty($slplus_show_state_pd)) {
+        $slplus_show_state_pd="1";
+        add_option('slplus_show_state_pd', $slplus_show_state_pd);
         }
     $zoom_level=get_option('sl_zoom_level');
     if (empty($zoom_level)) {
@@ -522,7 +527,8 @@ function head_scripts() {
 	    $slplus_plugin, $prefix,	        
 	    $search_label, $width, $height, $width_units, $height_units, $hide,
 	    $sl_radius, $sl_radius_label, $r_options, $button_style,
-	    $sl_instruction_message, $cs_options, $country_options,$fnvars;	 	    
+	    $sl_instruction_message, $cs_options, 
+	    $country_options, $slplus_state_options, $fnvars;	 	    
     $fnvars = array();
 
     //----------------------
@@ -562,6 +568,7 @@ function head_scripts() {
     $r_options      =(isset($r_options)         ?$r_options      :'');
     $cs_options     =(isset($cs_options)        ?$cs_options     :'');
     $country_options=(isset($country_options)   ?$country_options:'');
+    $slplus_state_options=(isset($slplus_state_options)   ?$slplus_state_options:'');
 
     foreach ($r_array as $value) {
         $s=(ereg("\(.*\)", $value))? " selected='selected' " : "" ;
@@ -604,11 +611,13 @@ function head_scripts() {
     //----------------------
     // Create Country Pulldown
     // [LE/PLUS]
-    //
-    if (function_exists('slplus_create_country_pd')) {
-        $country_options = slplus_create_country_pd();
+    //    
+    if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {                    
+        $country_options = slplus_create_country_pd();    
+        $slplus_state_options = slplus_create_state_pd();
     } else {
-        $country_options = '';
+        $country_options = '';    
+        $slplus_state_options = '';
     }
         
     $theme_base=$sl_upload_base."/images";
@@ -634,6 +643,7 @@ function head_scripts() {
     $columns = 1;
     $columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;
     $columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
+    $columns += (get_option('slplus_show_state_pd')!=1) ? 1 : 0; 	    
     $sl_radius_label=get_option('sl_radius_label');
     $file = SLPLUS_COREDIR . 'templates/search_form.php';
 

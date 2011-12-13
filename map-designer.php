@@ -112,7 +112,9 @@ if (!$_POST) {
     #
     $_POST['sl_use_city_search']=isset($_POST['sl_use_city_search'])?1:0;
     update_option('sl_use_city_search',$_POST['sl_use_city_search']);
-
+            
+    $_POST['slplus_show_state_pd']=isset($_POST['slplus_show_state_pd'])?1:0;
+    update_option('slplus_show_state_pd',$_POST['slplus_show_state_pd']);
     
     $_POST['sl_use_country_search']=isset($_POST['sl_use_country_search'])?1:0;
     update_option('sl_use_country_search',$_POST['sl_use_country_search']);
