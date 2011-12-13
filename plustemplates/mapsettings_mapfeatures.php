@@ -1,3 +1,11 @@
+<?php
+    //----------------------------------------------------------------------
+    // Plus Pack Enabled
+    //
+    global $slplus_plugin;
+    if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {                
+?>
+
 <!-- No Initial Directory -->
 <div class='form_entry'>
     <label  for='<?php echo SLPLUS_PREFIX; ?>_disable_initialdirectory'><?php _e('Disable Initial Directory',SLPLUS_PREFIX); ?>:</label>
@@ -80,5 +88,5 @@
         __('Hide map type',SLPLUS_PREFIX),
         __('Turn the map type selector off.', SLPLUS_PREFIX)
         );
-    
+    }    
 ?>        

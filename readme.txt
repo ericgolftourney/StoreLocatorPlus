@@ -135,7 +135,8 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 * Store Locator Plus and LE are now merged, allowing for direct-from-WordPress upgrades.
 * General performance improvements via reduced memory usage while running searches.
-* New map controls: disable initial directory, set starting image, popup email form, disable scroll wheel, disable map controls
+* Address search now can process special characters like: ü
+* Plus Pack: state pulldown now available
 
 
 = 2.1 (October 2011) =
