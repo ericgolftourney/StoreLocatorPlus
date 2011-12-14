@@ -136,6 +136,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Store Locator Plus and LE are now merged, allowing for direct-from-WordPress upgrades.
 * General performance improvements via reduced memory usage while running searches.
 * Address search now can process special characters like: ü
+* Better lookup and testing for loading wp_config, the source of "unable to load JavaScript errors"
 * Plus Pack: state pulldown now available
 * Plus Pack: tags with spaces can be filtered and searched
 * Plus Pack: allow tags in table and bubble
