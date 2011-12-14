@@ -137,6 +137,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * General performance improvements via reduced memory usage while running searches.
 * Address search now can process special characters like: ü
 * Plus Pack: state pulldown now available
+* Plus Pack: tags with spaces can be filtered and searched
 
 
 = 2.1 (October 2011) =
