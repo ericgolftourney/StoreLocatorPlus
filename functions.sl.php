@@ -39,7 +39,7 @@ function move_upload_directories() {
 function initialize_variables() {
     global $height, $width, $width_units, $height_units, $radii;
     global $icon, $icon2, $google_map_domain, $google_map_country, $theme, $sl_base, $sl_upload_base, $location_table_view;
-    global $search_label, $zoom_level, $sl_use_city_search, $sl_use_name_search, $sl_default_map;
+    global $search_label, $zoom_level, $zoom_tweak, $sl_use_city_search, $sl_use_name_search, $sl_default_map;
     global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
     global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
     global $sl_map_character_encoding, $sl_use_country_search, $slplus_show_state_pd;
@@ -123,6 +123,11 @@ function initialize_variables() {
     if (empty($zoom_level)) {
         $zoom_level="4";
         add_option('sl_zoom_level', $zoom_level);
+        }
+    $zoom_tweak=get_option('sl_zoom_tweak');
+    if (empty($zoom_tweak)) {
+        $zoom_tweak="1";
+        add_option('sl_zoom_tweak', $zoom_tweak);
         }
     $search_label=get_option('sl_search_label');
     if (empty($search_label)) {
@@ -496,6 +501,7 @@ function head_scripts() {
             $theme=get_option('sl_map_theme');
             if ($theme!="") {print "\n<link  href='".$sl_upload_base."/themes/$theme/style.css' rel='stylesheet' type='text/css'/>";}
             $zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		            
+            $ztweak=(trim(get_option('sl_zoom_tweak'))!="")? get_option('sl_zoom_tweak') : 1;		            
             }
         } else {
             if ($slplus_plugin->debugging) {

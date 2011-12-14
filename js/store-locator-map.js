@@ -121,7 +121,11 @@ function sl_load_locations(map,lat,lng) {
                                     
                 bounds.extend(point);
             }
-            map.setCenter(bounds.getCenter(), (map.getBoundsZoomLevel(bounds)-1));
+              var FinalZoom = sl_zoom_level;
+              if (markers.length > 1) {            
+                    FinalZoom = map.getBoundsZoomLevel(bounds)-sl_zoom_tweak;
+              }
+            map.setCenter(bounds.getCenter(), FinalZoom);
             
             var customUI = map.getDefaultUI();
             customUI.controls.largemapcontrol3d = slp_largemapcontrol3d;   
@@ -226,7 +230,7 @@ function searchLocationsNear(center, homeAddress) {
                 geocoder = new GClientGeocoder();
                 geocoder.getLatLng(sl_google_map_country, 
                     function(latlng) {
-                        map.setCenter(point, sl_zoom_level);
+                       // map.setCenter(point, sl_zoom_level);
                     }
                 );
                 return;
@@ -255,7 +259,12 @@ function searchLocationsNear(center, homeAddress) {
                 sidebar.appendChild(sidebarEntry);
                 bounds.extend(point);
             }
-          map.setCenter(bounds.getCenter(), (map.getBoundsZoomLevel(bounds)-1)); 
+            
+          var FinalZoom = sl_zoom_level;
+          if (markers.length > 1) {            
+                FinalZoom = map.getBoundsZoomLevel(bounds)-sl_zoom_tweak;
+          }
+          map.setCenter(bounds.getCenter(), FinalZoom); 
         }
     );  
 }

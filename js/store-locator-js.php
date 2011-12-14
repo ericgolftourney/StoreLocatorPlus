@@ -47,6 +47,9 @@ if (ereg($sl_upload_base, get_option('sl_map_end_icon'))){
 $zl=(trim(get_option('sl_zoom_level'))!="")? 
     get_option('sl_zoom_level') : 
     4;
+$ztweak=(trim(get_option('sl_zoom_tweak'))!="")? 
+    get_option('sl_zoom_tweak') : 
+    1;    
 $mt=(trim(get_option('sl_map_type'))!="")? 
     get_option('sl_map_type') : 
     "G_NORMAL_MAP";
@@ -76,6 +79,7 @@ var add_base=allScripts[allScripts.length -1].src.replace('/js/store-locator-js.
 var add_upload_base='$sl_upload_base';
 var slp_encryption_code='".$slp_enc_key."';
 var sl_zoom_level=$zl;
+var sl_zoom_tweak=$ztweak;
 var sl_map_type=$mt;
 var sl_website_label='$wl';
 var sl_distance_unit='$du';
