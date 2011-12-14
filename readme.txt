@@ -139,6 +139,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Plus Pack: state pulldown now available
 * Plus Pack: tags with spaces can be filtered and searched
 * Plus Pack: allow tags in table and bubble
+* Plus Pack: tags in table and bubble now wrapped with div and spans with unique classes to allow for icon displays
 
 
 = 2.1 (October 2011) =
