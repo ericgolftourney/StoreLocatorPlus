@@ -350,6 +350,11 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url, e
           }              
       }
 
+      // Keep empty data lines out of the final output
+      //
+      if (jQuery.trim(street) != '')         { street = street + '<br/>'; }
+      if (jQuery.trim(street2) != '')        { street2 = street2 + '<br/>'; }
+      if (jQuery.trim(city+state_zip) != '') { state_zip = state_zip + '<br/>'; }
       
       var html = '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">' +
                  '<tr>' +
@@ -357,9 +362,9 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url, e
                         '<span class="location_name">' + name + '</span><br>' + 
                         distance.toFixed(1) + ' ' + sl_distance_unit + '</td>' +
                     '<td class="results_row_center_column">' + 
-                        street + '<br/>' + 
-                        street2 + '<br/>' + 
-                        city + state_zip +'<br/>'+
+                        street +  
+                        street2 + 
+                        city + state_zip +
                         phone +
                     '</td>' +
                     '<td class="results_row_right_column">' + 
