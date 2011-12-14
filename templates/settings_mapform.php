@@ -48,7 +48,7 @@
                 <label for='zoom_level'><?php _e("Zoom Level", SLPLUS_PREFIX);?>:</label>
                 <?php echo $zoom; ?>
                 <?php
-                echo slp_createhelpdiv('sl_num_initial_displayed',
+                echo slp_createhelpdiv('zoom_level',
                     __('19=street level, 0=world view. "Immediately show locations" will overrides this setting.', SLPLUS_PREFIX)
                     );
                 ?>                 
