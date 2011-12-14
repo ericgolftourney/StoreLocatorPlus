@@ -365,7 +365,8 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url, e
       var taginfo = "";
       if (slp_show_tags) {
           if (jQuery.trim(tags) != '') {
-              taginfo = '<br/>'+tags;
+              var tagclass = tags.replace(/\W/g,'_');
+              taginfo = '<br/><div class="'+tagclass+'"><span class="tagtext">'+tags+'</span></div>';
           }
       }          
 
