@@ -81,6 +81,9 @@ while ($row = @mysql_fetch_assoc($result)){
   echo 'hours="' . htmlentities($row['sl_hours']) . '" ';
   echo 'phone="' . htmlentities($row['sl_phone']) . '" ';
   echo 'image="' . htmlentities($row['sl_image']) . '" ';
+  if ($tag_filter != '') {
+  	  echo 'tags="'  . htmlentities($row['sl_tags']) . '" ';
+  }  	  
   echo "/>\n";
 }
 
