@@ -46,12 +46,11 @@ $multiplier=3959;
 $multiplier=(get_option('sl_distance_unit')=="km")? ($multiplier*1.609344) : $multiplier;
     
 // Select all the rows in the markers table
-$query = "SELECT sl_address, sl_address2, sl_store, sl_city, sl_state, ".
-    "sl_zip, sl_country, sl_latitude, sl_longitude, sl_description, sl_url, ".
+$query = "SELECT *, ".
 	"( $multiplier * acos( cos( radians('".$_GET['lat']."') ) * cos( radians( sl_latitude ) ) * " .
 	        "cos( radians( sl_longitude ) - radians('".$_GET['lng']."') ) + sin( radians('".$_GET['lat']."') ) * ".
-	        "sin( radians( sl_latitude ) ) ) ) AS sl_distance, ".    
-    "sl_email, sl_hours, sl_phone, sl_image FROM ".$wpdb->prefix."store_locator ".
+	        "sin( radians( sl_latitude ) ) ) ) AS sl_distance ".    
+    "FROM ".$wpdb->prefix."store_locator ".
     "WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>'' $tag_filter ".
     "LIMIT $num_initial_displayed";
     

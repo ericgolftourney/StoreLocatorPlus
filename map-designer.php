@@ -132,6 +132,7 @@ if (!$_POST) {
         '_show_tag_search',
         '_show_tag_any',
         '_email_form',
+        '_show_tags',
         '_disable_scrollwheel',
         '_disable_initialdirectory',
         '_disable_largemapcontrol3d',

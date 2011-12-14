@@ -109,12 +109,13 @@ function sl_load_locations(map,lat,lng) {
                     parseFloat(maplat),
                     parseFloat(maplong)
                     );
-                var marker = createMarker(point, name, address, "", description, url, email, hours, phone, image);
+                var tags = markers[i].getAttribute('tags');
+                var marker = createMarker(point, name, address, "", description, url, email, hours, phone, image,tags);
                                     
                 map.addOverlay(marker);
     
                 if (!slp_disableinitialdirectory) {
-                    var sidebarEntry = createSidebarEntry(marker, name, address, distance, '', url, email, phone);
+                    var sidebarEntry = createSidebarEntry(marker, name, address, distance, '', url, email, phone,tags);
                     sidebar.appendChild(sidebarEntry);
                 }
                                     
@@ -245,9 +246,10 @@ function searchLocationsNear(center, homeAddress) {
                     parseFloat(markers[i].getAttribute('lat')),                
                     parseFloat(markers[i].getAttribute('lng'))
                     );
+                var tags = markers[i].getAttribute('tags');                
 
-                var marker = createMarker(point, name, address, homeAddress, description, url, email, hours, phone, image); 
-                var sidebarEntry = createSidebarEntry(marker, name, address, distance, homeAddress, url, email, phone);
+                var marker = createMarker(point, name, address, homeAddress, description, url, email, hours, phone, image,tags); 
+                var sidebarEntry = createSidebarEntry(marker, name, address, distance, homeAddress, url, email, phone,tags);
                 
                 map.addOverlay(marker);
                 sidebar.appendChild(sidebarEntry);
@@ -260,7 +262,7 @@ function searchLocationsNear(center, homeAddress) {
 
 /**************************************
  */
-function createMarker(point, name, address, homeAddress, description, url, email, hours, phone, image) { 
+function createMarker(point, name, address, homeAddress, description, url, email, hours, phone, image,tags) { 
   markerOpts = { icon:theIcon };
   var marker = new GMarker(point, markerOpts);
   
@@ -307,6 +309,14 @@ function createMarker(point, name, address, homeAddress, description, url, email
             city="";
         }
     var state_zip = address.split(',')[3]; 	  
+    
+    // If we want to show tags in the bubble...
+    //
+    if (slp_show_tags) {
+      if (jQuery.trim(tags) != '') {
+          more_html += '<br/>'+tags;
+      }
+    }       
   
   if (homeAddress.split(" ").join("")!="") {
     var html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + name + '</strong><br>' + street + street2 + city + state_zip + '<br/> <a href="http://' + sl_google_map_domain + '/maps?saddr=' + encodeURIComponent(homeAddress) + '&daddr=' + encodeURIComponent(address) + '" target="_blank" class="storelocatorlink">Directions</a> ' + more_html + '<br/><!--/td></tr--></div>'; 
@@ -324,7 +334,7 @@ var bgcol="white";
 
 /**************************************
  */
-function createSidebarEntry(marker, name, address, distance, homeAddress, url, email, phone) { 
+function createSidebarEntry(marker, name, address, distance, homeAddress, url, email, phone,tags) { 
     document.getElementById('map_sidebar_td').style.display='block';
       var div = document.createElement('div');
       var street = address.split(',')[0]; 
@@ -349,6 +359,15 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url, e
               elink="<a href='javascript:slp_show_email_form("+'"'+email+'"'+");' class='storelocatorlink'><nobr>" + email +"</nobr></a><br/>";
           }              
       }
+      
+      // If we want to show tags in the table...
+      //
+      var taginfo = "";
+      if (slp_show_tags) {
+          if (jQuery.trim(tags) != '') {
+              taginfo = '<br/>'+tags;
+          }
+      }          
 
       // Keep empty data lines out of the final output
       //
@@ -374,6 +393,7 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url, e
                         '/maps?saddr=' + encodeURIComponent(homeAddress) + 
                         '&daddr=' + encodeURIComponent(address) + 
                         '" target="_blank" class="storelocatorlink">Directions</a>'+
+                        taginfo +
                         '</td>' +
                         '</tr></table></center>'; 
       div.innerHTML = html;

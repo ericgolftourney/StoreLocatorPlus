@@ -95,6 +95,7 @@ var sl_load_locations_default="     .((get_option('sl_load_locations_default'   
 var slp_use_email_form="            .((get_option(SLPLUS_PREFIX.'_email_form'               )==1)?'true':'false').";
 var slp_disablescrollwheel="        .((get_option(SLPLUS_PREFIX.'_disable_scrollwheel'      )==1)?'true':'false').";
 var slp_disableinitialdirectory="   .((get_option(SLPLUS_PREFIX.'_disable_initialdirectory' )==1)?'true':'false').";
+var slp_show_tags="                 .((get_option(SLPLUS_PREFIX.'_show_tags'                )==1)?'true':'false').";
 
 // These controls have inverse logic
 var slp_largemapcontrol3d=" .((get_option(SLPLUS_PREFIX.'_disable_largemapcontrol3d')==1)?'false':'true').";
