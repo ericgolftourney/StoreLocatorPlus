@@ -138,6 +138,9 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Address search now can process special characters like: ü
 * Better lookup and testing for loading wp_config, the source of "unable to load JavaScript errors"
 * Description field can now hold > 255 characters.
+* If only 1 location is returned the map no longer auto-zooms onto that location, is uses the zoom level setting.
+* Added zoom level adjustment for how tight to zoom in on results.
+* Increase performance & reduce disk I/O when building map settings page.
 * Plus Pack: state pulldown now available
 * Plus Pack: tags with spaces can be filtered and searched
 * Plus Pack: allow tags in table and bubble
