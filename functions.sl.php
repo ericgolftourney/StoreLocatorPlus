@@ -319,7 +319,7 @@ function activate_slplus() {
     // Data Updates
     //
     global $sl_db_version, $sl_installed_ver;
-	$sl_db_version='2.0.1';     //***** CHANGE THIS ON EVERY STRUCT CHANGE
+	$sl_db_version='2.2';     //***** CHANGE THIS ON EVERY STRUCT CHANGE
     $sl_installed_ver = get_option( SLPLUS_PREFIX."-db_version" );
 
 	install_main_table();
@@ -376,7 +376,7 @@ function install_main_table() {
 			sl_latitude varchar(255) NULL,
 			sl_longitude varchar(255) NULL,
 			sl_tags mediumtext NULL,
-			sl_description varchar(255) NULL,
+			sl_description text NULL,
 			sl_email varchar(255) NULL,
 			sl_url varchar(255) NULL,
 			sl_hours varchar(255) NULL,
@@ -400,6 +400,9 @@ function install_main_table() {
             dbDelta("UPDATE $table_name SET sl_lastupdated=current_timestamp " . 
                 "WHERE sl_lastupdated < '2011-06-01'"
                 );
+        }   
+	    if (floatval($sl_installed_ver) < 2.2) {
+            dbDelta("ALTER $table_name MODIFY sl_description text ");
         }   
     }         
 }
