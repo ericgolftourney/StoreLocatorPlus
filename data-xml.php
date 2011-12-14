@@ -34,8 +34,8 @@ if (
 	(get_option($prefix.'_show_tag_search') ==1) &&
 	isset($_GET['tags']) && ($_GET['tags'] != '')
    ){
-    $posted_tag = preg_replace('/\s+(.*?)/','$1',$_GET['tags']);
-    $posted_tag = preg_replace('/(.*?)\s+/','$1',$posted_tag);
+    $posted_tag = preg_replace('/^\s+(.*?)/','$1',$_GET['tags']);
+    $posted_tag = preg_replace('/(.*?)\s+$/','$1',$posted_tag);
 	$tag_filter = " AND ( sl_tags LIKE '%%". $posted_tag ."%%') ";
 }
    
