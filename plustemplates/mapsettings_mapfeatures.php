@@ -35,6 +35,24 @@
     
 </div>
 
+
+<!-- Show Tags -->
+<div class='form_entry'>
+    <label for='<?php echo SLPLUS_PREFIX; ?>_show_tags'><?php _e("Show Tags In Bubble",SLPLUS_PREFIX); ?>:</label>
+    <input name='<?php echo SLPLUS_PREFIX; ?>_show_tags' value='1' type='checkbox'
+    <?php
+        if (get_option(SLPLUS_PREFIX.'_show_tags') ==1) {
+            echo ' checked';
+        }
+    ?>
+    >
+    <?php
+    echo slp_createhelpdiv('show-tags',
+        __('Show the tags in the location bubble.', SLPLUS_PREFIX)
+        );
+    ?>      
+</div>
+
 <!-- Email Form -->
 <div class='form_entry'>
     <label for='<?php echo SLPLUS_PREFIX; ?>_use_email_form'><?php _e("Use Email Form",SLPLUS_PREFIX); ?>:</label>

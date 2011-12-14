@@ -138,6 +138,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Address search now can process special characters like: ü
 * Plus Pack: state pulldown now available
 * Plus Pack: tags with spaces can be filtered and searched
+* Plus Pack: allow tags in table and bubble
 
 
 = 2.1 (October 2011) =
