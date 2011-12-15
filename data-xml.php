@@ -59,6 +59,10 @@ if (!$result) {
   die('Invalid query: ' . mysql_error());
 }
 
+// Show Tags
+//
+$slplus_show_tags = (get_option(SLPLUS_PREFIX.'_show_tags') ==1);
+
 // Start XML file, echo parent node
 echo "<markers>\n";
 // Iterate through the rows, printing XML nodes for each
@@ -80,9 +84,9 @@ while ($row = @mysql_fetch_assoc($result)){
   echo 'hours="' . htmlentities($row['sl_hours']) . '" ';
   echo 'phone="' . htmlentities($row['sl_phone']) . '" ';
   echo 'image="' . htmlentities($row['sl_image']) . '" ';
-  if ($tag_filter != '') {
-  	  echo 'tags="'  . htmlentities($row['sl_tags']) . '" ';
-  }  	  
+  if ($slplus_show_tags) {  
+      echo 'tags="'  . htmlentities($row['sl_tags']) . '" ';
+  }
   echo "/>\n";
 }
 
