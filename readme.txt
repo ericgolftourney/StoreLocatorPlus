@@ -136,7 +136,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 == Changelog ==
 
-= 2.2.1 (December 2011) = 
+= 2.2.4 (December 2011) = 
 
 * Store Locator Plus and LE are now merged, allowing for direct-from-WordPress upgrades.
 * General performance improvements via reduced memory usage while running searches.
@@ -151,7 +151,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Plus Pack: tags with spaces can be filtered and searched
 * Plus Pack: allow tags in table and bubble
 * Plus Pack: tags in table and bubble now wrapped with div and spans with unique classes to allow for icon displays
-
+* patch 2.2.4 - update language maps for better language support
 
 = 2.1 (October 2011) =
 
