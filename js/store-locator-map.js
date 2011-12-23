@@ -151,7 +151,12 @@ function searchLocations() {
     geocoder.getLatLng(escape(address), 
         function(latlng) {
             if (!latlng) {
-                alert(address + ' not found');
+                var theMessage = ''; 
+                if (debugmode) {
+                    theMessage = 'Google geocoder could not find ' + escape (address) + ' :: ';
+                }
+                theMessage += address + ' not found'; 
+                alert(theMessage);
             } else {
                 searchLocationsNear(latlng, address); 
             }
