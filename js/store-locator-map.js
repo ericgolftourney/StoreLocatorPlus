@@ -158,6 +158,9 @@ function searchLocations() {
                 theMessage += address + ' not found'; 
                 alert(theMessage);
             } else {
+                if (debugmode) {
+                    alert('Searching near ' + address + ' ' + latlng);
+                }
                 searchLocationsNear(latlng, address); 
             }
         }
