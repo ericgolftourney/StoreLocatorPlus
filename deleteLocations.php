@@ -1,13 +1,17 @@
 <?php
 if ($_POST) {extract($_POST);}
-if (is_array($sl_id)==1) {
-	$id_string="";
-	foreach ($sl_id as $value) {
-		$id_string.="$value,";
-	}
-	$id_string=substr($id_string, 0, strlen($id_string)-1);
+if (isset($sl_id)) {
+    if (is_array($sl_id)==1) {
+        $id_string="";
+        foreach ($sl_id as $value) {
+            $id_string.="$value,";
+        }
+        $id_string=substr($id_string, 0, strlen($id_string)-1);
+    } else {
+        $id_string=$sl_id;
+    }
+    
+    if ($id_string != '') {
+        $wpdb->query("DELETE FROM ".$wpdb->prefix."store_locator WHERE sl_id IN ($id_string)");
+    }
 }
-else {
-	$id_string=$sl_id;
-}
-$wpdb->query("DELETE FROM ".$wpdb->prefix."store_locator WHERE sl_id IN ($id_string)");
