@@ -90,7 +90,9 @@
 /***************************
  * The Navbar
  */
-div #slplus_navbar {
+div #slplus_navbar,
+div #slplus_actionbar
+{
     background: none;
     border: none;
     margin: 0px;
@@ -98,25 +100,53 @@ div #slplus_navbar {
     left: -15px;
 }
 
-#slplus_navbar ul {
+#slplus_navbar ul,
+#slplus_actionbar ul
+{
     margin: 0px;
 }
-#slplus_navbar li {
+#slplus_navbar li,
+#slplus_actionbar li
+{
   float: left;
   margin: 6px;
   padding: 3px;
 }
 
-#slplus_navbar div .handlediv {
+#slplus_navbar div .handlediv,
+#slplus_actionbar div .handlediv
+{
     display: none;
     visibility: hidden;
 }
-#slplus_navbar h3 .hndle {
+#slplus_navbar h3 .hndle,
+#slplus_actionbar h3 .hndle
+{
     display: none;
     visibility: hidden;
 }
 
-
+/* Action Bar Specific */
+div#slplus_actionbar {
+    clear:both;
+    margin-top: 24px;
+}
+div#tag_block {
+    background: none repeat scroll 0 0 #F0E68C;
+    border: 1px solid orange;
+    float: left;
+    height: 70px;
+    text-align: center;
+}
+div#slplus_actionbar div#tag_actions {
+    clear: both;
+}
+div#slplus_actionbar div#tagentry {
+    clear:both;
+}
+div#other_actions {
+    float: left;
+}
 
 /***************************
  * Locations: Manage
