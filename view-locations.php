@@ -51,8 +51,6 @@ if (!$slak) {
 	if (isset($_GET['delete']) && ($_GET['delete']!='')) {
 		$wpdb->query("DELETE FROM ".$wpdb->prefix."store_locator ".
 		    "WHERE sl_id='".$_GET['delete']."'");
-		
-		print "<br/><br/><br/><br/>DELETE<br/>";
 	}
 
     // Edit, any form
@@ -265,11 +263,15 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                 
                 print "<tr style='background-color:$bgcol'>
                 <th><input type='checkbox' name='sl_id[]' value='$locID'></th>
-                <th><a href='".ereg_replace("&edit=".(isset($_GET['edit'])?$_GET['edit']:''), "",$_SERVER['REQUEST_URI']).
-                "&edit=" . $locID ."#a$locID'>".__("Edit", SLPLUS_PREFIX).
-                "</a>&nbsp;|&nbsp;<a href='".$_SERVER['REQUEST_URI']."&delete=$locID' " .
-                "onclick=\"confirmClick('Sure?', this.href); return false;\">".
-                __("Delete", SLPLUS_PREFIX)."</a></th>
+                <th>".
+                    "<a class='edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."' 
+                        href='".ereg_replace("&edit=".(isset($_GET['edit'])?$_GET['edit']:''), "",$_SERVER['REQUEST_URI']).
+                    "&edit=" . $locID ."#a$locID'><span class='icon_span'>&nbsp;</span></a>".
+                    "&nbsp;" . 
+                    "<a class='delete_icon' alt='".__('delete',SLPLUS_PREFIX)."' title='".__('delete',SLPLUS_PREFIX)."' 
+                        href='".$_SERVER['REQUEST_URI']."&delete=$locID' " .
+                        "onclick=\"confirmClick('".sprintf(__('Delete %s?',SLPLUS_PREFIX),$value['sl_store'])."', this.href); return false;\"><span class='icon_span'>&nbsp;</span></a>".
+                "</th>
                 <th> $locID </th>
                 <td> $value[sl_store] </td>
                 <td>$value[sl_address]</td>
