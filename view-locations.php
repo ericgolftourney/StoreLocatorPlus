@@ -170,6 +170,31 @@ if (!$slak) {
             } else {
                 update_option('sl_location_table_view', 'Expanded');
             }
+            
+        // Recode The Address
+        //
+        } elseif ($_REQUEST['act']=='recode') {
+            if (isset($_REQUEST['sl_id'])) {
+                if (!is_array($_REQUEST['sl_id'])) {
+                    $theLocations = array($_REQUEST['sl_id']);
+                } else {
+                    $theLocations = $_REQUEST['sl_id'];
+                }
+                
+                // Process SL_ID Array
+                //
+                foreach ($theLocations as $thisLocation) {
+                        $address=$wpdb->get_row("SELECT * FROM ".$wpdb->prefix."store_locator WHERE sl_id=$thisLocation", ARRAY_A);
+                        
+                        if (!isset($address['sl_address'])) { $address['sl_address'] = '';  print 'BLANK<br/>';	} 
+                        if (!isset($address['sl_address2'])){ $address['sl_address2'] = ''; } 
+                        if (!isset($address['sl_city'])) 	{ $address['sl_city'] = ''; 	} 
+                        if (!isset($address['sl_state'])) 	{ $address['sl_state'] = ''; 	} 
+                        if (!isset($address['sl_zip'])) 	{ $address['sl_zip'] = ''; 		}
+                        
+                        do_geocoding("$address[sl_address] $address[sl_address2], $address[sl_city], $address[sl_state] $address[sl_zip]",$thisLocation);
+                }                
+            }              
         }
     }
     
