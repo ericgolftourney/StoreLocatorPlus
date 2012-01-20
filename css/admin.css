@@ -147,6 +147,17 @@ div#slplus_actionbar div#tagentry {
 div#other_actions {
     float: left;
 }
+div#search_block {
+    background: none repeat scroll 0 0 #F0E68C;
+    border: 1px solid orange;
+    float: left;
+    height: 70px;
+    text-align: center;
+}
+input#search-q {
+    width: 140px;
+}
+
 
 /***************************
  * Locations: Manage
@@ -353,11 +364,6 @@ td.optionpack {
     text-align: left;
     padding-top: 7px;
     width: 250px;
-}
-.searchlocations {
-    float: right;
-    text-align:right;
-    width: 400px;
 }
 .viewtype {
     float: left;

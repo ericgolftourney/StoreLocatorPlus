@@ -750,7 +750,7 @@ function add_admin_stylesheet() {
 function set_query_defaults() {
 	global $where, $o, $d;
 	
-	$qry = isset($_GET['q']) ? $_GET['q'] : '';
+	$qry = isset($_REQUEST['q']) ? $_REQUEST['q'] : '';
 	$where=($qry!='')? 
 	        " WHERE ".
 	        "sl_store    LIKE '%$qry%' OR ".

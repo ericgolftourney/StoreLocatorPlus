@@ -6,7 +6,7 @@
  ***************************************************************************/
 
 $hidden='';
-foreach($_GET as $key=>$val) {
+foreach($_REQUEST as $key=>$val) {
 	//hidden keys to keep same view after form submission
 	if ($key!="q" && $key!="o" && $key!="d" && $key!="changeView" && $key!="start") {
 		$hidden.="<input type='hidden' value='$val' name='$key'>\n"; 
@@ -164,13 +164,7 @@ if (!$slak) {
        "</a>
        </div>
        
-       <div class='searchlocations'>
-        <form>
-            <input value='".(isset($_GET['q'])?$_GET['q']:'')."' name='q'>
-            <input type='submit' value='".__("Search Locations", SLPLUS_PREFIX)."'>
-            $hidden
-        </form>
-       </div>
+
       
        <div class='perpage'>
         <form name='locationForm' method='post'>".

@@ -5,7 +5,7 @@
  ** The action bar for the manage locations page.
  ***************************************************************************/
  
- global $slplus_plugin;
+ global $slplus_plugin, $hidden;
 ?>
 <script type="text/javascript">
 function doAction(theAction,thePrompt) {
@@ -43,5 +43,12 @@ function doAction(theAction,thePrompt) {
             <label for="sl_tags"><?php echo __('Tags', SLPLUS_PREFIX); ?></label><input name='sl_tags'>
         </div>        
     </div>
+    <div id="search_block" class='searchlocations'>
+        <form>
+            <input class='like-a-button' type='submit' value='<?php print __("Search Locations", SLPLUS_PREFIX); ?>'>
+            <input id='search-q' value='<?php print (isset($_REQUEST['q'])?$_REQUEST['q']:''); ?>' name='q'>
+            <?php print $hidden; ?>
+        </form>
+    </div>    
 </div>
 
