@@ -138,8 +138,17 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 = 2.3 (January 19th, 2012) =
 
+* PLUS PACK Feature #7165: Manage Locations : Filter To Uncoded Only
+* PLUS PACK Feature #7231: Add label to State Pulldown.
 * Fix missing map marker.
-* Fix typo on map settings.
+* Feature #7230: Change default radius selection.
+* Feature #7229: Fix typo in zoom level instruction.
+* Manage Locations Updates
+** Feature #7233: Clean up action bar header.
+** Feature #7235: Update expand/normal view interface.
+** Feature #7236: Manage locations: Stylize the page length setting.
+** Feature #7237: Manage locations: use icon sprites v. text for edit/delete. 
+
 
 = 2.2.5 (December 26th, 2011) =
 
