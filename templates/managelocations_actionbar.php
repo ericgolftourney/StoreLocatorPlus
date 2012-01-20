@@ -31,27 +31,38 @@ function doAction(theAction,thePrompt) {
     <div id="action_bar_header"><h3><?php print __('Location Actions',SLPLUS_PREFIX); ?></h3></div>
     <div id="other_actions"  class='orangebox'>
         <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('delete','<?php echo __('Delete selected?',SLPLUS_PREFIX);?>')" name="delete_selected"><?php echo __("Delete Selected", SLPLUS_PREFIX); ?></a></p>
-        <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('recode','<?php echo __('Recode selected?',SLPLUS_PREFIX);?>')" name="delete_selected"><?php echo __("Recode Selected", SLPLUS_PREFIX); ?></a></p>
             
             <?php 
-            //--------------------------------
-            // Plus Version : Show Reports Tab
+            //----------
+            // Plus Pack
             //
-            if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {      
+            if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {
+                ?>
+                 <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('recode','<?php echo __('Recode selected?',SLPLUS_PREFIX);?>')" name="delete_selected"><?php echo __("Recode Selected", SLPLUS_PREFIX); ?></a></p>
+            <?php                 
             }
             ?>    
     </div>
-    <div id="tag_block" class='orangebox'>
-        <div id="tag_actions">
-            <ul>
-                <li class='like-a-button'><a href="#" name="tag_selected"    onclick="doAction('add_tag','<?php echo __('Tag selected?',SLPLUS_PREFIX);?>');"   ><?php echo __('Tag Selected', SLPLUS_PREFIX);?></a></li>
-                <li class='like-a-button'><a href="#" name="untag_selected"  onclick="doAction('remove_tag','<?php echo __('Remove tag from selected?',SLPLUS_PREFIX);?>');"><?php echo __('Untag Selected', SLPLUS_PREFIX);?></a></li>
-            </ul>
+    <?php 
+    //----------
+    // Plus Pack
+    //
+    if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {
+    ?>
+        <div id="tag_block" class='orangebox'>
+            <div id="tag_actions">
+                <ul>
+                    <li class='like-a-button'><a href="#" name="tag_selected"    onclick="doAction('add_tag','<?php echo __('Tag selected?',SLPLUS_PREFIX);?>');"   ><?php echo __('Tag Selected', SLPLUS_PREFIX);?></a></li>
+                    <li class='like-a-button'><a href="#" name="untag_selected"  onclick="doAction('remove_tag','<?php echo __('Remove tag from selected?',SLPLUS_PREFIX);?>');"><?php echo __('Untag Selected', SLPLUS_PREFIX);?></a></li>
+                </ul>
+            </div>
+            <div id="tagentry">
+                <label for="sl_tags"><?php echo __('Tags', SLPLUS_PREFIX); ?></label><input name='sl_tags'>
+            </div>        
         </div>
-        <div id="tagentry">
-            <label for="sl_tags"><?php echo __('Tags', SLPLUS_PREFIX); ?></label><input name='sl_tags'>
-        </div>        
-    </div>
+    <?php        
+    }
+    ?>
     <div id="search_block" class='searchlocations orangebox'>
             <p class="centerbutton"><input class='like-a-button' type='submit' value='<?php print __("Search Locations", SLPLUS_PREFIX); ?>'></p>
             <input id='search-q' value='<?php print (isset($_REQUEST['q'])?$_REQUEST['q']:''); ?>' name='q'>
