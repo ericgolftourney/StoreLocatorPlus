@@ -26,10 +26,11 @@ function doAction(theAction,thePrompt) {
     }
 }
 </script>
+<form name='locationForm' method='post'>
 <div id="action_buttons">
+    <div id="action_bar_header"><h3><?php print __('Location Actions',SLPLUS_PREFIX); ?></h3></div>
     <div id="other_actions">
-        <ul>
-        <li class='like-a-button'><a href="#" onclick="doAction('delete','<?php echo __('Delete selected?',SLPLUS_PREFIX);?>')" name="delete_selected"><?php echo __("Delete Selected", SLPLUS_PREFIX); ?></a></li>
+        <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('delete','<?php echo __('Delete selected?',SLPLUS_PREFIX);?>')" name="delete_selected"><?php echo __("Delete Selected", SLPLUS_PREFIX); ?></a></p>
             
             <?php 
             //--------------------------------
@@ -38,7 +39,6 @@ function doAction(theAction,thePrompt) {
             if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {      
             }
             ?>    
-        </ul>
     </div>
     <div id="tag_block">
         <div id="tag_actions">
@@ -57,7 +57,20 @@ function doAction(theAction,thePrompt) {
             <?php print $hidden; ?>
     </div>  
     <div id="list_options" class='viewtype'>
-        <a class='like-a-button' href='#' onclick="doAction('changeview','<?php echo $altViewText; ?>');"><?php echo $viewText; ?></a><br/>
+        <p class="centerbutton"><a class='like-a-button' href='#' onclick="doAction('changeview','<?php echo $altViewText; ?>');"><?php echo $viewText; ?></a></p>
+        <?php print __('Show ', SLPLUS_PREFIX); ?>
+        <select name='sl_admin_locations_per_page'
+           onchange="doAction('locationsPerPage','<?php print __('Change Page Size',SLPLUS_PREFIX); ?>');">                
+            <option value=''><?php print __('Choose', SLPLUS_PREFIX); ?></option>
+<?php            
+    $opt_arr=array(10,25,50,100,200,300,400,500,1000,2000,4000,5000,10000);
+    foreach ($opt_arr as $value) {
+        $selected=($sl_admin_locations_per_page==$value)? " selected " : "";
+        print "<option value='$value' $selected>$value</option>";
+    }
+?>    
+        </select>
+        <?php print __(' locations', SLPLUS_PREFIX); ?>. 
     </div>    
     
     

@@ -145,28 +145,6 @@ if (!$slak) {
 	}
 
 
-    // Form Output  
-    print "
-    <div class='top_listing_bar'>        
-       <div class='perpage'>
-        <form name='locationForm' method='post'>
-        ".
-        __("Locations Per Page", SLPLUS_PREFIX).": 
-        <select name='sl_admin_locations_per_page'
-           onchange=\"LF=document.forms['locationForm'];".
-                     "LF.act.value='locationsPerPage';LF.submit();\">                
-            >
-            <option value=''>".__("Choose", SLPLUS_PREFIX)."</option>";
-    $opt_arr=array(10,25,50,100,200,300,400,500,1000,2000,4000,5000,10000);
-    foreach ($opt_arr as $value) {
-        $selected=($sl_admin_locations_per_page==$value)? " selected " : "";
-        print "<option value='$value' $selected>$value</option>";
-    }
-    print "</select>
-       </div>
-        <div style='clear:both;'></div>
-    </div>";
-        
     //-------------------------
     // Actionbar Section
     //-------------------------    
