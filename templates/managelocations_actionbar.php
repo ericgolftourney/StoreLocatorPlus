@@ -6,6 +6,14 @@
  ***************************************************************************/
  
  global $slplus_plugin, $hidden;
+
+ if (get_option('sl_location_table_view') == 'Expanded') {
+     $altViewText = __('Switch to normal view?',SLPLUS_PREFIX);
+     $viewText = __('Normal View',SLPLUS_PREFIX);
+ } else {
+     $altViewText = __('Switch to expanded view?',SLPLUS_PREFIX);
+     $viewText = __('Expanded View',SLPLUS_PREFIX);
+ }
 ?>
 <script type="text/javascript">
 function doAction(theAction,thePrompt) {
@@ -44,11 +52,14 @@ function doAction(theAction,thePrompt) {
         </div>        
     </div>
     <div id="search_block" class='searchlocations'>
-        <form>
             <input class='like-a-button' type='submit' value='<?php print __("Search Locations", SLPLUS_PREFIX); ?>'>
             <input id='search-q' value='<?php print (isset($_REQUEST['q'])?$_REQUEST['q']:''); ?>' name='q'>
             <?php print $hidden; ?>
-        </form>
+    </div>  
+    <div id="list_options" class='viewtype'>
+        <a class='like-a-button' href='#' onclick="doAction('changeview','<?php echo $altViewText; ?>');"><?php echo $viewText; ?></a><br/>
     </div>    
+    
+    
 </div>
 

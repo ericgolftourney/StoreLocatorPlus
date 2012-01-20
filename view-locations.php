@@ -5,10 +5,11 @@
  ** Manage the view locations admin panel action.
  ***************************************************************************/
 
+// Save all values except a few for subsequent form processing
+//
 $hidden='';
 foreach($_REQUEST as $key=>$val) {
-	//hidden keys to keep same view after form submission
-	if ($key!="q" && $key!="o" && $key!="d" && $key!="changeView" && $key!="start") {
+	if ($key!="q" && $key!="o" && $key!="d" && $key!="start" && $key!="act" && $key!='sl_tags') {
 		$hidden.="<input type='hidden' value='$val' name='$key'>\n"; 
 	}
 }
@@ -98,24 +99,33 @@ if (!$slak) {
                     $_SERVER['REQUEST_URI'])."');</script>";
 	}
 	
+	// ACTION HANDLER
     //If post action is set
-	if (isset($_POST['act'])) {
+    //
+	if (isset($_REQUEST['act'])) {
 
         // Delete Action	    
-        if ($_POST['act']=="delete") {
-            include_once(SLPLUS_COREDIR   . 'deleteLocations.php'       );            
-        }        
-        
+        if ($_REQUEST['act']=="delete") {
+            include_once(SLPLUS_COREDIR   . 'deleteLocations.php'       );
+            
         // Tagging Action
-        if (eregi("tag", $_POST['act'])) {
-            include_once(SLPLUS_COREDIR   . 'tagLocations.php'       );            
-        }
-        
+        }  elseif (eregi("tag", $_REQUEST['act'])) {        
+            include_once(SLPLUS_COREDIR   . 'tagLocations.php'       );
+            
         // Locations Per Page Action
-        if ($_POST['act']=="locationsPerPage") {
+        } elseif ($_REQUEST['act']=="locationsPerPage") {
             //If bulk delete is used
-            update_option('sl_admin_locations_per_page', $_POST['sl_admin_locations_per_page']);
-            extract($_POST);
+            update_option('sl_admin_locations_per_page', $_REQUEST['sl_admin_locations_per_page']);
+            extract($_REQUEST);
+            
+        // Change View Action
+        //
+        } elseif ($_REQUEST['act']=='changeview') {
+            if (get_option('sl_location_table_view') == 'Expanded') {
+                update_option('sl_location_table_view', 'Normal');
+            } else {
+                update_option('sl_location_table_view', 'Expanded');
+            }
         }
     }
     
@@ -134,40 +144,13 @@ if (!$slak) {
 		print "<script>location.replace('".$_SERVER['REQUEST_URI']."');</script>";
 	}
 
-    // Changing View
-    //
-    $tabViewText = get_option('sl_location_table_view');
-	if (isset($_GET['changeView']) && ($_GET['changeView']==1)) {
-		if ($tabViewText=="Normal") {
-			update_option('sl_location_table_view', 'Expanded');
-			$tabViewText=__('Expanded',SLPLUS_PREFIX);
-		} else {
-			update_option('sl_location_table_view', 'Normal');
-			$tabViewText=__('Normal',SLPLUS_PREFIX);
-		}
-		$_SERVER['REQUEST_URI']=ereg_replace("&changeView=1", "", $_SERVER['REQUEST_URI']);
-		print "<script>location.replace('".$_SERVER['REQUEST_URI']."');</script>";
-	} else {
-	    $tabViewText = ($tabViewText == 'Normal') ? 
-	        __('Normal',SLPLUS_PREFIX) :
-	        __('Expanded',SLPLUS_PREFIX);
-	}
-		
 
     // Form Output  
     print "
     <div class='top_listing_bar'>        
-        <div class='viewtype'>".
-            __("View", SLPLUS_PREFIX).':'.
-            "<a href='".ereg_replace("&changeView=1", "", $_SERVER['REQUEST_URI'])."&changeView=1'>".                    
-            $tabViewText.                        
-       "</a>
-       </div>
-       
-
-      
        <div class='perpage'>
-        <form name='locationForm' method='post'>".
+        <form name='locationForm' method='post'>
+        ".
         __("Locations Per Page", SLPLUS_PREFIX).": 
         <select name='sl_admin_locations_per_page'
            onchange=\"LF=document.forms['locationForm'];".
