@@ -17,7 +17,7 @@
 ?>
 <script type="text/javascript">
 function doAction(theAction,thePrompt) {
-    if(confirm(thePrompt)){
+    if((thePrompt == '') || confirm(thePrompt)){
         LF=document.forms['locationForm'];
         LF.act.value=theAction;
         LF.submit();
@@ -60,7 +60,7 @@ function doAction(theAction,thePrompt) {
         <p class="centerbutton"><a class='like-a-button' href='#' onclick="doAction('changeview','<?php echo $altViewText; ?>');"><?php echo $viewText; ?></a></p>
         <?php print __('Show ', SLPLUS_PREFIX); ?>
         <select name='sl_admin_locations_per_page'
-           onchange="doAction('locationsPerPage','<?php print __('Change Page Size',SLPLUS_PREFIX); ?>');">                
+           onchange="doAction('locationsPerPage','');">                
 <?php           
     $pagelen = get_option('sl_admin_locations_per_page');
     $opt_arr=array(10,25,50,100,200,300,400,500,1000,2000,4000,5000,10000);
