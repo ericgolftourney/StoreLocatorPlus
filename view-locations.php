@@ -197,6 +197,14 @@ if (!$slak) {
     print '</div>';   
     
     set_query_defaults();
+    
+    /* Uncoded items */
+    if (isset($_REQUEST['act'])) {
+        if ($_REQUEST['act'] == 'show_uncoded') {
+            if ($where == '') { $where = 'WHERE '; }
+            $where .= ' sl_latitude IS NULL or sl_longitude IS NULL';
+        }
+    }        
 
     //for search links
     $numMembers=$wpdb->get_results(

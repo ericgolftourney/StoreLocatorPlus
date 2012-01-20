@@ -129,11 +129,13 @@ div #slplus_actionbar
 
 /* Action Bar Specific */
 div#action_buttons {
-    width: 870px;
+    width: 888px;
     position: relative;
     margin-top: 12px;    
 }
-div#action_bar_header {
+div#action_bar_header,
+div#filter_bar_header
+{
     background: none repeat scroll 0 0 #808080;
     border-left: 1px solid orange;
     border-right: 1px solid orange;
@@ -142,7 +144,9 @@ div#action_bar_header {
     text-align: center;
     width: 100%;
 }
-div#action_bar_header h3 {
+div#action_bar_header h3,
+div#filter_bar_header h3
+{
     padding:3px 0px;
     margin: 0px;
 }
@@ -151,11 +155,7 @@ div#slplus_actionbar {
     padding-top: 1px;
 }
 div#tag_block {
-    background: none repeat scroll 0 0 #F0E68C;
-    border: 1px solid orange;
-    float: left;
-    height: 70px;
-    text-align: center;
+    width: 340px;
 }
 div#slplus_actionbar div#tag_actions {
     clear: both;
@@ -164,20 +164,8 @@ div#slplus_actionbar div#tagentry {
     clear:both;
 }
 div#other_actions {
-    background: none repeat scroll 0 0 #F0E68C;
-    border: 1px solid orange;
-    float: left;
-    text-align: center;
-    vertical-align: bottom;
-    width: 180px;
-    height: 70px;
 }
 div#search_block {
-    background: none repeat scroll 0 0 #F0E68C;
-    border: 1px solid orange;
-    float: left;
-    height: 70px;
-    text-align: center;
 }
 div#list_options select {
     padding: 0px;
@@ -187,18 +175,23 @@ input#search-q {
     width: 140px;
 }
 .viewtype {
-    background: none repeat scroll 0 0 #F0E68C;
-    border: 1px solid orange;
-    float: left;
-    text-align: center;
-    vertical-align: bottom;
-    width: 180px;
-    height: 70px;
 }
 p.centerbutton {
    margin: auto;
    width: 166px;
 }
+div#filter_buttons {
+    clear: both;
+}
+div.orangebox {
+    background: none repeat scroll 0 0 #F0E68C;
+    border: 1px solid orange;
+    float: left;
+    text-align: center;
+    width: 180px;
+    height: 70px;
+}
+
 
 /***************************
  * Locations: Manage
