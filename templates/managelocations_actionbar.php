@@ -61,11 +61,11 @@ function doAction(theAction,thePrompt) {
         <?php print __('Show ', SLPLUS_PREFIX); ?>
         <select name='sl_admin_locations_per_page'
            onchange="doAction('locationsPerPage','<?php print __('Change Page Size',SLPLUS_PREFIX); ?>');">                
-            <option value=''><?php print __('Choose', SLPLUS_PREFIX); ?></option>
-<?php            
+<?php           
+    $pagelen = get_option('sl_admin_locations_per_page');
     $opt_arr=array(10,25,50,100,200,300,400,500,1000,2000,4000,5000,10000);
     foreach ($opt_arr as $value) {
-        $selected=($sl_admin_locations_per_page==$value)? " selected " : "";
+        $selected=($pagelen==$value)? " selected " : "";
         print "<option value='$value' $selected>$value</option>";
     }
 ?>    
