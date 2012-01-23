@@ -33,6 +33,20 @@ http://www.youtube.com/watch?v=ni_CrSoNr38
 * Location search tracking and reporting, find out what your visitors are looking for.
 * Popup email form.
 
+== Optional Plus Pack Available ==
+
+The plugin has an optional plus pack available that adds advanced features to the Store Locator Plus product.
+Some of the added features include:
+
+* CSV Bulk Uploads - using the CSV bulk loader
+* Extended Map Settings - Control more details about how the map looks, disable the scale, the zoom, and more.
+* Extended Manage Location Features - more controls for managing locations.
+* Reporting - information on the reporting system and how it works.
+* Tag Search - how to use tag based location searches.
+* Custom Themes (Plus Pack v2.0) - easily add your own custom styles that stay in place during patches and upgrades.
+
+Learn More about these features at the [Store Locator Plus Support Pages](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki)
+
 = Looking For Customized WordPress Plugins? =
 
 If you are looking for custom WordPress development for your own plugins, give 
@@ -138,6 +152,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 = 2.4 (tbd) =
 
+* PLUS PACK v2.0 : Integrated custom themes system.
 * Force height on icon sizes.
 
 = 2.3.1 (January 25th, 2012) =

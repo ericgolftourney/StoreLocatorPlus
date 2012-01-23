@@ -89,8 +89,9 @@ add_action('wp_head', 'head_scripts');
 add_action('admin_menu', 'csl_slplus_add_options_page');
 add_action('admin_init','csl_slplus_setup_admin_interface',10);
 add_action('admin_print_scripts', 'add_admin_javascript');
-add_action('admin_print_styles','add_admin_stylesheet');
 add_action('admin_head', 'slpreport_downloads');    
+add_action('wp_print_styles', 'setup_stylesheet_for_slplus');
+add_action('admin_print_styles','setup_ADMIN_stylesheet_for_slplus');
 
 // Short Codes
 //
