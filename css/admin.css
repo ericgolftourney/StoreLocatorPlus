@@ -501,9 +501,15 @@ td.optionpack {
 /* Icons */
 .edit_icon {
   background: url("../../images/General_icons16.png") no-repeat scroll -62px 0 transparent;
+  font-size: 20px;
 }
 .delete_icon {
   background: url("../../images/General_icons16.png") no-repeat scroll -84px 0 transparent;
+  font-size: 20px;
+}
+.view_icon {
+  background: url("../Images/General_icons16.png") no-repeat scroll -84px 0 transparent;
+  font-size: 20px;  
 }
 .icon_span {
     height:20px;
