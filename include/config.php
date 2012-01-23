@@ -95,7 +95,7 @@ function add_options_packages_for_slplus() {
          // Enable Themes
          //
          $slplus_plugin->themes_enabled = true;
-         $slplus_plugin->themes->css_dir = SLPLUS_PLUGINDIR . 'themes/';         
+         $slplus_plugin->themes->css_dir = SLPLUS_PLUGINDIR . 'css/';         
          //--------------------------------
          
     }       
