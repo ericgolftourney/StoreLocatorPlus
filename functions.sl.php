@@ -740,11 +740,6 @@ function add_admin_javascript() {
         }
 }
 
-/*---------------------------------*/
-function add_admin_stylesheet() {
-  global $sl_base;
-  print "<link rel='stylesheet' type='text/css' href='".SLPLUS_PLUGINURL."/core/css/admin.css'>\n";
-}
 
 /*---------------------------------*/
 function set_query_defaults() {
