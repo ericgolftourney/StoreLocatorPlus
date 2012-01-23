@@ -23,9 +23,6 @@ function move_upload_directories() {
 		mkdir($sl_upload_path . "/custom-css", 0755);
 	}
 	
-	if (is_dir($sl_path . "/themes") && !is_dir($sl_upload_path . "/themes")) {
-		csl_copyr($sl_path . "/themes", $sl_upload_path . "/themes");
-	}
 	if (is_dir($sl_path . "/languages") && !is_dir($sl_upload_path . "/languages")) {
 		csl_copyr($sl_path . "/languages", $sl_upload_path . "/languages");
 	}
