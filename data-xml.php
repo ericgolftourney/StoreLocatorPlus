@@ -42,7 +42,7 @@ if (
 
 //Since miles is default, if kilometers is selected, divide by 1.609344 in order to convert the kilometer value selection back in miles when generating the XML
 //
-$multiplier=(get_option('sl_distance_unit')=="km")? ($multiplier*1.609344) : 3959;
+$multiplier=(get_option('sl_distance_unit')=="km")? (3959*1.609344) : 3959;
     
 // Select all the rows in the markers table
 $query = "SELECT *, ".
