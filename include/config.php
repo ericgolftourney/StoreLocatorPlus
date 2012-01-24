@@ -27,8 +27,6 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'products_obj_name'     => 'none',
             'settings_obj_name'     => 'default',
             
-            'css_url'               => SLPLUS_PLUGINURL . 'css/',
-            'css_dir'               => SLPLUS_PLUGINDIR . 'css/',
             'themes_obj_name'       => 'default',            
             
             'prefix'                => SLPLUS_PREFIX,
