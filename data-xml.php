@@ -51,6 +51,7 @@ $query = "SELECT *, ".
 	        "sin( radians( sl_latitude ) ) ) ) AS sl_distance ".    
     "FROM ".$wpdb->prefix."store_locator ".
     "WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>'' $tag_filter ".
+    "ORDER BY sl_distance ASC ".
     "LIMIT $num_initial_displayed";
     
 $result = mysql_query($query);
