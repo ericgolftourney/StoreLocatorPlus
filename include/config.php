@@ -89,9 +89,9 @@ function add_options_packages_for_slplus() {
     if ($slplus_plugin->license->packages['Plus Pack']->isenabled_after_forcing_recheck()) {
         
          //--------------------------------
-         // Plus Pack v2.0 Only
+         // Plus Pack v2.4+ Only
          //
-         if ($slplus_plugin->license->packages['Plus Pack']->active_version > 2000000) {
+         if ($slplus_plugin->license->packages['Plus Pack']->active_version > 2004000) {
              
              //--------------------------------
              // Enable Themes
