@@ -88,15 +88,18 @@ function add_options_packages_for_slplus() {
     
     if ($slplus_plugin->license->packages['Plus Pack']->isenabled_after_forcing_recheck()) {
         
-        
+         //--------------------------------
          // Plus Pack v2.0 Only
          //
-         //--------------------------------
-         // Enable Themes
-         //
-         $slplus_plugin->themes_enabled = true;
-         $slplus_plugin->themes->css_dir = SLPLUS_PLUGINDIR . 'css/';         
-         //--------------------------------
+         if ($slplus_plugin->license->packages['Plus Pack']->active_version > 2000000) {
+             
+             //--------------------------------
+             // Enable Themes
+             //
+             $slplus_plugin->themes_enabled = true;
+             $slplus_plugin->themes->css_dir = SLPLUS_PLUGINDIR . 'css/';
+         }             
+         
          
     }       
 
