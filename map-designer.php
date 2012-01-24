@@ -103,9 +103,10 @@ if (!$_POST) {
 
     if (function_exists('execute_and_output_plustemplate')) {
         update_option('sl_starting_image', $_POST['sl_starting_image']);
-        update_option($prefix.'_search_tag_label', $_POST[$prefix.'_search_tag_label']);
-        update_option($prefix.'_tag_search_selections', $_POST[$prefix.'_tag_search_selections']);
-        update_option(SLPLUS_PREFIX.'_state_pd_label', $_POST[SLPLUS_PREFIX.'_state_pd_label']);
+        update_option(SLPLUS_PREFIX.'_search_tag_label',        $_POST[SLPLUS_PREFIX.'_search_tag_label']);
+        update_option(SLPLUS_PREFIX.'_tag_search_selections',   $_POST[SLPLUS_PREFIX.'_tag_search_selections']);
+        update_option(SLPLUS_PREFIX.'_state_pd_label',          $_POST[SLPLUS_PREFIX.'_state_pd_label']);
+        update_option(SLPLUS_PREFIX.'_map_center',              $_POST[SLPLUS_PREFIX.'_map_center']);        
     }    
     
     # Checkbox settings - can set to issset and save that because the
