@@ -43,9 +43,19 @@ Some of the added features include:
 * Extended Manage Location Features - more controls for managing locations.
 * Reporting - information on the reporting system and how it works.
 * Tag Search - how to use tag based location searches.
-* Custom Themes (Plus Pack v2.0) - easily add your own custom styles that stay in place during patches and upgrades.
+* Custom Themes (Plus Pack v2.4) - easily add your own custom styles that stay in place during patches and upgrades.
 
 Learn More about these features at the [Store Locator Plus Support Pages](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki)
+
+== Upgrades ==
+
+We will offer upgrade versions from time-to-time when special new features are added to the product.  
+If you do not purchase the upgrade you will still receive bug fixes and minor feature additions, however
+some of the newest features may not be available to you.   
+
+The main product will always remain fully functional and free.  If you'd like to have some of the latest
+"bells & whistles" purchasing the upgrades is a great way to help support us and encourage us to add even
+more items the next time around.
 
 = Looking For Customized WordPress Plugins? =
 
@@ -150,10 +160,13 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 == Changelog ==
 
-= 2.4 (tbd) =
+= 2.4 (February 8th, 2012) =
 
-* PLUS PACK v2.0 : Integrated custom themes system.
 * Force height on icon sizes.
+* Fixed problem with menu/button links on admin panel for subdirectory installs.
+* Fixed problem with certain international characters stopping the initial map zoom/search.
+* PLUS PACK v2.4 : Integrated custom themes system. (paid upgrade)
+* PLUS PACK v2.4 : You can now set your center location for the map. (paid upgrade)
 
 = 2.3.1 (January 25th, 2012) =
 
