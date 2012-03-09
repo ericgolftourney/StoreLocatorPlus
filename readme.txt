@@ -163,6 +163,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 = 2.5 (March 9th, 2012) =
 
 * [PLUS PACK v2.4+] Limit to N results.
+* [PLUS PACK] Starting image can now be stored off-site simply use http as the prefix.
 
 = 2.4 (February 8th, 2012) =
 
