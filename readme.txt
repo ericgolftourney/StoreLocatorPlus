@@ -160,6 +160,10 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 == Changelog ==
 
+= 2.6 (April 12th, 2012) =
+
+* [PLUS PACK] Dark Theme, add hand over submit, restyle submit button
+
 = 2.5 (March 9th, 2012) =
 
 * [PLUS PACK v2.4+] Limit to N results.
