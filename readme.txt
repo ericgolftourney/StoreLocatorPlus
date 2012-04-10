@@ -164,6 +164,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 * [PLUS PACK v2.4+] Limit to N results.
 * [PLUS PACK] Starting image can now be stored off-site simply use http as the prefix.
+* Map height/width over 100% would cause erratic behavior.  Auto-set max to 100% if over 100.
 
 = 2.4 (February 8th, 2012) =
 
