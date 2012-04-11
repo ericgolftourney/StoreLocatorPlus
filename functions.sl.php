@@ -579,6 +579,42 @@ function slplus_dbupdater($sql,$table_name) {
     // Prep fnvars for passing to our template
     //
     $fnvars = array_merge($fnvars,(array) $attributes);       // merge in passed attributes
+    
+    
+    // Prepare some data for JavaScript injection...
+    //
+    $slplus_home_icon = get_option('sl_map_home_icon');
+    $slplus_end_icon  = get_option('sl_map_end_icon');
+    $slplus_home_icon_file = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$slplus_home_icon);
+    $slplus_end_icon_file  = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$slplus_end_icon);
+    $slplus_home_size=(function_exists('getimagesize') && file_exists($slplus_home_icon_file))? 
+        getimagesize($slplus_home_icon_file) : 
+        array(0 => 20, 1 => 34);    
+    $slplus_end_size =(function_exists('getimagesize') && file_exists($slplus_end_icon_file)) ? 
+        getimagesize($slplus_end_icon_file)  : 
+        array(0 => 20, 1 => 34);
+    
+    // Lets get some variables into our script
+    //
+    $scriptData = array(
+        'debug_mode'    => (get_option(SLPLUS_PREFIX.'-debugging') == 'on'),
+        'distance_unit' => esc_attr(get_option('sl_distance_unit'),'miles'),
+        'load_locations'=> (get_option('sl_load_locations_default')==1),
+        'map_domain'    => get_option('sl_google_map_domain','maps.google.com'),
+        'map_home_icon' => $slplus_home_icon,
+        'map_home_sizew'=> $slplus_home_size[0],
+        'map_home_sizeh'=> $slplus_home_size[1],
+        'map_end_icon'  => $slplus_end_icon,
+        'map_end_sizew' => $slplus_end_size[0],
+        'map_end_sizeh' => $slplus_end_size[1],
+        'map_type'      => get_option('sl_map_type','G_NORMAL_MAP'),
+        'overview_ctrl' => get_option('sl_map_overview_control',0),
+        'use_email_form'=> (get_option(SLPLUS_PREFIX.'_email_form')==1),
+        'website_label' => esc_attr(get_option('sl_website_label','Website')),
+        'zoom_level'    => get_option('sl_zoom_level',4),
+        'zoom_tweak'    => get_option('sl_zoom_tweak',1),
+        );
+    wp_localize_script('slplus_php','slplus',$scriptData);                 
 
     // Register Load JavaScript
     //
@@ -586,6 +622,9 @@ function slplus_dbupdater($sql,$table_name) {
     wp_enqueue_script('google_maps');
     wp_enqueue_script('slplus_php');
     wp_enqueue_script('slplus_map');
+    if (get_option(SLPLUS_PREFIX.'_email_form')==1) {
+        wp_enqueue_script('slplus_emailform');
+    }
 
     // Register & Load CSS
     //

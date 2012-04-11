@@ -28,12 +28,6 @@ if (!function_exists('get_option')) {
 //
 include("../variables.sl.php");
 
-if(get_option(SLPLUS_PREFIX.'-debugging') == 'on') {
-    error_reporting(1);
-    $debugmode = 'true';
-} else {
-    $debugmode = 'false';
-}
 
 
  
@@ -41,16 +35,7 @@ if(get_option(SLPLUS_PREFIX.'-debugging') == 'on') {
 // Setup the javascript variable we'll need later
 //
 print "
-if (document.getElementById('map')){window.onunload = function (){ GUnload(); }}
-var debugmode=$debugmode;
-var allScripts=document.getElementsByTagName('script');
-var add_base=allScripts[allScripts.length -1].src.replace(/\/js\/store\-locator\-js.php(.*)$/,'');
-var add_upload_base='$sl_upload_base';
-var slp_encryption_code='".$slp_enc_key."';
-var sl_google_map_domain='"     .get_option('sl_google_map_domain')     ."';
 var sl_google_map_country='".SetMapCenter()."';
-var sl_load_locations_default="     .((get_option('sl_load_locations_default'               )==1)?'true':'false').";
-var slp_use_email_form="            .((get_option(SLPLUS_PREFIX.'_email_form'               )==1)?'true':'false').";
 var slp_disablescrollwheel="        .((get_option(SLPLUS_PREFIX.'_disable_scrollwheel'      )==1)?'true':'false').";
 var slp_disableinitialdirectory="   .((get_option(SLPLUS_PREFIX.'_disable_initialdirectory' )==1)?'true':'false').";
 var slp_show_tags="                 .((get_option(SLPLUS_PREFIX.'_show_tags'                )==1)?'true':'false').";
