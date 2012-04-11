@@ -132,14 +132,14 @@
     
             <div class='form_entry'>
                 <label for='icon'><?php _e('Home Icon', SLPLUS_PREFIX);?></label>
-                <input name='icon' size='45' value='<?php echo $icon;?>' onchange="document.getElementById('prev').src=this.value">
+                <input name='icon' dir='rtl' size='45' value='<?php echo $icon;?>' onchange="document.getElementById('prev').src=this.value">
                     &nbsp;&nbsp;<img id='prev' src='<?php echo $icon;?>' align='top'><br/>
                 <div style='margin-left: 150px;'><?php echo $icon_str;?></div>        
             </div>
     
             <div class='form_entry'>
                 <label for='icon2'><?php _e('Destination Icon', SLPLUS_PREFIX);?></label>
-                <input name='icon2' size='45' value='<?php echo $icon2;?>' onchange="document.getElementById('prev2').src=this.value">
+                <input name='icon2' dir='rtl' size='45' value='<?php echo $icon2;?>' onchange="document.getElementById('prev2').src=this.value">
                     &nbsp;&nbsp;<img id='prev2' src='<?php echo $icon2;?>'align='top'><br/>
                 <div style='margin-left: 150px;'><?php echo $icon2_str;?></div>
             </div>
