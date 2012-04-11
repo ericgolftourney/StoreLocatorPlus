@@ -83,7 +83,6 @@ require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-actions_class.php');
 
 // Activation Action (install/upgrade)
 //
-//register_activation_hook( __FILE__ , array('SLPlus_Actions','activate_plugin'));
 register_activation_hook( __FILE__, 'activate_slplus');
 
 // Actions

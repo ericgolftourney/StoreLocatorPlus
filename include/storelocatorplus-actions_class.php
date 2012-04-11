@@ -25,23 +25,7 @@ if (! class_exists('SLPlus_Actions')) {
         function __construct($params) {
         } 
         
-        
-        //-----------------------------
-        // method: activate_plugin()
-        // 
-        // This is called whenever the plugin is activated.
-        //
-        // Useful for doing stuff during initial installs or upgrades.
-        //
-        static function activate_plugin() {
-            
-            // If theme is not set...
-            //            
-            if (get_option('csl-slplus-theme') == '') {
-                update_option('csl-slplus-theme','csl-slplus');            
-            }      
-        }
-        
+
         //-----------------------------
         // method: wp_enqueue_scripts()
         // 
