@@ -480,41 +480,30 @@ function head_scripts() {
 	if ($on_sl_page || is_search() || 
         ((is_archive() || is_404()) && $sl_code_is_used_in_posts) || 
         is_front_page() || is_single($post_ids_array)
+        ) &&
+        (isset($slplus_plugin) && $slplus_plugin->ok_to_show())
         ) {
-        if (isset($slplus_plugin) && $slplus_plugin->ok_to_show()) {
-                    
-                
-            // CSL Theme System
-            //
-            if (get_option(SLPLUS_PREFIX . '-theme' ) != '') {
-                    setup_stylesheet_for_slplus();
-                
-            // Legacy Custom CSS
-            //
-            } else {
-                $has_custom_css=(file_exists($sl_upload_path."/custom-css/csl-slplus.css"))? 
-                    $sl_upload_base."/custom-css" : 
-                    $sl_base; 
-                print "<link  href='".$has_custom_css."/core/css/csl-slplus.css' type='text/css' rel='stylesheet'/>";
-            }
+        // CSL Theme System
+        //
+        if (get_option(SLPLUS_PREFIX . '-theme' ) != '') {
+                setup_stylesheet_for_slplus();
             
-            
-            
-            $theme=get_option('sl_map_theme');
-            if ($theme!="") {print "\n<link  href='".$sl_upload_base."/themes/$theme/style.css' rel='stylesheet' type='text/css'/>";}
-            $zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		            
-            $ztweak=(trim(get_option('sl_zoom_tweak'))!="")? get_option('sl_zoom_tweak') : 1;		            
-            }
+        // Legacy Custom CSS
+        //
         } else {
-            if ($slplus_plugin->debugging) {
-                $sl_page_ids=$wpdb->get_results("SELECT ID FROM ".$wpdb->prefix."posts WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_status='publish'", ARRAY_A);
-                print "<!-- No store locator on this page, so no unnecessary scripts for better site performance. (";
-                if ($sl_page_ids) {
-                    foreach ($sl_page_ids as $value) { print "$value[ID],";}
-                }
-                print ")-->";
-            }
+            $has_custom_css=(file_exists($sl_upload_path."/custom-css/csl-slplus.css"))? 
+                $sl_upload_base."/custom-css" : 
+                $sl_base; 
+            print "<link  href='".$has_custom_css."/core/css/csl-slplus.css' type='text/css' rel='stylesheet'/>";
         }
+        
+        $theme=get_option('sl_map_theme');
+        if ($theme!="") {
+            print "\n<link  href='".$sl_upload_base."/themes/$theme/style.css' rel='stylesheet' type='text/css'/>";
+        }
+        $zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		            
+        $ztweak=(trim(get_option('sl_zoom_tweak'))!="")? get_option('sl_zoom_tweak') : 1;		            
+    }
 }
 
 
