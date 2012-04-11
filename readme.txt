@@ -162,7 +162,11 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 = 2.6 (April 12th, 2012) =
 
-* [PLUS PACK] Dark Theme, add hand over submit, restyle submit button
+* [PLUS PACK] Dark Theme, add hand over submit, restyle submit button.
+* Page load speed has been increased for SLPlus pages.
+* JavaScript and CSS now only loads on pages with SLPlus shortcodes.
+* JavaScript loading has been simplified and updated to use modern WP3.X methodologies.
+* CSS loading has been simplified and updated to use modern WP3.X methodologies.
 
 = 2.5 (March 9th, 2012) =
 
