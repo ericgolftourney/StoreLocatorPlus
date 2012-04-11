@@ -35,17 +35,6 @@ if(get_option(SLPLUS_PREFIX.'-debugging') == 'on') {
     $debugmode = 'false';
 }
 
-if (ereg($sl_upload_base, get_option('sl_map_home_icon'))){
-	$home_icon_path=ereg_replace($sl_upload_base, $sl_upload_path, get_option('sl_map_home_icon'));
-} else {
-	$home_icon_path=ereg_replace($sl_base, $sl_path, get_option('sl_map_home_icon'));
-}
-
-if (ereg($sl_upload_base, get_option('sl_map_end_icon'))){
-	$end_icon_path=ereg_replace($sl_upload_base, $sl_upload_path, get_option('sl_map_end_icon'));
-} else {
-	$end_icon_path=ereg_replace($sl_base, $sl_path, get_option('sl_map_end_icon'));
-}
 
 $zl=(trim(get_option('sl_zoom_level'))!="")? 
     get_option('sl_zoom_level') : 
@@ -65,11 +54,15 @@ $du=(trim(get_option('sl_distance_unit'))!="")?
 $oc=(trim(get_option('sl_map_overview_control'))!="")? 
     get_option('sl_map_overview_control') : 
     0;
-$home_size=(function_exists('getimagesize') && file_exists($home_icon_path))? 
-    getimagesize($home_icon_path) : 
+    
+    
+$slplus_home_icon = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,get_option('sl_map_home_icon'));
+$slplus_end_icon  = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,get_option('sl_map_end_icon' ));
+$home_size=(function_exists('getimagesize') && file_exists($slplus_home_icon))? 
+    getimagesize($slplus_home_icon) : 
     array(0 => 20, 1 => 34);    
-$end_size =(function_exists('getimagesize') && file_exists($end_icon_path)) ? 
-    getimagesize($end_icon_path)  : 
+$end_size =(function_exists('getimagesize') && file_exists($slplus_end_icon)) ? 
+    getimagesize($slplus_end_icon)  : 
     array(0 => 20, 1 => 34);
 
 //-----------------------------------------------
