@@ -174,6 +174,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Half-dozen new icons added to the built-in icon set. 
 * Icon selector now finds all jpg,png,gif images in the ./core/images/icons folder.
 * Fix initial missing shadow icons.
+* Fix automatic icon image sizing.
 * Added some new CSS div/table IDs to make it easier to customize the output styling.
 * Page load speed has been increased for SLPlus pages.
 * JavaScript and CSS now only loads on pages with SLPlus shortcodes.
