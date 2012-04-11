@@ -806,12 +806,6 @@ function comma($a) {
 	
 }
 
-
-/*-----------------------------------------------------------*/
-function url_test($url) {
-	return (strtolower(substr($url,0,7))=="http://");
-}
-
 /************************************************************
  * Copy a file, or recursively copy a folder and its contents
  */

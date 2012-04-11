@@ -394,7 +394,10 @@ print "</form>";
 }
 print "</div>";
 
-
+/*-----------------------------------------------------------*/
+function url_test($url) {
+	return (strtolower(substr($url,0,7))=="http://");
+}
 
 /*---------------------------------*/
 function set_query_defaults() {
