@@ -167,6 +167,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * [PLUS PACK] Simple Boxed Theme, side-by-side listing entries.
 * [PLUS PACK] Hidden Results Theme, hide the text results under the map.
 * [PLUS PACK] Hidden Map Theme, hide the map.
+* Half-dozen new icons added to the built-in icon set. 
 * Icon selector now finds all jpg,png,gif images in the ./core/images/icons folder.
 * Fix initial missing shadow icons.
 * Added some new CSS div/table IDs to make it easier to customize the output styling.
