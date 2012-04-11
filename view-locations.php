@@ -5,6 +5,11 @@
  ** Manage the view locations admin panel action.
  ***************************************************************************/
 
+// Setup the view link
+//
+ $view_link="| <a href='".SLPLUS_ADMINPAGE."view-locations.php'>".
+    __("Manage Locations", SLPLUS_PREFIX)."</a>"; 
+ 
 // Save all values except a few for subsequent form processing
 //
 $hidden='';
