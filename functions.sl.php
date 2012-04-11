@@ -741,29 +741,6 @@ function add_admin_javascript() {
         }
 }
 
-
-/*---------------------------------*/
-function set_query_defaults() {
-	global $where, $o, $d;
-	
-	$qry = isset($_REQUEST['q']) ? $_REQUEST['q'] : '';
-	$where=($qry!='')? 
-	        " WHERE ".
-	        "sl_store    LIKE '%$qry%' OR ".
-	        "sl_address  LIKE '%$qry%' OR ".
-	        "sl_address2 LIKE '%$qry%' OR ".
-	        "sl_city     LIKE '%$qry%' OR ".
-	        "sl_state    LIKE '%$qry%' OR ".
-	        "sl_zip      LIKE '%$qry%' OR ".
-	        "sl_tags     LIKE '%$qry%' " 
-	        : 
-	        '' ;
-	$o= (isset($_GET['o']) && (trim($_GET['o']) != ''))
-	    ? $_GET['o'] : "sl_store";
-	$d= (isset($_GET['d']) && (trim($_GET['d'])=='DESC')) 
-	    ? "DESC" : "ASC";
-}
-
 /*----------------------------------*/
 function match_imported_data($the_array) {
     print "<h3>".__("Choose Heading That Matches Columns You Want to Import", SLPLUS_PREFIX).":</h3>(".__("Leave headings for undesired columns unchanged", SLPLUS_PREFIX).")<br><br>
