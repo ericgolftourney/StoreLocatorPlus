@@ -598,8 +598,12 @@ function slplus_dbupdater($sql,$table_name) {
     //
     $scriptData = array(
         'debug_mode'    => (get_option(SLPLUS_PREFIX.'-debugging') == 'on'),
+        'disable_scroll'=> (get_option(SLPLUS_PREFIX.'_disable_scrollwheel')==1),
+        'disable_dir'   => (get_option(SLPLUS_PREFIX.'_disable_initialdirectory' )==1),
         'distance_unit' => esc_attr(get_option('sl_distance_unit'),'miles'),
         'load_locations'=> (get_option('sl_load_locations_default')==1),
+        'map_3dcontrol' => (get_option(SLPLUS_PREFIX.'_disable_largemapcontrol3d')==0),
+        'map_country'   => SetMapCenter(),
         'map_domain'    => get_option('sl_google_map_domain','maps.google.com'),
         'map_home_icon' => $slplus_home_icon,
         'map_home_sizew'=> $slplus_home_size[0],
@@ -607,20 +611,22 @@ function slplus_dbupdater($sql,$table_name) {
         'map_end_icon'  => $slplus_end_icon,
         'map_end_sizew' => $slplus_end_size[0],
         'map_end_sizeh' => $slplus_end_size[1],
+        'map_scalectrl' => (get_option(SLPLUS_PREFIX.'_disable_scalecontrol')==0),
         'map_type'      => get_option('sl_map_type','G_NORMAL_MAP'),
+        'map_typectrl'  => (get_option(SLPLUS_PREFIX.'_disable_maptypecontrol')==0),
+        'show_tags'     => (get_option(SLPLUS_PREFIX.'_show_tags')==1),
         'overview_ctrl' => get_option('sl_map_overview_control',0),
         'use_email_form'=> (get_option(SLPLUS_PREFIX.'_email_form')==1),
         'website_label' => esc_attr(get_option('sl_website_label','Website')),
         'zoom_level'    => get_option('sl_zoom_level',4),
         'zoom_tweak'    => get_option('sl_zoom_tweak',1),
         );
-    wp_localize_script('slplus_php','slplus',$scriptData);                 
+    wp_localize_script('slplus_map','slplus',$scriptData);                 
 
     // Register Load JavaScript
     //
     wp_enqueue_script('slplus_functions');
     wp_enqueue_script('google_maps');
-    wp_enqueue_script('slplus_php');
     wp_enqueue_script('slplus_map');
     if (get_option(SLPLUS_PREFIX.'_email_form')==1) {
         wp_enqueue_script('slplus_emailform');
@@ -632,6 +638,27 @@ function slplus_dbupdater($sql,$table_name) {
     wp_enqueue_style('slplus_themecss');
     
     return get_string_from_phpexec($file); 
+}
+
+
+/**************************************
+ * SetMapCenter()
+ *
+ * Set the starting point for the center of the map.
+ * Uses country by default.
+ * Plus Pack v2.4+ allows for a custom address.
+ */
+function SetMapCenter() {
+    global $slplus_plugin;
+    $customAddress = get_option(SLPLUS_PREFIX.'_map_center');
+    if (
+        (preg_replace('/\W/','',$customAddress) != '') &&
+        $slplus_plugin->license->packages['Plus Pack']->isenabled_after_forcing_recheck() &&
+        ($slplus_plugin->license->packages['Plus Pack']->active_version >= 2004000) 
+        ) {
+        return str_replace(array("\r\n","\n","\r"),', ',esc_attr($customAddress));
+    }
+    return esc_attr(get_option('sl_google_map_country','United States'));    
 }
 
 /**************************************

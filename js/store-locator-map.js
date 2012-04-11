@@ -61,19 +61,19 @@ function sl_load() {
         map.addMapType(G_PHYSICAL_MAP);
         // This is asynchronous, as such we have no idea when it will return
         //
-        geocoder.getLatLng(sl_google_map_country, 
+        geocoder.getLatLng(slplus.map_country, 
             function(latlng) {
                 if (!slplus.load_locations) {                    
                     map.setCenter(latlng, parseInt(slplus.zoom_level), eval(slplus.map_type));
                 }
                                 
                 var customUI = map.getDefaultUI();
-                customUI.controls.largemapcontrol3d = slp_largemapcontrol3d;   
-                customUI.controls.scalecontrol = slp_scalecontrol;
-                customUI.controls.hierarchicalmaptypecontrol = slp_maptypecontrol;                
+                customUI.controls.largemapcontrol3d = slplus.map_3dcontrol;   
+                customUI.controls.scalecontrol = slplus.map_scalectrl;
+                customUI.controls.hierarchicalmaptypecontrol = slplus.map_typectrl;                
                 map.setUI(customUI);
                 
-                if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }
+                if (slplus.disable_scroll) { map.disableScrollWheelZoom(); }
                 
                 if (slplus.load_locations) {                    
                     sl_load_locations(map,latlng.lat(),latlng.lng());
@@ -103,7 +103,7 @@ function sl_load_locations(map,lat,lng) {
         taglist = null;
     }
 
-    if (!slp_disableinitialdirectory) {
+    if (!slplus.disable_dir) {
         var sidebar = document.getElementById('map_sidebar');
         sidebar.innerHTML = '';           
     }
@@ -133,7 +133,7 @@ function sl_load_locations(map,lat,lng) {
                                     
                 map.addOverlay(marker);
     
-                if (!slp_disableinitialdirectory) {
+                if (!slplus.disable_dir) {
                     var sidebarEntry = createSidebarEntry(marker, name, address, distance, '', url, email, phone,tags);
                     sidebar.appendChild(sidebarEntry);
                 }
@@ -147,12 +147,12 @@ function sl_load_locations(map,lat,lng) {
             map.setCenter(bounds.getCenter(), FinalZoom);
             
             var customUI = map.getDefaultUI();
-            customUI.controls.largemapcontrol3d = slp_largemapcontrol3d;   
-            customUI.controls.scalecontrol = slp_scalecontrol;
-            customUI.controls.hierarchicalmaptypecontrol = slp_maptypecontrol;                
+            customUI.controls.largemapcontrol3d = slplus.map_3dcontrol;   
+            customUI.controls.scalecontrol = slplus.map_scalectrl;
+            customUI.controls.hierarchicalmaptypecontrol = slplus.map_typectrl;                
             map.setUI(customUI);
             
-            if (slp_disablescrollwheel) { map.disableScrollWheelZoom(); }
+            if (slplus.disable_scroll) { map.disableScrollWheelZoom(); }
         }
     );
  }
@@ -284,7 +284,7 @@ function searchLocationsNear(center, homeAddress) {
             if (markers.length == 0) {
                 sidebar.innerHTML = '<div class="no_results_found"><h2>No results found.</h2></div>';
                 geocoder = new GClientGeocoder();
-                geocoder.getLatLng(sl_google_map_country, 
+                geocoder.getLatLng(slplus.map_country, 
                     function(latlng) {
                     }
                 );
@@ -376,7 +376,7 @@ function createMarker(point, name, address, homeAddress, description, url, email
     
     // If we want to show tags in the bubble...
     //
-    if (slp_show_tags) {
+    if (slplus.show_tags) {
       if (jQuery.trim(tags) != '') {
           more_html += '<br/>'+tags;
       }
@@ -427,7 +427,7 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url, e
       // If we want to show tags in the table...
       //
       var taginfo = "";
-      if (slp_show_tags) {
+      if (slplus.show_tags) {
           if (jQuery.trim(tags) != '') {
               var tagclass = tags.replace(/\W/g,'_');
               taginfo = '<br/><div class="'+tagclass+'"><span class="tagtext">'+tags+'</span></div>';
