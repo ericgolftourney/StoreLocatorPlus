@@ -23,21 +23,21 @@ var map;
 var geocoder;
 
 var theIcon = new GIcon(G_DEFAULT_ICON);
-    theIcon.image = sl_map_end_icon;
-if (sl_map_end_icon.indexOf('flag')!='-1') {
+    theIcon.image = slplus.map_end_icon;
+if (slplus.map_end_icon.indexOf('flag')!='-1') {
     theIcon.shadow = add_base + "/images/icons/flag_shadow.png";
-} else if (sl_map_end_icon.indexOf('arrow')!='-1') {
+} else if (slplus.map_end_icon.indexOf('arrow')!='-1') {
     theIcon.shadow = add_base + "/images/icons/arrow_shadow.png";
-} else if (sl_map_end_icon.indexOf('bubble')!='-1') {
+} else if (slplus.map_end_icon.indexOf('bubble')!='-1') {
     theIcon.shadow = add_base + "/images/icons/bubble_shadow.png";
-} else if (sl_map_end_icon.indexOf('marker')!='-1') {
+} else if (slplus.map_end_icon.indexOf('marker')!='-1') {
     theIcon.shadow = add_base + "/images/icons/marker_shadow.png";
-} else if (sl_map_end_icon.indexOf('sign')!='-1') {
+} else if (slplus.map_end_icon.indexOf('sign')!='-1') {
     theIcon.shadow = add_base + "/images/icons/sign_shadow.png";
 } else {
     theIcon.shadow = add_base + "/images/blank.png";
 }
-theIcon.iconSize = new GSize(sl_map_end_icon_width, sl_map_end_icon_height);
+theIcon.iconSize = new GSize(slplus.map_end_sizew, slplus.map_end_sizeh);
 
 
 /**************************************
@@ -50,17 +50,16 @@ function sl_load() {
     if (GBrowserIsCompatible()) {
         geocoder = new GClientGeocoder();
         map = new GMap2(document.getElementById('map'));
-        if (sl_map_overview_control==1) {
+        if (parseInt(slplus.overview_ctrl)==1) {
             map.addControl(new GOverviewMapControl());
         }
         map.addMapType(G_PHYSICAL_MAP);
-        
         // This is asynchronous, as such we have no idea when it will return
         //
         geocoder.getLatLng(sl_google_map_country, 
             function(latlng) {
-                map.setCenter(latlng, sl_zoom_level, sl_map_type);
-                
+                map.setCenter(latlng, parseInt(slplus.zoom_level), eval(slplus.map_type));
+                                
                 var customUI = map.getDefaultUI();
                 customUI.controls.largemapcontrol3d = slp_largemapcontrol3d;   
                 customUI.controls.scalecontrol = slp_scalecontrol;
@@ -134,9 +133,9 @@ function sl_load_locations(map,lat,lng) {
                                     
                 bounds.extend(point);
             }
-              var FinalZoom = sl_zoom_level;
+              var FinalZoom = parseInt(slplus.zoom_level);
               if (markers.length > 1) {            
-                    FinalZoom = map.getBoundsZoomLevel(bounds)-sl_zoom_tweak;
+                    FinalZoom = map.getBoundsZoomLevel(bounds)-parseInt(slplus.zoom_tweak);
               }
             map.setCenter(bounds.getCenter(), FinalZoom);
             
@@ -244,21 +243,21 @@ function searchLocationsNear(center, homeAddress) {
             map.clearOverlays();
    
             var homeIcon = new GIcon(G_DEFAULT_ICON);
-            homeIcon.image = sl_map_home_icon;
-            if (sl_map_home_icon.indexOf('flag')!='-1') {
+            homeIcon.image = slplus.map_home_icon;
+            if (slplus.map_home_icon.indexOf('flag')!='-1') {
                 homeIcon.shadow = add_base + "/images/icons/flag_shadow.png";
-            } else if (sl_map_home_icon.indexOf('arrow')!='-1') {
+            } else if (slplus.map_home_icon.indexOf('arrow')!='-1') {
                 homeIcon.shadow = add_base + "/images/icons/arrow_shadow.png";
-            } else if (sl_map_home_icon.indexOf('bubble')!='-1') {
+            } else if (slplus.map_home_icon.indexOf('bubble')!='-1') {
                 homeIcon.shadow = add_base + "/images/icons/bubble_shadow.png";
-            } else if (sl_map_home_icon.indexOf('marker')!='-1') {
+            } else if (slplus.map_home_icon.indexOf('marker')!='-1') {
                 homeIcon.shadow = add_base + "/images/icons/marker_shadow.png";
-            } else if (sl_map_home_icon.indexOf('sign')!='-1') {
+            } else if (slplus.map_home_icon.indexOf('sign')!='-1') {
                 homeIcon.shadow = add_base + "/images/icons/sign_shadow.png";
             } else {
                 homeIcon.shadow = add_base + "/images/icons/blank.png";
             }
-            homeIcon.iconSize = new GSize(sl_map_home_icon_width, sl_map_home_icon_height);
+            homeIcon.iconSize = new GSize(slplus.map_home_sizew, slplus.map_home_sizeh);
 
             var bounds = new GLatLngBounds(); 
             markerOpts = { icon:homeIcon };
@@ -280,7 +279,6 @@ function searchLocationsNear(center, homeAddress) {
                 geocoder = new GClientGeocoder();
                 geocoder.getLatLng(sl_google_map_country, 
                     function(latlng) {
-                       // map.setCenter(point, sl_zoom_level);
                     }
                 );
                 return;
@@ -310,9 +308,9 @@ function searchLocationsNear(center, homeAddress) {
                 bounds.extend(point);
             }
             
-          var FinalZoom = sl_zoom_level;
+          var FinalZoom = parseInt(slplus.zoom_level);
           if (markers.length > 1) {            
-                FinalZoom = map.getBoundsZoomLevel(bounds)-sl_zoom_tweak;
+                FinalZoom = map.getBoundsZoomLevel(bounds)-parseInt(slplus.zoom_tweak);
           }
           map.setCenter(bounds.getCenter(), FinalZoom); 
         }
@@ -331,7 +329,7 @@ function createMarker(point, name, address, homeAddress, description, url, email
   }
   
   if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {
-    more_html+="| <a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + sl_website_label +"</nobr></a>"
+    more_html+="| <a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a>"
   } else {
     url="";
   }
@@ -408,7 +406,7 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url, e
       
       var link = '';
       if(url.indexOf("http://")==-1) {url="http://"+url;} 
-      if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {link="<a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + sl_website_label +"</nobr></a><br/>"} else {url="";}
+      if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {link="<a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>"} else {url="";}
 
       var elink = "";
       if (email.indexOf("@")!=-1 && email.indexOf(".")!=-1) {
@@ -439,7 +437,7 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url, e
                  '<tr>' +
                     '<td class="results_row_left_column">' +
                         '<span class="location_name">' + name + '</span><br>' + 
-                        distance.toFixed(1) + ' ' + sl_distance_unit + '</td>' +
+                        distance.toFixed(1) + ' ' + slplus.distance_unit + '</td>' +
                     '<td class="results_row_center_column">' + 
                         street +  
                         street2 + 

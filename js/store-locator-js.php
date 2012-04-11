@@ -36,35 +36,7 @@ if(get_option(SLPLUS_PREFIX.'-debugging') == 'on') {
 }
 
 
-$zl=(trim(get_option('sl_zoom_level'))!="")? 
-    get_option('sl_zoom_level') : 
-    4;
-$ztweak=(trim(get_option('sl_zoom_tweak'))!="")? 
-    get_option('sl_zoom_tweak') : 
-    1;    
-$mt=(trim(get_option('sl_map_type'))!="")? 
-    get_option('sl_map_type') : 
-    "G_NORMAL_MAP";
-$wl=(trim(get_option('sl_website_label'))!="")? 
-    esc_attr(get_option('sl_website_label')) : 
-    "Website";
-$du=(trim(get_option('sl_distance_unit'))!="")? 
-    get_option('sl_distance_unit') : 
-    "miles";
-$oc=(trim(get_option('sl_map_overview_control'))!="")? 
-    get_option('sl_map_overview_control') : 
-    0;
-    
-    
-$slplus_home_icon = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,get_option('sl_map_home_icon'));
-$slplus_end_icon  = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,get_option('sl_map_end_icon' ));
-$home_size=(function_exists('getimagesize') && file_exists($slplus_home_icon))? 
-    getimagesize($slplus_home_icon) : 
-    array(0 => 20, 1 => 34);    
-$end_size =(function_exists('getimagesize') && file_exists($slplus_end_icon)) ? 
-    getimagesize($slplus_end_icon)  : 
-    array(0 => 20, 1 => 34);
-
+ 
 //-----------------------------------------------
 // Setup the javascript variable we'll need later
 //
@@ -75,23 +47,8 @@ var allScripts=document.getElementsByTagName('script');
 var add_base=allScripts[allScripts.length -1].src.replace(/\/js\/store\-locator\-js.php(.*)$/,'');
 var add_upload_base='$sl_upload_base';
 var slp_encryption_code='".$slp_enc_key."';
-var sl_zoom_level=$zl;
-var sl_zoom_tweak=$ztweak;
-var sl_map_type=$mt;
-var sl_website_label='$wl';
-var sl_distance_unit='$du';
-var sl_map_overview_control='$oc';
-var sl_map_home_icon_width=$home_size[0];
-var sl_map_home_icon_height=$home_size[1];
-var sl_map_end_icon_width=$end_size[0];
-var sl_map_end_icon_height=$end_size[1];
-
-var sl_map_home_icon='"         .get_option('sl_map_home_icon')         ."';
-var sl_map_end_icon='"          .get_option('sl_map_end_icon')          ."';
 var sl_google_map_domain='"     .get_option('sl_google_map_domain')     ."';
-
 var sl_google_map_country='".SetMapCenter()."';
-
 var sl_load_locations_default="     .((get_option('sl_load_locations_default'               )==1)?'true':'false').";
 var slp_use_email_form="            .((get_option(SLPLUS_PREFIX.'_email_form'               )==1)?'true':'false').";
 var slp_disablescrollwheel="        .((get_option(SLPLUS_PREFIX.'_disable_scrollwheel'      )==1)?'true':'false').";
