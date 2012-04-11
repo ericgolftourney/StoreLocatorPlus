@@ -166,6 +166,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * [PLUS PACK] Dark Theme, add hand over submit, restyle submit button.
 * [PLUS PACK] Simple Boxed Theme, side-by-side listing entries.
 * [PLUS PACK] Hidden Results Theme, hide the text results under the map.
+* [PLUS PACK] Hidden Map Theme, hide the map.
 * Added some new CSS div/table IDs to make it easier to customize the output styling.
 * Page load speed has been increased for SLPlus pages.
 * JavaScript and CSS now only loads on pages with SLPlus shortcodes.
