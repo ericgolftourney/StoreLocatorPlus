@@ -80,12 +80,17 @@ include_once(SLPLUS_PLUGINDIR . 'plus.php'              );
 include_once(SLPLUS_COREDIR   . 'csl_helpers.php'       );
 include_once(SLPLUS_COREDIR   . 'variables.sl.php'      );
 include_once(SLPLUS_COREDIR   . 'functions.sl.php'      );
+require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-actions_class.php');
 
+// Activation Action (install/upgrade)
+//
+//register_activation_hook( __FILE__ , array('SLPlus_Actions','activate_plugin'));
 register_activation_hook( __FILE__, 'activate_slplus');
 
 // Actions
 //
 add_action('wp_head', 'head_scripts');
+add_action('wp_enqueue_scripts',array('SLPlus_Actions','wp_enqueue_scripts'));
 add_action('admin_menu', 'csl_slplus_add_options_page');
 add_action('admin_init','csl_slplus_setup_admin_interface',10);
 add_action('admin_print_scripts', 'add_admin_javascript');
@@ -102,4 +107,3 @@ add_shortcode('slplus','store_locator_shortcode');
 // Text Domains
 //
 load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_BASENAME . '/core/languages/');
-
