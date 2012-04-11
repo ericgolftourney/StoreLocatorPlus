@@ -741,60 +741,6 @@ function add_admin_javascript() {
         }
 }
 
-/*----------------------------------*/
-function match_imported_data($the_array) {
-    print "<h3>".__("Choose Heading That Matches Columns You Want to Import", SLPLUS_PREFIX).":</h3>(".__("Leave headings for undesired columns unchanged", SLPLUS_PREFIX).")<br><br>
-    <form method='post'>
-    <input type='button' value='".__("Cancel", SLPLUS_PREFIX)."' class='button' onclick='history.go(-1)'>&nbsp;<input type='submit' value='".__("Import Locations", SLPLUS_PREFIX)."' class='button'>
-    <table class='widefat'><thead><tr style='/*background-color:black*/'>";
-    
-    $array_to_be_counted=(is_array($the_array[0]))? $the_array[0] : $the_array[1] ; //needed for the csv import (where first line is usually skipped)  vs the point-click-add import (where there's only the first line)
-    for ($ctr=1; $ctr<=count($array_to_be_counted); $ctr++) {
-    print "<td><select name='field_map[]'>";
-    print "<option value=''>".__("Choose")."</option>
-            <option value='sl_store'>".__("Name", SLPLUS_PREFIX)."</option>
-                <option value='sl_address'>".__("Street(Line1)", SLPLUS_PREFIX)."</option>
-                <option value='sl_address2'>".__("Street(Line2)", SLPLUS_PREFIX)."</option>
-                <option value='sl_city'>".__("City", SLPLUS_PREFIX)."</option>
-                <option value='sl_state'>".__("State", SLPLUS_PREFIX)."</option>
-                <option value='sl_zip'>".__("Zip", SLPLUS_PREFIX)."</option>
-                <option value='sl_tags'>".__("Tags", SLPLUS_PREFIX)."</option>
-                <option value='sl_description'>".__("Description", SLPLUS_PREFIX)."</option>
-                <option value='sl_hours'>".__("Hours", SLPLUS_PREFIX)."</option>
-                <option value='sl_url'>".__("URL", SLPLUS_PREFIX)."</option>
-                <option value='sl_phone'>".__("Phone", SLPLUS_PREFIX)."</option>
-                <option value='sl_image'>".__("Image", SLPLUS_PREFIX)."</option>
-                <option value='sl_private'>".__("Is Private?", SLPLUS_PREFIX)."</option>";
-    print "</select></td>";
-    }
-    print "</tr></thead>";
-    
-    foreach ($the_array as $key=>$value) {
-    print "<tr style='border-bottom:solid silver 1px'>";
-    $bgcolor="#ddd";
-    $ctr2=0;
-    foreach ($value as $key2=>$value2) {
-        $bgcolor=($bgcolor=="#fff" || empty($bgcolor))? "#ddd" : "#fff";
-        print "<td style='background-color:$bgcolor'>$value2<input type='hidden' value='$value2' name='column{$ctr2}[]'></td>\n";
-        $ctr2++;
-    }
-    print "</tr>\n";
-    }
-    print "</table><input type='hidden' name='finish_import' value='1'>
-    <input type='hidden' name='total_entries' value='".(count($the_array))."'>
-    <input type='button' value='".__("Cancel", SLPLUS_PREFIX)."' class='button' onclick='history.go(-1)'>&nbsp;<input type='submit' value='".__("Import Locations", SLPLUS_PREFIX)."' class='button'></form>";
-}
-/*--------------------------------------------------------------*/
-
-function do_hyperlink(&$text, $target="'_blank'")
-{
-   // match protocol://address/path/
-   $text = ereg_replace("[a-zA-Z]+://([.]?[a-zA-Z0-9_/?&amp;%20,=-\+-])*", "<a href=\"\\0\" target=$target>\\0</a>", $text);
-   $text = ereg_replace("(^| )(www([.]?[a-zA-Z0-9_/=-\+-])*)", "\\1<a href=\"http://\\2\" target=$target>\\2</a>", $text);
-   return $text;
-}
-
-
 /*-------------------------------------------------------------*/
 function comma($a) {
 	$a=ereg_replace('"', "&quot;", $a);
