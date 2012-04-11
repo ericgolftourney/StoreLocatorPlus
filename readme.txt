@@ -145,6 +145,10 @@ Some of the features in the Plus Pack include:
 * Ability to associate tags with locations and filter search results by those tags.
 * Additional search form elements.
 
+= Attribution and Credits =
+
+Thanks to [Nicolas Mollet](http://mapicons.nicolasmollet.com/) for some of the great icons.
+
 == Screenshots ==
 
 1. Location Details
