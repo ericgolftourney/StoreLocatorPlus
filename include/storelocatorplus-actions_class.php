@@ -66,15 +66,9 @@ if (! class_exists('SLPlus_Actions')) {
                         "http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$sl_map_character_encoding}"                        
                         );
                 wp_register_script(
-                    'slplus_php',
-                    SLPLUS_PLUGINURL.'/core/js/store-locator-js.php',
-                    array('google_maps')
-                    );
-                
-                wp_register_script(
                         'slplus_map',
                         SLPLUS_PLUGINURL.'/core/js/store-locator-map.js',
-                        array('google_maps','slplus_php')
+                        array('google_maps')
                         ); 
                 
                 // Setup Email Form Script If Selected

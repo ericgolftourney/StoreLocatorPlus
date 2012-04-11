@@ -176,11 +176,12 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Icon selector now finds all jpg,png,gif images in the ./core/images/icons folder.
 * Fix initial missing shadow icons.
 * Fix automatic icon image sizing.
-* Added some new CSS div/table IDs to make it easier to customize the output styling.
 * Page load speed has been increased for SLPlus pages.
+* Added some new CSS div/table IDs to make it easier to customize the output styling.
+* CSS loading has been simplified and updated to use modern WP3.X methodologies.
+* PHP-based JavaScript file has been eliminated, elminating security errors on some servers.
 * JavaScript and CSS now only loads on pages with SLPlus shortcodes.
 * JavaScript loading has been simplified and updated to use modern WP3.X methodologies.
-* CSS loading has been simplified and updated to use modern WP3.X methodologies.
 
 = 2.5 (March 9th, 2012) =
 
