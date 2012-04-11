@@ -6,6 +6,19 @@
  *
  *****************************************************************************/
 
+/*********************************
+ * Check our stuff loaded
+ *********************************/
+ 
+// Check the WordPress environment was loaded
+//
+if (typeof add_base == 'undefined') {
+    alert('SLPLUS: The PHP JavaScript connector did not load.');
+} else if (typeof GLatLng == 'undefined' ) {    
+    alert('SLPLUS: Google Map Interface did not load.');
+}
+ 
+ 
 var map;
 var geocoder;
 

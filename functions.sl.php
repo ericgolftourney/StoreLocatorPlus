@@ -482,16 +482,6 @@ function head_scripts() {
         is_front_page() || is_single($post_ids_array)
         ) {
         if (isset($slplus_plugin) && $slplus_plugin->ok_to_show()) {
-            $api_key=$slplus_plugin->driver_args['api_key'];
-            $google_map_domain=(get_option('sl_google_map_domain')!="")? 
-                    get_option('sl_google_map_domain') : 
-                    "maps.google.com";
-            
-            print  "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>
-                    <script src='".SLPLUS_PLUGINURL."/core/js/store-locator-js.php' type='text/javascript'></script>
-                    <script src='".SLPLUS_PLUGINURL."/core/js/store-locator.js' type='text/javascript'></script>
-                    <script src='".SLPLUS_PLUGINURL."/core/js/functions.js' type='text/javascript'></script>\n";
-            
                     
                 
             // CSL Theme System
@@ -672,6 +662,14 @@ function head_scripts() {
     //
     $fnvars = array_merge($fnvars,(array) $attributes);       // merge in passed attributes
 
+    // Register Load JavaScript
+    //
+    wp_enqueue_script('slplus_functions');
+    wp_enqueue_script('google_maps');
+    wp_enqueue_script('slplus_php');
+    wp_enqueue_script('slplus_map');
+    //wp_enqueue_script('slplus_js');
+    
     return get_string_from_phpexec($file); 
 }
 
