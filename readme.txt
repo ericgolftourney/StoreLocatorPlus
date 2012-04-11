@@ -90,17 +90,19 @@ Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
 
 = Icons =
 
-1. There are some default icons in the `/wp-content/plugins/store-locator/icons` directory. 
-2. Add your own custom icons in to `wp-content/uploads/sl-uploads/custom-icons`.
+The system ships with a dozen default icons in the `/wp-content/plugins/store-locator/icons` directory. Add your own custom icons in to `wp-content/uploads/sl-uploads/custom-icons`.
 
-= Custom CSS (Stylesheet) =
+= Custom Styling =
 
-You can modify the default style sheet included with the plugin at 
-./css/csl-slplus.css' and place it under `/wp-content/uploads/sl-uploads/custom-css/`. 
-The store locator will give priority to the 'csl-slplus.css' in the 'custom-css/' 
-folder over the default 'csl-slplus.css' file that is included.  This allows you 
-to upgrade the main store locator plugin without worrying about losing your 
-custom styling. 
+Users that want to customize the look and feel of the search form, map, and search results can do so
+with ease using the new Theme System that is part of the Plus Pack.   Copy an existing CSS file,
+change the file name and update the CSS header, upload to the server and you can now activate your
+new theme or any of the built-in defaults by selecting it from the auto-generated pulldown menu.
+
+Be sure to send us your custom theme CSS file and we'll include it in the next release!   We'll also list you here in our upcoming credits section!
+
+Users that opt not to purchase the plus pack can still customize the look by editing the basic CSS file 
+that ships with the free plugin.
 
 == Frequently Asked Questions ==
 
@@ -119,6 +121,8 @@ on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commer
 * If everything is ok, email the files to lobbyjones@cybersprocket.com and we will add them to the next release.
 * For more information on POT files, domains, gettext and i18n have a look at the I18n for WordPress developers Codex page and more specifically at the section about themes and plugins.
 
+If you create a translation file please send it to us and we'll include it in the next release!  We'll also list you here in our upcoming credits section!
+
 = What browsers are supported? =
 
 All major browsers should work, however Cyber Sprocket Labs only officially supports the current and prior releases of Internet Explorer, Firefox, Chrome, and Safari.
@@ -129,10 +133,6 @@ As of June, 2011 this includes:
 * Firefox 4/5
 * Chrome 11/12
 * Safari 4/5
-
-= What happened to the LE version? =
-
-The light edition (LE) and Plus versions have been merged back into a single product.   The LE version remains fully functional and now has a lot of the main features that were only available in the Plus Pack.
 
 = What is the Plus Pack? =
 
@@ -155,6 +155,7 @@ Some of the features in the Plus Pack include:
 6. Admin Map Settings
 7. Admin Add Locations
 8. Admin Manage Locations
+9. Simple Box SLP Theme
 
 More screenshots are available via our [online documentation](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki).
 
@@ -163,6 +164,8 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 = 2.6 (April 12th, 2012) =
 
 * [PLUS PACK] Dark Theme, add hand over submit, restyle submit button.
+* [PLUS PACK] Simple Boxed Theme, side-by-side listing entries.
+* Added some new CSS div/table IDs to make it easier to customize the output styling.
 * Page load speed has been increased for SLPlus pages.
 * JavaScript and CSS now only loads on pages with SLPlus shortcodes.
 * JavaScript loading has been simplified and updated to use modern WP3.X methodologies.
