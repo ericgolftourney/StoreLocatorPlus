@@ -436,77 +436,6 @@ function slplus_dbupdater($sql,$table_name) {
     }   
 }
 
-
-/***********************************
- ** function: head_scripts
- **
- ** Create the javascript elements needed for the google map for pages that use
- ** the plugin only.   This was inherited and needs to be cleaned up a bit.
- ** 
- ** We'll still want to ensure we only load up scripts (and CSS, etc.) on pages
- ** where the map will be displayed.
- **/
-function head_scripts() {
-	global $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $wpdb, $pagename, $map_character_encoding;
-	global $slplus_plugin;
-	
-	//Check if currently on page with shortcode
-	$pageID = isset($_GET['p'])         ? $_GET['p']       : 
-	          (isset($_GET['page_id'])   ? $_GET['page_id'] : '');
-	$on_sl_page=$wpdb->get_results("SELECT post_name FROM ".$wpdb->prefix."posts ".
-	        "WHERE (post_content LIKE '%[STORE-LOCATOR%' OR post_content LIKE '%[SLPLUS%') AND " .
-	        "post_status IN ('publish', 'draft') AND ".
-	        "(post_name='$pagename' OR ID='$pageID')", 
-	        ARRAY_A);
-	
-	//Checking if code used in posts	
-	$sl_code_is_used_in_posts=$wpdb->get_results(
-	    "SELECT post_name FROM ".$wpdb->prefix."posts ".
-	    "WHERE (post_content LIKE '%[STORE-LOCATOR%' OR post_content LIKE '%[SLPLUS%') AND post_type='post'"
-	    );
-	
-	//If shortcode used in posts, get post IDs, and put into array of numbers
-	if ($sl_code_is_used_in_posts) {
-		$sl_post_ids=$wpdb->get_results("SELECT ID FROM ".$wpdb->prefix."posts WHERE post_content LIKE '%[STORE-LOCATOR%' AND post_type='post'", ARRAY_A);
-		foreach ($sl_post_ids as $val) { $post_ids_array[]=$val['ID'];}
-	} else {			    
-	     //post number that'll never be reached
-		$post_ids_array=array(9999999999999999999999999999999999999);
-	}
-	
-	// If on page with store locator shortcode, on an archive, search, or 404 page 
-    // while shortcode has been used in a post, on the front page, or a specific 
-    // post with shortcode, display code, otherwise, don't
-	if ($on_sl_page || is_search() || 
-        ((is_archive() || is_404()) && $sl_code_is_used_in_posts) || 
-        is_front_page() || is_single($post_ids_array)
-        ) &&
-        (isset($slplus_plugin) && $slplus_plugin->ok_to_show())
-        ) {
-        // CSL Theme System
-        //
-        if (get_option(SLPLUS_PREFIX . '-theme' ) != '') {
-                setup_stylesheet_for_slplus();
-            
-        // Legacy Custom CSS
-        //
-        } else {
-            $has_custom_css=(file_exists($sl_upload_path."/custom-css/csl-slplus.css"))? 
-                $sl_upload_base."/custom-css" : 
-                $sl_base; 
-            print "<link  href='".$has_custom_css."/core/css/csl-slplus.css' type='text/css' rel='stylesheet'/>";
-        }
-        
-        $theme=get_option('sl_map_theme');
-        if ($theme!="") {
-            print "\n<link  href='".$sl_upload_base."/themes/$theme/style.css' rel='stylesheet' type='text/css'/>";
-        }
-        $zl=(trim(get_option('sl_zoom_level'))!="")? get_option('sl_zoom_level') : 4;		            
-        $ztweak=(trim(get_option('sl_zoom_tweak'))!="")? get_option('sl_zoom_tweak') : 1;		            
-    }
-}
-
-
 /**************************************
  ** function: store_locator_shortcode
  **
@@ -657,7 +586,11 @@ function head_scripts() {
     wp_enqueue_script('google_maps');
     wp_enqueue_script('slplus_php');
     wp_enqueue_script('slplus_map');
-    //wp_enqueue_script('slplus_js');
+
+    // Register & Load CSS
+    //
+    wp_enqueue_style('slplus_customcss');
+    wp_enqueue_style('slplus_themecss');
     
     return get_string_from_phpexec($file); 
 }
