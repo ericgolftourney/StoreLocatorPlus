@@ -49,6 +49,7 @@ if (! class_exists('SLPlus_Actions')) {
         //
         static function wp_enqueue_scripts() {
             global $slplus_plugin;
+            
             if (isset($slplus_plugin) && $slplus_plugin->ok_to_show()) {            
                 $api_key=$slplus_plugin->driver_args['api_key'];
                 $google_map_domain=(get_option('sl_google_map_domain')!="")? 
@@ -69,6 +70,7 @@ if (! class_exists('SLPlus_Actions')) {
                     SLPLUS_PLUGINURL.'/core/js/store-locator-js.php',
                     array('google_maps')
                     );
+                
                 wp_register_script(
                         'slplus_map',
                         SLPLUS_PLUGINURL.'/core/js/store-locator-map.js',
@@ -79,9 +81,9 @@ if (! class_exists('SLPlus_Actions')) {
                 //                
                 if (get_option(SLPLUS_PREFIX.'_email_form')==1) {
                     wp_register_script(
-                            'slplus_map',
+                            'slplus_emailform',
                             SLPLUS_PLUGINURL.'/core/js/store-locator-emailform.js',
-                            array('google_maps','slplus_php')
+                            array('google_maps','slplus_map')
                             );                       
                 }
 
