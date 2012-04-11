@@ -484,32 +484,19 @@ function slplus_dbupdater($sql,$table_name) {
         slplus_shortcode_atts($attributes);
     }
                    
-    $height=(get_option('sl_map_height'))? 
-    get_option('sl_map_height') : "500" ;
+    $height         = get_option('sl_map_height','500');    
+    $height_units   = get_option('sl_map_height_units','px');    
+    $search_label   = get_option('sl_search_label',__('Address',SLPLUS_PREFIX));
+    $unit_display   = get_option('sl_distance_unit','mi');    
+    $width          = get_option('sl_map_width','100');        
+    $width_units    = get_option('sl_map_width_units','%');
     
-    $width=(get_option('sl_map_width'))? 
-    get_option('sl_map_width') : "100" ;
-        
-    $radii=(get_option('sl_map_radii'))? 
-    get_option('sl_map_radii') : "1,5,10,(25),50,100,200,500" ;
+    $radii          = get_option('sl_map_radii','1,5,10,(25),50,100,200,500');
+    $r_array        = explode(",", $radii);
     
-    $height_units=(get_option('sl_map_height_units'))? 
-    get_option('sl_map_height_units') : "px";
+    $sl_instruction_message = get_option('sl_instruction_message',__('Enter Your Address or Zip Code Above.',SLPLUS_PREFIX));
     
-    $width_units=(get_option('sl_map_width_units'))? 
-    get_option('sl_map_width_units') : "%";
     
-    $sl_instruction_message=(get_option('sl_instruction_message'))? 
-    get_option('sl_instruction_message') : 
-    "Enter Your Address or Zip Code Above.";
-
-    $r_array=explode(",", $radii);
-    $search_label=(get_option('sl_search_label'))? 
-    get_option('sl_search_label') : "Address" ;
-    
-    $unit_display=(get_option('sl_distance_unit')=="km")? 
-    "km" : "mi";
-
     $r_options      =(isset($r_options)         ?$r_options      :'');
     $cs_options     =(isset($cs_options)        ?$cs_options     :'');
     $country_options=(isset($country_options)   ?$country_options:'');
