@@ -59,6 +59,9 @@
 	padding:4px;
 }
 
+table#search_table td {
+    border: none;
+}
 
 /***** Search Form Inputs  *****/
 #address_search {
@@ -111,16 +114,18 @@
 #addy_in_country {
     float: left;
 }
-#addy_in_address {
+div#addy_in_address.search_item {
     clear:both;
     padding-top: 3px;
     padding-bottom: 3px;
+    width: 377px;
+    float: left;
 }
 #addy_in_radius {
-    clear:both;
+    clear: both;
     float: left;
     padding-top: 3px;
-    padding-right: 12px;
+    padding-right: 0px;
 }
 
 #radius_in_submit {
@@ -150,7 +155,7 @@
 
 /***** Store Locator Map DIV *****/
 #sl_div {
-	padding:10px;
+	padding: 0px;
 	font-weight:bold;
 }
 #sl_div a {
@@ -168,6 +173,7 @@
 }
 #sl_div table, #sl_div tr, #sl_div td {
 	border:none;
+	margin: 0px;
 }
 #sl_div #map { 
 	color:black; 
@@ -177,6 +183,10 @@
 
 #sl_div #map img {
     visibility: visible;    
+}
+
+table#map_table td {
+    border: none;
 }
 
 /***** Popup Info Window for Specific Location *****/

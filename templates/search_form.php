@@ -6,7 +6,7 @@
 ?>
 <div id='sl_div'>
   <form onsubmit='searchLocations(); return false;' id='searchForm' action=''>
-    <table border='0' cellpadding='3px' class='sl_header'><tr>
+    <table  id='search_table' border='0' cellpadding='3px' class='sl_header'><tr>
 	<td valign='top'>
 	    <div id='address_search'>
 
@@ -134,8 +134,12 @@
                 <input type='text' id='addressInput' size='50' />
            </div>
            <?php
-            } else {           
-                print "<input type='hidden' id='addressInput' value='' />";
+            } else {
+                ?>
+            <div id='addy_in_address' class='search_item'>
+            <input type='hidden' id='addressInput' value='' />
+           </div>
+           <?php
             }
             ?>
 
@@ -171,7 +175,7 @@
         </div>
 	  </td>
 	</tr></table>
-	<table width='100%' cellspacing='0px' cellpadding='0px'> 
+	<table id='map_table' width='100%' cellspacing='0px' cellpadding='0px'> 
      <tr>
         <td width='100%' valign='top'>
 <?php
