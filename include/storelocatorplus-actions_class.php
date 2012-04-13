@@ -39,7 +39,7 @@ if (! class_exists('SLPlus_Actions')) {
                 $google_map_domain=(get_option('sl_google_map_domain')!="")? 
                         get_option('sl_google_map_domain') : 
                         "maps.google.com";                
-                $sl_map_character_encoding=get_option('sl_map_character_encoding');  
+                $sl_map_character_encoding='&oe='.get_option('sl_map_character_encoding','utf8');    
                 
                 //------------------------
                 // Register our scripts for later enqueue when needed
