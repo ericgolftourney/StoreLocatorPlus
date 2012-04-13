@@ -94,6 +94,8 @@ add_action('admin_print_scripts', 'add_admin_javascript');
 add_action('admin_head', 'slpreport_downloads');    
 add_action('wp_print_styles', 'setup_stylesheet_for_slplus');
 add_action('admin_print_styles','setup_ADMIN_stylesheet_for_slplus');
+add_action('shutdown',array('SLPlus_Actions','shutdown'));
+
 
 // Short Codes
 //

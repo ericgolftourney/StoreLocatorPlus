@@ -19,18 +19,18 @@ if (! class_exists('SLPlus_Actions')) {
          * PUBLIC PROPERTIES & METHODS
          ******************************/
         
-        //-----------------------------
-        // The Constructor
-        //
+        /*************************************
+         * The Constructor
+         */
         function __construct($params) {
         } 
         
 
-        //-----------------------------
-        // method: wp_enqueue_scripts()
-        // 
-        // This is called whenever the WordPress wp_enqueue_scripts action is called.
-        //
+        /*************************************
+         * method: wp_enqueue_scripts()
+         * 
+         * This is called whenever the WordPress wp_enqueue_scripts action is called.
+         */
         static function wp_enqueue_scripts() {
             global $slplus_plugin;
             
@@ -80,8 +80,66 @@ if (! class_exists('SLPlus_Actions')) {
                 if ($theme!="") {
                     wp_register_style('slplus_themecss',$sl_upload_base.'/themes/'.$theme.'/style.css');
                 }                                
-            }               
-        }        
+            }                        
+        }     
+        
+        
+        /*************************************
+         * method: shutdown()
+         * 
+         * This is called whenever the WordPress shutdown action is called.
+         */
+        function shutdown() {
+            
+            // If we rendered an SLPLUS shortcode...
+            //
+            if (defined('SLPLUS_SHORTCODE_RENDERED') && SLPLUS_SHORTCODE_RENDERED) {
+                
+                // Register Load JavaScript
+                //
+                wp_enqueue_script('slplus_functions');
+                wp_enqueue_script('google_maps');                
+                wp_enqueue_script('slplus_map');
+                
+                if (get_option(SLPLUS_PREFIX.'_email_form')==1) {
+                    wp_enqueue_script('slplus_emailform');
+                }
+            
+                // Register & Load CSS
+                //
+                wp_enqueue_style('slplus_customcss');
+                wp_enqueue_style('slplus_themecss');
+                
+                // Force our scripts to load for badly behaved themes
+                //
+                wp_print_footer_scripts();
+?>                
+                <script type='text/javascript'>
+                    jQuery(window).load(function() {
+                            allScripts=document.getElementsByTagName('script');
+                            
+                            // Check our scripts were enqueued
+                            //
+                            if (allScripts.length-1 < 4) {
+                                alert('<?php echo __('SLPLUS: The theme or a plugin is preventing trailing JavaScript from loading.',SLPLUS_PREFIX); ?>');
+                                
+                            // Check the Google Maps was loaded
+                            //
+                            } else if (typeof GLatLng == 'undefined' ) {        
+                                alert('<?php echo __('SLPLUS: Google Map Interface did not load.\n\nCheck your Google API key and make sure you have API V2 enabled.',SLPLUS_PREFIX); ?>');
+                        
+                            // Yup, set our sl_load to prepopulate map data
+                            //
+                            } else if (document.getElementById("map")){
+                                setTimeout("sl_load()",1000);
+                                
+                            }
+                        }
+                    );                
+                </script>
+<?php                       
+            }             
+        }            
     }
 }        
      
