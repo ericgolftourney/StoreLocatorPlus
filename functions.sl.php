@@ -626,19 +626,12 @@ function slplus_dbupdater($sql,$table_name) {
         );
     wp_localize_script('slplus_map','slplus',$scriptData);                 
 
-    // Register Load JavaScript
+    // Set our flag for later processing
+    // of JavaScript files
     //
-    wp_enqueue_script('slplus_functions');
-    wp_enqueue_script('google_maps');
-    wp_enqueue_script('slplus_map');
-    if (get_option(SLPLUS_PREFIX.'_email_form')==1) {
-        wp_enqueue_script('slplus_emailform');
+    if (!defined('SLPLUS_SHORTCODE_RENDERED')) {
+        define('SLPLUS_SHORTCODE_RENDERED',true);
     }
-
-    // Register & Load CSS
-    //
-    wp_enqueue_style('slplus_customcss');
-    wp_enqueue_style('slplus_themecss');
     
     return get_string_from_phpexec($file); 
 }

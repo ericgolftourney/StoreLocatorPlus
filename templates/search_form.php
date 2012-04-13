@@ -222,7 +222,6 @@ if ($sl_starting_image != '') {
         </td>
     </tr>
   </table></form>
-<p><script type="text/javascript">if (document.getElementById("map")){setTimeout("sl_load()",1000);}</script></p>
 </div>
 
 
