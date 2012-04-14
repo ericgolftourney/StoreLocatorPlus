@@ -68,9 +68,18 @@ if (defined('SLPLUS_PLUGINDIR')) {
  ** Setup the option package list.
  **/
 function add_options_packages_for_slplus() {
-    global $slplus_plugin;          
-    
-    // Add : Pro Pack
+    configure_slplus_propack();
+}
+
+/**************************************
+ ** function: configure_slplus_propack
+ **
+ ** Configure the Pro Pack.
+ **/
+function configure_slplus_propack() {
+    global $slplus_plugin;
+   
+    // Setup metadata
     //
     $slplus_plugin->license->add_licensed_package(
             array(
@@ -84,6 +93,8 @@ function add_options_packages_for_slplus() {
             )
         );
     
+    // Enable Features Is Licensed
+    //
     if ($slplus_plugin->license->packages['Pro Pack']->isenabled_after_forcing_recheck()) {
         
          //--------------------------------
@@ -99,8 +110,8 @@ function add_options_packages_for_slplus() {
          }             
          
          
-    }       
-
+    }        
 }
+
 
 
