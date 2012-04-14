@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Store Locator Plus
-Plugin URI: http://www.cybersprocket.com/products/store-locator-plus/
+Plugin URI: http://www.storelocatorplus.com/
 Description: An advanced system for managing multiple physical locations via a fully integrated WordPress solution. Store just a few or as many as a few thousand locations in the WordPress database using the built-in location management system. 
 Version: 2.6
 Author: Cyber Sprocket Labs
