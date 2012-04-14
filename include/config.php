@@ -80,7 +80,9 @@ function add_options_packages_for_slplus() {
                                        'come back to this page to enter the license key to activate the new features.',
                 'sku'               => 'SLPLUS',
                 'paypal_button_id'  => '2D864VACHMK5A',
-                'paypal_upgrade_button_id' => 'TZSPX7PD26XJU'
+                'paypal_upgrade_button_id' => 'TZSPX7PD26XJU',
+                'force_enabled'     => true,
+                'force_version'     => 2006000,
             )
         );
     
