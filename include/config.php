@@ -87,7 +87,7 @@ function add_options_packages_for_slplus() {
     if ($slplus_plugin->license->packages['Pro Pack']->isenabled_after_forcing_recheck()) {
         
          //--------------------------------
-         // Plus Pack v2.4+ Only
+         // Pro Pack v2.4+ Only
          //
          if ($slplus_plugin->license->packages['Pro Pack']->active_version >= 2004000) {
              
