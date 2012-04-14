@@ -2,27 +2,27 @@
 /*
 Plugin Name: Store Locator Plus
 Plugin URI: http://www.storelocatorplus.com/
-Description: An advanced system for managing multiple physical locations via a fully integrated WordPress solution. Store just a few or as many as a few thousand locations in the WordPress database using the built-in location management system. 
-Version: 2.6
+Description: Manage multiple locations with ease. Map stores or other points of interest with ease via Gooogle Maps.  This is a highly customizable, easily expandable, enterprise-class location management system. 
+Version: 2.7
 Author: Cyber Sprocket Labs
 Author URI: http://www.cybersprocket.com
 License: GPL3
 
-	Copyright 2012  Cyber Sprocket Labs (info@cybersprocket.com)
+Copyright 2012  Cyber Sprocket Labs (info@cybersprocket.com)
 
-        This program is free software; you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation; either version 3 of the License, or
-        (at your option) any later version.
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
 
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-        You should have received a copy of the GNU General Public License
-        along with this program; if not, write to the Free Software
-        Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 */
 
@@ -89,7 +89,7 @@ register_activation_hook( __FILE__, 'activate_slplus');
 //
 add_action('wp_enqueue_scripts',array('SLPlus_Actions','wp_enqueue_scripts'));
 add_action('admin_menu', 'csl_slplus_add_options_page');
-add_action('admin_init','csl_slplus_setup_admin_interface',10);
+add_action('admin_init',array('SLPlus_Actions','admin_init'),10);
 add_action('admin_print_scripts', 'add_admin_javascript');
 add_action('admin_head', 'slpreport_downloads');    
 add_action('wp_print_styles', 'setup_stylesheet_for_slplus');
