@@ -43,7 +43,7 @@ Some of the added features include:
 * Extended Manage Location Features - more controls for managing locations.
 * Reporting - information on the reporting system and how it works.
 * Tag Search - how to use tag based location searches.
-* Custom Themes (Plus Pack v2.4) - easily add your own custom styles that stay in place during patches and upgrades.
+* Custom Themes (Pro Pack v2.4) - easily add your own custom styles that stay in place during patches and upgrades.
 
 Learn More about these features at the [Store Locator Plus website](http://www.storelocatorplus.com/)
 
@@ -100,7 +100,7 @@ new theme or any of the built-in defaults by selecting it from the auto-generate
 
 Be sure to send us your custom theme CSS file and we'll include it in the next release!   We'll also list you here in our upcoming credits section!
 
-Users that opt not to purchase the plus pack can still customize the look by editing the basic CSS file that ships with the free plugin.
+Users that opt not to purchase the Pro Pack can still customize the look by editing the basic CSS file that ships with the free plugin.
 
 = Attribution and Credits =
 
@@ -174,11 +174,11 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 
 = 2.6 (April 12th, 2012) =
 
-* [PLUS PACK] Dark Theme, add hand over submit, restyle submit button.
-* [PLUS PACK] Simple Boxed Theme, side-by-side listing entries.
-* [PLUS PACK] Simple Boxed Fastfood Theme, larger side-by-side listing entries for the WP Fastfood Theme.
-* [PLUS PACK] Hidden Results Theme, hide the text results under the map.
-* [PLUS PACK] Hidden Map Theme, hide the map.
+* [Pro Pack] Dark Theme, add hand over submit, restyle submit button.
+* [Pro Pack] Simple Boxed Theme, side-by-side listing entries.
+* [Pro Pack] Simple Boxed Fastfood Theme, larger side-by-side listing entries for the WP Fastfood Theme.
+* [Pro Pack] Hidden Results Theme, hide the text results under the map.
+* [Pro Pack] Hidden Map Theme, hide the map.
 * Stop map "double-zoom" when "show initial locations" is set.
 * Half-dozen new icons added to the built-in icon set. 
 * Icon selector now finds all jpg,png,gif images in the ./core/images/icons folder.
@@ -193,8 +193,8 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 
 = 2.5 (March 9th, 2012) =
 
-* [PLUS PACK v2.4+] Limit to N results.
-* [PLUS PACK] Starting image can now be stored off-site simply use http as the prefix.
+* [Pro Pack v2.4+] Limit to N results.
+* [Pro Pack] Starting image can now be stored off-site simply use http as the prefix.
 * Map height/width over 100% would cause erratic behavior.  Auto-set max to 100% if over 100.
 
 = 2.4 (February 8th, 2012) =
@@ -202,8 +202,8 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 * Force height on icon sizes.
 * Fixed problem with menu/button links on admin panel for subdirectory installs.
 * Fixed problem with certain international characters stopping the initial map zoom/search.
-* PLUS PACK v2.4 : Integrated custom themes system. (paid upgrade)
-* PLUS PACK v2.4 : You can now set your center location for the map. (paid upgrade)
+* Pro Pack v2.4 : Integrated custom themes system. (paid upgrade)
+* Pro Pack v2.4 : You can now set your center location for the map. (paid upgrade)
 
 = 2.3.1 (January 25th, 2012) =
 
@@ -211,9 +211,9 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 
 = 2.3 (January 19th, 2012) =
 
-* PLUS PACK Feature #7165: Manage Locations : Filter To Uncoded Only
-* PLUS PACK Feature #7166: Recode locations that failed to geocode.
-* PLUS PACK Feature #7231: Add label to State Pulldown.
+* Pro Pack Feature #7165: Manage Locations : Filter To Uncoded Only
+* Pro Pack Feature #7166: Recode locations that failed to geocode.
+* Pro Pack Feature #7231: Add label to State Pulldown.
 * Fix missing map marker.
 * Feature #7230: Change default radius selection.
 * Feature #7229: Fix typo in zoom level instruction.
@@ -241,10 +241,10 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 * Added zoom level adjustment for how tight to zoom in on results.
 * Increase performance & reduce disk I/O when building map settings page.
 * Language file updated (/core/languages/store-locator-plus.pot)
-* Plus Pack: state pulldown now available
-* Plus Pack: tags with spaces can be filtered and searched
-* Plus Pack: allow tags in table and bubble
-* Plus Pack: tags in table and bubble now wrapped with div and spans with unique classes to allow for icon displays
+* Pro Pack: state pulldown now available
+* Pro Pack: tags with spaces can be filtered and searched
+* Pro Pack: allow tags in table and bubble
+* Pro Pack: tags in table and bubble now wrapped with div and spans with unique classes to allow for icon displays
 * patch 2.2.4 - update language maps for better language support
 
 = 2.1 (October 2011) =

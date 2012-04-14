@@ -70,7 +70,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
 function add_options_packages_for_slplus() {
     global $slplus_plugin;          
     
-    // Add : Plus Pack
+    // Add : Pro Pack
     //
     $slplus_plugin->license->add_licensed_package(
             array(
@@ -86,12 +86,12 @@ function add_options_packages_for_slplus() {
             )
         );
     
-    if ($slplus_plugin->license->packages['Plus Pack']->isenabled_after_forcing_recheck()) {
+    if ($slplus_plugin->license->packages['Pro Pack']->isenabled_after_forcing_recheck()) {
         
          //--------------------------------
-         // Plus Pack v2.4+ Only
+         // Pro Pack v2.4+ Only
          //
-         if ($slplus_plugin->license->packages['Plus Pack']->active_version >= 2004000) {
+         if ($slplus_plugin->license->packages['Pro Pack']->active_version >= 2004000) {
              
              //--------------------------------
              // Enable Themes
