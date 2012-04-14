@@ -64,7 +64,7 @@
             //------------------------------------------------
             // Show Tag Search Is Enabled
             //
-            if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {                                    
+            if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {                                    
                 if (get_option(SLPLUS_PREFIX.'_show_tag_search') ==1) {                
             ?>
             <div id='search_by_tag' class='search_item' <?php if (isset($fnvars['only_with_tag'])) { print "style='display:none;'"; }?>>   

@@ -34,15 +34,15 @@
             
             <?php
              //--------------------------------
-             // Plus Pack
+             // Pro Pack
              //            
             if (function_exists('execute_and_output_plustemplate')) {
                 
                      //--------------------------------
-                     // Plus Pack v2.4+ Only
+                     // Pro Pack v2.4+ Only
                      //
                      global $slplus_plugin;
-                     if ($slplus_plugin->license->packages['Plus Pack']->active_version >= 2004000) {                    
+                     if ($slplus_plugin->license->packages['Pro Pack']->active_version >= 2004000) {                    
             ?>                
                         <div class='form_entry'>
                             <label for='<?php echo SLPLUS_PREFIX.'_maxreturned'; ?>'><? _e("Return at most", SLPLUS_PREFIX); ?></label>
@@ -64,7 +64,7 @@
                 }
                 
                 //--------------------------------
-                // Plus Pack Any Version
+                // Pro Pack Any Version
                 //
                 execute_and_output_plustemplate('mapsettings_mapfeatures.php');
             }    

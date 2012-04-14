@@ -544,7 +544,7 @@ function slplus_dbupdater($sql,$table_name) {
     // Create Country Pulldown
     // [LE/PLUS]
     //    
-    if ($slplus_plugin->license->packages['Plus Pack']->isenabled) {                    
+    if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {                    
         $country_options = slplus_create_country_pd();    
         $slplus_state_options = slplus_create_state_pd();
     } else {
@@ -642,15 +642,15 @@ function slplus_dbupdater($sql,$table_name) {
  *
  * Set the starting point for the center of the map.
  * Uses country by default.
- * Plus Pack v2.4+ allows for a custom address.
+ * Pro Pack v2.4+ allows for a custom address.
  */
 function SetMapCenter() {
     global $slplus_plugin;
     $customAddress = get_option(SLPLUS_PREFIX.'_map_center');
     if (
         (preg_replace('/\W/','',$customAddress) != '') &&
-        $slplus_plugin->license->packages['Plus Pack']->isenabled_after_forcing_recheck() &&
-        ($slplus_plugin->license->packages['Plus Pack']->active_version >= 2004000) 
+        $slplus_plugin->license->packages['Pro Pack']->isenabled_after_forcing_recheck() &&
+        ($slplus_plugin->license->packages['Pro Pack']->active_version >= 2004000) 
         ) {
         return str_replace(array("\r\n","\n","\r"),', ',esc_attr($customAddress));
     }
@@ -701,7 +701,7 @@ function csl_slplus_add_options_page() {
 		
 		// Plus Reporting
 		//
-		if ($slplus_plugin->license->packages['Plus Pack']->isenabled) { 		
+		if ($slplus_plugin->license->packages['Pro Pack']->isenabled) { 		
             if (function_exists('slplus_add_report_settings')) {
                 add_submenu_page(
                     SLPLUS_COREDIR.'add-locations.php',
