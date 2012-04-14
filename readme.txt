@@ -1,7 +1,7 @@
 === Store Locator Plus ===
 Plugin Name: Store Locator Plus
 Contributors: cybersprocket
-Donate link: http://www.cybersprocket.com/products/store-locator-plus/
+Donate link: http://www.storelocatorplus.com/
 Tags: store locator, store locater, google, google maps, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus
 Requires at least: 3.0
 Tested up to: 3.3.1
@@ -33,9 +33,9 @@ http://www.youtube.com/watch?v=ni_CrSoNr38
 * Location search tracking and reporting, find out what your visitors are looking for.
 * Popup email form.
 
-== Optional Plus Pack Available ==
+== Pro Pack Available ==
 
-The plugin has an optional plus pack available that adds advanced features to the Store Locator Plus product.
+The plugin has an optional Pro Pack available that adds advanced features to the Store Locator Plus product.
 Some of the added features include:
 
 * CSV Bulk Uploads - using the CSV bulk loader
@@ -45,7 +45,7 @@ Some of the added features include:
 * Tag Search - how to use tag based location searches.
 * Custom Themes (Plus Pack v2.4) - easily add your own custom styles that stay in place during patches and upgrades.
 
-Learn More about these features at the [Store Locator Plus Support Pages](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki)
+Learn More about these features at the [Store Locator Plus website](http://www.storelocatorplus.com/)
 
 == Upgrades ==
 
@@ -68,8 +68,7 @@ Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
 
 = Related Links =
 
-* [Store Locator Plus Product Info](http://redmine.cybersprocket.com/products/store-locator-plus/)
-* [Store Locator Plus Support Pages](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki)
+* [Store Locator Plus](http://www.storelocatorplus.com/)
 * [Other Cyber Sprocket Plugins](http://wordpress.org/extend/plugins/profile/cybersprocket/) 
 * [Custom WordPress Development](http://www.cybersprocket.com/services/wordpress-developers/)
 * [Our Facebook Page](http://www.facebook.com/cyber.sprocket.labs)
@@ -90,19 +89,23 @@ Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
 
 = Icons =
 
-The system ships with a dozen default icons in the `/wp-content/plugins/store-locator/icons` directory. Add your own custom icons in to `wp-content/uploads/sl-uploads/custom-icons`.
+The system ships with a dozen default icons in the `/wp-content/plugins/store-locator-le/core/images/icons` directory. Add your own custom icons in that directory and they will be auto-detected.
 
 = Custom Styling =
 
 Users that want to customize the look and feel of the search form, map, and search results can do so
-with ease using the new Theme System that is part of the Plus Pack.   Copy an existing CSS file,
+with ease using the new Theme System that is part of the Pro Pack.   Copy an existing CSS file,
 change the file name and update the CSS header, upload to the server and you can now activate your
 new theme or any of the built-in defaults by selecting it from the auto-generated pulldown menu.
 
 Be sure to send us your custom theme CSS file and we'll include it in the next release!   We'll also list you here in our upcoming credits section!
 
-Users that opt not to purchase the plus pack can still customize the look by editing the basic CSS file 
-that ships with the free plugin.
+Users that opt not to purchase the plus pack can still customize the look by editing the basic CSS file that ships with the free plugin.
+
+= Attribution and Credits =
+
+Thanks to [Nicolas Mollet](http://mapicons.nicolasmollet.com/) for some of the great icons.
+
 
 == Frequently Asked Questions ==
 
@@ -113,15 +116,15 @@ wish.  We prefer that our customers pay us because they like what we do and
 want to support our efforts to bring useful software to market.  Learn more
 on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commercial-products/wiki/Cyber_Sprocket_Labs_Licensing_Terms "CSL License Terms page").
 
-= How can i translate the plugin into my language? =
+= How can I translate the plugin into my language? =
 
 * Find on internet the free program POEDIT, and learn how it works.
-* Use the .pot file located in the languages directory of this plugin to create or update the .po and .mo files.
+* Use the .pot file located in the languages directory of this plugin to create or update the .po files.
 * Place these file in the languages subdirectory.
 * If everything is ok, email the files to lobbyjones@cybersprocket.com and we will add them to the next release.
 * For more information on POT files, domains, gettext and i18n have a look at the I18n for WordPress developers Codex page and more specifically at the section about themes and plugins.
 
-If you create a translation file please send it to us and we'll include it in the next release!  We'll also list you here in our upcoming credits section!
+If you create a translation file please send it to us and we'll include it in the next release!  We'll also list you here in our credits section!
 
 = What browsers are supported? =
 
@@ -134,20 +137,24 @@ As of June, 2011 this includes:
 * Chrome 11/12
 * Safari 4/5
 
-= What is the Plus Pack? =
+= What is the Pro Pack? =
 
-The Plus Pack is a paid add-on for the main Store Locator Plus product.  When you purchase the Plus Pack the system will automatically install a variety of new features in the base product.  The features that are added by the Plus Pack change on a regular basis.  Please see the [support pages](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki) for the latest list.
+The Pro Pack is a paid add-on for the main Store Locator Plus product.  
+When you purchase the Pro Pack the system will automatically install a variety of new features in the base product.  
+The features that are added by the Pro Pack change on a regular basis.  
+Please see the [Store Locator Plus website](http://www.storelocatorplus.com) for the latest feature list.
 
-Some of the features in the Plus Pack include:
+Some of the features in the Pro Pack include:
 
 * A searched-locations report.
 * Ability to input addresses in bulk via a CSV upload.
 * Ability to associate tags with locations and filter search results by those tags.
 * Additional search form elements.
+* The CSS Themes system.
 
-= Attribution and Credits =
+= What happened to the Plus Pack? =
 
-Thanks to [Nicolas Mollet](http://mapicons.nicolasmollet.com/) for some of the great icons.
+We renamed it the Pro Pack.  Your Plus Pack license will work for the Pro Pack.
 
 == Screenshots ==
 
@@ -161,7 +168,7 @@ Thanks to [Nicolas Mollet](http://mapicons.nicolasmollet.com/) for some of the g
 8. Admin Manage Locations
 9. Simple Box SLP Theme
 
-More screenshots are available via our [online documentation](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki).
+More screenshots are available via the [Store Locator Plus website](http://www.storelocatorplus.com/).
 
 == Changelog ==
 
@@ -169,6 +176,7 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 
 * [PLUS PACK] Dark Theme, add hand over submit, restyle submit button.
 * [PLUS PACK] Simple Boxed Theme, side-by-side listing entries.
+* [PLUS PACK] Simple Boxed Fastfood Theme, larger side-by-side listing entries for the WP Fastfood Theme.
 * [PLUS PACK] Hidden Results Theme, hide the text results under the map.
 * [PLUS PACK] Hidden Map Theme, hide the map.
 * Stop map "double-zoom" when "show initial locations" is set.
@@ -396,8 +404,4 @@ More screenshots are available via our [online documentation](http://redmine.cyb
 * Add country field to address data.
 * Clean up various coding errors since WordPress 3.0 release
 * Initial release based on Google Maps Store Locator for WordPress v1.2.39.3
-
-== Upgrade Notice ==
-
-Plus Edition users should record their license key and use it to license the Plus Pack.
 
