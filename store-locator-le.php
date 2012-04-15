@@ -87,6 +87,7 @@ register_activation_hook( __FILE__, 'activate_slplus');
 
 // Actions
 //
+add_action('init',array('SLPlus_Actions','init'));
 add_action('wp_enqueue_scripts',array('SLPlus_Actions','wp_enqueue_scripts'));
 add_action('admin_menu', 'csl_slplus_add_options_page');
 add_action('admin_init',array('SLPlus_Actions','admin_init'),10);

@@ -153,8 +153,16 @@ if (! class_exists('SLPlus_Actions')) {
                 }
             }        
         }
-         
-
+        
+        /**************************************
+         ** method: init()
+         **
+         ** Called when the WordPress init action is processed.
+         **
+         **/
+        function init() {
+        }
+        
         /*************************************
          * method: wp_enqueue_scripts()
          * 

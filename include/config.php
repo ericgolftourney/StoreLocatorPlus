@@ -69,6 +69,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
  **/
 function add_options_packages_for_slplus() {
     configure_slplus_propack();
+    configure_slplus_storepages();
 }
 
 /**************************************
@@ -114,4 +115,33 @@ function configure_slplus_propack() {
 }
 
 
+/**************************************
+ ** function: configure_slplus_storepages
+ **
+ ** Configure Store Pages.
+ **/
+function configure_slplus_storepages() {
+    global $slplus_plugin;
+   
+    // Setup metadata
+    //
+    $slplus_plugin->license->add_licensed_package(
+            array(
+                'name'              => 'Store Pages',
+                'help_text'         => 'Create inidividual WordPress pages from your locations data. Great for SEO.  ' .
+                                       'See the <a href="'.$slplus_plugin->purchase_url.'" target="Cyber Sprocket">product page</a> for details.  If you purchased this add-on ' .
+                                       'come back to this page to enter the license key to activate the new features.',
+                'sku'               => 'SLP-PAGES',
+                'paypal_button_id'  => '3V2SSFKB3R6XE',
+                'paypal_upgrade_button_id' => '3V2SSFKB3R6XE'
+            )
+        );
+    
+    // Enable Features Is Licensed
+    //
+    if ($slplus_plugin->license->packages['Store Pages']->isenabled_after_forcing_recheck()) {
+        
+        // Future Feature Enabling Goes Here
+    }        
+}
 
