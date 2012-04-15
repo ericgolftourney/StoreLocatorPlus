@@ -172,11 +172,15 @@ if (! class_exists('SLPlus_Actions')) {
                 register_post_type( 'store_pages',
                     array(
                         'labels' => array(
-                            'name' => __( 'Store Pages',SLPLUS_PREFIX ),
-                            'singular_name' => __( 'Store Page', SLPLUS_PREFIX )
+                            'name'              => __( 'Store Pages',SLPLUS_PREFIX ),
+                            'singular_name'     => __( 'Store Page', SLPLUS_PREFIX ),
+                            'add_new'           => __('Add New Store Page', SLPLUS_PREFIX),
                         ),
-                    'public' => true,
-                    'has_archive' => true,
+                    'public'            => true,
+                    'has_archive'       => true,
+                    'description'       => __('Store Locator Plus location pages.',SLPLUS_PREFIX),
+                    'menu_postion'      => 20,   
+                    'capability_type'   => 'page',
                     )
                 );                
                 
