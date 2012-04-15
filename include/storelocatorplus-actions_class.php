@@ -167,12 +167,24 @@ if (! class_exists('SLPlus_Actions')) {
             // Store Pages Is Licensed
             //
             if ($slplus_plugin->license->packages['Store Pages']->isenabled_after_forcing_recheck()) {
-            
-                // Register Locations Taxonomy
+
+                // Register Store Pages Custom Type
+                register_post_type( 'store_pages',
+                    array(
+                        'labels' => array(
+                            'name' => __( 'Store Pages',SLPLUS_PREFIX ),
+                            'singular_name' => __( 'Store Page', SLPLUS_PREFIX )
+                        ),
+                    'public' => true,
+                    'has_archive' => true,
+                    )
+                );                
+                
+                // Register Stores Taxonomy
                 //                
                 register_taxonomy(
                         'stores',
-                        'page',
+                        'store_pages',
                         array (
                             'hierarchical'  => true,
                             'labels'        => 
