@@ -180,6 +180,7 @@ if (! class_exists('SLPlus_Actions')) {
                     'has_archive'       => true,
                     'description'       => __('Store Locator Plus location pages.',SLPLUS_PREFIX),
                     'menu_postion'      => 20,   
+                    'menu_icon'         => SLPLUS_COREURL . 'images/icon_from_jpg_16x16.png',
                     'capability_type'   => 'page',
                     )
                 );                
