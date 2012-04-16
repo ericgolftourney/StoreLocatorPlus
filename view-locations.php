@@ -160,7 +160,8 @@ if (!$slak) {
                         }                        
                     }
                 }                    
-            }              
+            }          
+            
         // Locations Per Page Action
         } elseif ($_REQUEST['act']=="locationsPerPage") {
             //If bulk delete is used
@@ -199,8 +200,23 @@ if (!$slak) {
                         
                         do_geocoding("$address[sl_address] $address[sl_address2], $address[sl_city], $address[sl_state] $address[sl_zip]",$thisLocation);
                 }                
-            }              
+            }
+            
+        // Create Store Page(s)
+        //
+        } elseif ($_REQUEST['act'] == 'createpage') {
+            if (isset($_REQUEST['sl_id'])) {
+                if (!is_array($_REQUEST['sl_id'])) {
+                    $theLocations = array($_REQUEST['sl_id']);
+                } else {
+                    $theLocations = $_REQUEST['sl_id'];
+                }
+                foreach ($theLocations as $thisLocation) {            
+                    call_user_func(array('SLPlus_AdminUI','slpCreatePage'),$thisLocation);
+                }
+            }
         }
+        
     }
     
     
@@ -359,7 +375,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                 // Store Pages Active?
                 // Show the create page button
                 //
-                if ($slplus_plugin->license->packages['Store Pages']->isenabled_after_forcing_recheck()) {
+                if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
                     call_user_func(array('SLPlus_AdminUI','slpRenderCreatePageButton'),$locID);
                 }
 
@@ -428,3 +444,5 @@ function set_query_defaults() {
 	$d= (isset($_GET['d']) && (trim($_GET['d'])=='DESC')) 
 	    ? "DESC" : "ASC";
 }
+
+
