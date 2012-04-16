@@ -347,17 +347,25 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                 
                 print "<tr style='background-color:$bgcol'>
                 <th><input type='checkbox' name='sl_id[]' value='$locID'></th>
-                <th>".
-                    "<a class='edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."' 
+                <th class='thnowrap'>".
+                    "<a class='action_icon edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."' 
                         href='".ereg_replace("&edit=".(isset($_GET['edit'])?$_GET['edit']:''), "",$_SERVER['REQUEST_URI']).
-                    "&edit=" . $locID ."#a$locID'><span class='icon_span'>&nbsp;</span></a>".
+                    "&edit=" . $locID ."#a$locID'></a>".
                     "&nbsp;" . 
-                    "<a class='delete_icon' alt='".__('delete',SLPLUS_PREFIX)."' title='".__('delete',SLPLUS_PREFIX)."' 
+                    "<a class='action_icon delete_icon' alt='".__('delete',SLPLUS_PREFIX)."' title='".__('delete',SLPLUS_PREFIX)."' 
                         href='".$_SERVER['REQUEST_URI']."&delete=$locID' " .
-                        "onclick=\"confirmClick('".sprintf(__('Delete %s?',SLPLUS_PREFIX),$value['sl_store'])."', this.href); return false;\"><span class='icon_span'>&nbsp;</span></a>".
-                "</th>
-                <th> $locID </th>
-                <td> $value[sl_store] </td>
+                        "onclick=\"confirmClick('".sprintf(__('Delete %s?',SLPLUS_PREFIX),$value['sl_store'])."', this.href); return false;\"></a>";
+
+                // Store Pages Active?
+                // Show the create page button
+                //
+                if ($slplus_plugin->license->packages['Store Pages']->isenabled_after_forcing_recheck()) {
+                    call_user_func(array('SLPlus_AdminUI','slpRenderCreatePageButton'),$locID);
+                }
+
+        print "</th>
+                <th>$locID</th>
+                <td>$value[sl_store]</td>
                 <td>$value[sl_address]</td>
                 <td>$value[sl_address2]</td>
                 <td>$value[sl_city]</td>
