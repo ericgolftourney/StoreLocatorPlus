@@ -3,4 +3,4 @@
 	url = ssh://git@cybersprocket.com/home/lobbrary/repos/modules/WPCSL-generic.git
 [submodule "core"]
 	path = core
-	url = ssh://lcleveland@cybersprocket.com/home/lobbrary/repos/products/store-locator-core.git
+	url = ssh://git@cybersprocket.com/home/lobbrary/repos/products/store-locator-core.git
