@@ -159,7 +159,7 @@ if (! class_exists('SLPlus_Actions')) {
             if ($slplus_plugin->license->packages['Store Pages']->isenabled_after_forcing_recheck()) {
 
                 // Register Store Pages Custom Type
-                register_post_type( 'store_pages',
+                register_post_type( 'store_page',
                     array(
                         'labels' => array(
                             'name'              => __( 'Store Pages',SLPLUS_PREFIX ),
@@ -179,7 +179,7 @@ if (! class_exists('SLPlus_Actions')) {
                 //                
                 register_taxonomy(
                         'stores',
-                        'store_pages',
+                        'store_page',
                         array (
                             'hierarchical'  => true,
                             'labels'        => 
