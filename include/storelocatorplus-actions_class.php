@@ -53,21 +53,7 @@ if (! class_exists('SLPlus_Actions')) {
                     'is_topmenu' => true,
                     'auto' => false
                 )
-            );
-            
-            //-------------------------
-            // Option Packages
-            //-------------------------
-            if (!$slplus_plugin->no_license) {    
-                $slplus_plugin->license->add_licensed_package(
-                        array(
-                            'name'              => 'Widget Pack',
-                            'help_text'         => 'Click the buy now button to purchase this add-on.  When done, refresh this page.',
-                            'sku'               => 'SLPLUS-WIDGETS',
-                            'paypal_button_id'  => 'FA99CZBPNZJGG'
-                        )            
-                    );
-            }        
+            );       
           
             //-------------------------
             // How to Use Section
