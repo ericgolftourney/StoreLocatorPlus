@@ -34,9 +34,31 @@ if (! class_exists('SLPlus_AdminUI')) {
                         title='".__('create page',SLPLUS_PREFIX)."' 
                         href='".
                             ereg_replace("&createpage=".(isset($_GET['createpage'])?$_GET['createpage']:''), "",$_SERVER['REQUEST_URI']).
-                            "&edit=$locationID#a$locationID'
+                            "&act=createpage&sl_id=$locationID#a$locationID'
                    ></a>";            
-        }            
+        }  
+        
+        /*****************************************************
+         * method: slpCreatePage()
+         *
+         * Create a new store pages page.
+         */
+         function slpCreatePage($locationID=-1)  {
+            global $slplus_plugin;
+            
+            // If not licensed or incorrect location ID get out of here
+            //
+            if (
+                !$slplus_plugin->license->packages['Store Pages']->isenabled ||
+                ($locationID < 0)
+                ) {
+                return;
+            } 
+            
+            // Create the page
+            //
+            print "<pre>\n\n\nCreated page for location: $locationID\n\n\n</pre>";
+         }        
     }
 }        
      
