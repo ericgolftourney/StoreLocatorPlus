@@ -535,18 +535,31 @@ td.optionpack {
     height: 20px;
     width: 20px;
     float: left;
+    background: url("../core/images/General_icons16.png") no-repeat scroll transparent;
 }
 .view_icon {
-  background: url("../core/images/General_icons16.png") no-repeat scroll -40px 0 transparent;
+    background-position: -40px 0px; 
+}
+.view_icon:hover {
+  background-position: -40px -20px;
 }
 .edit_icon {
-  background: url("../core/images/General_icons16.png") no-repeat scroll -62px 0 transparent;
+  background-position: -62px 0px;
+}
+.edit_icon:hover {
+  background-position: -62px -20px;
 }
 .delete_icon {
-  background: url("../core/images/General_icons16.png") no-repeat scroll -84px 0 transparent;
+  background-position: -84px 0px;
+}
+.delete_icon:hover {
+  background-position: -84px -20px;
 }
 .createpage_icon {
-  background: url("../core/images/General_icons16.png") no-repeat scroll -150px 0 transparent;
+  background-position: -150px 0px;
+}
+.createpage_icon:hover {
+  background-position: -150px -20px;
 }
 .thnowrap {
     width: 64px;
