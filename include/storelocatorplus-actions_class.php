@@ -41,7 +41,11 @@ if (! class_exists('SLPlus_Actions')) {
         
             // Already been here?  Get out.
             if (isset($slplus_plugin->settings->sections['How to Use'])) { return; }
-        
+
+            // Add admin helpers
+            //
+            require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-adminui_class.php');            
+            
             //-------------------------
             // Navbar Section
             //-------------------------    
