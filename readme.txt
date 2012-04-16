@@ -175,6 +175,7 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 = 2.7 (May 1st, 2012) =
 
 * More code performance and structure improvements.
+* Updated admin interface icons for manage listings, etc.
 
 = 2.6 (April 12th, 2012) =
 
