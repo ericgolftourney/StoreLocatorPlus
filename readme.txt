@@ -152,6 +152,16 @@ Some of the features in the Pro Pack include:
 * Additional search form elements.
 * The CSS Themes system.
 
+= What are Store Pages? =
+
+Store Pages are a new WordPress page type that are created from the location data you have entered in your Store Locator Plus locations database.
+Store Pages have their own categories and can be managed separately from the main WordPress site pages.  
+Store Pages content is fully accessible from your standard WordPress search and menu interface, providing a great way to get SEO value from your location data.
+
+Store Pages is a paid add-on for the free Store Locator Plus product. When you purchase the Store Pages add-on new features will be added to the base product.
+
+Please see the [Store Locator Plus website](http://www.storelocatorplus.com) for the latest feature list.
+
 = What happened to the Plus Pack? =
 
 We renamed it the Pro Pack.  Your Plus Pack license will work for the Pro Pack.
@@ -174,6 +184,7 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 
 = 2.7 (May 14th, 2012) =
 
+* [Store Pages] New premium add-on is available for purchase.
 * More code performance and structure improvements.
 * Updated admin interface icons for manage listings, etc.
 * bug fix: do not re-run geocoding if address does not change during edit
