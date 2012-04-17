@@ -27,14 +27,15 @@ if (! class_exists('SLPlus_AdminUI')) {
          *
          * Render The Create Page Button
          */
-        function slpRenderCreatePageButton($locationID=-1) {
-            if ($locationID < 0) { return; }
-            print "<a   class='action_icon createpage_icon' 
+        function slpRenderCreatePageButton($locationID=-1,$storePageID=-1) {
+            if ($locationID < 0) { return; }            
+            $slpPageClass = (($storePageID>0)?'haspage_icon' : 'createpage_icon');
+            print "<a   class='action_icon $slpPageClass' 
                         alt='".__('create page',SLPLUS_PREFIX)."' 
                         title='".__('create page',SLPLUS_PREFIX)."' 
                         href='".
                             ereg_replace("&createpage=".(isset($_GET['createpage'])?$_GET['createpage']:''), "",$_SERVER['REQUEST_URI']).
-                            "&act=createpage&sl_id=$locationID#a$locationID'
+                            "&act=createpage&sl_id=$locationID&slp_pageid=$storePageID#a$locationID'
                    ></a>";            
         }  
         
@@ -59,9 +60,15 @@ if (! class_exists('SLPlus_AdminUI')) {
             //
             if ($store=$wpdb->get_row('SELECT * FROM '.$wpdb->prefix."store_locator WHERE sl_id = $locationID", ARRAY_A)) {            
                 
+                $slpStorePage = get_post($store['sl_linked_postid']);
+                if (empty($slpStorePage->ID)) {
+                    $store['sl_linked_postid'] = -1;
+                }
+                
                 // Create the page
                 //
                 $slpNewListing = array(
+                    'ID'            => (($store['sl_linked_postid'] > 0)?$store['sl_linked_postid']:''),
                     'post_type'     => 'store_page',
                     'post_status'   => 'publish',
                     'post_title'    => $store['sl_store'],
