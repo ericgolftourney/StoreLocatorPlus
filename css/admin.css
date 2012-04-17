@@ -15,6 +15,9 @@
     background: url("../core/images/StoreLocatorPlus_icons32.png") no-repeat scroll -75px -3px transparent;
 }
 
+div#wpbody-content div.wrap div.updated {
+    clear: both;
+}
  
 /*----------------------------------
  *

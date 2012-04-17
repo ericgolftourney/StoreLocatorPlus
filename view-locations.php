@@ -211,8 +211,12 @@ if (!$slak) {
                 } else {
                     $theLocations = $_REQUEST['sl_id'];
                 }
-                foreach ($theLocations as $thisLocation) {            
-                    call_user_func(array('SLPlus_AdminUI','slpCreatePage'),$thisLocation);
+                foreach ($theLocations as $thisLocation) {    
+                    $slpNewPostID = call_user_func(array('SLPlus_AdminUI','slpCreatePage'),$thisLocation);
+                    $slpNewPostURL = get_permalink($slpNewPostID);
+                    print "<div class='updated settings-error'>Created post #<a href='$slpNewPostURL'>$slpNewPostID</a>" .
+                            " for location # $thisLocation" .
+                            "</div>\n";
                 }
             }
         }
