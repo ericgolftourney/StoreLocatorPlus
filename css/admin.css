@@ -564,6 +564,13 @@ td.optionpack {
 .createpage_icon:hover {
   background-position: -150px -20px;
 }
+
+.haspage_icon {
+  background-position: -150px -40px;
+}
+.haspage_icon:hover {
+  background-position: -150px -20px;
+}
 .thnowrap {
     width: 64px;
 }

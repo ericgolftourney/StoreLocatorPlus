@@ -337,14 +337,13 @@ function activate_slplus() {
     // Data Updates
     //
     global $sl_db_version, $sl_installed_ver;
-	$sl_db_version='2.2';     //***** CHANGE THIS ON EVERY STRUCT CHANGE
+	$sl_db_version='2.7';     //***** CHANGE THIS ON EVERY STRUCT CHANGE
     $sl_installed_ver = get_option( SLPLUS_PREFIX."-db_version" );
 
 	install_main_table();
 	if (function_exists('install_reporting_tables')) {
 	    install_reporting_tables();
     }
-    
     
     // Update the version
     //
@@ -402,6 +401,7 @@ function install_main_table() {
 			sl_image varchar(255) NULL,
 			sl_private varchar(1) NULL,
 			sl_neat_title varchar(255) NULL,
+			sl_linked_postid int NULL,
 			sl_lastupdated  timestamp NOT NULL default current_timestamp,			
 			PRIMARY KEY  (sl_id)
 			) 

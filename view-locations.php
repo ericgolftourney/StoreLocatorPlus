@@ -213,10 +213,19 @@ if (!$slak) {
                 }
                 foreach ($theLocations as $thisLocation) {    
                     $slpNewPostID = call_user_func(array('SLPlus_AdminUI','slpCreatePage'),$thisLocation);
-                    $slpNewPostURL = get_permalink($slpNewPostID);
-                    print "<div class='updated settings-error'>Created post #<a href='$slpNewPostURL'>$slpNewPostID</a>" .
-                            " for location # $thisLocation" .
-                            "</div>\n";
+                    if ($slpNewPostID >= 0) {
+                        $slpNewPostURL = get_permalink($slpNewPostID);
+                        $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_linked_postid=$slpNewPostID WHERE sl_id=$thisLocation");                        
+                        print "<div class='updated settings-error'>" .
+                                (($slpNewPostID != $_REQUEST['slp_pageid'])?'Created new ':'Updated ').
+                                " store page #<a href='$slpNewPostURL'>$slpNewPostID</a>" .
+                                " for location # $thisLocation" .
+                                "</div>\n";
+                    } else {
+                        print "<div class='updated settings-error'>Could NOT create page" .
+                                " for location # $thisLocation" .
+                                "</div>\n";
+                    }
                 }
             }
         }
@@ -380,7 +389,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                 // Show the create page button
                 //
                 if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
-                    call_user_func(array('SLPlus_AdminUI','slpRenderCreatePageButton'),$locID);
+                    call_user_func_array(array('SLPlus_AdminUI','slpRenderCreatePageButton'),array($locID,$value['sl_linked_postid']));
                 }
 
         print "</th>
