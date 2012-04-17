@@ -172,10 +172,11 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 
 == Changelog ==
 
-= 2.7 (May 1st, 2012) =
+= 2.7 (May 14th, 2012) =
 
 * More code performance and structure improvements.
 * Updated admin interface icons for manage listings, etc.
+* bug fix: do not re-run geocoding if address does not change during edit
 
 = 2.6 (April 12th, 2012) =
 
