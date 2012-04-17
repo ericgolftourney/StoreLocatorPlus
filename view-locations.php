@@ -1,4 +1,4 @@
-<?php
+d<?php
 /****************************************************************************
  ** file: view-locations.php
  **
@@ -14,7 +14,7 @@
 //
 $hidden='';
 foreach($_REQUEST as $key=>$val) {
-	if ($key!="q" && $key!="o" && $key!="d" && $key!="start" && $key!="act" && $key!='sl_tags' && $key!='sl_id') {
+	if ($key!="q" && $key!="o" && $key!="sortorder" && $key!="start" && $key!="act" && $key!='sl_tags' && $key!='sl_id') {
 		$hidden.="<input type='hidden' value='$val' name='$key'>\n"; 
 	}
 }
@@ -93,7 +93,7 @@ if (!$slak) {
 		if ($the_address!=
 		    "$old_address[sl_address] $old_address[sl_address2], $old_address[sl_city], " .
 		    "$old_address[sl_state] $old_address[sl_zip]" || 
-		    ($old_address['sl_latitude']=="" || $old_address['sl_longitutde']=="")
+		    ($old_address['sl_latitude']=="" || $old_address['sl_longitude']=="")
             	) {
 			do_geocoding($the_address,$_GET['edit']);
 		}
