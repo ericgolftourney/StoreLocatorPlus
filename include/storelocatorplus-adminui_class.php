@@ -52,7 +52,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                 !$slplus_plugin->license->packages['Store Pages']->isenabled ||
                 ($locationID < 0)
                 ) {
-                return;
+                return -1;
             } 
 
             // Get The Store Data
@@ -67,7 +67,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                     'post_title'    => $store['sl_store'],
                     'post_content'  => call_user_func(array('SLPlus_AdminUI','slpCreatePageContent'),$store),
                     );
-                wp_insert_post($slpNewListing);
+                return wp_insert_post($slpNewListing);
              }                
          }
          
@@ -85,6 +85,9 @@ if (! class_exists('SLPlus_AdminUI')) {
              // Default Content
              //
              $content .= "<span class='storename'>".$store['sl_store']."</span>\n";
+             if ($store['sl_image']         !='') { 
+                 $content .= '<img class="alignright size-full" title="'.$store['sl_store'].'" src="'.$store['sl_image'].'"/>'."\n"; 
+             }
              if ($store['sl_address']       !='') { $content .= $store['sl_address'] . "\n"; }
              if ($store['sl_address2']      !='') { $content .= $store['sl_address2'] . "\n"; }
              
