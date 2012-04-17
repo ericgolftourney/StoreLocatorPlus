@@ -1,4 +1,4 @@
-d<?php
+<?php
 /****************************************************************************
  ** file: view-locations.php
  **
@@ -254,8 +254,19 @@ if (!$slak) {
     print '<div id="slplus_actionbar">';
     print get_string_from_phpexec(SLPLUS_COREDIR.'/templates/managelocations_actionbar.php');
     print '</div>';   
-    
-    set_query_defaults();
+
+	$qry = isset($_REQUEST['q']) ? $_REQUEST['q'] : '';
+	$where=($qry!='')? 
+	        " WHERE ".
+	        "sl_store    LIKE '%$qry%' OR ".
+	        "sl_address  LIKE '%$qry%' OR ".
+	        "sl_address2 LIKE '%$qry%' OR ".
+	        "sl_city     LIKE '%$qry%' OR ".
+	        "sl_state    LIKE '%$qry%' OR ".
+	        "sl_zip      LIKE '%$qry%' OR ".
+	        "sl_tags     LIKE '%$qry%' " 
+	        : 
+	        '' ;
     
     /* Uncoded items */
     if (isset($_REQUEST['act'])) {
@@ -274,46 +285,53 @@ if (!$slak) {
     $num_per_page=$sl_admin_locations_per_page; 
     if ($numMembers2!=0) {include(SLPLUS_COREDIR.'search-links.php');}
 
-$opt = isset($_GET['o']) ? $_GET['o'] : '';
-$dir = isset($_GET['d']) ? $_GET['d'] : '';
+$opt= (isset($_GET['o']) && (trim($_GET['o']) != ''))
+    ? $_GET['o'] : "sl_store";
+$dir= (isset($_GET['sortorder']) && (trim($_GET['sortorder'])=='DESC')) 
+    ? 'DESC' : 'ASC';
+
+// Get the sort order and direction out of our URL
+//
+$slpCleanURL = str_replace("&o=$opt&sortorder=$dir", '', $_SERVER['REQUEST_URI']);    
+    
+// Flip the direction
+//
+$altdir= (($dir=='DESC') ? 'ASC':'DESC');
+
 print "<br>
 <table class='widefat' cellspacing=0>
-<thead><tr >
-<th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
-<th colspan='1'>".__("Actions", SLPLUS_PREFIX)."</th>
-<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI'])."&o=sl_id&d=$d'>".__("ID", SLPLUS_PREFIX)."</a></th>
-<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI'])."&o=sl_store&d=$d'>".__("Name", SLPLUS_PREFIX)."</a></th>
-<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI'])."&o=sl_address&d=$d'>".__("Street", SLPLUS_PREFIX)."</a></th>
-<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI'])."&o=sl_address2&d=$d'>".__("Street2", SLPLUS_PREFIX)."</a></th>
-<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI'])."&o=sl_city&d=$d'>".__("City", SLPLUS_PREFIX)."</a></th>
-<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI'])."&o=sl_state&d=$d'>".__("State", SLPLUS_PREFIX)."</a></th>
-<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI'])."&o=sl_zip&d=$d'>".__("Zip", SLPLUS_PREFIX)."</a></th>
-<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI'])."&o=sl_tags&d=$d'>".__("Tags", SLPLUS_PREFIX)."</a></th>";
+    <thead>
+    <tr >
+        <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
+        <th colspan='1'>".__("Actions", SLPLUS_PREFIX)."</th>".
+        slpCreateColumnHeader($slpCleanURL,'sl_id'      ,__('ID'       ,SLPLUS_PREFIX),$opt,$dir) .
+        slpCreateColumnHeader($slpCleanURL,'sl_store'   ,__('Name'     ,SLPLUS_PREFIX),$opt,$dir) .
+        slpCreateColumnHeader($slpCleanURL,'sl_address' ,__('Street'   ,SLPLUS_PREFIX),$opt,$dir) .        
+        slpCreateColumnHeader($slpCleanURL,'sl_address2',__('Street2'  ,SLPLUS_PREFIX),$opt,$dir) .        
+        slpCreateColumnHeader($slpCleanURL,'sl_city'    ,__('City'     ,SLPLUS_PREFIX),$opt,$dir) .        
+        slpCreateColumnHeader($slpCleanURL,'sl_state'   ,__('State'    ,SLPLUS_PREFIX),$opt,$dir) .        
+        slpCreateColumnHeader($slpCleanURL,'sl_zip'     ,__('Zip'      ,SLPLUS_PREFIX),$opt,$dir) .        
+        slpCreateColumnHeader($slpCleanURL,'sl_tags'    ,__('Tags'     ,SLPLUS_PREFIX),$opt,$dir)                
+        ;
 
+      
+// Expanded View
+//
 if (get_option('sl_location_table_view')!="Normal") {
-    print "<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI']).
-            "&o=sl_description&d=$d'>".__("Description", SLPLUS_PREFIX)."</a></th>".
-            
-        "<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI']).
-            "&o=sl_url&d=$d'>".__("URL", SLPLUS_PREFIX)."</a></th>".
-            
-        "<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI']).
-            "&o=sl_email&d=$d'>".__("Email", SLPLUS_PREFIX)."</a></th>".
-            
-        "<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI']).
-            "&o=sl_hours&d=$d'>".__("Hours", SLPLUS_PREFIX)."</th>".
-            
-        "<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI']).
-            "&o=sl_phone&d=$d'>".__("Phone", SLPLUS_PREFIX)."</a></th>".
-            
-        "<th><a href='".ereg_replace("&o=$opt&d=$dir", "", $_SERVER['REQUEST_URI']).
-            "&o=sl_image&d=$d'>".__("Image", SLPLUS_PREFIX)."</a></th>";
+    print 
+        slpCreateColumnHeader($slpCleanURL,'sl_description' ,__('Description'  ,SLPLUS_PREFIX),$opt,$dir) .
+        slpCreateColumnHeader($slpCleanURL,'sl_url'         ,__('URL'          ,SLPLUS_PREFIX),$opt,$dir) .
+        slpCreateColumnHeader($slpCleanURL,'sl_email'       ,__('Email'        ,SLPLUS_PREFIX),$opt,$dir) .
+        slpCreateColumnHeader($slpCleanURL,'sl_hours'       ,__('Hours'        ,SLPLUS_PREFIX),$opt,$dir) .
+        slpCreateColumnHeader($slpCleanURL,'sl_phone'       ,__('Phone'        ,SLPLUS_PREFIX),$opt,$dir) .
+        slpCreateColumnHeader($slpCleanURL,'sl_image'       ,__('Image'        ,SLPLUS_PREFIX),$opt,$dir)
+        ;    
 }
 
-print "<th>(Lat, Lon)</th></tr></thead>";
+print '<th>(Lat, Lon)</th></tr></thead>';
 
 if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix . 
-        "store_locator  $where ORDER BY $o $d LIMIT $start,$num_per_page", ARRAY_A)) {
+        "store_locator  $where ORDER BY $opt $dir LIMIT $start,$num_per_page", ARRAY_A)) {
 		
         $bgcol = '#eee';
 		foreach ($locales as $value) {
@@ -436,26 +454,17 @@ function url_test($url) {
 	return (strtolower(substr($url,0,7))=="http://");
 }
 
-/*---------------------------------*/
-function set_query_defaults() {
-	global $where, $o, $d;
-	
-	$qry = isset($_REQUEST['q']) ? $_REQUEST['q'] : '';
-	$where=($qry!='')? 
-	        " WHERE ".
-	        "sl_store    LIKE '%$qry%' OR ".
-	        "sl_address  LIKE '%$qry%' OR ".
-	        "sl_address2 LIKE '%$qry%' OR ".
-	        "sl_city     LIKE '%$qry%' OR ".
-	        "sl_state    LIKE '%$qry%' OR ".
-	        "sl_zip      LIKE '%$qry%' OR ".
-	        "sl_tags     LIKE '%$qry%' " 
-	        : 
-	        '' ;
-	$o= (isset($_GET['o']) && (trim($_GET['o']) != ''))
-	    ? $_GET['o'] : "sl_store";
-	$d= (isset($_GET['d']) && (trim($_GET['d'])=='DESC')) 
-	    ? "DESC" : "ASC";
+/*****************************
+* function: slpCreateColumnHeader()
+*
+* Create the column headers for sorting the table.
+*
+*/
+function slpCreateColumnHeader($theURL,$fldID='sl_store',$fldLabel='ID',$opt='sl_store',$dir='ASC') {
+    if ($opt == $fldID) {
+        $curDIR = (($dir=='ASC')?'DESC':'ASC');
+    } else {
+        $curDIR = $dir;
+    }
+    return "<th><a href='$theURL&o=$fldID&sortorder=$curDIR'>$fldLabel</a></th>";
 }
-
-
