@@ -226,9 +226,13 @@ div.orangebox {
 
 
 /***************************
- * Locations: Manage
+ * Locations: Add
  */
-
+ div.add_location_form {
+     display:block;
+     position:relative;
+     width: 100%;
+ }
 .add_location_form label {
     width: 120px;
     float: left;
@@ -245,7 +249,19 @@ div.orangebox {
     width: 40em;
 }
 
-
+.add_location_form INPUT[type='submit'] {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 150px;
+}
+.add_location_form INPUT[type='submit']:hover {
+    background: none;
+    background-color: #228b22;
+}
+input#bulk_file {
+    width: 70%;
+}
 
 /***************************
  * Settings: Map
@@ -571,3 +587,4 @@ td.optionpack {
 .thnowrap {
     width: 64px;
 }
+
