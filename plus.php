@@ -118,15 +118,37 @@ function slplus_add_report_settings() {
     if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {    
         $slplus_plugin->settings->add_item(
             'Reporting', 
-            'Enable reporting', 
+            __('Enable reporting', SLPLUS_PREFIX), 
             'reporting_enabled', 
             'checkbox', 
             false,
-            'Enables tracking of searches and returned results.  The added overhead ' .
-            'can increase how long it takes to return location search results.'
+            __('Enables tracking of searches and returned results.  The added overhead ' .
+            'can increase how long it takes to return location search results.', SLPLUS_PREFIX)
         );    
     }
 }
+
+/**************************************
+ ** function: slplus_add_pages_settings()
+ ** 
+ ** Add store pages settings to the admin interface.
+ **
+ **/
+function slplus_add_pages_settings() {
+    global $slplus_plugin;
+    
+    if ($slplus_plugin->license->packages['Store Pages']->isenabled) {    
+        $slplus_plugin->settings->add_item(
+            'Store Pages', 
+            __('Pages Replace Websites', SLPLUS_PREFIX), 
+            'replace_website_with_pages', 
+            'checkbox', 
+            false,
+            __('Use the Store Pages local URL in place of the website URL on the map results list.', SLPLUS_PREFIX)
+        );           
+    }
+}
+
 
 /**************************************
  ** function: slplus_create_country_pd()

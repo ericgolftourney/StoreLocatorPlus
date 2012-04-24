@@ -119,29 +119,48 @@ if (! class_exists('SLPlus_Actions')) {
             );
             
             //-------------------------
+            // Store Pages
+            //-------------------------   
+            $slp_rep_desc = __('These settings affect how the Store Pages add-on behaves. ', SLPLUS_PREFIX);
+            if (!function_exists('slplus_add_pages_settings')) {
+                $slp_rep_desc .= '<br/><br/>'.
+                    __('This is a <a href="http://www.storelocatorplus.com/">Store Pages</a>'.
+                    ' feature.  It provides a way to auto-create individual WordPress pages' .
+                    ' for each of your locations. ', SLPLUS_PREFIX);
+            }
+            $slp_rep_desc .= '<br/><br/>';                 
+            $slplus_plugin->settings->add_section(
+                array(
+                    'name'        => 'Store Pages',
+                    'description' => $slp_rep_desc
+                )
+            );            
+            if (function_exists('slplus_add_pages_settings')) {
+                slplus_add_pages_settings();
+            }
+            
+            //-------------------------
             // Reporting
             //-------------------------   
-            if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {          
-                $slp_rep_desc = __('These settings affect how the reporting system behaves. ', SLPLUS_PREFIX);
-                if (!function_exists('slplus_add_report_settings')) {
-                    $slp_rep_desc .= '<br/><br/>'.
-                        __('This is a <a href="http://www.storelocatorplus.com/">plus version</a>'.
-                        ' feature.  It provides a way to generate reports on what locations' .
-                        ' people have searched for and what results they received back. ', SLPLUS_PREFIX);
-                }
-                $slp_rep_desc .= '<br/><br/>'; 
-                    
-                $slplus_plugin->settings->add_section(
-                    array(
-                        'name'        => 'Reporting',
-                        'description' => $slp_rep_desc
-                    )
-                );
+            $slp_rep_desc = __('These settings affect how the reporting system behaves. ', SLPLUS_PREFIX);
+            if (!function_exists('slplus_add_report_settings')) {
+                $slp_rep_desc .= '<br/><br/>'.
+                    __('This is a <a href="http://www.storelocatorplus.com/">Pro Pack</a>'.
+                    ' feature.  It provides a way to generate reports on what locations' .
+                    ' people have searched for and what results they received back. ', SLPLUS_PREFIX);
+            }
+            $slp_rep_desc .= '<br/><br/>'; 
                 
-                if (function_exists('slplus_add_report_settings')) {
-                    slplus_add_report_settings();
-                }
-            }        
+            $slplus_plugin->settings->add_section(
+                array(
+                    'name'        => 'Reporting',
+                    'description' => $slp_rep_desc
+                )
+            );
+            
+            if (function_exists('slplus_add_report_settings')) {
+                slplus_add_report_settings();
+            }
         }
         
         /**************************************
