@@ -3,8 +3,8 @@ Plugin Name: Store Locator Plus
 Contributors: cybersprocket
 Donate link: http://www.storelocatorplus.com/
 Tags: store locator, store locater, google, google maps, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus
-Requires at least: 3.0
-Tested up to: 3.3.1
+Requires at least: 3.3
+Tested up to: 3.3.2
 Stable tag: 2.7
 
 This plugin puts a search form and an interactive Google map on your site so you can show visitors your store locations.    
