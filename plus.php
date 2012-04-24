@@ -57,7 +57,8 @@ function execute_and_output_plustemplate($file) {
  **
  **/
 function install_reporting_tables() {
-	global $wpdb;
+	global $wpdb, $sl_installed_ver;
+
     
 	$charset_collate = '';
     if ( ! empty($wpdb->charset) )
@@ -77,7 +78,8 @@ function install_reporting_tables() {
 			slp_repq_tags  varchar(255),
 			slp_repq_address varchar(255),
 			slp_repq_radius varchar(5),
-			PRIMARY KEY  (slp_repq_id)
+			PRIMARY KEY  (slp_repq_id),
+			INDEX (slp_repq_time)
 			)
 			$charset_collate						
 			";
@@ -93,11 +95,15 @@ function install_reporting_tables() {
 			slp_repqr_id    bigint(20) unsigned NOT NULL auto_increment,
 			slp_repq_id     bigint(20) unsigned NOT NULL,
 			sl_id           mediumint(8) unsigned NOT NULL,
-			PRIMARY KEY  (slp_repqr_id)
+			PRIMARY KEY  (slp_repqr_id),
+			INDEX (slp_repq_id)
 			)
 			$charset_collate						
 			";
-	slplus_dbupdater($sql, $table_name );
+
+    // Install or Update the slp_rep_query_results table
+    //
+    $slplusNewOrUpdated = slplus_dbupdater($sql,$table_name);     
 }
  
 /**************************************
