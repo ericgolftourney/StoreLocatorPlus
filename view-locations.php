@@ -215,7 +215,11 @@ if (!$slak) {
                     $slpNewPostID = call_user_func(array('SLPlus_AdminUI','slpCreatePage'),$thisLocation);
                     if ($slpNewPostID >= 0) {
                         $slpNewPostURL = get_permalink($slpNewPostID);
-                        $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_linked_postid=$slpNewPostID WHERE sl_id=$thisLocation");                        
+                        $wpdb->query("UPDATE ".$wpdb->prefix."store_locator ".
+                                        "SET sl_linked_postid=$slpNewPostID, ".
+                                        "sl_pages_url='$slpNewPostURL' ".
+                                        "WHERE sl_id=$thisLocation"
+                                        );                        
                         print "<div class='updated settings-error'>" .
                                 (($slpNewPostID != $_REQUEST['slp_pageid'])?'Created new ':'Updated ').
                                 " store page #<a href='$slpNewPostURL'>$slpNewPostID</a>" .

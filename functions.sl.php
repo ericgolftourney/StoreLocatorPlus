@@ -402,6 +402,7 @@ function install_main_table() {
 			sl_private varchar(1) NULL,
 			sl_neat_title varchar(255) NULL,
 			sl_linked_postid int NULL,
+			sl_pages_url varchar(255) NULL,
 			sl_lastupdated  timestamp NOT NULL default current_timestamp,			
 			PRIMARY KEY  (sl_id)
 			) 
@@ -699,7 +700,7 @@ function csl_slplus_add_options_page() {
 		    SLPLUS_COREDIR.'map-designer.php'
 		    );
 		
-		// Plus Reporting
+		// Pro Pack Reporting
 		//
 		if ($slplus_plugin->license->packages['Pro Pack']->isenabled) { 		
             if (function_exists('slplus_add_report_settings')) {
@@ -711,7 +712,7 @@ function csl_slplus_add_options_page() {
                     SLPLUS_PLUGINDIR.'reporting.php'
                     );		    
             }
-        }            
+        }   
 	}
 
 }
