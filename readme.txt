@@ -186,6 +186,7 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 
 * [Store Pages] New premium add-on is available for purchase.
 * [Pro Pack] Speed up reporting system for heavy traffic sites.
+* Add locations form tweaks.
 * More code performance and structure improvements.
 * Updated admin interface icons for manage listings, etc.
 * bug fix: do not re-run geocoding if address does not change during edit
