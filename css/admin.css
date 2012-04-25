@@ -260,6 +260,7 @@ div.orangebox {
      position:relative;
      width: 100%;
  }
+table.manual_update_table label,
 .add_location_form label {
     width: 120px;
     float: left;

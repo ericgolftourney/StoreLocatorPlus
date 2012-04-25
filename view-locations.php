@@ -324,7 +324,19 @@ print "<br>
 if (get_option('sl_location_table_view')!="Normal") {
     print 
         slpCreateColumnHeader($slpCleanURL,'sl_description' ,__('Description'  ,SLPLUS_PREFIX),$opt,$dir) .
-        slpCreateColumnHeader($slpCleanURL,'sl_url'         ,__('URL'          ,SLPLUS_PREFIX),$opt,$dir) .
+        slpCreateColumnHeader($slpCleanURL,'sl_url'         ,__('URL'          ,SLPLUS_PREFIX),$opt,$dir);
+
+    // Store Pages URLs
+    //
+    if ($slplus_plugin->license->packages['Store Pages']->isenabled) {            
+        print slpCreateColumnHeader($slpCleanURL,
+                    'sl_pages_url'   ,
+                    __('Pages URL'    ,SLPLUS_PREFIX),
+                    $opt,$dir
+                    );
+    }
+        
+    print 
         slpCreateColumnHeader($slpCleanURL,'sl_email'       ,__('Email'        ,SLPLUS_PREFIX),$opt,$dir) .
         slpCreateColumnHeader($slpCleanURL,'sl_hours'       ,__('Hours'        ,SLPLUS_PREFIX),$opt,$dir) .
         slpCreateColumnHeader($slpCleanURL,'sl_phone'       ,__('Phone'        ,SLPLUS_PREFIX),$opt,$dir) .
@@ -358,6 +370,16 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                     <td valign='top'>";
                 
                 execute_and_output_template('edit_location_address.php');
+                
+                // Store Pages URLs
+                //
+                if (
+                    ($slplus_plugin->license->packages['Store Pages']->isenabled) &&
+                    ($value['sl_pages_url'] != '')
+                    ){
+                    $shortSPurl = preg_replace('/^.*?store_page=/','',$value['sl_pages_url']);
+                    print "<label for='store_page'>Store Page</label><a href='$value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a><br/>";
+                }
                 
                 print "<br>
                         <nobr><input type='submit' value='".__("Update", SLPLUS_PREFIX)."' class='button-primary'><input type='button' class='button' value='".__("Cancel", SLPLUS_PREFIX)."' onclick='location.href=\"".ereg_replace("&edit=$_GET[edit]", "",$_SERVER['REQUEST_URI'])."\"'></nobr>
@@ -426,13 +448,19 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                 
                 if (get_option('sl_location_table_view')!="Normal") {
                     print "<td>$value[sl_description]</td>
-                    <td>$value[sl_url]</td>
-                    <td>$value[sl_email]</td>
-                    <td>$value[sl_hours]</td>
-                    <td>$value[sl_phone]</td>
-                    <td>$value[sl_image]</td>";
-                }
-                
+                            <td>$value[sl_url]</td>
+                            ";
+                    // Store Pages URLs
+                    //
+                    if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
+                        $shortSPurl = preg_replace('/^.*?store_page=/','',$value['sl_pages_url']);
+                        print "<td><a href='$value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a></td>";
+                    }                    
+                    print "<td>$value[sl_email]</td>
+                            <td>$value[sl_hours]</td>
+                            <td>$value[sl_phone]</td>
+                            <td>$value[sl_image]</td>";
+                }                
                 print "<td>(".$value['sl_latitude'].",&nbsp;".$value['sl_longitude'].")</td> </tr>";
 			}
 		}
