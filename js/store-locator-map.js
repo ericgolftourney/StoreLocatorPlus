@@ -116,8 +116,12 @@ function sl_load_locations(map,lat,lng) {
                 var name = markers[i].getAttribute('name');
                 var address = markers[i].getAttribute('address');
                 var distance = parseFloat(markers[i].getAttribute('distance'));
-                var description = markers[i].getAttribute('description');
-                var url = markers[i].getAttribute('url');
+                var description = markers[i].getAttribute('description');                
+                if (slplus.use_pages_links) {
+                    var url = markers[i].getAttribute('url');
+                } else {
+                    var url = markers[i].getAttribute('sl_pages_url');
+                }                
                 var email = markers[i].getAttribute('email');
                 var hours = markers[i].getAttribute('hours');
                 var phone = markers[i].getAttribute('phone');

@@ -624,7 +624,7 @@ function slplus_dbupdater($sql,$table_name) {
         'show_tags'         => (get_option(SLPLUS_PREFIX.'_show_tags')==1),
         'overview_ctrl'     => get_option('sl_map_overview_control',0),
         'use_email_form'    => (get_option(SLPLUS_PREFIX.'_email_form')==1),
-        'use_pages_links'   => ($slplus_plugin->get_item('use_pages_links')==1),        
+        'use_pages_links'   => ($slplus_plugin->settings->get_item('use_pages_links')==1),        
         'website_label'     => esc_attr(get_option('sl_website_label','Website')),
         'zoom_level'        => get_option('sl_zoom_level',4),
         'zoom_tweak'        => get_option('sl_zoom_tweak',1),
