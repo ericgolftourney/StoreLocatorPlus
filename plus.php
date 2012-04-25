@@ -146,6 +146,14 @@ function slplus_add_pages_settings() {
             false,
             __('Use the Store Pages local URL in place of the website URL on the map results list.', SLPLUS_PREFIX)
         );           
+        $slplus_plugin->settings->add_item(
+            'Store Pages', 
+            __('Prevent New Window', SLPLUS_PREFIX), 
+            'use_same_window', 
+            'checkbox', 
+            false,
+            __('Prevent Store Pages web links from opening in a new window.', SLPLUS_PREFIX)
+        );           
     }
 }
 
