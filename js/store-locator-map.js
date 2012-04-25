@@ -118,9 +118,9 @@ function sl_load_locations(map,lat,lng) {
                 var distance = parseFloat(markers[i].getAttribute('distance'));
                 var description = markers[i].getAttribute('description');                
                 if (slplus.use_pages_links) {
-                    var url = markers[i].getAttribute('url');
-                } else {
                     var url = markers[i].getAttribute('sl_pages_url');
+                } else {
+                    var url = markers[i].getAttribute('url');
                 }                
                 var email = markers[i].getAttribute('email');
                 var hours = markers[i].getAttribute('hours');
@@ -340,14 +340,14 @@ function createMarker(point, name, address, homeAddress, description, url, email
   }
   
   if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {
-    more_html+="| <a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a>"
+    more_html+="| <a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a>"
   } else {
     url="";
   }
   
   if (email.indexOf("@")!=-1 && email.indexOf(".")!=-1) {
     if (!slplus.use_email_form) { 
-      more_html+="| <a href='mailto:"+email+"' target='_blank' class='storelocatorlink'><nobr>" + email +"</nobr></a>";
+        more_html+="| <a href='mailto:"+email+"' target='_blank' class='storelocatorlink'><nobr>" + email +"</nobr></a>";
     } else {
       more_html+="| <a href='javascript:slp_show_email_form("+'"'+email+'"'+");' class='storelocatorlink'><nobr>" + email +"</nobr></a><br/>";
     }                    
@@ -416,8 +416,8 @@ function createSidebarEntry(marker, name, address, distance, homeAddress, url, e
       var state_zip = address.split(',')[3];
       
       var link = '';
-      if(url.indexOf("http://")==-1) {url="http://"+url;} 
-      if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {link="<a href='"+url+"' target='_blank' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>"} else {url="";}
+      if (url.indexOf("http://")==-1) {url="http://"+url;} 
+      if (url.indexOf("http://")!=-1 && url.indexOf(".")!=-1) {link="<a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>"} else {url="";}
 
       var elink = "";
       if (email.indexOf("@")!=-1 && email.indexOf(".")!=-1) {
