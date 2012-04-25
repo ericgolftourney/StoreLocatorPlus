@@ -59,6 +59,33 @@ div#wpbody-content div.wrap div.updated {
 }
 
 /*----------------------------------
+ * WPCSL Magic
+ */
+
+div.csl-slplus-input {
+    float: left;
+} 
+ 
+/* More Info Box */
+div.csl-slplus-moreicon {
+    background: url("../core/images/General_icons16.png") 
+        no-repeat scroll 
+        -17px 0px 
+        transparent; 
+    height:20px;
+    width: 20px;
+    float: left;
+    cursor: pointer;  
+    margin-top: 2px;
+    margin-left: 3px;
+}
+div.csl-slplus-moretext {
+    display: none;
+    clear: both;    
+}
+
+
+/*----------------------------------
  * Option Packs
  */
  div.optionpack_box {
