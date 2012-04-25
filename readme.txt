@@ -190,6 +190,7 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 * More code performance and structure improvements.
 * Updated admin interface icons for manage listings, etc.
 * bug fix: do not re-run geocoding if address does not change during edit
+* Navigation bar header UI cleanup.
 
 = 2.6 (April 12th, 2012) =
 
