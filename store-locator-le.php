@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Store Locator Plus
+Plugin Name: Google Maps via Store Locator Plus
 Plugin URI: http://www.storelocatorplus.com/
 Description: Manage multiple locations with ease. Map stores or other points of interest with ease via Gooogle Maps.  This is a highly customizable, easily expandable, enterprise-class location management system. 
 Version: 2.7
