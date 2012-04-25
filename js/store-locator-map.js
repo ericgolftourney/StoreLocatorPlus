@@ -300,7 +300,11 @@ function searchLocationsNear(center, homeAddress) {
                 var address = markers[i].getAttribute('address');
                 var distance = parseFloat(markers[i].getAttribute('distance'));
                 var description = markers[i].getAttribute('description');
-                var url = markers[i].getAttribute('url');
+                if (slplus.use_pages_links) {
+                    var url = markers[i].getAttribute('sl_pages_url');
+                } else {
+                    var url = markers[i].getAttribute('url');
+                }                
                 var email = markers[i].getAttribute('email');
                 var hours = markers[i].getAttribute('hours');
                 var phone = markers[i].getAttribute('phone');
