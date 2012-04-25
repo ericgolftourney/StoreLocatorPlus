@@ -404,7 +404,10 @@ function install_main_table() {
 			sl_linked_postid int NULL,
 			sl_pages_url varchar(255) NULL,
 			sl_lastupdated  timestamp NOT NULL default current_timestamp,			
-			PRIMARY KEY  (sl_id)
+			PRIMARY KEY  (sl_id),
+			INDEX (sl_store),
+			INDEX (sl_longitude),
+			INDEX (sl_latitude)
 			) 
 			$charset_collate
 			";
