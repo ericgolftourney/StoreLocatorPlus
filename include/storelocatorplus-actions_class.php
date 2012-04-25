@@ -119,11 +119,13 @@ if (! class_exists('SLPlus_Actions')) {
                     )
             );
             
-            //-------------------------
+            //--------------------------
             // Store Pages
-            //-------------------------   
+            //
             $slp_rep_desc = __('These settings affect how the Store Pages add-on behaves. ', SLPLUS_PREFIX);
-            if (!function_exists('slplus_add_pages_settings')) {
+            if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
+                slplus_add_pages_settings();                
+            } else {
                 $slp_rep_desc .= '<br/><br/>'.
                     __('This is a <a href="http://www.storelocatorplus.com/">Store Pages</a>'.
                     ' feature.  It provides a way to auto-create individual WordPress pages' .
@@ -136,15 +138,14 @@ if (! class_exists('SLPlus_Actions')) {
                     'description' => $slp_rep_desc
                 )
             );            
-            if (function_exists('slplus_add_pages_settings')) {
-                slplus_add_pages_settings();
-            }
             
             //-------------------------
-            // Reporting
-            //-------------------------   
+            // Pro Pack: Reporting
+            // 
             $slp_rep_desc = __('These settings affect how the reporting system behaves. ', SLPLUS_PREFIX);
-            if (!function_exists('slplus_add_report_settings')) {
+            if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+                slplus_add_report_settings();
+            } else {
                 $slp_rep_desc .= '<br/><br/>'.
                     __('This is a <a href="http://www.storelocatorplus.com/">Pro Pack</a>'.
                     ' feature.  It provides a way to generate reports on what locations' .
@@ -158,10 +159,7 @@ if (! class_exists('SLPlus_Actions')) {
                     'description' => $slp_rep_desc
                 )
             );
-            
-            if (function_exists('slplus_add_report_settings')) {
-                slplus_add_report_settings();
-            }
+                
         }
         
         /**************************************
