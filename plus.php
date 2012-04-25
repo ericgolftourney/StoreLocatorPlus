@@ -141,7 +141,7 @@ function slplus_add_pages_settings() {
         $slplus_plugin->settings->add_item(
             'Store Pages', 
             __('Pages Replace Websites', SLPLUS_PREFIX), 
-            'replace_website_with_pages', 
+            'use_pages_links', 
             'checkbox', 
             false,
             __('Use the Store Pages local URL in place of the website URL on the map results list.', SLPLUS_PREFIX)
