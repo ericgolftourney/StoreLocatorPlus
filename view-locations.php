@@ -481,7 +481,10 @@ print "</form>";
 }
 print "</div>";
 
-/*-----------------------------------------------------------*/
+/*****************************
+ * function: url_test()
+ *
+ */
 function url_test($url) {
 	return (strtolower(substr($url,0,7))=="http://");
 }
