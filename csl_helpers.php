@@ -70,7 +70,18 @@ function slp_createhelpdiv($divname,$msg) {
  **/
 function setup_stylesheet_for_slplus() {
     global $slplus_plugin;
-    $slplus_plugin->themes->assign_user_stylesheet();    
+    
+    // Pro Pack - Use Themes System
+    //
+    if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+        $slplus_plugin->themes->assign_user_stylesheet();
+    } else {
+        wp_deregister_style(SLPLUS_PREFIX.'_user_header_css');             
+        wp_dequeue_style(SLPLUS_PREFIX.'_user_header_css');                        
+        if ( file_exists(SLPLUS_PLUGINDIR.'css/default.css')) {
+            wp_enqueue_style(SLPLUS_PREFIX.'_user_header_css', SLPLUS_PLUGINURL .'/css/default.css');
+        }                    
+    }        
 }
 
 /**************************************
@@ -80,8 +91,7 @@ function setup_stylesheet_for_slplus() {
  **/
 function setup_ADMIN_stylesheet_for_slplus() {
     if ( file_exists(SLPLUS_PLUGINDIR.'css/admin.css')) {
-        wp_register_style('csl_slplus_admin_css', SLPLUS_PLUGINURL .'/css/admin.css'); 
-        wp_enqueue_style ('csl_slplus_admin_css');
+        wp_enqueue_style('csl_slplus_admin_css', SLPLUS_PLUGINURL .'/css/admin.css'); 
     }
 }
 

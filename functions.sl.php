@@ -34,11 +34,7 @@ function move_upload_directories() {
 	}
 	if (!is_dir($sl_upload_path . "/custom-icons")) {
 		mkdir($sl_upload_path . "/custom-icons", 0755);
-	}
-	if (!is_dir($sl_upload_path . "/custom-css")) {
-		mkdir($sl_upload_path . "/custom-css", 0755);
-	}
-	
+	}	
 	if (is_dir($sl_path . "/languages") && !is_dir($sl_upload_path . "/languages")) {
 		csl_copyr($sl_path . "/languages", $sl_upload_path . "/languages");
 	}
@@ -482,9 +478,9 @@ function slplus_dbupdater($sql,$table_name) {
 
     //----------------------
     // Attribute Processing
-    // [LE/PLUS]
-    //    
-    if (function_exists('slplus_shortcode_atts')) {
+    //
+    if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+        $slplus_plugin->shortcode_was_rendered = true;
         slplus_shortcode_atts($attributes);
     }
                    
@@ -546,7 +542,6 @@ function slplus_dbupdater($sql,$table_name) {
 
     //----------------------
     // Create Country Pulldown
-    // [LE/PLUS]
     //    
     if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {                    
         $country_options = slplus_create_country_pd();    
