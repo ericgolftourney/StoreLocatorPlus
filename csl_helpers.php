@@ -69,12 +69,12 @@ function slp_createhelpdiv($divname,$msg) {
  ** Setup the CSS for the product pages.
  **/
 function setup_stylesheet_for_slplus() {
-    global $slplus_plugin;
+    global $slplus_plugin, $fnvars;
     
     // Pro Pack - Use Themes System
     //
     if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
-        $slplus_plugin->themes->assign_user_stylesheet();
+        $slplus_plugin->themes->assign_user_stylesheet(isset($fnvars['theme'])?$fnvars['theme']:'');
     } else {
         wp_deregister_style(SLPLUS_PREFIX.'_user_header_css');             
         wp_dequeue_style(SLPLUS_PREFIX.'_user_header_css');                        
