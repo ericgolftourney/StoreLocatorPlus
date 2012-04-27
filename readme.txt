@@ -180,6 +180,16 @@ We renamed it the Pro Pack.  Your Plus Pack license will work for the Pro Pack.
 
 More screenshots are available via the [Store Locator Plus website](http://www.storelocatorplus.com/).
 
+== Upgrade Notice ==
+
+This version of the Store Locator Plus requires WordPress version 3.3 or higher.   
+Only in WordPress version 3.3 or higher can we provide the enhanced performance provided by loading the JavaScript and CSS files on pages that have a Store Locator Plus shortcode.
+
+If you are using the legacy ./custom-css implementation of CSS files you will need to upgrade to the [Pro Pack with themes](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki/Custom_Themes).
+The theming system uses the built-in CSS management system of WordPress allowing for more efficient loading of CSS files only as needed.
+
+The legacy customization setup is going away.   You should migrate any legacy icons or stylesheets to the new themes location.   Icons should go in the main ./core/images/icons directory.   If you have open-source or commercial license approved icons you want to have included in the next release, please  [contact us](http://www.cybersprocket.com/contact-us/).
+
 == Changelog ==
 
 = 2.7 (May 14th, 2012) =
@@ -191,8 +201,10 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 * More code performance and structure improvements.
 * Updated admin interface icons for manage listings, etc.
 * Navigation bar header UI cleanup.
+* The SLPlus themes only load/render on pages with the shortcode.
 * bug fix: do not re-run geocoding if address does not change during edit
 * bug fix: Selecting map type was not changing the UI.
+* NOTE: If you use the legacy ./custom-css you will need to upgrade to the Pro Pack and use themes.
 
 = 2.6 (April 12th, 2012) =
 
