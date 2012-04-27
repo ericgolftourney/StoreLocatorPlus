@@ -291,6 +291,32 @@ input#bulk_file {
     width: 70%;
 }
 
+
+/***************************
+ * Locations: Manage
+ */
+
+ div.wrap table.widefat thead tr th {
+     background-image: -moz-linear-gradient(center top , #808080, #404040);
+ }
+ div.wrap table.widefat thead tr th,
+ div.wrap table.widefat thead tr th a 
+ {
+    color: #EEEEFF;
+    font-weight: bold;
+    text-decoration: none;    
+    text-shadow: none;
+    font-size: 14px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif; 
+ }
+ div.wrap table.widefat thead tr th a {
+    color: #9999FF;
+    text-decoration: underline;
+ }
+ div.wrap table.widefat thead tr th input.button {
+     vertical-align: middle;
+ }
+
 /***************************
  * Settings: Map
  */
