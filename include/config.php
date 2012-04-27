@@ -27,7 +27,8 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'products_obj_name'     => 'none',
             'settings_obj_name'     => 'default',
             
-            'themes_obj_name'       => 'default',            
+            'themes_obj_name'       => 'default',
+            'no_default_css'        => true,            
             
             'prefix'                => SLPLUS_PREFIX,
             'css_prefix'            => SLPLUS_PREFIX,

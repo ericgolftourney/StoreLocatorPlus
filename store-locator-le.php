@@ -85,17 +85,20 @@ require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-actions_class.php');
 //
 register_activation_hook( __FILE__, 'activate_slplus');
 
-// Actions
+// Regular Actions
 //
-add_action('init',array('SLPlus_Actions','init'));
-add_action('wp_enqueue_scripts',array('SLPlus_Actions','wp_enqueue_scripts'));
-add_action('admin_menu', 'csl_slplus_add_options_page');
-add_action('admin_init',array('SLPlus_Actions','admin_init'),10);
-add_action('admin_print_scripts', 'add_admin_javascript');
-add_action('admin_head', 'slpreport_downloads');    
-add_action('wp_print_styles', 'setup_stylesheet_for_slplus');
-add_action('admin_print_styles','setup_ADMIN_stylesheet_for_slplus');
-add_action('shutdown',array('SLPlus_Actions','shutdown'));
+add_action('init'               ,array('SLPlus_Actions','init')                 );
+add_action('wp_enqueue_scripts' ,array('SLPlus_Actions','wp_enqueue_scripts')   );
+add_action('shutdown'           ,array('SLPlus_Actions','shutdown')             );
+
+// Admin Actions
+//
+add_action('admin_menu'         , 'csl_slplus_add_options_page'                 );
+add_action('admin_init'         ,array('SLPlus_Actions','admin_init'),10        );
+add_action('admin_print_scripts', 'add_admin_javascript'                        );
+add_action('admin_print_styles' , 'setup_ADMIN_stylesheet_for_slplus'           );
+add_action('admin_head'         , 'slpreport_downloads'                         );
+
 
 
 // Short Codes

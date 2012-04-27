@@ -247,23 +247,7 @@ if (! class_exists('SLPlus_Actions')) {
                             SLPLUS_PLUGINURL.'/core/js/store-locator-emailform.js',
                             array('google_maps','slplus_map')
                             );                       
-                }
-
-                //------------------------
-                // Register our styles for later enqueue when needed
-                //                
-                if (get_option(SLPLUS_PREFIX . '-theme' ) != '') {
-                    setup_stylesheet_for_slplus();
-                } else {
-                    $has_custom_css=(file_exists($sl_upload_path."/custom-css/csl-slplus.css"))? 
-                        $sl_upload_base."/custom-css" : 
-                        $sl_base; 
-                    wp_register_style('slplus_customcss',$has_custom_css.'/core/css/csl-slplus.css');
-                }
-                $theme=get_option('sl_map_theme');
-                if ($theme!="") {
-                    wp_register_style('slplus_themecss',$sl_upload_base.'/themes/'.$theme.'/style.css');
-                }                                
+                }                            
             }                        
         }     
         
@@ -288,12 +272,11 @@ if (! class_exists('SLPlus_Actions')) {
                 if (get_option(SLPLUS_PREFIX.'_email_form')==1) {
                     wp_enqueue_script('slplus_emailform');
                 }
-            
-                // Register & Load CSS
-                //
-                wp_enqueue_style('slplus_customcss');
-                wp_enqueue_style('slplus_themecss');
                 
+                // Enqueue the style sheet
+                //
+                setup_stylesheet_for_slplus();                
+                           
                 // Force our scripts to load for badly behaved themes
                 //
                 wp_print_footer_scripts();
