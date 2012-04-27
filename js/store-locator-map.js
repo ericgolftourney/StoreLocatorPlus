@@ -58,7 +58,10 @@ function sl_load() {
         if (parseInt(slplus.overview_ctrl)==1) {
             map.addControl(new GOverviewMapControl());
         }
-        map.addMapType(G_PHYSICAL_MAP);
+        
+        map.addMapType(eval(slplus.map_type));        
+        map.setMapType(eval(slplus.map_type));
+        
         // This is asynchronous, as such we have no idea when it will return
         //
         geocoder.getLatLng(slplus.map_country, 
