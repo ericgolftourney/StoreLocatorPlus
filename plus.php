@@ -325,6 +325,7 @@ function slplus_shortcode_atts($attributes) {
             array(
                 'tags_for_pulldown'=> null, 
                 'only_with_tag'    => null,
+                'theme'            => null,
                 ),
             $attributes
             );
