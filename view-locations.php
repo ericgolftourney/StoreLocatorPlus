@@ -76,24 +76,27 @@ if (!$slak) {
 			}
 		}
 		$field_value_str=substr($field_value_str, 0, strlen($field_value_str)-2);
-		$edit=$_GET['edit']; extract($_POST);
+		$edit=$_GET['edit']; 
+		extract($_POST);
 		$the_address="$address $address2, $city, $state $zip";
 		
-		$old_address=$wpdb->get_results("SELECT * FROM ".
-                        $wpdb->prefix."store_locator WHERE sl_id=$_GET[edit]", ARRAY_A);
-		$wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET $field_value_str " .
-                        "WHERE sl_id=$_GET[edit]");
+		$old_address=$wpdb->get_results("SELECT * FROM ".$wpdb->prefix."store_locator WHERE sl_id=$_GET[edit]", ARRAY_A);
+		$wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET $field_value_str WHERE sl_id=$_GET[edit]");
                 
-                if (!isset($old_address['sl_address'])) { $old_address['sl_address'] = ''; 	} 
-                if (!isset($old_address['sl_address2'])){ $old_address['sl_address2'] = ''; 	} 
-                if (!isset($old_address['sl_city'])) 	{ $old_address['sl_city'] = ''; 	} 
-                if (!isset($old_address['sl_state'])) 	{ $old_address['sl_state'] = ''; 	} 
-                if (!isset($old_address['sl_zip'])) 	{ $old_address['sl_zip'] = ''; 		} 
+        if (!isset($old_address[0]['sl_address']))  { $old_address[0]['sl_address'] = '';   } 
+        if (!isset($old_address[0]['sl_address2'])) { $old_address[0]['sl_address2'] = '';  } 
+        if (!isset($old_address[0]['sl_city'])) 	{ $old_address[0]['sl_city'] = ''; 	    } 
+        if (!isset($old_address[0]['sl_state'])) 	{ $old_address[0]['sl_state'] = ''; 	} 
+        if (!isset($old_address[0]['sl_zip'])) 	    { $old_address[0]['sl_zip'] = ''; 		} 
                 
-		if ($the_address!=
-		    "$old_address[sl_address] $old_address[sl_address2], $old_address[sl_city], " .
-		    "$old_address[sl_state] $old_address[sl_zip]" || 
-		    ($old_address['sl_latitude']=="" || $old_address['sl_longitude']=="")
+        // RE-geocode if the address changed
+        // or if the lat/long is not set
+        //
+		if (   ($the_address!=
+		        $old_address[0]['sl_address'].' '.$old_address[0]['sl_address2'].', '.$old_address[0]['sl_city'].', '.
+		        $old_address[0]['sl_state'].' '.$old_address[0]['sl_zip']
+		        ) ||
+		        ($old_address[0]['sl_latitude']=="" || $old_address[0]['sl_longitude']=="")
             	) {
 			do_geocoding($the_address,$_GET['edit']);
 		}
@@ -344,7 +347,7 @@ if (get_option('sl_location_table_view')!="Normal") {
         ;    
 }
 
-print '<th>(Lat, Lon)</th></tr></thead>';
+print '<th>Lat</th><th>Lon</th></tr></thead>';
 
 if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix . 
         "store_locator  $where ORDER BY $opt $dir LIMIT $start,$num_per_page", ARRAY_A)) {
@@ -360,7 +363,8 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
 			//
 			if (isset($_GET['edit']) && ($locID==$_GET['edit'])) {
 				print "<tr style='background-color:$bgcol'>";
-	            $colspan=(get_option('sl_location_table_view')!="Normal")? 	16 : 11;	
+	            $colspan=(get_option('sl_location_table_view')!="Normal")? 	12 : 18;	
+                if ($slplus_plugin->license->packages['Store Pages']->isenabled) { $colspan++; }	            
 				
                 print "<td colspan='$colspan'><form name='manualAddForm' method=post>
                 <a name='a".$locID."'></a>
@@ -461,7 +465,9 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                             <td>$value[sl_phone]</td>
                             <td>$value[sl_image]</td>";
                 }                
-                print "<td>(".$value['sl_latitude'].",&nbsp;".$value['sl_longitude'].")</td> </tr>";
+                print "<td>".$value['sl_latitude']."</td>";
+                print "<td>".$value['sl_longitude']."</td>";
+                print "</tr>";
 			}
 		}
 } else {
