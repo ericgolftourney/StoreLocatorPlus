@@ -185,7 +185,7 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 = 2.7 (May 14th, 2012) =
 
 * [Store Pages] New premium add-on is available for purchase.
-* [Pro Pack] You can now override the latitude/longitude of geocoded locations.
+* [Pro Pack 2.7+] You can now override the latitude/longitude of geocoded locations.
 * [Pro Pack] Speed up reporting system for heavy traffic sites.
 * Add locations form tweaks.
 * More code performance and structure improvements.
