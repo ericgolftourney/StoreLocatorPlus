@@ -67,12 +67,14 @@ if (!$slak) {
 		$field_value_str = '';
 		foreach ($_POST as $key=>$value) {
 			if (ereg("\-$_GET[edit]", $key)) {
-				$field_value_str.="sl_".ereg_replace("\-$_GET[edit]", "", $key)."='".
-                    trim(comma($value))."', ";
-                    
-                // strip off number at the end 
-                $key=ereg_replace("\-$_GET[edit]", "", $key); 
-				$_POST["$key"]=$value; 
+			    $slpFieldName = ereg_replace("\-$_GET[edit]", "", $key); 
+			    if (!$slplus_plugin->license->packages['Pro Pack']->isenabled) {
+			        if ( ($slpFieldName == 'latitude') || ($slpFieldName == 'longitude')) {
+			            continue;
+			        }
+                }			         
+				$field_value_str.="sl_".$slpFieldName."='".trim(comma($value))."', ";
+				$_POST[$slpFieldName]=$value; 
 			}
 		}
 		$field_value_str=substr($field_value_str, 0, strlen($field_value_str)-2);
@@ -82,7 +84,7 @@ if (!$slak) {
 		
 		$old_address=$wpdb->get_results("SELECT * FROM ".$wpdb->prefix."store_locator WHERE sl_id=$_GET[edit]", ARRAY_A);
 		$wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET $field_value_str WHERE sl_id=$_GET[edit]");
-                
+		
         if (!isset($old_address[0]['sl_address']))  { $old_address[0]['sl_address'] = '';   } 
         if (!isset($old_address[0]['sl_address2'])) { $old_address[0]['sl_address2'] = '';  } 
         if (!isset($old_address[0]['sl_city'])) 	{ $old_address[0]['sl_city'] = ''; 	    } 
@@ -97,7 +99,7 @@ if (!$slak) {
 		        $old_address[0]['sl_state'].' '.$old_address[0]['sl_zip']
 		        ) ||
 		        ($old_address[0]['sl_latitude']=="" || $old_address[0]['sl_longitude']=="")
-            	) {
+            	) {        
 			do_geocoding($the_address,$_GET['edit']);
 		}
 		

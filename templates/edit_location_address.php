@@ -1,5 +1,5 @@
 <?php 
-    global $value;
+    global $value, $slplus_plugin;
 ?>
 <table>
     <tr>
@@ -22,10 +22,18 @@
             <input name='country-<?php echo $value['sl_id']?>' value='<?php echo $value['sl_country']?>'  style='width: 40em;'><br/>
 
 		    <label  for='latitude-<?php echo $value['sl_id']?>'><?php _e('Latitude (N/S)', SLPLUS_PREFIX);?></label>
-            <input name='latitude-<?php echo $value['sl_id']?>' value='<?php echo $value['sl_latitude']?>'  style='width: 40em;'><br/>
+		    <?php if ($slplus_plugin->license->packages['Pro Pack']->isenabled) { ?>    
+		        <input name='latitude-<?php echo $value['sl_id']?>' value='<?php echo $value['sl_latitude']?>'  style='width: 40em;'><br/>
+            <?php } else { ?>
+		        <input class='disabled'  name='latitude-<?php echo $value['sl_id']?>' value='<?php echo __('Changing the latitude is a Pro Pack feature.',SLPLUS_PREFIX).' ('.$value['sl_latitude'].')';?>'  style='width: 40em;'><br/>
+            <?php } ?>
 
 		    <label  for='longitude-<?php echo $value['sl_id']?>'><?php _e('Longitude (E/W)', SLPLUS_PREFIX);?></label>
-            <input name='longitude-<?php echo $value['sl_id']?>' value='<?php echo $value['sl_longitude']?>'  style='width: 40em;'><br/>
+		    <?php if ($slplus_plugin->license->packages['Pro Pack']->isenabled) { ?>    
+		        <input name='longitude-<?php echo $value['sl_id']?>' value='<?php echo $value['sl_longitude']?>'  style='width: 40em;'><br/>
+            <?php } else { ?>
+		        <input class='disabled' name='longitude-<?php echo $value['sl_id']?>' value='<?php echo __('Changing the longitude is a Pro Pack feature.',SLPLUS_PREFIX).' ('.$value['sl_longitude'].')'; ?>'  style='width: 40em;'><br/>
+            <?php } ?>
             </div>
         </td>
     </tr>
