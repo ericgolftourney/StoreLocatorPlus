@@ -196,6 +196,7 @@ The legacy customization setup is going away.   You should migrate any legacy ic
 
 * [Store Pages] New premium add-on is available for purchase.
 * [Pro Pack 2.7+] You can now override the latitude/longitude of geocoded locations.
+* [Pro Pack 2.7+] You can override the default theme for the plugin via shortcode attributes.
 * [Pro Pack] Speed up reporting system for heavy traffic sites.
 * Add locations form tweaks.
 * More code performance and structure improvements.

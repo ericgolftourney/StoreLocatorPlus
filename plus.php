@@ -320,15 +320,16 @@ function slplus_shortcode_atts($attributes) {
 
     // Pro Pack Enabled
     //
-    if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {                
-        shortcode_atts(
+    if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+        $slpAtts =
             array(
                 'tags_for_pulldown'=> null, 
                 'only_with_tag'    => null,
-                'theme'            => null,
-                ),
-            $attributes
-            );
+                );        
+        if ($slplus_plugin->license->packages['Pro Pack']->active_version >= 2007000) {
+            array_merge($slpAtts,array('theme' => null));
+        }
+        shortcode_atts($slpAtts,$attributes);
     }
 }
 
