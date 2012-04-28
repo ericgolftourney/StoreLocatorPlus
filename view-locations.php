@@ -226,7 +226,7 @@ if (!$slak) {
                                         "WHERE sl_id=$thisLocation"
                                         );                        
                         print "<div class='updated settings-error'>" .
-                                (($slpNewPostID != $_REQUEST['slp_pageid'])?'Created new ':'Updated ').
+                                ( (isset($_REQUEST['slp_pageid']) && ($slpNewPostID != $_REQUEST['slp_pageid']))?'Created new ':'Updated ').
                                 " store page #<a href='$slpNewPostURL'>$slpNewPostID</a>" .
                                 " for location # $thisLocation" .
                                 "</div>\n";
