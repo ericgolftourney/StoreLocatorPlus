@@ -308,7 +308,7 @@ $slpCleanURL = str_replace("&o=$opt&sortorder=$dir", '', $_SERVER['REQUEST_URI']
 $altdir= (($dir=='DESC') ? 'ASC':'DESC');
 
 print "<br>
-<table class='widefat' cellspacing=0>
+<table class='slplus widefat' cellspacing=0>
     <thead>
     <tr >
         <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>

@@ -295,12 +295,11 @@ input#bulk_file {
 /***************************
  * Locations: Manage
  */
-
- div.wrap table.widefat thead tr th {
+ div.wrap table.slplus.widefat thead tr th {
      background-image: -moz-linear-gradient(center top , #808080, #404040);
  }
- div.wrap table.widefat thead tr th,
- div.wrap table.widefat thead tr th a 
+ div.wrap table.slplus.widefat thead tr th,
+ div.wrap table.slplus.widefat thead tr th a 
  {
     color: #EEEEFF;
     font-weight: bold;
@@ -309,11 +308,11 @@ input#bulk_file {
     font-size: 14px;
     font-family: "Trebuchet MS", Helvetica, sans-serif; 
  }
- div.wrap table.widefat thead tr th a {
+ div.wrap table.slplus.widefat thead tr th a {
     color: #9999FF;
     text-decoration: underline;
  }
- div.wrap table.widefat thead tr th input.button {
+ div.wrap table.slplus.widefat thead tr th input.button {
      vertical-align: middle;
  }
  input.disabled {
