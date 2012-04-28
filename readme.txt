@@ -203,6 +203,7 @@ The legacy customization setup is going away.   You should migrate any legacy ic
 * Updated admin interface icons for manage listings, etc.
 * Navigation bar header UI cleanup.
 * The SLPlus themes only load/render on pages with the shortcode.
+* Blank addresses are now allowed, the search will default to the center of the map.
 * bug fix: do not re-run geocoding if address does not change during edit
 * bug fix: Selecting map type was not changing the UI.
 * NOTE: If you use the legacy ./custom-css you will need to upgrade to the Pro Pack and use themes.
