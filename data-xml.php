@@ -22,9 +22,7 @@ if (!$db_selected) {
 }
 
 
-$num_initial_displayed=(trim(get_option('sl_num_initial_displayed'))!="")? 
-    get_option('sl_num_initial_displayed') : 
-    '25';
+$num_initial_displayed=trim(get_option('sl_num_initial_displayed','25'));
 
 
 // If tags are passed filter to just those tags
