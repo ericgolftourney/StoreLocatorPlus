@@ -190,9 +190,13 @@ The theming system uses the built-in CSS management system of WordPress allowing
 
 The legacy customization setup is going away.   You should migrate any legacy icons or stylesheets to the new themes location.   Icons should go in the main ./core/images/icons directory.   If you have open-source or commercial license approved icons you want to have included in the next release, please  [contact us](http://www.cybersprocket.com/contact-us/).
 
+[Version 2.7 Release Notes](http://redmine.cybersprocket.com/projects/mc-closeststore/versions/490)
+
 == Changelog ==
 
 = 2.7 (May 14th, 2012) =
+
+[Version 2.7 Release Notes](http://redmine.cybersprocket.com/projects/mc-closeststore/versions/490)
 
 * [Store Pages] New premium add-on is available for purchase.
 * [Pro Pack 2.7+] You can now override the latitude/longitude of geocoded locations.
