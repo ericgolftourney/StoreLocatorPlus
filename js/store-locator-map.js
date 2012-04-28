@@ -203,23 +203,32 @@ function escapeExtended(string) {
 function searchLocations() {
     var address = document.getElementById('addressInput').value;
     
-    geocoder.getLatLng(escapeExtended(address), 
-        function(latlng) {
-            if (!latlng) {
-                var theMessage = ''; 
-                if (slplus.debug_mode) {
-                    theMessage = 'Google geocoder could not find ' + escape (address) + ' :: ';
+    // Address was given, use it...
+    //
+    if (address != '') {
+        geocoder.getLatLng(escapeExtended(address), 
+            function(latlng) {
+                if (!latlng) {
+                    var theMessage = ''; 
+                    if (slplus.debug_mode) {
+                        theMessage = 'Google geocoder could not find ' + escape (address) + ' :: ';
+                    }
+                    theMessage += address + ' not found'; 
+                    alert(theMessage);
+                } else {
+                    if (slplus.debug_mode) {
+                        alert('Searching near ' + address + ' ' + latlng);
+                    }
+                    searchLocationsNear(latlng, address); 
                 }
-                theMessage += address + ' not found'; 
-                alert(theMessage);
-            } else {
-                if (slplus.debug_mode) {
-                    alert('Searching near ' + address + ' ' + latlng);
-                }
-                searchLocationsNear(latlng, address); 
             }
-        }
-    );
+        );
+
+    // No Address, Use Current Map Center
+    //
+    } else {
+        searchLocationsNear(map.getCenter(), '');         
+    }    
     
     jQuery('#map_box_image').hide();
     jQuery('#map_box_map').show();
@@ -228,7 +237,7 @@ function searchLocations() {
 
 
 /**************************************
- * function: searchLocations()
+ * function: searchLocationsNear()
  *
  * Run this when we do a search, first get the lat/long of the address entered
  * then call find locations near that address.
