@@ -296,7 +296,12 @@ input#bulk_file {
  * Locations: Manage
  */
  div.wrap table.slplus.widefat thead tr th {
-     background-image: -moz-linear-gradient(center top , #808080, #404040);
+    background: #404040; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#808080', endColorstr=' #404040'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#808080), to( #404040)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #808080,   #404040); /* for firefox 3.6+ */
+    background-image: -moz-linear-gradient(center top , #808080, #404040);
+    text-decoration: none;     
  }
  div.wrap table.slplus.widefat thead tr th,
  div.wrap table.slplus.widefat thead tr th a 
