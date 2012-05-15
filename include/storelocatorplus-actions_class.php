@@ -236,7 +236,7 @@ if (! class_exists('SLPlus_Actions')) {
                 wp_register_script(
                         'slplus_map',
                         SLPLUS_PLUGINURL.'/core/js/store-locator-map.js',
-                        array('google_maps')
+                        array('google_maps','jquery')
                         ); 
                 
                 // Setup Email Form Script If Selected
