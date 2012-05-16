@@ -89,7 +89,7 @@ if (! class_exists('SLPlus_Actions')) {
                 'text', 
                 false,
                 'Your Google API Key.  You will need to ' .
-                '<a href="http://code.google.com/apis/maps/signup.html" target="newinfo">'.
+                '<a href="http://code.google.com/apis/console/" target="newinfo">'.
                 'go to Google</a> to get your Google Maps API Key.'
             );
         

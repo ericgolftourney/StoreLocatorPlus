@@ -84,7 +84,7 @@ Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
 
 1. Upload the `store-locator-plus` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Sign up for a Google Maps API Key for your domain at http://code.google.com/apis/maps/signup.html
+3. Sign up for a Google Maps API Key for your domain at http://code.google.com/apis/console/
 4. Add your locations through the 'Add Locations' page in the Store Locator admin panel
 5. Place the code '[STORE-LOCATOR]' (case-sensitive) in the body of a page or a post to display your store locator
 
