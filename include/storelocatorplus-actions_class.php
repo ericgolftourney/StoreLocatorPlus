@@ -231,13 +231,16 @@ if (! class_exists('SLPlus_Actions')) {
                 wp_register_script('slplus_functions',SLPLUS_PLUGINURL.'/core/js/functions.js');
                 wp_register_script(
                         'google_maps',
-                        "http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$sl_map_character_encoding}"                        
+						"http://maps.googleapis.com/maps/api/js?key=$api_key&sensor=false" //todo:character encoding and map domain
+                        //"http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$sl_map_character_encoding}"                        
                         );
                 wp_register_script(
                         'slplus_map',
                         SLPLUS_PLUGINURL.'/core/js/store-locator-map.js',
                         array('google_maps','jquery')
                         ); 
+						
+				wp_register_script('csl_script', SLPLUS_PLUGINURL.'/core/js/csl.js', array('jquery'));
                 
                 // Setup Email Form Script If Selected
                 //                
@@ -265,9 +268,10 @@ if (! class_exists('SLPlus_Actions')) {
                 
                 // Register Load JavaScript
                 //
-                wp_enqueue_script('slplus_functions');
+                //wp_enqueue_script('slplus_functions');
                 wp_enqueue_script('google_maps');                
-                wp_enqueue_script('slplus_map');
+                //wp_enqueue_script('slplus_map');
+				wp_enqueue_script('csl_script');
                 
                 if (get_option(SLPLUS_PREFIX.'_email_form')==1) {
                     wp_enqueue_script('slplus_emailform');
@@ -280,6 +284,7 @@ if (! class_exists('SLPlus_Actions')) {
                 // Force our scripts to load for badly behaved themes
                 //
                 wp_print_footer_scripts();
+				/*
 ?>                
                 <script type='text/javascript'>
                     jQuery(window).load(function() {
@@ -304,7 +309,7 @@ if (! class_exists('SLPlus_Actions')) {
                         }
                     );                
                 </script>
-<?php                       
+<?php                       */
             }             
         }            
     }
