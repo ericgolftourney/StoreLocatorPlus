@@ -146,9 +146,7 @@ var csl = {
   	  	
   	  	this.__init = function() {
 			if (this.__iconUrl != null) {
-				this.__iconImage = new google.maps.MarkerImage(this.__iconUrl,
-					//set the size
-					new google.maps.Size(this.__iconWidth, this.__iconHeight));
+				this.__iconImage = this.__iconUrl;
 			}
 			//this.__iconImage = null;
 			if (this.__iconImage == null)
@@ -188,6 +186,7 @@ var csl = {
   	  	  	  	animation: this.__animationType,
 				shadow: this.__shadowImage,
 				icon: this.__iconImage,
+				zIndex: 0,
   	  	  	  	position: this.__position,
   	  	  	  	title: this.__title
   	  	  	});
@@ -207,12 +206,12 @@ var csl = {
 		this.useShadow = function() {
 			console.log('using shadow');
 			var shadow = this.__iconUrl.replace('.png', '_shadow.png');
-			this.__shadowImage = new google.maps.MarkerImage(shadow);
+			this.__shadowImage = shadow;
 				//set the size
 				//new google.maps.Size(this.__iconWidth, this.__iconHeight));
 			this.buildMarker();
 		}
-  	  	  
+  	  	 
   	  	this.__init();
   	},
 	
@@ -785,8 +784,8 @@ var csl = {
 			if (aMarker.zip == '') { aMarker.zip = ""; }
 			
 			if (slplus.show_tags) {
-				if (jQuery.trim(tags) != '') {
-					html += '<br/>'+tags;
+				if (jQuery.trim(aMarker.tags) != '') {
+					html += '<br/>'+aMarker.tags;
 				}
 			}
 			//todo: check store pages linkage
@@ -821,7 +820,14 @@ var csl = {
 			console.log(center);
 			console.log(radius);
 			console.log('searching: ' + center.lat() +','+ center.lng());
-			var action = {action:'csl_ajax_search',lat:center.lat(),lng:center.lng(),radius:radius, tags: tags, generalTerms:generalTerms };
+			var action = null;
+			if (realsearch) {
+				action = {action:'csl_ajax_search',lat:center.lat(),lng:center.lng(),radius:radius, tags: tags };
+			}
+			else {
+				action = {action:'csl_ajax_onload',lat:center.lat(),lng:center.lng(),tags:tags };
+			}
+			console.log(action);
 			var _this = this;
 			var ajax = new csl.Ajax();
 			//todo: error checking

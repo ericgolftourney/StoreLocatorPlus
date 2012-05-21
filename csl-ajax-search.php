@@ -4,9 +4,103 @@
  **
  ** Perform a search via ajax
  ***************************************************************************/
-error_reporting(0);
+//error_reporting(0);
 //header("Content-type: text/xml");
 
+function csl_ajax_onload() {
+	global $wpdb;
+	$username=DB_USER;
+	$password=DB_PASSWORD;
+	$database=DB_NAME;
+	$host=DB_HOST;
+	//include("database-info.php");
+	$dbPrefix = $wpdb->prefix;
+	// Opens a connection to a MySQL server
+	$connection=mysql_connect ($host, $username, $password);
+	if (!$connection) {
+		die (json_encode( array('success' => false, 'response' => 'Not connected : ' . mysql_error())));
+	}
+
+	// Set the active MySQL database
+	$db_selected = mysql_select_db($database, $connection);
+	mysql_query("SET NAMES utf8");
+	if (!$db_selected) {
+	  die (json_encode( array('success' => false, 'response' => 'Can\'t use db : ' . mysql_error())));
+	}
+
+
+	$num_initial_displayed=trim(get_option('sl_num_initial_displayed','25'));
+
+
+	// If tags are passed filter to just those tags
+	//
+	$tag_filter = ''; 
+	if (
+		(get_option($prefix.'_show_tag_search') ==1) &&
+		isset($_POST['tags']) && ($_POST['tags'] != '')
+	   ){
+		$posted_tag = preg_replace('/^\s+(.*?)/','$1',$_POST['tags']);
+		$posted_tag = preg_replace('/(.*?)\s+$/','$1',$posted_tag);
+		$tag_filter = " AND ( sl_tags LIKE '%%". $posted_tag ."%%') ";
+	}
+	   
+
+	//Since miles is default, if kilometers is selected, divide by 1.609344 in order to convert the kilometer value selection back in miles when generating the XML
+	//
+	$multiplier=(get_option('sl_distance_unit')=="km")? (3959*1.609344) : 3959;
+		
+	// Select all the rows in the markers table
+	$query = "SELECT *, ".
+		"( $multiplier * acos( cos( radians('".$_POST['lat']."') ) * cos( radians( sl_latitude ) ) * " .
+				"cos( radians( sl_longitude ) - radians('".$_POST['lng']."') ) + sin( radians('".$_POST['lat']."') ) * ".
+				"sin( radians( sl_latitude ) ) ) ) AS sl_distance ".    
+		"FROM ".$wpdb->prefix."store_locator ".
+		"WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>'' $tag_filter ".
+		"ORDER BY sl_distance ASC ".
+		"LIMIT $num_initial_displayed";
+		
+	$result = mysql_query($query);
+	if (!$result) {
+	  die('Invalid query: ' . mysql_error());
+	}
+
+	$response = array();
+	// Show Tags
+	//
+	$slplus_show_tags = (get_option(SLPLUS_PREFIX.'_show_tags') ==1);
+
+	// Iterate through the rows, printing json nodes for each
+	while ($row = @mysql_fetch_assoc($result)){
+	  // ADD TO json response
+	  $marker = array(
+	  'name' => esc_attr($row['sl_store']),
+			'address' => esc_attr($row['sl_address']),
+			'address2' => esc_attr($row['sl_address2']),
+			'city' => esc_attr($row['sl_city']),
+			'state' => esc_attr($row['sl_state']),
+			'zip' => esc_attr($row['sl_zip']),
+			'lat' => $row['sl_latitude'],
+			'lng' => $row['sl_longitude'],
+			'description' => esc_attr($row['sl_description']),
+			'url' => esc_attr($row['sl_url']),
+			'sl_pages_url' => esc_attr($row['sl_pages_url']),
+			'email' => esc_attr($row['sl_email']),
+			'hours' => esc_attr($row['sl_hours']),
+			'phone' => esc_attr($row['sl_phone']),
+			'image' => esc_attr($row['sl_image']),
+			'distance' => $row['sl_distance'],
+			'tags' => ($slplus_show_tags) ? esc_attr($row['sl_tags']) : ''
+		);
+		$response[] = $marker;
+	}
+	
+	$response = json_encode( array( 'success' => true, 'count' => count($response) , 'response' => $response ) );
+	
+	header( "Content-Type: application/json" );
+    echo $response;
+	
+	die();
+}
 
 function csl_ajax_search() {
 	global $wpdb;
@@ -70,11 +164,13 @@ function csl_ajax_search() {
 	"( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
 	"FROM ${dbPrefix}store_locator HAVING (sl_distance < '%s') ".
 	$tag_filter .
-	'ORDER BY sl_distance ASC ' ,
+	'ORDER BY sl_distance ASC '.
+	'LIMIT %s',
 	mysql_real_escape_string($center_lat),
 	mysql_real_escape_string($center_lng),
 	mysql_real_escape_string($center_lat),
-	mysql_real_escape_string($radius)
+	mysql_real_escape_string($radius),
+	mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned'])
 	);
     
 	$result = mysql_query($query);
@@ -110,7 +206,8 @@ function csl_ajax_search() {
 			'hours' => esc_attr($row['sl_hours']),
 			'phone' => esc_attr($row['sl_phone']),
 			'image' => esc_attr($row['sl_image']),
-			'tags' => ($slplus_show_tags) ? esc_attr($row['sl_tags']) : '==notags=='
+			'distance' => $row['sl_distance'],
+			'tags' => ($slplus_show_tags) ? esc_attr($row['sl_tags']) : ''
 		);
 		$response[] = $marker;
 	}
