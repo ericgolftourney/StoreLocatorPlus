@@ -132,24 +132,86 @@ var csl = {
 	 *		iconUrl: todo: load a custom icon, null for default
 	 *		position: the lat/long to put the marker at
   	 */
-  	Marker: function (animationType, map, title, iconUrl, position) {
+  	Marker: function (animationType, map, title, position, iconUrl, iconSizeW, iconSizeH) {
 		this.__animationType = animationType;
   	  	this.__map = map;
   	  	this.__title = title;
-  	  	this.__icon = iconUrl;
+  	  	this.__iconUrl = iconUrl;
   	  	this.__position = position;
   	  	this.__gmarker = null;
+		this.__iconHeight = iconSizeH;
+		this.__iconWidth = iconSizeW;
+		this.__iconImage = null;
+		this.__shadowImage = null;
   	  	
   	  	this.__init = function() {
+			if (this.__iconUrl != null) {
+				this.__iconImage = new google.maps.MarkerImage(this.__iconUrl,
+					//set the size
+					new google.maps.Size(this.__iconWidth, this.__iconHeight));
+			}
+			//this.__iconImage = null;
+			if (this.__iconImage == null)
+			{
+				console.log('using default marker');
+				this.__gmarker = new google.maps.Marker(
+				{
+					position: this.__position,
+					map: this.__map.gmap,
+					animation: this.__animationType,
+					position: this.__position,
+					title: this.__title
+				});
+			}		
+			//find the shadow icon
+			else {
+				// var http = new XMLHttpRequest();
+				// http.onreadystatechange = function() { };
+				// http.open("HEAD", this.__iconUrl.replace('.png', '_shadow.png'), false);
+				// http.send(null);
+				
+				// if (http.status == 404) {
+					// this.noShadow();
+				// }
+				// else {
+					this.useShadow();
+				//}
+			}
+			
+  	  	}
+		
+		this.buildMarker = function() {
 			this.__gmarker = new google.maps.Marker(
   	  	  	{
 				position: this.__position,
   	  	  	  	map: this.__map.gmap,
   	  	  	  	animation: this.__animationType,
+				shadow: this.__shadowImage,
+				icon: this.__iconImage,
   	  	  	  	position: this.__position,
   	  	  	  	title: this.__title
   	  	  	});
-  	  	}
+		}
+		
+		this.noShadow = function() {
+			console.log('not using shadow');
+			var parts = this.__iconUrl.split('/');
+			var shadow = this.__iconUrl.replace(parts[parts.length - 1], 'blank.png');
+			this.__shadowImage = new google.maps.MarkerImage(shadow,
+				//set the size
+				new google.maps.Size(this.__iconWidth, this.__iconHeight));
+			this.buildMarker();
+			
+		}
+		
+		this.useShadow = function() {
+			console.log('using shadow');
+			var shadow = this.__iconUrl.replace('.png', '_shadow.png');
+			this.__shadowImage = new google.maps.MarkerImage(shadow);
+				//set the size
+				//new google.maps.Size(this.__iconWidth, this.__iconHeight));
+			this.buildMarker();
+		}
   	  	  
   	  	this.__init();
   	},
@@ -374,8 +436,8 @@ var csl = {
 			this.mapHomeIconWidth = slplus.map_home_icon_sizew;
 			this.mapHomeIconHeight = slplus.map_home_icon_sizeh;
 			this.mapEndIconUrl = slplus.map_end_icon;
-			this.mapEndIconWidth = slplus.map_end_icon_sizew;
-			this.mapEndIconHeight = slplus.map_end_icon_sizeh;
+			this.mapEndIconWidth = slplus.map_end_sizew;
+			this.mapEndIconHeight = slplus.map_end_sizeh;
 			this.mapScaleControl = slplus.map_scalectrl;
 			this.mapTypeControl = !!slplus.map_typectrl;
 			this.showTags = slplus.show_tags;
@@ -499,7 +561,7 @@ var csl = {
 				this.centerMarker.__gmarker.setMap(null);
 			}
 			if (this.homePoint) {
-				this.centerMarker = new csl.Marker(csl.Animation.None, this, "", null, this.homePoint);
+				this.centerMarker = new csl.Marker(csl.Animation.None, this, "", this.homePoint, this.mapHomeIconUrl, this.mapHomeIconWidth, this.mapHomeIconHeight);
 			}
   	  	}
 		
@@ -559,7 +621,7 @@ var csl = {
 				}
 				
 				console.log(position);
-				this.markers.push(new csl.Marker(animation, this, "", null, position));
+				this.markers.push(new csl.Marker(animation, this, "", position, this.mapEndIconUrl, this.mapEndIconWidth, this.mapEndIconHeight ));
 				_this = this;
 				
 				//create info windows
