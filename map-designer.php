@@ -233,10 +233,10 @@ $city_checked	    = (get_option('sl_use_city_search')             ==1)?' checked
 $checked3	        = (get_option('sl_remove_credits')              ==1)?' checked ':'';
 
 $map_type_options=(isset($map_type_options)?$map_type_options:'');
-$map_type["".__("Normal", SLPLUS_PREFIX).""]="G_NORMAL_MAP";
-$map_type["".__("Satellite", SLPLUS_PREFIX).""]="G_SATELLITE_MAP";
-$map_type["".__("Hybrid", SLPLUS_PREFIX).""]="G_HYBRID_MAP";
-$map_type["".__("Physical", SLPLUS_PREFIX).""]="G_PHYSICAL_MAP";
+$map_type["".__("Normal", SLPLUS_PREFIX).""]="roadmap";
+$map_type["".__("Satellite", SLPLUS_PREFIX).""]="satellite";
+$map_type["".__("Hybrid", SLPLUS_PREFIX).""]="hybrid";
+$map_type["".__("Physical", SLPLUS_PREFIX).""]="terrain";
 
 
 $zl[]=0;$zl[]=1;$zl[]=2;$zl[]=3;$zl[]=4;$zl[]=5;$zl[]=6;$zl[]=7;$zl[]=8;

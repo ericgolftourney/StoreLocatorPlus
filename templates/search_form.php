@@ -5,7 +5,7 @@
       $prefix, $fnvars, $slplus_plugin;
 ?>
 <div id='sl_div'>
-  <form onsubmit='searchLocations(); return false;' id='searchForm' action=''>
+  <form onsubmit='cslmap.searchLocations(); return false;' id='searchForm' action=''>
     <table  id='search_table' border='0' cellpadding='3px' class='sl_header'><tr>
 	<td valign='top'>
 	    <div id='address_search'>

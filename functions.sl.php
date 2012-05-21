@@ -100,7 +100,7 @@ function initialize_variables() {
         }
     $sl_map_type=get_option('sl_map_type');
     if (empty($sl_map_type)) {
-        $sl_map_type='G_NORMAL_MAP';
+        $sl_map_type='roadmap';
         add_option('sl_map_type', $sl_map_type);
         }
     $sl_remove_credits=get_option('sl_remove_credits');
@@ -451,7 +451,7 @@ function slplus_dbupdater($sql,$table_name) {
         }
     }   
 }
-
+//todo: fix activation of store pages
 /**************************************
  ** function: store_locator_shortcode
  **
@@ -595,6 +595,8 @@ function slplus_dbupdater($sql,$table_name) {
     $slplus_end_size =(function_exists('getimagesize') && file_exists($slplus_end_icon_file)) ? 
         getimagesize($slplus_end_icon_file)  : 
         array(0 => 20, 1 => 34);
+		
+	//todo: make sure map type gets set to a sane value before getting here.
     
     // Lets get some variables into our script
     //
@@ -614,7 +616,7 @@ function slplus_dbupdater($sql,$table_name) {
         'map_end_sizew'     => $slplus_end_size[0],
         'map_end_sizeh'     => $slplus_end_size[1],
         'map_scalectrl'     => (get_option(SLPLUS_PREFIX.'_disable_scalecontrol')==0),
-        'map_type'          => get_option('sl_map_type','G_NORMAL_MAP'),
+        'map_type'          => get_option('sl_map_type','roadmap'),
         'map_typectrl'      => (get_option(SLPLUS_PREFIX.'_disable_maptypecontrol')==0),
         'show_tags'         => (get_option(SLPLUS_PREFIX.'_show_tags')==1),
         'overview_ctrl'     => get_option('sl_map_overview_control',0),

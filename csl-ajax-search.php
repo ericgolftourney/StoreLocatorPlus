@@ -70,13 +70,11 @@ function csl_ajax_search() {
 	"( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
 	"FROM ${dbPrefix}store_locator HAVING (sl_distance < '%s') ".
 	$tag_filter .
-	'ORDER BY sl_distance ASC ' .
-	'LIMIT %s',
+	'ORDER BY sl_distance ASC ' ,
 	mysql_real_escape_string($center_lat),
 	mysql_real_escape_string($center_lng),
 	mysql_real_escape_string($center_lat),
-	mysql_real_escape_string($radius),
-	mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned'])
+	mysql_real_escape_string($radius)
 	);
     
 	$result = mysql_query($query);
@@ -118,7 +116,7 @@ function csl_ajax_search() {
 	}
 	
 	// generate the response
-    $response = json_encode( array( 'success' => true, 'response' => $response ) );
+    $response = json_encode( array( 'success' => true, 'count' => count($response) , 'response' => $response ) );
  
     // response output
     header( "Content-Type: application/json" );

@@ -1,22 +1,22 @@
 /*****************************************************************
- * file: effortless-google-maps.js
+ * file: csl.js
  *
- * Prep our map interface.
+ * A centralized javascript code to be compatible with all CSL plugins so we can virtually save cats from trees.
  *
  *****************************************************************/
 
 /***************************
   * Cyber Sprocket Labs Namespace
   *
-  * For stuff to do awesome stuff
+  * For stuff to do awesome stuff like save lobby jones if he got stuck in a tree.
   *
   */
 var csl = {
 	
 	/***************************
-  	 * function: Ajax
+  	 * Class: Ajax
   	 * usage:
-	 * 		Sends an ajax request
+	 * 		Sends an ajax request (use Ajax.Send())
   	 * parameters:
   	 * 		action: A usable action { action: 'csl_ajax_search', lat: 'start lat', long: 'start long', dist:'distance to search' }
   	 *		callback: will be of the form: { success: true, response: {marker list}}
@@ -147,7 +147,7 @@ var csl = {
   	  	  	  	map: this.__map.gmap,
   	  	  	  	animation: this.__animationType,
   	  	  	  	position: this.__position,
-  	  	  	  	title: this.__title,
+  	  	  	  	title: this.__title
   	  	  	});
   	  	}
   	  	  
@@ -286,7 +286,7 @@ var csl = {
   	  	this.__init = function() {
 			this.__gwindow = new google.maps.InfoWindow(
   	  	  	{
-				content: this.__content,
+				content: this.__content
   	  	  	});
   	  	}
   	  	  
@@ -308,22 +308,39 @@ var csl = {
 		this.tilesLoaded = null;
   	  	
   	  	//php passed vars set in init
+		this.debug_mode = null;
   	  	this.address = null; //y
-  	  	this.zoom = null; //y
-  	  	this.view = null; //y
   	  	this.canvasID = null;
-  	  	this.draggable = true; //n
-  	  	this.overviewMapControl = true; //n
-  	  	this.panControl = true; //n
-  	  	this.rotateControl = true; //n
-  	  	this.scaleControl = true; //n
-  	  	this.scrollwheel = true; //n
-  	  	this.streetViewEnabled = true; //n
+  	  	this.draggable = true; 
   	  	this.tilt = 45; //n
-  	  	this.zoomAllowed = true; //n
-  	  	this.disableDefaultUI = false; //n
   	  	this.zoomStyle = 0; // 0 = default, 1 = small, 2 = large
-		this.markers;
+		this.markers = null;
+		
+		//slplus options
+		this.debugMode = null;
+		this.disableScroll = null;
+		this.disableDir = null;
+		this.distanceUnit = null;
+		this.loadLocations = null;
+		this.map3dControl = null;
+		this.mapCountry = null;
+		this.mapDomain = null;
+		this.mapHomeIconUrl = null;
+		this.mapHomeIconWidth = null;
+		this.mapHomeIconHeight = null;
+		this.mapEndIconUrl = null;
+		this.mapEndIconWidth = null;
+		this.mapEndIconHeight = null;
+		this.mapScaleControl = null;
+		this.mapType = null;
+		this.mapTypeControl = null;
+		this.showTags = null;
+		this.overviewControl = null;
+		this.useEmailForm = null;
+		this.usePagesLinks = null;
+		this.useSameWindow = null;
+		this.websiteLabel = null;
+		this.zoomLevel = null;
   	  	
   	  	//gmap set variables
   	  	this.options = null;
@@ -331,6 +348,45 @@ var csl = {
   	  	this.centerMarker = null;
 		this.marker = null;
 		this.infowindow = new google.maps.InfoWindow();
+		this.bounds = null;
+		this.homeAddress = null;
+		this.homePoint = null;
+		
+		/***************************
+  	  	 * function: __init()
+  	  	 * usage:
+  	  	 * Called at the end of the 'class' due to some browser's quirks
+  	  	 * parameters: none
+  	  	 * returns: none
+  	  	 */
+  	  	this.__init = function() {
+			this.address = slplus.map_country;
+  	  	  	this.zoom = slplus.zoom_level;
+  	  	  	this.mapType = slplus.map_type;
+			this.disableScroll = !!slplus.disable_scroll;
+			this.debugMode = !!slplus.debug_mode;
+			this.disableDir = !!slplus.disable_dir;
+			this.distanceUnit = slplus.distance_unit;
+			this.loadLocations = !!slplus.load_locations;
+			this.mapCountry = slplus.map_country;
+			this.mapDomain = slplus.map_domain;
+			this.mapHomeIconUrl = slplus.map_home_icon;
+			this.mapHomeIconWidth = slplus.map_home_icon_sizew;
+			this.mapHomeIconHeight = slplus.map_home_icon_sizeh;
+			this.mapEndIconUrl = slplus.map_end_icon;
+			this.mapEndIconWidth = slplus.map_end_icon_sizew;
+			this.mapEndIconHeight = slplus.map_end_icon_sizeh;
+			this.mapScaleControl = slplus.map_scalectrl;
+			this.mapTypeControl = !!slplus.map_typectrl;
+			this.showTags = slplus.show_tags;
+			this.overviewControl = !!slplus.overview_ctrl;
+			this.useEmailForm = !!slplus.use_email_form;
+			this.usePagesLink = !!slplus.use_pages_link;
+			this.useSameWindow = !!slplus.use_same_window;
+			this.websiteLabel = slplus.website_label;
+			this.zoomLevel = slplus.zoom_level;
+  	  	  	this.disableDefaultUI = false;
+  	  	}
   	  	
   	  	/***************************
   	  	 * function: __geocodeResult
@@ -344,23 +400,55 @@ var csl = {
   	  	this.__geocodeResult = function(results, status) {
 			if (status == 'OK' && results.length > 0)
   	  	  	{
-				this.options = {
-					center: results[0].geometry.viewport.getCenter(),
-  	  	  	  	  	zoom: parseInt(this.zoom),
-  	  	  	  	  	MapTypeId: this.view,
-  	  	  	  	  	disableDefaultUI: this.disableDefaultUI
-  	  	  	  	};
-  	  	  	  	this.gmap = new google.maps.Map(map, this.options);
+				console.log('building map');
+				
+					console.log(results[0]);
+				// if the map hasn't been created, then create one
+				if (this.gmap == null)
+				{
+					this.options = {
+						mapTypeControl: this.mapTypeControl,
+						mapTypeId: this.mapType,
+						overviewMapControl: this.overviewControl,
+						scrollwheel: this.disableScroll,
+						rotateControl: this.disableDir,
+						center: results[0].geometry.viewport.getCenter()
+					};
+					console.log(this.options);
+					this.gmap = new google.maps.Map(map, this.options);
+					console.log(this.gmap);
+					//this forces any bad css from themes to fix the "gray bar" issue by setting the css max-width to none
+					var _this = this;
+					google.maps.event.addListener(this.gmap, 'bounds_changed', function() {
+						_this.__waitForTileLoad.call(_this);
+					});
 				  
-				//this forces any bad css from themes to fix the "gray bar" issue by setting the css max-width to none
-				var _this = this;
-				google.maps.event.addListener(this.gmap, 'bounds_changed', function() {
-					_this.__waitForTileLoad.call(_this);
-				});
-				  
-				  
-  	  	  	  	//this.addMarkerAtCenter();
-				this.loadMarkers(null);
+					//load all the markers
+					this.loadMarkers(null, null);
+				}
+				//the map has been created so shift the center of the map
+				else {
+					//move the center of the map
+					//this.gmap.panTo(results[0].geometry.location);
+					this.homePoint = results[0].geometry.location;
+					this.homeAdress = results[0].formatted_address;
+					var doingGeneralSearch = false;
+					//todo: check to make sure this works when certain forms are disabled
+					var generalTerms = null;
+					if (addressInput2.value != '' || addressInputState.value != '' || addressInput3.value != '') { doingGeneralSearch = true; generalTerms = addressInput.value; }
+					
+					if (!doingGeneralSearch) {
+						this.addMarkerAtCenter();
+					}
+					//do a search based on settings
+					this.loadMarkers(results[0].geometry.location, radiusSelect.value, null, generalTerms);
+				}
+				//if the user entered an address, replace it with a formatted one
+				if (addressInput.value != '') {
+					console.log(addressInput.value);
+					console.log(results[0].formatted_address);
+					addressInput.value = results[0].formatted_address;
+				}
   	  	  	} else {
 				alert("Address could not be processed: " + status);
   	  	  	}
@@ -407,45 +495,143 @@ var csl = {
   	  	 * returns: none
   	  	 */
   	  	this.addMarkerAtCenter = function() {
-			this.centerMarker = new csl.Marker(csl.Animation.Drop, this, "", null, this.gmap.getCenter());
+			if (this.centerMarker) {
+				this.centerMarker.__gmarker.setMap(null);
+			}
+			if (this.homePoint) {
+				this.centerMarker = new csl.Marker(csl.Animation.None, this, "", null, this.homePoint);
+			}
   	  	}
 		
+		/***************************
+  	  	 * function: clearMarkers
+  	  	 * usage:
+  	  	 * 		Clears all the markers from the map and releases it for GC
+  	  	 * parameters:
+  	  	 * 	none
+  	  	 * returns: none
+  	  	 */
 		this.clearMarkers = function() {
 			if (this.markers) {
-				for (markerNumber in markerList) {
-					markerList[markerNumber].__gmarker.setMap(null);
+				for (markerNumber in this.markers) {
+					this.markers[markerNumber].__gmarker.setMap(null);
 				}
-				markerList.length = 0;
+				this.markers.length = 0;
 			}
 		}
 		
+		/***************************
+  	  	 * function: putMarkers
+  	  	 * usage:
+  	  	 * 		Puts an array of markers on the map with the given animation set
+  	  	 * parameters:
+  	  	 * 		markerList:
+		 *			a list of csl.Markers
+		 *		animation:
+		 *			the csl.Animation type
+  	  	 * returns: none
+  	  	 */
 		this.putMarkers = function(markerList, animation) {
 			this.markers = [];
+			var sidebar = document.getElementById('map_sidebar');
+			sidebar.innerHTML = '';
+			
+			//don't animate for a large set of results
+			if (markerList.length > 25) animation = csl.Animation.None;
+			
+			console.log('create latlng bounds for shifts');
+			var bounds;
+			console.log('number results ' + markerList.length);
 			for (markerNumber in markerList) {
 				console.log(markerList[markerNumber]);
 				var position = new google.maps.LatLng(markerList[markerNumber].lat, markerList[markerNumber].lng);
+				
+				if (markerNumber == 0)
+				{
+					console.log('create initial bounds');
+					bounds = new google.maps.LatLngBounds();
+					if (this.homePoint) { bounds.extend(this.homePoint); } else {
+						bounds.extend(this.gmap.getCenter()); }
+					bounds.extend(position);
+				}
+				else  if (markerNumber > 0) {
+					bounds.extend(position);
+				}
+				
 				console.log(position);
 				this.markers.push(new csl.Marker(animation, this, "", null, position));
 				_this = this;
+				
+				//create info windows
 				google.maps.event.addListener(this.markers[markerNumber].__gmarker, 'click', 
 				(function (infoData, marker) {
 					return function() {
 						_this.__handleInfoClicks.call(_this, infoData, marker);
 					}
 				})(markerList[markerNumber], this.markers[markerNumber]));
+				
+				//create a sidebar entry
+				var sidebarEntry = this.createSidebar(markerList[markerNumber]);
+				sidebar.appendChild(sidebarEntry);
+			}
+			
+			//check for results
+			if (markerList.length == 0) {
+				this.gmap.panTo(this.homePoint);
+				sidebar.innerHTML = '<div class="no_results_found"><h2>No results found.</h2></div>';
+			}
+			
+			if (bounds != null) {
+				console.log('rebounded');
+				this.bounds = bounds;
+				if (this.homePoint) { 
+					this.gmap.panTo(this.homePoint); }
+				this.gmap.fitBounds(this.bounds);
+				//this.gmap.panTo(this.bounds.getCenter());
 			}
 		}
 		
+		/***************************
+  	  	 * function: bounceMarkers
+  	  	 * usage:
+  	  	 * 		Puts a list of markers on the screen and makes them bounce
+  	  	 * parameters:
+  	  	 * 		markerlist:
+		 *			the list of csl.Markers to add to the map
+  	  	 * returns: none
+  	  	 */
 		this.bounceMarkers = function(markerList) {
+			this.clearMarkers();
 			console.log('bounce');
-			this.putMarkers(markerList, csl.Animation.Bounce);
+			this.putMarkers(markerList, csl.Animation.None);
 		}
 		
+		/***************************
+  	  	 * function: dropMarkers
+  	  	 * usage:
+  	  	 * 		drops a list of csl.Markers on the map
+  	  	 * parameters:
+  	  	 * 		markerList:
+		 *			the list of csl.Markers to drop
+  	  	 * returns: none
+  	  	 */
 		this.dropMarkers = function(markerList) {
+			this.clearMarkers();
 			console.log('dropping');
 			this.putMarkers(markerList, csl.Animation.Drop);
 		}
 		
+		/***************************
+  	  	 * function: private handleInfoClicks
+  	  	 * usage:
+  	  	 * 		Sets the content to the info window and builds the sidebar when a user clicks a marker
+  	  	 * parameters:
+  	  	 * 		infoData:
+		 *			the information to build the info window from (ajax result)
+		 *		marker:
+		 *			the csl.Marker to add the information to
+  	  	 * returns: none
+  	  	 */
 		this.__handleInfoClicks = function(infoData, marker) {
 			console.log(infoData);
 			console.log(marker);
@@ -454,20 +640,6 @@ var csl = {
 			//this.infowindow.setContent('hi');
 			this.infowindow.open(this.gmap, marker.__gmarker);
 		}
-  	  	  
-  	  	/***************************
-  	  	 * function: __init()
-  	  	 * usage:
-  	  	 * Called at the end of the 'class' due to some browser's quirks
-  	  	 * parameters: none
-  	  	 * returns: none
-  	  	 */
-  	  	this.__init = function() {
-			this.address = 'wilmington, nc';
-  	  	  	this.zoom = slplus.zoom_level;
-  	  	  	this.view = slplus.view;
-  	  	  	this.disableDefaultUI = false;
-  	  	}
   	  	  
   	  	/***************************
   	  	 * function doGeocode()
@@ -489,6 +661,15 @@ var csl = {
   	  	  	);
   	  	}
 		
+		/***************************
+  	  	 * function: createMarkerContent
+  	  	 * usage:
+  	  	 * 		Builds the html div for the info window
+  	  	 * parameters:
+  	  	 * 		aMarker:
+					the ajax result to build the information from
+  	  	 * returns: an html <div>
+  	  	 */
 		this.createMarkerContent = function(aMarker) {
 			var html = '';
 			if (aMarker.url.indexOf("http://") == -1)
@@ -505,7 +686,7 @@ var csl = {
 			if (aMarker.email.indexOf("@") != -1 && aMarker.email.indexOf(".") != -1) {
 				html += "| <a href='mailto:"+aMarker.email+"' target='_blank' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a>";
 			} else {
-				html += "| <a href='javascript:slp_show_email_form("+'"'+aMarker.email+'"'+");' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a><br/>";
+				html += "| <a href='javascript:cslutils.show_email_form("+'"'+aMarker.email+'"'+");' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a><br/>";
 			}
 			
 			if (aMarker.image.indexOf(".") != -1) {
@@ -546,27 +727,167 @@ var csl = {
 					html += '<br/>'+tags;
 				}
 			}
-			
+			//todo: check store pages linkage
 			//todo: actually include home address
-			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + encodeURIComponent(this.gmap.getCenter()) + '&daddr=' + encodeURIComponent(aMarker.street + ', ' + aMarker.street2 + ', ' + aMarker.city + ', ' + aMarker.state + ', ' + aMarker.zip) + '" target="_blank" class="storelocatorlink">Directions</a> ' + html + '<br/><!--/td></tr--></div>';
+			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.gmap.getCenter()) + '&daddr=' + encodeURIComponent(aMarker.street + ', ' + aMarker.street2 + ', ' + aMarker.city + ', ' + aMarker.state + ', ' + aMarker.zip) + '" target="_blank" class="storelocatorlink">Directions</a> ' + html + '<br/><!--/td></tr--></div>';
 			
 			return complete_html;
 		}
 		
-		this.loadMarkers = function(center) {
+		/***************************
+  	  	 * function: loadMarkers
+  	  	 * usage:
+  	  	 * 		Sends an ajax request and drops the markers on the map
+  	  	 * parameters:
+  	  	 * 		center:
+		 *			the center of the map (where to center to)
+  	  	 * returns: none
+  	  	 */
+		this.loadMarkers = function(center, radius, tags, generalTerms) {
+			var realsearch = true;
+			console.log('doing search@' + center + ' for radius of ' + radius);
 			if (center == null) {
 				var center = this.gmap.getCenter();
+				realsearch = false;
 			}
+			if (radius == null) {
+				var radius = 40000;
+				realsearch = false;
+			}
+			if (tags == null) { tags = ''; }
+			if (generalTerms == null) { generalTerms = ''; }
+			console.log(center);
+			console.log(radius);
 			console.log('searching: ' + center.lat() +','+ center.lng());
-			var action = {action:'csl_ajax_search',lat:center.lat(),lng:center.lng(),radius:'500'};
+			var action = {action:'csl_ajax_search',lat:center.lat(),lng:center.lng(),radius:radius, tags: tags, generalTerms:generalTerms };
 			var _this = this;
 			var ajax = new csl.Ajax();
-			ajax.send(action, function (response) {
-				_this.dropMarkers.call(_this, response.response);
-			});
+			//todo: error checking
+			if (!realsearch) {
+				ajax.send(action, function (response) {
+					_this.dropMarkers.call(_this, response.response);
+				});
+			}
+			else {
+				ajax.send(action, function (response) {
+					_this.bounceMarkers.call(_this, response.response);
+				});
+			}
 		}
 		
-		this.createSideBar = function(aMarker) { 
+		this.searchLocations = function() {
+			var address = document.getElementById('addressInput').value;
+    
+			// Address was given, use it...
+			//
+			if (address != '') {
+				this.address = cslutils.escapeExtended(address);
+				this.doGeocode();
+				jQuery('#map_box_image').hide();
+				jQuery('#map_box_map').show();
+				
+				/* todo: delete reference material
+				geocoder.getLatLng(escapeExtended(address), 
+				function(latlng) {
+					if (!latlng) {
+						var theMessage = ''; 
+						if (slplus.debug_mode) {
+							theMessage = 'Google geocoder could not find ' + escape (address) + ' :: ';
+						}
+						theMessage += address + ' not found'; 
+						alert(theMessage);
+					} else {
+						if (slplus.debug_mode) {
+							alert('Searching near ' + address + ' ' + latlng);
+						}
+						searchLocationsNear(latlng, address); 
+					}
+				});
+
+				// No Address, Use Current Map Center
+				//
+			} else {
+				searchLocationsNear(map.getCenter(), '');         
+			}    
+			
+			
+			map.checkResize();*/
+			}
+		}
+		
+		/***************************
+  	  	 * function: createSidebar
+  	  	 * usage:
+  	  	 * 		Builds to side bar
+  	  	 * parameters:
+  	  	 * 		aMarker //todo
+  	  	 * returns: //todo
+  	  	 */
+		this.createSidebar = function(aMarker) { 
+			document.getElementById('map_sidebar_td').style.display='block';
+			var div = document.createElement('div');
+			var link = '';
+			var street = aMarker.address;
+			var street2 = aMarker.address2;
+			var city = aMarker.city;
+			var state = aMarker.state;
+			var zip = aMarker.zip;
+			if (aMarker.url.indexOf('http://') == -1) { aMarker.url='http://' + aMarker.url; }
+			if (aMarker.url.indexOf('http://') != -1 && aMarker.url.indexOf('.') != -1) { link = "<a href='"+aMarker.url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>"; } else { aMarker.url = ''; }
+			
+			var elink = '';
+			if (aMarker.email.indexOf('@') != -1 && aMarker.email.indexOf('.') != -1) {
+				if (!slplus.use_email_form) {
+					elink = "<a href='mailto:"+aMarker.email+"' target='_blank' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a><br/>";
+				}
+				else {
+					elink = "<a href='javascript:cslutils.show_email_form("+'"'+aMarker.email+'"'+");' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a><br/>";
+				}
+			}
+			
+			//if we are showing tags in the table
+			//
+			var tagInfo = '';
+			if (slplus.show_tags) {
+				if (jQuery.trim(aMarker.tags) != '') {
+					var tagclass = aMarker.tags.replace(/\W/g,'_');
+					tagInfo = '<br/><div class="'+tagclass+'"><span class="tagtext">'+aMarker.tags+'</span></div>';
+				}
+			}
+			
+			//keep empty data lines out of the final result
+			//
+			if (jQuery.trim(street) != '') { street = street + '<br/>'; }
+			if (jQuery.trim(street2) != '') { street2 = street2 + '<br/>'; }
+			if (jQuery.trim(city + state + zip) != '') { state = state + ', ' + zip + '<br/>'; }
+			
+			//todo: calculate distance
+			var html =  '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">' +
+					'<tr>' +
+                    '<td class="results_row_left_column">' +
+                        '<span class="location_name">' + aMarker.name + '</span><br>' + 
+                        '0' + ' ' + slplus.distance_unit + '</td>' +
+                    '<td class="results_row_center_column">' + 
+                        street +  
+                        street2 + 
+                        city + state +
+                        aMarker.phone +
+                    '</td>' +
+                    '<td class="results_row_right_column">' + 
+                        link + 
+                        elink +
+                        '<a href="http://' + slplus.map_domain + 
+                        '/maps?saddr=' + encodeURIComponent(this.gmap.getCenter()) + 
+                        '&daddr=' + encodeURIComponent(aMarker.address) + 
+                        '" target="_blank" class="storelocatorlink">Directions</a>'+
+                        tagInfo +
+                        '</td>' +
+                        '</tr></table></center>';
+			div.innerHTML = html;
+			div.className = 'results_entry';
+			
+			//todo: link result click to marker click
+			return div;
 		}
   	  	  
   	  	//dumb browser quirk trick ... wasted two hours on that one
@@ -576,6 +897,7 @@ var csl = {
  
 //global vars
 var cslmap;
+var cslutils;
  
 /***************************
  * function InitializeTheMap()
@@ -584,6 +906,7 @@ var cslmap;
  *
  */
 function InitializeTheMap() {
+	cslutils = new csl.Utils();
 	cslmap = new csl.Map();
 	cslmap.doGeocode();
 }
