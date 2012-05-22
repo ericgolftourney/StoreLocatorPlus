@@ -460,7 +460,6 @@ function slplus_dbupdater($sql,$table_name) {
         }
     }   
 }
-//todo: fix activation of store pages
 /**************************************
  ** function: store_locator_shortcode
  **
@@ -606,7 +605,7 @@ function slplus_dbupdater($sql,$table_name) {
         getimagesize($slplus_end_icon_file)  : 
         array(0 => 20, 1 => 34);
 		
-	//todo: make sure map type gets set to a sane value before getting here.
+	//todo: make sure map type gets set to a sane value before getting here. Maybe not...
     
     // Lets get some variables into our script
     //
@@ -617,7 +616,7 @@ function slplus_dbupdater($sql,$table_name) {
         'distance_unit'     => esc_attr(get_option('sl_distance_unit'),'miles'),
         'load_locations'    => (get_option('sl_load_locations_default')==1),
         'map_3dcontrol'     => (get_option(SLPLUS_PREFIX.'_disable_largemapcontrol3d')==0),
-        'map_country'       => SetMapCenter(), //todo: actually set map center
+        'map_country'       => SetMapCenter(),
         'map_domain'        => get_option('sl_google_map_domain','maps.google.com'),
         'map_home_icon'     => $slplus_home_icon,
         'map_home_sizew'    => $slplus_home_size[0],
@@ -636,7 +635,6 @@ function slplus_dbupdater($sql,$table_name) {
         'website_label'     => esc_attr(get_option('sl_website_label','Website')),
         'zoom_level'        => get_option('sl_zoom_level',4),
         'zoom_tweak'        => get_option('sl_zoom_tweak',1),
-		'view'				=> 'roadmap',
         );
     wp_localize_script('csl_script','slplus',$scriptData);
 	wp_localize_script('csl_script','csl_ajax',array('ajaxurl' => admin_url('admin-ajax.php')));
