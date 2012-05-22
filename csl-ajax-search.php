@@ -166,7 +166,7 @@ function csl_ajax_search() {
     '25';
 	
 	$max = mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned']);
-    for ($rad = $radius; $rad < 40000; $rad += 100) {
+    //for ($rad = $radius; $rad < 40000; $rad += 100) {
 		//Select all the rows in the markers table
 		$query = sprintf(
 			"SELECT *,".
@@ -181,7 +181,7 @@ function csl_ajax_search() {
 			mysql_real_escape_string($center_lat),
 			$tag_filter,
 			$name_filter,
-			mysql_real_escape_string($rad),
+			mysql_real_escape_string($radius),
 			mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned'])
 		);
 		
@@ -224,10 +224,10 @@ function csl_ajax_search() {
 			$response[] = $marker;
 		}
 		
-		if (count($response) > 1) {
-			break;
-		}
-	}
+		//if (count($response) > 1) {
+		//	break;
+		//}
+	//}
 	
 	// generate the response
     $response = json_encode( array( 'success' => true, 'count' => count($response), 'option' => $rad, 'response' => $response ) );

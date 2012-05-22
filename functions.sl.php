@@ -219,7 +219,12 @@ function do_geocoding($address,$sl_id='') {
     
     // Initialize delay in geocode speed
     $delay = 0;
-    $base_url = "http://" . MAPS_HOST . "/maps/geo?output=csv&key=" . KEY;
+	if (isset($slplus_plugin->driver_args['api_key'])) {
+		$base_url = "http://" . MAPS_HOST . "/maps/geo?output=csv&key=" . KEY;
+	}
+	else {
+		$base_url = "http://" . MAPS_HOST . "/maps/geo?output=csv";
+	}
     
     //Adding ccTLD (Top Level Domain) to help perform more accurate geocoding according to selected Google Maps Domain - 12/16/09
     $ccTLD_arr=explode(".", MAPS_HOST);
@@ -677,7 +682,6 @@ function csl_slplus_add_options_page() {
 	global $slplus_plugin;
 	
 	if ( 
-	    (trim($slplus_plugin->driver_args['api_key'])!="") &&
 	    (!function_exists('add_slplus_roles_and_caps') || current_user_can('manage_slp'))
 	    )
 	{
@@ -739,8 +743,13 @@ function add_admin_javascript() {
         var sl_google_map_country='".get_option('sl_google_map_country')."';
         </script>\n";
         if (ereg("add-locations", (isset($_GET['page'])?$_GET['page']:''))) {
-            $google_map_domain=(get_option('sl_google_map_domain')!="")? get_option('sl_google_map_domain') : "maps.google.com";			
-            print "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
+            $google_map_domain=(get_option('sl_google_map_domain')!="")? get_option('sl_google_map_domain') : "maps.google.com";
+			if ($api != "") {
+				print "<script src='http://$google_map_domain/maps?file=api&amp;v=3&amp;key=$api&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
+			}
+			else {
+				print "<script src='http://$google_map_domain/maps?file=api&amp;v=3&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
+			}
         }
 }
 

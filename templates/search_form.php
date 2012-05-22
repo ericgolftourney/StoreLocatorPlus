@@ -97,7 +97,7 @@
 							//
 							} 
 							else {
-								print "<select id='tag_to_search_for' onchange='cslmap.tagFilter()'>";
+								print "<select id='tag_to_search_for' >";
                         
 								// Show Any Option (blank value)
 								//
