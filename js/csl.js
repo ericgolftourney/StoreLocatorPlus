@@ -412,6 +412,9 @@ var csl = {
 		this.bounds = null;
 		this.homeAddress = null;
 		this.homePoint = null;
+		this.forceAll = false;
+		this.lastCenter = null;
+		this.lastRadius = null;
 		
 		/***************************
   	  	 * function: __init()
@@ -485,7 +488,8 @@ var csl = {
 					});
 				  
 					//load all the markers
-					this.loadMarkers(null, null);
+					this.forceAll = true;
+					this.loadMarkers();
 				}
 				//the map has been created so shift the center of the map
 				else {
@@ -493,16 +497,11 @@ var csl = {
 					//this.gmap.panTo(results[0].geometry.location);
 					this.homePoint = results[0].geometry.location;
 					this.homeAdress = results[0].formatted_address;
-					var doingGeneralSearch = false;
-					//todo: check to make sure this works when certain forms are disabled
-					var generalTerms = null;
-					if (addressInput2.value != '' || addressInputState.value != '' || addressInput3.value != '') { doingGeneralSearch = true; generalTerms = addressInput.value; }
 					
-					if (!doingGeneralSearch) {
-						this.addMarkerAtCenter();
-					}
+					this.addMarkerAtCenter();
+					var tag_to_search_for = document.getElementById('tag_to_search_fo').value;
 					//do a search based on settings
-					this.loadMarkers(results[0].geometry.location, radiusSelect.value, null, generalTerms);
+					this.loadMarkers(results[0].geometry.location, radiusSelect.value, tag_to_search_for);
 				}
 				//if the user entered an address, replace it with a formatted one
 				if (addressInput.value != '') {
@@ -511,7 +510,9 @@ var csl = {
 					addressInput.value = results[0].formatted_address;
 				}
   	  	  	} else {
-				alert("Address could not be processed: " + status);
+				//address couldn't be processed, so use the center of the map
+				var tag_to_search_for = document.getElementById('tag_to_search_fo').value;
+				this.loadMarkers(null, radiusSelect.value, tag_to_search_for);
   	  	  	}
   	  	}
   	  	  
@@ -806,15 +807,21 @@ var csl = {
   	  	 */
 		this.loadMarkers = function(center, radius, tags, generalTerms) {
 			var realsearch = true;
+			if (this.forceAll) {
+				realsearch = false;
+				radius = null;
+				center = null;
+				this.forceAll = false;
+			}
 			console.log('doing search@' + center + ' for radius of ' + radius);
 			if (center == null) {
 				var center = this.gmap.getCenter();
-				realsearch = false;
 			}
 			if (radius == null) {
 				var radius = 40000;
-				realsearch = false;
 			}
+			this.lastCenter = center;
+			this.lastRadius = radius;
 			if (tags == null) { tags = ''; }
 			if (generalTerms == null) { generalTerms = ''; }
 			console.log(center);
@@ -843,6 +850,31 @@ var csl = {
 			}
 		}
 		
+		/***************************
+  	  	 * function: tagFilter
+  	  	 * usage:
+  	  	 * 		Sends an ajax request to only get the tags in the current search results
+  	  	 * parameters:
+		 *		none
+  	  	 * returns: none
+  	  	 */
+		 this.tagFilter = function() {
+			
+			//repeat last search passing tags
+			var tag_to_search_for = document.getElementById('tag_to_search_for').value;
+			this.loadMarkers(this.lastCenter, this.lastRadius, tag_to_search_for);
+			jQuery('#map_box_image').hide();
+			jQuery('#map_box_map').show();
+		 }
+		
+		/***************************
+  	  	 * function: searchLocations
+  	  	 * usage:
+  	  	 * 		begins the process of returning search results
+  	  	 * parameters:
+  	  	 * 		none
+  	  	 * returns: none
+  	  	 */
 		this.searchLocations = function() {
 			var address = document.getElementById('addressInput').value;
     
@@ -853,6 +885,7 @@ var csl = {
 				this.doGeocode();
 				jQuery('#map_box_image').hide();
 				jQuery('#map_box_map').show();
+			}
 				
 				/* todo: delete reference material
 				geocoder.getLatLng(escapeExtended(address), 
@@ -880,7 +913,6 @@ var csl = {
 			
 			
 			map.checkResize();*/
-			}
 		}
 		
 		/***************************
@@ -934,7 +966,7 @@ var csl = {
 					'<tr>' +
                     '<td class="results_row_left_column">' +
                         '<span class="location_name">' + aMarker.name + '</span><br>' + 
-                        '0' + ' ' + slplus.distance_unit + '</td>' +
+                        parseFloat(aMarker.distance).toFixed(1) + ' ' + slplus.distance_unit + '</td>' +
                     '<td class="results_row_center_column">' + 
                         street +  
                         street2 + 

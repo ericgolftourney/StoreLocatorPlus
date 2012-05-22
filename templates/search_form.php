@@ -98,7 +98,7 @@
                     // Pulldown for pre-selected list
                     //
                     } else {
-                        print "<select id='tag_to_search_for'>";
+                        print "<select id='tag_to_search_for' onchange='cslmap.tagFilter()'>";
                         
                         // Show Any Option (blank value)
                         //

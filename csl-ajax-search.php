@@ -36,14 +36,23 @@ function csl_ajax_onload() {
 	//
 	$tag_filter = ''; 
 	if (
-		(get_option($prefix.'_show_tag_search') ==1) &&
+		(get_option(SLPLUS_PREFIX.'_show_tag_search') ==1 &&
 		isset($_POST['tags']) && ($_POST['tags'] != '')
 	   ){
 		$posted_tag = preg_replace('/^\s+(.*?)/','$1',$_POST['tags']);
 		$posted_tag = preg_replace('/(.*?)\s+$/','$1',$posted_tag);
 		$tag_filter = " AND ( sl_tags LIKE '%%". $posted_tag ."%%') ";
 	}
-	   
+	
+	// If store names are passed, filter show those names
+	$name_filter = '';
+	if (get_option(SLPLUS_PREFIX.'_show_name_search') == 1 &&
+		isset($_POST['name']) && ($_POST['name'] != ''))
+	{
+		$posted_name = preg_replace('/^\s+(.*?)/','$1',$_POST['name']);
+		$posted_name = preg_replace('/(.*?)\s+$/','$1',$posted_name);
+		$name_filter = " AND (sl_name LIKE '%%".$posted_name."%%')";
+	}
 
 	//Since miles is default, if kilometers is selected, divide by 1.609344 in order to convert the kilometer value selection back in miles when generating the XML
 	//
@@ -115,16 +124,6 @@ function csl_ajax_search() {
 	$center_lat = $_POST["lat"];
 	$center_lng = $_POST["lng"];
 	$radius = $_POST["radius"];
-	/*
-	// Opens a connection to a MySQL server
-	$conection=mysql_connect ($host, $username, $password);
-	if (!$connection) {
-		die(json_encode( 
-			array('success' => false, 
-			'response' => 'mysql server disconnected: "'.$username.':'.$password.'@'.$host.'/'.$dbPrefix.'.'.$database.'" with error: '.mysql_error()
-			)
-		));
-	}*/
 
 	//-----------------
 	// Set the active MySQL database
@@ -141,7 +140,7 @@ function csl_ajax_search() {
 	//
 	$tag_filter = ''; 
 	if (
-		(get_option($prefix.'_show_tag_search') ==1) &&
+		(get_option(SLPLUS_PREFIX.'_show_tag_search') ==1) &&
 		isset($_POST['tags']) && ($_POST['tags'] != '')
 	){
 		$posted_tag = preg_replace('/^\s+(.*?)/','$1',$_POST['tags']);
