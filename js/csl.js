@@ -499,7 +499,7 @@ var csl = {
 					this.homeAdress = results[0].formatted_address;
 					
 					this.addMarkerAtCenter();
-					var tag_to_search_for = document.getElementById('tag_to_search_fo').value;
+					var tag_to_search_for = document.getElementById('tag_to_search_for').value;
 					//do a search based on settings
 					this.loadMarkers(results[0].geometry.location, radiusSelect.value, tag_to_search_for);
 				}
@@ -511,7 +511,7 @@ var csl = {
 				}
   	  	  	} else {
 				//address couldn't be processed, so use the center of the map
-				var tag_to_search_for = document.getElementById('tag_to_search_fo').value;
+				var tag_to_search_for = document.getElementById('tag_to_search_for').value;
 				this.loadMarkers(null, radiusSelect.value, tag_to_search_for);
   	  	  	}
   	  	}
@@ -738,12 +738,21 @@ var csl = {
 			{
 				aMarker.url = "http://" + aMarker.url;
 			}
-			
-			if (aMarker.url.indexOf("http://") != -1 && aMarker.url.indexOf(".") != -1) { 
-				html += "| <a href='"+aMarker.url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a>";
-			} else {
-				aMarker.url = "";
+			if (aMarker.sl_pages_url.indexOf("http://") == -1)
+			{
+				aMarker.sl_pages_url = "http://" + aMarker.sl_pages_url;
 			}
+			var url = '';
+			if (aMarker.sl_pages_url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
+				url = aMarker.sl_pages_url;
+			}
+			else if (aMarker.url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
+				url = aMarker.url;
+			}
+			
+			if (url != '') { 
+				html += "| <a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a>";
+			} 
 			
 			if (aMarker.email.indexOf("@") != -1 && aMarker.email.indexOf(".") != -1) {
 				html += "| <a href='mailto:"+aMarker.email+"' target='_blank' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a>";
@@ -805,7 +814,8 @@ var csl = {
 		 *			the center of the map (where to center to)
   	  	 * returns: none
   	  	 */
-		this.loadMarkers = function(center, radius, tags, generalTerms) {
+		this.loadMarkers = function(center, radius, tags) {
+			//determines if we need to invent real variables (usually only done at the beginning)
 			var realsearch = true;
 			if (this.forceAll) {
 				realsearch = false;
@@ -823,13 +833,11 @@ var csl = {
 			this.lastCenter = center;
 			this.lastRadius = radius;
 			if (tags == null) { tags = ''; }
-			if (generalTerms == null) { generalTerms = ''; }
-			console.log(center);
-			console.log(radius);
 			console.log('searching: ' + center.lat() +','+ center.lng());
+			var name = document.getElementById('nameSearch').value;
 			var action = null;
 			if (realsearch) {
-				action = {action:'csl_ajax_search',lat:center.lat(),lng:center.lng(),radius:radius, tags: tags };
+				action = {action:'csl_ajax_search',lat:center.lat(),lng:center.lng(),radius:radius, tags: tags, name:name };
 			}
 			else {
 				action = {action:'csl_ajax_onload',lat:center.lat(),lng:center.lng(),tags:tags };
@@ -879,14 +887,17 @@ var csl = {
 			var address = document.getElementById('addressInput').value;
     
 			// Address was given, use it...
-			//
+			// 
 			if (address != '') {
 				this.address = cslutils.escapeExtended(address);
 				this.doGeocode();
 				jQuery('#map_box_image').hide();
 				jQuery('#map_box_map').show();
 			}
-				
+			else {
+				var tag_to_search_for = document.getElementById('tag_to_search_for').value;
+				this.loadMarkers(this.lastCenter, this.lastRadius, tag_to_search_for);
+			}
 				/* todo: delete reference material
 				geocoder.getLatLng(escapeExtended(address), 
 				function(latlng) {
@@ -932,8 +943,25 @@ var csl = {
 			var city = aMarker.city;
 			var state = aMarker.state;
 			var zip = aMarker.zip;
-			if (aMarker.url.indexOf('http://') == -1) { aMarker.url='http://' + aMarker.url; }
-			if (aMarker.url.indexOf('http://') != -1 && aMarker.url.indexOf('.') != -1) { link = "<a href='"+aMarker.url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>"; } else { aMarker.url = ''; }
+			
+			if (aMarker.url.indexOf("http://") == -1)
+			{
+				aMarker.url = "http://" + aMarker.url;
+			}
+			if (aMarker.sl_pages_url.indexOf("http://") == -1)
+			{
+				aMarker.sl_pages_url = "http://" + aMarker.sl_pages_url;
+			}
+			var url = '';
+			if (aMarker.sl_pages_url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
+				url = aMarker.sl_pages_url;
+			}
+			else if (aMarker.url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
+				url = aMarker.url;
+			}
+			if (url != '') {
+				link = link = "<a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>"; 
+			}
 			
 			var elink = '';
 			if (aMarker.email.indexOf('@') != -1 && aMarker.email.indexOf('.') != -1) {

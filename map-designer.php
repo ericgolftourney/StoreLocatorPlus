@@ -111,6 +111,7 @@ if (!$_POST) {
     update_option('sl_map_type', $_POST['sl_map_type']);
     update_option('sl_num_initial_displayed', $_POST['sl_num_initial_displayed']);    
     update_option('sl_distance_unit', $_POST['sl_distance_unit']);
+	update_option('sl_name_label', $_POST['sl_name_label']);
 
     if (function_exists('execute_and_output_plustemplate')) {
         update_option('sl_starting_image', $_POST['sl_starting_image']);
@@ -142,7 +143,7 @@ if (!$_POST) {
 
     $_POST['sl_map_overview_control'] = isset($_POST['sl_map_overview_control'])?1:0;  
     update_option('sl_map_overview_control',$_POST['sl_map_overview_control']);
-    
+	
     $BoxesToHit = array(
         '_show_tag_search',
         '_show_tag_any',
@@ -155,7 +156,8 @@ if (!$_POST) {
         '_disable_maptypecontrol',
         '_hide_radius_selections',
         '_hide_address_entry',
-        '_disable_search'
+        '_disable_search',
+		'_show_search_by_name'
         );
     foreach ($BoxesToHit as $JustAnotherBox) {        
         SaveCheckBoxToDB($JustAnotherBox);

@@ -36,7 +36,7 @@ function csl_ajax_onload() {
 	//
 	$tag_filter = ''; 
 	if (
-		(get_option(SLPLUS_PREFIX.'_show_tag_search') ==1 &&
+		(get_option(SLPLUS_PREFIX.'_show_tag_search') ==1) &&
 		isset($_POST['tags']) && ($_POST['tags'] != '')
 	   ){
 		$posted_tag = preg_replace('/^\s+(.*?)/','$1',$_POST['tags']);
@@ -46,7 +46,7 @@ function csl_ajax_onload() {
 	
 	// If store names are passed, filter show those names
 	$name_filter = '';
-	if (get_option(SLPLUS_PREFIX.'_show_name_search') == 1 &&
+	if ((get_option(SLPLUS_PREFIX.'_show_name_search') == 1) &&
 		isset($_POST['name']) && ($_POST['name'] != ''))
 	{
 		$posted_name = preg_replace('/^\s+(.*?)/','$1',$_POST['name']);
@@ -64,7 +64,7 @@ function csl_ajax_onload() {
 				"cos( radians( sl_longitude ) - radians('".$_POST['lng']."') ) + sin( radians('".$_POST['lat']."') ) * ".
 				"sin( radians( sl_latitude ) ) ) ) AS sl_distance ".    
 		"FROM ".$wpdb->prefix."store_locator ".
-		"WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>'' $tag_filter ".
+		"WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>'' $tag_filter<>'' $name_filter  ".
 		"ORDER BY sl_distance ASC ".
 		"LIMIT $num_initial_displayed";
 		

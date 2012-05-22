@@ -51,7 +51,7 @@ function initialize_variables() {
     global $search_label, $zoom_level, $zoom_tweak, $sl_use_city_search, $sl_use_name_search, $sl_default_map;
     global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
     global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
-    global $sl_map_character_encoding, $sl_use_country_search, $slplus_show_state_pd;
+    global $sl_map_character_encoding, $sl_use_country_search, $slplus_show_state_pd, $slplus_name_label;
     
     $sl_map_character_encoding=get_option('sl_map_character_encoding');
     if (empty($sl_map_character_encoding)) {
@@ -143,6 +143,10 @@ function initialize_variables() {
         $search_label="Address";
         add_option('sl_search_label', $search_label);
         }
+	if (empty($slplus_name_label)) {
+		$$slplus_name_label = "Store to search for";
+		add_option('sl_name_label', $slplus_name_label);
+	}
     $location_table_view=get_option('sl_location_table_view');
     if (empty($location_table_view)) {
         $location_table_view="Normal";
@@ -472,7 +476,7 @@ function slplus_dbupdater($sql,$table_name) {
 	    $slplus_plugin, $prefix,	        
 	    $search_label, $width, $height, $width_units, $height_units, $hide,
 	    $sl_radius, $sl_radius_label, $r_options, $button_style,
-	    $sl_instruction_message, $cs_options, 
+	    $sl_instruction_message, $cs_options, $slplus_name_label,
 	    $country_options, $slplus_state_options, $fnvars;	 	    
     $fnvars = array();
 
@@ -490,6 +494,7 @@ function slplus_dbupdater($sql,$table_name) {
     $unit_display   = get_option('sl_distance_unit','mi');    
     $width          = get_option('sl_map_width','100');        
     $width_units    = get_option('sl_map_width_units','%');
+	$slplus_name_label = get_option('sl_name_label');
     
     $radii          = get_option('sl_map_radii','1,5,10,(25),50,100,200,500');
     $r_array        = explode(",", $radii);
