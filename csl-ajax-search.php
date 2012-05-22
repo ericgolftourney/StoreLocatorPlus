@@ -51,7 +51,7 @@ function csl_ajax_onload() {
 	{
 		$posted_name = preg_replace('/^\s+(.*?)/','$1',$_POST['name']);
 		$posted_name = preg_replace('/(.*?)\s+$/','$1',$posted_name);
-		$name_filter = " AND (sl_name LIKE '%%".$posted_name."%%')";
+		$name_filter = " AND (sl_store LIKE '%%".$posted_name."%%')";
 	}
 
 	//Since miles is default, if kilometers is selected, divide by 1.609344 in order to convert the kilometer value selection back in miles when generating the XML
@@ -148,6 +148,14 @@ function csl_ajax_search() {
 		$tag_filter = " AND ( sl_tags LIKE '%%". $posted_tag ."%%') ";
 	}
 
+	$name_filter = '';
+	if(isset($_POST['name']) && ($_POST['name'] != ''))
+	{
+		$posted_name = preg_replace('/^\s+(.*?)/','$1',$_POST['name']);
+		$posted_name = preg_replace('/(.*?)\s+$/','$1',$posted_name);
+		$name_filter = " AND (sl_store LIKE '%%".$posted_name."%%')";
+	}
+	
 	//Since miles is default, if kilometers is selected, divide by 1.609344 in order to convert the kilometer value selection back in miles when generating the XML
 	//
 	$multiplier=3959;
@@ -156,25 +164,46 @@ function csl_ajax_search() {
 	$option[SLPLUS_PREFIX.'_maxreturned']=(trim(get_option(SLPLUS_PREFIX.'_maxreturned'))!="")? 
     get_option(SLPLUS_PREFIX.'_maxreturned') : 
     '25';
+	
+	$max = mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned']);
+	
+	/*$query = "SELECT *, ($multiplier * acos( cos(radians('$center_lat') ) * cos( radians( sl_latitude ) ) * ".
+	"cos( radians( sl_longitude ) - radians('$center_lng')) + sin (radians('$center_lat')) * sin(radians(sl_latitude)))) AS sl_distance ".
+	"FROM ".$wpdb->prefix."store_locator ".
+	"WHERE (sl_distance < $radius) $tag_filter $name_filter ".
+	"ORDER BY sl_distance ASC ".
+	"LIMIT ". $option[SLPLUS_PREFIX.'_maxreturned'];*/
     
-	// Select all the rows in the markers table
+	//Select all the rows in the markers table
 	$query = sprintf(
 	"SELECT *,".
 	"( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
-	"FROM ${dbPrefix}store_locator HAVING (sl_distance < '%s') ".
-	$tag_filter .
+	"FROM ${dbPrefix}store_locator ".
+	"WHERE sl_longitude<>'' %s %s ".
+	"HAVING (sl_distance < '%s') ".
 	'ORDER BY sl_distance ASC '.
 	'LIMIT %s',
 	mysql_real_escape_string($center_lat),
 	mysql_real_escape_string($center_lng),
 	mysql_real_escape_string($center_lat),
+	$tag_filter,
+	$name_filter,
 	mysql_real_escape_string($radius),
 	mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned'])
 	);
+	
+	/*$query = "SELECT *, ".
+		"( $multiplier * acos( cos( radians('".$_POST['lat']."') ) * cos( radians( sl_latitude ) ) * " .
+				"cos( radians( sl_longitude ) - radians('".$_POST['lng']."') ) + sin( radians('".$_POST['lat']."') ) * ".
+				"sin( radians( sl_latitude ) ) ) ) AS sl_distance ".    
+		"FROM ".$wpdb->prefix."store_locator ".
+		"WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>'' $tag_filter<>'' $name_filter  ".
+		"ORDER BY sl_distance ASC ".
+		"LIMIT $num_initial_displayed";*/
     
 	$result = mysql_query($query);
 	if (!$result) {
-		die(json_encode( array('success' => false, 'response' => 'Invalid query: ' . mysql_error())));
+		die(json_encode( array('success' => false, 'query' => $query, 'response' => 'Invalid query: ' . mysql_error())));
 	}
 
 	// Show Tags
@@ -212,7 +241,7 @@ function csl_ajax_search() {
 	}
 	
 	// generate the response
-    $response = json_encode( array( 'success' => true, 'count' => count($response) , 'response' => $response ) );
+    $response = json_encode( array( 'success' => true, 'count' => count($response), 'option' => get_option(SLPLUS_PREFIX.'_show_name_search'), 'response' => $response ) );
  
     // response output
     header( "Content-Type: application/json" );
