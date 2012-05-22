@@ -624,6 +624,10 @@ var csl = {
 				this.markers.push(new csl.Marker(animation, this, "", position, this.mapEndIconUrl, this.mapEndIconWidth, this.mapEndIconHeight ));
 				_this = this;
 				
+				//create a sidebar entry
+				var sidebarEntry = this.createSidebar(markerList[markerNumber]);
+				sidebar.appendChild(sidebarEntry);
+				
 				//create info windows
 				google.maps.event.addListener(this.markers[markerNumber].__gmarker, 'click', 
 				(function (infoData, marker) {
@@ -632,9 +636,13 @@ var csl = {
 					}
 				})(markerList[markerNumber], this.markers[markerNumber]));
 				
-				//create a sidebar entry
-				var sidebarEntry = this.createSidebar(markerList[markerNumber]);
-				sidebar.appendChild(sidebarEntry);
+				google.maps.event.addDomListener(sidebarEntry, 'click', 
+				(function(infoData, marker) {
+					return function() {
+					return function() {
+						_this.__handleInfoClicks.call(_this, infoData, marker);
+					}
+				})(markerList[markerNumber], this.markers[markerNumber]));
 			}
 			
 			//check for results
@@ -785,8 +793,6 @@ var csl = {
 					html += '<br/>'+aMarker.tags;
 				}
 			}
-			//todo: check store pages linkage
-			//todo: actually include home address
 			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.gmap.getCenter()) + '&daddr=' + encodeURIComponent(aMarker.street + ', ' + aMarker.street2 + ', ' + aMarker.city + ', ' + aMarker.state + ', ' + aMarker.zip) + '" target="_blank" class="storelocatorlink">Directions</a> ' + html + '<br/><!--/td></tr--></div>';
 			
 			return complete_html;
@@ -864,7 +870,6 @@ var csl = {
 			console.log(action);
 			var _this = this;
 			var ajax = new csl.Ajax();
-			//todo: error checking
 			if (!realsearch) {
 				ajax.send(action, function (response) {
 					_this.dropMarkers.call(_this, response.response);
@@ -950,8 +955,8 @@ var csl = {
   	  	 * usage:
   	  	 * 		Builds to side bar
   	  	 * parameters:
-  	  	 * 		aMarker //todo
-  	  	 * returns: //todo
+  	  	 * 		aMarker: the marker data
+  	  	 * returns: a html div with the data properly displayed
   	  	 */
 		this.createSidebar = function(aMarker) { 
 			document.getElementById('map_sidebar_td').style.display='block';
@@ -1014,8 +1019,7 @@ var csl = {
                         '</tr></table></center>';
 			div.innerHTML = html;
 			div.className = 'results_entry';
-			
-			//todo: link result click to marker click
+
 			return div;
 		}
   	  	  
