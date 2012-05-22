@@ -228,29 +228,29 @@ if (! class_exists('SLPlus_Actions')) {
                 //------------------------
                 // Register our scripts for later enqueue when needed
                 //
-                wp_register_script('slplus_functions',SLPLUS_PLUGINURL.'/core/js/functions.js');
+                //wp_register_script('slplus_functions',SLPLUS_PLUGINURL.'/core/js/functions.js');
                 wp_register_script(
                         'google_maps',
-						"http://maps.googleapis.com/maps/api/js?key=$api_key&sensor=false" //todo:character encoding and map domain
+						"http://$google_map_domain/maps/api/js?key=$api_key&sensor=false" //todo:character encoding and map domain
                         //"http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$sl_map_character_encoding}"                        
                         );
-                wp_register_script(
-                        'slplus_map',
-                        SLPLUS_PLUGINURL.'/core/js/store-locator-map.js',
-                        array('google_maps','jquery')
-                        ); 
+                //wp_register_script(
+                //        'slplus_map',
+                //        SLPLUS_PLUGINURL.'/core/js/store-locator-map.js',
+                //        array('google_maps','jquery')
+                //        ); 
 						
 				wp_register_script('csl_script', SLPLUS_PLUGINURL.'/core/js/csl.js', array('jquery'));
                 
                 // Setup Email Form Script If Selected
                 //                
-                if (get_option(SLPLUS_PREFIX.'_email_form')==1) {
-                    wp_register_script(
-                            'slplus_emailform',
-                            SLPLUS_PLUGINURL.'/core/js/store-locator-emailform.js',
-                            array('google_maps','slplus_map')
-                            );                       
-                }                            
+                //if (get_option(SLPLUS_PREFIX.'_email_form')==1) {
+                //    wp_register_script(
+                //            'slplus_emailform',
+                //            SLPLUS_PLUGINURL.'/core/js/store-locator-emailform.js',
+                 //           array('google_maps','slplus_map')
+                 //           );                       
+                //}                            
             }                        
         }     
         
@@ -273,9 +273,9 @@ if (! class_exists('SLPlus_Actions')) {
                 //wp_enqueue_script('slplus_map');
 				wp_enqueue_script('csl_script');
                 
-                if (get_option(SLPLUS_PREFIX.'_email_form')==1) {
-                    wp_enqueue_script('slplus_emailform');
-                }
+               // if (get_option(SLPLUS_PREFIX.'_email_form')==1) {
+                //    wp_enqueue_script('slplus_emailform');
+               // }
                 
                 // Enqueue the style sheet
                 //
@@ -311,8 +311,8 @@ if (! class_exists('SLPlus_Actions')) {
                 </script>
 <?php                       */
             }             
-        }            
-    }
+		}            
+	}
 }        
      
 

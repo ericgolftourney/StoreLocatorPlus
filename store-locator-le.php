@@ -75,11 +75,12 @@ if (defined('SLPLUS_PREFIX') === false) {
 
 // Include our needed files
 //
-include_once(SLPLUS_PLUGINDIR . '/include/config.php'   );
-include_once(SLPLUS_PLUGINDIR . 'plus.php'              );
-include_once(SLPLUS_COREDIR   . 'csl_helpers.php'       );
-include_once(SLPLUS_COREDIR   . 'functions.sl.php'      );
+include_once(SLPLUS_PLUGINDIR . '/include/config.php'	);
+include_once(SLPLUS_PLUGINDIR . 'plus.php'						);
+include_once(SLPLUS_COREDIR   . 'csl_helpers.php'			);
+include_once(SLPLUS_COREDIR   . 'functions.sl.php'			);
 include_once(SLPLUS_COREDIR   . 'csl-ajax-search.php'	);
+include_once(SLPLUS_COREDIR   . 'csl-ajax-onload.php'	);
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-actions_class.php');
 
 // Activation Action (install/upgrade)
@@ -104,6 +105,11 @@ add_action('admin_head'         , 'slpreport_downloads'                         
 //
 add_action('wp_ajax_csl_ajax_search', 'csl_ajax_search');
 add_action('wp_ajax_nopriv_csl_ajax_search', 'csl_ajax_search');
+
+// Ajax Load
+//
+add_action('wp_ajax_csl_ajax_onload', 'csl_ajax_onload');
+add_action('wp_ajax_nopriv_csl_ajax_onload', 'csl_ajax_onload');
 
 // Short Codes
 //
