@@ -166,82 +166,71 @@ function csl_ajax_search() {
     '25';
 	
 	$max = mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned']);
-	
-	/*$query = "SELECT *, ($multiplier * acos( cos(radians('$center_lat') ) * cos( radians( sl_latitude ) ) * ".
-	"cos( radians( sl_longitude ) - radians('$center_lng')) + sin (radians('$center_lat')) * sin(radians(sl_latitude)))) AS sl_distance ".
-	"FROM ".$wpdb->prefix."store_locator ".
-	"WHERE (sl_distance < $radius) $tag_filter $name_filter ".
-	"ORDER BY sl_distance ASC ".
-	"LIMIT ". $option[SLPLUS_PREFIX.'_maxreturned'];*/
-    
-	//Select all the rows in the markers table
-	$query = sprintf(
-	"SELECT *,".
-	"( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
-	"FROM ${dbPrefix}store_locator ".
-	"WHERE sl_longitude<>'' %s %s ".
-	"HAVING (sl_distance < '%s') ".
-	'ORDER BY sl_distance ASC '.
-	'LIMIT %s',
-	mysql_real_escape_string($center_lat),
-	mysql_real_escape_string($center_lng),
-	mysql_real_escape_string($center_lat),
-	$tag_filter,
-	$name_filter,
-	mysql_real_escape_string($radius),
-	mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned'])
-	);
-	
-	/*$query = "SELECT *, ".
-		"( $multiplier * acos( cos( radians('".$_POST['lat']."') ) * cos( radians( sl_latitude ) ) * " .
-				"cos( radians( sl_longitude ) - radians('".$_POST['lng']."') ) + sin( radians('".$_POST['lat']."') ) * ".
-				"sin( radians( sl_latitude ) ) ) ) AS sl_distance ".    
-		"FROM ".$wpdb->prefix."store_locator ".
-		"WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>'' $tag_filter<>'' $name_filter  ".
-		"ORDER BY sl_distance ASC ".
-		"LIMIT $num_initial_displayed";*/
-    
-	$result = mysql_query($query);
-	if (!$result) {
-		die(json_encode( array('success' => false, 'query' => $query, 'response' => 'Invalid query: ' . mysql_error())));
-	}
-
-	// Show Tags
-	//
-	$slplus_show_tags = (get_option(SLPLUS_PREFIX.'_show_tags') ==1);
-
-	// Start the response string
-	$response = array();
-	
-	// Iterate through the rows, printing XML nodes for each
-	while ($row = @mysql_fetch_assoc($result)){
-		// ADD to array of markers
-		
-		$marker = array(
-			//'test' => stuff
-			'name' => esc_attr($row['sl_store']),
-			'address' => esc_attr($row['sl_address']),
-			'address2' => esc_attr($row['sl_address2']),
-			'city' => esc_attr($row['sl_city']),
-			'state' => esc_attr($row['sl_state']),
-			'zip' => esc_attr($row['sl_zip']),
-			'lat' => $row['sl_latitude'],
-			'lng' => $row['sl_longitude'],
-			'description' => esc_attr($row['sl_description']),
-			'url' => esc_attr($row['sl_url']),
-			'sl_pages_url' => esc_attr($row['sl_pages_url']),
-			'email' => esc_attr($row['sl_email']),
-			'hours' => esc_attr($row['sl_hours']),
-			'phone' => esc_attr($row['sl_phone']),
-			'image' => esc_attr($row['sl_image']),
-			'distance' => $row['sl_distance'],
-			'tags' => ($slplus_show_tags) ? esc_attr($row['sl_tags']) : ''
+    for ($rad = $radius; $rad < 40000; $rad += 100) {
+		//Select all the rows in the markers table
+		$query = sprintf(
+			"SELECT *,".
+			"( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
+			"FROM ${dbPrefix}store_locator ".
+			"WHERE sl_longitude<>'' %s %s ".
+			"HAVING (sl_distance < '%s') ".
+			'ORDER BY sl_distance ASC '.
+			'LIMIT %s',
+			mysql_real_escape_string($center_lat),
+			mysql_real_escape_string($center_lng),
+			mysql_real_escape_string($center_lat),
+			$tag_filter,
+			$name_filter,
+			mysql_real_escape_string($rad),
+			mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned'])
 		);
-		$response[] = $marker;
+		
+		$result = mysql_query($query);
+		if (!$result) {
+			die(json_encode( array('success' => false, 'query' => $query, 'response' => 'Invalid query: ' . mysql_error())));
+		}
+
+		// Show Tags
+		//
+		$slplus_show_tags = (get_option(SLPLUS_PREFIX.'_show_tags') ==1);
+
+		// Start the response string
+		$response = array();
+		
+		// Iterate through the rows, printing XML nodes for each
+		while ($row = @mysql_fetch_assoc($result)){
+			// ADD to array of markers
+			
+			$marker = array(
+				//'test' => stuff
+				'name' => esc_attr($row['sl_store']),
+				'address' => esc_attr($row['sl_address']),
+				'address2' => esc_attr($row['sl_address2']),
+				'city' => esc_attr($row['sl_city']),
+				'state' => esc_attr($row['sl_state']),
+				'zip' => esc_attr($row['sl_zip']),
+				'lat' => $row['sl_latitude'],
+				'lng' => $row['sl_longitude'],
+				'description' => esc_attr($row['sl_description']),
+				'url' => esc_attr($row['sl_url']),
+				'sl_pages_url' => esc_attr($row['sl_pages_url']),
+				'email' => esc_attr($row['sl_email']),
+				'hours' => esc_attr($row['sl_hours']),
+				'phone' => esc_attr($row['sl_phone']),
+				'image' => esc_attr($row['sl_image']),
+				'distance' => $row['sl_distance'],
+				'tags' => ($slplus_show_tags) ? esc_attr($row['sl_tags']) : ''
+			);
+			$response[] = $marker;
+		}
+		
+		if (count($response) > 1) {
+			break;
+		}
 	}
 	
 	// generate the response
-    $response = json_encode( array( 'success' => true, 'count' => count($response), 'option' => get_option(SLPLUS_PREFIX.'_show_name_search'), 'response' => $response ) );
+    $response = json_encode( array( 'success' => true, 'count' => count($response), 'option' => $rad, 'response' => $response ) );
  
     // response output
     header( "Content-Type: application/json" );

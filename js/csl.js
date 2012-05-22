@@ -734,21 +734,8 @@ var csl = {
   	  	 */
 		this.createMarkerContent = function(aMarker) {
 			var html = '';
-			if (aMarker.url.indexOf("http://") == -1)
-			{
-				aMarker.url = "http://" + aMarker.url;
-			}
-			if (aMarker.sl_pages_url.indexOf("http://") == -1)
-			{
-				aMarker.sl_pages_url = "http://" + aMarker.sl_pages_url;
-			}
-			var url = '';
-			if (aMarker.sl_pages_url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
-				url = aMarker.sl_pages_url;
-			}
-			else if (aMarker.url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
-				url = aMarker.url;
-			}
+			
+			var url = this.__getCurrentUrl(aMarker);
 			
 			if (url != '') { 
 				html += "| <a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a>";
@@ -803,6 +790,38 @@ var csl = {
 			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.gmap.getCenter()) + '&daddr=' + encodeURIComponent(aMarker.street + ', ' + aMarker.street2 + ', ' + aMarker.city + ', ' + aMarker.state + ', ' + aMarker.zip) + '" target="_blank" class="storelocatorlink">Directions</a> ' + html + '<br/><!--/td></tr--></div>';
 			
 			return complete_html;
+		}
+		
+		/***************************
+  	  	 * function: createMarkerContent
+  	  	 * usage:
+  	  	 * 		Gets the ccurrent  url to use from a marker
+  	  	 * parameters:
+  	  	 * 		aMarker:
+		 *			the ajax result to build the information from
+  	  	 * returns: an url
+  	  	 */
+		this.__getCurrentUrl = function(Marker)
+		{
+			var url = '';
+			if (Marker.sl_pages_url.length > 0)
+			{
+				url = Marker.sl_pages_url;
+			}
+			else {
+				url = Marker.url;
+			}
+			
+			if (url == '') {
+				console.log('invalid url');
+				return url;
+			}
+			
+			if (url.indexOf('http://') == -1) {
+				url = 'http://' + url;
+			}
+			console.log(url);
+			return url;
 		}
 		
 		/***************************
@@ -944,24 +963,7 @@ var csl = {
 			var state = aMarker.state;
 			var zip = aMarker.zip;
 			
-			if (aMarker.url.indexOf("http://") == -1)
-			{
-				aMarker.url = "http://" + aMarker.url;
-			}
-			if (aMarker.sl_pages_url.indexOf("http://") == -1)
-			{
-				aMarker.sl_pages_url = "http://" + aMarker.sl_pages_url;
-			}
-			var url = '';
-			if (aMarker.sl_pages_url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
-				url = aMarker.sl_pages_url;
-			}
-			else if (aMarker.url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
-				url = aMarker.url;
-			}
-			if (url != '') {
-				link = link = "<a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>"; 
-			}
+			var url = this.__getCurrentUrl(aMarker);
 			
 			var elink = '';
 			if (aMarker.email.indexOf('@') != -1 && aMarker.email.indexOf('.') != -1) {
@@ -987,9 +989,8 @@ var csl = {
 			//
 			if (jQuery.trim(street) != '') { street = street + '<br/>'; }
 			if (jQuery.trim(street2) != '') { street2 = street2 + '<br/>'; }
-			if (jQuery.trim(city + state + zip) != '') { state = state + ', ' + zip + '<br/>'; }
+			if (jQuery.trim(city + state + zip) != '') { state = ', ' + state + ', ' + zip + '<br/>'; }
 			
-			//todo: calculate distance
 			var html =  '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">' +
 					'<tr>' +
                     '<td class="results_row_left_column">' +
