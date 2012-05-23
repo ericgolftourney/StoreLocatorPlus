@@ -470,7 +470,6 @@ var csl = {
 						mapTypeId: this.mapType,
 						overviewMapControl: this.overviewControl,
 						scrollwheel: this.disableScroll,
-						rotateControl: this.disableDir,
 						center: results[0].geometry.viewport.getCenter()
 					};
 					this.debugSearch(this.options);
@@ -483,8 +482,18 @@ var csl = {
 					});
 				  
 					//load all the markers
-					this.forceAll = true;
-					this.loadMarkers();
+					if (document.getElementById('addressInput').value == null || document.getElementById('addressInput').value == '') {
+						this.forceAll = true;
+						
+						this.loadMarkers();
+					}
+					else {
+						this.homePoint = results[0].geometry.location;
+						this.homeAddress = results[0].formatted_address;
+						this.addMarkerAtCenter();
+						var tag_to_search_for = document.getElementById('tag_to_search_for').value;
+						this.loadMarkers(results[0].geometry.location, radiusSelect.value, tag_to_search_for);
+					}
 				}
 				//the map has been created so shift the center of the map
 				else {
@@ -648,8 +657,8 @@ var csl = {
 			if (bounds != null) {
 				this.debugSearch('rebounded');
 				this.bounds = bounds;
-				if (this.homePoint) { 
-					this.gmap.panTo(this.homePoint); }
+				//if (this.homePoint) { 
+				//	this.gmap.panTo(this.homePoint); }
 				this.gmap.fitBounds(this.bounds);
 				//this.gmap.panTo(this.bounds.getCenter());
 			}
@@ -808,7 +817,7 @@ var csl = {
 		this.debugSearch = function(toLog) {
 			if (slplus.debug_mode == 1)
 			{
-				console.log(toLog);
+				//console.log(toLog);
 			}
 		}
 		
@@ -844,7 +853,7 @@ var csl = {
 			var name = document.getElementById('nameSearch').value;
 			var action = null;
 			if (realsearch) {
-				action = {action:'csl_ajax_search',lat:center.lat(),lng:center.lng(),radius:radius, tags: tags, name:name };
+				action = {action:'csl_ajax_search',lat:center.lat(),lng:center.lng(),radius:radius, tags: tags, name:name, address:document.getElementById('addressInput').value };
 			}
 			else {
 				action = {action:'csl_ajax_onload',lat:center.lat(),lng:center.lng(),tags:tags };
@@ -1014,7 +1023,9 @@ var cslutils;
 function InitializeTheMap() {
 	cslutils = new csl.Utils();
 	cslmap = new csl.Map();
-	cslmap.doGeocode();
+	if (slplus.load_locations == '1') {
+		cslmap.doGeocode();
+	}
 }
 
 /* 

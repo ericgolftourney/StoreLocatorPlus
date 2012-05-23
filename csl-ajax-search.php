@@ -194,6 +194,23 @@ function csl_ajax_search() {
 		//
 		$slplus_show_tags = (get_option(SLPLUS_PREFIX.'_show_tags') ==1);
 
+		// Reporting
+		// Insert the query into the query DB
+		// 
+		if (get_option(SLPLUS_PREFIX.'-reporting_enabled') === 'on') {
+			$qry = sprintf(                                              
+					"INSERT INTO ${dbPrefix}slp_rep_query ". 
+							   "(slp_repq_query,slp_repq_tags,slp_repq_address,slp_repq_radius) ". 
+						"values ('%s','%s','%s','%s')",
+						mysql_real_escape_string($_SERVER['QUERY_STRING']),
+						mysql_real_escape_string($_POST['tags']),
+						mysql_real_escape_string($_POST['address']),
+						mysql_real_escape_string($_POST['radius'])
+					);
+			$wpdb->query($qry);
+			$slp_QueryID = mysql_insert_id();
+		}
+		
 		// Start the response string
 		$response = array();
 		
@@ -222,6 +239,20 @@ function csl_ajax_search() {
 				'tags' => ($slplus_show_tags) ? esc_attr($row['sl_tags']) : ''
 			);
 			$response[] = $marker;
+			
+			// Reporting
+			// Insert the results into the reporting table
+			//
+			if (get_option(SLPLUS_PREFIX.'-reporting_enabled') === "on") {
+				$wpdb->query(
+					sprintf(
+						"INSERT INTO ${dbPrefix}slp_rep_query_results 
+							(slp_repq_id,sl_id) values (%d,%d)",
+							$slp_QueryID,
+							$row['sl_id']  
+						)
+					);           
+			}
 		}
 		
 		//if (count($response) > 1) {
@@ -230,25 +261,15 @@ function csl_ajax_search() {
 	//}
 	
 	// generate the response
-    $response = json_encode( array( 'success' => true, 'count' => count($response), 'option' => $rad, 'response' => $response ) );
+    $response = json_encode( array( 'success' => true, 'count' => count($response), 'option' => $_POST['address'], 'response' => $response ) );
  
     // response output
     header( "Content-Type: application/json" );
     echo $response;
 	
-	// Reporting
-    // Insert the results into the reporting table
-    //
-    if (get_option(SLPLUS_PREFIX.'-reporting_enabled') === "on") {
-        $wpdb->query(
-            sprintf(
-                "INSERT INTO ${dbPrefix}slp_rep_query_results 
-                    (slp_repq_id,sl_id) values (%d,%d)",
-                    $slp_QueryID,
-                    $row['sl_id']  
-                )
-            );           
-    }  
+	
+	
+	  
  
     // IMPORTANT: don't forget to "exit"
     exit;
