@@ -416,7 +416,7 @@ function install_main_table() {
 			) 
 			$charset_collate
 			";
-						
+		
     // If we updated an existing DB, do some mods to the data
     //
     if (slplus_dbupdater($sql,$table_name) === 'updated') {
@@ -430,8 +430,33 @@ function install_main_table() {
         }   
 	    if (floatval($sl_installed_ver) < 2.2) {
             dbDelta("ALTER $table_name MODIFY sl_description text ");
-        }   
+        }
     }         
+	
+	//set up google maps v3
+	if (floatval($sl_installed_ver) < 3.0) {
+		$old_option = get_option('sl_map_type');
+		$new_option = 'roadmap';
+		switch ($old_option) {
+			case 'G_NORMAL_MAP':
+				$new_option = 'roadmap';
+				break;
+			case 'G_SATELLITE_MAP':
+				$new_option = 'satellite';
+				break;
+			case 'G_HYBRID_MAP':
+				$new_option = 'hybrid';
+				break;
+			case 'G_PHYSICAL_MAP':
+				$new_option = 'terrain';
+				break;
+			default:
+				$new_option = 'roadmap';
+				break;
+		}
+		
+		update_option('sl_map_type', $new_option);
+	}
 }
 
 /***********************************
