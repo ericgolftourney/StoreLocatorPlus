@@ -51,7 +51,7 @@ function initialize_variables() {
     global $search_label, $zoom_level, $zoom_tweak, $sl_use_city_search, $sl_use_name_search, $sl_default_map;
     global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
     global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
-    global $sl_map_character_encoding, $sl_use_country_search, $slplus_show_state_pd;
+    global $sl_map_character_encoding, $sl_use_country_search, $slplus_show_state_pd, $slplus_name_label;
     
     $sl_map_character_encoding=get_option('sl_map_character_encoding');
     if (empty($sl_map_character_encoding)) {
@@ -100,7 +100,7 @@ function initialize_variables() {
         }
     $sl_map_type=get_option('sl_map_type');
     if (empty($sl_map_type)) {
-        $sl_map_type='G_NORMAL_MAP';
+        $sl_map_type='roadmap';
         add_option('sl_map_type', $sl_map_type);
         }
     $sl_remove_credits=get_option('sl_remove_credits');
@@ -143,6 +143,10 @@ function initialize_variables() {
         $search_label="Address";
         add_option('sl_search_label', $search_label);
         }
+	if (empty($slplus_name_label)) {
+		$$slplus_name_label = "Store to search for";
+		add_option('sl_name_label', $slplus_name_label);
+	}
     $location_table_view=get_option('sl_location_table_view');
     if (empty($location_table_view)) {
         $location_table_view="Normal";
@@ -215,7 +219,12 @@ function do_geocoding($address,$sl_id='') {
     
     // Initialize delay in geocode speed
     $delay = 0;
-    $base_url = "http://" . MAPS_HOST . "/maps/geo?output=csv&key=" . KEY;
+	if (isset($slplus_plugin->driver_args['api_key'])) {
+		$base_url = "http://" . MAPS_HOST . "/maps/geo?output=csv&key=" . KEY;
+	}
+	else {
+		$base_url = "http://" . MAPS_HOST . "/maps/geo?output=csv";
+	}
     
     //Adding ccTLD (Top Level Domain) to help perform more accurate geocoding according to selected Google Maps Domain - 12/16/09
     $ccTLD_arr=explode(".", MAPS_HOST);
@@ -451,7 +460,6 @@ function slplus_dbupdater($sql,$table_name) {
         }
     }   
 }
-
 /**************************************
  ** function: store_locator_shortcode
  **
@@ -472,7 +480,7 @@ function slplus_dbupdater($sql,$table_name) {
 	    $slplus_plugin, $prefix,	        
 	    $search_label, $width, $height, $width_units, $height_units, $hide,
 	    $sl_radius, $sl_radius_label, $r_options, $button_style,
-	    $sl_instruction_message, $cs_options, 
+	    $sl_instruction_message, $cs_options, $slplus_name_label,
 	    $country_options, $slplus_state_options, $fnvars;	 	    
     $fnvars = array();
 
@@ -490,6 +498,7 @@ function slplus_dbupdater($sql,$table_name) {
     $unit_display   = get_option('sl_distance_unit','mi');    
     $width          = get_option('sl_map_width','100');        
     $width_units    = get_option('sl_map_width_units','%');
+	$slplus_name_label = get_option('sl_name_label');
     
     $radii          = get_option('sl_map_radii','1,5,10,(25),50,100,200,500');
     $r_array        = explode(",", $radii);
@@ -595,6 +604,8 @@ function slplus_dbupdater($sql,$table_name) {
     $slplus_end_size =(function_exists('getimagesize') && file_exists($slplus_end_icon_file)) ? 
         getimagesize($slplus_end_icon_file)  : 
         array(0 => 20, 1 => 34);
+		
+	//todo: make sure map type gets set to a sane value before getting here. Maybe not...
     
     // Lets get some variables into our script
     //
@@ -614,7 +625,7 @@ function slplus_dbupdater($sql,$table_name) {
         'map_end_sizew'     => $slplus_end_size[0],
         'map_end_sizeh'     => $slplus_end_size[1],
         'map_scalectrl'     => (get_option(SLPLUS_PREFIX.'_disable_scalecontrol')==0),
-        'map_type'          => get_option('sl_map_type','G_NORMAL_MAP'),
+        'map_type'          => get_option('sl_map_type','roadmap'),
         'map_typectrl'      => (get_option(SLPLUS_PREFIX.'_disable_maptypecontrol')==0),
         'show_tags'         => (get_option(SLPLUS_PREFIX.'_show_tags')==1),
         'overview_ctrl'     => get_option('sl_map_overview_control',0),
@@ -625,7 +636,8 @@ function slplus_dbupdater($sql,$table_name) {
         'zoom_level'        => get_option('sl_zoom_level',4),
         'zoom_tweak'        => get_option('sl_zoom_tweak',1),
         );
-    wp_localize_script('slplus_map','slplus',$scriptData);    
+    wp_localize_script('csl_script','slplus',$scriptData);
+	wp_localize_script('csl_script','csl_ajax',array('ajaxurl' => admin_url('admin-ajax.php')));
     
     // Set our flag for later processing
     // of JavaScript files
@@ -668,7 +680,6 @@ function csl_slplus_add_options_page() {
 	global $slplus_plugin;
 	
 	if ( 
-	    (trim($slplus_plugin->driver_args['api_key'])!="") &&
 	    (!function_exists('add_slplus_roles_and_caps') || current_user_can('manage_slp'))
 	    )
 	{
@@ -730,8 +741,13 @@ function add_admin_javascript() {
         var sl_google_map_country='".get_option('sl_google_map_country')."';
         </script>\n";
         if (ereg("add-locations", (isset($_GET['page'])?$_GET['page']:''))) {
-            $google_map_domain=(get_option('sl_google_map_domain')!="")? get_option('sl_google_map_domain') : "maps.google.com";			
-            print "<script src='http://$google_map_domain/maps?file=api&amp;v=2&amp;key=$api&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
+            $google_map_domain=(get_option('sl_google_map_domain')!="")? get_option('sl_google_map_domain') : "maps.google.com";
+			if ($api != "") {
+				print "<script src='http://$google_map_domain/maps?file=api&amp;v=3&amp;key=$api&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
+			}
+			else {
+				print "<script src='http://$google_map_domain/maps?file=api&amp;v=3&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
+			}
         }
 }
 
