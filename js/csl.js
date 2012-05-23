@@ -35,8 +35,6 @@ var csl = {
 		this.send = function(action, callback) {
 			jQuery.post(csl_ajax.ajaxurl, action,
 			function (response) {
-				console.log('response:');
-				console.log(response);
 				callback(response);
 			});
 		}
@@ -151,7 +149,6 @@ var csl = {
 			//this.__iconImage = null;
 			if (this.__iconImage == null)
 			{
-				console.log('using default marker');
 				this.__gmarker = new google.maps.Marker(
 				{
 					position: this.__position,
@@ -193,7 +190,6 @@ var csl = {
 		}
 		
 		this.noShadow = function() {
-			console.log('not using shadow');
 			var parts = this.__iconUrl.split('/');
 			var shadow = this.__iconUrl.replace(parts[parts.length - 1], 'blank.png');
 			this.__shadowImage = new google.maps.MarkerImage(shadow,
@@ -204,7 +200,6 @@ var csl = {
 		}
 		
 		this.useShadow = function() {
-			console.log('using shadow');
 			var shadow = this.__iconUrl.replace('.png', '_shadow.png');
 			this.__shadowImage = shadow;
 				//set the size
@@ -464,9 +459,9 @@ var csl = {
   	  	this.__geocodeResult = function(results, status) {
 			if (status == 'OK' && results.length > 0)
   	  	  	{
-				console.log('building map');
+				this.debugSearch('building map');
 				
-					console.log(results[0]);
+					this.debugSearch(results[0]);
 				// if the map hasn't been created, then create one
 				if (this.gmap == null)
 				{
@@ -478,9 +473,9 @@ var csl = {
 						rotateControl: this.disableDir,
 						center: results[0].geometry.viewport.getCenter()
 					};
-					console.log(this.options);
+					this.debugSearch(this.options);
 					this.gmap = new google.maps.Map(map, this.options);
-					console.log(this.gmap);
+					this.debugSearch(this.gmap);
 					//this forces any bad css from themes to fix the "gray bar" issue by setting the css max-width to none
 					var _this = this;
 					google.maps.event.addListener(this.gmap, 'bounds_changed', function() {
@@ -505,8 +500,8 @@ var csl = {
 				}
 				//if the user entered an address, replace it with a formatted one
 				if (addressInput.value != '') {
-					console.log(addressInput.value);
-					console.log(results[0].formatted_address);
+					this.debugSearch(addressInput.value);
+					this.debugSearch(results[0].formatted_address);
 					addressInput.value = results[0].formatted_address;
 				}
   	  	  	} else {
@@ -601,16 +596,16 @@ var csl = {
 			//don't animate for a large set of results
 			if (markerList.length > 25) animation = csl.Animation.None;
 			
-			console.log('create latlng bounds for shifts');
+			this.debugSearch('create latlng bounds for shifts');
 			var bounds;
-			console.log('number results ' + markerList.length);
+			this.debugSearch('number results ' + markerList.length);
 			for (markerNumber in markerList) {
-				console.log(markerList[markerNumber]);
+				this.debugSearch(markerList[markerNumber]);
 				var position = new google.maps.LatLng(markerList[markerNumber].lat, markerList[markerNumber].lng);
 				
 				if (markerNumber == 0)
 				{
-					console.log('create initial bounds');
+					this.debugSearch('create initial bounds');
 					bounds = new google.maps.LatLngBounds();
 					if (this.homePoint) { bounds.extend(this.homePoint); } else {
 						bounds.extend(this.gmap.getCenter()); }
@@ -620,7 +615,7 @@ var csl = {
 					bounds.extend(position);
 				}
 				
-				console.log(position);
+				this.debugSearch(position);
 				this.markers.push(new csl.Marker(animation, this, "", position, this.mapEndIconUrl, this.mapEndIconWidth, this.mapEndIconHeight ));
 				_this = this;
 				
@@ -639,7 +634,6 @@ var csl = {
 				google.maps.event.addDomListener(sidebarEntry, 'click', 
 				(function(infoData, marker) {
 					return function() {
-					return function() {
 						_this.__handleInfoClicks.call(_this, infoData, marker);
 					}
 				})(markerList[markerNumber], this.markers[markerNumber]));
@@ -652,7 +646,7 @@ var csl = {
 			}
 			
 			if (bounds != null) {
-				console.log('rebounded');
+				this.debugSearch('rebounded');
 				this.bounds = bounds;
 				if (this.homePoint) { 
 					this.gmap.panTo(this.homePoint); }
@@ -672,7 +666,7 @@ var csl = {
   	  	 */
 		this.bounceMarkers = function(markerList) {
 			this.clearMarkers();
-			console.log('bounce');
+			this.debugSearch('bounce');
 			this.putMarkers(markerList, csl.Animation.None);
 		}
 		
@@ -687,7 +681,7 @@ var csl = {
   	  	 */
 		this.dropMarkers = function(markerList) {
 			this.clearMarkers();
-			console.log('dropping');
+			this.debugSearch('dropping');
 			this.putMarkers(markerList, csl.Animation.Drop);
 		}
 		
@@ -703,9 +697,9 @@ var csl = {
   	  	 * returns: none
   	  	 */
 		this.__handleInfoClicks = function(infoData, marker) {
-			console.log(infoData);
-			console.log(marker);
-			console.log(this);
+			this.debugSearch(infoData);
+			this.debugSearch(marker);
+			this.debugSearch(this);
 			this.infowindow.setContent(this.createMarkerContent(infoData));
 			//this.infowindow.setContent('hi');
 			this.infowindow.open(this.gmap, marker.__gmarker);
@@ -742,8 +736,21 @@ var csl = {
   	  	 */
 		this.createMarkerContent = function(aMarker) {
 			var html = '';
-			
-			var url = this.__getCurrentUrl(aMarker);
+			if (aMarker.url.indexOf("http://") == -1)
+			{
+				aMarker.url = "http://" + aMarker.url;
+			}
+			if (aMarker.sl_pages_url.indexOf("http://") == -1)
+			{
+				aMarker.sl_pages_url = "http://" + aMarker.sl_pages_url;
+			}
+			var url = '';
+			if (aMarker.sl_pages_url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
+				url = aMarker.sl_pages_url;
+			}
+			else if (aMarker.url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
+				url = aMarker.url;
+			}
 			
 			if (url != '') { 
 				html += "| <a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a>";
@@ -798,36 +805,11 @@ var csl = {
 			return complete_html;
 		}
 		
-		/***************************
-  	  	 * function: createMarkerContent
-  	  	 * usage:
-  	  	 * 		Gets the ccurrent  url to use from a marker
-  	  	 * parameters:
-  	  	 * 		aMarker:
-		 *			the ajax result to build the information from
-  	  	 * returns: an url
-  	  	 */
-		this.__getCurrentUrl = function(Marker)
-		{
-			var url = '';
-			if (Marker.sl_pages_url.length > 0)
+		this.debugSearch = function(toLog) {
+			if (slplus.debug_mode == 1)
 			{
-				url = Marker.sl_pages_url;
+				console.log(toLog);
 			}
-			else {
-				url = Marker.url;
-			}
-			
-			if (url == '') {
-				console.log('invalid url');
-				return url;
-			}
-			
-			if (url.indexOf('http://') == -1) {
-				url = 'http://' + url;
-			}
-			console.log(url);
-			return url;
 		}
 		
 		/***************************
@@ -848,7 +830,7 @@ var csl = {
 				center = null;
 				this.forceAll = false;
 			}
-			console.log('doing search@' + center + ' for radius of ' + radius);
+			this.debugSearch('doing search@' + center + ' for radius of ' + radius);
 			if (center == null) {
 				var center = this.gmap.getCenter();
 			}
@@ -858,7 +840,7 @@ var csl = {
 			this.lastCenter = center;
 			this.lastRadius = radius;
 			if (tags == null) { tags = ''; }
-			console.log('searching: ' + center.lat() +','+ center.lng());
+			this.debugSearch('searching: ' + center.lat() +','+ center.lng());
 			var name = document.getElementById('nameSearch').value;
 			var action = null;
 			if (realsearch) {
@@ -867,7 +849,7 @@ var csl = {
 			else {
 				action = {action:'csl_ajax_onload',lat:center.lat(),lng:center.lng(),tags:tags };
 			}
-			console.log(action);
+			this.debugSearch(action);
 			var _this = this;
 			var ajax = new csl.Ajax();
 			if (!realsearch) {
@@ -920,34 +902,8 @@ var csl = {
 			}
 			else {
 				var tag_to_search_for = document.getElementById('tag_to_search_for').value;
-				this.loadMarkers(this.lastCenter, this.lastRadius, tag_to_search_for);
+				this.loadMarkers(this.gmap.getCenter(), radiusSelect.value, tag_to_search_for);
 			}
-				/* todo: delete reference material
-				geocoder.getLatLng(escapeExtended(address), 
-				function(latlng) {
-					if (!latlng) {
-						var theMessage = ''; 
-						if (slplus.debug_mode) {
-							theMessage = 'Google geocoder could not find ' + escape (address) + ' :: ';
-						}
-						theMessage += address + ' not found'; 
-						alert(theMessage);
-					} else {
-						if (slplus.debug_mode) {
-							alert('Searching near ' + address + ' ' + latlng);
-						}
-						searchLocationsNear(latlng, address); 
-					}
-				});
-
-				// No Address, Use Current Map Center
-				//
-			} else {
-				searchLocationsNear(map.getCenter(), '');         
-			}    
-			
-			
-			map.checkResize();*/
 		}
 		
 		/***************************
@@ -968,7 +924,24 @@ var csl = {
 			var state = aMarker.state;
 			var zip = aMarker.zip;
 			
-			var url = this.__getCurrentUrl(aMarker);
+			if (aMarker.url.indexOf("http://") == -1)
+			{
+				aMarker.url = "http://" + aMarker.url;
+			}
+			if (aMarker.sl_pages_url.indexOf("http://") == -1)
+			{
+				aMarker.sl_pages_url = "http://" + aMarker.sl_pages_url;
+			}
+			var url = '';
+			if (aMarker.sl_pages_url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
+				url = aMarker.sl_pages_url;
+			}
+			else if (aMarker.url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
+				url = aMarker.url;
+			}
+			if (url != '') {
+				link = link = "<a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>"; 
+			}
 			
 			var elink = '';
 			if (aMarker.email.indexOf('@') != -1 && aMarker.email.indexOf('.') != -1) {
@@ -994,7 +967,7 @@ var csl = {
 			//
 			if (jQuery.trim(street) != '') { street = street + '<br/>'; }
 			if (jQuery.trim(street2) != '') { street2 = street2 + '<br/>'; }
-			if (jQuery.trim(city + state + zip) != '') { state = ', ' + state + ', ' + zip + '<br/>'; }
+			if (jQuery.trim(city + state + zip) != '') { state = state + ', ' + zip + '<br/>'; }
 			
 			var html =  '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">' +
 					'<tr>' +
