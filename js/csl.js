@@ -484,7 +484,7 @@ var csl = {
 						overviewMapControlOptions: { opened: this.overviewControl }
 					};
 					this.debugSearch(this.options);
-					this.gmap = new google.maps.Map(jQuery('#map'), this.options);
+					this.gmap = new google.maps.Map(document.getElementById('map'), this.options);
 					this.debugSearch(this.gmap);
 					//this forces any bad css from themes to fix the "gray bar" issue by setting the css max-width to none
 					var _this = this;
@@ -493,7 +493,7 @@ var csl = {
 					});
 				  
 					//load all the markers
-					if (document.getElementById('addressInput').value == null || document.getElementById('addressInput').value == '') {
+					if (this.saneValue('addressInput', null) == null || this.saneValue('addressInput', null) == '') {
 						this.forceAll = true;
 						
 						this.loadMarkers();
@@ -502,8 +502,9 @@ var csl = {
 						this.homePoint = results[0].geometry.location;
 						this.homeAddress = results[0].formatted_address;
 						this.addMarkerAtCenter();
-						var tag_to_search_for = document.getElementById('tag_to_search_for').value;
-						this.loadMarkers(results[0].geometry.location, radiusSelect.value, tag_to_search_for);
+						var tag_to_search_for = this.saneValue('tag_to_search_for', '');
+						var radius = this.saneValue('radiusSelect');
+						this.loadMarkers(results[0].geometry.location, radius, tag_to_search_for);
 					}
 				}
 				//the map has been created so shift the center of the map
@@ -514,20 +515,21 @@ var csl = {
 					this.homeAdress = results[0].formatted_address;
 					
 					this.addMarkerAtCenter();
-					var tag_to_search_for = document.getElementById('tag_to_search_for').value;
+					var tag_to_search_for = this.saneValue('tag_to_search_for', '');
 					//do a search based on settings
-					this.loadMarkers(results[0].geometry.location, radiusSelect.value, tag_to_search_for);
+					var radius = this.saneValue('radiusSelect');
+					this.loadMarkers(results[0].geometry.location, radius, tag_to_search_for);
 				}
 				//if the user entered an address, replace it with a formatted one
-				if (addressInput.value != '') {
-					this.debugSearch(addressInput.value);
-					this.debugSearch(results[0].formatted_address);
-					addressInput.value = results[0].formatted_address;
+				var addressInput = this.saneValue('addressInput','');
+				if (addressInput != '') {
+					addressInput = results[0].formatted_address;
 				}
   	  	  	} else {
 				//address couldn't be processed, so use the center of the map
-				var tag_to_search_for = document.getElementById('tag_to_search_for').value;
-				this.loadMarkers(null, radiusSelect.value, tag_to_search_for);
+				var tag_to_search_for = this.saneValue('tag_to_search_for', '');
+				var radius = this.saneValue('radiusSelect');
+				this.loadMarkers(null, radius, tag_to_search_for);
   	  	  	}
   	  	}
   	  	  
@@ -558,7 +560,7 @@ var csl = {
   	  	 * returns: none
   	  	 */
 		this.__tilesAreLoaded = function() {
-			jQuery(map).find('img').css({'max-width': 'none'});
+			jQuery('#map').find('img').css({'max-width': 'none'});
 			google.maps.event.removeListener(this.__tilesLoaded);
 			this.__tilesLoaded = null;
 		}
@@ -954,7 +956,8 @@ var csl = {
 			}
 			else {
 				var tag_to_search_for = this.saneValue('tag_to_search_for', '');
-				this.loadMarkers(this.gmap.getCenter(), radiusSelect.value, tag_to_search_for);
+				var radius = this.saneValue('radiusSelect');
+				this.loadMarkers(this.gmap.getCenter(), radius, tag_to_search_for);
 			}
 		}
 		
