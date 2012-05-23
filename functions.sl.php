@@ -99,7 +99,7 @@ function initialize_variables() {
         add_option('sl_radius_label', $sl_radius_label);
         }
     $sl_map_type=get_option('sl_map_type');
-    if (empty($sl_map_type)) {
+    if (isset($sl_map_type)) {
         $sl_map_type='roadmap';
         add_option('sl_map_type', $sl_map_type);
         }
@@ -256,7 +256,6 @@ function do_geocoding($address,$sl_id='') {
         }else{
              $csv = file_get_contents($request_url) or die("url not loading");
         }
-    
         $csvSplit = split(",", $csv);
         $status = $csvSplit[0];
         $lat = $csvSplit[2];
@@ -271,13 +270,12 @@ function do_geocoding($address,$sl_id='') {
             $geocode_pending = false;
             $lat = $csvSplit[2];
             $lng = $csvSplit[3];
-            
             // Update newly inserted address
             //
             if ($sl_id=='') {
                 $query = sprintf("UPDATE " . $wpdb->prefix ."store_locator " .
                        "SET sl_latitude = '%s', sl_longitude = '%s' " .
-                       "WHERE sl_id = ".mysql_insert_id() .
+                       "WHERE sl_id = LAST_INSERT_ID()".
                        " LIMIT 1;", 
                        mysql_real_escape_string($lat), 
                        mysql_real_escape_string($lng)
@@ -293,7 +291,7 @@ function do_geocoding($address,$sl_id='') {
             
             // Run insert/update
             //
-            $update_result = mysql_query($query);
+            $update_result = $wpdb->query($query);
             if (!$update_result) {
                 echo sprintf(__("Could not add/update address.  Error: %s.", SLPLUS_PREFIX),mysql_error())."\n<br>";
             }
