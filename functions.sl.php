@@ -662,8 +662,8 @@ function SetMapCenter() {
     $customAddress = get_option(SLPLUS_PREFIX.'_map_center');
     if (
         (preg_replace('/\W/','',$customAddress) != '') &&
-        $slplus_plugin->license->packages['Pro Pack']->isenabled_after_forcing_recheck() &&
-        ($slplus_plugin->license->packages['Pro Pack']->active_version >= 2004000) 
+        $slplus_plugin->license->packages['Pro Pack']->isenabled &&
+        ($slplus_plugin->license->packages['Pro Pack']->active_version >= 2004000)
         ) {
         return str_replace(array("\r\n","\n","\r"),', ',esc_attr($customAddress));
     }
