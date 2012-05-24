@@ -222,6 +222,20 @@ The legacy customization setup is going away.   You should migrate any legacy ic
 
 == Changelog ==
 
+= 3.0 (May 2012) =
+
+[PLEASE READ THE IMPORTANT RELEASE NOTES BEFORE UPDATING](http://redmine.cybersprocket.com)
+
+* Always returns at least one result.
+* [Pro Pack 3.0] You can now enable search by store name.
+* [Pro Pack 3.0] Tag search now functions as expected.
+* [Store Pages] Links now display on localhost
+* Updated to Google Maps V3.
+* Custom icons now support custom shadows.
+* Removed symlinked directories for servers that do not support them.
+* Map load time improved
+* Significant Javascript rewrite
+
 = 2.7.1 (May 17th, 2012 =
 
 * Fixed readme file
