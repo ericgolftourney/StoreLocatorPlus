@@ -966,15 +966,16 @@ var csl = {
   	  	 */
 		this.searchLocations = function() {
 			var address = this.saneValue('addressInput', '');
-    
+            jQuery('#map_box_image').hide();
+			jQuery('#map_box_map').show();
+            google.maps.event.trigger(this.gmap, 'resize');
+                
 			// Address was given, use it...
 			// 
 			if (address != '') {
 				this.address = cslutils.escapeExtended(address);
 				this.doGeocode();
-				jQuery('#map_box_image').hide();
-				jQuery('#map_box_map').show();
-                google.maps.event.trigger(this.gmap, 'resize');
+				
 			}
 			else {
 				var tag_to_search_for = this.saneValue('tag_to_search_for', '');
