@@ -493,19 +493,24 @@ var csl = {
 					});
 				  
 					//load all the markers
-					if (this.saneValue('addressInput', null) == null || this.saneValue('addressInput', null) == '') {
-						this.forceAll = true;
+                    if (this.load_locations == '1') {
+					    if (this.saneValue('addressInput', null) == null || this.saneValue('addressInput', null) == '') {
+						    this.forceAll = true;
 						
-						this.loadMarkers();
-					}
-					else {
-						this.homePoint = results[0].geometry.location;
-						this.homeAddress = results[0].formatted_address;
-						this.addMarkerAtCenter();
-						var tag_to_search_for = this.saneValue('tag_to_search_for', '');
-						var radius = this.saneValue('radiusSelect');
-						this.loadMarkers(results[0].geometry.location, radius, tag_to_search_for);
-					}
+						    this.loadMarkers();
+					    }
+					    else {
+						    this.homePoint = results[0].geometry.location;
+						    this.homeAddress = results[0].formatted_address;
+						    this.addMarkerAtCenter();
+						    var tag_to_search_for = this.saneValue('tag_to_search_for', '');
+						    var radius = this.saneValue('radiusSelect');
+						    this.loadMarkers(results[0].geometry.location, radius, tag_to_search_for);
+					    }
+                    }
+                    else {
+                        this.load_locations = '0';
+                    }
 				}
 				//the map has been created so shift the center of the map
 				else {
@@ -672,6 +677,7 @@ var csl = {
 			//check for results
 			if (markerList.length == 0) {
 				this.gmap.panTo(this.homePoint);
+                var sidebar = document.getElementById('map_sidebar');
 				sidebar.innerHTML = '<div class="no_results_found"><h2>No results found.</h2></div>';
 			}
 			
@@ -968,6 +974,7 @@ var csl = {
 				this.doGeocode();
 				jQuery('#map_box_image').hide();
 				jQuery('#map_box_map').show();
+                google.maps.event.trigger(this.gmap, 'resize');
 			}
 			else {
 				var tag_to_search_for = this.saneValue('tag_to_search_for', '');
@@ -1071,9 +1078,7 @@ var cslutils;
 function InitializeTheMap() {
 	cslutils = new csl.Utils();
 	cslmap = new csl.Map();
-	if (slplus.load_locations == '1') {
-		cslmap.doGeocode();
-	}
+	cslmap.doGeocode();
 }
 
 /* 
