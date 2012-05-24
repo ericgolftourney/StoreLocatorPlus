@@ -477,7 +477,7 @@ var csl = {
 						mapTypeId: this.mapType,
 						overviewMapControl: this.overviewControl,
 						scrollwheel: !this.disableScroll,
-						center: results[0].geometry.viewport.getCenter(),
+						center: results[0].geometry.location,
 						zoom: parseInt(this.zoom),
 						scaleControl: this.mapScaleControl,
 						overviewMapControl: this.overviewControl,
