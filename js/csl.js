@@ -756,21 +756,21 @@ var csl = {
   	  	}
         
         /***************************
-  	  	 * function: createMarkerContent
+  	  	 * function: __getMarkerUrl
   	  	 * usage:
-  	  	 * 		Builds the html div for the info window
+  	  	 * 		Builds the url for store pages
   	  	 * parameters:
   	  	 * 		aMarker:
-					the ajax result to build the information from
-  	  	 * returns: an html <div>
-  	  	 */
+		 *			the ajax result to build the information from
+  	  	 * returns: an url
+        */
         this.__getMarkerUrl = function(aMarker) {
             var url = '';
             //add an http to the url
             if (aMarker.sl_pages_url != '') {
                 url = aMarker.sl_pages_url;
             }
-            else if (aMaker.url != '') {
+            else if (aMarker.url != '') {
                 if (aMarker.url.indexOf("http://") != -1) {
                     aMarker.url = "http://" + aMarker.url;
                 }
