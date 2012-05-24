@@ -1032,7 +1032,25 @@ var csl = {
 			//
 			if (jQuery.trim(street) != '') { street = street + '<br/>'; }
 			if (jQuery.trim(street2) != '') { street2 = street2 + '<br/>'; }
-			if (jQuery.trim(city + state + zip) != '') { state = state + ', ' + zip + '<br/>'; }
+            var city_state_zip = '';
+            if (jQuery.trim(city) != '') {
+                city_state_zip += city;
+                if (jQuery.trim(state) != '') {
+                    city_state_zip += ', ';
+                }
+            }
+            if (jQuery.trim(state) != '') {
+                city_state_zip += state;
+                if (jQuery.trim(zip) != '') {
+                    city_state_zip += ', ';
+                }
+            }
+            if (jQuery.trim(zip) != '') {
+                city_state_zip += zip;
+            }
+            if (jQuery.trim(city_state_zip) != '') {
+                city_state_zip += '<br/>';
+            }
 			
 			var html =  '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">' +
 					'<tr>' +
@@ -1042,7 +1060,7 @@ var csl = {
                     '<td class="results_row_center_column">' + 
                         street +  
                         street2 + 
-                        city + state +
+                        city_state_zip +
                         aMarker.phone +
                     '</td>' +
                     '<td class="results_row_right_column">' + 
