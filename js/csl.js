@@ -754,6 +754,34 @@ var csl = {
   	  	  	  	_this.__geocodeResult.call(_this, result, status); }	// but it forces the callback to keep its scope
   	  	  	);
   	  	}
+        
+        /***************************
+  	  	 * function: createMarkerContent
+  	  	 * usage:
+  	  	 * 		Builds the html div for the info window
+  	  	 * parameters:
+  	  	 * 		aMarker:
+					the ajax result to build the information from
+  	  	 * returns: an html <div>
+  	  	 */
+        this.__getMarkerUrl = function(aMarker) {
+            var url = '';
+            //add an http to the url
+            if (aMarker.sl_pages_url != '') {
+                url = aMarker.sl_pages_url;
+            }
+            else if (aMaker.url != '') {
+                if (aMarker.url.indexOf("http://") != -1) {
+                    aMarker.url = "http://" + aMarker.url;
+                }
+                
+                if (aMarker.url.indexOf(".") != -1) {
+                    url = aMarker.url;
+                }
+            }
+            
+            return url;
+        }
 		
 		/***************************
   	  	 * function: createMarkerContent
@@ -766,24 +794,11 @@ var csl = {
   	  	 */
 		this.createMarkerContent = function(aMarker) {
 			var html = '';
-			if (aMarker.url.indexOf("http://") == -1)
-			{
-				aMarker.url = "http://" + aMarker.url;
-			}
-			if (aMarker.sl_pages_url.indexOf("http://") == -1)
-			{
-				aMarker.sl_pages_url = "http://" + aMarker.sl_pages_url;
-			}
-			var url = '';
-			if (aMarker.sl_pages_url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
-				url = aMarker.sl_pages_url;
-			}
-			else if (aMarker.url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
-				url = aMarker.url;
-			}
+            
+            var url = this.__getMarkerUrl(aMarker);
 			
 			if (url != '') { 
-				html += "| <a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a>";
+				html += "| <a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +" </nobr></a>";
 			} 
 			
 			if (aMarker.email.indexOf("@") != -1 && aMarker.email.indexOf(".") != -1) {
@@ -979,21 +994,8 @@ var csl = {
 			var state = aMarker.state;
 			var zip = aMarker.zip;
 			
-			if (aMarker.url.indexOf("http://") == -1)
-			{
-				aMarker.url = "http://" + aMarker.url;
-			}
-			if (aMarker.sl_pages_url.indexOf("http://") == -1)
-			{
-				aMarker.sl_pages_url = "http://" + aMarker.sl_pages_url;
-			}
-			var url = '';
-			if (aMarker.sl_pages_url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
-				url = aMarker.sl_pages_url;
-			}
-			else if (aMarker.url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
-				url = aMarker.url;
-			}
+            var url = this.__getMarkerUrl(aMarker);
+            
 			if (url != '') {
 				link = link = "<a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>"; 
 			}
