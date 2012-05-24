@@ -10,7 +10,7 @@ function add_this_addy($fields,$values,$theaddress) {
 	global $wpdb;
 	$fields=substr($fields, 0, strlen($fields)-1);
 	$values=substr($values, 0, strlen($values)-1);	
-	$wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fields) VALUES ($values)");
+	$wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fields) VALUES ($values);");
 	do_geocoding($theaddress);
 	
 }
