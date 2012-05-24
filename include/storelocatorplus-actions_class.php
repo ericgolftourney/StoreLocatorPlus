@@ -174,7 +174,7 @@ if (! class_exists('SLPlus_Actions')) {
             //--------------------------------
             // Store Pages Is Licensed
             //
-            if ($slplus_plugin->license->packages['Store Pages']->isenabled_after_forcing_recheck()) {
+            if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
 
                 // Register Store Pages Custom Type
                 register_post_type( 'store_page',
