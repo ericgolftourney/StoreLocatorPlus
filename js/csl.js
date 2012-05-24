@@ -771,7 +771,7 @@ var csl = {
                 url = aMarker.sl_pages_url;
             }
             else if (aMarker.url != '') {
-                if (aMarker.url.indexOf("http://") != -1) {
+                if (aMarker.url.indexOf("http://") == -1) {
                     aMarker.url = "http://" + aMarker.url;
                 }
                 
