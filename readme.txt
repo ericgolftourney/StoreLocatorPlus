@@ -218,13 +218,17 @@ Now uses the Google Maps API V3! Pro Pack includes new search by name functional
 = 3.0 (May 2012) =
 
 * [Pro Pack 3.0] You can now enable search by store name.
+* [Pro Pack 3.0] Fixes to tag search.
 * [Store Pages] Links now display on localhost.
 * Updated to Google Maps V3.
 * Custom icons now support custom shadows.
 * Removed symlinked directories for servers that do not support them.
-* Map load time improved.
 * Significant Javascript rewrite to support Google Maps API V3.
 * API Key no longer required.
+* Removed symlinks
+* Fixed icons for gmaps V3 support
+* Server side geocodes updated to V3
+* *Dramatically* increased the time to load a map page for users experiencing an extreme lag.
 
 = 2.7.1 (May 17th, 2012 =
 
