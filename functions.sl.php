@@ -214,29 +214,11 @@ function initialize_variables() {
 /*----------------------------*/
 function do_geocoding($address,$sl_id='') {    
     global $wpdb, $slplus_plugin;    
-    if (!defined('MAPS_HOST')) { define("MAPS_HOST", get_option('sl_google_map_domain')); }
-    if (!defined('KEY')) { define('KEY', $slplus_plugin->driver_args['api_key']); }
     
     // Initialize delay in geocode speed
     $delay = 0;
-	if (isset($slplus_plugin->driver_args['api_key'])) {
-		$base_url = "http://" . MAPS_HOST . "/maps/geo?output=csv&key=" . KEY;
-	}
-	else {
-		$base_url = "http://" . MAPS_HOST . "/maps/geo?output=csv";
-	}
     
-    //Adding ccTLD (Top Level Domain) to help perform more accurate geocoding according to selected Google Maps Domain - 12/16/09
-    $ccTLD_arr=explode(".", MAPS_HOST);
-    $ccTLD=$ccTLD_arr[count($ccTLD_arr)-1];
-    if ($ccTLD!="com") {
-        $base_url .= "&gl=".$ccTLD;
-    }
-    
-    //Map Character Encoding
-    if (get_option("sl_map_character_encoding")!="") {
-        $base_url .= "&oe=".get_option("sl_map_character_encoding");
-    }
+    $base_url = "http://maps.googleapis.com/maps/api/geocode/json?sensor=false";
     
     // Loop through for X retries
     //
@@ -246,30 +228,29 @@ function do_geocoding($address,$sl_id='') {
     	$iterations--;     
     
         // Iterate through the rows, geocoding each address
-        $request_url = $base_url . "&q=" . urlencode($address);
+        $request_url = $base_url . "&address=" . urlencode($address);
+        
         if (extension_loaded("curl") && function_exists("curl_init")) {
                 $cURL = curl_init();
                 curl_setopt($cURL, CURLOPT_URL, $request_url);
                 curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
-                $csv = curl_exec($cURL);
+                $json = curl_exec($cURL);
                 curl_close($cURL);  
         }else{
-             $csv = file_get_contents($request_url) or die("url not loading");
+             $json = file_get_contents($request_url) or die("url not loading");
         }
-        $csvSplit = split(",", $csv);
-        $status = $csvSplit[0];
-        $lat = $csvSplit[2];
-        $lng = $csvSplit[3];
+        $json = json_decode($json);
+        $status = $json->{'status'};
         
         // Geocode completed successfully
         //
-        if (strcmp($status, "200") == 0) {
+        if (strcmp($status, "OK") == 0) {
             $iterations = 0;      // Break out of retry loop if we are OK
             
             // successful geocode
             $geocode_pending = false;
-            $lat = $csvSplit[2];
-            $lng = $csvSplit[3];
+            $lat = $json->results[0]->geometry->location->lat;
+            $lng = $json->results[0]->geometry->location->lng;
             // Update newly inserted address
             //
             if ($sl_id=='') {
@@ -281,13 +262,11 @@ function do_geocoding($address,$sl_id='') {
                        mysql_real_escape_string($lng)
                        );
             }
-            
             // Update an existing address
             //
             else {
                 $query = sprintf("UPDATE " . $wpdb->prefix ."store_locator SET sl_latitude = '%s', sl_longitude = '%s' WHERE sl_id = $sl_id LIMIT 1;", mysql_real_escape_string($lat), mysql_real_escape_string($lng));
             }
-            
             
             // Run insert/update
             //
@@ -298,7 +277,7 @@ function do_geocoding($address,$sl_id='') {
 
         // Geocoding done too quickly
         //
-        } else if (strcmp($status, "620") == 0) {
+        } else if (strcmp($status, "OVER_QUERY_LIMIT") == 0) {
             
           // No iterations left, tell user of failure
           //
@@ -310,7 +289,7 @@ function do_geocoding($address,$sl_id='') {
 
         // Invalid address
         //
-        } else if (strcmp($status, '602') == 0) {
+        } else if (strcmp($status, 'ZERO_RESULTS') == 0) {
 	    	$iterations = 0; 
 	    	echo sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
 	      	echo sprintf(__("Unknown Address! Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
