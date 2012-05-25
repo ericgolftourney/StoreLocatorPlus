@@ -3,7 +3,7 @@ Plugin Name: Google Maps via Store Locator Plus
 Contributors: cybersprocket
 Donate link: http://www.storelocatorplus.com/
 Tags: google maps, store finder, store locator, store locater, google, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus, bing map, bing, yahoo maps, yahoo, mapping, retail
-Requires at least: 3.3
+Requires at least: 3.3.2
 Tested up to: 3.3.2
 Stable tag: 3.0
 
@@ -75,6 +75,7 @@ Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
 The plugin has an optional Pro Pack available that adds advanced features to the Store Locator Plus product.
 Some of the added features include:
 
+* **NEW!** Search by store name - Looking for a specific store? Search by name and pull it up instantly.
 * CSV Bulk Uploads - using the CSV bulk loader
 * Extended Map Settings - Control more details about how the map looks, disable the scale, the zoom, and more.
 * Extended Manage Location Features - more controls for managing locations.
@@ -134,7 +135,6 @@ Users that opt not to purchase the Pro Pack can still customize the look by edit
 
 Thanks to [Nicolas Mollet](http://mapicons.nicolasmollet.com/) for some of the great icons.
 
-
 == Frequently Asked Questions ==
 
 = What are the terms of the license? =
@@ -174,6 +174,7 @@ Please see the [Store Locator Plus website](http://www.storelocatorplus.com) for
 
 Some of the features in the Pro Pack include:
 
+* Ability to search by location name
 * A searched-locations report.
 * Ability to input addresses in bulk via a CSV upload.
 * Ability to associate tags with locations and filter search results by those tags.
@@ -210,31 +211,20 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 
 == Upgrade Notice ==
 
-This version of the Store Locator Plus requires WordPress version 3.3 or higher.
-Only in WordPress version 3.3 or higher can we provide the enhanced performance provided by loading the JavaScript and CSS files on pages that have a Store Locator Plus shortcode.
-
-If you are using the legacy ./custom-css implementation of CSS files you will need to upgrade to the [Pro Pack with themes](http://redmine.cybersprocket.com/projects/mc-closeststore/wiki/Custom_Themes).
-The theming system uses the built-in CSS management system of WordPress allowing for more efficient loading of CSS files only as needed.
-
-The legacy customization setup is going away.   You should migrate any legacy icons or stylesheets to the new themes location.   Icons should go in the main ./core/images/icons directory.   If you have open-source or commercial license approved icons you want to have included in the next release, please  [contact us](http://www.cybersprocket.com/contact-us/).
-
-[Version 2.7 Release Notes](http://redmine.cybersprocket.com/projects/mc-closeststore/versions/490)
+Now uses the Google Maps API V3! Pro Pack includes new search by name functionality! **Make sure you enable V3 API key before upgrading**: [API Console](https://code.google.com/apis/console/).
 
 == Changelog ==
 
 = 3.0 (May 2012) =
 
-[PLEASE READ THE IMPORTANT RELEASE NOTES BEFORE UPDATING](http://redmine.cybersprocket.com)
-
-* Always returns at least one result.
 * [Pro Pack 3.0] You can now enable search by store name.
-* [Pro Pack 3.0] Tag search now functions as expected.
-* [Store Pages] Links now display on localhost
+* [Store Pages] Links now display on localhost.
 * Updated to Google Maps V3.
 * Custom icons now support custom shadows.
 * Removed symlinked directories for servers that do not support them.
-* Map load time improved
-* Significant Javascript rewrite
+* Map load time improved.
+* Significant Javascript rewrite to support Google Maps API V3.
+* API Key no longer required.
 
 = 2.7.1 (May 17th, 2012 =
 
