@@ -80,7 +80,6 @@ include_once(SLPLUS_PLUGINDIR . 'plus.php'						);
 include_once(SLPLUS_COREDIR   . 'csl_helpers.php'			);
 include_once(SLPLUS_COREDIR   . 'functions.sl.php'			);
 include_once(SLPLUS_COREDIR   . 'csl-ajax-search.php'	);
-include_once(SLPLUS_COREDIR   . 'csl-ajax-onload.php'	);
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-actions_class.php');
 
 // Activation Action (install/upgrade)
