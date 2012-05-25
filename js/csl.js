@@ -853,7 +853,7 @@ var csl = {
 					html += '<br/>'+aMarker.tags;
 				}
 			}
-			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.gmap.getCenter()) + '&daddr=' + encodeURIComponent(aMarker.street + ', ' + aMarker.street2 + ', ' + aMarker.city + ', ' + aMarker.state + ', ' + aMarker.zip) + '" target="_blank" class="storelocatorlink">Directions</a> ' + html + '<br/><!--/td></tr--></div>';
+			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.address) + '&daddr=' + encodeURIComponent(aMarker.street + ', ' + aMarker.street2 + ', ' + aMarker.city + ', ' + aMarker.state + ', ' + aMarker.zip) + '" target="_blank" class="storelocatorlink">Directions</a> ' + html + '<br/><!--/td></tr--></div>';
 			
 			return complete_html;
 		}
@@ -1067,7 +1067,7 @@ var csl = {
                         link + 
                         elink +
                         '<a href="http://' + slplus.map_domain + 
-                        '/maps?saddr=' + encodeURIComponent(this.gmap.getCenter()) + 
+                        '/maps?saddr=' + encodeURIComponent(this.address) + 
                         '&daddr=' + encodeURIComponent(aMarker.address) + 
                         '" target="_blank" class="storelocatorlink">Directions</a>'+
                         tagInfo +
