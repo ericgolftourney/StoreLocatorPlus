@@ -493,19 +493,24 @@ var csl = {
 					});
 				  
 					//load all the markers
-					if (this.saneValue('addressInput', null) == null || this.saneValue('addressInput', null) == '') {
-						this.forceAll = true;
+                    if (this.load_locations == '1') {
+					    if (this.saneValue('addressInput', null) == null || this.saneValue('addressInput', null) == '') {
+						    this.forceAll = true;
 						
-						this.loadMarkers();
-					}
-					else {
-						this.homePoint = results[0].geometry.location;
-						this.homeAddress = results[0].formatted_address;
-						this.addMarkerAtCenter();
-						var tag_to_search_for = this.saneValue('tag_to_search_for', '');
-						var radius = this.saneValue('radiusSelect');
-						this.loadMarkers(results[0].geometry.location, radius, tag_to_search_for);
-					}
+						    this.loadMarkers();
+					    }
+					    else {
+						    this.homePoint = results[0].geometry.location;
+						    this.homeAddress = results[0].formatted_address;
+						    this.addMarkerAtCenter();
+						    var tag_to_search_for = this.saneValue('tag_to_search_for', '');
+						    var radius = this.saneValue('radiusSelect');
+						    this.loadMarkers(results[0].geometry.location, radius, tag_to_search_for);
+					    }
+                    }
+                    else {
+                        this.load_locations = '0';
+                    }
 				}
 				//the map has been created so shift the center of the map
 				else {
@@ -672,6 +677,7 @@ var csl = {
 			//check for results
 			if (markerList.length == 0) {
 				this.gmap.panTo(this.homePoint);
+                var sidebar = document.getElementById('map_sidebar');
 				sidebar.innerHTML = '<div class="no_results_found"><h2>No results found.</h2></div>';
 			}
 			
@@ -754,6 +760,34 @@ var csl = {
   	  	  	  	_this.__geocodeResult.call(_this, result, status); }	// but it forces the callback to keep its scope
   	  	  	);
   	  	}
+        
+        /***************************
+  	  	 * function: __getMarkerUrl
+  	  	 * usage:
+  	  	 * 		Builds the url for store pages
+  	  	 * parameters:
+  	  	 * 		aMarker:
+		 *			the ajax result to build the information from
+  	  	 * returns: an url
+        */
+        this.__getMarkerUrl = function(aMarker) {
+            var url = '';
+            //add an http to the url
+            if (aMarker.sl_pages_url != '') {
+                url = aMarker.sl_pages_url;
+            }
+            else if (aMarker.url != '') {
+                if (aMarker.url.indexOf("http://") == -1) {
+                    aMarker.url = "http://" + aMarker.url;
+                }
+                
+                if (aMarker.url.indexOf(".") != -1) {
+                    url = aMarker.url;
+                }
+            }
+            
+            return url;
+        }
 		
 		/***************************
   	  	 * function: createMarkerContent
@@ -766,24 +800,11 @@ var csl = {
   	  	 */
 		this.createMarkerContent = function(aMarker) {
 			var html = '';
-			if (aMarker.url.indexOf("http://") == -1)
-			{
-				aMarker.url = "http://" + aMarker.url;
-			}
-			if (aMarker.sl_pages_url.indexOf("http://") == -1)
-			{
-				aMarker.sl_pages_url = "http://" + aMarker.sl_pages_url;
-			}
-			var url = '';
-			if (aMarker.sl_pages_url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
-				url = aMarker.sl_pages_url;
-			}
-			else if (aMarker.url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
-				url = aMarker.url;
-			}
+            
+            var url = this.__getMarkerUrl(aMarker);
 			
 			if (url != '') { 
-				html += "| <a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a>";
+				html += "| <a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +" </nobr></a>";
 			} 
 			
 			if (aMarker.email.indexOf("@") != -1 && aMarker.email.indexOf(".") != -1) {
@@ -945,14 +966,16 @@ var csl = {
   	  	 */
 		this.searchLocations = function() {
 			var address = this.saneValue('addressInput', '');
-    
+            jQuery('#map_box_image').hide();
+			jQuery('#map_box_map').show();
+            google.maps.event.trigger(this.gmap, 'resize');
+                
 			// Address was given, use it...
 			// 
 			if (address != '') {
 				this.address = cslutils.escapeExtended(address);
 				this.doGeocode();
-				jQuery('#map_box_image').hide();
-				jQuery('#map_box_map').show();
+				
 			}
 			else {
 				var tag_to_search_for = this.saneValue('tag_to_search_for', '');
@@ -979,21 +1002,8 @@ var csl = {
 			var state = aMarker.state;
 			var zip = aMarker.zip;
 			
-			if (aMarker.url.indexOf("http://") == -1)
-			{
-				aMarker.url = "http://" + aMarker.url;
-			}
-			if (aMarker.sl_pages_url.indexOf("http://") == -1)
-			{
-				aMarker.sl_pages_url = "http://" + aMarker.sl_pages_url;
-			}
-			var url = '';
-			if (aMarker.sl_pages_url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
-				url = aMarker.sl_pages_url;
-			}
-			else if (aMarker.url.indexOf('http://') != -1 && aMarker.sl_pages_url.indexOf('.') != -1) {
-				url = aMarker.url;
-			}
+            var url = this.__getMarkerUrl(aMarker);
+            
 			if (url != '') {
 				link = link = "<a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>"; 
 			}
@@ -1022,7 +1032,25 @@ var csl = {
 			//
 			if (jQuery.trim(street) != '') { street = street + '<br/>'; }
 			if (jQuery.trim(street2) != '') { street2 = street2 + '<br/>'; }
-			if (jQuery.trim(city + state + zip) != '') { state = state + ', ' + zip + '<br/>'; }
+            var city_state_zip = '';
+            if (jQuery.trim(city) != '') {
+                city_state_zip += city;
+                if (jQuery.trim(state) != '') {
+                    city_state_zip += ', ';
+                }
+            }
+            if (jQuery.trim(state) != '') {
+                city_state_zip += state;
+                if (jQuery.trim(zip) != '') {
+                    city_state_zip += ', ';
+                }
+            }
+            if (jQuery.trim(zip) != '') {
+                city_state_zip += zip;
+            }
+            if (jQuery.trim(city_state_zip) != '') {
+                city_state_zip += '<br/>';
+            }
 			
 			var html =  '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">' +
 					'<tr>' +
@@ -1032,7 +1060,7 @@ var csl = {
                     '<td class="results_row_center_column">' + 
                         street +  
                         street2 + 
-                        city + state +
+                        city_state_zip +
                         aMarker.phone +
                     '</td>' +
                     '<td class="results_row_right_column">' + 
@@ -1069,9 +1097,7 @@ var cslutils;
 function InitializeTheMap() {
 	cslutils = new csl.Utils();
 	cslmap = new csl.Map();
-	if (slplus.load_locations == '1') {
-		cslmap.doGeocode();
-	}
+	cslmap.doGeocode();
 }
 
 /* 
