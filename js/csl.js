@@ -413,6 +413,7 @@ var csl = {
 		this.lastCenter = null;
 		this.lastRadius = null;
 		this.loadedOnce = false;
+        this.centerLoad = false;
 		
 		/***************************
   	  	 * function: __init()
@@ -637,7 +638,13 @@ var csl = {
 					this.debugSearch('create initial bounds');
 					bounds = new google.maps.LatLngBounds();
 					if (this.homePoint) { bounds.extend(this.homePoint); } else {
-						bounds.extend(this.gmap.getCenter()); }
+                        if (this.centerLoad) {
+                            bounds.extend(this.gmap.getCenter());
+                        }
+                        else {
+                            this.centerLoad = true;
+                        }
+                    }
 					bounds.extend(position);
 				}
 				else  if (markerNumber > 0) {
