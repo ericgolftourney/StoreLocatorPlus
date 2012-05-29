@@ -731,28 +731,6 @@ function csl_slplus_add_options_page() {
 }
 
 
-/*---------------------------------*/
-function add_admin_javascript() {
-        global $sl_base, $sl_upload_base, $sl_dir, $google_map_domain, $sl_path, 
-            $sl_upload_path, $map_character_encoding, $slplus_plugin;
-        wp_enqueue_script('jquery-ui-dialog');               
-		$api=$slplus_plugin->driver_args['api_key'];
-        print "<script src='".SLPLUS_PLUGINURL."/core/js/functions.js'></script>\n
-        <script type='text/javascript'>
-        var sl_dir='".SLPLUS_PLUGINDIR."';
-        var sl_google_map_country='".get_option('sl_google_map_country')."';
-        </script>\n";
-        if (ereg("add-locations", (isset($_GET['page'])?$_GET['page']:''))) {
-            $google_map_domain=(get_option('sl_google_map_domain')!="")? get_option('sl_google_map_domain') : "maps.google.com";
-			if ($api != "") {
-				print "<script src='http://$google_map_domain/maps?file=api&amp;v=3&amp;key=$api&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
-			}
-			else {
-				print "<script src='http://$google_map_domain/maps?file=api&amp;v=3&amp;sensor=false{$map_character_encoding}' type='text/javascript'></script>\n";
-			}
-        }
-}
-
 /*-------------------------------------------------------------*/
 function comma($a) {
 	$a=ereg_replace('"', "&quot;", $a);
