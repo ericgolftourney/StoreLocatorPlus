@@ -379,7 +379,7 @@ var csl = {
 		this.disableScroll = null;
 		this.disableDir = null;
 		this.distanceUnit = null;
-		this.loadLocations = null;
+		this.load_locations = null;
 		this.map3dControl = null;
 		this.mapCountry = null;
 		this.mapDomain = null;
@@ -429,7 +429,7 @@ var csl = {
 			this.debugMode = !!slplus.debug_mode;
 			this.disableDir = !!slplus.disable_dir;
 			this.distanceUnit = slplus.distance_unit;
-			this.loadLocations = !!slplus.load_locations;
+			this.load_locations = !!slplus.load_locations;
 			this.mapCountry = slplus.map_country;
 			this.mapDomain = slplus.map_domain;
 			this.mapHomeIconUrl = slplus.map_home_icon;
@@ -853,7 +853,7 @@ var csl = {
 					html += '<br/>'+aMarker.tags;
 				}
 			}
-			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.gmap.getCenter()) + '&daddr=' + encodeURIComponent(aMarker.street + ', ' + aMarker.street2 + ', ' + aMarker.city + ', ' + aMarker.state + ', ' + aMarker.zip) + '" target="_blank" class="storelocatorlink">Directions</a> ' + html + '<br/><!--/td></tr--></div>';
+			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.address) + '&daddr=' + encodeURIComponent(aMarker.street + ', ' + aMarker.street2 + ', ' + aMarker.city + ', ' + aMarker.state + ', ' + aMarker.zip) + '" target="_blank" class="storelocatorlink">Directions</a> ' + html + '<br/><!--/td></tr--></div>';
 			
 			return complete_html;
 		}
@@ -1067,7 +1067,7 @@ var csl = {
                         link + 
                         elink +
                         '<a href="http://' + slplus.map_domain + 
-                        '/maps?saddr=' + encodeURIComponent(this.gmap.getCenter()) + 
+                        '/maps?saddr=' + encodeURIComponent(this.address) + 
                         '&daddr=' + encodeURIComponent(aMarker.address) + 
                         '" target="_blank" class="storelocatorlink">Directions</a>'+
                         tagInfo +
