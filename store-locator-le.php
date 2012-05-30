@@ -81,10 +81,7 @@ include_once(SLPLUS_COREDIR   . 'csl_helpers.php'			);
 include_once(SLPLUS_COREDIR   . 'functions.sl.php'			);
 include_once(SLPLUS_COREDIR   . 'csl-ajax-search.php'	);
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-actions_class.php');
-
-// Activation Action (install/upgrade)
-//
-register_activation_hook( __FILE__, 'activate_slplus');
+require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-activation_class.php');
 
 // Regular Actions
 //
