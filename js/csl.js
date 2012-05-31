@@ -796,6 +796,21 @@ var csl = {
             return url;
         }
 		
+        this.__createAddress = function(aMarker) {
+            var address = aMarker.address;
+			if (aMarker.address == '') { aMarker.address = ""; } else address += ', ';
+			address += aMarker.address2;
+			if (aMarker.address2 == '') { aMarker.address2 = ""; } else address += ', ';
+			address += aMarker.city;
+			if (aMarker.city == '') { aMarker.city = ""; } else address += ', ';
+			address += aMarker.state;
+			if (aMarker.state == '') { aMarker.state = ""; } else address += ', ';
+			address += aMarker.zip;
+			if (aMarker.zip == '') { aMarker.zip = ""; }
+            
+            return address;
+        }
+        
 		/***************************
   	  	 * function: createMarkerContent
   	  	 * usage:
@@ -844,23 +859,14 @@ var csl = {
 				html+="<br/><span class='location_detail_label'>Phone:</span> "+aMarker.phone;
 			}
 
-			var address = aMarker.address;
-			if (aMarker.address == '') { aMarker.address = ""; } else address += ', ';
-			address += aMarker.address2;
-			if (aMarker.address2 == '') { aMarker.address2 = ""; } else address += ', ';
-			address += aMarker.city;
-			if (aMarker.city == '') { aMarker.city = ""; } else address += ', ';
-			address += aMarker.state;
-			if (aMarker.state == '') { aMarker.state = ""; } else address += ', ';
-			address += aMarker.zip;
-			if (aMarker.zip == '') { aMarker.zip = ""; }
+			var address = this.__createAddress(aMarker);
 			
 			if (slplus.show_tags) {
 				if (jQuery.trim(aMarker.tags) != '') {
 					html += '<br/>'+aMarker.tags;
 				}
 			}
-			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.address) + '&daddr=' + encodeURIComponent(aMarker.street + ', ' + aMarker.street2 + ', ' + aMarker.city + ', ' + aMarker.state + ', ' + aMarker.zip) + '" target="_blank" class="storelocatorlink">Directions</a> ' + html + '<br/><!--/td></tr--></div>';
+			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.address) + '&daddr=' + encodeURIComponent(address) + '" target="_blank" class="storelocatorlink">Directions</a> ' + html + '<br/><!--/td></tr--></div>';
 			
 			return complete_html;
 		}
@@ -1058,6 +1064,17 @@ var csl = {
             if (jQuery.trim(city_state_zip) != '') {
                 city_state_zip += '<br/>';
             }
+            
+            var address = aMarker.address;
+			if (aMarker.address == '') { aMarker.address = ""; } else address += ', ';
+			address += aMarker.address2;
+			if (aMarker.address2 == '') { aMarker.address2 = ""; } else address += ', ';
+			address += aMarker.city;
+			if (aMarker.city == '') { aMarker.city = ""; } else address += ', ';
+			address += aMarker.state;
+			if (aMarker.state == '') { aMarker.state = ""; } else address += ', ';
+			address += aMarker.zip;
+			if (aMarker.zip == '') { aMarker.zip = ""; }
 			
 			var html =  '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">' +
 					'<tr>' +
@@ -1075,7 +1092,7 @@ var csl = {
                         elink +
                         '<a href="http://' + slplus.map_domain + 
                         '/maps?saddr=' + encodeURIComponent(this.address) + 
-                        '&daddr=' + encodeURIComponent(aMarker.address) + 
+                        '&daddr=' + encodeURIComponent(address) + 
                         '" target="_blank" class="storelocatorlink">Directions</a>'+
                         tagInfo +
                         '</td>' +
