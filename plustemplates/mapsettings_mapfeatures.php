@@ -106,6 +106,12 @@
         __('Hide map type',SLPLUS_PREFIX),
         __('Turn the map type selector off.', SLPLUS_PREFIX)
         );
+        
+    echo CreateCheckboxDiv(
+        '_use_location_sensor',
+        __('Use location sensor', SLPLUS_PREFIX),
+        __('This turns on the location sensor for your customers so they can easily get accurate results')
+    );
 
 
     // Pro Pack Version 2.4
