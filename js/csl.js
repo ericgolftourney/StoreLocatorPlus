@@ -403,6 +403,7 @@ var csl = {
 		this.markers = null;
 		
 		//slplus options
+        this.usingSensor = false;
 		this.debugMode = null;
 		this.disableScroll = null;
 		this.disableDir = null;
@@ -515,6 +516,12 @@ var csl = {
                     _this.__waitForTileLoad.call(_this);
                 });
               
+                this.debugSearch(this.usingSensor);
+                if (this.usingSensor) {
+                    this.homePoint = center;
+                    this.addMarkerAtCenter();
+                }
+                
                 //load all the markers
                 if (this.load_locations == '1') {
                     if (this.saneValue('addressInput', null) == null || this.saneValue('addressInput', null) == '') {
@@ -911,7 +918,7 @@ var csl = {
 		this.debugSearch = function(toLog) {
 			if (slplus.debug_mode == 1)
 			{
-				//console.log(toLog);
+				console.log(toLog);
 			}
 		}
 		
@@ -1147,7 +1154,20 @@ var cslutils;
 function InitializeTheMap() {
 	cslutils = new csl.Utils();
 	cslmap = new csl.Map();
-	cslmap.doGeocode();
+    cslmap.debug_mode = "1";
+    if (!!slplus.use_sensor) {
+        sensor = new csl.LocationServices();
+        sensor.currentLocation(function(loc) {
+            cslmap.usingSensor = true;
+            cslmap.__buildMap(new google.maps.LatLng(loc.coords.latitude, loc.coords.longitude));
+        },
+        function(error) {
+            cslmap.doGeocode();
+        });
+    }
+    else {
+        cslmap.doGeocode();
+    }
 }
 
 /* 
