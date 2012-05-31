@@ -70,6 +70,16 @@
         __('Tag Input',SLPLUS_PREFIX),
         __('Show the tag entry box on the search form.', SLPLUS_PREFIX)
         );        
+        
+        // 3.1 paid update only
+        //                                                                                                             3000001
+        if ($slplus_plugin->license->packages['Pro Pack']->active_version >= 3001000) {
+                echo CreateCheckboxDiv(
+                '_use_location_sensor',
+                __('Use location sensor', SLPLUS_PREFIX),
+                __('This turns on the location sensor for your customers so they can easily get accurate results')
+            );
+        }
 ?>
 
 <div class='form_entry'>
