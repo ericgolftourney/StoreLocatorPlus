@@ -1154,7 +1154,6 @@ var cslutils;
 function InitializeTheMap() {
 	cslutils = new csl.Utils();
 	cslmap = new csl.Map();
-    cslmap.debug_mode = "1";
     if (!!slplus.use_sensor) {
         sensor = new csl.LocationServices();
         sensor.currentLocation(function(loc) {
