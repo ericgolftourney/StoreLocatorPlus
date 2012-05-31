@@ -12,6 +12,34 @@
   *
   */
 var csl = {
+
+    /***************************
+     * Location services
+     * usage:
+     * 		gets the users current location
+     */
+    LocationServices: function() {
+        this.theService = null;
+        
+        this.__init = function() {
+            try {
+                if (typeof navigator.geolocation == 'undefined') {
+                    this.theService = google.gears.factory.create('beta.geolocation');
+                }
+                else {
+                    this.theService = navigator.geolocation;
+                }
+            } catch (e) {}
+        };
+        
+        this.currentLocation = function(callback, errorCallback) {
+            if (this.theService) {
+                    this.theService.getCurrentPosition(callback, errorCallback);
+                }
+            };
+            
+            this.__init();
+        },
 	
 	/***************************
   	 * Class: Ajax
