@@ -241,6 +241,7 @@ if (! class_exists('csl_mobile_listener')) {
 				            'email' => esc_attr($row['sl_email']),
 				            'hours' => esc_attr($row['sl_hours']),
 				            'phone' => esc_attr($row['sl_phone']),
+                            'units' => get_option('sl_distance_unit'),
 				            'image' => esc_attr($row['sl_image']),
 				            'distance' => $row['sl_distance'],
 				            'tags' => ($slplus_show_tags) ? esc_attr($row['sl_tags']) : ''
