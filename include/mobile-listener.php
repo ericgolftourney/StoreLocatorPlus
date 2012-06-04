@@ -91,6 +91,7 @@ if (! class_exists('csl_mobile_listener')) {
                     'tags' => $tags,
                     'name' => $name,
                     'callback' => $callback,
+                    'max' => $max,
                     'apiKey' => ''
                 );
                 $response = new csl_mobile_listener($params);
@@ -167,7 +168,7 @@ if (! class_exists('csl_mobile_listener')) {
                 get_option(SLPLUS_PREFIX.'_maxreturned') : 
                 '25';
 	
-	            $max = mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned']);
+	            $max = $option[SLPLUS_PREFIX.'_maxreturned'];
 
                 if ($this->max < $max) {
                     $max = $this->max;
@@ -189,12 +190,12 @@ if (! class_exists('csl_mobile_listener')) {
 			            $tag_filter,
 			            $name_filter,
 			            mysql_real_escape_string($this->radius),
-			            mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned'])
+			            mysql_real_escape_string($max)
 		            );
 		
 		            $result = mysql_query($query);
 		            if (!$result) {
-			            $this->Respond( 'Invalid query: ' . mysql_error());
+			            $this->Respond( false, 'Invalid query: ' . mysql_error() . '- '.$query);
 		            }
 
 		            // Show Tags
