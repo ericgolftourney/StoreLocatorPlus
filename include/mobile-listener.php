@@ -35,6 +35,13 @@ if (! class_exists('csl_mobile_listener')) {
                 else {
                     $callback = $_REQUEST['callback'];
                 }
+
+                if (!isset($_REQUEST['max'])) {
+                    $max = '';
+                }
+                else {
+                    $max = $_REQUEST['max'];
+                }
                 
                 //set a latitude
                 if (!isset($_REQUEST['lat'])) {
@@ -161,6 +168,11 @@ if (! class_exists('csl_mobile_listener')) {
                 '25';
 	
 	            $max = mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned']);
+
+                if ($this->max < $max) {
+                    $max = $this->max;
+                }
+
                 //for ($rad = $this->radius; $rad < 40000; $rad += 100) {
 		            //Select all the rows in the markers table
 		            $query = sprintf(
