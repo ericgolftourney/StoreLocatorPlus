@@ -38,6 +38,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'url'                   => 'http://www.storelocatorplus.com/',            
             'support_url'            => 'http://storelocatorplus.com/faq/',
             'purchase_url'           => 'http://storelocatorplus.com/download/',
+            'rate_url'              => 'http://wordpress.org/extend/plugins/store-locator-le/',
             
             'basefile'              => SLPLUS_BASENAME,
             'plugin_path'           => SLPLUS_PLUGINDIR,
