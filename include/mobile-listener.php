@@ -37,7 +37,7 @@ if (! class_exists('csl_mobile_listener')) {
                 }
 
                 if (!isset($_REQUEST['max'])) {
-                    $max = '';
+                    $max = get_option(SLPLUS_PREFIX.'_maxreturned');
                 }
                 else {
                     $max = $_REQUEST['max'];
