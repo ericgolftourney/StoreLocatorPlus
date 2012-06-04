@@ -38,10 +38,10 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'css_prefix'            => SLPLUS_PREFIX,
             'name'                  => 'Store Locator Plus',
             'sku'                   => 'SLPLUS',
-            
+
             'on_update' => array(SLPlus_Activate, update),
             'version' => '3.0.1',
-            
+
             'url'                   => 'http://www.storelocatorplus.com/',            
             'support_url'            => 'http://storelocatorplus.com/faq/',
             'purchase_url'           => 'http://storelocatorplus.com/download/',

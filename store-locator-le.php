@@ -83,6 +83,12 @@ include_once(SLPLUS_COREDIR   . 'csl-ajax-search.php'	);
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-actions_class.php');
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-activation_class.php');
 
+require_once(SLPLUS_PLUGINDIR . '/include/mobile-listener.php');
+
+// Activation Action (install/upgrade)
+//
+register_activation_hook( __FILE__, 'activate_slplus');
+
 // Regular Actions
 //
 add_action('init'               ,array('SLPlus_Actions','init')                 );
@@ -99,7 +105,14 @@ add_action('admin_head'         , 'slpreport_downloads'                         
 // Ajax search
 //
 add_action('wp_ajax_csl_ajax_search', 'csl_ajax_search');
+
 add_action('wp_ajax_nopriv_csl_ajax_search', 'csl_ajax_search');
+add_action('wp_ajax_nopriv_csl_get_closest_location', array('csl_mobile_listener', 'GetClosestLocation'));
+
+// Mobile Listener
+//
+add_action('wp_ajax_csl_get_locations', array('csl_mobile_listener', 'GetLocations'));
+add_action('wp_ajax_nopriv_csl_get_locations', array('csl_mobile_listener', 'GetLocations'));
 
 // Ajax Load
 //
