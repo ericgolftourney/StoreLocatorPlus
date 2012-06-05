@@ -141,7 +141,8 @@ function configure_slplus_storepages() {
                                        'come back to this page to enter the license key to activate the new features.',
                 'sku'               => 'SLP-PAGES',
                 'paypal_button_id'  => '3V2SSFKB3R6XE',
-                'paypal_upgrade_button_id' => '3V2SSFKB3R6XE'
+                'paypal_upgrade_button_id' => '3V2SSFKB3R6XE',
+                'isa_child'                    => false
             )
         );
     
