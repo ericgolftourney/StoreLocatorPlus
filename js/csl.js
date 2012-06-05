@@ -527,7 +527,7 @@ var csl = {
                     if (this.saneValue('addressInput', null) == null || this.saneValue('addressInput', null) == '') {
                         this.forceAll = true;
                     
-                        this.loadMarkers();
+                        this.loadMarkers(null, null, this.saneValue('tag_to_search_for', null));
                     }
                     else {
                         this.homePoint = center;
