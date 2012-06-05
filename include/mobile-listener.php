@@ -228,6 +228,7 @@ if (! class_exists('csl_mobile_listener')) {
 			
 			            $marker = array(
 				            //'test' => stuff
+                            'id' => esc_attr($row['sl_id']),
 				            'name' => esc_attr($row['sl_store']),
 				            'address' => esc_attr($row['sl_address']),
 				            'address2' => esc_attr($row['sl_address2']),
