@@ -497,8 +497,8 @@ var csl = {
                     if (this.load_locations == '1') {
 					    if (this.saneValue('addressInput', null) == null || this.saneValue('addressInput', null) == '') {
 						    this.forceAll = true;
-						
-						    this.loadMarkers();
+
+						    this.loadMarkers(null, null, this.saneValue('tag_to_search_for', ''));
 					    }
 					    else {
 						    this.homePoint = results[0].geometry.location;
