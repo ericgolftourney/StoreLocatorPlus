@@ -454,6 +454,65 @@ var csl = {
 				this.loadedOnce = true;
 			}
   	  	}
+        
+        /***************************
+  	  	 * function: __buildMap
+  	  	 * usage:
+  	  	 * 		Builds the map with the specified center
+  	  	 * parameters:
+  	  	 * 		center:
+		 *			the specified center or homepoint
+  	  	 * returns: none
+  	  	 */
+        this.__buildMap = function(center) {
+            if (this.gmap == null)
+            {
+                this.options = {
+                    mapTypeControl: this.mapTypeControl,
+                    mapTypeId: this.mapType,
+                    overviewMapControl: this.overviewControl,
+                    scrollwheel: !this.disableScroll,
+                    center: center,
+                    zoom: parseInt(this.zoom),
+                    scaleControl: this.mapScaleControl,
+                    overviewMapControl: this.overviewControl,
+                    overviewMapControlOptions: { opened: this.overviewControl }
+                };
+                this.debugSearch(this.options);
+                this.gmap = new google.maps.Map(document.getElementById('map'), this.options);
+                this.debugSearch(this.gmap);
+                //this forces any bad css from themes to fix the "gray bar" issue by setting the css max-width to none
+                var _this = this;
+                google.maps.event.addListener(this.gmap, 'bounds_changed', function() {
+                    _this.__waitForTileLoad.call(_this);
+                });
+              
+                this.debugSearch(this.usingSensor);
+                if (this.usingSensor) {
+                    this.homePoint = center;
+                    this.addMarkerAtCenter();
+                }
+                
+                //load all the markers
+                if (this.load_locations == '1') {
+                    if (this.saneValue('addressInput', null) == null || this.saneValue('addressInput', null) == '') {
+                        this.forceAll = true;
+                    
+                        this.loadMarkers(null, null, this.saneValue('tag_to_search_for', null));
+                    }
+                    else {
+                        this.homePoint = center;
+                        this.addMarkerAtCenter();
+                        var tag_to_search_for = this.saneValue('tag_to_search_for', '');
+                        var radius = this.saneValue('radiusSelect');
+                        this.loadMarkers(center, radius, tag_to_search_for);
+                    }
+                }
+                else {
+                    this.load_locations = '0';
+                }
+            }
+        }
   	  	
   	  	/***************************
   	  	 * function: __geocodeResult
