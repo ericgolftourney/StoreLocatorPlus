@@ -221,6 +221,7 @@ Now uses the Google Maps API V3! Pro Pack includes new search by name functional
 * Fixed an issue where directions link wasn't working
 * Fixed an issue where just showing a tag based map using shortcode attributes wasn't working
 * Fixed a css issue
+* Fixed where clicking the select all checkmark wasn't working
 
 = 3.0.1 (May 31st, 2012) =
 
