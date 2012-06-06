@@ -7,7 +7,7 @@
  
  global $slplus_plugin;
 ?>
-
+<script src="<?php echo SLPLUS_COREURL;?>js/functions.js"></script>
 <ul>
     <a href="<?php echo SLPLUS_ADMINPAGE;?>view-locations.php"><li class='like-a-button'>Locations: Manage</li></a>
     <a href="<?php echo SLPLUS_ADMINPAGE;?>add-locations.php"><li class='like-a-button'>Locations: Add</li></a>
