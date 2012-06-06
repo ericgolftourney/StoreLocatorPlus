@@ -218,9 +218,9 @@ Now uses the Google Maps API V3! Pro Pack includes new search by name functional
 = 3.0.2 (June 5th 2012) =
 
 * Fixed an issue that causes store pages not to activate
-* Added a please rate us message
 * Fixed an issue where directions link wasn't working
-* Fixed an issue where just showing a tag based map wasn't working
+* Fixed an issue where just showing a tag based map using shortcode attributes wasn't working
+* Fixed a css issue
 
 = 3.0.1 (May 31st, 2012) =
 
