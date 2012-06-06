@@ -713,6 +713,14 @@ function csl_slplus_add_options_page() {
 		    'administrator', 
 		    SLPLUS_COREDIR.'map-designer.php'
 		    );
+        add_submenu_page(
+            SLPLUS_COREDIR.'add-locations.php',
+            __("Manage Tags1", SLPLUS_PREFIX),
+            __("Manage Tags1", SLPLUS_PREFIX),
+            'administrator',
+            $slplus_plugin->prefix.'-options-manage_tags',
+            array('SLPlus_Actions', 'manage_tags'));
+
 		
 		// Pro Pack Reporting
 		//
