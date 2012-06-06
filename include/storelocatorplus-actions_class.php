@@ -24,6 +24,58 @@ if (! class_exists('SLPlus_Actions')) {
          */
         function __construct($params) {
         } 
+
+        function manage_tags()
+        {
+            global $slplus_plugin;
+
+            if (!isset($slplus_plugin)) { return; }
+
+            $settings_config = array(            
+            'http_handler'      => $slplus_plugin->http_handler,
+            'broadcast_url'     => $slplus_plugin->broadcast_url,
+            'prefix'            => $slplus_plugin->prefix,
+            'css_prefix'        => $slplus_plugin->css_prefix,
+            'plugin_url'        => $slplus_plugin->plugin_url,
+            'name'              => $slplus_plugin->name,
+            'url'               => $slplus_plugin->url,
+            'paypal_button_id'  => $slplus_plugin->paypal_button_id,
+            'no_license'        => true,
+            'sku'               => $slplus_plugin->sku,
+            'has_packages'      => false,
+            'parent'            => $slplus_plugin,
+            'render_csl_blocks' => false
+            
+            );
+
+            $page = new wpCSL_settings__SLPLUS($settings_config);
+
+            $page->add_section(
+                array(
+                    'name' => 'Navigation',
+                    'div_id' => 'slplus_navbar',
+                    'description' => get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php'),
+                    'is_topmenu' =>true,
+                    'auto' => false,
+                    'headerbar' => false
+                ));
+            
+            //-------------------------
+            // How to Use Section
+            //-------------------------    
+            $page->add_section(
+                array(
+                    'name'          => 'Tag Manager',
+                    'description'   => 'Manage how your users interact with your tags'
+                )
+            );
+
+            // Enumerate a drop down for all the tags
+            $page->add_item('Tag Manager','Select a tag to manage','taglist','list',false,
+            'Selecting a tag does things',array('tags'=>'None'),null,true);
+
+            $page->render_settings_page();
+        }
         
         /**************************************
          ** method: admin_init()
@@ -35,7 +87,6 @@ if (! class_exists('SLPlus_Actions')) {
          **/
         function admin_init() {
             global $slplus_plugin;
-            
             // Don't have what we need? Leave.
             if (!isset($slplus_plugin)) { return; }
         
