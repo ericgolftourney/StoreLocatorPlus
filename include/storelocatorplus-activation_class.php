@@ -93,15 +93,15 @@ if (! class_exists('SLPlus_Activate')) {
                 
                 // We are upgrading from something less than 2.0
                 //
-                if (floatval($sl_installed_ver) < 2.0) {
-                    dbDelta("UPDATE $table_name SET sl_lastupdated=current_timestamp " . 
+                if (floatval($this->installed_ver) < 2.0) {
+                    dbDelta("UPDATE $table_name SET sl_lastupdated=current_timestamp " .
                         "WHERE sl_lastupdated < '2011-06-01'"
                         );
-                }   
-                if (floatval($sl_installed_ver) < 2.2) {
+                }
+                if (floatval($this->installed_ver) < 2.2) {
                     dbDelta("ALTER $table_name MODIFY sl_description text ");
                 }
-            }         
+            }
             
             //set up google maps v3
             $old_option = get_option('sl_map_type');
@@ -216,15 +216,25 @@ if (! class_exists('SLPlus_Activate')) {
          * Updates the plugin
          */
         function update($slplus_plugin, $old_version) {
+            global $sl_db_version, $sl_installed_ver;
+	        $sl_db_version='3.1';     //***** CHANGE THIS ON EVERY STRUCT CHANGE
+            $sl_installed_ver = get_option( SLPLUS_PREFIX."-db_version" );
+            //todo: uncomment this
+            //update_option(SLPLUS_PREFIX.'-db_version', $sl_db_version);
+
             $updater = new SLPlus_Activate(array(
                 'plugin' => $slplus_plugin,
                 'old_version' => $old_version,
+                'db_version' => $sl_db_version,
+                'installed_ver' => $sl_installed_ver
             ));
             
             $updater->install_main_table();
             $updater->install_reporting_tables();
             $updater->add_splus_roles_and_caps();
             $updater->move_upload_directories();
+            $updater->install_tag_tables();
+            $updater->populate_tag_table();
         }
     }
 }
