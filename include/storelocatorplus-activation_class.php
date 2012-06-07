@@ -125,6 +125,99 @@ if (! class_exists('SLPlus_Activate')) {
             }
             update_option('sl_map_type', $new_option);
         }
+
+        /*
+         * Creates tags based on values in the locations db,
+         * 
+         */
+        function populate_tag_table() {
+            global $wpdb;
+            if ($this->installed_ver < 3.1) {
+                $table = $wpdb->prefix."store_locator";
+                $tag_table = $wpdb->prefix."slp_tags";
+
+                //gets all the tags
+                //
+                $query = "SELECT sl_tags
+                            FROM $table
+                            WHERE sl_tags <> ''";
+                $results = $wpdb->get_results($query);
+
+                //If there are tags, continue
+                //
+                if ($results) {
+
+                    $tags = array();
+                    $new_tags = array();
+                    $parts = null;
+
+                    //get all the tags from the result
+                    //escape them, and add them to our tags list
+                    //
+                    foreach ($results as $tag)
+                    {
+                        $parts = explode(',',$tag->sl_tags);
+                        foreach ($parts as $part) {
+                            $part = $wpdb->escape($part);
+                            if (trim($part) != '') {
+                                $tags[] = trim($part);
+                            }
+                        }
+                    }
+
+                    //insert all the tags into the tag table
+                    //
+                    foreach ($tags as $tag) {
+                        $col = array(
+                            'slp_tag_name' => $tag
+                        );
+                        $success = $wpdb->insert($tag_table, $col);
+                        if ($success === false) {
+                            continue;
+                        }
+
+                        $new_tags[$tag] = $wpdb->insert_id;
+                    }
+
+                    //change all the tags in the locations table to reflect the new ids
+                    foreach ($new_tags as $tag => $id) {
+                        $query = "UPDATE $table
+                                    SET sl_tags = REPLACE(sl_tags, '$tag', '$id')";
+                        $wpdb->query($query);
+                    }
+                }
+            }
+        }
+
+        /*
+         * Install tag table
+         */
+        function install_tag_tables() {
+            global $wpdb;
+
+            $charset_collate = '';
+            if ( ! empty($wpdb->charset) )
+                $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+            if ( ! empty($wpdb->collate) )
+                $charset_collate .= " COLLATE $wpdb->collate";
+
+            //*****
+            //***** CHANGE sl_db_version IN slplus_dbupdater() 
+            //***** ANYTIME YOU CHANGE THIS STRUCTURE
+            //*****		
+            $table_name = $wpdb->prefix."slp_tags";
+            $sql = "CREATE TABLE $table_name (
+                slp_tag_id      bigint(20) unsigned NOT NULL auto_increment,
+                slp_tag_name    varchar(255) NOT NULL,
+                slp_tag_image   varchar(255),
+                PRIMARY KEY (slp_tag_name),
+                INDEX (slp_tag_id)
+                )
+                $charset_collate
+                ";
+
+                $this->dbupdater($sql, $table_name);
+        }
         
         /*************************************
          * Install reporting tables
