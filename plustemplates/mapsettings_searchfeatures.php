@@ -65,11 +65,29 @@
 </div>
 
 <?php
-    echo CreateCheckboxDiv(
-        '_show_tag_search',
-        __('Tag Input',SLPLUS_PREFIX),
-        __('Show the tag entry box on the search form.', SLPLUS_PREFIX)
-        );        
+    if ($slplus_plugin->license->packages['Pro Pack']->active_version >= 3001000) {
+    var_dump(get_option(SLPLUS_PREFIX.'_show_tag_search'));
+    ?>
+    <div class='form_entry'>
+        <label for='<?php echo SLPLUS_PREFIX; ?>_show_tag_search'><?php _e('Tag Search Mode', SLPLUS_PREFIX);?>:</label>
+            <select name='<?php echo SLPLUS_PREFIX; ?>_show_tag_search'>
+                <option value='0'<?php echo (get_option(SLPLUS_PREFIX.'_show_tag_search')==0)?" selected >" : ">"; _e('No Tag Search', SLPLUS_PREFIX); ?></option>
+                <option value='1'<?PHP echo (get_option(SLPLUS_PREFIX.'_show_tag_search')==1)?" selected >" : ">"; _e('Text Search Mode', SLPLUS_PREFIX); ?></option>
+                <option value='2'<?PHP echo (get_option(SLPLUS_PREFIX.'_show_tag_search')==2)?" selected >" : ">"; _e('Image Bar Search', SLPLUS_PREFIX); ?></option>
+            </select>
+            <?php  
+        echo slp_createhelpdiv(SLPLUS_PREFIX.'_show_tag_search',
+        __("<strong>No Tag Search:</strong> Does not display the tag search to the end user.<br><strong>Text Search Mode:</strong> Uses the old style tag search to display using a text box to display a search by tag, or if you enter a comma separated list below, it will create a drop down to choose from.<br><strong>Image Bar Search:</strong> Using this mode, ensure you enter tags to display in the text box below.", SLPLUS_PREFIX)
+        );
+        ?>
+    </div>
+    <?php
+    }
+    else
+    // Use the old way if they haven't updated yet
+    {
+        echo CreateCheckboxDiv('_show_tag_search', __('Tag Input', SLPLUS_PREFIX), __("Show the tag entry box on the search form", SLPLUS_PREFIX));
+    }
 ?>
 
 <div class='form_entry'>
