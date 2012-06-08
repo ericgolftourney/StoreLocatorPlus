@@ -53,7 +53,7 @@ if (! class_exists('slp_service_class')) {
                     foreach ($results as $tag)
                     {
                         $expr = "/,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/";
-                        $parts = preg_split($expr, trim($tag->sl_tags));
+                        $parts = preg_split($expr, trim(html_entity_decode($tag->sl_tags, ENT_QUOTES | ENT_HTML5)));
                         $parts = preg_replace("/^\"(.*)\"$/","$1",$parts);
                         $post_to_tag = array();
                         foreach ($parts as $part) {
@@ -108,8 +108,6 @@ if (! class_exists('slp_service_class')) {
                             $wpdb->query($query);
                         }
                     }
-
-                    //die('ready<br>');
                 }
             }
 
