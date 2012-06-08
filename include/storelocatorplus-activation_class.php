@@ -132,13 +132,15 @@ if (! class_exists('SLPlus_Activate')) {
          */
         function populate_tag_table() {
             global $wpdb;
+            
             if ($this->installed_ver < 3.1) {
                 $table = $wpdb->prefix."store_locator";
                 $tag_table = $wpdb->prefix."slp_tags";
+                $link_table = $wpdb->prefix."slp_loc_tags";
 
                 //gets all the tags
                 //
-                $query = "SELECT sl_tags
+                $query = "SELECT sl_tags, sl_id
                             FROM $table
                             WHERE sl_tags <> ''";
                 $results = $wpdb->get_results($query);
@@ -150,6 +152,7 @@ if (! class_exists('SLPlus_Activate')) {
                     $tags = array();
                     $new_tags = array();
                     $parts = null;
+                    $post_to_tag = array();
 
                     //get all the tags from the result
                     //escape them, and add them to our tags list
@@ -157,36 +160,41 @@ if (! class_exists('SLPlus_Activate')) {
                     foreach ($results as $tag)
                     {
                         $parts = explode(',',$tag->sl_tags);
+                        $post_to_tag = array();
                         foreach ($parts as $part) {
                             $part = $wpdb->escape($part);
                             if (trim($part) != '') {
                                 $tags[] = trim($part);
+                                $post_to_tag[] = trim($part);
                             }
                         }
-                    }
+                    
 
-                    //insert all the tags into the tag table
-                    //
-                    foreach ($tags as $tag) {
-                        $col = array(
-                            'slp_tag_name' => $tag
-                        );
-                        $success = $wpdb->insert($tag_table, $col);
-                        if ($success === false) {
-                            continue;
+                        //insert all the tags into the tag table
+                        //
+                        foreach ($post_to_tag as $tagr) {
+                            $col = array(
+                                'tag_name' => $tagr
+                            );
+                            $success = $wpdb->insert($tag_table, $col);
+                            if (!isset($new_tags[$tagr])) {
+                                $new_tags[$tagr] = $wpdb->insert_id;
+                            }
+
+                            $col = array(
+                                'tag_id' => $new_tags[$tagr],
+                                'sl_id' => $tag->sl_id
+                            );
+                            $success = $wpdb->insert($link_table, $col);
                         }
 
-                        $new_tags[$tag] = $wpdb->insert_id;
-                    }
-
-                    //change all the tags in the locations table to reflect the new ids
-                    foreach ($new_tags as $tag => $id) {
-                        $query = "UPDATE $table
-                                    SET sl_tags = REPLACE(sl_tags, '$tag', '$id')";
-                        $wpdb->query($query);
                     }
                 }
             }
+        }
+
+        function downgrade() {
+            //need to actually do this
         }
 
         /*
@@ -207,16 +215,28 @@ if (! class_exists('SLPlus_Activate')) {
             //*****		
             $table_name = $wpdb->prefix."slp_tags";
             $sql = "CREATE TABLE $table_name (
-                slp_tag_id      bigint(20) unsigned NOT NULL auto_increment,
-                slp_tag_name    varchar(255) NOT NULL,
-                slp_tag_image   varchar(255),
-                PRIMARY KEY (slp_tag_name),
-                INDEX (slp_tag_id)
+                tag_id      bigint(20) unsigned NOT NULL auto_increment primary key,
+                tag_name    varchar(255) unique NOT NULL,
+                tag_image   varchar(255),
+                INDEX (tag_id)
                 )
                 $charset_collate
                 ";
 
                 $this->dbupdater($sql, $table_name);
+
+            $table_name = $wpdb->prefix.'slp_loc_tags';
+            $sql = "CREATE TABLE $table_name (
+                tag_id      bigint(20) unsigned NOT NULL,
+                sl_id       mediumint(8) unsigned NOT NULL,
+                primary key (tag_id, sl_id),
+                key (sl_id)
+                )
+                $charset_collate
+                ";
+                
+                $this->dbupdater($sql, $table_name);
+
         }
         
         /*************************************
@@ -312,8 +332,7 @@ if (! class_exists('SLPlus_Activate')) {
             global $sl_db_version, $sl_installed_ver;
 	        $sl_db_version='3.1';     //***** CHANGE THIS ON EVERY STRUCT CHANGE
             $sl_installed_ver = get_option( SLPLUS_PREFIX."-db_version" );
-            //todo: uncomment this
-            //update_option(SLPLUS_PREFIX.'-db_version', $sl_db_version);
+            update_option(SLPLUS_PREFIX.'-db_version', $sl_db_version);
 
             $updater = new SLPlus_Activate(array(
                 'plugin' => $slplus_plugin,
