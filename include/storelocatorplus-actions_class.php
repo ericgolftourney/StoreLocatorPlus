@@ -87,6 +87,12 @@ if (! class_exists('SLPlus_Actions')) {
          **/
         function admin_init() {
             global $slplus_plugin;
+
+            // Sync Tags
+            require_once(SLPLUS_PLUGINDIR . 'include/service-class.php');
+
+            slp_service_class::Sync_tags();
+
             // Don't have what we need? Leave.
             if (!isset($slplus_plugin)) { return; }
         
@@ -95,7 +101,7 @@ if (! class_exists('SLPlus_Actions')) {
 
             // Add admin helpers
             //
-            require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-adminui_class.php');
+            require_once(SLPLUS_PLUGINDIR . 'include/storelocatorplus-adminui_class.php');
             
             //-------------------------
             // Navbar Section
