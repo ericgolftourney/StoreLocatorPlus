@@ -70,9 +70,17 @@ if (! class_exists('SLPlus_Actions')) {
                 )
             );
 
+            $tags = array();
+
+            $table = slp_service_class::GetAllTags();
+
+            foreach ($table as $result) {
+                $tags[$result->tag_name] = $result->tag_id;
+            }
+
             // Enumerate a drop down for all the tags
-            $page->add_item('Tag Manager','Select a tag to manage','taglist','list',false,
-            'Selecting a tag does things',array('tags'=>'None'),null,true);
+            $page->add_item('Tag Manager','Select a tag to manage','taglist','list_box',false,
+            'Selecting a tag does things',$tags,null,false);
 
             $page->render_settings_page();
         }
