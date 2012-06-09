@@ -12,7 +12,8 @@
     <a href="<?php echo SLPLUS_ADMINPAGE;?>view-locations.php"><li class='like-a-button'>Locations: Manage</li></a>
     <a href="<?php echo SLPLUS_ADMINPAGE;?>add-locations.php"><li class='like-a-button'>Locations: Add</li></a>
     <a href="<?php echo SLPLUS_ADMINPAGE;?>map-designer.php"><li class='like-a-button'>Settings: Map</li></a>
-    <a href="<?php echo admin_url(); ?>options-general.php?page=csl-slplus-options"><li class='like-a-button'>Settings: General</li></a>    
+    <a href="<?php echo admin_url(); ?>admin.php?page=csl-slplus-options-manage_tags"><li class='like-a-button'>Tags: Manage</li></a>
+    <a href="<?php echo admin_url(); ?>options-general.php?page=csl-slplus-options"><li class='like-a-button'>Settings: General</li></a>
     <?php 
     //--------------------------------
     // Pro Version : Show Reports Tab
