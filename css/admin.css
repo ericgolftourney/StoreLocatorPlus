@@ -389,6 +389,18 @@ input#bulk_file {
 {
     padding-right: 6px;
 }
+
+.csl_select_box, #wpcontent .csl_option_box
+{
+    padding-right: 6px;
+    min-height: 200px;
+	display: inline;
+	font-size: larger;
+}
+
+.csl_picture_box {
+	
+}
  
 .tableRowHeader,.tableRowHeader td,.tableRowHeader th 
 {
