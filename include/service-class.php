@@ -63,7 +63,6 @@ if (! class_exists('slp_service_class')) {
                                 $post_to_tag[] = trim($part);
                             }
                         }
-                        var_dump($tags); echo '<br>^^tags<br>';
 
                         //insert all the tags into the tag table
                         //
@@ -126,6 +125,18 @@ if (! class_exists('slp_service_class')) {
                 $results = $wpdb->get_results($query);
                 //do this right
                 return $results[0]->sl_id;
+            }
+
+            function GetAllTags() {
+                global $wpdb;
+                $query = "select 
+                                *
+                            from
+                                wp_slp_tags";
+                
+                $results = $wpdb->get_results($query);
+                //do this right
+                return $results;
             }
 
             function GetTags($sl_id)
