@@ -5,7 +5,11 @@ Donate link: http://www.storelocatorplus.com/
 Tags: google maps, store finder, store locator, store locater, google, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus, bing map, bing, yahoo maps, yahoo, mapping, retail
 Requires at least: 3.3.2
 Tested up to: 3.3.2
+<<<<<<< Updated upstream
 Stable tag: 3.0.1
+=======
+Stable tag: 3.0.5
+>>>>>>> Stashed changes
 
 Store Locator Plus works with Google Maps to put a store location search on your site.
 Tweak the look and feel with the custom settings.
@@ -214,6 +218,27 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 Now uses the Google Maps API V3! Pro Pack includes new search by name functionality! **Make sure you enable V3 API key before upgrading**: [API Console](https://code.google.com/apis/console/).
 
 == Changelog ==
+
+= 3.0.5 (June 11th 2012) =
+
+* [security] Fixed an issue where the installation path could be viewed
+* [security] Fixed an SQL injection vulnerability
+
+= 3.0.4 (June 9th 2012) =
+
+* Fixed activation
+
+= 3.0.3 (June 6th 2012) =
+
+* Fixed an issue that causes store pages not to activate
+* Added a please rate us feature
+
+= 3.0.2 (June 5th 2012) =
+
+* Fixed an issue where directions link wasn't working
+* Fixed an issue where just showing a tag based map using shortcode attributes wasn't working
+* Fixed a css issue
+* Fixed where clicking the select all checkmark wasn't working
 
 = 3.0.1 (May 31st, 2012) =
 
