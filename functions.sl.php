@@ -640,7 +640,7 @@ function slplus_dbupdater($sql,$table_name) {
         'zoom_tweak'        => get_option('sl_zoom_tweak',1),
         );
     wp_localize_script('csl_script','slplus',$scriptData);
-	wp_localize_script('csl_script','csl_ajax',array('ajaxurl' => admin_url('admin-ajax.php')));
+	wp_localize_script('csl_script','csl_ajax',array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('em')));
     
     // Set our flag for later processing
     // of JavaScript files

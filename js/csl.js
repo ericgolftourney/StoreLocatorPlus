@@ -273,7 +273,8 @@ var csl = {
 
 				writeln("        <div class='form_entry'>");
 				writeln("            <label for='email_to'>To:</label>");
-				writeln("            <input type='hidden' name='email_to' value='"+to+"'/>");
+				writeln("            <input type='hidden' name='email_to' value='" + to + "'/>");
+                
 				writeln("            <div class='to'>"+to+"</div>");
 				writeln("        </div>");           
 					
@@ -302,6 +303,7 @@ var csl = {
 				writeln("    <div class='form_submit'>");
 				writeln("        <input type='submit' value='Send Message'>");
 				writeln("    </div>");
+                writeln("            <input type='hidden' name='valid' value=csl_ajax.nonce/>");
 				writeln("</form>");
 				writeln("</body></html>");
 				close();
