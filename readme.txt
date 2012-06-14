@@ -107,6 +107,7 @@ You can have a WordPress page for each store location on your map turning your l
 = Requirements =
 
 * PHP 5.1+
+* Wordpress: 3.3.2+
 
 = Main Plugin =
 
