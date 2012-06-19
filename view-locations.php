@@ -376,7 +376,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                     ($value['sl_pages_url'] != '')
                     ){
                     $shortSPurl = preg_replace('/^.*?store_page=/','',$value['sl_pages_url']);
-                    print "<label for='store_page'>Store Page</label><a href='$value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a> <a href=''>x</a><br/>";
+                    print "<label for='store_page'>Store Page</label><a href='$value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a><br/>";
                 }
                 
                 print "<br>
