@@ -12,7 +12,7 @@ The most active store locator plugin.
 
 == Description ==
 
-Whether you have a thousands of locations or just a handful, you can do it all from within the WordPress admin panel. No programming required, no monthly fee to ask questions in the forum and an active development. Set up an interactive Google map for your customers with a single shortcode. Categorize your stores and customize the map. You can export the results. This is a simple, quick, and easy plugin.
+Whether you have a thousands of locations or just a handful, you can do it all from within the WordPress admin panel. No programming required, no monthly fee to ask questions in the forum and an active development team supporting you. Set up an interactive Google map for your customers with a single shortcode. Categorize your stores and customize the map. You can export the results. This is a simple, quick, and easy plugin.
 
 Store Locator Plus is an advanced system for managing multiple physical locations via a fully integrated WordPress solution. You can add details such as a store description, hours, a website address, an email address, and tags for each location and then display those locations easily on any page using a shortcode. The location search form and Google Map will automatically be displayed.
 
