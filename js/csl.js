@@ -319,24 +319,7 @@ var csl = {
 		 */ 
 		this.escapeExtended = function(string)
 		{
-			string = string.replace(/\r\n/g,"\n");
-			var utftext = "";
- 
-			for (var n = 0; n < string.length; n++) {
- 
-				var c = string.charCodeAt(n);
- 
-				if (c < 128) {
-					utftext += string.charAt(n);
-				}
-				else
-				{
-					utftext += escape(string.charAt(n));
-				}
- 
-			}
- 
-			return utftext; 
+			return string; 
 		}
 	},
   	  
