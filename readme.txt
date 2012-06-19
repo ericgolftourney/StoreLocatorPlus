@@ -7,7 +7,7 @@ Requires at least: 3.3.2
 Tested up to: 3.3.2
 Stable tag: 3.0.8
 
-Store Locator Plus works with Google Maps to put a store location search on your site.
+Store Locator Plus works with Google Maps v3 to put a store location search on your site.
 Tweak the look and feel with the custom settings.
 
 == Description ==
