@@ -376,7 +376,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                     ($value['sl_pages_url'] != '')
                     ){
                     $shortSPurl = preg_replace('/^.*?store_page=/','',$value['sl_pages_url']);
-                    print "<label for='store_page'>Store Page</label><a href='$value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a><br/>";
+                    print "<label for='store_page'>Store Page</label><a href='$value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a> <a href=''>x</a><br/>";
                 }
                 
                 print "<br>
@@ -431,7 +431,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                 // Show the create page button
                 //
                 if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
-                    call_user_func_array(array('SLPlus_AdminUI','slpRenderCreatePageButton'),array($locID,$value['sl_linked_postid']));
+                    call_user_func_array(array('SLPlus_AdminUI','slpRenderCreatePageButton'),array($locID,($value['sl_pages_on'] != '1' ? $value['sl_linked_postid'] : null)));
                 }
 
         print "</th>
