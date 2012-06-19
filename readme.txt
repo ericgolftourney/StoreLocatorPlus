@@ -212,9 +212,17 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 
 == Upgrade Notice ==
 
-Now uses the Google Maps API V3! Pro Pack includes new search by name functionality! **Make sure you enable V3 API key before upgrading**: [API Console](https://code.google.com/apis/console/).
+Make sure you enable V3 API key before upgrading see: https://code.google.com/apis/console/
 
 == Changelog ==
+
+= 3.0.8 (June 19th 2012) =
+
+* [Store Pages] Able to turn on and off the links to store pages
+* Fixed an issue where the map wouldn't be compatible with ie7 and ie8
+* Fixed an issue where on some installs jQuery wouldn't parse json
+* Added a countdown to the "please rate us"
+* Fixed the random "> at the end of checkboxes
 
 = 3.0.7 (June 12th 2012) =
 
