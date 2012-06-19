@@ -73,18 +73,18 @@ if (! class_exists('SLPlus_AdminUI')) {
                 }
                 else {
                     $store['sl_pages_on'] = '0';
+                
+
+                    // Create the page
+                    //
+                    $slpNewListing = array(
+                        'ID'            => (($store['sl_linked_postid'] > 0)?$store['sl_linked_postid']:''),
+                        'post_type'     => 'store_page',
+                        'post_status'   => 'publish',
+                        'post_title'    => $store['sl_store'],
+                        'post_content'  => call_user_func(array('SLPlus_AdminUI','slpCreatePageContent'),$store),
+                        );
                 }
-
-                // Create the page
-                //
-                $slpNewListing = array(
-                    'ID'            => (($store['sl_linked_postid'] > 0)?$store['sl_linked_postid']:''),
-                    'post_type'     => 'store_page',
-                    'post_status'   => 'publish',
-                    'post_title'    => $store['sl_store'],
-                    'post_content'  => call_user_func(array('SLPlus_AdminUI','slpCreatePageContent'),$store),
-                    );
-
                 // Update the row
                 //
                 $wpdb->update($wpdb->prefix."store_locator", $store, array('sl_id' => $locationID));
