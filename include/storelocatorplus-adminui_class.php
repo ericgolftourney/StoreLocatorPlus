@@ -73,7 +73,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                 }
                 else {
                     $store['sl_pages_on'] = '0';
-                
+                }
 
                     // Create the page
                     //
@@ -84,7 +84,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                         'post_title'    => $store['sl_store'],
                         'post_content'  => call_user_func(array('SLPlus_AdminUI','slpCreatePageContent'),$store),
                         );
-                }
+                
                 // Update the row
                 //
                 $wpdb->update($wpdb->prefix."store_locator", $store, array('sl_id' => $locationID));
