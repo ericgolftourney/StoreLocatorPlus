@@ -924,9 +924,10 @@ var csl = {
 		}
 		
 		this.debugSearch = function(toLog) {
-			if (slplus.debug_mode == 1)
-			{
-				console.log(toLog);
+			if (slplus.debug_mode == 1) {
+                if (console) {
+				    console.log(toLog);
+                }
 			}
 		}
 		
