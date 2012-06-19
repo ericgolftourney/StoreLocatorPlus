@@ -64,7 +64,17 @@ if (! class_exists('SLPlus_AdminUI')) {
                 if (empty($slpStorePage->ID)) {
                     $store['sl_linked_postid'] = -1;
                 }
-                
+
+                // If it is already created just turn it off
+                // If however it is turned off, turn it back on
+                //
+                if ($store['sl_pages_on'] == null || $store['sl_pages_on'] == '0') {
+                    $store['sl_pages_on'] = '1';
+                }
+                else {
+                    $store['sl_pages_on'] = '0';
+                }
+
                 // Create the page
                 //
                 $slpNewListing = array(
@@ -74,6 +84,11 @@ if (! class_exists('SLPlus_AdminUI')) {
                     'post_title'    => $store['sl_store'],
                     'post_content'  => call_user_func(array('SLPlus_AdminUI','slpCreatePageContent'),$store),
                     );
+
+                // Update the row
+                //
+                $wpdb->update($wpdb->prefix."store_locator", $store, array('sl_id' => $locationID));
+
                 return wp_insert_post($slpNewListing);
              }                
          }
