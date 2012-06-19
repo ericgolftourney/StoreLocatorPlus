@@ -63,6 +63,11 @@ var csl = {
 		this.send = function(action, callback) {
 			jQuery.post(csl_ajax.ajaxurl, action,
 			function (response) {
+			    try {
+			        response = JSON.parse(response);
+			    }
+			    catch (ex) {
+			    }
 				callback(response);
 			});
 		}
