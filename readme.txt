@@ -59,7 +59,7 @@ Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
 The plugin has an optional Pro Pack available that adds advanced features to the Store Locator Plus product.
 Some of the added features include:
 
-* **NEW!** Search by store name - Looking for a specific store? Search by name and pull it up instantly.
+* **NEW!**  Search by store name - Looking for a specific store? Search by name and pull it up instantly.
 * CSV Bulk Uploads - using the CSV bulk loader
 * Extended Map Settings - Control more details about how the map looks, disable the scale, the zoom, and more.
 * Extended Manage Location Features - more controls for managing locations.
@@ -140,7 +140,7 @@ Thanks to [Nicolas Mollet](http://mapicons.nicolasmollet.com/) for some of the g
 
 = What are the terms of the license? =
 
-The license is based on GPL.  You get the code, feel free to modify it as you
+The license is GPL.  You get the code, feel free to modify it as you
 wish.  We prefer that our customers pay us because they like what we do and
 want to support our efforts to bring useful software to market.  Learn more
 on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commercial-products/wiki/Cyber_Sprocket_Labs_Licensing_Terms "CSL License Terms page").
@@ -157,7 +157,7 @@ If you create a translation file please send it to us and we'll include it in th
 
 = What browsers are supported? =
 
-All major browsers should work, however Cyber Sprocket Labs only officially supports the current and prior releases of Internet Explorer, Firefox, Chrome, and Safari.
+All major browsers should work, however Cyber Sprocket Labs only officially supports the current and the most recent prior release of Internet Explorer, Firefox, Chrome, and Safari.
 
 As of June, 2011 this includes:
 
@@ -199,14 +199,14 @@ We renamed it the Pro Pack.  Your Plus Pack license will work for the Pro Pack.
 == Screenshots ==
 
 1. Location Details
-2. Basic Address Search
+2. Tag filter pulldown
 3. All Options Search
-4. Tag Filter, Pulldown (any with zip)
-5. Tag Filter, PUlldown (green with zip)
+4. Tag Filtered by location search
+5. Tag Filter, location and name search
 6. Admin Map Settings
 7. Admin Add Locations
 8. Admin Manage Locations
-9. Simple Box SLP Theme
+9. Default settings
 
 More screenshots are available via the [Store Locator Plus website](http://www.storelocatorplus.com/).
 
@@ -223,6 +223,8 @@ Make sure you enable V3 API key before upgrading see: https://code.google.com/ap
 * Fixed an issue where on some installs jQuery wouldn't parse json
 * Added a countdown to the "please rate us"
 * Fixed the random "> at the end of checkboxes
+* Searching with extended character set works
+* Removed extraneous line breaks causing certain filters to break inline javascript
 
 = 3.0.7 (June 12th 2012) =
 
