@@ -33,6 +33,7 @@ Advanced customization is available via the settings interface in the admin pane
 * Bulk upload your locations via the CSV loader.
 * Location search tracking and reporting, find out what your visitors are looking for.
 * Popup email form.
+* Use your own themes and icons to customize how your map looks
 
 = Rate Us =
 
