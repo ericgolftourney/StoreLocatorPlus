@@ -145,7 +145,7 @@ $slak=$slplus_plugin->driver_args['api_key'];
                 if ($id_string != '') {
                     //adding tags
                     if ($act=="add_tag") {
-                        $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_tags=CONCAT(sl_tags, '".strtolower($sl_tags).", ') WHERE sl_id IN ($id_string)");
+                        $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_tags=CONCAT(sl_tags, ',".strtolower($sl_tags).", ') WHERE sl_id IN ($id_string)");
                         
                     //removing tags
                     } elseif ($act=="remove_tag") {
@@ -153,7 +153,7 @@ $slak=$slplus_plugin->driver_args['api_key'];
                             //if no tag is specified, all tags will be removed from selected locations
                             $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_tags='' WHERE sl_id IN ($id_string)");
                         } else {
-                            $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_tags=REPLACE(sl_tags, '$sl_tags,', '') WHERE sl_id IN ($id_string)");
+                            $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_tags=REPLACE(sl_tags, ',$sl_tags,', '') WHERE sl_id IN ($id_string)");
                         }                        
                     }
                 }                    
