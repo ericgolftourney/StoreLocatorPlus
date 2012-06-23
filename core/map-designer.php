@@ -115,6 +115,9 @@ if (!$_POST) {
 
     if (function_exists('execute_and_output_plustemplate')) {
         update_option('sl_starting_image', $_POST['sl_starting_image']);
+        if ($slplus_plugin->license->packages['Pro Pack']->active_version >= 3001000) {
+            update_option(SLPLUS_PREFIX.'_show_tag_search',         $_POST[SLPLUS_PREFIX.'_show_tag_search']);
+        }
         update_option(SLPLUS_PREFIX.'_search_tag_label',        $_POST[SLPLUS_PREFIX.'_search_tag_label']);
         update_option(SLPLUS_PREFIX.'_tag_search_selections',   $_POST[SLPLUS_PREFIX.'_tag_search_selections']);
         update_option(SLPLUS_PREFIX.'_state_pd_label',          $_POST[SLPLUS_PREFIX.'_state_pd_label']);
@@ -145,20 +148,24 @@ if (!$_POST) {
     update_option('sl_map_overview_control',$_POST['sl_map_overview_control']);
 	
     $BoxesToHit = array(
-        '_show_tag_search',
         '_show_tag_any',
         '_email_form',
-        '_show_tags',
         '_disable_scrollwheel',
         '_disable_initialdirectory',
         '_disable_largemapcontrol3d',
         '_disable_scalecontrol',
+        '_show_tags',
         '_disable_maptypecontrol',
         '_hide_radius_selections',
         '_hide_address_entry',
         '_disable_search',
 		'_show_search_by_name'
         );
+
+    if ($slplus_plugin->license->packages['Pro Pack']->active_version < 3001000) {
+        $BoxesToHit[] = '_show_tag_search';
+    }
+
     foreach ($BoxesToHit as $JustAnotherBox) {        
         SaveCheckBoxToDB($JustAnotherBox);
     }

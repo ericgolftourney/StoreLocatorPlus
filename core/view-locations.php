@@ -5,7 +5,7 @@
  ** Manage the view locations admin panel action.
  ***************************************************************************/
 
-// Setup the view link
+ // Setup the view link
 //
  $view_link="| <a href='".SLPLUS_ADMINPAGE."view-locations.php'>".
     __("Manage Locations", SLPLUS_PREFIX)."</a>"; 
@@ -434,6 +434,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                     call_user_func_array(array('SLPlus_AdminUI','slpRenderCreatePageButton'),array($locID,($value['sl_pages_on'] != '1' ? $value['sl_linked_postid'] : null)));
                 }
 
+                
         print "</th>
                 <th>$locID</th>
                 <td>$value[sl_store]</td>
