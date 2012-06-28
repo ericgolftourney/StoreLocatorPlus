@@ -217,6 +217,11 @@ Make sure you enable V3 API key before upgrading see: https://code.google.com/ap
 
 == Changelog ==
 
+= 3.0.91 (June 28th, 2012) =
+
+* Fixed where the 3 day display wasn't updating properly
+* The 3 day display will now disappear after 3 days
+
 = 3.0.9 (June 22nd, 2012) =
 
 * Fixed a namespace issue and store locator should be much more compatible with other plugins
