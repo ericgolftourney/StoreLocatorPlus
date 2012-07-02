@@ -837,17 +837,20 @@ var csl = {
         }
 		
         this.__createAddress = function(aMarker) {
-            var address = aMarker.address;
-			if (aMarker.address == '') { aMarker.address = ""; } else address += ', ';
-			address += aMarker.address2;
-			if (aMarker.address2 == '') { aMarker.address2 = ""; } else address += ', ';
-			address += aMarker.city;
-			if (aMarker.city == '') { aMarker.city = ""; } else address += ', ';
-			address += aMarker.state;
-			if (aMarker.state == '') { aMarker.state = ""; } else address += ', ';
-			address += aMarker.zip;
-			if (aMarker.zip == '') { aMarker.zip = ""; }
-            
+
+            var address = '';
+            if (aMarker.address != '') {
+                address += aMarker.address;
+            }
+
+            if (aMarker.address2 != '') { address += ", " + aMarker.address2; }
+
+            if (aMarker.city != '') { address += ", " + aMarker.city; }
+
+            if (aMarker.state != '') { address += ", " + aMarker.state; }
+
+            if (aMarker.zip != '') { address += ", " + aMarker.zip; }
+
             return address;
         }
         
