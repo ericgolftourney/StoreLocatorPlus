@@ -217,6 +217,10 @@ Make sure you enable V3 API key before upgrading see: https://code.google.com/ap
 
 == Changelog ==
 
+= 3.0.92 (July 2nd, 2012) =
+
+* Added a comma even if there isn't a state in the address
+
 = 3.0.91 (June 28th, 2012) =
 
 * Fixed where the 3 day display wasn't updating properly
