@@ -1092,7 +1092,7 @@ var csl = {
             var city_state_zip = '';
             if (jQuery.trim(city) != '') {
                 city_state_zip += city;
-                if (jQuery.trim(state) != '') {
+                if (jQuery.trim(state) != '' || jQuery.trim(zip) != '') {
                     city_state_zip += ', ';
                 }
             }
