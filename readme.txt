@@ -217,6 +217,11 @@ Make sure you enable V3 API key before upgrading see: https://code.google.com/ap
 
 == Changelog ==
 
+= 3.1 (July 11th, 2012) =
+
+* Allows the use of the location sensor via pro pack
+* Javascript made more compatible with Internet Explorer
+
 = 3.0.92 (July 2nd, 2012) =
 
 * Added a comma even if there isn't a state in the address
