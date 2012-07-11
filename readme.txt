@@ -213,7 +213,7 @@ More screenshots are available via the [Store Locator Plus website](http://www.s
 
 == Upgrade Notice ==
 
-Make sure you enable V3 API key before upgrading see: https://code.google.com/apis/console/
+Update to allow the use of the location sensor, and compatability issues with IE
 
 == Changelog ==
 
