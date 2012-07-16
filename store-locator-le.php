@@ -93,7 +93,7 @@ register_activation_hook( __FILE__, 'activate_slplus');
 //
 add_action('init'               ,array('SLPlus_Actions','init')                 );
 add_action('wp_enqueue_scripts' ,array('SLPlus_Actions','wp_enqueue_scripts')   );
-add_action('shutdown'           ,array('SLPlus_Actions','shutdown')             );
+//add_action('shutdown'           ,array('SLPlus_Actions','shutdown')             );
 
 // Admin Actions
 //
