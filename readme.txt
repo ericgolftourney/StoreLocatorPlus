@@ -217,6 +217,11 @@ Update to allow the use of the location sensor, and compatability issues with IE
 
 == Changelog ==
 
+= 3.1.1 (July 17th, 2012) =
+
+* Fixed where parts of the plugin output after the closing html tag
+* Fixed where ajax to/from a secured url weren't correctly working.
+
 = 3.1 (July 11th, 2012) =
 
 * Allows the use of the location sensor via pro pack
