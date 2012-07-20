@@ -217,6 +217,10 @@ Update to allow the use of the location sensor, and compatability issues with IE
 
 == Changelog ==
 
+= 3.1.2 (July 20th, 2012) =
+
+* Made the plugin far less likely to conflict with other plugins
+
 = 3.1.1 (July 17th, 2012) =
 
 * Fixed where parts of the plugin output after the closing html tag
