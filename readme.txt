@@ -217,6 +217,10 @@ Update to allow the use of the location sensor, and compatability issues with IE
 
 == Changelog ==
 
+= 3.1.3 (July 23rd, 2012) =
+
+* Export raw html from the description field
+
 = 3.1.2 (July 20th, 2012) =
 
 * Made the plugin far less likely to conflict with other plugins
