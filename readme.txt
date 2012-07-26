@@ -217,6 +217,10 @@ Update to allow the use of the location sensor, and compatability issues with IE
 
 == Changelog ==
 
+= 3.1.4 (July 26th, 2012) =
+
+* Fixed where some versions of jquery will not start an anon. function
+
 = 3.1.3 (July 23rd, 2012) =
 
 * Export raw html from the description field
