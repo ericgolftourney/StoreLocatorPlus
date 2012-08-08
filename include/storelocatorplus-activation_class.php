@@ -91,6 +91,7 @@ if (! class_exists('SLPlus_Activate')) {
             // If we updated an existing DB, do some mods to the data
             //
             if ($this->dbupdater($sql,$table_name) === 'updated') {
+                global $sl_installed_ver;
                 
                 // We are upgrading from something less than 2.0
                 //
