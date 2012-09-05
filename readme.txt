@@ -1,11 +1,11 @@
 === Google Maps via Store Locator Plus ===
 Plugin Name: Google Maps via Store Locator Plus
-Contributors: cybersprocket, charlestonsw
-Donate link: http://www.cybersprocket.com/products/store-locator-plus/
+Contributors: charlestonsw
+Donate link: http://www.charlestonsw.com/products/store-locator-plus/
 Tags: google maps, store finder, store locator, store locater, google, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus, bing map, bing, yahoo maps, yahoo, mapping, retail
 Requires at least: 3.3
 Tested up to: 3.4.1
-Stable tag: 3.1.5
+Stable tag: 3.2
 
 Store Locator Plus works with Google Maps v3 to put a store location search on your site.
 The most active store locator plugin.
@@ -38,13 +38,13 @@ Advanced customization is available via the settings interface in the admin pane
 = Rate Us =
 
 Please [rate us](http://wordpress.org/extend/plugins/store-locator-le/)!
-Give us a chance to <a href="http://www.cybersprocket.com/contact-us/">address your concerns</a> if we didn't earn 5 stars.
+Give us a chance to <a href="http://www.charlestonsw.com/contact-us/">address your concerns</a> if we didn't earn 5 stars.
 
 = Special Requests =
 
 We do accept feature requests for all of our plugins, free ones included. The most requested features will make it into the next version.
 
-<strong>If you need a special feature NOW, <a href="http://www.cybersprocket.com/contact-us/">contact us</a>!</strong> We offer expedited feature development. Most features can be implemented in less than a week for $200!
+<strong>If you need a special feature NOW, <a href="http://www.charlestonsw.com/contact-us/">contact us</a>!</strong> We offer expedited feature development. Our custom development rates start at $500/day.
 
 = Looking For Customized WordPress Plugins? =
 
@@ -53,20 +53,14 @@ us a call.   Not only can we offer competitive rates but we can also leverage
 our existing framework for WordPress applications which reduces development time
 and costs.
 
-Learn more at: http://www.cybersprocket.com/services/wordpress-developers/
+Learn more at: http://www.charlestonsw.com/
 
-= Pro Pack Available =
+= Premium Add-Ons Available =
 
-The plugin has an optional Pro Pack available that adds advanced features to the Store Locator Plus product.
-Some of the added features include:
+We current offer a Pro Pack and a Store Pages premium add-on.  More add-ons are one the way. You can learn more about the add-ons at these web pages:
 
-* **NEW!**  Search by store name - Looking for a specific store? Search by name and pull it up instantly.
-* CSV Bulk Uploads - using the CSV bulk loader
-* Extended Map Settings - Control more details about how the map looks, disable the scale, the zoom, and more.
-* Extended Manage Location Features - more controls for managing locations.
-* Reporting - information on the reporting system and how it works.
-* Tag Search - how to use tag based location searches.
-* Custom Themes (Pro Pack v2.4) - easily add your own custom styles that stay in place during patches and upgrades.
+* [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus/)
+* [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages/)
 
 Learn More about these features at the [Store Locator Plus website](http://www.storelocatorplus.com/)
 
@@ -83,9 +77,7 @@ more items the next time around.
 = Related Links =
 
 * [Store Locator Plus](http://www.storelocatorplus.com/)
-* [Other Cyber Sprocket Plugins](http://wordpress.org/extend/plugins/profile/cybersprocket/)
-* [Custom WordPress Development](http://www.cybersprocket.com/services/wordpress-developers/)
-* [Our Facebook Page](http://www.facebook.com/cyber.sprocket.labs)
+* [Other CSA Plugins](http://profiles.wordpress.org/charlestonsw/)
 
 = Our Philosophy =
 
@@ -139,26 +131,40 @@ Thanks to [Nicolas Mollet](http://mapicons.nicolasmollet.com/) for some of the g
 
 == Frequently Asked Questions ==
 
+= What happened to Cyber Sprocket? =
+
+Cyber Sprocket Labs was primarily a software consulting firm that did WordPress plugins as a part-time endeavor.   They have closed the business as of September 2012.
+
+= Who is Charleston Software Associates? =
+
+We have taken over the support, maintenance and updates of Cyber Sprocket's WordPress plugins.  We ONLY do mobile apps and WordPress plugins.
+
+= How does this impact my CSL license? =
+
+We will continue to honor all the CSL licenses.  However there may be some bumps in the road as we transition away from a licensing-centric to a pure-play add-on system over the coming months.  
+
+If you have any problems with your license or validating a product please contact us via our web form at http://www.charlestonsw.com/ and we will resolve your licensing issues.
+
 = What are the terms of the license? =
 
 The license is GPL.  You get the code, feel free to modify it as you
 wish.  We prefer that our customers pay us because they like what we do and
 want to support our efforts to bring useful software to market.  Learn more
-on our [CSL License Terms page](http://redmine.cybersprocket.com/projects/commercial-products/wiki/Cyber_Sprocket_Labs_Licensing_Terms "CSL License Terms page").
+on our [CSL License Terms](http://www.charlestonsw.com/products/general-eula/).
 
 = How can I translate the plugin into my language? =
 
 * Find on internet the free program POEDIT, and learn how it works.
 * Use the .pot file located in the languages directory of this plugin to create or update the .po files.
 * Place these file in the languages subdirectory.
-* If everything is ok, email the files to lobbyjones@cybersprocket.com and we will add them to the next release.
+* If everything is ok, email the files to info@charlestonsw.com and we will add them to the next release.
 * For more information on POT files, domains, gettext and i18n have a look at the I18n for WordPress developers Codex page and more specifically at the section about themes and plugins.
 
 If you create a translation file please send it to us and we'll include it in the next release!  We'll also list you here in our credits section!
 
 = What browsers are supported? =
 
-All major browsers should work, however Cyber Sprocket Labs only officially supports the current and the most recent prior release of Internet Explorer, Firefox, Chrome, and Safari.
+All major browsers should work, however CSA only officially supports the current and the most recent prior release of Internet Explorer, Firefox, Chrome, and Safari.
 
 As of June, 2011 this includes:
 
@@ -219,11 +225,13 @@ Update to allow the use of the location sensor, and compatability issues with IE
 
 We update about once per month or more frequently as needed.
 
-See our [Version Roadmap](http://redmine.cybersprocket.com/projects/mc-closeststore/roadmap?utf8=%E2%9C%93&tracker_ids%5B%5D=2&tracker_ids%5B%5D=3&tracker_ids%5B%5D=6&completed=1) on our support site.
-
 Here are the most recent releases...
 
-= 3.1.5 (August 8th, 2012 =
+= 3.2 (September 5th, 2012) =
+
+* Transition from Cyber Sprocket to CSA
+
+= 3.1.5 (August 8th, 2012) =
 
 * Add fax field to location data. 
 
