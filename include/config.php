@@ -96,11 +96,11 @@ function configure_slplus_propack() {
             array(
                 'name'              => 'Pro Pack',
                 'help_text'         => 'A variety of enhancements are provided with this package.  ' .
-                                       'See the <a href="'.$slplus_plugin->purchase_url.'" target="Cyber Sprocket">product page</a> for details.  If you purchased this add-on ' .
+                                       'See the <a href="'.$slplus_plugin->purchase_url.'" target="newinfo">product page</a> for details.  If you purchased this add-on ' .
                                        'come back to this page to enter the license key to activate the new features.',
-                'sku'               => 'SLPLUS',
-                'paypal_button_id'  => '2D864VACHMK5A',
-                'paypal_upgrade_button_id' => 'TZSPX7PD26XJU'
+                'sku'               => 'SLPLUS-PRO',
+                'paypal_button_id'  => '59YT3GAJ7W922',
+                'paypal_upgrade_button_id' => '59YT3GAJ7W922'
             )
         );
     
@@ -108,19 +108,11 @@ function configure_slplus_propack() {
     //
     if ($slplus_plugin->license->packages['Pro Pack']->isenabled_after_forcing_recheck()) {
         
-         //--------------------------------
-         // Pro Pack v2.4+ Only
-         //
-         if ($slplus_plugin->license->packages['Pro Pack']->active_version >= 2004000) {
-             
              //--------------------------------
              // Enable Themes
              //
              $slplus_plugin->themes_enabled = true;
              $slplus_plugin->themes->css_dir = SLPLUS_PLUGINDIR . 'css/';
-         }             
-         
-         
     }        
 }
 
@@ -139,19 +131,12 @@ function configure_slplus_storepages() {
             array(
                 'name'              => 'Store Pages',
                 'help_text'         => 'Create individual WordPress pages from your locations data. Great for SEO.  ' .
-                                       'See the <a href="'.$slplus_plugin->purchase_url.'" target="Cyber Sprocket">product page</a> for details.  If you purchased this add-on ' .
+                                       'See the <a href="'.$slplus_plugin->purchase_url.'" target="newinfo">product page</a> for details.  If you purchased this add-on ' .
                                        'come back to this page to enter the license key to activate the new features.',
                 'sku'               => 'SLP-PAGES',
-                'paypal_button_id'  => '3V2SSFKB3R6XE',
-                'paypal_upgrade_button_id' => '3V2SSFKB3R6XE'
+                'paypal_button_id'  => 'CT449P2ZH454E',
+                'paypal_upgrade_button_id' => 'CT449P2ZH454E'
             )
         );
-    
-    // Enable Features Is Licensed
-    //
-    if ($slplus_plugin->license->packages['Store Pages']->isenabled_after_forcing_recheck()) {
-        
-        // Future Feature Enabling Goes Here
-    }        
 }
 
