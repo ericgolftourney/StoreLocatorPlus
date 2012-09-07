@@ -42,11 +42,11 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'on_update' => array('SLPlus_Activate', 'update'),
             'version' => '3.1.5',
 
-            'url'                   => 'http://www.storelocatorplus.com/',            
-            'support_url'            => 'http://storelocatorplus.com/faq/',
-            'purchase_url'           => 'http://storelocatorplus.com/download/',
+            'url'                   => 'http://www.charlestonsw.com/product/store-locator-plus-2/',            
+            'support_url'            => 'http://www.charlestonsw.com/support/documentation/store-locator-plus/',
+            'purchase_url'           => 'http://www.charlestonsw.com/product/store-locator-plus-2/',
             'rate_url'              => 'http://wordpress.org/extend/plugins/store-locator-le/',
-            'forum_url'             => 'http://redmine.cybersprocket.com/projects/commercial-products/boards/33',
+            'forum_url'             => 'http://wordpress.org/support/plugin/store-locator-le',
             
             'basefile'              => SLPLUS_BASENAME,
             'plugin_path'           => SLPLUS_PLUGINDIR,
