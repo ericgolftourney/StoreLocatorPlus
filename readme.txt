@@ -62,7 +62,7 @@ We current offer a Pro Pack and a Store Pages premium add-on.  More add-ons are 
 * [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus/)
 * [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages/)
 
-Learn More about these features at the [Store Locator Plus website](http://www.storelocatorplus.com/)
+Learn More about these features at the [Store Locator Plus website](http://www.charlestonsw.com/product/store-locator-plus/)
 
 = Upgrades =
 
@@ -76,7 +76,7 @@ more items the next time around.
 
 = Related Links =
 
-* [Store Locator Plus](http://www.storelocatorplus.com/)
+* [Store Locator Plus](http://www.charlestonsw.com/product/store-locator-plus/)
 * [Other CSA Plugins](http://profiles.wordpress.org/charlestonsw/)
 
 = Our Philosophy =
@@ -93,7 +93,7 @@ While our plugins may not be the prettiest on the block, we do try to make sure 
 
 You can have a WordPress page for each store location on your map turning your location data into SEO friendly content.  Store Pages are a special page type that is fully integrated with WordPress,  but you manage them through Store Locator Plus.  Store Pages also have their own taxonomy (category system) so you can manage Store Page categories without affecting the rest of your site.
 
-[more information](http://storelocatorplus.com/premium-add-ons/store-pages/)
+[more information](http://www.charlestonsw.com/product/store-locator-plus-store-pages/)
 
 == Installation ==
 
@@ -178,7 +178,7 @@ As of June, 2011 this includes:
 The Pro Pack is a paid add-on for the main Store Locator Plus product.
 When you purchase the Pro Pack the system will automatically install a variety of new features in the base product.
 The features that are added by the Pro Pack change on a regular basis.
-Please see the [Store Locator Plus website](http://www.storelocatorplus.com) for the latest feature list.
+Please see the [Store Locator Plus website](http://www.charlestonsw.com/product/store-locator-plus/) for the latest feature list.
 
 Some of the features in the Pro Pack include:
 
@@ -197,7 +197,7 @@ Store Pages content is fully accessible from your standard WordPress search and 
 
 Store Pages is a paid add-on for the free Store Locator Plus product. When you purchase the Store Pages add-on new features will be added to the base product.
 
-Please see the [Store Locator Plus website](http://www.storelocatorplus.com) for the latest feature list.
+Please see the [Store Locator Plus website](http://www.charlestonsw.com/product/store-locator-plus/) for the latest feature list.
 
 = What happened to the Plus Pack? =
 
