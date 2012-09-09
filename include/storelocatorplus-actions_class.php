@@ -256,16 +256,19 @@ if (! class_exists('SLPlus_Actions')) {
          * This is called whenever the WordPress shutdown action is called.
          */
         function shutdown() {
-            
+            global $slplus_plugin;
+
             // If we rendered an SLPLUS shortcode...
             //
-            if (defined('SLPLUS_SHORTCODE_RENDERED') && SLPLUS_SHORTCODE_RENDERED) {
+            if (
+                $slplus_plugin->settings->get_item('force_js_load',false) ||
+                (defined('SLPLUS_SHORTCODE_RENDERED') && SLPLUS_SHORTCODE_RENDERED)
+                )
+                {
                 
                 // Register Load JavaScript
                 //
-                //wp_enqueue_script('slplus_functions');
                 wp_enqueue_script('google_maps');                
-                //wp_enqueue_script('slplus_map');
 				wp_enqueue_script('csl_script');
                 
                 // Enqueue the style sheet
