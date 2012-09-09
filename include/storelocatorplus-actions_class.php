@@ -143,17 +143,17 @@ if (! class_exists('SLPlus_Actions')) {
             //-------------------------
             // Pro Pack: Reporting
             // 
-            $slp_rep_desc = __('These settings affect how the reporting system behaves. ', SLPLUS_PREFIX);
+            $slp_rep_desc = __('These settings affect how the Pro Pack add-on behaves. ', SLPLUS_PREFIX);
             if (!$slplus_plugin->license->AmIEnabled(true, "SLPLUS-PRO")) {
                 $slp_rep_desc .= '<br/><br/>'.
                     __('This is a <a href="http://www.charlestonsw.com/product/store-locator-plus/">Pro Pack</a>'.
-                    ' feature.  It provides a way to generate reports on what locations' .
-                    ' people have searched for and what results they received back. ', SLPLUS_PREFIX);
+                    ' feature.  It provides more settings and features that are not provided in the free plugin'
+                    , SLPLUS_PREFIX);
             }
             $slp_rep_desc .= '<br/><br/>'; 
             $slplus_plugin->settings->add_section(
                 array(
-                    'name'        => 'Reporting',
+                    'name'        => 'Pro Pack',
                     'description' => $slp_rep_desc
                 )
             );

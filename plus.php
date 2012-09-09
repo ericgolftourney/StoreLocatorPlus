@@ -117,7 +117,7 @@ function slplus_add_report_settings() {
     
     if ($slplus_plugin->license->AmIEnabled(true, "SLPLUS-PRO")) {    
         $slplus_plugin->settings->add_item(
-            'Reporting', 
+            'Pro Pack',
             __('Enable reporting', SLPLUS_PREFIX), 
             'reporting_enabled', 
             'checkbox', 
