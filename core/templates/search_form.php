@@ -6,8 +6,12 @@
 
       $prefix = $slplus_plugin->prefix;
 
-      // todo: change the name of this function please!
-      SLPlus_Actions::shutdown();
+      // Script enqueue should never be called as a direct function.
+      //
+      // WordPress best practices dictacte using this in a supported action hook only.
+      // Many themes and plugins will not honor this.
+      //
+      // SLPlus_Actions::shutdown();
 ?>
 <div id='sl_div'>
   <form onsubmit='cslmap.searchLocations(); return false;' id='searchForm' action=''>
