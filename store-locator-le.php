@@ -76,9 +76,9 @@ if (defined('SLPLUS_PREFIX') === false) {
 // Include our needed files
 //
 include_once(SLPLUS_PLUGINDIR . '/include/config.php'	);
-include_once(SLPLUS_PLUGINDIR . 'plus.php'						);
-include_once(SLPLUS_COREDIR   . 'csl_helpers.php'			);
-include_once(SLPLUS_COREDIR   . 'functions.sl.php'			);
+include_once(SLPLUS_PLUGINDIR . 'plus.php'		);
+include_once(SLPLUS_COREDIR   . 'csl_helpers.php'	);
+include_once(SLPLUS_COREDIR   . 'functions.sl.php'	);
 include_once(SLPLUS_COREDIR   . 'csl-ajax-search.php'	);
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-actions_class.php');
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-activation_class.php');
