@@ -642,14 +642,16 @@ function slplus_dbupdater($sql,$table_name) {
         );
     wp_localize_script('csl_script','slplus',$scriptData);
 	wp_localize_script('csl_script','csl_ajax',array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('em')));
-    
+
+
     // Set our flag for later processing
     // of JavaScript files
     //
     if (!defined('SLPLUS_SHORTCODE_RENDERED')) {
         define('SLPLUS_SHORTCODE_RENDERED',true);
     }
-    
+    SLPlus_Actions::LoadTheScripts();
+
     return get_string_from_phpexec($file); 
 }
 
