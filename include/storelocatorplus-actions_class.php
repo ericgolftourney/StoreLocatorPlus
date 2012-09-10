@@ -141,8 +141,8 @@ if (! class_exists('SLPlus_Actions')) {
             }                
             
             //-------------------------
-            // Pro Pack: Reporting
-            // 
+            // Pro Pack
+            //
             $slp_rep_desc = __('These settings affect how the Pro Pack add-on behaves. ', SLPLUS_PREFIX);
             if (!$slplus_plugin->license->AmIEnabled(true, "SLPLUS-PRO")) {
                 $slp_rep_desc .= '<br/><br/>'.
@@ -220,7 +220,8 @@ if (! class_exists('SLPlus_Actions')) {
             
             if (isset($slplus_plugin) && $slplus_plugin->ok_to_show()) {            
                 $api_key=$slplus_plugin->driver_args['api_key'];
-                $sl_google_map_domain=(get_option('sl_google_map_domain')!="")? 
+
+                $sl_google_map_domain=(get_option('sl_google_map_domain')!="")?
                         get_option('sl_google_map_domain') : 
                         "maps.google.com";                
                 $sl_map_character_encoding='&oe='.get_option('sl_map_character_encoding','utf8');    
@@ -245,42 +246,59 @@ if (! class_exists('SLPlus_Actions')) {
 				}
 						
 				wp_register_script('csl_script', SLPLUS_PLUGINURL.'/core/js/csl.js', array('jquery'));
-                      
-            }                        
+            }
         }     
         
-        
+
+        /*************************************
+         * method: wp_footer()
+         *
+         * This is called whenever the WordPress shutdown action is called.
+         */
+        function wp_footer() {
+            SLPlus_Actions::LoadTheScripts();
+		}
+
+
         /*************************************
          * method: shutdown()
          * 
          * This is called whenever the WordPress shutdown action is called.
          */
         function shutdown() {
-            global $slplus_plugin;
+            SLPlus_Actions::LoadTheScripts();
+		}
 
-            // If we rendered an SLPLUS shortcode...
-            //
+
+        // Load the SLP scripts from various WP action hooks
+        //
+        function LoadTheScripts() {
+            global $slplus_plugin;
             if (
-                $slplus_plugin->settings->get_item('force_js_load',false) ||
-                (defined('SLPLUS_SHORTCODE_RENDERED') && SLPLUS_SHORTCODE_RENDERED)
+                    (
+                        !defined('SLPLUS_SCRIPTS_ENQUEUED') || !SLPLUS_SCRIPTS_ENQUEUED
+                    ) &&
+                    (
+                        $slplus_plugin->settings->get_item('force_js_load',true) ||
+                        (defined('SLPLUS_SHORTCODE_RENDERED') && SLPLUS_SHORTCODE_RENDERED)
+                    )
                 )
                 {
-                
+
                 // Register Load JavaScript
                 //
-                wp_enqueue_script('google_maps');                
+                wp_enqueue_script('google_maps');
 				wp_enqueue_script('csl_script');
-                
+
                 // Enqueue the style sheet
                 //
-                setup_stylesheet_for_slplus();                
-                           
-                // Force our scripts to load for badly behaved themes
-                //
-                //wp_print_footer_scripts();
-            }             
-		}            
-	}
-}        
-     
+                setup_stylesheet_for_slplus();
 
+                if (!defined('SLPLUS_SCRIPTS_ENQUEUED')) {
+                    define('SLPLUS_SCRIPTS_ENQUEUED',true);
+                }
+            }
+
+        }
+	}
+}
