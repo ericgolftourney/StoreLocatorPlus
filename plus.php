@@ -123,7 +123,9 @@ function slplus_add_report_settings() {
             'checkbox',
             false,
             __('Force the JavaScript for Store Locator Plus to load on every page. ' .
-            'This can slow down your site, but is compatible with more themes and plugins.', SLPLUS_PREFIX)
+            'This can slow down your site, but is compatible with more themes and plugins.', SLPLUS_PREFIX),
+            null,
+            $slplus_plugin->settings->get_item('force_load_js',true)
         );
         $slplus_plugin->settings->add_item(
             'Pro Pack',

@@ -279,7 +279,7 @@ if (! class_exists('SLPlus_Actions')) {
                         !defined('SLPLUS_SCRIPTS_ENQUEUED') || !SLPLUS_SCRIPTS_ENQUEUED
                     ) &&
                     (
-                        $slplus_plugin->settings->get_item('force_js_load',true) ||
+                        $slplus_plugin->settings->get_item('force_load_js',true) ||
                         (defined('SLPLUS_SHORTCODE_RENDERED') && SLPLUS_SHORTCODE_RENDERED)
                     )
                 )
