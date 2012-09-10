@@ -229,6 +229,8 @@ Here are the most recent releases...
 
 = 3.2 (September 5th, 2012) =
 
+* Add a force load JavaScript for sites with less friendly themes (not processing shutdown or footer scripts)
+* Fix path name to language files, was causing some installs to break on security warning.
 * Transition from Cyber Sprocket to CSA
 
 = 3.1.5 (August 8th, 2012) =
