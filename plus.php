@@ -118,6 +118,15 @@ function slplus_add_report_settings() {
     if ($slplus_plugin->license->AmIEnabled(true, "SLPLUS-PRO")) {    
         $slplus_plugin->settings->add_item(
             'Pro Pack',
+            __('Force Load JavaScript', SLPLUS_PREFIX),
+            'force_load_js',
+            'checkbox',
+            false,
+            __('Force the JavaScript for Store Locator Plus to load on every page. ' .
+            'This can slow down your site, but is compatible with more themes and plugins.', SLPLUS_PREFIX)
+        );
+        $slplus_plugin->settings->add_item(
+            'Pro Pack',
             __('Enable reporting', SLPLUS_PREFIX), 
             'reporting_enabled', 
             'checkbox', 
