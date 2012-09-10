@@ -93,7 +93,8 @@ register_activation_hook( __FILE__, 'activate_slplus');
 //
 add_action('init'               ,array('SLPlus_Actions','init')                 );
 add_action('wp_enqueue_scripts' ,array('SLPlus_Actions','wp_enqueue_scripts')   );
-add_action('shutdown'           ,array('SLPlus_Actions','shutdown')             );  // for themes that support it
+add_action('wp_footer'          ,array('SLPlus_Actions','wp_footer')            );
+add_action('shutdown'           ,array('SLPlus_Actions','shutdown')             ); 
 
 // Admin Actions
 //
@@ -127,4 +128,4 @@ add_shortcode('slplus','store_locator_shortcode');
 
 // Text Domains
 //
-load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_BASENAME . '/core/languages/');
+load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_COREDIR . 'languages/');
