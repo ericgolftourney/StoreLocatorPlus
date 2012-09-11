@@ -306,11 +306,6 @@ if (! class_exists('SLPlus_Actions')) {
                 );
             wp_localize_script('csl_script','slplus',$scriptData);
             wp_localize_script('csl_script','csl_ajax',array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('em')));
-
-
-            // Enqueue the style sheet
-            //
-            setup_stylesheet_for_slplus();
         }     
         
 
