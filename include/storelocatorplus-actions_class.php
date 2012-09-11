@@ -346,7 +346,6 @@ if (! class_exists('SLPlus_Actions')) {
                     wp_deregister_script('google_maps');
                     wp_dequeue_script('csl_script');
                     wp_deregister_script('csl_script');
-print "<br/>\n**** DEQUEUE ****<br/>\n"                    ;
                 }
                 define('SLPLUS_SCRIPTS_MANAGED',true);
             }
