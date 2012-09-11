@@ -594,55 +594,13 @@ function slplus_dbupdater($sql,$table_name) {
     //
     $fnvars = array_merge($fnvars,(array) $attributes);       // merge in passed attributes
     
-    
-    // Prepare some data for JavaScript injection...
-    //
-    $slplus_home_icon = get_option('sl_map_home_icon');
-    $slplus_end_icon  = get_option('sl_map_end_icon');
-    $slplus_home_icon_file = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$slplus_home_icon);
-    $slplus_end_icon_file  = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$slplus_end_icon);
-    $slplus_home_size=(function_exists('getimagesize') && file_exists($slplus_home_icon_file))? 
-        getimagesize($slplus_home_icon_file) : 
-        array(0 => 20, 1 => 34);    
-    $slplus_end_size =(function_exists('getimagesize') && file_exists($slplus_end_icon_file)) ? 
-        getimagesize($slplus_end_icon_file)  : 
-        array(0 => 20, 1 => 34);
 		
 	//todo: make sure map type gets set to a sane value before getting here. Maybe not...
-    
-    // Lets get some variables into our script
-    //
-    $scriptData = array(
-        'debug_mode'        => (get_option(SLPLUS_PREFIX.'-debugging') == 'on'),
-        'disable_scroll'    => (get_option(SLPLUS_PREFIX.'_disable_scrollwheel')==1),
-        'disable_dir'       => (get_option(SLPLUS_PREFIX.'_disable_initialdirectory' )==1),
-        'distance_unit'     => esc_attr(get_option('sl_distance_unit'),'miles'),
-        'load_locations'    => (get_option('sl_load_locations_default')==1),
-        'map_3dcontrol'     => (get_option(SLPLUS_PREFIX.'_disable_largemapcontrol3d')==0),
-        'map_country'       => SetMapCenter(),
-        'map_domain'        => get_option('sl_google_map_domain','maps.google.com'),
-        'map_home_icon'     => $slplus_home_icon,
-        'map_home_sizew'    => $slplus_home_size[0],
-        'map_home_sizeh'    => $slplus_home_size[1],
-        'map_end_icon'      => $slplus_end_icon,
-        'map_end_sizew'     => $slplus_end_size[0],
-        'map_end_sizeh'     => $slplus_end_size[1],
-        'use_sensor'            => (get_option(SLPLUS_PREFIX."_use_location_sensor")==1),
-        'map_scalectrl'     => (get_option(SLPLUS_PREFIX.'_disable_scalecontrol')==0),
-        'map_type'          => get_option('sl_map_type','roadmap'),
-        'map_typectrl'      => (get_option(SLPLUS_PREFIX.'_disable_maptypecontrol')==0),
-        'show_tags'         => (get_option(SLPLUS_PREFIX.'_show_tags')==1),
-        'overview_ctrl'     => get_option('sl_map_overview_control',0),
-        'use_email_form'    => (get_option(SLPLUS_PREFIX.'_email_form')==1),
-        'use_pages_links'   => ($slplus_plugin->settings->get_item('use_pages_links')=='on'),
-        'use_same_window'   => ($slplus_plugin->settings->get_item('use_same_window')=='on'),                
-        'website_label'     => esc_attr(get_option('sl_website_label','Website')),
-        'zoom_level'        => get_option('sl_zoom_level',4),
-        'zoom_tweak'        => get_option('sl_zoom_tweak',1),
-        );
-    wp_localize_script('csl_script','slplus',$scriptData);
-	wp_localize_script('csl_script','csl_ajax',array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('em')));
 
+    //todo: if we allow map setting overrides via shortcode attributes we will need
+    // to re-localize the script.  It was moved to the actions class so we can
+    // localize prior to enqueue in the header.
+    //
 
     // Set our flag for later processing
     // of JavaScript files
@@ -650,7 +608,6 @@ function slplus_dbupdater($sql,$table_name) {
     if (!defined('SLPLUS_SHORTCODE_RENDERED')) {
         define('SLPLUS_SHORTCODE_RENDERED',true);
     }
-    SLPlus_Actions::LoadTheScripts();
 
     return get_string_from_phpexec($file); 
 }
