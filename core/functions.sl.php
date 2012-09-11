@@ -335,10 +335,17 @@ function activate_slplus() {
         update_option(SLPLUS_PREFIX."-db_version", $sl_db_version);
     }
     
-    
+
+    // Roles
+    //
     if (function_exists('add_slplus_roles_and_caps')) {
         add_slplus_roles_and_caps();
-    }        
+    }      
+    
+    // Themes Cleaning
+    //
+    update_option($slplus_plugin->prefix.'-theme_lastupdated','2006-10-05');
+
 	move_upload_directories();
 }
 
@@ -601,6 +608,11 @@ function slplus_dbupdater($sql,$table_name) {
     // to re-localize the script.  It was moved to the actions class so we can
     // localize prior to enqueue in the header.
     //
+
+    // Setup the style sheets
+    //
+    setup_stylesheet_for_slplus();
+
 
     // Set our flag for later processing
     // of JavaScript files
