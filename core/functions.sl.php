@@ -230,22 +230,40 @@ function do_geocoding($address,$sl_id='') {
         // Iterate through the rows, geocoding each address
         $request_url = $base_url . "&address=" . urlencode($address);
         
-        if (extension_loaded("curl") && function_exists("curl_init")) {
+
+        // Use HTTP Handler (WP_HTTP) first...
+        //
+        if (isset($slplus_plugin->http_handler)) { 
+            $result = $slplus_plugin->http_handler->request( 
+                            $request_url, 
+                            array('timeout' => 3) 
+                            ); 
+            if ($slplus_plugin->http_result_is_ok($result) ) {
+                $raw_json = $result['body'];
+            }
+            
+        // Then Curl...
+        //
+        } elseif (extension_loaded("curl") && function_exists("curl_init")) {
                 $cURL = curl_init();
                 curl_setopt($cURL, CURLOPT_URL, $request_url);
                 curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
-                $json = curl_exec($cURL);
-                curl_close($cURL);  
-        }else{
-             $json = file_get_contents($request_url) or die("url not loading");
+                $raw_json = curl_exec($cURL);
+                curl_close($cURL);
+
+        // Lastly file_get_contents
+        //
+        } else {
+             $raw_json = file_get_contents($request_url) or die("url not loading");
         }
-        $json = json_decode($json);
+        $json = json_decode($raw_json);
         $status = $json->{'status'};
         
         // Geocode completed successfully
         //
         if (strcmp($status, "OK") == 0) {
             $iterations = 0;      // Break out of retry loop if we are OK
+            $delay = 0;
             
             // successful geocode
             $geocode_pending = false;
@@ -299,7 +317,14 @@ function do_geocoding($address,$sl_id='') {
         } else {
             $geocode_pending = false;
             echo sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
-            echo sprintf(__("Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
+            if ($status != '') {
+                echo "<br/>\n";
+                echo sprintf(__("Received data %s.", SLPLUS_PREFIX),'<pre>'.print_r($json,true).'</pre>')."\n";
+            } else {
+                echo "<br/>\n";
+                echo sprintf(__("Reqeust sent to %s.", SLPLUS_PREFIX),$request_url)."\n<br>";
+                echo sprintf(__("Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
+            }
         }
         usleep($delay);
     }
