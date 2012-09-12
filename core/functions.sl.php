@@ -332,6 +332,19 @@ function activate_slplus() {
     if ($sl_installed_ver == '') {
         add_option(SLPLUS_PREFIX."-db_version", $sl_db_version);
     } else {
+        
+        // Change Pro Pack license info to new SKU
+        //
+        if (get_option(SLPLUS_PREFIX.'-SLPLUS-PRO-lk','') == '') {
+            update_option(SLPLUS_PREFIX.'-SLPLUS-PRO-lk',get_option(SLPLUS_PREFIX.'-SLPLUS-lk',''));
+        }
+
+        // Change Pages license info to new SKU
+        //
+        if (get_option(SLPLUS_PREFIX.'-SLPLUS-PAGES-lk','') == '') {
+            update_option(SLPLUS_PREFIX.'-SLPLUS-PAGES-lk',get_option(SLPLUS_PREFIX.'-SLP-PAGES-lk',''));
+        }
+
         update_option(SLPLUS_PREFIX."-db_version", $sl_db_version);
     }
     
