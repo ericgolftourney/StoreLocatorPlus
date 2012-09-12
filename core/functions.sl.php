@@ -337,12 +337,13 @@ function activate_slplus() {
         //
         if (get_option(SLPLUS_PREFIX.'-SLPLUS-PRO-lk','') == '') {
             update_option(SLPLUS_PREFIX.'-SLPLUS-PRO-lk',get_option(SLPLUS_PREFIX.'-SLPLUS-lk',''));
+            update_option(SLPLUS_PREFIX.'-SLPLUS-PRO-isenabled',get_option(SLPLUS_PREFIX.'-SLPLUS-isenabled',''));
         }
 
         // Change Pages license info to new SKU
         //
         if (get_option(SLPLUS_PREFIX.'-SLPLUS-PAGES-lk','') == '') {
-            update_option(SLPLUS_PREFIX.'-SLPLUS-PAGES-lk',get_option(SLPLUS_PREFIX.'-SLP-PAGES-lk',''));
+            update_option(SLPLUS_PREFIX.'-SLPLUS-PAGES-isenabled',get_option(SLPLUS_PREFIX.'-SLP-PAGES-isenabled',''));
         }
 
         update_option(SLPLUS_PREFIX."-db_version", $sl_db_version);
