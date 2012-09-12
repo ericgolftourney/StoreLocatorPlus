@@ -4,6 +4,26 @@
  ** description: Designed to work with the Mazznoer Clean Simple White WP Theme.
  **
  **/
+div#map {
+    border-top: solid 1px #CCCCCC;
+    border-left: solid 1px #CCCCCC;
+    border-right: solid 1px #CCCCCC;
+    width: auto !important;
+}
+table.sl_footer {
+    margin-bottom: 12px;
+    border-bottom: solid 1px #CCCCCC;
+    border-left: solid 1px #CCCCCC;
+    border-right: solid 1px #CCCCCC;
+}
+tr.slp_map_tagline td {
+    color: #444444;
+    background-color: #F4F4F4;
+    font-size: 0.9em;
+    font-style: italic;
+    padding: 3px;
+    text-align: right;    
+}
 
 tr.slp_results_row:hover {
     background-color: #F2F2F2;
@@ -20,6 +40,7 @@ tr.slp_map_search_results td.results_row_right_column {
     text-align: right;
 }
 tr.slp_map_search_results span.location_name {
+    color: #CC0000;
     font-weight: bold;
 }
 

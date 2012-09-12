@@ -215,12 +215,9 @@ if ($sl_starting_image != '') {
 ?>
                 <div id='map' style='width:<?php echo $sl_width?><?php echo $sl_width_units?>; height:<?php echo $sl_height?><?php echo $sl_height_units?>'></div>
                 <table cellpadding='0px' class='sl_footer' width='<?php echo $sl_width?><?php echo $sl_width_units?>;' <?php echo $sl_hide?>>
-                <tr>
-                    <td class='sl_footer_left_column'>
-                        <a href='http://www.cybersprocket.com/products/store-locator-plus/' target='_blank'>Store Locator Plus</a>
-                    </td>
+                <tr class="slp_map_tagline">
                     <td class='sl_footer_right_column'>
-                        <a href='http://www.cybersprocket.com' target='_blank' title='by Cyber Sprocket Labs'>by Cyber Sprocket Labs</a>
+                        <?php echo __('search provided by', SLPLUS_PREFIX); ?> <a href='<?php echo $slplus_plugin->url; ?>' target='_blank'><?php echo $slplus_plugin->name; ?></a>
                     </td>
                 </tr>                
                 </table>
