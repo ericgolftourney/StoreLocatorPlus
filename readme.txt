@@ -199,10 +199,6 @@ Store Pages is a paid add-on for the free Store Locator Plus product. When you p
 
 Please see the [Store Locator Plus website](http://www.charlestonsw.com/product/store-locator-plus/) for the latest feature list.
 
-= What happened to the Plus Pack? =
-
-We renamed it the Pro Pack.  Your Plus Pack license will work for the Pro Pack.
-
 == Screenshots ==
 
 1. Location Details
@@ -217,50 +213,19 @@ We renamed it the Pro Pack.  Your Plus Pack license will work for the Pro Pack.
 
 More screenshots are available via the [Store Locator Plus website](http://www.storelocatorplus.com/).
 
-== Upgrade Notice ==
-
-Update to allow the use of the location sensor, and compatability issues with IE
-
 == Changelog ==
 
 We update about once per month or more frequently as needed.
 
-Here are the most recent releases...
+Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support/documentation/store-locator-plus/release-notes/) at our website.
 
-= 3.2 (September 5th, 2012) =
+= Latest Release: 3.2 (September 5th, 2012) =
 
 * Add a force load JavaScript for sites with less friendly themes (not processing shutdown or footer scripts)
+* Revised JavaScript load order is more aggressive.
 * Fix path name to language files, was causing some installs to break on security warning.
-* Transition from Cyber Sprocket to CSA
+* Theme system tweaking.
+* Transition from Cyber Sprocket to CSA.
 
-= 3.1.5 (August 8th, 2012) =
-
-* Add fax field to location data. 
-
-= 3.1.4 (July 26th, 2012) =
-
-* Fixed where some versions of jquery will not start an anon. function
-
-= 3.1.3 (July 23rd, 2012) =
-
-* Export raw html from the description field
-
-= 3.1.2 (July 20th, 2012) =
-
-* Made the plugin far less likely to conflict with other plugins
-
-= 3.1.1 (July 17th, 2012) =
-
-* Fixed where parts of the plugin output after the closing html tag
-* Fixed where ajax to/from a secured url weren't correctly working.
-
-= 3.1 (July 11th, 2012) =
-
-* Allows the use of the location sensor via pro pack
-* Javascript made more compatible with Internet Explorer
-
-= 3.0.92 (July 2nd, 2012) =
-
-* Added a comma even if there isn't a state in the address
 
 
