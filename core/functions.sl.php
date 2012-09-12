@@ -215,9 +215,7 @@ function initialize_variables() {
 function do_geocoding($address,$sl_id='') {    
     global $wpdb, $slplus_plugin;    
     
-    // Initialize delay in geocode speed
-    $delay = 0;
-    
+    $delay = 0;    
     $base_url = "http://maps.googleapis.com/maps/api/geocode/json?sensor=false";
     
     // Loop through for X retries
@@ -229,6 +227,7 @@ function do_geocoding($address,$sl_id='') {
     
         // Iterate through the rows, geocoding each address
         $request_url = $base_url . "&address=" . urlencode($address);
+        $errorMessage = '';
         
 
         // Use HTTP Handler (WP_HTTP) first...
@@ -254,7 +253,7 @@ function do_geocoding($address,$sl_id='') {
         // Lastly file_get_contents
         //
         } else {
-             $raw_json = file_get_contents($request_url) or die("url not loading");
+             $raw_json = file_get_contents($request_url);
         }
         $json = json_decode($raw_json);
         $status = $json->{'status'};
@@ -289,8 +288,22 @@ function do_geocoding($address,$sl_id='') {
             // Run insert/update
             //
             $update_result = $wpdb->query($query);
-            if (!$update_result) {
-                echo sprintf(__("Could not add/update address.  Error: %s.", SLPLUS_PREFIX),mysql_error())."\n<br>";
+            if ($update_result == 0) {
+                $theDBError = htmlspecialchars(mysql_error($wpdb->dbh),ENT_QUOTES);
+                if ($theDBError != '') {
+                    $errorMessage .= sprintf(
+                                            __("Could not add/update address.  Error: %s.", SLPLUS_PREFIX),
+                                            $theDBError
+                                            );
+                } elseif ($update_result === 0) {
+                    $errorMessage .=  __("Could not add/update address.  It appears the data did not change.", SLPLUS_PREFIX);
+                } else {
+                    $errorMessage .=  __("Could not add/update address.  No error logged.", SLPLUS_PREFIX);
+                    $errorMessage .= "<br/>\n" . __('Query: ', SLPLUS_PREFIX);
+                    $errorMessage .= print_r($wpdb->last_query,true);
+                    $errorMessage .= "<br/>\n" . "Results: " . gettype($update_result) . ' '. $update_result;
+                }
+
             }
 
         // Geocoding done too quickly
@@ -300,8 +313,8 @@ function do_geocoding($address,$sl_id='') {
           // No iterations left, tell user of failure
           //
 	      if(!$iterations){
-            echo sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
-            echo sprintf(__("Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
+            $errorMessage .= sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
+            $errorMessage .= sprintf(__("Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
 	      }                       
           $delay += 100000;
 
@@ -309,8 +322,8 @@ function do_geocoding($address,$sl_id='') {
         //
         } else if (strcmp($status, 'ZERO_RESULTS') == 0) {
 	    	$iterations = 0; 
-	    	echo sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
-	      	echo sprintf(__("Unknown Address! Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
+	    	$errorMessage .= sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
+	      	$errorMessage .= sprintf(__("Unknown Address! Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
           
         // Could Not Geocode
         //
@@ -318,14 +331,21 @@ function do_geocoding($address,$sl_id='') {
             $geocode_pending = false;
             echo sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
             if ($status != '') {
-                echo "<br/>\n";
-                echo sprintf(__("Received data %s.", SLPLUS_PREFIX),'<pre>'.print_r($json,true).'</pre>')."\n";
+                $errorMessage .= sprintf(__("Received data %s.", SLPLUS_PREFIX),'<pre>'.print_r($json,true).'</pre>')."\n";
             } else {
-                echo "<br/>\n";
-                echo sprintf(__("Reqeust sent to %s.", SLPLUS_PREFIX),$request_url)."\n<br>";
-                echo sprintf(__("Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
+                $errorMessage .= sprintf(__("Reqeust sent to %s.", SLPLUS_PREFIX),$request_url)."\n<br>";
+                $errorMessage .= sprintf(__("Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
             }
         }
+
+        // Show Error Messages
+        //
+        if ($errorMessage != '') {
+            print '<div class="geocode_error">' .
+                    $errorMessage .
+                    '</div>';
+        }
+
         usleep($delay);
     }
 }    

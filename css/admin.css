@@ -15,7 +15,10 @@
 div#wpbody-content div.wrap div.updated {
     clear: both;
 }
- 
+
+div.geocode_error {
+ clear: both;
+}
 /*----------------------------------
  *
  * A div that looks like a button. 
