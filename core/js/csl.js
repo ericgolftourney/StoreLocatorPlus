@@ -1139,7 +1139,7 @@ var csl = {
             var address = this.__createAddress(aMarker);
 			
 			var html =  '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">' +
-					'<tr>' +
+					'<tr class="slp_results_row">' +
                     '<td class="results_row_left_column">' +
                         '<span class="location_name">' + aMarker.name + '</span><br>' + 
                         parseFloat(aMarker.distance).toFixed(1) + ' ' + slplus.distance_unit + '</td>' +
