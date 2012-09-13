@@ -290,15 +290,16 @@ function do_geocoding($address,$sl_id='') {
             $update_result = $wpdb->query($query);
             if ($update_result == 0) {
                 $theDBError = htmlspecialchars(mysql_error($wpdb->dbh),ENT_QUOTES);
+                $errorMessage .= __("Could not add/update address.  ", SLPLUS_PREFIX);
                 if ($theDBError != '') {
                     $errorMessage .= sprintf(
-                                            __("Could not add/update address.  Error: %s.", SLPLUS_PREFIX),
+                                            __("Error: %s.", SLPLUS_PREFIX),
                                             $theDBError
                                             );
                 } elseif ($update_result === 0) {
-                    $errorMessage .=  __("Could not add/update address.  It appears the data did not change.", SLPLUS_PREFIX);
+                    $errorMessage .=  __("It appears the data did not change.", SLPLUS_PREFIX);
                 } else {
-                    $errorMessage .=  __("Could not add/update address.  No error logged.", SLPLUS_PREFIX);
+                    $errorMessage .=  __("No error logged.", SLPLUS_PREFIX);
                     $errorMessage .= "<br/>\n" . __('Query: ', SLPLUS_PREFIX);
                     $errorMessage .= print_r($wpdb->last_query,true);
                     $errorMessage .= "<br/>\n" . "Results: " . gettype($update_result) . ' '. $update_result;
