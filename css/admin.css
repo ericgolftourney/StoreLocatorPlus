@@ -191,7 +191,7 @@ div #slplus_actionbar
 
 /* Action Bar Specific */
 div#action_buttons {
-    width: 888px;
+    width: 890px;
     position: relative;
     margin-top: 12px;    
 }
@@ -217,7 +217,7 @@ div#slplus_actionbar {
     padding-top: 1px;
 }
 div#tag_block {
-    width: 340px;
+    width: 341px;
 }
 div#slplus_actionbar div#tag_actions {
     clear: both;
