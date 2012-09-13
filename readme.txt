@@ -221,6 +221,7 @@ Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support
 
 = Latest Release: 3.2 (September 5th, 2012) =
 
+* Geocoding process updates.
 * Add a force load JavaScript for sites with less friendly themes (not processing shutdown or footer scripts)
 * Revised JavaScript load order is more aggressive.
 * Fix path name to language files, was causing some installs to break on security warning.
