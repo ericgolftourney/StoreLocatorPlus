@@ -126,6 +126,7 @@ $slak=$slplus_plugin->driver_args['api_key'];
                             $idCount = 0;
                             $id_string=substr($id_string, 0, strlen($id_string)-1);
                             array_push($delQueries,"DELETE FROM ".$wpdb->prefix."store_locator WHERE sl_id IN ($id_string)");
+                            $id_string='';
                         }
                     }
 
@@ -524,7 +525,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
             __("Add Locations", SLPLUS_PREFIX)."</a></td></tr>";
 	}
 	print "</table>
-	<input name='act' type='hidden'><br>";
+	<br>";
 if ($numMembers2!=0) {include(SLPLUS_COREDIR.'/search-links.php');}
 
 print "</form>";
