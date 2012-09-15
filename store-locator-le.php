@@ -82,6 +82,7 @@ include_once(SLPLUS_COREDIR   . 'functions.sl.php'	);
 include_once(SLPLUS_COREDIR   . 'csl-ajax-search.php'	);
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-actions_class.php');
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-activation_class.php');
+require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-ui_class.php');
 
 require_once(SLPLUS_PLUGINDIR . '/include/mobile-listener.php');
 
