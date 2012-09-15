@@ -655,7 +655,6 @@ function slplus_dbupdater($sql,$table_name) {
     $columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
     $columns += (get_option('slplus_show_state_pd')!=1) ? 1 : 0; 	    
     $sl_radius_label=get_option('sl_radius_label');
-    $file = SLPLUS_COREDIR . 'templates/search_form.php';
 
     // Prep fnvars for passing to our template
     //
@@ -681,7 +680,7 @@ function slplus_dbupdater($sql,$table_name) {
         define('SLPLUS_SHORTCODE_RENDERED',true);
     }
 
-    return get_string_from_phpexec($file); 
+    return get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_form.php');
 }
 
 
