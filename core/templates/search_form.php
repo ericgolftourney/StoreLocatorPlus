@@ -5,15 +5,9 @@
       $fnvars, $slplus_plugin, $slplus_name_label;
 
       $prefix = $slplus_plugin->prefix;
-
-      // Script enqueue should never be called as a direct function.
-      //
-      // WordPress best practices dictacte using this in a supported action hook only.
-      // Many themes and plugins will not honor this.
-      //
-      // SLPlus_Actions::shutdown();
 ?>
 <div id='sl_div'>
+    
   <form onsubmit='cslmap.searchLocations(); return false;' id='searchForm' action=''>
     <table  id='search_table' border='0' cellpadding='3px' class='sl_header'><tr>
 	<td valign='top'>
@@ -193,7 +187,11 @@
             
         </div>
 	  </td>
-	</tr></table>
+	</tr>
+    </table>
+    </form>
+
+
 	<table id='map_table' width='100%' cellspacing='0px' cellpadding='0px'> 
      <tr>
         <td width='100%' valign='top'>
@@ -237,7 +235,7 @@ if ($sl_starting_image != '') {
             </div>
         </td>
     </tr>
-  </table></form>
+  </table>
 </div>
 
 
