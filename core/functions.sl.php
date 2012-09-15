@@ -680,7 +680,11 @@ function slplus_dbupdater($sql,$table_name) {
         define('SLPLUS_SHORTCODE_RENDERED',true);
     }
 
-    return get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_form.php');
+    // Search / Map Actions
+    //
+    add_action('slp_render_search_form',array('SLPlus_UI','slp_render_search_form'));
+
+    return get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_and_map.php');
 }
 
 
