@@ -255,8 +255,19 @@ function do_geocoding($address,$sl_id='') {
         } else {
              $raw_json = file_get_contents($request_url);
         }
-        $json = json_decode($raw_json);
-        $status = $json->{'status'};
+
+        // If raw_json exists, parse it
+        //
+        if (isset($raw_json)) {
+            $json = json_decode($raw_json);
+            $status = $json->{'status'};
+            
+        // no raw json
+        //
+        } else {
+            $json = '';
+            $status = '';
+        }
         
         // Geocode completed successfully
         //
