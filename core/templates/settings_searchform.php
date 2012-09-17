@@ -49,7 +49,10 @@
             execute_and_output_plustemplate('mapsettings_searchfeatures.php');
         } else {
             print "<div class='form_entry' style='text-align:right;padding-top:136px;'>Want more?<br/> <a href='http://www.cybersprocket.com/'>Check out our other WordPress offerings.</a></div>";
-        }                    
+        }
+
+        do_action('slp_add_searchform_features_setting');
+
         ?>        
     </div>
     
@@ -111,6 +114,6 @@
                 __("Instruction text when map is first displayed.", SLPLUS_PREFIX)
                 );
             ?>            
-        </div>                          
+        </div>
     </div>
 </div>

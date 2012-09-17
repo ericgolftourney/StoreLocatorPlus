@@ -35,8 +35,8 @@ function choose_units($unit, $input_name) {
  **  $boxname (string, required) - the name of the checkbox (db option name)
  **  $prefix (string, optional) - defaults to SLPLUS_PREFIX, can be '' 
  **/
-function SaveCheckboxToDB($boxname,$prefix = SLPLUS_PREFIX) {
-    $whichbox = $prefix.$boxname; 
+function SaveCheckboxToDB($boxname,$prefix = SLPLUS_PREFIX, $separator='-') {
+    $whichbox = $prefix.$separator.$boxname;
     $_POST[$whichbox] = isset($_POST[$whichbox])?1:0;  
     update_option($whichbox,$_POST[$whichbox]); 
 }
@@ -145,24 +145,26 @@ if (!$_POST) {
     update_option('sl_map_overview_control',$_POST['sl_map_overview_control']);
 	
     $BoxesToHit = array(
-        '_show_tag_search',
-        '_show_tag_any',
-        '_email_form',
-        '_show_tags',
-        '_disable_scrollwheel',
-        '_disable_initialdirectory',
-        '_disable_largemapcontrol3d',
-        '_disable_scalecontrol',
-        '_disable_maptypecontrol',
-        '_hide_radius_selections',
-        '_hide_address_entry',
-        '_disable_search',
-		'_show_search_by_name',
-        '_use_location_sensor'
+        'show_tag_search',
+        'show_tag_any',
+        'email_form',
+        'show_tags',
+        'disable_scrollwheel',
+        'disable_initialdirectory',
+        'disable_largemapcontrol3d',
+        'disable_scalecontrol',
+        'disable_maptypecontrol',
+        'hide_radius_selections',
+        'hide_address_entry',
+        'disable_search',
+		'show_search_by_name',
+        'use_location_sensor'
         );
     foreach ($BoxesToHit as $JustAnotherBox) {        
-        SaveCheckBoxToDB($JustAnotherBox);
+        SaveCheckBoxToDB($JustAnotherBox, SLPLUS_PREFIX, '_');
     }
+
+    do_action('slp_save_map_settings');
        
     $update_msg = "<div class='highlight'>".__("Successful Update", SLPLUS_PREFIX).'</div>';
 }
@@ -373,15 +375,9 @@ $slpMapSettings->add_section(
 
 //------------------------------------
 // Create The Search Form Settings Panel
-//  
-$slpDescription = get_string_from_phpexec(SLPLUS_COREDIR.'/templates/settings_searchform.php');
-$slpMapSettings->add_section(
-    array(
-            'name'          => __('Search Form',SLPLUS_PREFIX),
-            'description'   => $slpDescription,
-            'auto'          => true
-        )
- );
+//
+add_action('slp_add_searchform_settings_panel',array('SLPlus_AdminUI','slp_add_searchform_settings_panel'));
+do_action('slp_add_searchform_settings_panel');
    
 //------------------------------------
 // Create The Map Settings Panel

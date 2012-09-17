@@ -133,6 +133,23 @@ if (! class_exists('SLPlus_AdminUI')) {
 
              return $content;             
          }
+
+         /**
+          * method: slp_add_searchform_settings_panel
+          *
+          * Add the search form panel to the map settings page on the admin UI.
+          */
+         function slp_add_searchform_settings_panel() {
+            global $slpMapSettings;
+            $slpDescription = get_string_from_phpexec(SLPLUS_COREDIR.'/templates/settings_searchform.php');
+            $slpMapSettings->add_section(
+                array(
+                        'name'          => __('Search Form',SLPLUS_PREFIX),
+                        'description'   => $slpDescription,
+                        'auto'          => true
+                    )
+             );
+         }
     }
 }        
      
