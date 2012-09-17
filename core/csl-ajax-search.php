@@ -186,7 +186,7 @@ function csl_ajax_search() {
 			mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned'])
 		);
 		
-		$result = mysql_query($query);
+		$result = mysql_query(apply_filters('slp_mysql_search_query',$query));
 		if (!$result) {
 			die(json_encode( array('success' => false, 'query' => $query, 'response' => 'Invalid query: ' . mysql_error())));
 		}
