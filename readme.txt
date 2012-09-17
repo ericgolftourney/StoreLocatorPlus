@@ -221,7 +221,7 @@ Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support
 
 = Latest Release: 3.3 (September 21st, 2012) =
 
-* Action Hooks for Customized and Third Party add-ons
-
+* [Action Hooks for Customized and Third Party add-ons](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/add-on-packs-roll-your-own/)
+* Move screen shots to assets to lessen size  of zip install
 
 
