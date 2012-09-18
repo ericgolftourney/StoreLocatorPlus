@@ -223,5 +223,6 @@ Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support
 
 * [Action Hooks for Customized and Third Party add-ons](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/add-on-packs-roll-your-own/)
 * Move screen shots to assets to lessen size  of zip install
+* Remove obsolete JavaScript files
 
 
