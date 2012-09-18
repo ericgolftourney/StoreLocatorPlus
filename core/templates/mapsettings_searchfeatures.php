@@ -63,43 +63,7 @@
         ?> 
         >
 </div>
-
 <?php
-    echo CreateCheckboxDiv(
-        '_show_tag_search',
-        __('Tag Input',SLPLUS_PREFIX),
-        __('Show the tag entry box on the search form.', SLPLUS_PREFIX)
-        );        
-      
-    echo CreateCheckboxDiv(
-        '_use_location_sensor',
-        __('Use location sensor', SLPLUS_PREFIX),
-        __('This turns on the location sensor for your customers so they can easily get accurate results')
-    );
-        
-?>
-
-<div class='form_entry'>
-    <label for='<?php echo SLPLUS_PREFIX; ?>_tag_search_selections'>
-        <?php _e('Preselected Tag Searches', SLPLUS_PREFIX); ?>:
-    </label>
-    <input  name='<?php echo SLPLUS_PREFIX; ?>_tag_search_selections' 
-        value='<?php print get_option(SLPLUS_PREFIX.'_tag_search_selections'); ?>' 
-        >
-    <?php
-    echo slp_createhelpdiv('tag_search_selections',
-        __("Enter a comma (,) separated list of tags to show in the search pulldown, mark the default selection with parenthesis '( )'. This is a default setting that can be overriden on each page within the shortcode.",SLPLUS_PREFIX)
-        );
-    ?>      
-</div>        
-
-
-<?php
-    echo CreateCheckboxDiv(
-        '_show_tag_any',
-        __('Add "any" to tags pulldown',SLPLUS_PREFIX),
-        __('Add an "any" selection on the tag pulldown list thus allowing the user to show all locations in the area, not just those matching a selected tag.', SLPLUS_PREFIX)
-        );
     }    
 ?>
 

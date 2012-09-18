@@ -4,6 +4,8 @@
         $sl_radii, $sl_the_distance_unit;
 ?>       
 <div id='search_settings'>
+
+    <!-- Features Section -->
     <div class='section_column'>              
             <h2><?php _e('Features', SLPLUS_PREFIX);?></h2>
             
@@ -55,8 +57,61 @@
 
         ?>        
     </div>
-    
-    
+
+    <!-- Tags Section -->
+<?php
+    global $slplus_plugin;
+    $slplus_message = ($slplus_plugin->license->packages['Pro Pack']->isenabled) ?
+        __('Thank you for purchasing the <a href="%s">%s</a> premium add-on',SLPLUS_PREFIX) :
+        __('Tag features are available in the <a href="%s">%s</a> premium add-on.',SLPLUS_PREFIX)
+?>
+    <div class='section_column'>
+        <h2><?php _e("Tags", SLPLUS_PREFIX); ?></h2>
+        <div class="section_column_content">
+            <p><?php printf($slplus_message,$slplus_plugin->purchase_url,'Pro Pack'); ?></p>
+
+<?php
+        //----------------------------------------------------------------------
+        // Pro Pack Enabled
+        //
+        if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+            echo CreateCheckboxDiv(
+                '_show_tag_search',
+                __('Tag Input',SLPLUS_PREFIX),
+                __('Show the tag entry box on the search form.', SLPLUS_PREFIX)
+                );
+
+            echo CreateCheckboxDiv(
+                '_use_location_sensor',
+                __('Use location sensor', SLPLUS_PREFIX),
+                __('This turns on the location sensor for your customers so they can easily get accurate results')
+            );
+?>
+            <div class='form_entry'>
+                <label for='<?php echo SLPLUS_PREFIX; ?>_tag_search_selections'>
+                    <?php _e('Preselected Tag Searches', SLPLUS_PREFIX); ?>:
+                </label>
+                <input  name='<?php echo SLPLUS_PREFIX; ?>_tag_search_selections'
+                    value='<?php print get_option(SLPLUS_PREFIX.'_tag_search_selections'); ?>'
+                    >
+                <?php
+                echo slp_createhelpdiv('tag_search_selections',
+                    __("Enter a comma (,) separated list of tags to show in the search pulldown, mark the default selection with parenthesis '( )'. This is a default setting that can be overriden on each page within the shortcode.",SLPLUS_PREFIX)
+                    );
+                ?>
+            </div>
+<?php
+            echo CreateCheckboxDiv(
+                '_show_tag_any',
+                __('Add "any" to tags pulldown',SLPLUS_PREFIX),
+                __('Add an "any" selection on the tag pulldown list thus allowing the user to show all locations in the area, not just those matching a selected tag.', SLPLUS_PREFIX)
+                );
+        }
+?>
+        </div>
+    </div>
+
+    <!-- Labels Section -->
     <div class='section_column'>                     
         <h2><?php _e("Labels", SLPLUS_PREFIX); ?></h2>
         
@@ -116,4 +171,9 @@
             ?>            
         </div>
     </div>
+
+
+
+
+
 </div>
