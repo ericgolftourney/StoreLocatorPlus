@@ -46,7 +46,7 @@ function move_upload_directories() {
 /*-----------------*/
 
 function initialize_variables() {
-    global $sl_height, $sl_width, $sl_width_units, $sl_height_units, $sl_radii;
+    global $sl_height, $sl_width, $sl_width_units, $sl_height_units;
     global $cl_icon, $cl_icon2, $sl_google_map_domain, $sl_google_map_country, $sl_theme, $sl_base, $sl_upload_base, $sl_location_table_view;
     global $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_city_search, $sl_use_name_search, $sl_default_map;
     global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
@@ -200,12 +200,6 @@ function initialize_variables() {
         add_option('sl_map_width_units', "%");
         $sl_width_units=get_option('sl_map_width_units');
         }	
-    
-    $sl_radii=get_option('sl_map_radii');
-    if (empty($sl_radii)) {
-        add_option('sl_map_radii', "10,25,50,100,(200),500");
-        $sl_radii=get_option('sl_map_radii');
-        }
 }
 
 
@@ -580,9 +574,7 @@ function slplus_dbupdater($sql,$table_name) {
     $sl_width          = get_option('sl_map_width','100');        
     $sl_width_units    = get_option('sl_map_width_units','%');
 	$slplus_name_label = get_option('sl_name_label');
-    
-    $sl_radii          = get_option('sl_map_radii','1,5,10,(25),50,100,200,500');
-    $r_array        = explode(",", $sl_radii);
+    $r_array        = explode(",",get_option('sl_map_radii','1,5,10,(25),50,100,200,500'));
     
     $sl_instruction_message = get_option('sl_instruction_message',__('Enter Your Address or Zip Code Above.',SLPLUS_PREFIX));
     

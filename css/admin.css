@@ -73,7 +73,7 @@ div.csl-slplus-input {
 div.csl-slplus-moreicon {
     background: url("../core/images/General_icons16.png") 
         no-repeat scroll 
-        -17px 0px 
+        -15px 0px
         transparent; 
     height:20px;
     width: 20px;
@@ -85,6 +85,9 @@ div.csl-slplus-moreicon {
 div.csl-slplus-moretext {
     display: none;
     clear: both;    
+}
+a.moreinfo_clicker {
+    text-decoration: none;
 }
 
 

@@ -69,13 +69,13 @@ function CreateCheckboxDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX) {
 /**
  * function: CreateInputDiv
  */
-function CreateInputDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX) {
+function CreateInputDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $default='') {
     $whichbox = $prefix.$boxname;
     return
         "<div class='form_entry'>" .
-            "<div class='".$prefix."-input'>" .
+            "<div class='".SLPLUS_PREFIX."-input'>" .
                 "<label for='$whichbox'>$label:</label>".
-                "<input  name='$whichbox' value='".get_option($whichbox,'')."'>".
+                "<input  name='$whichbox' value='".get_option($whichbox,$default)."'>".
             "</div>".
             slp_createhelpdiv($boxname,$msg).
          "</div>"

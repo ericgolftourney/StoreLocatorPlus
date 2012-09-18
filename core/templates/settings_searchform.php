@@ -1,7 +1,6 @@
 <?php 
     global  $sl_city_checked, $sl_country_checked, $sl_show_tag_checked, $sl_show_any_checked,
-        $sl_radius_label, $sl_website_label,$sl_instruction_message,$slpMapSettings,
-        $sl_radii, $sl_the_distance_unit;
+        $sl_radius_label, $sl_website_label,$sl_instruction_message,$slpMapSettings,$sl_the_distance_unit;
 ?>       
 <div id='search_settings'>
 
@@ -19,16 +18,17 @@
                     <?php echo $sl_city_checked?> 
                     >
             </div>
-        
-        <div class='form_entry'>
-            <label for='radii'><?php _e('Radii Options', SLPLUS_PREFIX);?>:</label>
-            <input  name='radii' value='<?php echo $sl_radii;?>' size='25'>
-            <?php
-            echo slp_createhelpdiv('radii',
-                __("Separate each number with a comma ','. Put parenthesis '( )' around the default.</span>", SLPLUS_PREFIX)
-                );
-            ?>              
-        </div>  
+
+<?php
+            echo CreateInputDiv(
+                    'sl_map_radii',
+                    __('Radii Options', SLPLUS_PREFIX),
+                    __('Separate each number with a comma ",". Put parenthesis "( )" around the default.',SLPLUS_PREFIX),
+                    '',
+                    '10,25,50,100,(200),500'
+                    );
+
+?>
             
         <div class='form_entry'>
             <label for='sl_distance_unit'><?php _e('Distance Unit', SLPLUS_PREFIX);?>:</label>
