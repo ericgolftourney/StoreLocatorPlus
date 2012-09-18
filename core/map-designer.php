@@ -56,13 +56,32 @@ function CreateCheckboxDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX) {
     $whichbox = $prefix.$boxname; 
     return 
         "<div class='form_entry'>".
+            "<div class='".$prefix."-input'>" .
             "<label  for='$whichbox'>$label:</label>".
             "<input name='$whichbox' value='1' type='checkbox' ".((get_option($whichbox) ==1)?' checked':'').">".
-            slp_createhelpdiv($boxname,$msg).
+            "</div>".
+            slp_createhelpdiv($boxname,$msg) .
         "</div>"
         ;
 }
 
+
+/**
+ * function: CreateInputDiv
+ */
+function CreateInputDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX) {
+    $whichbox = $prefix.$boxname;
+    return
+        "<div class='form_entry'>" .
+            "<div class='".$prefix."-input'>" .
+                "<label for='$whichbox'>$label:</label>".
+                "<input  name='$whichbox' value='".get_option($whichbox,'')."'>".
+            "</div>".
+            slp_createhelpdiv($boxname,$msg).
+         "</div>"
+        ;
+
+}
 
 
 //===========================================================================
