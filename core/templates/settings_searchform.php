@@ -53,7 +53,7 @@
             print "<div class='form_entry' style='text-align:right;padding-top:136px;'>Want more?<br/> <a href='http://www.charlestonsw.com/'>Check out our other WordPress offerings.</a></div>";
         }
 
-        do_action('slp_add_searchform_features_setting');
+        do_action('slp_add_search_form_features_setting');
 
         ?>        
     </div>
@@ -99,6 +99,8 @@
                 __('Add an "any" selection on the tag pulldown list thus allowing the user to show all locations in the area, not just those matching a selected tag.', SLPLUS_PREFIX)
                 );
         }
+
+        do_action('slp_add_search_form_tag_setting');
 ?>
         </div>
     </div>
