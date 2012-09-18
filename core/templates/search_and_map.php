@@ -5,12 +5,8 @@
       $fnvars, $slplus_plugin, $slplus_name_label;
 
       $prefix = $slplus_plugin->prefix;
-      
-  ?>
+      print "<div id='sl_div'>";
 
-<div id='sl_div'>
-
-  <?php
     // Render the search form
     //
     do_action('slp_render_search_form');
