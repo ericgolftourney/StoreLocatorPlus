@@ -1137,30 +1137,35 @@ var csl = {
             }
 
             var address = this.__createAddress(aMarker);
-			
-			var html =  '<center><table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">' +
-					'<tr class="slp_results_row">' +
-                    '<td class="results_row_left_column">' +
-                        '<span class="location_name">' + aMarker.name + '</span><br>' + 
-                        parseFloat(aMarker.distance).toFixed(1) + ' ' + slplus.distance_unit + '</td>' +
-                    '<td class="results_row_center_column">' + 
-                        street +  
-                        street2 + 
-                        city_state_zip +
-                        thePhone +
-                        theFax +
-                    '</td>' +
-                    '<td class="results_row_right_column">' + 
-                        link + 
-                        elink +
-                        '<a href="http://' + slplus.map_domain + 
-                        '/maps?saddr=' + encodeURIComponent(this.address) + 
-                        '&daddr=' + encodeURIComponent(address) + 
-                        '" target="_blank" class="storelocatorlink">Directions</a>'+
-                        tagInfo +
-                        '</td>' +
-                        '</tr></table></center>';
-			div.innerHTML = html;
+
+
+            String.prototype.format = function() {
+             var args = arguments;
+             return this.replace(/{(\d+)}/g, function(match, number) { 
+               return typeof args[number] != 'undefined'
+                 ? args[number]
+                 : match
+               ;
+             });
+           };
+
+ 		 div.innerHTML = slplus.results_string.format(
+                        aMarker.name,
+                        parseFloat(aMarker.distance).toFixed(1),
+                        slplus.distance_unit,
+                        street,
+                        street2,
+                        city_state_zip,
+                        thePhone,
+                        theFax,
+                        link,
+                        elink,
+                        slplus.map_domain,
+                        encodeURIComponent(this.address),
+                        encodeURIComponent(address),
+                        tagInfo
+                      )
+                      ;
 			div.className = 'results_entry';
 
 			return div;
