@@ -49,6 +49,12 @@
         <?php
         if (function_exists('execute_and_output_plustemplate')) {
             execute_and_output_plustemplate('mapsettings_searchfeatures.php');
+
+            echo CreateCheckboxDiv(
+                '_use_location_sensor',
+                __('Use location sensor', SLPLUS_PREFIX),
+                __('This turns on the location sensor for your customers so they can easily get accurate results')
+            );
         } else {
             print "<div class='form_entry' style='text-align:right;padding-top:136px;'>Want more?<br/> <a href='http://www.charlestonsw.com/'>Check out our other WordPress offerings.</a></div>";
         }
@@ -62,7 +68,7 @@
 <?php
     global $slplus_plugin;
     $slplus_message = ($slplus_plugin->license->packages['Pro Pack']->isenabled) ?
-        __('Thank you for purchasing the <a href="%s">%s</a> premium add-on',SLPLUS_PREFIX) :
+        __('Thank you for purchasing the <a href="%s">%s</a> premium add-on.',SLPLUS_PREFIX) :
         __('Tag features are available in the <a href="%s">%s</a> premium add-on.',SLPLUS_PREFIX)
 ?>
     <div class='section_column'>
@@ -81,11 +87,6 @@
                 __('Show the tag entry box on the search form.', SLPLUS_PREFIX)
                 );
 
-            echo CreateCheckboxDiv(
-                '_use_location_sensor',
-                __('Use location sensor', SLPLUS_PREFIX),
-                __('This turns on the location sensor for your customers so they can easily get accurate results')
-            );
 
             echo CreateInputDiv(
                     '_tag_search_selections',
