@@ -48,7 +48,7 @@ if ($sl_starting_image != '') {
 ?>
 		</td>
       </tr>
-	  <tr id='cm_mapTR'class='slp_map_search_results'>
+	  <tr id='cm_mapTR' class='slp_map_search_results'>
         <td width='' valign='top' id='map_sidebar_td'>
             <div id='map_sidebar' style='width:<?php echo $sl_width?><?php echo $sl_width_units?>;'>
                 <div class='text_below_map'><?php echo $sl_instruction_message?></div>
