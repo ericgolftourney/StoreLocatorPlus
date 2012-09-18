@@ -372,52 +372,16 @@ $slpMapSettings->add_section(
     )
 );
 
-
 //------------------------------------
 // Create The Search Form Settings Panel
 //
-add_action('slp_add_searchform_settings_panel',array('SLPlus_AdminUI','slp_add_searchform_settings_panel'));
-do_action('slp_add_searchform_settings_panel');
-   
-//------------------------------------
-// Create The Map Settings Panel
-//  
-$slpDescription = get_string_from_phpexec(SLPLUS_COREDIR.'/templates/settings_mapform.php');
-$slpMapSettings->add_section(
-    array(
-            'name'          => __('Map',SLPLUS_PREFIX),
-            'description'   => $slpDescription,
-            'auto'          => true
-        )
- );
-    
+add_action('slp_build_map_settings_panels',array('SLPlus_AdminUI','slp_add_search_form_settings_panel'),1);
+add_action('slp_build_map_settings_panels',array('SLPlus_AdminUI','slp_add_map_settings_panel'),2);
 
-//------------------------------------
-// Info Panel
-//
-$slpDescription = 
-    "Product Information: <a href='$slplus_plugin->url' target='cybersprocket'>$slplus_plugin->url</a><br/>";
-if ($slplus_plugin->debugging) {
-$slpDescription .= 
-        "Basename:  ".SLPLUS_BASENAME    ."<br/>" .
-        "Core Directory:   ".SLPLUS_COREDIR     ."<br/>" .
-        "Plugin Directory: ".SLPLUS_PLUGINDIR   ."<br/>" .
-        "Core URL: ".SLPLUS_COREURL   ."<br/>" .
-        "Plugin URL: ".SLPLUS_PLUGINURL   ."<br/>" .
-        "Admin Page: ".SLPLUS_ADMINPAGE   ."<br/>" .
-        ""
-        ;    
-}        
-$slpMapSettings->add_section(
-    array(
-            'name'          => __('Plugin Info',SLPLUS_PREFIX),
-            'description'   => $slpDescription,
-            'auto'          => true
-        )
- );
     
 //------------------------------------
 // Render It 
 //
 print $update_msg;
+do_action('slp_build_map_settings_panels');
 $slpMapSettings->render_settings_page();    
