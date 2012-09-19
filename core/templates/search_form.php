@@ -63,7 +63,7 @@
           // Show Tag Search Is Enabled
           //
           if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
-              if (get_option(SLPLUS_PREFIX.'_show_tag_search') ==1) {
+              if (get_option(SLPLUS_PREFIX.'_show_tag_search',0) ==1) {
           ?>
                   <div id='search_by_tag' class='search_item' <?php if (isset($fnvars['only_with_tag'])) { print "style='display:none;'"; }?>>
                       <label for='tag_to_search_for'><?php
@@ -95,26 +95,10 @@
 
                           // Pulldown for pre-selected list
                           //
-                          }
-                          else {
-                              print "<select id='tag_to_search_for' >";
-
-                              // Show Any Option (blank value)
-                              //
-                              if (get_option($prefix.'_show_tag_any')==1) {
-                                  print "<option value=''>".
-                                      __('Any',SLPLUS_PREFIX).
-                                      '</option>';
-                              }
-
+                          } else {
                               $tag_selections = explode(",", $tag_selections);
-                              foreach ($tag_selections as $selection) {
-                                  $clean_selection = preg_replace('/\((.*)\)/','$1',$selection);
-                                  print "<option value='$clean_selection' ";
-                                  print (ereg("\(.*\)", $selection))? " selected='selected' " : '';
-                                  print ">$clean_selection</option>";
-                              }
-                              print "</select>";
+                              add_action('slp_render_search_form_tag_list',array('SLPlus_UI','slp_render_search_form_tag_list'),10,2);
+                              do_action('slp_render_search_form_tag_list',$tag_selections,(get_option(SLPLUS_PREFIX.'_show_tag_any')==1));
                           }
                       ?>
                       </div>
