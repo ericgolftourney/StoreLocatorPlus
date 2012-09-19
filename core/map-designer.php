@@ -118,7 +118,7 @@ if (!$_POST) {
     update_option('sl_map_width_units', $_POST['width_units']);
     update_option('sl_map_width', $_POST['width']);
     
-    update_option('sl_map_radii', $_POST['radii']);
+    update_option('sl_map_radii', $_POST['sl_map_radii']);
     update_option('sl_map_home_icon', $_POST['icon']);
     update_option('sl_map_end_icon', $_POST['icon2']);
     update_option('sl_search_label', $_POST['search_label']);
