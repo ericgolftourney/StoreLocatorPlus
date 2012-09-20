@@ -666,6 +666,7 @@ var csl = {
   	  	 * returns: none
   	  	 */
 		this.putMarkers = function(markerList, animation) {
+
 			this.markers = [];
 			if (this.loadedOnce) {
 				var sidebar = document.getElementById('map_sidebar');
@@ -735,15 +736,15 @@ var csl = {
 				this.gmap.panTo(this.homePoint);
                 var sidebar = document.getElementById('map_sidebar');
 				sidebar.innerHTML = '<div class="no_results_found"><h2>No results found.</h2></div>';
-			}
+                jQuery('#map_sidebar').trigger('contentchanged');
+			} else {
+                jQuery('#map_sidebar').trigger('contentchanged');
+            }
 			
 			if (bounds != null) {
 				this.debugSearch('rebounded');
 				this.bounds = bounds;
-				//if (this.homePoint) { 
-				//	this.gmap.panTo(this.homePoint); }
 				this.gmap.fitBounds(this.bounds);
-				//this.gmap.panTo(this.bounds.getCenter());
 			}
 		}
 		
@@ -1139,6 +1140,8 @@ var csl = {
             var address = this.__createAddress(aMarker);
 
 
+            // JavaScript version of sprintf
+            //
             String.prototype.format = function() {
              var args = arguments;
              return this.replace(/{(\d+)}/g, function(match, number) { 
@@ -1149,6 +1152,8 @@ var csl = {
              });
            };
 
+         // Create the results table
+         //
  		 div.innerHTML = slplus.results_string.format(
                         aMarker.name,
                         parseFloat(aMarker.distance).toFixed(1),
@@ -1167,6 +1172,7 @@ var csl = {
                       )
                       ;
 			div.className = 'results_entry';
+            div.id = 'slp_results_entry_'+aMarker.id;
 
 			return div;
 		}
