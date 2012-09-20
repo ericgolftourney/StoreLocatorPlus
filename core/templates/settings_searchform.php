@@ -42,7 +42,11 @@
                     ''
                     );
 
-        if (function_exists('execute_and_output_plustemplate')) {
+        //----------------------------------------------------------------------
+        // Pro Pack Enabled
+        //
+        global $slplus_plugin;
+        if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
             execute_and_output_plustemplate('mapsettings_searchfeatures.php');
 
             echo CreateCheckboxDiv(
@@ -50,9 +54,14 @@
                 __('Use location sensor', SLPLUS_PREFIX),
                 __('This turns on the location sensor for your customers so they can easily get accurate results')
             );
+
+        //-----
+        // No Pro Pack
+        //
         } else {
             print "<div class='form_entry' style='text-align:right;padding-top:136px;'>Want more?<br/> <a href='http://www.charlestonsw.com/'>Check out our other WordPress offerings.</a></div>";
         }
+
 
         do_action('slp_add_search_form_features_setting');
 
