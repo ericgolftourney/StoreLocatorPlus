@@ -253,8 +253,8 @@ $sl_char_enc["Korea (EUS-KR)"]="eus-kr";
 //-- Set Checkboxes
 //
 $checked2   	    = (isset($checked2)  ?$checked2  :'');
-$sl_city_checked	    = (get_option('sl_use_city_search')             ==1)?' checked ':'';
-$checked3	        = (get_option('sl_remove_credits')              ==1)?' checked ':'';
+$sl_city_checked	= (get_option('sl_use_city_search',0) ==1)?' checked ':'';
+$checked3	        = (get_option('sl_remove_credits',0)  ==1)?' checked ':'';
 
 $sl_map_type_options=(isset($sl_map_type_options)?$sl_map_type_options:'');
 $map_type["".__("Normal", SLPLUS_PREFIX).""]="roadmap";
@@ -270,8 +270,7 @@ $zl[]=17;$zl[]=18;$zl[]=19;
 
 // Zoom Level
 //
-$slp_current_setting = get_option('sl_zoom_level');
-if ($slp_current_setting == '') { $slp_current_setting = 4; }
+$slp_current_setting = get_option('sl_zoom_level',4);
 $sl_zoom="<select name='zoom_level'>";
 foreach ($zl as $sl_value) {
 	$sl_zoom.="<option value='$sl_value' ";
@@ -282,8 +281,7 @@ $sl_zoom.="</select>";
 
 // Zoom Adjustment
 //
-$slp_current_setting = get_option('sl_zoom_tweak');
-if ($slp_current_setting == '') { $slp_current_setting = 4; }
+$slp_current_setting = get_option('sl_zoom_tweak',4);
 $sl_zoom_adj="<select name='zoom_tweak'>";
 foreach ($zl as $sl_value) {
 	$sl_zoom_adj.="<option value='$sl_value' ";
