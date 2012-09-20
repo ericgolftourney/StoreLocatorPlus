@@ -1,21 +1,17 @@
 <?php 
-    global  $sl_city_checked, $sl_country_checked, $sl_show_tag_checked, $sl_show_any_checked,
-        $sl_radius_label, $sl_website_label,$sl_instruction_message,$slpMapSettings,$sl_the_distance_unit;
-?>       
-<div id='search_settings'>
+global  $sl_city_checked, $sl_country_checked, $sl_show_tag_checked, $sl_show_any_checked,
+    $sl_radius_label, $sl_website_label,$sl_instruction_message,$slpMapSettings,$sl_the_distance_unit;
 
-    <!-- Features Section -->
-    <div class='section_column'>              
-            <h2><?php _e('Features', SLPLUS_PREFIX);?></h2>
-<?php
-            echo CreateInputDiv(
-                    'sl_map_radii',
-                    __('Radii Options', SLPLUS_PREFIX),
-                    __('Separate each number with a comma ",". Put parenthesis "( )" around the default.',SLPLUS_PREFIX),
-                    '',
-                    '10,25,50,100,(200),500'
-                    );
-
+echo "<div id='search_settings'>";
+echo "<div class='section_column'>";
+echo "<h2>".__('Features', SLPLUS_PREFIX)."</h2>";
+echo CreateInputDiv(
+        'sl_map_radii',
+        __('Radii Options', SLPLUS_PREFIX),
+        __('Separate each number with a comma ",". Put parenthesis "( )" around the default.',SLPLUS_PREFIX),
+        '',
+        '10,25,50,100,(200),500'
+        );
 ?>
             
         <div class='form_entry'>
@@ -32,8 +28,7 @@
                 ?>
             </select>
         </div>    
-        
-           
+                   
         <?php
 
         //----------------------------------------------------------------------
@@ -151,66 +146,66 @@
     <!-- Labels Section -->
     <div class='section_column'>                     
         <h2><?php _e("Labels", SLPLUS_PREFIX); ?></h2>
-        
-        <div class='form_entry'>
-            <label for='search_label'><?php _e("Address Input", SLPLUS_PREFIX); ?>:</label>
-            <input name='search_label' value='<?php echo get_option('sl_search_label'); ?>'>
-            <?php
-            echo slp_createhelpdiv('search_label',
-                __("Label for search form address entry.", SLPLUS_PREFIX)
-                );
-            ?>             
-        </div>
-		
-		<div class='form_entry'>
-			<label for='sl_name_label'><?php _e("Name Input", SLPLUS_PREFIX); ?>:</label>
-			<input name='sl_name_label' value='<?php echo get_option('sl_name_label'); ?>'>
-			<?php
-				echo slp_createhelpdiv('sl_name_label',
-				__("Label for name search form address entry.", SLPLUS_PREFIX)
-				);
-			?>
-		</div>
-        
-        <?php
-        if (function_exists('execute_and_output_plustemplate')) {
-            execute_and_output_plustemplate('mapsettings_labels.php');
-        }                
-        ?>                     
 
-        <div class='form_entry'>
-            <label for='sl_radius_label'><?php _e("Radius Dropdown", SLPLUS_PREFIX); ?>:</label>
-            <input name='sl_radius_label' value='<?php echo $sl_radius_label; ?>'>
-            <?php
-            echo slp_createhelpdiv('sl_radius_label',
-                __("Label for search form radius pulldown.", SLPLUS_PREFIX)
-                );
-            ?>              
-        </div>                
+<?php
 
-        <div class='form_entry'>
-            <label for='sl_website_label'><?php _e("Website URL", SLPLUS_PREFIX);?>:</label>
-            <input name='sl_website_label' value='<?php echo $sl_website_label; ?>'>
-            <?php
-            echo slp_createhelpdiv('sl_website_label',
-                __("Label for website URL in search results.", SLPLUS_PREFIX)
-                );
-            ?>              
-        </div>            
+// Search Form Labels
+//
+echo '<p><strong>'.__('Search Form Labels',SLPLUS_PREFIX).'</strong></p>';
+echo CreateInputDiv(
+        'sl_search_label',
+        __('Address', SLPLUS_PREFIX),
+        __('Search form address label.',SLPLUS_PREFIX),
+        '',
+        'Address / Zip'
+        );
+echo CreateInputDiv(
+        'sl_name_label',
+        __('Name', SLPLUS_PREFIX),
+        __('Search form name label.',SLPLUS_PREFIX),
+        '',
+        'Name'
+        );
+echo CreateInputDiv(
+        'sl_radius_label',
+        __('Radius', SLPLUS_PREFIX),
+        __('Search form radius label.',SLPLUS_PREFIX),
+        '',
+        'Within'
+        );
 
-        <div class='form_entry'>
-            <label for='sl_instruction_message'><?php _e("Instruction Message", SLPLUS_PREFIX); ?>:</label>
-            <input name='sl_instruction_message' value='<?php echo $sl_instruction_message; ?>' size='50'>
-            <?php
-            echo slp_createhelpdiv('sl_instruction_message',
-                __("Instruction text when map is first displayed.", SLPLUS_PREFIX)
-                );
-            ?>            
-        </div>
-    </div>
+//----------------------------------------------------------------------
+// Pro Pack Enabled
+//
+if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+    echo CreateInputDiv(
+            '_search_tag_label',
+            __('Tags', SLPLUS_PREFIX),
+            __('Search form label to prefix the tag selector.',SLPLUS_PREFIX)
+            );
+    echo CreateInputDiv(
+            '_state_pd_label',
+            __('State', SLPLUS_PREFIX),
+            __('Search form label to prefix the state selector.',SLPLUS_PREFIX)
+            );
+}    
 
 
-
-
-
-</div>
+// Result Labels
+//
+echo '<p><strong>'.__('Search Results Labels',SLPLUS_PREFIX).'</strong></p>';
+echo CreateInputDiv(
+        'sl_website_label',
+        __('Radius', SLPLUS_PREFIX),
+        __('Search results text for the website link.',SLPLUS_PREFIX),
+        '',
+        'website'
+        );
+echo CreateInputDiv(
+        'sl_instruction_message',
+        __('Instructions', SLPLUS_PREFIX),
+        __('Search results instructions shown if immediately show locations is not selected.',SLPLUS_PREFIX),
+        '',
+        __('Enter an address or zip code and click the find locations button.',SLPLUS_PREFIX)
+        );
+echo "</div></div>";
