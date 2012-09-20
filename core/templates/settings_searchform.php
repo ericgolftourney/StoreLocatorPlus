@@ -35,12 +35,6 @@
         
            
         <?php
-            echo CreateCheckboxDiv(
-                    'sl_use_city_search',
-                    __('Show City Pulldown',SLPLUS_PREFIX),
-                    __('Displays the city pulldown on the search form. It is built from the unique city names in your location list.',SLPLUS_PREFIX),
-                    ''
-                    );
 
         //----------------------------------------------------------------------
         // Pro Pack Enabled
@@ -48,12 +42,6 @@
         global $slplus_plugin;
         if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
             execute_and_output_plustemplate('mapsettings_searchfeatures.php');
-
-            echo CreateCheckboxDiv(
-                '_use_location_sensor',
-                __('Use location sensor', SLPLUS_PREFIX),
-                __('This turns on the location sensor for your customers so they can easily get accurate results')
-            );
 
         //-----
         // No Pro Pack
