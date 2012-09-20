@@ -137,13 +137,9 @@ if (!$_POST) {
     $update_msg ='';
     
 } else {
-    if (isset($_POST['sl_language'])) { 
-    	    update_option('sl_language', $_POST['sl_language']);
-    }
     $sl_google_map_arr=explode(":", $_POST['google_map_domain']);
     update_option('sl_google_map_country', $sl_google_map_arr[0]);
     update_option('sl_google_map_domain', $sl_google_map_arr[1]);
-    update_option('sl_map_character_encoding', $_POST['sl_map_character_encoding']);
     
     $_POST['height']=ereg_replace("[^0-9]", "", $_POST['height']);
     $_POST['width']=ereg_replace("[^0-9]", "", $_POST['width']);
@@ -165,31 +161,32 @@ if (!$_POST) {
     update_option('sl_map_home_icon', $_POST['icon']);
     update_option('sl_map_end_icon', $_POST['icon2']);
 
-    if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
-        update_option('sl_starting_image', $_POST['sl_starting_image']);
-        update_option(SLPLUS_PREFIX.'_search_tag_label',        $_POST[SLPLUS_PREFIX.'_search_tag_label']);
-        update_option(SLPLUS_PREFIX.'_tag_search_selections',   $_POST[SLPLUS_PREFIX.'_tag_search_selections']);
-        update_option(SLPLUS_PREFIX.'_state_pd_label',          $_POST[SLPLUS_PREFIX.'_state_pd_label']);
-        if (isset($_POST[SLPLUS_PREFIX.'_map_center']   )) { update_option(SLPLUS_PREFIX.'_map_center',              $_POST[SLPLUS_PREFIX.'_map_center']);  }
-        if (isset( $_POST[SLPLUS_PREFIX.'_maxreturned'] )) { update_option(SLPLUS_PREFIX.'_maxreturned',             $_POST[SLPLUS_PREFIX.'_maxreturned']); }
-    }
-
 
     // Text boxes
     //
     $BoxesToHit = array(
-        'sl_map_radii'            ,
-        'sl_instruction_message'  ,
-        'sl_zoom_level'           ,
-        'sl_zoom_tweak'           ,
-        'sl_map_type'             ,
-        'sl_num_initial_displayed',
-        'sl_distance_unit'        ,
+        'sl_language'                           ,
+        'sl_map_character_encoding'             ,
+        'sl_map_radii'                          ,
+        'sl_instruction_message'                ,
+        'sl_zoom_level'                         ,
+        'sl_zoom_tweak'                         ,
+        'sl_map_type'                           ,
+        'sl_num_initial_displayed'              ,
+        'sl_distance_unit'                      ,
+        'sl_name_label'                         ,
+        'sl_radius_label'                       ,
+        'sl_search_label'                       ,
+        'sl_website_label'                      ,
+        
+        'sl_starting_image'                     ,
+        SLPLUS_PREFIX.'_tag_search_selections'  ,
+        SLPLUS_PREFIX.'_map_center'             ,
+        SLPLUS_PREFIX.'_maxreturned'            ,
+        
+        SLPLUS_PREFIX.'_search_tag_label'       ,
+        SLPLUS_PREFIX.'_state_pd_label'         ,
 
-        'sl_name_label'           ,
-        'sl_radius_label'         ,
-        'sl_search_label'         ,
-        'sl_website_label'        ,
         );
     foreach ($BoxesToHit as $JustAnotherBox) {
         SavePostToOptionsTable($JustAnotherBox);
