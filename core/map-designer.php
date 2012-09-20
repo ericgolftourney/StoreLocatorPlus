@@ -26,6 +26,20 @@ function choose_units($unit, $input_name) {
 	return $select_field;
 }
 
+/**
+ * function: SavePostToOptionsTable
+ */
+function SavePostToOptionsTable($optionname,$default=null) {
+    if ($default != null) {
+        if (!isset($_POST[$optionname])) {
+            $_POST[$optionname] = $default;
+        }
+    }
+    if (isset($_POST[$optionname])) {
+        update_option($optionname,$_POST[$optionname]);
+    }
+}
+
 /**************************************
  ** function: SaveCheckboxToDB
  **
@@ -38,7 +52,7 @@ function choose_units($unit, $input_name) {
 function SaveCheckboxToDB($boxname,$prefix = SLPLUS_PREFIX, $separator='-') {
     $whichbox = $prefix.$separator.$boxname;
     $_POST[$whichbox] = isset($_POST[$whichbox])?1:0;  
-    update_option($whichbox,$_POST[$whichbox]); 
+    SavePostToOptionsTable($whichbox);
 }
 
 /**************************************
@@ -56,7 +70,7 @@ function CreateCheckboxDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX) {
     $whichbox = $prefix.$boxname; 
     return 
         "<div class='form_entry'>".
-            "<div class='".$prefix."-input'>" .
+            "<div class='".SLPLUS_PREFIX."-input'>" .
             "<label  for='$whichbox'>$label:</label>".
             "<input name='$whichbox' value='1' type='checkbox' ".((get_option($whichbox) ==1)?' checked':'').">".
             "</div>".
@@ -174,8 +188,7 @@ if (!$_POST) {
     # post variable is only set if it is checked, if not checked it is
     # false (0).
     #
-    $_POST['sl_use_city_search']=isset($_POST['sl_use_city_search'])?1:0;
-    update_option('sl_use_city_search',$_POST['sl_use_city_search']);
+    if (isset($_POST['sl_use_city_search'])) { update_option('sl_use_city_search',$_POST['sl_use_city_search']); }
             
     $_POST['slplus_show_state_pd']=isset($_POST['slplus_show_state_pd'])?1:0;
     update_option('slplus_show_state_pd',$_POST['slplus_show_state_pd']);
