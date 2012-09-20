@@ -54,7 +54,7 @@ function SavePostToOptionsTable($optionname,$default=null) {
 function SaveCheckboxToDB($boxname,$prefix = SLPLUS_PREFIX, $separator='-') {
     $whichbox = $prefix.$separator.$boxname;
     $_POST[$whichbox] = isset($_POST[$whichbox])?1:0;  
-    SavePostToOptionsTable($whichbox);
+    SavePostToOptionsTable($whichbox,0);
 }
 
 /**************************************
@@ -132,10 +132,9 @@ function CreatePulldownDiv($boxname,$values,$label='',$msg='',$prefix=SLPLUS_PRE
 //===========================================================================
 // Main Processing
 //===========================================================================
-$update_msg ='';
-
 if (!$_POST) {
     move_upload_directories();
+    $update_msg ='';
     
 } else {
     if (isset($_POST['sl_language'])) { 
@@ -185,27 +184,23 @@ if (!$_POST) {
         if (isset($_POST[SLPLUS_PREFIX.'_map_center']   )) { update_option(SLPLUS_PREFIX.'_map_center',              $_POST[SLPLUS_PREFIX.'_map_center']);  }
         if (isset( $_POST[SLPLUS_PREFIX.'_maxreturned'] )) { update_option(SLPLUS_PREFIX.'_maxreturned',             $_POST[SLPLUS_PREFIX.'_maxreturned']); }
     }    
-    
-    # Checkbox settings - can set to issset and save that because the
-    # post variable is only set if it is checked, if not checked it is
-    # false (0).
-    #
-    if (isset($_POST['sl_use_city_search'])) { update_option('sl_use_city_search',$_POST['sl_use_city_search']); }
-            
-    SavePostToOptionsTable('slplus_show_state_pd');
-    
-    $_POST['sl_use_country_search']=isset($_POST['sl_use_country_search'])?1:0;
-    update_option('sl_use_country_search',$_POST['sl_use_country_search']);
-       
-    $_POST['sl_remove_credits']=isset($_POST['sl_remove_credits'])?1:0; 
-    update_option('sl_remove_credits',$_POST['sl_remove_credits']);
-    
-    $_POST['sl_load_locations_default']=isset($_POST['sl_load_locations_default'])?1:0;
-    update_option('sl_load_locations_default',$_POST['sl_load_locations_default']);
 
-    $_POST['sl_map_overview_control'] = isset($_POST['sl_map_overview_control'])?1:0;  
-    update_option('sl_map_overview_control',$_POST['sl_map_overview_control']);
-	
+    // Checkboxes with custom names
+    //
+    $BoxesToHit = array(
+        'sl_use_city_search',
+        'sl_use_country_search',
+        'sl_load_locations_default',
+        'sl_map_overview_control',
+        'sl_remove_credits',
+        'slplus_show_state_pd',
+        );
+    foreach ($BoxesToHit as $JustAnotherBox) {
+        SaveCheckBoxToDB($JustAnotherBox, '','');
+    }
+       
+    // Checkboxes with normal names
+    //
     $BoxesToHit = array(
         'show_tag_search',
         'show_tag_any',
@@ -226,8 +221,7 @@ if (!$_POST) {
         SaveCheckBoxToDB($JustAnotherBox, SLPLUS_PREFIX, '_');
     }
 
-    do_action('slp_save_map_settings');
-       
+    do_action('slp_save_map_settings');       
     $update_msg = "<div class='highlight'>".__("Successful Update", SLPLUS_PREFIX).'</div>';
 }
 
