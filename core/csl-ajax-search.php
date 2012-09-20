@@ -100,7 +100,8 @@ function csl_ajax_onload() {
 			'image' => esc_attr($row['sl_image']),
 			'distance' => $row['sl_distance'],
 			'tags' => ($slplus_show_tags) ? esc_attr($row['sl_tags']) : '',
-            'data_from' => 'load'
+            'data_from' => 'load',
+            'id' => $row['sl_id'],
 		);
 		$response[] = $marker;
 	}
@@ -240,7 +241,8 @@ function csl_ajax_search() {
 				'image' => esc_attr($row['sl_image']),
 				'distance' => $row['sl_distance'],
 				'tags' => ($slplus_show_tags) ? esc_attr($row['sl_tags']) : '',
-                'data_from' => 'search'
+                'data_from' => 'search',
+                'id' => $row['sl_id'],
 			);
 			$response[] = $marker;
 			
