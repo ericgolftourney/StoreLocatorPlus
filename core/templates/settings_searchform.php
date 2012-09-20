@@ -7,18 +7,6 @@
     <!-- Features Section -->
     <div class='section_column'>              
             <h2><?php _e('Features', SLPLUS_PREFIX);?></h2>
-            
-            <div class='form_entry'>
-                <label for='sl_use_city_search'>
-                    <?php _e('Show City Pulldown', SLPLUS_PREFIX); ?>:
-                </label>
-                <input name='sl_use_city_search' 
-                    value='1' 
-                    type='checkbox' 
-                    <?php echo $sl_city_checked?> 
-                    >
-            </div>
-
 <?php
             echo CreateInputDiv(
                     'sl_map_radii',
@@ -47,6 +35,13 @@
         
            
         <?php
+            echo CreateCheckboxDiv(
+                    'sl_use_city_search',
+                    __('Show City Pulldown',SLPLUS_PREFIX),
+                    __('Displays the city pulldown on the search form. It is built from the unique city names in your location list.',SLPLUS_PREFIX),
+                    ''
+                    );
+
         if (function_exists('execute_and_output_plustemplate')) {
             execute_and_output_plustemplate('mapsettings_searchfeatures.php');
 
