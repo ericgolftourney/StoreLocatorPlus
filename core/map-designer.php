@@ -83,6 +83,35 @@ function CreateInputDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $defau
 
 }
 
+/**
+ * function: CreatePulldownDiv
+ */
+function CreatePulldownDiv($boxname,$values,$label='',$msg='',$prefix=SLPLUS_PREFIX, $default='') {
+    $whichbox = $prefix.$boxname;
+    $selected = get_option($whichbox,$default);
+
+    $content =
+            "<div class='form_entry'>".
+                "<div class='".SLPLUS_PREFIX."-input'>" .
+                    "<label for='$whichbox'>$label:</label>" .
+                    "<select name='$whichbox'>"
+            ;
+
+    foreach ($values as $value){
+        $content.="<option value='$value' ".(($value == $selected)?'selected':'').">".
+                  $value.
+                "</option>";
+    }
+
+    $content.=      "</select>".
+                "</div>".
+                slp_createhelpdiv($boxname,$msg).
+            "</div>"
+            ;
+
+    return $content;
+}
+
 
 //===========================================================================
 // Main Processing
@@ -125,8 +154,8 @@ if (!$_POST) {
     update_option('sl_radius_label', $_POST['sl_radius_label']);
     update_option('sl_website_label', $_POST['sl_website_label']);
     update_option('sl_instruction_message', $_POST['sl_instruction_message']);
-    update_option('sl_zoom_level', $_POST['zoom_level']);
-    update_option('sl_zoom_tweak', $_POST['zoom_tweak']);
+    update_option('sl_zoom_level', $_POST['sl_zoom_level']);
+    update_option('sl_zoom_tweak', $_POST['sl_zoom_tweak']);
     update_option('sl_map_type', $_POST['sl_map_type']);
     update_option('sl_num_initial_displayed', $_POST['sl_num_initial_displayed']);    
     update_option('sl_distance_unit', $_POST['sl_distance_unit']);
@@ -261,34 +290,6 @@ $map_type["".__("Normal", SLPLUS_PREFIX).""]="roadmap";
 $map_type["".__("Satellite", SLPLUS_PREFIX).""]="satellite";
 $map_type["".__("Hybrid", SLPLUS_PREFIX).""]="hybrid";
 $map_type["".__("Physical", SLPLUS_PREFIX).""]="terrain";
-
-
-$zl[]=0;$zl[]=1;$zl[]=2;$zl[]=3;$zl[]=4;$zl[]=5;$zl[]=6;$zl[]=7;$zl[]=8;
-$zl[]=9;$zl[]=10;$zl[]=11;$zl[]=12;$zl[]=13;$zl[]=14;$zl[]=15;$zl[]=16;
-$zl[]=17;$zl[]=18;$zl[]=19;
-
-
-// Zoom Level
-//
-$slp_current_setting = get_option('sl_zoom_level',4);
-$sl_zoom="<select name='zoom_level'>";
-foreach ($zl as $sl_value) {
-	$sl_zoom.="<option value='$sl_value' ";
-	if ($slp_current_setting==$sl_value){ $sl_zoom.=" selected ";}
-	$sl_zoom.=">$sl_value</option>";
-}
-$sl_zoom.="</select>";
-
-// Zoom Adjustment
-//
-$slp_current_setting = get_option('sl_zoom_tweak',4);
-$sl_zoom_adj="<select name='zoom_tweak'>";
-foreach ($zl as $sl_value) {
-	$sl_zoom_adj.="<option value='$sl_value' ";
-	if ($slp_current_setting==$sl_value){ $sl_zoom_adj.=" selected ";}
-	$sl_zoom_adj.=">$sl_value</option>";
-}
-$sl_zoom_adj.="</select>";
 
 // Map Type
 //
