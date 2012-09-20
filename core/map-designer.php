@@ -162,19 +162,8 @@ if (!$_POST) {
     update_option('sl_map_width_units', $_POST['width_units']);
     update_option('sl_map_width', $_POST['width']);
     
-    update_option('sl_map_radii', $_POST['sl_map_radii']);
     update_option('sl_map_home_icon', $_POST['icon']);
     update_option('sl_map_end_icon', $_POST['icon2']);
-    update_option('sl_search_label', $_POST['search_label']);
-    update_option('sl_radius_label', $_POST['sl_radius_label']);
-    update_option('sl_website_label', $_POST['sl_website_label']);
-    update_option('sl_instruction_message', $_POST['sl_instruction_message']);
-    update_option('sl_zoom_level', $_POST['sl_zoom_level']);
-    update_option('sl_zoom_tweak', $_POST['sl_zoom_tweak']);
-    update_option('sl_map_type', $_POST['sl_map_type']);
-    update_option('sl_num_initial_displayed', $_POST['sl_num_initial_displayed']);    
-    update_option('sl_distance_unit', $_POST['sl_distance_unit']);
-	update_option('sl_name_label', $_POST['sl_name_label']);
 
     if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
         update_option('sl_starting_image', $_POST['sl_starting_image']);
@@ -183,7 +172,29 @@ if (!$_POST) {
         update_option(SLPLUS_PREFIX.'_state_pd_label',          $_POST[SLPLUS_PREFIX.'_state_pd_label']);
         if (isset($_POST[SLPLUS_PREFIX.'_map_center']   )) { update_option(SLPLUS_PREFIX.'_map_center',              $_POST[SLPLUS_PREFIX.'_map_center']);  }
         if (isset( $_POST[SLPLUS_PREFIX.'_maxreturned'] )) { update_option(SLPLUS_PREFIX.'_maxreturned',             $_POST[SLPLUS_PREFIX.'_maxreturned']); }
-    }    
+    }
+
+
+    // Text boxes
+    //
+    $BoxesToHit = array(
+        'sl_map_radii'            ,
+        'sl_instruction_message'  ,
+        'sl_zoom_level'           ,
+        'sl_zoom_tweak'           ,
+        'sl_map_type'             ,
+        'sl_num_initial_displayed',
+        'sl_distance_unit'        ,
+
+        'sl_name_label'           ,
+        'sl_radius_label'         ,
+        'sl_search_label'         ,
+        'sl_website_label'        ,
+        );
+    foreach ($BoxesToHit as $JustAnotherBox) {
+        SavePostToOptionsTable($JustAnotherBox);
+    }
+
 
     // Checkboxes with custom names
     //
