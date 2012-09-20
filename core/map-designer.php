@@ -9,6 +9,8 @@
 // Supporting Functions
 //===========================================================================
 
+global $slplus_plugin;
+
 /**************************************
  ** function: choose_units
  **
@@ -175,7 +177,7 @@ if (!$_POST) {
     update_option('sl_distance_unit', $_POST['sl_distance_unit']);
 	update_option('sl_name_label', $_POST['sl_name_label']);
 
-    if (function_exists('execute_and_output_plustemplate')) {
+    if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
         update_option('sl_starting_image', $_POST['sl_starting_image']);
         update_option(SLPLUS_PREFIX.'_search_tag_label',        $_POST[SLPLUS_PREFIX.'_search_tag_label']);
         update_option(SLPLUS_PREFIX.'_tag_search_selections',   $_POST[SLPLUS_PREFIX.'_tag_search_selections']);
@@ -190,8 +192,7 @@ if (!$_POST) {
     #
     if (isset($_POST['sl_use_city_search'])) { update_option('sl_use_city_search',$_POST['sl_use_city_search']); }
             
-    $_POST['slplus_show_state_pd']=isset($_POST['slplus_show_state_pd'])?1:0;
-    update_option('slplus_show_state_pd',$_POST['slplus_show_state_pd']);
+    SavePostToOptionsTable('slplus_show_state_pd');
     
     $_POST['sl_use_country_search']=isset($_POST['sl_use_country_search'])?1:0;
     update_option('sl_use_country_search',$_POST['sl_use_country_search']);
