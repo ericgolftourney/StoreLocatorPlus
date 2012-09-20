@@ -16,7 +16,7 @@
 	if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
 		echo CreateCheckboxDiv(
 			'_show_search_by_name',
-			__('Show the search by name box', SLPLUS_PREFIX),
+			__('Show search by name box', SLPLUS_PREFIX),
 			__('Shows the name search entry box to the user.', SLPLUS_PREFIX)
 			);
 	}
