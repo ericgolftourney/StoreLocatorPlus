@@ -151,7 +151,7 @@ echo CreateInputDiv(
 
 // Search Form Labels
 //
-echo '<p><strong>'.__('Search Form Labels',SLPLUS_PREFIX).'</strong></p>';
+echo '<p class="slp_admin_info"><strong>'.__('Search Form Labels',SLPLUS_PREFIX).'</strong></p>';
 echo CreateInputDiv(
         'sl_search_label',
         __('Address', SLPLUS_PREFIX),
@@ -193,7 +193,7 @@ if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
 
 // Result Labels
 //
-echo '<p><strong>'.__('Search Results Labels',SLPLUS_PREFIX).'</strong></p>';
+echo '<p class="slp_admin_info"><strong>'.__('Search Results Labels',SLPLUS_PREFIX).'</strong></p>';
 echo CreateInputDiv(
         'sl_website_label',
         __('Radius', SLPLUS_PREFIX),
