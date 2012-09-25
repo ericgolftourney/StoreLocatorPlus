@@ -202,8 +202,8 @@ if (! class_exists('SLPlus_Actions')) {
                             'hierarchical'  => true,
                             'labels'        => 
                                 array(
-                                        'menu_name' => __('Stores',SLPLUS_PREFIX),
-                                        'name'      => __('Store Attributes',SLPLUS_PREFIX),
+                                        'menu_name' => __('Categories',SLPLUS_PREFIX),
+                                        'name'      => __('Categories',SLPLUS_PREFIX),
                                      )
                             )
                     );                
