@@ -318,22 +318,7 @@ $checked2   	    = (isset($checked2)  ?$checked2  :'');
 $sl_city_checked	= (get_option('sl_use_city_search',0) ==1)?' checked ':'';
 $checked3	        = (get_option('sl_remove_credits',0)  ==1)?' checked ':'';
 
-$sl_map_type_options=(isset($sl_map_type_options)?$sl_map_type_options:'');
-$map_type["".__("Normal", SLPLUS_PREFIX).""]="roadmap";
-$map_type["".__("Satellite", SLPLUS_PREFIX).""]="satellite";
-$map_type["".__("Hybrid", SLPLUS_PREFIX).""]="hybrid";
-$map_type["".__("Physical", SLPLUS_PREFIX).""]="terrain";
-
-// Map Type
-//
-$slp_current_setting = get_option('sl_map_type');
-foreach($map_type as $key=>$sl_value) {
-	$selected2=($slp_current_setting==$sl_value)? " selected " : "";
-	$sl_map_type_options.="<option value='$sl_value' $selected2>$key</option>\n";
-}
-
 //---- ICONS ----
-
 $cl_icon_str   =(isset($cl_icon_str)  ?$cl_icon_str  :'');
 $cl_icon2_str  =(isset($cl_icon2_str) ?$cl_icon2_str :'');
 $cl_icon_dir=opendir(SLPLUS_ICONDIR);
