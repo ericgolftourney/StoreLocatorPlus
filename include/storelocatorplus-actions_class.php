@@ -161,6 +161,65 @@ if (! class_exists('SLPlus_Actions')) {
                 slplus_add_report_settings();
             }                
         }
+
+
+        /**************************************
+         * method: admin_menu()
+         *
+         * Add the Store Locator panel to the admin sidebar.
+         *
+         */
+        function admin_menu() {
+            global $slplus_plugin;
+
+            if (
+                (!function_exists('add_slplus_roles_and_caps') || current_user_can('manage_slp'))
+                )
+            {
+                add_menu_page(
+                    __($slplus_plugin->name, SLPLUS_PREFIX),
+                    __($slplus_plugin->name, SLPLUS_PREFIX),
+                    'administrator',
+                    SLPLUS_COREDIR.'add-locations.php'
+                    );
+                add_submenu_page(
+                    SLPLUS_COREDIR.'add-locations.php',
+                    __("Add Locations", SLPLUS_PREFIX),
+                    __("Add Locations", SLPLUS_PREFIX),
+                    'administrator',
+                    SLPLUS_COREDIR.'add-locations.php'
+                    );
+                add_submenu_page(
+                    SLPLUS_COREDIR.'add-locations.php',
+                    __("Manage Locations", SLPLUS_PREFIX),
+                    __("Manage Locations", SLPLUS_PREFIX),
+                    'administrator',
+                    SLPLUS_COREDIR.'view-locations.php'
+                    );
+                add_submenu_page(
+                    SLPLUS_COREDIR.'add-locations.php',
+                    __("Map Settings", SLPLUS_PREFIX),
+                    __("Map Settings", SLPLUS_PREFIX),
+                    'administrator',
+                    SLPLUS_COREDIR.'map-designer.php'
+                    );
+
+                // Pro Pack Reporting
+                //
+                if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+                    if (function_exists('slplus_add_report_settings')) {
+                        add_submenu_page(
+                            SLPLUS_COREDIR.'add-locations.php',
+                            __("Reports", SLPLUS_PREFIX),
+                            __("Reports", SLPLUS_PREFIX),
+                            'administrator',
+                            SLPLUS_PLUGINDIR.'reporting.php'
+                            );
+                    }
+                }
+            }
+
+        }
         
         /**************************************
          ** method: init()

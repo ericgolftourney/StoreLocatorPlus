@@ -99,7 +99,7 @@ add_action('shutdown'           ,array('SLPlus_Actions','shutdown')             
 
 // Admin Actions
 //
-add_action('admin_menu'         , 'csl_slplus_add_options_page'                 );
+add_action('admin_menu'         ,array('SLPlus_Actions','admin_menu')           );
 add_action('admin_init'         ,array('SLPlus_Actions','admin_init'),10        );
 add_action('admin_print_styles' , 'setup_ADMIN_stylesheet_for_slplus'           );
 add_action('admin_head'         , 'slpreport_downloads'                         );
