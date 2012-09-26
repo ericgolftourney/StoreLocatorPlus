@@ -105,7 +105,7 @@ echo CreateInputDiv(
 <?php
     global $slplus_plugin;
     $slplus_message = ($slplus_plugin->license->packages['Pro Pack']->isenabled) ?
-        __('Thank you for purchasing the <a href="%s">%s</a> premium add-on.',SLPLUS_PREFIX) :
+        __('',SLPLUS_PREFIX) :
         __('Tag features are available in the <a href="%s">%s</a> premium add-on.',SLPLUS_PREFIX)
 ?>
     <div class='section_column'>
