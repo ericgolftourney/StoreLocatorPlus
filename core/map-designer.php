@@ -128,6 +128,23 @@ function CreatePulldownDiv($boxname,$values,$label='',$msg='',$prefix=SLPLUS_PRE
     return $content;
 }
 
+/**
+ * function: CreateTextAreaDiv
+ */
+function CreateTextAreaDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $default='') {
+    $whichbox = $prefix.$boxname;
+    return
+        "<div class='form_entry'>" .
+            "<div class='".SLPLUS_PREFIX."-input'>" .
+                "<label for='$whichbox'>$label:</label>".
+                "<textarea  name='$whichbox'>".get_option($whichbox,$default)."</textarea>".
+            "</div>".
+            slp_createhelpdiv($boxname,$msg).
+         "</div>"
+        ;
+
+}
+
 
 //===========================================================================
 // Main Processing

@@ -1,63 +1,49 @@
 <?php 
     global $sl_map_type_options, $sl_num_initial_displayed, $sl_the_domain, $sl_char_enc,
             $sl_zoom, $sl_zoom_adj, $sl_height,$sl_height_units,$sl_width,$sl_width_units,
-            $cl_icon_notification_msg,$checked3,$cl_icon,$cl_icon2,$cl_icon_str,$cl_icon2_str;    
+            $cl_icon_notification_msg,$checked3,$cl_icon,$cl_icon2,$cl_icon_str,$cl_icon2_str,
+            $slplus_plugin;
+
+    $slplus_message = ($slplus_plugin->license->packages['Pro Pack']->isenabled) ?
+        __('',SLPLUS_PREFIX) :
+        __('Extended settings are available in the <a href="%s">%s</a> premium add-on.',SLPLUS_PREFIX)
 ?>
 <div id='map_settings'>
     <div class='section_column'>   
         <div class='map_designer_settings'>
             <h2><?php _e('Features', SLPLUS_PREFIX); ?></h2>
+            <div class="section_column_content">
+            <p><?php printf($slplus_message,$slplus_plugin->purchase_url,'Pro Pack'); ?></p>
             <div class='form_entry'>
                 <label for='sl_map_type'><?php _e('Default Map Type', SLPLUS_PREFIX);?>:</label>
                 <select name='sl_map_type'><?php echo $sl_map_type_options;?></select>
             </div>            
-            <div class='form_entry'>
-                <label for='sl_map_overview_control'><?php _e('Show Map Inset Box', SLPLUS_PREFIX);?>:</label>    
-                <input name='sl_map_overview_control' value='1' type='checkbox' <?php echo (get_option('sl_map_overview_control')==1)?'checked':'';?> >
-            </div>
             
-            <div class='form_entry'>
-                <label for='sl_load_locations_default'><?php _e("Immediately Show Locations", SLPLUS_PREFIX);?>:</label>
-                <input name='sl_load_locations_default' value='1' type='checkbox' <?php echo (get_option('sl_load_locations_default')==1)?'checked':'';?> >
-            </div>
-            
-            <div class='form_entry'>
-                <label for='sl_num_initial_displayed'><? _e('Immediately show up to', SLPLUS_PREFIX); ?></label>
-                <input name='sl_num_initial_displayed' value='<?php echo $sl_num_initial_displayed;?>' class='small'>
-                <?php _e('locations.', SLPLUS_PREFIX); ?>
-                <?php
-                echo slp_createhelpdiv('sl_num_initial_displayed',
-                    __('Recommended Max: 50', SLPLUS_PREFIX)
+<?php
+            echo '<p class="slp_admin_info"><strong>'.__('Search Result Settings',SLPLUS_PREFIX).'</strong></p>';
+
+            echo CreateCheckboxDiv(
+                    'sl_load_locations_default',
+                    __('Immediately Show Locations', SLPLUS_PREFIX),
+                    __('Display locations as soon as map loads, based on map center and default radius',SLPLUS_PREFIX),
+                    ''
                     );
-                ?>                 
+            echo CreateInputDiv(
+                    'sl_num_initial_displayed',
+                    __('Number To Show Initially',SLPLUS_PREFIX),
+                    __('How many locations should be shown when Immediately Show Locations is checked.  Recommended maximum is 50.',SLPLUS_PREFIX),
+                    ''
+                    );
+
+        //----------------------------------------------------------------------
+        // Pro Pack Enabled
+        //
+        if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+            execute_and_output_plustemplate('mapsettings_mapfeatures.php');
+        }
+
+?>
             </div>
-            
-            <?php
-             //--------------------------------
-             // Pro Pack
-             //            
-            if (function_exists('execute_and_output_plustemplate')) {
-            ?>                
-                        <div class='form_entry'>
-                            <label for='<?php echo SLPLUS_PREFIX.'_maxreturned'; ?>'><? _e("Return at most", SLPLUS_PREFIX); ?></label>
-                            <input name='<?php echo SLPLUS_PREFIX.'_maxreturned'; ?>' 
-                                value='<?php 
-                                    echo (trim(get_option(SLPLUS_PREFIX.'_maxreturned'))!="")? 
-                                        get_option(SLPLUS_PREFIX.'_maxreturned') : 
-                                        '25';                    
-                                ?>' 
-                                class='small'>
-                            <? _e("locations when searching.", SLPLUS_PREFIX); ?>
-                            <?php
-                            echo slp_createhelpdiv(SLPLUS_PREFIX-'_maxreturned',
-                                __('Enter a number to limit how many results are returned during a search. The default is 25.', SLPLUS_PREFIX)
-                                );
-                            ?>                 
-                        </div>
-            <?php
-                execute_and_output_plustemplate('mapsettings_mapfeatures.php');
-            }    
-            ?>
         </div>
     </div>        
 
