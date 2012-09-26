@@ -122,6 +122,9 @@ if (
     <?php                 
     }
 
+    do_action('slp_add_manage_locations_action_box');
+    
+
 echo '</div>';
 }
 echo '</div>';
