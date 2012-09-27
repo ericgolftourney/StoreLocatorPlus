@@ -22,7 +22,7 @@ if (! class_exists('SLPlus_Actions')) {
         /*************************************
          * The Constructor
          */
-        function __construct($params) {
+        function __construct($params=null) {
         } 
         
         /**************************************
@@ -45,6 +45,8 @@ if (! class_exists('SLPlus_Actions')) {
             // Add admin helpers
             //
             require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-adminui_class.php');
+            $slplus_plugin->AdminUI = new SLPlus_AdminUI();     // Lets invoke this and make it an object
+
             
             //-------------------------
             // Navbar Section
@@ -170,55 +172,99 @@ if (! class_exists('SLPlus_Actions')) {
          *
          */
         function admin_menu() {
-            global $slplus_plugin;
-
             if (
                 (!function_exists('add_slplus_roles_and_caps') || current_user_can('manage_slp'))
                 )
             {
+
+                global $slplus_plugin;
+                
+                // The main hook for the menu
+                //
                 add_menu_page(
-                    __($slplus_plugin->name, SLPLUS_PREFIX),
-                    __($slplus_plugin->name, SLPLUS_PREFIX),
+                    $slplus_plugin->name,
+                    $slplus_plugin->name,
                     'administrator',
-                    SLPLUS_COREDIR.'add-locations.php'
-                    );
-                add_submenu_page(
-                    SLPLUS_COREDIR.'add-locations.php',
-                    __("Add Locations", SLPLUS_PREFIX),
-                    __("Add Locations", SLPLUS_PREFIX),
-                    'administrator',
-                    SLPLUS_COREDIR.'add-locations.php'
-                    );
-                add_submenu_page(
-                    SLPLUS_COREDIR.'add-locations.php',
-                    __("Manage Locations", SLPLUS_PREFIX),
-                    __("Manage Locations", SLPLUS_PREFIX),
-                    'administrator',
-                    SLPLUS_COREDIR.'view-locations.php'
-                    );
-                add_submenu_page(
-                    SLPLUS_COREDIR.'add-locations.php',
-                    __("Map Settings", SLPLUS_PREFIX),
-                    __("Map Settings", SLPLUS_PREFIX),
-                    'administrator',
-                    SLPLUS_COREDIR.'map-designer.php'
+                    $slplus_plugin->prefix,
+                    array('SLPlus_AdminUI','renderPage_GeneralSettings'),
+                    SLPLUS_COREURL . 'images/icon_from_jpg_16x16.png'
                     );
 
-                // Pro Pack Reporting
+                // Default menu items
+                //
+                $menuItems = array(
+                    array(
+                        'label'             => __('General Settings',SLPLUS_PREFIX),
+                        'slug'              => 'slp_general_settings',
+                        'class'             => 'SLPlus_AdminUI',
+                        'function'          => 'renderPage_GeneralSettings'
+                    ),
+                    array(
+                        'label'             => __('Add Locations',SLPLUS_PREFIX),
+                        'slug'              => 'slp_add_locations',
+                        'class'             => 'SLPlus_AdminUI',
+                        'function'          => 'renderPage_AddLocations'
+                    ),
+                    array(
+                        'label' => __('Manage Locations',SLPLUS_PREFIX),
+                        'url'   => SLPLUS_COREDIR.'view-locations.php'
+                    ),
+                    array(
+                        'label' => __('Map Settings',SLPLUS_PREFIX),
+                        'url'   => SLPLUS_COREDIR.'map-designer.php'
+                    )
+                );
+
+                // Pro Pack menu items
                 //
                 if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
-                    if (function_exists('slplus_add_report_settings')) {
+                    $menuItems = array_merge(
+                                $menuItems,
+                                array(
+                                    array(
+                                    'label' => __('Reports',SLPLUS_PREFIX),
+                                    'url'   => SLPLUS_PLUGINDIR.'reporting.php'
+                                    )
+                                )
+                            );
+                }
+
+                // Attach Menu Items To Sidebar and Top Nav
+                //
+                foreach ($menuItems as $menuItem) {
+
+                    // Sidebar connect...
+                    //
+
+                    // Using class names (or objects)
+                    //
+                    if (isset($menuItem['class'])) {
                         add_submenu_page(
-                            SLPLUS_COREDIR.'add-locations.php',
-                            __("Reports", SLPLUS_PREFIX),
-                            __("Reports", SLPLUS_PREFIX),
+                            $slplus_plugin->prefix,
+                            $menuItem['label'],
+                            $menuItem['label'],
                             'administrator',
-                            SLPLUS_PLUGINDIR.'reporting.php'
+                            $menuItem['slug'],
+                            array($menuItem['class'],$menuItem['function'])
+                            );
+
+                    // Full URL or plain function mame
+                    //
+                    } else {
+                        add_submenu_page(
+                            $slplus_plugin->prefix,
+                            $menuItem['label'],
+                            $menuItem['label'],
+                            'administrator',
+                            $menuItem['url']
                             );
                     }
                 }
-            }
 
+                // Remove the duplicate menu entry
+                //
+                remove_submenu_page($slplus_plugin->prefix, $slplus_plugin->prefix);
+            }
         }
         
         /**************************************
