@@ -229,6 +229,10 @@ if (! class_exists('SLPlus_Actions')) {
                             );
                 }
 
+                // Third party plugin add-ons
+                //
+                $menuItems = apply_filters('slp_menu_items', $menuItems);
+
                 // Attach Menu Items To Sidebar and Top Nav
                 //
                 foreach ($menuItems as $menuItem) {
