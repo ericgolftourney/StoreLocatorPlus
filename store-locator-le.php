@@ -83,8 +83,9 @@ include_once(SLPLUS_COREDIR   . 'csl-ajax-search.php'	);
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-actions_class.php');
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-activation_class.php');
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-ui_class.php');
-
 require_once(SLPLUS_PLUGINDIR . '/include/mobile-listener.php');
+// note: adminUI class is only required & invoked if needed... see slp-actions_class.php
+
 
 // Activation Action (install/upgrade)
 //
