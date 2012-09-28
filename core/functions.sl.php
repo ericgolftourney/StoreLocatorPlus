@@ -128,16 +128,13 @@ function initialize_variables() {
         $slplus_show_state_pd="1";
         add_option('slplus_show_state_pd', $slplus_show_state_pd);
         }
-    $sl_zoom_level=get_option('sl_zoom_level');
-    if (empty($sl_zoom_level)) {
-        $sl_zoom_level="4";
-        add_option('sl_zoom_level', $sl_zoom_level);
-        }
-    $sl_zoom_tweak=get_option('sl_zoom_tweak');
-    if (empty($sl_zoom_tweak)) {
-        $sl_zoom_tweak="1";
-        add_option('sl_zoom_tweak', $sl_zoom_tweak);
-        }
+
+    $sl_zoom_level=get_option('sl_zoom_level','4');
+    add_option('sl_zoom_level', $sl_zoom_level);
+    
+    $sl_zoom_tweak=get_option('sl_zoom_tweak','1');
+    add_option('sl_zoom_tweak', $sl_zoom_tweak);
+
     $sl_search_label=get_option('sl_search_label');
     if (empty($sl_search_label)) {
         $sl_search_label="Address";
