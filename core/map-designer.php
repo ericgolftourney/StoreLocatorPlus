@@ -68,13 +68,19 @@ function SaveCheckboxToDB($boxname,$prefix = SLPLUS_PREFIX, $separator='-') {
  **  $message (string, optional) - default '', the help message 
  **  $prefix (string, optional) - defaults to SLPLUS_PREFIX, can be ''  
  **/
-function CreateCheckboxDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX) {
+function CreateCheckboxDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $disabled=false) {
     $whichbox = $prefix.$boxname; 
     return 
         "<div class='form_entry'>".
             "<div class='".SLPLUS_PREFIX."-input'>" .
-            "<label  for='$whichbox'>$label:</label>".
-            "<input name='$whichbox' value='1' type='checkbox' ".((get_option($whichbox) ==1)?' checked':'').">".
+            "<label  for='$whichbox' ".
+                ($disabled?"class='disabled '":' ').
+                ">$label:</label>".
+            "<input name='$whichbox' value='1' ".
+                "type='checkbox' ".
+                ((get_option($whichbox) ==1)?' checked ':' ').
+                ($disabled?"disabled='disabled'":' ') .
+            ">".
             "</div>".
             slp_createhelpdiv($boxname,$msg) .
         "</div>"
