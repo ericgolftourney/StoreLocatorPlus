@@ -153,7 +153,7 @@
                         'sl_zoom_tweak',
                         array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19),
                         $label=__('Zoom Adjustment', SLPLUS_PREFIX),
-                        $msg=__('Changes how tight auto-zoom bounds the locations shown.  Lower numbers are closer to the lcoations.', SLPLUS_PREFIX),
+                        $msg=__('Changes how tight auto-zoom bounds the locations shown.  Lower numbers are closer to the locations.', SLPLUS_PREFIX),
                         $prefix='',
                         $default=4
                         );

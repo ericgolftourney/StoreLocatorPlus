@@ -429,7 +429,7 @@ if (! class_exists('SLPlus_Actions')) {
                 'use_same_window'   => ($slplus_plugin->settings->get_item('use_same_window')=='on'),
                 'website_label'     => esc_attr(get_option('sl_website_label','Website')),
                 'zoom_level'        => get_option('sl_zoom_level',4),
-                'zoom_tweak'        => get_option('sl_zoom_tweak',1),
+                'zoom_tweak'        => get_option('sl_zoom_tweak',1)
                 );
             wp_localize_script('csl_script','slplus',$scriptData);
             wp_localize_script('csl_script','csl_ajax',array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('em')));

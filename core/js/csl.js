@@ -745,6 +745,14 @@ var csl = {
 				this.debugSearch('rebounded');
 				this.bounds = bounds;
 				this.gmap.fitBounds(this.bounds);
+
+                // Single Location or  Immediate Load Locations
+                // Use Map Zoom level
+                //
+                if ( (markerList.length == 1) || (this.load_locations == '1') ) {
+                    var newZoom = Math.max(Math.min(this.gmap.getZoom() - parseInt(slplus.zoom_tweak),20),1);
+                    this.gmap.setZoom(newZoom);
+                }
 			}
 		}
 		
