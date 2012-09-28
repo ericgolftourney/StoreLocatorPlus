@@ -364,6 +364,9 @@ div.section_column .form_entry {
     display: block;
     clear: left;
 }
+.section_description label.disabled {
+    color: #CCC;
+}
 
 .section_description INPUT {
     width: 20em;
