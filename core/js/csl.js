@@ -421,7 +421,7 @@ var csl = {
 		this.usePagesLinks = null;
 		this.useSameWindow = null;
 		this.websiteLabel = null;
-		this.zoomLevel = null;
+		this.zoomLevel = '4';
   	  	
   	  	//gmap set variables
   	  	this.options = null;
