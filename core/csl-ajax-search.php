@@ -200,7 +200,7 @@ function csl_ajax_search() {
 		// Reporting
 		// Insert the query into the query DB
 		// 
-		if (get_option(SLPLUS_PREFIX.'-reporting_enabled') === 'on') {
+		if (get_option(SLPLUS_PREFIX.'-reporting_enabled','off') === 'on') {
 			$qry = sprintf(                                              
 					"INSERT INTO ${dbPrefix}slp_rep_query ". 
 							   "(slp_repq_query,slp_repq_tags,slp_repq_address,slp_repq_radius) ". 
