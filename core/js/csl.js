@@ -839,7 +839,7 @@ var csl = {
         this.__getMarkerUrl = function(aMarker) {
             var url = '';
             //add an http to the url
-            if ((slplus.use_pages_links) && (aMarker.sl_pages_url != '')) {
+            if ((slplus.use_pages_links == "1") && (aMarker.sl_pages_url != '')) {
                 url = aMarker.sl_pages_url;
             }
             else if (aMarker.url != '') {
@@ -851,7 +851,7 @@ var csl = {
                     url = aMarker.url;
                 }
             }
-            
+
             return url;
         }
 		

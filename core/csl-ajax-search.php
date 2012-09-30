@@ -233,7 +233,7 @@ function csl_ajax_search() {
 				'lng' => $row['sl_longitude'],
 				'description' => html_entity_decode($row['sl_description']),
 				'url' => esc_attr($row['sl_url']),
-				'sl_pages_url' => (($row['sl_pages_on'] == 1) ? esc_attr($row['sl_pages_url']) : ''),
+				'sl_pages_url' => esc_attr($row['sl_pages_url']),
 				'email' => esc_attr($row['sl_email']),
 				'hours' => esc_attr($row['sl_hours']),
 				'phone' => esc_attr($row['sl_phone']),
