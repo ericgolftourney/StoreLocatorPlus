@@ -421,7 +421,7 @@ var csl = {
 		this.usePagesLinks = null;
 		this.useSameWindow = null;
 		this.websiteLabel = null;
-		this.zoomLevel = '4';
+		this.zoomLevel = '12';
   	  	
   	  	//gmap set variables
   	  	this.options = null;
@@ -747,9 +747,12 @@ var csl = {
 				this.gmap.fitBounds(this.bounds);
 
                 // Single Location or  Immediate Load Locations
-                // Use Map Zoom level
+                // Use Map Zoom level + tweak
                 //
                 if ( (markerList.length == 1) || (this.load_locations == '1') ) {
+                    var newZoom = Math.max(Math.min(parseInt(slplus.zoom_level) - parseInt(slplus.zoom_tweak),20),1);
+                    this.gmap.setZoom(newZoom);
+                } else {
                     var newZoom = Math.max(Math.min(this.gmap.getZoom() - parseInt(slplus.zoom_tweak),20),1);
                     this.gmap.setZoom(newZoom);
                 }
