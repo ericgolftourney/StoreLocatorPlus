@@ -418,7 +418,7 @@ if (! class_exists('SLPlus_Actions')) {
                 'map_end_icon'      => $slplus_end_icon,
                 'map_end_sizew'     => $slplus_end_size[0],
                 'map_end_sizeh'     => $slplus_end_size[1],
-                'use_sensor'        => (get_option(SLPLUS_PREFIX."_use_location_sensor")==1),
+                'use_sensor'        => (get_option(SLPLUS_PREFIX."_use_location_sensor",0)==1),
                 'map_scalectrl'     => (get_option(SLPLUS_PREFIX.'_disable_scalecontrol')==0),
                 'map_type'          => get_option('sl_map_type','roadmap'),
                 'map_typectrl'      => (get_option(SLPLUS_PREFIX.'_disable_maptypecontrol')==0),
