@@ -53,7 +53,7 @@
                 //------------------------
                 // Map Settings
                 //
-                echo '<p class="slp_admin_info"><strong>'.__('Map Settings',SLPLUS_PREFIX).'</strong></p>';
+                echo '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Map Settings',SLPLUS_PREFIX).'</strong></p>';
                 echo '<p>'.sprintf($slplus_message,$slplus_plugin->purchase_url,'Pro Pack').'</p>';
                 echo CreatePulldownDiv(
                         'sl_map_type',
@@ -105,7 +105,7 @@
                 //------------------------
                 // Search Results Settings
                 //
-                echo '<p class="slp_admin_info"><strong>'.__('Search Results',SLPLUS_PREFIX).'</strong></p>';
+                echo '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Search Results',SLPLUS_PREFIX).'</strong></p>';
                 echo '<p>'.sprintf($slplus_message,$slplus_plugin->purchase_url,'Pro Pack').'</p>';
                 echo CreateInputDiv(
                         '_maxreturned',
