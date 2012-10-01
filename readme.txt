@@ -185,10 +185,12 @@ We update about once per month or more frequently as needed.
 
 Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support/documentation/store-locator-plus/release-notes/) at our website.
 
-= Latest Release: 3.4 (September 27th, 2012) =
+= Latest Release: 3.4 (October 1st, 2012) =
 
 * Pro Pack: Map center is now available for all licensed Pro Pack users regardless of version licensed.
 * Store Pages: patch fixes missing "create pages" button if Pro Pack was not licensed.
+* Store Pages: patch to fix "pages replace website" links
+* Map zoom fix, properly reads initial map zoom and zoom tweak settings
 * Max Search Results - new setting limits maximum search results (was a Pro Pack only feature).
 * More action hooks for third party developers.
 * Admin interface cleanup for map settings.
