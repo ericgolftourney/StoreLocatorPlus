@@ -4,9 +4,13 @@
  **
  ** Perform a search via ajax
  ***************************************************************************/
-//error_reporting(0);
-//header("Content-type: text/xml");
 
+
+/**
+ * Handle AJAX request for OnLoad action.
+ * 
+ * @global type $wpdb
+ */
 function csl_ajax_onload() {
 	global $wpdb;
 	$username=DB_USER;
@@ -114,6 +118,11 @@ function csl_ajax_onload() {
 	die();
 }
 
+/**
+ * Handle AJAX request for Search calls.
+ * 
+ * @global type $wpdb
+ */
 function csl_ajax_search() {
 	global $wpdb;
 	$username=DB_USER;
