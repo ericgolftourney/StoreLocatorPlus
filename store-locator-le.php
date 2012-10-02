@@ -109,6 +109,21 @@ add_action('admin_init'         ,array($slplus_plugin->Actions,'admin_init'),10 
 add_action('admin_print_styles' , 'setup_ADMIN_stylesheet_for_slplus'           );
 add_action('admin_head'         , 'slpreport_downloads'                         );
 
+// Short Codes
+//
+add_shortcode('STORE-LOCATOR','store_locator_shortcode');
+add_shortcode('SLPLUS','store_locator_shortcode');
+add_shortcode('slplus','store_locator_shortcode');
+
+// Text Domains
+//
+load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_COREDIR . 'languages/');
+
+
+//------------------------
+// AJAX Hooks
+//------------------------
+
 // Ajax search
 //
 add_action('wp_ajax_csl_ajax_search', 'csl_ajax_search');
@@ -126,12 +141,3 @@ add_action('wp_ajax_nopriv_csl_get_locations', array('csl_mobile_listener', 'Get
 add_action('wp_ajax_csl_ajax_onload', 'csl_ajax_onload');
 add_action('wp_ajax_nopriv_csl_ajax_onload', 'csl_ajax_onload');
 
-// Short Codes
-//
-add_shortcode('STORE-LOCATOR','store_locator_shortcode');
-add_shortcode('SLPLUS','store_locator_shortcode');
-add_shortcode('slplus','store_locator_shortcode');
-
-// Text Domains
-//
-load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_COREDIR . 'languages/');
