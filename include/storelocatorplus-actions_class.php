@@ -18,12 +18,30 @@ if (! class_exists('SLPlus_Actions')) {
         /******************************
          * PUBLIC PROPERTIES & METHODS
          ******************************/
-        
+        public $parent = null;
+
         /*************************************
          * The Constructor
          */
         function __construct($params=null) {
-        } 
+        }
+
+
+        /**
+         * Set the parent property to point to the primary plugin object.
+         *
+         * Returns false if we can't get to the main plugin object.
+         *
+         * @global wpCSL_plugin__slplus $slplus_plugin
+         * @return type boolean true if plugin property is valid
+         */
+        function setParent() {
+            if (!isset($this->parent) || ($this->parent == null)) {
+                global $slplus_plugin;
+                $this->parent = $slplus_plugin;
+            }
+            return (isset($this->parent) && ($this->parent != null));
+        }
         
         /**************************************
          ** method: admin_init()
@@ -34,24 +52,21 @@ if (! class_exists('SLPlus_Actions')) {
          **
          **/
         function admin_init() {
-            global $slplus_plugin;
-            
-            // Don't have what we need? Leave.
-            if (!isset($slplus_plugin)) { return; }
+            if (!$this->setParent()) { return; }
         
             // Already been here?  Get out.
-            if (isset($slplus_plugin->settings->sections['How to Use'])) { return; }
+            if (isset($this->parent->settings->sections['How to Use'])) { return; }
 
             // Add admin helpers
             //
             require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-adminui_class.php');
-            $slplus_plugin->AdminUI = new SLPlus_AdminUI();     // Lets invoke this and make it an object
+            $this->parent->AdminUI = new SLPlus_AdminUI();     // Lets invoke this and make it an object
 
             
             //-------------------------
             // Navbar Section
             //-------------------------    
-            $slplus_plugin->settings->add_section(
+            $this->parent->settings->add_section(
                 array(
                     'name' => 'Navigation',
                     'div_id' => 'slplus_navbar',
@@ -65,7 +80,7 @@ if (! class_exists('SLPlus_Actions')) {
             //-------------------------
             // How to Use Section
             //-------------------------    
-            $slplus_plugin->settings->add_section(
+             $this->parent->settings->add_section(
                 array(
                     'name' => 'How to Use',
                     'description' => get_string_from_phpexec(SLPLUS_PLUGINDIR.'/how_to_use.txt'),
@@ -76,7 +91,7 @@ if (! class_exists('SLPlus_Actions')) {
             //-------------------------
             // Google Communiations
             //-------------------------    
-            $slplus_plugin->settings->add_section(
+             $this->parent->settings->add_section(
                 array(
                     'name'        => 'Google Communication',
                     'description' => 'These settings affect how the plugin communicates with Google to create your map.'.
@@ -84,7 +99,7 @@ if (! class_exists('SLPlus_Actions')) {
                 )
             );
             
-            $slplus_plugin->settings->add_item(
+             $this->parent->settings->add_item(
                 'Google Communication', 
                 'Google API Key', 
                 'api_key', 
@@ -96,7 +111,7 @@ if (! class_exists('SLPlus_Actions')) {
             );
         
         
-            $slplus_plugin->settings->add_item(
+             $this->parent->settings->add_item(
                 'Google Communication', 
                 'Geocode Retries', 
                 'goecode_retries', 
@@ -125,20 +140,20 @@ if (! class_exists('SLPlus_Actions')) {
             // Store Pages
             //
             $slp_rep_desc = __('These settings affect how the Store Pages add-on behaves. ', SLPLUS_PREFIX);
-            if (!$slplus_plugin->license->AmIEnabled(true, "SLPLUS-PAGES")) {
+            if (!$this->parent->license->AmIEnabled(true, "SLPLUS-PAGES")) {
                 $slp_rep_desc .= '<br/><br/>'.
                     __('This is a <a href="http://www.charlestonsw.com/product/store-locator-plus-store-pages/">Store Pages</a>'.
                     ' feature.  It provides a way to auto-create individual WordPress pages' .
                     ' for each of your locations. ', SLPLUS_PREFIX);
             }
             $slp_rep_desc .= '<br/><br/>';                 
-            $slplus_plugin->settings->add_section(
+            $this->parent->settings->add_section(
                 array(
                     'name'        => 'Store Pages',
                     'description' => $slp_rep_desc
                 )
             );         
-            if ($slplus_plugin->license->AmIEnabled(true, "SLPLUS-PAGES")) {            
+            if ($this->parent->license->AmIEnabled(true, "SLPLUS-PAGES")) {
                 slplus_add_pages_settings();
             }                
             
@@ -146,20 +161,20 @@ if (! class_exists('SLPlus_Actions')) {
             // Pro Pack
             //
             $slp_rep_desc = __('These settings affect how the Pro Pack add-on behaves. ', SLPLUS_PREFIX);
-            if (!$slplus_plugin->license->AmIEnabled(true, "SLPLUS-PRO")) {
+            if (!$this->parent->license->AmIEnabled(true, "SLPLUS-PRO")) {
                 $slp_rep_desc .= '<br/><br/>'.
                     __('This is a <a href="http://www.charlestonsw.com/product/store-locator-plus/">Pro Pack</a>'.
                     ' feature.  It provides more settings and features that are not provided in the free plugin'
                     , SLPLUS_PREFIX);
             }
             $slp_rep_desc .= '<br/><br/>'; 
-            $slplus_plugin->settings->add_section(
+            $this->parent->settings->add_section(
                 array(
                     'name'        => 'Pro Pack',
                     'description' => $slp_rep_desc
                 )
             );
-            if ($slplus_plugin->license->AmIEnabled(true, "SLPLUS-PRO")) {
+            if ($this->parent->license->AmIEnabled(true, "SLPLUS-PRO")) {
                 slplus_add_report_settings();
             }                
         }
@@ -278,12 +293,12 @@ if (! class_exists('SLPlus_Actions')) {
          **
          **/
         function init() {
-            global $slplus_plugin;
+            if (!$this->setParent()) { return; }
             
             //--------------------------------
             // Store Pages Is Licensed
             //
-            if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
+            if ($this->parent->license->packages['Store Pages']->isenabled) {
 
                 // Register Store Pages Custom Type
                 register_post_type( 'store_page',
@@ -302,21 +317,33 @@ if (! class_exists('SLPlus_Actions')) {
                     )
                 );                
                 
-                // Register Stores Taxonomy
-                //                
-                register_taxonomy(
-                        'stores',
-                        'store_page',
-                        array (
-                            'hierarchical'  => true,
-                            'labels'        => 
-                                array(
-                                        'menu_name' => __('Categories',SLPLUS_PREFIX),
-                                        'name'      => __('Categories',SLPLUS_PREFIX),
-                                     )
-                            )
-                    );                
-            } 
+            }
+
+            // Register Stores Taxonomy
+            //
+            $this->register_store_taxonomy();
+        }
+
+
+        /**
+         * Register the store taxonomy.
+         *
+         * We need this for Store Pages, Tagalong, and third party plugins.
+         *
+         */
+        function register_store_taxonomy() {
+            register_taxonomy(
+                    'stores',
+                    'store_page',
+                    array (
+                        'hierarchical'  => true,
+                        'labels'        =>
+                            array(
+                                    'menu_name' => __('Categories',SLPLUS_PREFIX),
+                                    'name'      => __('Categories',SLPLUS_PREFIX),
+                                 )
+                        )
+                );
         }
         
         /*************************************

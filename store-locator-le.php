@@ -75,12 +75,16 @@ if (defined('SLPLUS_PREFIX') === false) {
 
 // Include our needed files
 //
+global $slplus_plugin;
 include_once(SLPLUS_PLUGINDIR . '/include/config.php'	);
 include_once(SLPLUS_PLUGINDIR . 'plus.php'		);
 include_once(SLPLUS_COREDIR   . 'csl_helpers.php'	);
 include_once(SLPLUS_COREDIR   . 'functions.sl.php'	);
 include_once(SLPLUS_COREDIR   . 'csl-ajax-search.php'	);
+
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-actions_class.php');
+$slplus_plugin->Actions = new SLPlus_Actions(array('parent'=>$slplus_plugin));     // Lets invoke this and make it an object
+
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-activation_class.php');
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-ui_class.php');
 require_once(SLPLUS_PLUGINDIR . '/include/mobile-listener.php');
@@ -93,15 +97,15 @@ register_activation_hook( __FILE__, 'activate_slplus');
 
 // Regular Actions
 //
-add_action('init'               ,array('SLPlus_Actions','init')                 );
-add_action('wp_enqueue_scripts' ,array('SLPlus_Actions','wp_enqueue_scripts')   );
-add_action('wp_footer'          ,array('SLPlus_Actions','wp_footer')            );
-add_action('shutdown'           ,array('SLPlus_Actions','shutdown')             ); 
+add_action('init'               ,array($slplus_plugin->Actions,'init')                 );
+add_action('wp_enqueue_scripts' ,array($slplus_plugin->Actions,'wp_enqueue_scripts')   );
+add_action('wp_footer'          ,array($slplus_plugin->Actions,'wp_footer')            );
+add_action('shutdown'           ,array($slplus_plugin->Actions,'shutdown')             );
 
 // Admin Actions
 //
-add_action('admin_menu'         ,array('SLPlus_Actions','admin_menu')           );
-add_action('admin_init'         ,array('SLPlus_Actions','admin_init'),10        );
+add_action('admin_menu'         ,array($slplus_plugin->Actions,'admin_menu')           );
+add_action('admin_init'         ,array($slplus_plugin->Actions,'admin_init'),10        );
 add_action('admin_print_styles' , 'setup_ADMIN_stylesheet_for_slplus'           );
 add_action('admin_head'         , 'slpreport_downloads'                         );
 
