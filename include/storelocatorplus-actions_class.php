@@ -348,7 +348,7 @@ if (! class_exists('SLPlus_Actions')) {
                         'labels'        =>
                             array(
                                     'menu_name' => __('Categories',SLPLUS_PREFIX),
-                                    'name'      => __('Categories',SLPLUS_PREFIX),
+                                    'name'      => __('Store Categories',SLPLUS_PREFIX),
                                  )
                         )
                 );
