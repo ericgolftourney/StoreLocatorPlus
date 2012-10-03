@@ -60,7 +60,7 @@ function csl_ajax_onload() {
 
 	//Since miles is default, if kilometers is selected, divide by 1.609344 in order to convert the kilometer value selection back in miles when generating the XML
 	//
-	$multiplier=(get_option('sl_distance_unit')=="km")? (3959*1.609344) : 3959;
+	$multiplier=(get_option('sl_distance_unit')=="km")? 6371 : 3959;
 		
 	// Select all the rows in the markers table
 	$query = "SELECT *, ".
@@ -170,8 +170,7 @@ function csl_ajax_search() {
 	
 	//Since miles is default, if kilometers is selected, divide by 1.609344 in order to convert the kilometer value selection back in miles when generating the XML
 	//
-	$multiplier=3959;
-	$multiplier=(get_option('sl_distance_unit')=="km")? ($multiplier*1.609344) : $multiplier;
+	$multiplier=(get_option('sl_distance_unit')=="km")? 6371 : 3959;
 
 	$option[SLPLUS_PREFIX.'_maxreturned']=(trim(get_option(SLPLUS_PREFIX.'_maxreturned'))!="")? 
     get_option(SLPLUS_PREFIX.'_maxreturned') : 
