@@ -187,6 +187,8 @@ Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support
 
 = Latest Release: 3.5 (Mid-October, 2012) =
 
+* [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus/) : Add "remove license" to general settings page.
+* [Store Pages]((http://www.charlestonsw.com/product/store-locator-plus-store-pages/) : Add "remove license" to general settings page.
 * Code stability and performance enhancements through proper object instantiation (smaller code, more features, less bugs).
 
 
