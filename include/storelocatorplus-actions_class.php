@@ -145,6 +145,10 @@ if (! class_exists('SLPlus_Actions')) {
                     __('This is a <a href="http://www.charlestonsw.com/product/store-locator-plus-store-pages/">Store Pages</a>'.
                     ' feature.  It provides a way to auto-create individual WordPress pages' .
                     ' for each of your locations. ', SLPLUS_PREFIX);
+            } else {
+                $slp_rep_desc .= '<span style="float:right;">(<a href="#" onClick="'.
+                        'jQuery.post(ajaxurl,{action: \'license_reset_pages\'},function(response){alert(response);});'.
+                        '">'.__('Delete license',SLPLUS_PREFIX).'</a>)</span>';
             }
             $slp_rep_desc .= '<br/><br/>';                 
             $this->parent->settings->add_section(
@@ -166,6 +170,10 @@ if (! class_exists('SLPlus_Actions')) {
                     __('This is a <a href="http://www.charlestonsw.com/product/store-locator-plus/">Pro Pack</a>'.
                     ' feature.  It provides more settings and features that are not provided in the free plugin'
                     , SLPLUS_PREFIX);
+            } else {
+                $slp_rep_desc .= '<span style="float:right;">(<a href="#" onClick="'.
+                        'jQuery.post(ajaxurl,{action: \'license_reset_propack\'},function(response){alert(response);});'.
+                        '">'.__('Delete license',SLPLUS_PREFIX).'</a>)</span>';
             }
             $slp_rep_desc .= '<br/><br/>'; 
             $this->parent->settings->add_section(

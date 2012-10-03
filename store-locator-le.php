@@ -88,6 +88,11 @@ $slplus_plugin->Actions = new SLPlus_Actions(array('parent'=>$slplus_plugin));  
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-activation_class.php');
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-ui_class.php');
 require_once(SLPLUS_PLUGINDIR . '/include/mobile-listener.php');
+
+require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-ajax_handler_class.php');
+$slplus_plugin->AjaxHandler = new SLPlus_AjaxHandler(array('parent'=>$slplus_plugin));     // Lets invoke this and make it an object
+
+
 // note: adminUI class is only required & invoked if needed... see slp-actions_class.php
 
 
@@ -140,4 +145,8 @@ add_action('wp_ajax_nopriv_csl_get_locations', array('csl_mobile_listener', 'Get
 //
 add_action('wp_ajax_csl_ajax_onload', 'csl_ajax_onload');
 add_action('wp_ajax_nopriv_csl_ajax_onload', 'csl_ajax_onload');
+
+// License resets
+add_action('wp_ajax_license_reset_pages'    , array($slplus_plugin->AjaxHandler,'license_reset_pages'));
+add_action('wp_ajax_license_reset_propack'  , array($slplus_plugin->AjaxHandler,'license_reset_propack'));
 
