@@ -189,6 +189,8 @@ Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support
 
 * [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus/) : Add "remove license" to general settings page.
 * [Store Pages]((http://www.charlestonsw.com/product/store-locator-plus-store-pages/) : Add "remove license" to general settings page.
+* Update KM calculations to use 6371 KM/radian (the preferred standard) versus the calculated 6371.392896 value that was being used.
+** Calculations in SLP are based on the Spherical Law of Cosines.  Distances on an imperfect sphere like Earth are not exact.
 * Code stability and performance enhancements through proper object instantiation (smaller code, more features, less bugs).
 
 
