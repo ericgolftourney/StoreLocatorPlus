@@ -29,11 +29,6 @@ function slpCreateColumnHeader($theURL,$fldID='sl_store',$fldLabel='ID',$opt='sl
 }
 
 
-// Setup the view link
-//
- $view_link="| <a href='".SLPLUS_ADMINPAGE."view-locations.php'>".
-    __("Manage Locations", SLPLUS_PREFIX)."</a>"; 
- 
 // Save all values except a few for subsequent form processing
 //
 $sl_hidden='';
@@ -372,53 +367,61 @@ $slpCleanURL = str_replace("&o=$opt&sortorder=$dir", '', $_SERVER['REQUEST_URI']
 //
 $altdir= (($dir=='DESC') ? 'ASC':'DESC');
 
-print "<br>
-<table class='slplus widefat' cellspacing=0>
-    <thead>
-    <tr >
-        <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
-        <th colspan='1'>".__("Actions", SLPLUS_PREFIX)."</th>".
-        slpCreateColumnHeader($slpCleanURL,'sl_id'      ,__('ID'       ,SLPLUS_PREFIX),$opt,$dir) .
-        slpCreateColumnHeader($slpCleanURL,'sl_store'   ,__('Name'     ,SLPLUS_PREFIX),$opt,$dir) .
-        slpCreateColumnHeader($slpCleanURL,'sl_address' ,__('Street'   ,SLPLUS_PREFIX),$opt,$dir) .        
-        slpCreateColumnHeader($slpCleanURL,'sl_address2',__('Street2'  ,SLPLUS_PREFIX),$opt,$dir) .        
-        slpCreateColumnHeader($slpCleanURL,'sl_city'    ,__('City'     ,SLPLUS_PREFIX),$opt,$dir) .        
-        slpCreateColumnHeader($slpCleanURL,'sl_state'   ,__('State'    ,SLPLUS_PREFIX),$opt,$dir) .        
-        slpCreateColumnHeader($slpCleanURL,'sl_zip'     ,__('Zip'      ,SLPLUS_PREFIX),$opt,$dir) .        
-        slpCreateColumnHeader($slpCleanURL,'sl_tags'    ,__('Tags'     ,SLPLUS_PREFIX),$opt,$dir)                
-        ;
+print '<br/>';
 
-      
-// Expanded View
+// We have matching locations
 //
-if (get_option('sl_location_table_view')!="Normal") {
-    print 
-        slpCreateColumnHeader($slpCleanURL,'sl_description' ,__('Description'  ,SLPLUS_PREFIX),$opt,$dir) .
-        slpCreateColumnHeader($slpCleanURL,'sl_url'         ,__('URL'          ,SLPLUS_PREFIX),$opt,$dir);
-
-    // Store Pages URLs
-    //
-    if ($slplus_plugin->license->packages['Store Pages']->isenabled) {            
-        print slpCreateColumnHeader($slpCleanURL,
-                    'sl_pages_url'   ,
-                    __('Pages URL'    ,SLPLUS_PREFIX),
-                    $opt,$dir
-                    );
-    }
-        
-    print 
-        slpCreateColumnHeader($slpCleanURL,'sl_email'       ,__('Email'        ,SLPLUS_PREFIX),$opt,$dir) .
-        slpCreateColumnHeader($slpCleanURL,'sl_hours'       ,__('Hours'        ,SLPLUS_PREFIX),$opt,$dir) .
-        slpCreateColumnHeader($slpCleanURL,'sl_phone'       ,__('Phone'        ,SLPLUS_PREFIX),$opt,$dir) .
-        slpCreateColumnHeader($slpCleanURL,'sl_fax'         ,__('Fax'          ,SLPLUS_PREFIX),$opt,$dir) .
-        slpCreateColumnHeader($slpCleanURL,'sl_image'       ,__('Image'        ,SLPLUS_PREFIX),$opt,$dir)
-        ;    
-}
-
-print '<th>Lat</th><th>Lon</th></tr></thead>';
-
 if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix . 
         "store_locator  $where ORDER BY $opt $dir LIMIT $start,$num_per_page", ARRAY_A)) {
+    
+    // Table Headings
+    //
+    print "<table class='slplus widefat' cellspacing=0>
+        <thead>
+        <tr >
+            <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
+            <th colspan='1'>".__("Actions", SLPLUS_PREFIX)."</th>".
+            slpCreateColumnHeader($slpCleanURL,'sl_id'      ,__('ID'       ,SLPLUS_PREFIX),$opt,$dir) .
+            slpCreateColumnHeader($slpCleanURL,'sl_store'   ,__('Name'     ,SLPLUS_PREFIX),$opt,$dir) .
+            slpCreateColumnHeader($slpCleanURL,'sl_address' ,__('Street'   ,SLPLUS_PREFIX),$opt,$dir) .
+            slpCreateColumnHeader($slpCleanURL,'sl_address2',__('Street2'  ,SLPLUS_PREFIX),$opt,$dir) .
+            slpCreateColumnHeader($slpCleanURL,'sl_city'    ,__('City'     ,SLPLUS_PREFIX),$opt,$dir) .
+            slpCreateColumnHeader($slpCleanURL,'sl_state'   ,__('State'    ,SLPLUS_PREFIX),$opt,$dir) .
+            slpCreateColumnHeader($slpCleanURL,'sl_zip'     ,__('Zip'      ,SLPLUS_PREFIX),$opt,$dir) .
+            slpCreateColumnHeader($slpCleanURL,'sl_tags'    ,__('Tags'     ,SLPLUS_PREFIX),$opt,$dir)
+            ;
+
+
+    // Expanded View
+    //
+    if (get_option('sl_location_table_view')!="Normal") {
+        print
+            slpCreateColumnHeader($slpCleanURL,'sl_description' ,__('Description'  ,SLPLUS_PREFIX),$opt,$dir) .
+            slpCreateColumnHeader($slpCleanURL,'sl_url'         ,__('URL'          ,SLPLUS_PREFIX),$opt,$dir);
+
+        // Store Pages URLs
+        //
+        if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
+            print slpCreateColumnHeader($slpCleanURL,
+                        'sl_pages_url'   ,
+                        __('Pages URL'    ,SLPLUS_PREFIX),
+                        $opt,$dir
+                        );
+        }
+
+        print
+            slpCreateColumnHeader($slpCleanURL,'sl_email'       ,__('Email'        ,SLPLUS_PREFIX),$opt,$dir) .
+            slpCreateColumnHeader($slpCleanURL,'sl_hours'       ,__('Hours'        ,SLPLUS_PREFIX),$opt,$dir) .
+            slpCreateColumnHeader($slpCleanURL,'sl_phone'       ,__('Phone'        ,SLPLUS_PREFIX),$opt,$dir) .
+            slpCreateColumnHeader($slpCleanURL,'sl_fax'         ,__('Fax'          ,SLPLUS_PREFIX),$opt,$dir) .
+            slpCreateColumnHeader($slpCleanURL,'sl_image'       ,__('Image'        ,SLPLUS_PREFIX),$opt,$dir)
+            ;
+    }
+
+    print '<th>Lat</th><th>Lon</th></tr></thead>';
+
+
+
 		
         $bgcol = '#eee';
 		foreach ($locales as $sl_value) {
@@ -540,18 +543,25 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                 print "</tr>";
 			}
 		}
-} else {
-		$notice=( isset($_GET['q']) && ($_GET['q']!="") )? 
-                __("No Locations Showing for this Search of ", SLPLUS_PREFIX).
-                    "<b>\"$_GET[q]\"</b>. $view_link" : 
-                __("No Locations Currently in Database", SLPLUS_PREFIX);
-		print "<tr><td colspan='5'>$notice | <a href='admin.php?page=$sl_dir/core/add-locations.php'>".
-            __("Add Locations", SLPLUS_PREFIX)."</a></td></tr>";
-	}
-	print "</table>
-	<br>";
-if ($numMembers2!=0) {include(SLPLUS_COREDIR.'/search-links.php');}
 
+    // Close Out Table
+    //
+    print "</table><br>";
+
+// No Locations Found
+//
+} else {
+
+		print "<div class='csa_info_msg'>".
+                (
+                 ($qry!='')?
+                        __("Search Locations returned no matches.", SLPLUS_PREFIX) :
+                        __("No locations have been created yet.", SLPLUS_PREFIX)
+                ) .
+              "</div>";
+}
+
+if ($numMembers2!=0) {include(SLPLUS_COREDIR.'/search-links.php');}
 print "</form>";
 	
 
