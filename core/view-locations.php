@@ -5,28 +5,8 @@
  ** Manage the view locations admin panel action.
  ***************************************************************************/
 
-/*****************************
- * function: url_test()
- *
- */
-function url_test($url) {
-	return (strtolower(substr($url,0,7))=="http://");
-}
+global $slplus_plugin;
 
-/*****************************
-* function: slpCreateColumnHeader()
-*
-* Create the column headers for sorting the table.
-*
-*/
-function slpCreateColumnHeader($theURL,$fldID='sl_store',$fldLabel='ID',$opt='sl_store',$dir='ASC') {
-    if ($opt == $fldID) {
-        $curDIR = (($dir=='ASC')?'DESC':'ASC');
-    } else {
-        $curDIR = $dir;
-    }
-    return "<th><a href='$theURL&o=$fldID&sortorder=$curDIR'>$fldLabel</a></th>";
-}
 
 
 // Save all values except a few for subsequent form processing
@@ -373,49 +353,67 @@ print '<br/>';
 //
 if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix . 
         "store_locator  $where ORDER BY $opt $dir LIMIT $start,$num_per_page", ARRAY_A)) {
+
+    // Setup Table Columns
+    //
+    $slpManageColumns = array(
+            'sl_id'         =>  __('ID'       ,SLPLUS_PREFIX),
+            'sl_store'      =>  __('Name'     ,SLPLUS_PREFIX),
+            'sl_address'    =>  __('Street'   ,SLPLUS_PREFIX),
+            'sl_address2'   =>  __('Street2'  ,SLPLUS_PREFIX),
+            'sl_city'       =>  __('City'     ,SLPLUS_PREFIX),
+            'sl_state'      =>  __('State'    ,SLPLUS_PREFIX),
+            'sl_zip'        =>  __('Zip'      ,SLPLUS_PREFIX),
+            'sl_tags'       =>  __('Tags'     ,SLPLUS_PREFIX),
+        );
+
+    // Expanded View
+    //
+    if (get_option('sl_location_table_view')!="Normal") {
+        $slpManageColumns = array_merge($slpManageColumns,
+                    array(
+                        'sl_description'    => __('Description'  ,SLPLUS_PREFIX),
+                        'sl_url'            => __('URL'          ,SLPLUS_PREFIX),
+                    )
+                );
+
+        // Store Pages URLs
+        //
+        if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
+            $slpManageColumns = array_merge($slpManageColumns,
+                        array(
+                            'sl_pages_url'      => __('Pages URL'          ,SLPLUS_PREFIX),
+                        )
+                    );
+        }
+
+        $slpManageColumns = array_merge($slpManageColumns,
+                    array(
+                        'sl_email'       => __('Email'        ,SLPLUS_PREFIX),
+                        'sl_hours'       => __('Hours'        ,SLPLUS_PREFIX),
+                        'sl_phone'       => __('Phone'        ,SLPLUS_PREFIX),
+                        'sl_fax'         => __('Fax'          ,SLPLUS_PREFIX),
+                        'sl_image'       => __('Image'        ,SLPLUS_PREFIX),
+                    )
+                );
+    }
+
+    // Third party plugin add-ons
+    //
+    $slpManageColumns = apply_filters('slp_manage_location_columns', $slpManageColumns);
+
+
     
-    // Table Headings
+    // Render Table Headings
     //
     print "<table class='slplus widefat' cellspacing=0>
         <thead>
         <tr >
             <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
-            <th colspan='1'>".__("Actions", SLPLUS_PREFIX)."</th>".
-            slpCreateColumnHeader($slpCleanURL,'sl_id'      ,__('ID'       ,SLPLUS_PREFIX),$opt,$dir) .
-            slpCreateColumnHeader($slpCleanURL,'sl_store'   ,__('Name'     ,SLPLUS_PREFIX),$opt,$dir) .
-            slpCreateColumnHeader($slpCleanURL,'sl_address' ,__('Street'   ,SLPLUS_PREFIX),$opt,$dir) .
-            slpCreateColumnHeader($slpCleanURL,'sl_address2',__('Street2'  ,SLPLUS_PREFIX),$opt,$dir) .
-            slpCreateColumnHeader($slpCleanURL,'sl_city'    ,__('City'     ,SLPLUS_PREFIX),$opt,$dir) .
-            slpCreateColumnHeader($slpCleanURL,'sl_state'   ,__('State'    ,SLPLUS_PREFIX),$opt,$dir) .
-            slpCreateColumnHeader($slpCleanURL,'sl_zip'     ,__('Zip'      ,SLPLUS_PREFIX),$opt,$dir) .
-            slpCreateColumnHeader($slpCleanURL,'sl_tags'    ,__('Tags'     ,SLPLUS_PREFIX),$opt,$dir)
+            <th colspan='1'>".__("Actions", SLPLUS_PREFIX)."</th>"
             ;
-
-
-    // Expanded View
-    //
-    if (get_option('sl_location_table_view')!="Normal") {
-        print
-            slpCreateColumnHeader($slpCleanURL,'sl_description' ,__('Description'  ,SLPLUS_PREFIX),$opt,$dir) .
-            slpCreateColumnHeader($slpCleanURL,'sl_url'         ,__('URL'          ,SLPLUS_PREFIX),$opt,$dir);
-
-        // Store Pages URLs
-        //
-        if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
-            print slpCreateColumnHeader($slpCleanURL,
-                        'sl_pages_url'   ,
-                        __('Pages URL'    ,SLPLUS_PREFIX),
-                        $opt,$dir
-                        );
-        }
-
-        print
-            slpCreateColumnHeader($slpCleanURL,'sl_email'       ,__('Email'        ,SLPLUS_PREFIX),$opt,$dir) .
-            slpCreateColumnHeader($slpCleanURL,'sl_hours'       ,__('Hours'        ,SLPLUS_PREFIX),$opt,$dir) .
-            slpCreateColumnHeader($slpCleanURL,'sl_phone'       ,__('Phone'        ,SLPLUS_PREFIX),$opt,$dir) .
-            slpCreateColumnHeader($slpCleanURL,'sl_fax'         ,__('Fax'          ,SLPLUS_PREFIX),$opt,$dir) .
-            slpCreateColumnHeader($slpCleanURL,'sl_image'       ,__('Image'        ,SLPLUS_PREFIX),$opt,$dir)
-            ;
+    foreach ($slpManageColumns as $slpField => $slpLabel) {
+        print $slplus_plugin->AdminUI->slpCreateColumnHeader($slpCleanURL,$slpField,$slpLabel,$opt,$dir);
     }
 
     print '<th>Lat</th><th>Lon</th></tr></thead>';
@@ -477,7 +475,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
 			// DISPLAY MODE
 			//
 			} else {
-                $sl_value['sl_url']=(!url_test($sl_value['sl_url']) && trim($sl_value['sl_url'])!="")? 
+                $sl_value['sl_url']=(!$slplus_plugin->AdminUI->url_test($sl_value['sl_url']) && trim($sl_value['sl_url'])!="")?
                     "http://".$sl_value['sl_url'] : 
                     $sl_value['sl_url'] ;
                 $sl_value['sl_url']=($sl_value['sl_url']!="")? 
@@ -520,12 +518,16 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                 <td>$sl_value[sl_city]</td>
                 <td>$sl_value[sl_state]</td>
                 <td>$sl_value[sl_zip]</td>
-                <td>$sl_value[sl_tags]</td>";
-                
+                <td>$sl_value[sl_tags]</td>"
+                ;
+
+
+                //Extended Tables
+                //
                 if (get_option('sl_location_table_view')!="Normal") {
                     print "<td>$sl_value[sl_description]</td>
                             <td>$sl_value[sl_url]</td>
-                            ";
+                                ";
                     // Store Pages URLs
                     //
                     if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
@@ -536,8 +538,11 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
                             <td>$sl_value[sl_hours]</td>
                             <td>$sl_value[sl_phone]</td>
                             <td>$sl_value[sl_fax]</td>
-                            <td>$sl_value[sl_image]</td>";
-                }                
+                            <td>$sl_value[sl_image]</td>"
+                    ;
+                }
+
+
                 print "<td>".$sl_value['sl_latitude']."</td>";
                 print "<td>".$sl_value['sl_longitude']."</td>";
                 print "</tr>";
@@ -546,7 +551,7 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
 
     // Close Out Table
     //
-    print "</table><br>";
+    print '</table><br/>';
 
 // No Locations Found
 //
