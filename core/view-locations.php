@@ -351,8 +351,13 @@ print '<br/>';
 
 // We have matching locations
 //
-if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix . 
-        "store_locator  $where ORDER BY $opt $dir LIMIT $start,$num_per_page", ARRAY_A)) {
+if ($slpLocations=$wpdb->get_results(
+        "SELECT * FROM " .$wpdb->prefix."store_locator " .
+                "$where ORDER BY $opt $dir ".
+                "LIMIT $start,$num_per_page",
+        ARRAY_A
+        )
+    ) {
 
     // Setup Table Columns
     //
@@ -401,153 +406,139 @@ if ($locales=$wpdb->get_results("SELECT * FROM " . $wpdb->prefix .
     // Third party plugin add-ons
     //
     $slpManageColumns = apply_filters('slp_manage_location_columns', $slpManageColumns);
-
-
     
     // Render Table Headings
     //
-    print "<table class='slplus widefat' cellspacing=0>
-        <thead>
-        <tr >
-            <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
-            <th colspan='1'>".__("Actions", SLPLUS_PREFIX)."</th>"
+    print
+        "<table class='slplus widefat' cellspacing=0>
+            <thead>
+            <tr >
+                <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
+                <th colspan='1'>".__("Actions", SLPLUS_PREFIX)."</th>"
             ;
     foreach ($slpManageColumns as $slpField => $slpLabel) {
         print $slplus_plugin->AdminUI->slpCreateColumnHeader($slpCleanURL,$slpField,$slpLabel,$opt,$dir);
     }
-
     print '<th>Lat</th><th>Lon</th></tr></thead>';
 
 
+    // Render The Data
+    //
+    $bgcol = '#eee';
+    foreach ($slpLocations as $sl_value) {
 
-		
-        $bgcol = '#eee';
-		foreach ($locales as $sl_value) {
-		    $locID = $sl_value['sl_id'];
-			$bgcol=($bgcol=="#eee")?"#fff":"#eee";			
-			$bgcol=($sl_value['sl_latitude']=="" || $sl_value['sl_longitude']=="")? "salmon" : $bgcol;			
-			$sl_value=array_map("trim",$sl_value);
-			
-			// EDIT MODE
-			//
-			if (isset($_GET['edit']) && ($locID==$_GET['edit'])) {
-				print "<tr style='background-color:$bgcol'>";
-	            $colspan=(get_option('sl_location_table_view')!="Normal")? 	12 : 18;	
-                if ($slplus_plugin->license->packages['Store Pages']->isenabled) { $colspan++; }	            
-				
-                print "<td colspan='$colspan'><form name='manualAddForm' method=post>
-                <a name='a".$locID."'></a>
-                <table cellpadding='0' class='manual_update_table'>
-                <!--thead><tr><td>".__("Type&nbsp;Address", SLPLUS_PREFIX)."</td></tr></thead-->
-                <tr>
-                    <td valign='top'>";
-                
-                execute_and_output_template('edit_location_address.php');
-                
-                // Store Pages URLs
-                //
-                if (
-                    ($slplus_plugin->license->packages['Store Pages']->isenabled) &&
-                    ($sl_value['sl_pages_url'] != '')
-                    ){
-                    $shortSPurl = preg_replace('/^.*?store_page=/','',$sl_value['sl_pages_url']);
-                    print "<label for='store_page'>Store Page</label><a href='$sl_value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a><br/>";
-                }
-                
-                print "<br>
-                        <nobr><input type='submit' value='".__("Update", SLPLUS_PREFIX)."' class='button-primary'><input type='button' class='button' value='".__("Cancel", SLPLUS_PREFIX)."' onclick='location.href=\"".ereg_replace("&edit=$_GET[edit]", "",$_SERVER['REQUEST_URI'])."\"'></nobr>
-                    </td><td>
-                        <b>".__("Additional Information", SLPLUS_PREFIX)."</b><br>
-                        <textarea name='description-$locID' rows='5' cols='17'>$sl_value[sl_description]</textarea>&nbsp;<small>".__("Description", SLPLUS_PREFIX)."</small><br>
-                        <input name='tags-$locID' value='$sl_value[sl_tags]'>&nbsp;<small>"  .__("Tags (seperate with commas)", SLPLUS_PREFIX)."</small><br>		
-                        <input name='url-$locID'  value='$sl_value[sl_url]'>&nbsp;<small>"   .__("URL", SLPLUS_PREFIX)."</small><br>
-                        <input name='email-$locID' value='$sl_value[sl_email]'>&nbsp;<small>".__("Email", SLPLUS_PREFIX)."</small><br>
-                        <input name='hours-$locID' value='$sl_value[sl_hours]'>&nbsp;<small>".__("Hours", SLPLUS_PREFIX)."</small><br>
-                        <input name='phone-$locID' value='$sl_value[sl_phone]'>&nbsp;<small>".__("Phone", SLPLUS_PREFIX)."</small><br>
-                        <input name='fax-$locID'   value='$sl_value[sl_fax]'>&nbsp;<small>"  .__("Fax", SLPLUS_PREFIX)."</small><br>
-                        <input name='image-$locID' value='$sl_value[sl_image]'>&nbsp;<small>".__("Image URL (shown with location)", SLPLUS_PREFIX)."</small><br><br>
-                    </td>
-                        </tr>
-                    </table>
-                </form></td>
-                </tr>";
-                
-			// DISPLAY MODE
-			//
-			} else {
-                $sl_value['sl_url']=(!$slplus_plugin->AdminUI->url_test($sl_value['sl_url']) && trim($sl_value['sl_url'])!="")?
-                    "http://".$sl_value['sl_url'] : 
-                    $sl_value['sl_url'] ;
-                $sl_value['sl_url']=($sl_value['sl_url']!="")? 
-                    "<a href='$sl_value[sl_url]' target='blank'>".__("View", SLPLUS_PREFIX)."</a>" : 
-                    "" ;
-                $sl_value['sl_email']=($sl_value['sl_email']!="")? 
-                    "<a href='mailto:$sl_value[sl_email]' target='blank'>".__("Email", SLPLUS_PREFIX)."</a>" : 
-                    "" ;
-                $sl_value['sl_image']=($sl_value['sl_image']!="")? 
-                    "<a href='$sl_value[sl_image]' target='blank'>".__("View", SLPLUS_PREFIX)."</a>" : 
-                    "" ;
-                $sl_value['sl_description']=($sl_value['sl_description']!="")? 
-                    "<a onclick='alert(\"".comma($sl_value['sl_description'])."\")' href='#'>".
-                    __("View", SLPLUS_PREFIX)."</a>" : 
-                    "" ;
-                
-                print "<tr style='background-color:$bgcol'>
-                <th><input type='checkbox' name='sl_id[]' value='$locID'></th>
-                <th class='thnowrap'>".
-                    "<a class='action_icon edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."' 
-                        href='".ereg_replace("&edit=".(isset($_GET['edit'])?$_GET['edit']:''), "",$_SERVER['REQUEST_URI']).
-                    "&edit=" . $locID ."#a$locID'></a>".
-                    "&nbsp;" . 
-                    "<a class='action_icon delete_icon' alt='".__('delete',SLPLUS_PREFIX)."' title='".__('delete',SLPLUS_PREFIX)."' 
-                        href='".$_SERVER['REQUEST_URI']."&delete=$locID' " .
-                        "onclick=\"confirmClick('".sprintf(__('Delete %s?',SLPLUS_PREFIX),$sl_value['sl_store'])."', this.href); return false;\"></a>";
+        // Row color
+        //
+        $bgcol=($bgcol=="#eee")?"#fff":"#eee";
+        $bgcol=($sl_value['sl_latitude']=="" || $sl_value['sl_longitude']=="")? "salmon" : $bgcol;
 
-                // Store Pages Active?
-                // Show the create page button
-                //
-                if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
-                    call_user_func_array(array('SLPlus_AdminUI','slpRenderCreatePageButton'),array($locID,$sl_value['sl_linked_postid']));
-                }
+        // Clean Up Data with trim()
+        //
+        $locID = $sl_value['sl_id'];
+        $sl_value=array_map("trim",$sl_value);
 
-        print "</th>
-                <th>$locID</th>
-                <td>$sl_value[sl_store]</td>
-                <td>$sl_value[sl_address]</td>
-                <td>$sl_value[sl_address2]</td>
-                <td>$sl_value[sl_city]</td>
-                <td>$sl_value[sl_state]</td>
-                <td>$sl_value[sl_zip]</td>
-                <td>$sl_value[sl_tags]</td>"
-                ;
+        // EDIT MODE
+        //
+        if (isset($_GET['edit']) && ($locID==$_GET['edit'])) {
+            print "<tr style='background-color:$bgcol'>";
+            $colspan=(get_option('sl_location_table_view')!="Normal")? 	12 : 18;	
+            if ($slplus_plugin->license->packages['Store Pages']->isenabled) { $colspan++; }	            
 
+            print "<td colspan='$colspan'><form name='manualAddForm' method=post>
+            <a name='a".$locID."'></a>
+            <table cellpadding='0' class='manual_update_table'>
+            <!--thead><tr><td>".__("Type&nbsp;Address", SLPLUS_PREFIX)."</td></tr></thead-->
+            <tr>
+                <td valign='top'>";
 
-                //Extended Tables
-                //
-                if (get_option('sl_location_table_view')!="Normal") {
-                    print "<td>$sl_value[sl_description]</td>
-                            <td>$sl_value[sl_url]</td>
-                                ";
-                    // Store Pages URLs
-                    //
-                    if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
-                        $shortSPurl = preg_replace('/^.*?store_page=/','',$sl_value['sl_pages_url']);
-                        print "<td><a href='$sl_value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a></td>";
-                    }                    
-                    print "<td>$sl_value[sl_email]</td>
-                            <td>$sl_value[sl_hours]</td>
-                            <td>$sl_value[sl_phone]</td>
-                            <td>$sl_value[sl_fax]</td>
-                            <td>$sl_value[sl_image]</td>"
-                    ;
-                }
+            execute_and_output_template('edit_location_address.php');
 
+            // Store Pages URLs
+            //
+            if (
+                ($slplus_plugin->license->packages['Store Pages']->isenabled) &&
+                ($sl_value['sl_pages_url'] != '')
+                ){
+                $shortSPurl = preg_replace('/^.*?store_page=/','',$sl_value['sl_pages_url']);
+                print "<label for='store_page'>Store Page</label><a href='$sl_value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a><br/>";
+            }
 
-                print "<td>".$sl_value['sl_latitude']."</td>";
-                print "<td>".$sl_value['sl_longitude']."</td>";
-                print "</tr>";
-			}
-		}
+            print "<br>
+                    <nobr><input type='submit' value='".__("Update", SLPLUS_PREFIX)."' class='button-primary'><input type='button' class='button' value='".__("Cancel", SLPLUS_PREFIX)."' onclick='location.href=\"".ereg_replace("&edit=$_GET[edit]", "",$_SERVER['REQUEST_URI'])."\"'></nobr>
+                </td><td>
+                    <b>".__("Additional Information", SLPLUS_PREFIX)."</b><br>
+                    <textarea name='description-$locID' rows='5' cols='17'>$sl_value[sl_description]</textarea>&nbsp;<small>".__("Description", SLPLUS_PREFIX)."</small><br>
+                    <input name='tags-$locID' value='$sl_value[sl_tags]'>&nbsp;<small>"  .__("Tags (seperate with commas)", SLPLUS_PREFIX)."</small><br>		
+                    <input name='url-$locID'  value='$sl_value[sl_url]'>&nbsp;<small>"   .__("URL", SLPLUS_PREFIX)."</small><br>
+                    <input name='email-$locID' value='$sl_value[sl_email]'>&nbsp;<small>".__("Email", SLPLUS_PREFIX)."</small><br>
+                    <input name='hours-$locID' value='$sl_value[sl_hours]'>&nbsp;<small>".__("Hours", SLPLUS_PREFIX)."</small><br>
+                    <input name='phone-$locID' value='$sl_value[sl_phone]'>&nbsp;<small>".__("Phone", SLPLUS_PREFIX)."</small><br>
+                    <input name='fax-$locID'   value='$sl_value[sl_fax]'>&nbsp;<small>"  .__("Fax", SLPLUS_PREFIX)."</small><br>
+                    <input name='image-$locID' value='$sl_value[sl_image]'>&nbsp;<small>".__("Image URL (shown with location)", SLPLUS_PREFIX)."</small><br><br>
+                </td>
+                    </tr>
+                </table>
+            </form></td>
+            </tr>";
+
+        // DISPLAY MODE
+        //
+        } else {
+
+            // Custom Filters to set the links on special data like URLs and Email
+            //
+            $sl_value['sl_url']=(!$slplus_plugin->AdminUI->url_test($sl_value['sl_url']) && trim($sl_value['sl_url'])!="")?
+                "http://".$sl_value['sl_url'] : 
+                $sl_value['sl_url'] ;
+            $sl_value['sl_url']=($sl_value['sl_url']!="")? 
+                "<a href='$sl_value[sl_url]' target='blank'>".__("View", SLPLUS_PREFIX)."</a>" : 
+                "" ;
+            $sl_value['sl_email']=($sl_value['sl_email']!="")? 
+                "<a href='mailto:$sl_value[sl_email]' target='blank'>".__("Email", SLPLUS_PREFIX)."</a>" : 
+                "" ;
+            $sl_value['sl_image']=($sl_value['sl_image']!="")? 
+                "<a href='$sl_value[sl_image]' target='blank'>".__("View", SLPLUS_PREFIX)."</a>" : 
+                "" ;
+            $sl_value['sl_description']=($sl_value['sl_description']!="")? 
+                "<a onclick='alert(\"".comma($sl_value['sl_description'])."\")' href='#'>".
+                __("View", SLPLUS_PREFIX)."</a>" : 
+                "" ;
+
+            print "<tr style='background-color:$bgcol'>";
+            print "<th><input type='checkbox' name='sl_id[]' value='$locID'></th>";            // Bulk Action Checkbox
+            print "<th class='thnowrap'>".                                                     // Action Column
+
+                "<a class='action_icon edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."' 
+                    href='".ereg_replace("&edit=".(isset($_GET['edit'])?$_GET['edit']:''), "",$_SERVER['REQUEST_URI']).
+                "&edit=" . $locID ."#a$locID'></a>".
+                "&nbsp;" . 
+                "<a class='action_icon delete_icon' alt='".__('delete',SLPLUS_PREFIX)."' title='".__('delete',SLPLUS_PREFIX)."' 
+                    href='".$_SERVER['REQUEST_URI']."&delete=$locID' " .
+                    "onclick=\"confirmClick('".sprintf(__('Delete %s?',SLPLUS_PREFIX),$sl_value['sl_store'])."', this.href); return false;\"></a>";
+
+            // Store Pages Active?
+            // Show the create page button & fix up the sl_pages_url data
+            //
+            if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
+                $shortSPurl = preg_replace('/^.*?store_page=/','',$sl_value['sl_pages_url']);
+                $sl_value['sl_pages_url'] = "<a href='$sl_value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a>";
+                call_user_func_array(array('SLPlus_AdminUI','slpRenderCreatePageButton'),array($locID,$sl_value['sl_linked_postid']));
+            }
+            print "</th>";
+
+            // Data Columns
+            //
+            foreach ($slpManageColumns as $slpField => $slpLabel) {
+                print '<td>' . $sl_value[$slpField] . '</td>';
+            }
+
+            // Lat/Long Columns
+            //
+            print "<td>".$sl_value['sl_latitude']."</td>";
+            print "<td>".$sl_value['sl_longitude']."</td>";
+            print "</tr>";
+        }
+    }
 
     // Close Out Table
     //
