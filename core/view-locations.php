@@ -438,6 +438,7 @@ if ($slpLocations=$wpdb->get_results(
         $sl_value=array_map("trim",$sl_value);
 
         // EDIT MODE
+        // Show the edit form in a new row for the location that was selected.
         //
         if (isset($_GET['edit']) && ($locID==$_GET['edit'])) {
             print "<tr style='background-color:$bgcol'>";
@@ -451,6 +452,9 @@ if ($slpLocations=$wpdb->get_results(
             <tr>
                 <td valign='top'>";
 
+            $slpEditForm = '';
+
+
             execute_and_output_template('edit_location_address.php');
 
             // Store Pages URLs
@@ -460,13 +464,18 @@ if ($slpLocations=$wpdb->get_results(
                 ($sl_value['sl_pages_url'] != '')
                 ){
                 $shortSPurl = preg_replace('/^.*?store_page=/','',$sl_value['sl_pages_url']);
-                print "<label for='store_page'>Store Page</label><a href='$sl_value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a><br/>";
+                $slpEditForm .= "<label for='store_page'>Store Page</label><a href='$sl_value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a><br/>";
             }
 
-            print "<br>
-                    <nobr><input type='submit' value='".__("Update", SLPLUS_PREFIX)."' class='button-primary'><input type='button' class='button' value='".__("Cancel", SLPLUS_PREFIX)."' onclick='location.href=\"".ereg_replace("&edit=$_GET[edit]", "",$_SERVER['REQUEST_URI'])."\"'></nobr>
-                </td><td>
-                    <b>".__("Additional Information", SLPLUS_PREFIX)."</b><br>
+            $slpEditForm .= "<br><nobr><input type='submit' value='".__("Update", SLPLUS_PREFIX)."' class='button-primary'><input type='button' class='button' value='".__("Cancel", SLPLUS_PREFIX)."' onclick='location.href=\"".ereg_replace("&edit=$_GET[edit]", "",$_SERVER['REQUEST_URI'])."\"'></nobr>";
+            print apply_filters('slp_edit_location_left_column',$slpEditForm);
+            print "</td>";
+
+
+            print "<td>";
+            $slpEditForm =
+                    "<div id='slp_edit_right_column'>" .
+                    "<b>".__("Additional Information", SLPLUS_PREFIX)."</b><br>
                     <textarea name='description-$locID' rows='5' cols='17'>$sl_value[sl_description]</textarea>&nbsp;<small>".__("Description", SLPLUS_PREFIX)."</small><br>
                     <input name='tags-$locID' value='$sl_value[sl_tags]'>&nbsp;<small>"  .__("Tags (seperate with commas)", SLPLUS_PREFIX)."</small><br>		
                     <input name='url-$locID'  value='$sl_value[sl_url]'>&nbsp;<small>"   .__("URL", SLPLUS_PREFIX)."</small><br>
@@ -474,8 +483,11 @@ if ($slpLocations=$wpdb->get_results(
                     <input name='hours-$locID' value='$sl_value[sl_hours]'>&nbsp;<small>".__("Hours", SLPLUS_PREFIX)."</small><br>
                     <input name='phone-$locID' value='$sl_value[sl_phone]'>&nbsp;<small>".__("Phone", SLPLUS_PREFIX)."</small><br>
                     <input name='fax-$locID'   value='$sl_value[sl_fax]'>&nbsp;<small>"  .__("Fax", SLPLUS_PREFIX)."</small><br>
-                    <input name='image-$locID' value='$sl_value[sl_image]'>&nbsp;<small>".__("Image URL (shown with location)", SLPLUS_PREFIX)."</small><br><br>
-                </td>
+                    <input name='image-$locID' value='$sl_value[sl_image]'>&nbsp;<small>".__("Image URL (shown with location)", SLPLUS_PREFIX)."</small>" .
+                    '</div>'
+                    ;
+            print apply_filters('slp_edit_location_right_column',$slpEditForm);
+            print "</td>
                     </tr>
                 </table>
             </form></td>
