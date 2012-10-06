@@ -5,6 +5,30 @@
  ** Manage the view locations admin panel action.
  ***************************************************************************/
 
+/*****************************
+ * function: url_test()
+ *
+ */
+function url_test($url) {
+	return (strtolower(substr($url,0,7))=="http://");
+}
+
+/*****************************
+* function: slpCreateColumnHeader()
+*
+* Create the column headers for sorting the table.
+*
+*/
+function slpCreateColumnHeader($theURL,$fldID='sl_store',$fldLabel='ID',$opt='sl_store',$dir='ASC') {
+    if ($opt == $fldID) {
+        $curDIR = (($dir=='ASC')?'DESC':'ASC');
+    } else {
+        $curDIR = $dir;
+    }
+    return "<th><a href='$theURL&o=$fldID&sortorder=$curDIR'>$fldLabel</a></th>";
+}
+
+
 // Setup the view link
 //
  $view_link="| <a href='".SLPLUS_ADMINPAGE."view-locations.php'>".
@@ -533,25 +557,3 @@ print "</form>";
 
 print "</div>";
 
-/*****************************
- * function: url_test()
- *
- */
-function url_test($url) {
-	return (strtolower(substr($url,0,7))=="http://");
-}
-
-/*****************************
-* function: slpCreateColumnHeader()
-*
-* Create the column headers for sorting the table.
-*
-*/
-function slpCreateColumnHeader($theURL,$fldID='sl_store',$fldLabel='ID',$opt='sl_store',$dir='ASC') {
-    if ($opt == $fldID) {
-        $curDIR = (($dir=='ASC')?'DESC':'ASC');
-    } else {
-        $curDIR = $dir;
-    }
-    return "<th><a href='$theURL&o=$fldID&sortorder=$curDIR'>$fldLabel</a></th>";
-}
