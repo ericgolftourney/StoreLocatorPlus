@@ -22,7 +22,11 @@ $sl_upload_base=get_option('siteurl')."/wp-content/uploads/sl-uploads"; //URL to
  
  
 
-/* -----------------*/
+/**
+ *
+ * @global string $sl_upload_path
+ * @global string $sl_path
+ */
 function move_upload_directories() {
 	global $sl_upload_path, $sl_path;
 	
@@ -43,8 +47,39 @@ function move_upload_directories() {
 	}
 }
 
-/*-----------------*/
-
+/**
+ * 
+ * @global type $sl_height
+ * @global type $sl_width
+ * @global type $sl_width_units
+ * @global type $sl_height_units
+ * @global type $cl_icon
+ * @global type $cl_icon2
+ * @global type $sl_google_map_domain
+ * @global type $sl_google_map_country
+ * @global type $sl_theme
+ * @global string $sl_base
+ * @global string $sl_upload_base
+ * @global type $sl_location_table_view
+ * @global type $sl_search_label
+ * @global type $sl_zoom_level
+ * @global type $sl_zoom_tweak
+ * @global type $sl_use_city_search
+ * @global type $sl_use_name_search
+ * @global type $sl_default_map
+ * @global type $sl_radius_label
+ * @global type $sl_website_label
+ * @global type $sl_num_initial_displayed
+ * @global type $sl_load_locations_default
+ * @global type $sl_distance_unit
+ * @global type $sl_map_overview_control
+ * @global type $sl_admin_locations_per_page
+ * @global type $sl_instruction_message
+ * @global type $sl_map_character_encoding
+ * @global type $sl_use_country_search
+ * @global type $slplus_show_state_pd
+ * @global string $slplus_name_label
+ */
 function initialize_variables() {
     global $sl_height, $sl_width, $sl_width_units, $sl_height_units;
     global $cl_icon, $cl_icon2, $sl_google_map_domain, $sl_google_map_country, $sl_theme, $sl_base, $sl_upload_base, $sl_location_table_view;
@@ -199,10 +234,13 @@ function initialize_variables() {
         }	
 }
 
-
-
-
-/*----------------------------*/
+/**
+ *
+ * @global type $wpdb
+ * @global type $slplus_plugin
+ * @param type $address
+ * @param type $sl_id
+ */
 function do_geocoding($address,$sl_id='') {    
     global $wpdb, $slplus_plugin;    
     
@@ -353,13 +391,13 @@ function do_geocoding($address,$sl_id='') {
     }
 }    
 
-
-/***********************************
- ** Run install/update activation routines
- **
- ** [LE/PLUS]
- **/
-
+/**
+ * Run the install/update activation routine.
+ * 
+ * @global type $slplus_plugin
+ * @global string $sl_db_version
+ * @global type $sl_installed_ver
+ */
 function activate_slplus() {
     global $slplus_plugin;
     
@@ -708,7 +746,11 @@ function SetMapCenter() {
     return esc_attr(get_option('sl_google_map_country','United States'));    
 }
 
-/*-------------------------------------------------------------*/
+/**
+ *
+ * @param type $a
+ * @return type
+ */
 function comma($a) {
 	$a=ereg_replace('"', "&quot;", $a);
 	$a=ereg_replace("'", "&#39;", $a);
@@ -722,8 +764,7 @@ function comma($a) {
 /************************************************************
  * Copy a file, or recursively copy a folder and its contents
  */
-function csl_copyr($source, $dest)
-{
+function csl_copyr($source, $dest) {
     // Check for symlinks
     if (is_link($source)) {
         return symlink(readlink($source), $dest);
@@ -755,4 +796,3 @@ function csl_copyr($source, $dest)
     $dir->close();
     return true;
 }
-
