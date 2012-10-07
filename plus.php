@@ -6,19 +6,6 @@
  ***************************************************************************/
 
 /**************************************
- ** function: add_slplus_roles_and_caps()
- ** 
- ** Make sure the administrator role has the manage_slp capability.
- **
- **/
-function add_slplus_roles_and_caps() {
-    $role = get_role('administrator');
-    if(!$role->has_cap('manage_slp')) {
-        $role->add_cap('manage_slp');
-    }
-}
-
-/**************************************
  ** function: custom_upload_mimes
  **
  ** Allows WordPress to process csv file types
@@ -49,63 +36,6 @@ function execute_and_output_plustemplate($file) {
     print get_string_from_phpexec($file);
 }
 
-
-/***********************************
- ** function: install_reporting_tables
- **
- ** Install/update the reporting table.
- **
- **/
-function install_reporting_tables() {
-	global $wpdb, $sl_installed_ver;
-
-    
-	$charset_collate = '';
-    if ( ! empty($wpdb->charset) )
-        $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
-    if ( ! empty($wpdb->collate) )
-        $charset_collate .= " COLLATE $wpdb->collate";
-
-	//*****
-	//***** CHANGE sl_db_version IN slplus_dbupdater() 
-	//***** ANYTIME YOU CHANGE THIS STRUCTURE
-	//*****		
-	$table_name = $wpdb->prefix . "slp_rep_query";
-	$sql = "CREATE TABLE $table_name (
-			slp_repq_id    bigint(20) unsigned NOT NULL auto_increment,
-			slp_repq_time  timestamp NOT NULL default current_timestamp,
-			slp_repq_query varchar(255) NOT NULL,
-			slp_repq_tags  varchar(255),
-			slp_repq_address varchar(255),
-			slp_repq_radius varchar(5),
-			PRIMARY KEY  (slp_repq_id),
-			INDEX (slp_repq_time)
-			)
-			$charset_collate						
-			";
-    slplus_dbupdater($sql,$table_name);	
-    
-
-	//*****
-	//***** CHANGE sl_db_version IN slplus_dbupdater() 
-	//***** ANYTIME YOU CHANGE THIS STRUCTURE
-	//*****		
-	$table_name = $wpdb->prefix . "slp_rep_query_results";
-	$sql = "CREATE TABLE $table_name (
-			slp_repqr_id    bigint(20) unsigned NOT NULL auto_increment,
-			slp_repq_id     bigint(20) unsigned NOT NULL,
-			sl_id           mediumint(8) unsigned NOT NULL,
-			PRIMARY KEY  (slp_repqr_id),
-			INDEX (slp_repq_id)
-			)
-			$charset_collate						
-			";
-
-    // Install or Update the slp_rep_query_results table
-    //
-    $slplusNewOrUpdated = slplus_dbupdater($sql,$table_name);     
-}
- 
 /**************************************
  ** function: slplus_add_report_settings()
  ** 

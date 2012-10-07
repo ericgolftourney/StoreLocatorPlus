@@ -82,6 +82,12 @@ include_once(SLPLUS_COREDIR   . 'csl_helpers.php'	);
 include_once(SLPLUS_COREDIR   . 'functions.sl.php'	);
 include_once(SLPLUS_COREDIR   . 'csl-ajax-search.php'	);
 
+// General WP Action Interface
+//
+//instantiated via admin_init() only...
+// adminUI class
+// Activation class
+//
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-actions_class.php');
 $slplus_plugin->Actions = new SLPlus_Actions(array('parent'=>$slplus_plugin));     // Lets invoke this and make it an object
 
@@ -92,13 +98,6 @@ require_once(SLPLUS_PLUGINDIR . '/include/mobile-listener.php');
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-ajax_handler_class.php');
 $slplus_plugin->AjaxHandler = new SLPlus_AjaxHandler(array('parent'=>$slplus_plugin));     // Lets invoke this and make it an object
 
-
-// note: adminUI class is only required & invoked if needed... see slp-actions_class.php
-
-
-// Activation Action (install/upgrade)
-//
-register_activation_hook( __FILE__, 'activate_slplus');
 
 // Regular Actions
 //

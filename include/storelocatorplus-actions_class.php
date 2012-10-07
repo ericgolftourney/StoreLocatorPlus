@@ -57,11 +57,17 @@ if (! class_exists('SLPlus_Actions')) {
             // Already been here?  Get out.
             if (isset($this->parent->settings->sections['How to Use'])) { return; }
 
-            // Add admin helpers
+            // Admin UI Helpers
             //
             require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-adminui_class.php');
             $this->parent->AdminUI = new SLPlus_AdminUI();     // Lets invoke this and make it an object
 
+            // Activation Helpers
+            // Updates are handled via WPCSL via namespace style call
+            //
+            require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-activation_class.php');
+            $this->parent->Activate = new SLPlus_Activate();
+            register_activation_hook( __FILE__, array($this->parent->Activate,'update')); // WP built-in activation call
             
             //-------------------------
             // Navbar Section
