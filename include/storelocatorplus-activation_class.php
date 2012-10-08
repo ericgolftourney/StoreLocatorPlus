@@ -88,6 +88,7 @@ if (! class_exists('SLPlus_Activate')) {
                     sl_linked_postid int NULL,
                     sl_pages_url varchar(255) NULL,
                     sl_pages_on varchar(1) NULL,
+                    sl_option_value longtext NULL,
                     sl_lastupdated  timestamp NOT NULL default current_timestamp,			
                     PRIMARY KEY  (sl_id),
                     INDEX (sl_store),
