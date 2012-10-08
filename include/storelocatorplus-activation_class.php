@@ -54,6 +54,10 @@ if (! class_exists('SLPlus_Activate')) {
 
         /*************************************
          * Update main table
+         *
+         * As of version 3.5, use sl_option_value to store serialized options
+         * related to a single location.
+         *
          */
         function install_main_table() {
             global $wpdb;
