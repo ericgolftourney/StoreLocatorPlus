@@ -48,7 +48,6 @@ if (! class_exists('SLPlus_Activate')) {
             //
             } else {        
                 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-die('Running updater')                ;
                 dbDelta($sql);
                 return 'updated';    
             }   
