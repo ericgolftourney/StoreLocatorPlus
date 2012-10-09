@@ -156,7 +156,9 @@ function CreateTextAreaDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $de
 // Main Processing
 //===========================================================================
 if (!$_POST) {
-    $slplus_plugin->Activate->move_upload_directories();
+    if (is_a($slplus_plugin->Activate,'SLPlus_Activate')) {
+        $slplus_plugin->Activate->move_upload_directories();
+    }
     $update_msg ='';
 } else {
     $sl_google_map_arr=explode(":", $_POST['google_map_domain']);
