@@ -336,6 +336,20 @@ if (! class_exists('SLPlus_Actions')) {
                     'menu_postion'      => 20,   
                     'menu_icon'         => SLPLUS_COREURL . 'images/icon_from_jpg_16x16.png',
                     'capability_type'   => 'page',
+                    'supports'          =>
+                        array(
+                            'title',
+                            'editor',
+                            'author',
+                            'excerpt',
+                            'trackback',
+                            'thumbnail',
+                            'comments',
+                            'revisions',
+                            'custom-fields',
+                            'page-attributes',
+                            'post-formats'
+                        ),
                     )
                 );                
                 
