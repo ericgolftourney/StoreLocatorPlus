@@ -188,6 +188,7 @@ Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support
 = Latest Release: 3.5 (Mid-October, 2012) =
 
 * [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus/) : Add "remove license" to general settings page.
+* [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus/) : Fixed "use email form" setting.
 * [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages/) : Add "remove license" to general settings page.
 * [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages/) : Fixed a bug for pages replace websites on initial load.
 * Force Load JavaScript is not longer Pro Pack only.  Turning it off can help some sites that are having map display issues.

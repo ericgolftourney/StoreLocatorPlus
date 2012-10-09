@@ -245,6 +245,7 @@ if (!$_POST) {
         'hide_address_entry',
         'disable_search',
 		'show_search_by_name',
+        'use_email_form',
         'use_location_sensor'
         );
     foreach ($BoxesToHit as $JustAnotherBox) {        
