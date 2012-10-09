@@ -189,6 +189,7 @@ Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support
 
 * [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus/) : Add "remove license" to general settings page.
 * [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages/) : Add "remove license" to general settings page.
+* Force Load JavaScript is not longer Pro Pack only.  Turning it off can help some sites that are having map display issues.
 * Location sensor refinement.  Should cause less problems when "use location sensor" is enabled.
 * Update KM calculations to use 6371 KM/radian (the preferred standard) versus the calculated 6371.392896 value that was being used.
 ** Calculations in SLP are based on the Spherical Law of Cosines.  Distances on an imperfect sphere like Earth are not exact.
