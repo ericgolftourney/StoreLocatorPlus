@@ -451,7 +451,7 @@ if ($slpLocations=$wpdb->get_results(
             <form name='manualAddForm' method=post>
             <a name='a".$locID."'></a>
             <table cellpadding='0' class='manual_update_table'>
-            <!--thead><tr><td>".__("Type&nbsp;Address", SLPLUS_PREFIX)."</td></tr></thead-->
+            <!--thead><tr><td id='slp_manual_update_table_left_cell'>".__("Type&nbsp;Address", SLPLUS_PREFIX)."</td></tr></thead-->
             <tr>
                 <td valign='top'>";
 
@@ -475,7 +475,7 @@ if ($slpLocations=$wpdb->get_results(
             print "</td>";
 
 
-            print "<td>";
+            print "<td id='slp_manual_update_table_right_cell'>";
             $slpEditForm =
                     "<div id='slp_edit_right_column'>" .
                     "<strong>".__("Additional Information", SLPLUS_PREFIX)."</strong><br>
