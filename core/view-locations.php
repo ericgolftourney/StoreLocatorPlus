@@ -446,8 +446,8 @@ if ($slpLocations=$wpdb->get_results(
         // Show the edit form in a new row for the location that was selected.
         //
         if (isset($_GET['edit']) && ($locID==$_GET['edit'])) {
-            print "<tr style='background-color:$bgcol'>";
-            print "<td colspan='".(count($slpManageColumns)+4)."'>
+            print "<tr id='slp_location_edit_row' style='background-color:$bgcol'>";
+            print "<td class='slp_location_edit_cell' colspan='".(count($slpManageColumns)+4)."'>
             <form name='manualAddForm' method=post>
             <a name='a".$locID."'></a>
             <table cellpadding='0' class='manual_update_table'>
