@@ -54,6 +54,7 @@ if ($_POST                                                  &&
     (isset($_GET['edit']) && $_GET['edit'])                 &&
     (!isset($_POST['act']) || (isset($_POST['act']) && ($_POST['act']!="delete"))) 
     ) {
+
     $field_value_str = '';
     foreach ($_POST as $key=>$sl_value) {
         if (ereg("\-$_GET[edit]", $key)) {
@@ -68,7 +69,6 @@ if ($_POST                                                  &&
         }
     }
     $field_value_str=substr($field_value_str, 0, strlen($field_value_str)-2);
-    $edit=$_GET['edit'];
     extract($_POST);
     $the_address="$address $address2, $city, $state $zip";
 
