@@ -70,7 +70,7 @@ echo CreateInputDiv(
         echo CreateCheckboxDiv(
             '_use_location_sensor',
             __('Use location sensor', SLPLUS_PREFIX),
-            __('This turns on the location sensor for your customers so they can easily get accurate results', SLPLUS_PREFIX) . $ppFeatureMsg,
+            __('This turns on the location sensor (GPS) to set the default search address.  This can be slow to load and customers are prompted whether or not to allow location sensing.', SLPLUS_PREFIX) . $ppFeatureMsg,
             SLPLUS_PREFIX,
             !$slplus_plugin->license->packages['Pro Pack']->isenabled
         );
