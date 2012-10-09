@@ -58,11 +58,8 @@ function csl_ajax_onload() {
 		$name_filter = " AND (sl_store LIKE '%%".$posted_name."%%')";
 	}
 
-	//Since miles is default, if kilometers is selected, divide by 1.609344 in order to convert the kilometer value selection back in miles when generating the XML
-	//
-	$multiplier=(get_option('sl_distance_unit')=="km")? 6371 : 3959;
-		
 	// Select all the rows in the markers table
+	$multiplier=(get_option('sl_distance_unit')=="km")? 6371 : 3959;
 	$query = "SELECT *, ".
 		"( $multiplier * acos( cos( radians('".$_POST['lat']."') ) * cos( radians( sl_latitude ) ) * " .
 				"cos( radians( sl_longitude ) - radians('".$_POST['lng']."') ) + sin( radians('".$_POST['lat']."') ) * ".
@@ -78,6 +75,7 @@ function csl_ajax_onload() {
 	}
 
 	$response = array();
+    
 	// Show Tags
 	//
 	$slplus_show_tags = (get_option(SLPLUS_PREFIX.'_show_tags') ==1);
@@ -96,7 +94,7 @@ function csl_ajax_onload() {
 			'lng' => $row['sl_longitude'],
 			'description' => html_entity_decode($row['sl_description']),
 			'url' => esc_attr($row['sl_url']),
-			'sl_pages_url' => (($row['sl_pages_on'] == 1) ? esc_attr($row['sl_pages_url']) : ''),
+			'sl_pages_url' => esc_attr($row['sl_pages_url']),
 			'email' => esc_attr($row['sl_email']),
 			'hours' => esc_attr($row['sl_hours']),
 			'phone' => esc_attr($row['sl_phone']),
