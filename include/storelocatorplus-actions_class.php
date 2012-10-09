@@ -488,7 +488,7 @@ if (! class_exists('SLPlus_Actions')) {
                 'results_string'    => apply_filters('slp_javascript_results_string',$results_string),
                 'show_tags'         => (get_option(SLPLUS_PREFIX.'_show_tags')==1),
                 'overview_ctrl'     => get_option('sl_map_overview_control',0),
-                'use_email_form'    => (get_option(SLPLUS_PREFIX.'_email_form')==1),
+                'use_email_form'    => (get_option(SLPLUS_PREFIX.'_use_email_form',0)==1),
                 'use_pages_links'   => ($slplus_plugin->settings->get_item('use_pages_links','off')=='on'),
                 'use_same_window'   => ($slplus_plugin->settings->get_item('use_same_window')=='on'),
                 'website_label'     => esc_attr(get_option('sl_website_label','Website')),
