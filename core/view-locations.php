@@ -546,7 +546,7 @@ if ($slpLocations=$wpdb->get_results(
             // Data Columns
             //
             foreach ($slpManageColumns as $slpField => $slpLabel) {
-                print '<td>' . $sl_value[$slpField] . '</td>';
+                print '<td>' . apply_filters('slp_column_data',$sl_value[$slpField], $slpField, $slpLabel) . '</td>';
             }
 
             // Lat/Long Columns
