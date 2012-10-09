@@ -208,7 +208,7 @@ if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
 echo '<p class="slp_admin_info"><strong>'.__('Search Results Labels',SLPLUS_PREFIX).'</strong></p>';
 echo CreateInputDiv(
         'sl_website_label',
-        __('Radius', SLPLUS_PREFIX),
+        __('Website URL', SLPLUS_PREFIX),
         __('Search results text for the website link.',SLPLUS_PREFIX),
         '',
         'website'
