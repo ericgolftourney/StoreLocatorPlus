@@ -1,4 +1,10 @@
 <?php
+/**
+ * Activate Class
+ * 
+ * Mostly handles data structure changes.  
+ * Update the plugin version in config.php on every structure change.
+ */
 
 if (! class_exists('SLPlus_Activate')) {
     class SLPlus_Activate {
@@ -7,11 +13,6 @@ if (! class_exists('SLPlus_Activate')) {
          * PUBLIC PROPERTIES & METHODS
          ******************************/
 
-        //******* Database Version <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        //*******
-        //******* CHANGE THIS ON EVERY STRUCT CHANGE!!!!
-        //*******
-        private $db_version = '3.5';
         public  $db_version_on_start = '';
         
         /*************************************
@@ -47,6 +48,7 @@ if (! class_exists('SLPlus_Activate')) {
             //
             } else {        
                 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+die('Running updater')                ;
                 dbDelta($sql);
                 return 'updated';    
             }   
@@ -57,6 +59,8 @@ if (! class_exists('SLPlus_Activate')) {
          *
          * As of version 3.5, use sl_option_value to store serialized options
          * related to a single location.
+         *
+         * Update the plugin version in config.php on every structure change.
          *
          */
         function install_main_table() {
@@ -142,6 +146,8 @@ if (! class_exists('SLPlus_Activate')) {
         
         /*************************************
          * Install reporting tables
+         *
+         * Update the plugin version in config.php on every structure change.
          */
         function install_reporting_tables() {
             global $wpdb;
@@ -242,12 +248,12 @@ if (! class_exists('SLPlus_Activate')) {
 
             // Set our starting version
             //
-            $this->db_version_on_start = get_option( SLPLUS_PREFIX."-db_version" );
+            $updater->db_version_on_start = get_option( SLPLUS_PREFIX."-db_version" );
 
             // New Installation
             //
-            if ($this->db_version_on_start === '') {
-                add_option(SLPLUS_PREFIX."-db_version", $this->db_version);
+            if ($updater->db_version_on_start === '') {
+                add_option(SLPLUS_PREFIX."-db_version", $updater->plugin->version);
 
             // Updating previous install
             //
@@ -266,7 +272,7 @@ if (! class_exists('SLPlus_Activate')) {
                     update_option(SLPLUS_PREFIX.'-SLPLUS-PAGES-isenabled',get_option(SLPLUS_PREFIX.'-SLP-PAGES-isenabled',''));
                 }
 
-                update_option(SLPLUS_PREFIX."-db_version", $this->db_version);
+                update_option(SLPLUS_PREFIX."-db_version", $updater->plugin->version);
             }
             update_option(SLPLUS_PREFIX.'-theme_lastupdated','2006-10-05');
 
