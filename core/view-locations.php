@@ -447,10 +447,8 @@ if ($slpLocations=$wpdb->get_results(
         //
         if (isset($_GET['edit']) && ($locID==$_GET['edit'])) {
             print "<tr style='background-color:$bgcol'>";
-            $colspan=(get_option('sl_location_table_view')!="Normal")? 	12 : 18;	
-            if ($slplus_plugin->license->packages['Store Pages']->isenabled) { $colspan++; }	            
-
-            print "<td colspan='$colspan'><form name='manualAddForm' method=post>
+            print "<td colspan='".(count($slpManageColumns)+4)."'>
+            <form name='manualAddForm' method=post>
             <a name='a".$locID."'></a>
             <table cellpadding='0' class='manual_update_table'>
             <!--thead><tr><td>".__("Type&nbsp;Address", SLPLUS_PREFIX)."</td></tr></thead-->
