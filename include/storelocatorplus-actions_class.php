@@ -189,7 +189,27 @@ if (! class_exists('SLPlus_Actions')) {
                 )
             );
             if ($this->parent->license->AmIEnabled(true, "SLPLUS-PRO")) {
-                slplus_add_report_settings();
+                $this->parent->settings->add_item(
+                    'Pro Pack',
+                    __('Force Load JavaScript', SLPLUS_PREFIX),
+                    'force_load_js',
+                    'checkbox',
+                    false,
+                    __('Force the JavaScript for Store Locator Plus to load on every page. ' .
+                    'This can slow down your site, but is compatible with more themes and plugins.', SLPLUS_PREFIX),
+                    null,
+                    $this->parent->settings->get_item('force_load_js',true)
+                );
+
+                $this->parent->settings->add_item(
+                    'Pro Pack',
+                    __('Enable reporting', SLPLUS_PREFIX),
+                    'reporting_enabled',
+                    'checkbox',
+                    false,
+                    __('Enables tracking of searches and returned results.  The added overhead ' .
+                    'can increase how long it takes to return location search results.', SLPLUS_PREFIX)
+                );
             }                
         }
 
