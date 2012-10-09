@@ -480,7 +480,7 @@ if ($slpLocations=$wpdb->get_results(
             print "<td>";
             $slpEditForm =
                     "<div id='slp_edit_right_column'>" .
-                    "<b>".__("Additional Information", SLPLUS_PREFIX)."</b><br>
+                    "<strong>".__("Additional Information", SLPLUS_PREFIX)."</strong><br>
                     <textarea name='description-$locID' rows='5' cols='17'>$sl_value[sl_description]</textarea>&nbsp;<small>".__("Description", SLPLUS_PREFIX)."</small><br>
                     <input name='tags-$locID' value='$sl_value[sl_tags]'>&nbsp;<small>"  .__("Tags (seperate with commas)", SLPLUS_PREFIX)."</small><br>		
                     <input name='url-$locID'  value='$sl_value[sl_url]'>&nbsp;<small>"   .__("URL", SLPLUS_PREFIX)."</small><br>
