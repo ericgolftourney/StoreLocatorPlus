@@ -539,18 +539,6 @@ var csl = {
                 }
             }
         }
-  	  	
-  	  	/***************************
-  	  	 * function: __geocodeResult
-  	  	 * usage:
-		 * Called when the geocode is complete
-  	  	 * parameters:
-  	  	 * 	results: some usable results (see google api reference)
-  	  	 *		status:  the status of the geocode (ok means g2g)
-  	  	 * returns: none
-  	  	 */
-  	  	this.__geocodeResult = function(results, status) {
-  	  	}
   	  	  
 		/***************************
   	  	 * function: __waitForTileLoad
