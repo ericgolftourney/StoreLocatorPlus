@@ -79,7 +79,7 @@
                 //
                 if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
                         echo CreateTextAreaDiv(
-                                '_map_center',
+                                SLPLUS_PREFIX.'_map_center',
                                 __('Center Map At',SLPLUS_PREFIX),
                                 __('Enter an address to serve as the initial focus for the map. Default is the center of the country.',SLPLUS_PREFIX),
                                 ''
