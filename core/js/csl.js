@@ -197,17 +197,7 @@ var csl = {
 			}		
 			//find the shadow icon
 			else {
-				// var http = new XMLHttpRequest();
-				// http.onreadystatechange = function() { };
-				// http.open("HEAD", this.__iconUrl.replace('.png', '_shadow.png'), false);
-				// http.send(null);
-				
-				// if (http.status == 404) {
-					// this.noShadow();
-				// }
-				// else {
-					this.useShadow();
-				//}
+                this.useShadow();
 			}
 			
   	  	}
@@ -230,17 +220,30 @@ var csl = {
 			var parts = this.__iconUrl.split('/');
 			var shadow = this.__iconUrl.replace(parts[parts.length - 1], 'blank.png');
 			this.__shadowImage = new google.maps.MarkerImage(shadow,
-				//set the size
-				new google.maps.Size(this.__iconWidth, this.__iconHeight));
+            new google.maps.Size(this.__iconWidth, this.__iconHeight));
 			this.buildMarker();
 			
 		}
 		
 		this.useShadow = function() {
 			var shadow = this.__iconUrl.replace('.png', '_shadow.png');
+            var iconURL = this.__iconUrl;
+/*
+ *            this works but is slow to check for a shadow image
+ *            
+            jQuery.ajax(
+                {
+                    url:shadow,
+                    type:'HEAD',
+                    async: false,
+                    error:function(){
+                        var parts = iconUrl.split('/');
+                        shadow = iconUrl.replace(parts[parts.length - 1], 'blank.png');
+                    }
+                }
+            );
+*/
 			this.__shadowImage = shadow;
-				//set the size
-				//new google.maps.Size(this.__iconWidth, this.__iconHeight));
 			this.buildMarker();
 		}
   	  	 
