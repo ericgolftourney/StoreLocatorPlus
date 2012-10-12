@@ -505,7 +505,8 @@ var csl = {
                     overviewMapControlOptions: { opened: this.overviewControl }
                 };
                 this.debugSearch(this.options);
-                this.gmap = new google.maps.Map(document.getElementById('map'), this.options);
+                slpMapDiv = document.getElementById('map');
+                this.gmap = new google.maps.Map(slpMapDiv, this.options);
                 this.debugSearch(this.gmap);
                 //this forces any bad css from themes to fix the "gray bar" issue by setting the css max-width to none
                 var _this = this;
