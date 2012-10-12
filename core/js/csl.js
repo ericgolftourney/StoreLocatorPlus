@@ -796,7 +796,7 @@ var csl = {
                             var tag_to_search_for = _this.saneValue('tag_to_search_for', '');
                             //do a search based on settings
                             var radius = _this.saneValue('radiusSelect');
-                            this.loadMarkers(results[0].geometry.location, radius, tag_to_search_for);
+                            _this.loadMarkers(results[0].geometry.location, radius, tag_to_search_for);
                         }
                         //if the user entered an address, replace it with a formatted one
                         var addressInput = _this.saneValue('addressInput','');
