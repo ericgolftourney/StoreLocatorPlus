@@ -37,6 +37,7 @@ function slp_add_marker($row = null,$type='load') {
           'distance' => $row['sl_distance'],
           'tags' => ((get_option(SLPLUS_PREFIX.'_show_tags',0) ==1)? esc_attr($row['sl_tags']) : ''),
           'data_from' => $type,
+          'option_value' => esc_js($row['sl_option_value']),
           'id' => $row['sl_id'],
       );
 
