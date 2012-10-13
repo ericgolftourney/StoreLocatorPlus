@@ -95,7 +95,7 @@ if (! class_exists('SLPlus_Actions')) {
             );
         
             //-------------------------
-            // Google Communiations
+            // Google Communication
             //-------------------------    
              $this->parent->settings->add_section(
                 array(
