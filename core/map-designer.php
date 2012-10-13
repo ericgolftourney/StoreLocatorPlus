@@ -343,12 +343,10 @@ while (false !== ($an_icon=readdir($cl_icon_dir))) {
 	    (preg_match('/shadow\.(png|gif|jpg)/i', $an_icon) <= 0) 
 	    ) {
 		$cl_icon_str.=
-		"<img style='cursor:pointer; padding:2px; margin: 0px 2px;' 
+		"<div class='slp_icon_selector_box'><img class='slp_icon_selector'
 		     src='".SLPLUS_ICONURL.$an_icon."'
 		     onclick='document.forms[0].icon.value=this.src;document.getElementById(\"prev\").src=this.src;'
-		     onmouseover='style.borderColor=\"red\";' 
-		     onmouseout='style.borderColor=\"white\";'
-		     >";
+		     ></div>";
 	}
 }
 // Custom icon directory?
@@ -357,12 +355,10 @@ if (is_dir($sl_upload_path."/custom-icons/")) {
 	while (false !== ($an_icon=readdir($cl_icon_upload_dir))) {
 		if (!ereg("^\.{1,2}$", $an_icon) && !ereg("shadow", $an_icon) && !ereg("\.db", $an_icon)) {
 			$cl_icon_str.=
-			"<img style='cursor:pointer; padding:2px; margin: 0px 2px;' 
+			"<div class='slp_icon_selector_box'><img class='slp_icon_selector'
 			src='$sl_upload_base/custom-icons/$an_icon' 
 			onclick='document.forms[\"mapDesigner\"].icon.value=this.src;document.getElementById(\"prev\").src=this.src;' 
-			onmouseover='style.borderColor=\"red\";' 
-			onmouseout='style.borderColor=\"white\";'
-			>";
+			></div>";
 		}
 	}
 }
