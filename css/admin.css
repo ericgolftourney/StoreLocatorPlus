@@ -689,10 +689,10 @@ p.slp_admin_info {
 }
 
 .form-table .input_label {
-    vertical-align: middle;
-    padding: 0px;
-    text-align: right;
     font-weight:bold;
+    padding: 1em 0 0;
+    text-align: right;
+    vertical-align: top;
 }
 
 div#wpbody-content div.wrap div.updated,
