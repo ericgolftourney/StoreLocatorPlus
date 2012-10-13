@@ -199,7 +199,7 @@
                 <label for='icon'><?php _e('Home Icon', SLPLUS_PREFIX);?></label>
                 <input id='icon' name='icon' dir='rtl' size='45' value='<?php echo $cl_icon;?>' onchange="document.getElementById('prev').src=this.value">
                     &nbsp;&nbsp;<img id='prev' src='<?php echo $cl_icon;?>' align='top'><br/>
-                <?php echo $cl_icon_str;?></div>
+                <?php echo $cl_icon_str;?>
             </div>
     
             <div class='form_entry'>
