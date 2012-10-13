@@ -181,7 +181,7 @@ if (!$_POST) {
     }    
     update_option('sl_map_width_units', $_POST['width_units']);
     update_option('sl_map_width', $_POST['width']);
-    
+
     update_option('sl_map_home_icon', $_POST['icon']);
     update_option('sl_map_end_icon', $_POST['icon2']);
 
@@ -333,7 +333,7 @@ $checked3	        = (get_option('sl_remove_credits',0)  ==1)?' checked ':'';
 
 //---- ICONS ----
 $cl_icon_str   =(isset($cl_icon_str)  ?$cl_icon_str  :'');
-$cl_icon_str .= $slplus_plugin->AdminUI->rendorIconSelector('prev');
+$cl_icon_str .= $slplus_plugin->AdminUI->rendorIconSelector('icon','prev');
 $cl_icon2_str  =(isset($cl_icon2_str) ?$cl_icon2_str :'');
 
 // Custom icon directory?
@@ -352,6 +352,7 @@ if (is_dir($sl_upload_path."/custom-icons/")) {
 
 $cl_icon2_str = preg_replace('/\.icon\.value/','.icon2.value',$cl_icon_str);
 $cl_icon2_str = preg_replace('/getElementById\("prev"\)/','getElementById("prev2")',$cl_icon2_str);
+$cl_icon2_str = preg_replace('/getElementById\("icon"\)/','getElementById("icon2")',$cl_icon2_str);
 
 // Icon is the old path, notify them to re-select
 //

@@ -365,7 +365,8 @@ if (! class_exists('SLPlus_AdminUI')) {
           * @param string $elementToUpate - the name of the input ID to update on click
           * @return string - the html of the icon selector
           */
-         function rendorIconSelector($elementToUpdate = 'prev') {
+         function rendorIconSelector($inputFieldID = null, $inputImageID = null) {
+            if (($inputFieldID == null) || ($inputImageID == null)) { return ''; }
             $htmlStr = '';
             $iconDir=opendir(SLPLUS_ICONDIR);
             while (false !== ($an_icon=readdir($iconDir))) {
@@ -377,11 +378,17 @@ if (! class_exists('SLPlus_AdminUI')) {
                         "<div class='slp_icon_selector_box'>".
                             "<img class='slp_icon_selector'
                                  src='".SLPLUS_ICONURL.$an_icon."'
-                                 onclick='document.forms[0].icon.value=this.src;document.getElementById(\"".$elementToUpdate."\").src=this.src;'
-                                 >".
+                                 onclick='".
+                                    "document.getElementById(\"".$inputFieldID."\").value=this.src;".
+                                    "document.getElementById(\"".$inputImageID."\").src=this.src;".
+                                 "'>".
                          "</div>"
                          ;
                 }
+            }
+            if ($htmlStr != '') {
+                $htmlStr = '<div id="'.$inputFieldID.'_icon_row" class="slp_icon_row">'.$htmlStr.'</div>';
+
             }
             return $htmlStr;
          }
