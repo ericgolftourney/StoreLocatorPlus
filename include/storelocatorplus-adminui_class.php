@@ -358,6 +358,34 @@ if (! class_exists('SLPlus_AdminUI')) {
                 execute_and_output_template('add_locations.php');
          }
 
+
+         /**
+          * Render an icon selector for the icon images store in the SLP plugin icon directory.
+          * 
+          * @param string $elementToUpate - the name of the input ID to update on click
+          * @return string - the html of the icon selector
+          */
+         function rendorIconSelector($elementToUpdate = 'prev') {
+            $htmlStr = '';
+            $iconDir=opendir(SLPLUS_ICONDIR);
+            while (false !== ($an_icon=readdir($iconDir))) {
+                if (
+                    (preg_match('/\.(png|gif|jpg)/i', $an_icon) > 0) &&
+                    (preg_match('/shadow\.(png|gif|jpg)/i', $an_icon) <= 0)
+                    ) {
+                    $htmlStr .=
+                        "<div class='slp_icon_selector_box'>".
+                            "<img class='slp_icon_selector'
+                                 src='".SLPLUS_ICONURL.$an_icon."'
+                                 onclick='document.forms[0].icon.value=this.src;document.getElementById(\"".$elementToUpdate."\").src=this.src;'
+                                 >".
+                         "</div>"
+                         ;
+                }
+            }
+            return $htmlStr;
+         }
+
     }
 }        
      

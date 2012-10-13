@@ -333,22 +333,9 @@ $checked3	        = (get_option('sl_remove_credits',0)  ==1)?' checked ':'';
 
 //---- ICONS ----
 $cl_icon_str   =(isset($cl_icon_str)  ?$cl_icon_str  :'');
+$cl_icon_str .= $slplus_plugin->AdminUI->rendorIconSelector('prev');
 $cl_icon2_str  =(isset($cl_icon2_str) ?$cl_icon2_str :'');
-$cl_icon_dir=opendir(SLPLUS_ICONDIR);
 
-// List icons
-while (false !== ($an_icon=readdir($cl_icon_dir))) {
-	if (
-	    (preg_match('/\.(png|gif|jpg)/i', $an_icon) > 0) && 
-	    (preg_match('/shadow\.(png|gif|jpg)/i', $an_icon) <= 0) 
-	    ) {
-		$cl_icon_str.=
-		"<div class='slp_icon_selector_box'><img class='slp_icon_selector'
-		     src='".SLPLUS_ICONURL.$an_icon."'
-		     onclick='document.forms[0].icon.value=this.src;document.getElementById(\"prev\").src=this.src;'
-		     ></div>";
-	}
-}
 // Custom icon directory?
 if (is_dir($sl_upload_path."/custom-icons/")) {
 	$cl_icon_upload_dir=opendir($sl_upload_path."/custom-icons/");
