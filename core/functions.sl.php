@@ -415,7 +415,7 @@ function do_geocoding($address,$sl_id='') {
     $slplus_state_options=(isset($slplus_state_options)   ?$slplus_state_options:'');
 
     foreach ($r_array as $sl_value) {
-        $s=(ereg("\(.*\)", $sl_value))? " selected='selected' " : "" ;
+        $selected=(preg_match('/\(.*\)/', $sl_value))? " selected='selected' " : "" ;
         
         // Hiding Radius?
         if (get_option(SLPLUS_PREFIX.'_hide_radius_selections') == 1) {
@@ -427,7 +427,7 @@ function do_geocoding($address,$sl_id='') {
         // Not hiding radius, build pulldown.
         } else {
             $sl_value=ereg_replace("[^0-9]", "", $sl_value);
-            $r_options.="<option value='$sl_value' $s>$sl_value $unit_display</option>";
+            $r_options.="<option value='$sl_value' $selected>$sl_value $unit_display</option>";
         }
     }
         

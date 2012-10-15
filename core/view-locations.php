@@ -68,7 +68,7 @@ if ($_POST                                                  &&
     //
     $field_value_str = '';
     foreach ($_POST as $key=>$sl_value) {
-        if (ereg("\-$_GET[edit]", $key)) {
+        if (preg_match('#\-$_GET[edit]#', $key)) {
             $slpFieldName = ereg_replace("\-$_GET[edit]", "", $key);
             if (!$slplus_plugin->license->packages['Pro Pack']->isenabled) {
                 if ( ($slpFieldName == 'latitude') || ($slpFieldName == 'longitude')) {
@@ -181,7 +181,7 @@ if (isset($_REQUEST['act'])) {
         }
 
     // Tagging Action
-    }  elseif (eregi("tag", $_REQUEST['act'])) {
+    }  elseif (preg_match('#tag#i', $_REQUEST['act'])) {
 
         //adding or removing tags for specified a locations
         if ($_POST) {extract($_POST);}

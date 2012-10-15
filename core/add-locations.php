@@ -46,7 +46,7 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
     $fieldList = '';
     $sl_valueList = '';
 	foreach ($_POST as $key=>$sl_value) {
-		if (ereg("sl_", $key)) {
+		if (strpos($key,'sl_')) {
 			$fieldList.="$key,";
 			$sl_value=comma($sl_value);
 			$sl_valueList.="\"".stripslashes($sl_value)."\",";

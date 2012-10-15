@@ -246,7 +246,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                     $fieldList = '';
                     $sl_valueList = '';
                     foreach ($_POST as $key=>$sl_value) {
-                        if (ereg("sl_", $key)) {
+                        if (preg_match('#sl_#', $key)) {
                             $fieldList.="$key,";
                             $sl_value=comma($sl_value);
                             $sl_valueList.="\"".stripslashes($sl_value)."\",";

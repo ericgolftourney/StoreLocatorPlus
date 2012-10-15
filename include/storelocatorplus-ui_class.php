@@ -51,7 +51,7 @@ if (! class_exists('SLPlus_UI')) {
             foreach ($tags as $selection) {
                 $clean_selection = preg_replace('/\((.*)\)/','$1',$selection);
                 print "<option value='$clean_selection' ";
-                print (ereg("\(.*\)", $selection))? " selected='selected' " : '';
+                print (preg_match('#\(.*\)#', $selection))? " selected='selected' " : '';
                 print ">$clean_selection</option>";
             }
             print "</select>";

@@ -340,7 +340,7 @@ $cl_icon2_str  =(isset($cl_icon2_str) ?$cl_icon2_str :'');
 if (is_dir($sl_upload_path."/custom-icons/")) {
 	$cl_icon_upload_dir=opendir($sl_upload_path."/custom-icons/");
 	while (false !== ($an_icon=readdir($cl_icon_upload_dir))) {
-		if (!ereg("^\.{1,2}$", $an_icon) && !ereg("shadow", $an_icon) && !ereg("\.db", $an_icon)) {
+		if (!preg_match('/^\.{1,2}$/', $an_icon) && !preg_match('/shadow/', $an_icon) && !preg_match('/\.db/', $an_icon)) {
 			$cl_icon_str.=
 			"<div class='slp_icon_selector_box'><img class='slp_icon_selector'
 			src='$sl_upload_base/custom-icons/$an_icon' 
@@ -358,14 +358,14 @@ $cl_icon2_str = preg_replace('/getElementById\("icon"\)/','getElementById("icon2
 //
 $cl_icon_notification_msg=
 (
-    ( !ereg("/core/images/icons/", get_option('sl_map_home_icon')) 
+    ( !preg_match('#/core/images/icons/#', get_option('sl_map_home_icon'))
         && 
-      !ereg("/custom-icons/", get_option('sl_map_home_icon'))
+      !preg_match('#/custom-icons/#', get_option('sl_map_home_icon'))
     )
         || 
-    ( !ereg("/core/images/icons/", get_option('sl_map_end_icon')) 
+    ( !preg_match('#/core/images/icons/#', get_option('sl_map_end_icon'))
         && 
-      !ereg("/custom-icons/", get_option('sl_map_end_icon'))
+      !preg_match('#/custom-icons/#', get_option('sl_map_end_icon'))
     )
 )
     ? 
