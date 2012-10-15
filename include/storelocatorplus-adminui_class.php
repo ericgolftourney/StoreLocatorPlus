@@ -34,7 +34,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                         alt='".__('create page',SLPLUS_PREFIX)."' 
                         title='".__('create page',SLPLUS_PREFIX)."' 
                         href='".
-                            ereg_replace("&createpage=".(isset($_GET['createpage'])?$_GET['createpage']:''), "",$_SERVER['REQUEST_URI']).
+                            preg_replace('/&createpage=/'.(isset($_GET['createpage'])?$_GET['createpage']:''), "",$_SERVER['REQUEST_URI']).
                             "&act=createpage&sl_id=$locationID&slp_pageid=$storePageID#a$locationID'
                    ></a>";            
         }  

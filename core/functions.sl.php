@@ -420,13 +420,13 @@ function do_geocoding($address,$sl_id='') {
         // Hiding Radius?
         if (get_option(SLPLUS_PREFIX.'_hide_radius_selections') == 1) {
             if ($s == " selected='selected' ") {
-                $sl_value=ereg_replace("[^0-9]", "", $sl_value);
+                $sl_value=preg_replace('/[^0-9]/', '', $sl_value);
                 $r_options = "<input type='hidden' id='radiusSelect' name='radiusSelect' value='$sl_value'>";
             }
             
         // Not hiding radius, build pulldown.
         } else {
-            $sl_value=ereg_replace("[^0-9]", "", $sl_value);
+            $sl_value=preg_replace('/[^0-9]/', '', $sl_value);
             $r_options.="<option value='$sl_value' $selected>$sl_value $unit_display</option>";
         }
     }
@@ -547,12 +547,12 @@ function SetMapCenter() {
  * @return type
  */
 function comma($a) {
-	$a=ereg_replace('"', "&quot;", $a);
-	$a=ereg_replace("'", "&#39;", $a);
-	$a=ereg_replace(">", "&gt;", $a);
-	$a=ereg_replace("<", "&lt;", $a);
-	$a=ereg_replace(" & ", " &amp; ", $a);
-	return ereg_replace("," ,"&#44;" ,$a);
-	
+	$a=preg_replace("/'/"     , '&#39;'   , $a);
+	$a=preg_replace('/"/'     , '&quot;'  , $a);
+	$a=preg_replace('/>/'     , '&gt;'    , $a);
+	$a=preg_replace('/</'     , '&lt;'    , $a);
+	$a=preg_replace('/,/'     , '&#44;'   , $a);
+	$a=preg_replace('/ & /'   , ' &amp; ' , $a);
+    return $a;
 }
 

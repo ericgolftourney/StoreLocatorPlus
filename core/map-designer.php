@@ -165,8 +165,8 @@ if (!$_POST) {
     update_option('sl_google_map_country', $sl_google_map_arr[0]);
     update_option('sl_google_map_domain', $sl_google_map_arr[1]);
     
-    $_POST['height']=ereg_replace("[^0-9]", "", $_POST['height']);
-    $_POST['width']=ereg_replace("[^0-9]", "", $_POST['width']);
+    $_POST['height']=preg_replace('/[^0-9]/', '', $_POST['height']);
+    $_POST['width'] =preg_replace('/[^0-9]/', '', $_POST['width']);
 
     // Height if % set range 0..100    
     if ($_POST['height_units'] == '%') {

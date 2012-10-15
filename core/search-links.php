@@ -49,7 +49,7 @@ $pos=($beginning_link-1)*$num_per_page;
 }
 
 $qry = isset($_GET['q'])?$_GET['q']:'';
-$cleared=ereg_replace("q=$qry", "", $_SERVER['REQUEST_URI']);
+$cleared=preg_replace('/q=$qry/', '', $_SERVER['REQUEST_URI']);
 
 $extra_text=(trim($qry)!='')    ? 
     __("for your search of", SLPLUS_PREFIX).

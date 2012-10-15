@@ -69,7 +69,7 @@ if ($_POST                                                  &&
     $field_value_str = '';
     foreach ($_POST as $key=>$sl_value) {
         if (preg_match('#\-$_GET[edit]#', $key)) {
-            $slpFieldName = ereg_replace("\-$_GET[edit]", "", $key);
+            $slpFieldName = preg_replace('#\-$_GET[edit]#', '', $key);
             if (!$slplus_plugin->license->packages['Pro Pack']->isenabled) {
                 if ( ($slpFieldName == 'latitude') || ($slpFieldName == 'longitude')) {
                     continue;
@@ -102,7 +102,7 @@ if ($_POST                                                  &&
 
     // Redirect to the edit page
     //
-    print "<script>location.replace('".ereg_replace("&edit=$_GET[edit]", "",
+    print "<script>location.replace('".preg_replace('/&edit=$_GET[edit]/', '',
                 $_SERVER['REQUEST_URI'])."');</script>";
 }
 	
@@ -303,7 +303,7 @@ if (isset($_GET['changeUpdater']) && ($_GET['changeUpdater']==1)) {
         update_option('sl_location_updater_type', 'Tagging');
         $updaterTypeText="Tagging";
     }
-    $_SERVER['REQUEST_URI']=ereg_replace("&changeUpdater=1", "", $_SERVER['REQUEST_URI']);
+    $_SERVER['REQUEST_URI']=preg_replace('/&changeUpdater=1/', '', $_SERVER['REQUEST_URI']);
     print "<script>location.replace('".$_SERVER['REQUEST_URI']."');</script>";
 }
 
@@ -481,7 +481,7 @@ if ($slpLocations=$wpdb->get_results(
 
             $slpEditForm .= "<br><nobr>".
                     "<input type='submit' value='".__("Update", SLPLUS_PREFIX)."' class='button-primary'>".
-                    "<input type='button' class='button' value='".__("Cancel", SLPLUS_PREFIX)."' onclick='location.href=\"".ereg_replace("&edit=$_GET[edit]", "",$_SERVER['REQUEST_URI'])."\"'>".
+                    "<input type='button' class='button' value='".__("Cancel", SLPLUS_PREFIX)."' onclick='location.href=\"".preg_replace('/&edit=$_GET[edit]/', '',$_SERVER['REQUEST_URI'])."\"'>".
                     "<input type='hidden' name='option_value-$locID' value='$sl_value[sl_option_value]' />" .
                     "</nobr>";
             print apply_filters('slp_edit_location_left_column',$slpEditForm);
@@ -537,7 +537,7 @@ if ($slpLocations=$wpdb->get_results(
             print "<th class='thnowrap'>".                                                     // Action Column
 
                 "<a class='action_icon edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."' 
-                    href='".ereg_replace("&edit=".(isset($_GET['edit'])?$_GET['edit']:''), "",$_SERVER['REQUEST_URI']).
+                    href='".preg_replace('/&edit=/'.(isset($_GET['edit'])?$_GET['edit']:''), '',$_SERVER['REQUEST_URI']).
                 "&edit=" . $locID ."#a$locID'></a>".
                 "&nbsp;" . 
                 "<a class='action_icon delete_icon' alt='".__('delete',SLPLUS_PREFIX)."' title='".__('delete',SLPLUS_PREFIX)."' 
