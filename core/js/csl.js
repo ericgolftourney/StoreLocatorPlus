@@ -687,7 +687,7 @@ var csl = {
 				
 				this.debugSearch(position);
 
-                locationIcon = ((markerList[markerNumber].icon.length > 4)?markerList[markerNumber].icon:this.mapEndIconUrl);
+                locationIcon = ((typeof markerList[markerNumber].icon != 'undefined') && (markerList[markerNumber].icon.length > 4)?markerList[markerNumber].icon:this.mapEndIconUrl);
 				this.markers.push(new csl.Marker(animation, this, "", position, locationIcon, this.mapEndIconWidth, this.mapEndIconHeight ));
 				_this = this;
 				
