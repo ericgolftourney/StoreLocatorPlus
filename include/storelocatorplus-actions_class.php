@@ -459,7 +459,7 @@ if (! class_exists('SLPlus_Actions')) {
                                 '<a href="http://{10}' .
                                 '/maps?saddr={11}'  .
                                 '&daddr={12}'  .
-                                '" target="_blank" class="storelocatorlink">Directions</a>{13}</td>'  .
+                                '" target="_blank" class="storelocatorlink">{13}</a>{14}</td>'  .
                             '</tr>'  .
                         '</table>'  .
                         '</center>';
@@ -473,6 +473,10 @@ if (! class_exists('SLPlus_Actions')) {
                 'disable_dir'       => (get_option(SLPLUS_PREFIX.'_disable_initialdirectory' )==1),
                 'distance_unit'     => esc_attr(get_option('sl_distance_unit'),'miles'),
                 'load_locations'    => (get_option('sl_load_locations_default')==1),
+                'label_directions'  => esc_attr(get_option(SLPLUS_PREFIX.'_label_directions',   'Directions')  ),
+                'label_fax'         => esc_attr(get_option(SLPLUS_PREFIX.'_label_fax',          'Fax: ')         ),
+                'label_hours'       => esc_attr(get_option(SLPLUS_PREFIX.'_label_hours',        'Hours: ')       ),
+                'label_phone'       => esc_attr(get_option(SLPLUS_PREFIX.'_label_phone',        'Phone: ')       ),
                 'map_3dcontrol'     => (get_option(SLPLUS_PREFIX.'_disable_largemapcontrol3d')==0),
                 'map_country'       => SetMapCenter(),
                 'map_domain'        => get_option('sl_google_map_domain','maps.google.com'),

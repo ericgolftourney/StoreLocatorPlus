@@ -214,6 +214,34 @@ echo CreateInputDiv(
         'website'
         );
 echo CreateInputDiv(
+        '_label_hours',
+        __('Hours', SLPLUS_PREFIX),
+        __('Hours label.',SLPLUS_PREFIX),
+        SLPLUS_PREFIX,
+        'Hours: '
+        );
+echo CreateInputDiv(
+        '_label_phone',
+        __('Phone', SLPLUS_PREFIX),
+        __('Phone label.',SLPLUS_PREFIX),
+        SLPLUS_PREFIX,
+        'Phone: '
+        );
+echo CreateInputDiv(
+        '_label_fax',
+        __('Fax', SLPLUS_PREFIX),
+        __('Fax label.',SLPLUS_PREFIX),
+        SLPLUS_PREFIX,
+        'Fax: '
+        );
+echo CreateInputDiv(
+        '_label_directions',
+        __('Directions', SLPLUS_PREFIX),
+        __('Directions label.',SLPLUS_PREFIX),
+        SLPLUS_PREFIX,
+        'Directions'
+        );
+echo CreateInputDiv(
         'sl_instruction_message',
         __('Instructions', SLPLUS_PREFIX),
         __('Search results instructions shown if immediately show locations is not selected.',SLPLUS_PREFIX),

@@ -44,6 +44,7 @@ We now offer premium add-on packages for our basic Store Locator Plus plugin.
 * [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : More control over the map, search form, loading locations.
 * [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages) : Create SEO friendly WordPress pages for your store locations.
 * [Enhanced Search](http://www.charlestonsw.com/product/store-locator-plus-enhanced-search) : Get even more control over the basic search form and even more when the Pro Pack is installed.
+* [Tagalong](http://www.charlestonsw.com/product/store-locator-plus-tagalong/) : Add custom map markers based on location categories.
 
 If you are a plugin developer you will be interested in our new "Roll Your Own" program where you can create SLP based premium (or free) add-ons of your own.   Create something great and list it on our site!
 
@@ -185,12 +186,15 @@ We update about once per month or more frequently as needed.
 
 Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support/documentation/store-locator-plus/release-notes/) at our website.
 
-= 3.5.4 (Early-October, 2012) =
+= 3.6 (Early-October, 2012) =
 
+* Add labels for phone, fax, directions, and hours in map settings.
 * Replace PHP ereg() and erep_replace() with PCRE versions.
 ** ereg functions are deprecated with PHP5.3, no need to be filling up warning logs with that info.
 ** This is normally hidden on a production install.
 ** PCRE is faster anyway, which makes this release a minor performance improvement.
+* Add more [Hooks and Filters](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/) for 3rd party plugins.
+
 
 
 = 3.5.3 (Early-October, 2012) =

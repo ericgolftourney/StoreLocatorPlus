@@ -933,16 +933,16 @@ var csl = {
 			}
 			
 			if (aMarker.hours != '') {
-				html+="<br/><span class='location_detail_label'>Hours:</span> "+aMarker.hours;
+				html+="<br/><span class='location_detail_label'>"+slplus.label_hours+"</span> "+aMarker.hours;
 			} else {
 				aMarker.hours = "";
 			}
 			
 			if (aMarker.phone != '') {
-				html+="<br/><span class='location_detail_label'>Phone:</span> "+aMarker.phone;
+				html+="<br/><span class='location_detail_label'>"+slplus.label_phone+"</span> "+aMarker.phone;
 			}
 			if (aMarker.fax != '') {
-				html+="<br/><span class='location_detail_label'>Fax:</span> "+aMarker.fax;
+				html+="<br/><span class='location_detail_label'>"+slplus.label_fax+"</span> "+aMarker.fax;
 			}
 
 			var address = this.__createAddress(aMarker);
@@ -952,7 +952,7 @@ var csl = {
 					html += '<br/>'+aMarker.tags;
 				}
 			}
-			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.address) + '&daddr=' + encodeURIComponent(address) + '" target="_blank" class="storelocatorlink">Directions</a> ' + html + '<br/><!--/td></tr--></div>';
+			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.address) + '&daddr=' + encodeURIComponent(address) + '" target="_blank" class="storelocatorlink">'+slplus.label_directions+'</a> ' + html + '<br/><!--/td></tr--></div>';
 			
 			return complete_html;
 		}
@@ -1157,12 +1157,12 @@ var csl = {
                 city_state_zip += '<br/>';
             }
             if (jQuery.trim(aMarker.phone) != '') {
-                thePhone = '<br/>phone: ' + aMarker.phone;
+                thePhone = '<br/>' + slplus.label_phone+ aMarker.phone;
             } else {
                 thePhone = ''
             }
             if (jQuery.trim(aMarker.fax) != '') {
-                theFax = '<br/>fax: ' + aMarker.fax;
+                theFax = '<br/>' + slplus.label_fax + aMarker.fax;
             } else {
                 theFax = ''
             }
@@ -1198,6 +1198,7 @@ var csl = {
                         slplus.map_domain,
                         encodeURIComponent(this.address),
                         encodeURIComponent(address),
+                        slplus.label_directions,
                         tagInfo
                       )
                       ;

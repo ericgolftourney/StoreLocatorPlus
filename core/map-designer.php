@@ -202,6 +202,11 @@ if (!$_POST) {
         'sl_radius_label'                       ,
         'sl_search_label'                       ,
         'sl_website_label'                      ,
+
+        SLPLUS_PREFIX.'_label_directions'       ,
+        SLPLUS_PREFIX.'_label_fax'              ,
+        SLPLUS_PREFIX.'_label_hours'            ,
+        SLPLUS_PREFIX.'_label_phone'            ,
         
         'sl_starting_image'                     ,
         SLPLUS_PREFIX.'_tag_search_selections'  ,
