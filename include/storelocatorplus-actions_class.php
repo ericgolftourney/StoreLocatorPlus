@@ -61,6 +61,7 @@ if (! class_exists('SLPlus_Actions')) {
             //
             require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-adminui_class.php');
             $this->parent->AdminUI = new SLPlus_AdminUI();     // Lets invoke this and make it an object
+            $this->parent->AdminUI->set_style_as_needed();
 
             // Activation Helpers
             // Updates are handled via WPCSL via namespace style call
@@ -289,7 +290,7 @@ if (! class_exists('SLPlus_Actions')) {
                             array($menuItem['class'],$menuItem['function'])
                             );
 
-                    // Full URL or plain function mame
+                    // Full URL or plain function name
                     //
                     } else {
                         add_submenu_page(
@@ -451,11 +452,11 @@ if (! class_exists('SLPlus_Actions')) {
             // Results Output String In JavaScript Format
             //
             $results_string = '<center>' .
-                    '<table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable">'  .
-                        '<tr class="slp_results_row">'  .
-                            '<td class="results_row_left_column"><span class="location_name">{0}</span><br>{1} {2}</td>'  .
-                            '<td class="results_row_center_column">{3}{4}{5}{6}{7}</td>'  .
-                            '<td class="results_row_right_column">{8}{9}'  .
+                    '<table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable" id="slp_results_table">'  .
+                        '<tr class="slp_results_row" id="slp_location_{15}">'  .
+                            '<td class="results_row_left_column" id="slp_left_cell_{15}"><span class="location_name">{0}</span><br>{1} {2}</td>'  .
+                            '<td class="results_row_center_column" id="slp_center_cell_{15}">{3}{4}{5}{6}{7}</td>'  .
+                            '<td class="results_row_right_column" id="slp_right_cell_{15}">{8}{9}'  .
                                 '<a href="http://{10}' .
                                 '/maps?saddr={11}'  .
                                 '&daddr={12}'  .

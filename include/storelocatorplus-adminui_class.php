@@ -15,13 +15,70 @@ if (! class_exists('SLPlus_AdminUI')) {
         /******************************
          * PUBLIC PROPERTIES & METHODS
          ******************************/
-        
+        public $styleHandle = 'csl_slplus_admin_css';
+
         /*************************************
          * The Constructor
          */
         function __construct($params=null) {
+
+            // Register our admin styleseheet
+            //
+            if (file_exists(SLPLUS_PLUGINDIR.'css/admin.css')) {
+                wp_register_style($this->styleHandle, SLPLUS_PLUGINURL .'/css/admin.css');
+            }
         } 
         
+        /**
+         * Enqueue the admin stylesheet when needed.
+         */
+        function enqueue_admin_stylesheet() {
+            wp_enqueue_style($this->styleHandle);
+        }
+
+        /**
+         * Setup the stylesheet only when needed.
+         */
+        function set_style_as_needed() {
+            $slugPrefix = 'store-locator-plus_page_';
+
+            // Add Locations
+            //
+            add_action(
+                   'admin_print_styles-' . $slugPrefix . 'slp_add_locations',
+                    array($this,'enqueue_admin_stylesheet')
+                    );
+
+            // General Settings
+            //
+           add_action(
+                   'admin_print_styles-'  . $slugPrefix . 'slp_general_settings',
+                    array($this,'enqueue_admin_stylesheet')
+                    );
+
+            // Manage Locations
+            //
+            add_action(
+                   'admin_print_styles-' . 'store-locator-le/core/view-locations.php',
+                    array($this,'enqueue_admin_stylesheet')
+                    );
+
+            // Map Settings
+            //
+            add_action(
+                   'admin_print_styles-' . 'store-locator-le/core/map-designer.php',
+                    array($this,'enqueue_admin_stylesheet')
+                    );
+
+            // Reporting
+            //
+            add_action(
+                   'admin_print_styles-' . 'store-locator-le/reporting.php',
+                    array($this,'enqueue_admin_stylesheet')
+                    );
+
+        }
+
         /*************************************
          * method: slpRenderCreatePageButton()
          *

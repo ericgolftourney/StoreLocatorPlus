@@ -1199,7 +1199,8 @@ var csl = {
                         encodeURIComponent(this.address),
                         encodeURIComponent(address),
                         slplus.label_directions,
-                        tagInfo
+                        tagInfo,
+                        aMarker.id
                       )
                       ;
 			div.className = 'results_entry';
