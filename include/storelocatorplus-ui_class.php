@@ -28,7 +28,7 @@ if (! class_exists('SLPlus_UI')) {
          * Render the search form for the map.
          */
         function slp_render_search_form() {
-            echo get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_form.php');
+            echo apply_filters('slp_search_form_html',get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_form.php'));
         }
 
 
