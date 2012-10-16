@@ -34,7 +34,7 @@
             add_filter('slp_search_form_divs',
                     function ($blank) {
                         global $slp_thishtml_10;
-                        echo $slp_thishtml_10;
+                        return $blank.$slp_thishtml_10;
                         },
                     10
                     );
@@ -63,7 +63,7 @@ ob_start();
             add_filter('slp_search_form_divs',
                     function ($blank) {
                         global $slp_thishtml_20;
-                        echo $slp_thishtml_20;
+                        return $blank.$slp_thishtml_20;
                         },
                     20
                     );
@@ -89,7 +89,7 @@ ob_start();
             add_filter('slp_search_form_divs',
                     function ($blank) {
                         global $slp_thishtml_30;
-                        echo $slp_thishtml_30;
+                        return $blank.$slp_thishtml_30;
                         },
                     30
                     );
@@ -148,7 +148,7 @@ ob_start();
                     add_filter('slp_search_form_divs',
                             function ($blank) {
                                 global $slp_thishtml_40;
-                                echo $slp_thishtml_40;
+                                return $blank.$slp_thishtml_40;
                                 },
                             40
                             );
@@ -171,7 +171,7 @@ ob_start();
                     add_filter('slp_search_form_divs',
                             function ($blank) {
                                 global $slp_thishtml_50;
-                                echo $slp_thishtml_50;
+                                return $blank.$slp_thishtml_50;
                                 },
                             50
                             );
@@ -204,7 +204,7 @@ ob_start();
         add_filter('slp_search_form_divs',
                 function ($blank) {
                     global $slp_thishtml_60;
-                    echo $slp_thishtml_60;
+                    return $blank.$slp_thishtml_60;
                     },
                 60
                 );
@@ -232,7 +232,7 @@ ob_start();
         add_filter('slp_search_form_divs',
                 function ($blank) {
                     global $slp_thishtml_70;
-                    echo $slp_thishtml_70;
+                    return $blank.$slp_thishtml_70;
                     },
                 70
                 );
@@ -253,7 +253,7 @@ ob_start();
             add_filter('slp_search_form_divs',
                     function ($blank) {
                         global $slp_thishtml_80;
-                        echo $slp_thishtml_80;
+                        return $blank.$slp_thishtml_80;
                         },
                     80
                     );
@@ -262,7 +262,7 @@ ob_start();
           // Render each of the divs in the order specified
           // by the filters we've setup.
           //
-          apply_filters('slp_search_form_divs','');
+          echo apply_filters('slp_search_form_divs','');
           ?>
       </div>
     </td>
