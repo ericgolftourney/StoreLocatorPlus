@@ -85,8 +85,17 @@ if ($_POST                                                  &&
     
     // Check our address
     //
-    extract($_POST);
-    $the_address="$address $address2, $city, $state $zip";
+    if (!isset($_POST['address'])   ) { $_POST['address'] = '';     }
+    if (!isset($_POST['address2'])  ) { $_POST['address2'] = '';    }
+    if (!isset($_POST['city'])      ) { $_POST['city'] = '';        }
+    if (!isset($_POST['state'])     ) { $_POST['state'] = '';       }
+    if (!isset($_POST['zip'])       ) { $_POST['zip'] = '';         }
+    $the_address=
+            $_POST['address']   .' '    .
+            $_POST['address2']  .', '   .
+            $_POST['city']      .', '   .
+            $_POST['state']     .' '    .
+            $_POST['zip'];
 
     // RE-geocode if the address changed
     // or if the lat/long is not set
@@ -102,7 +111,7 @@ if ($_POST                                                  &&
 
     // Redirect to the edit page
     //
-    print "<script>location.replace('".preg_replace('/&edit=$_GET[edit]/', '',
+    print "<script>location.replace('".preg_replace('/&edit='.$_GET[edit].'/', '',
                 $_SERVER['REQUEST_URI'])."');</script>";
 }
 	
@@ -110,6 +119,7 @@ if ($_POST                                                  &&
 // ACTION HANDLER
 // If post action is set
 //------------------------------------------------------------------------
+extract($_POST);
 if (isset($_REQUEST['act'])) {
 
     // Delete Action	    
@@ -537,7 +547,7 @@ if ($slpLocations=$wpdb->get_results(
             print "<th class='thnowrap'>".                                                     // Action Column
 
                 "<a class='action_icon edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."' 
-                    href='".preg_replace('/&edit=/'.(isset($_GET['edit'])?$_GET['edit']:''), '',$_SERVER['REQUEST_URI']).
+                    href='".preg_replace('/&edit='.(isset($_GET['edit'])?$_GET['edit']:'').'/', '',$_SERVER['REQUEST_URI']).
                 "&edit=" . $locID ."#a$locID'></a>".
                 "&nbsp;" . 
                 "<a class='action_icon delete_icon' alt='".__('delete',SLPLUS_PREFIX)."' title='".__('delete',SLPLUS_PREFIX)."' 
