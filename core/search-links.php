@@ -7,7 +7,7 @@ if ($start<0 || $start=="" || !isset($start) || empty($start)) {$start=0;}
 if ($num_per_page<0 || $num_per_page=="") {$num_per_page=10;}
 $prev=$start-$num_per_page;
 $next=$start+$num_per_page;
-if (preg_match('#&start=$start#',$_SERVER['QUERY_STRING'])) {
+if (preg_match('#&start='.$start.'#',$_SERVER['QUERY_STRING'])) {
 	$prev_page=str_replace("&start=$start","&start=$prev",$_SERVER['REQUEST_URI']);
 	$next_page=str_replace("&start=$start","&start=$next",$_SERVER['REQUEST_URI']);
 } else {
@@ -30,7 +30,7 @@ else {
 }
 $pos=($beginning_link-1)*$num_per_page;
 	for ($k=$beginning_link; $k<$end_link; $k++) {
-		if (preg_match('#&start=$start#',$_SERVER['QUERY_STRING'])) {
+		if (preg_match('#&start='.$start.'#',$_SERVER['QUERY_STRING'])) {
 			$curr_page=str_replace("&start=$start","&start=$pos",$_SERVER['QUERY_STRING']);
 		}
 		else {

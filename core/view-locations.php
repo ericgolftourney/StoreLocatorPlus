@@ -68,8 +68,8 @@ if ($_POST                                                  &&
     //
     $field_value_str = '';
     foreach ($_POST as $key=>$sl_value) {
-        if (preg_match('#\-$_GET[edit]#', $key)) {
-            $slpFieldName = preg_replace('#\-$_GET[edit]#', '', $key);
+        if (preg_match('#\-'.$_GET['edit'].'#', $key)) {
+            $slpFieldName = preg_replace('#\-'.$_GET['edit'].'#', '', $key);
             if (!$slplus_plugin->license->packages['Pro Pack']->isenabled) {
                 if ( ($slpFieldName == 'latitude') || ($slpFieldName == 'longitude')) {
                     continue;
@@ -82,7 +82,7 @@ if ($_POST                                                  &&
     $field_value_str=substr($field_value_str, 0, strlen($field_value_str)-2);
     $field_value_str = apply_filters('slp_update_location_data',$field_value_str,$_GET['edit']);
     $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET $field_value_str WHERE sl_id=$_GET[edit]");
-    
+
     // Check our address
     //
     if (!isset($_POST['address'])   ) { $_POST['address'] = '';     }
@@ -111,10 +111,10 @@ if ($_POST                                                  &&
 
     // Redirect to the edit page
     //
-    print "<script>location.replace('".preg_replace('/&edit='.$_GET[edit].'/', '',
+    print "<script>location.replace('".preg_replace('/&edit='.$_GET['edit'].'/', '',
                 $_SERVER['REQUEST_URI'])."');</script>";
 }
-	
+
 //------------------------------------------------------------------------
 // ACTION HANDLER
 // If post action is set
