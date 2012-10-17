@@ -654,13 +654,15 @@ var csl = {
 			}
 			
 			//don't animate for a large set of results
-			if (markerList.length > 25) animation = csl.Animation.None;
+            var markerCount = markerList.length;
+			if (markerCount > 25) animation = csl.Animation.None;
 			
 			this.debugSearch('create latlng bounds for shifts');
 			var bounds;
             var locationIcon;
 			this.debugSearch('number results ' + markerList.length);
-			for (markerNumber in markerList) {
+			//for (markerNumber in markerList) {
+            for (var markerNumber = 0 ; markerNumber < markerCount; ++markerNumber) {
 				this.debugSearch(markerList[markerNumber]);
 				var position = new google.maps.LatLng(markerList[markerNumber].lat, markerList[markerNumber].lng);
 				
