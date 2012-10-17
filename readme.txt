@@ -189,6 +189,8 @@ Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support
 = 3.6 (Early-October, 2012) =
 
 * Add labels for phone, fax, directions, and hours in map settings.
+* Manage locations form entries for hours, fax, phone, and website URL field labels are now tied to map settings labels.
+** Want to use the hours field as "the best beer in the house" field?  Go ahead, we won't tell anyone.  Change the label and put whatever text in there you want.
 * Patch: fix city selection search for some sites (javascript __gmarker is undefined error)
 * Only load SLP admin.css on SLP pages
 * Replace PHP ereg() and erep_replace() with PCRE versions.

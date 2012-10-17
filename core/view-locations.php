@@ -402,7 +402,7 @@ if ($slpLocations=$wpdb->get_results(
         $slpManageColumns = array_merge($slpManageColumns,
                     array(
                         'sl_description'    => __('Description'  ,SLPLUS_PREFIX),
-                        'sl_url'            => __('URL'          ,SLPLUS_PREFIX),
+                        'sl_url'            => get_option('sl_website_label','Website'),
                     )
                 );
 
@@ -419,12 +419,13 @@ if ($slpLocations=$wpdb->get_results(
         $slpManageColumns = array_merge($slpManageColumns,
                     array(
                         'sl_email'       => __('Email'        ,SLPLUS_PREFIX),
-                        'sl_hours'       => __('Hours'        ,SLPLUS_PREFIX),
-                        'sl_phone'       => __('Phone'        ,SLPLUS_PREFIX),
-                        'sl_fax'         => __('Fax'          ,SLPLUS_PREFIX),
+                        'sl_hours'       => $slplus_plugin->settings->get_item('label_hours','Hours','_'),
+                        'sl_phone'       => $slplus_plugin->settings->get_item('label_phone','Phone','_'),
+                        'sl_fax'         => $slplus_plugin->settings->get_item('label_fax'  ,'Fax'  ,'_'),
                         'sl_image'       => __('Image'        ,SLPLUS_PREFIX),
                     )
                 );
+
     }
 
     // Third party plugin add-ons
@@ -504,11 +505,11 @@ if ($slpLocations=$wpdb->get_results(
                     "<strong>".__("Additional Information", SLPLUS_PREFIX)."</strong><br>
                     <textarea name='description-$locID' rows='5' cols='17'>$sl_value[sl_description]</textarea>&nbsp;<small>".__("Description", SLPLUS_PREFIX)."</small><br>
                     <input name='tags-$locID' value='$sl_value[sl_tags]'>&nbsp;<small>"  .__("Tags (seperate with commas)", SLPLUS_PREFIX)."</small><br>		
-                    <input name='url-$locID'  value='$sl_value[sl_url]'>&nbsp;<small>"   .__("URL", SLPLUS_PREFIX)."</small><br>
+                    <input name='url-$locID'  value='$sl_value[sl_url]'>&nbsp;<small>"   .get_option('sl_website_label','Website')."</small><br>
                     <input name='email-$locID' value='$sl_value[sl_email]'>&nbsp;<small>".__("Email", SLPLUS_PREFIX)."</small><br>
-                    <input name='hours-$locID' value='$sl_value[sl_hours]'>&nbsp;<small>".__("Hours", SLPLUS_PREFIX)."</small><br>
-                    <input name='phone-$locID' value='$sl_value[sl_phone]'>&nbsp;<small>".__("Phone", SLPLUS_PREFIX)."</small><br>
-                    <input name='fax-$locID'   value='$sl_value[sl_fax]'>&nbsp;<small>"  .__("Fax", SLPLUS_PREFIX)."</small><br>
+                    <input name='hours-$locID' value='$sl_value[sl_hours]'>&nbsp;<small>".$slplus_plugin->settings->get_item('label_hours','Hours','_')."</small><br>
+                    <input name='phone-$locID' value='$sl_value[sl_phone]'>&nbsp;<small>".$slplus_plugin->settings->get_item('label_phone','Phone','_')."</small><br>
+                    <input name='fax-$locID'   value='$sl_value[sl_fax]'>&nbsp;<small>"  .$slplus_plugin->settings->get_item('label_fax','Fax','_')."</small><br>
                     <input name='image-$locID' value='$sl_value[sl_image]'>&nbsp;<small>".__("Image URL (shown with location)", SLPLUS_PREFIX)."</small>" .
                     '</div>'
                     ;
