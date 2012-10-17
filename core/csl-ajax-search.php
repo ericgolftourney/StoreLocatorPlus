@@ -221,20 +221,23 @@ function csl_ajax_search() {
     // Iterate through the rows, printing XML nodes for each
     $response = array();
     while ($row = @mysql_fetch_assoc($result)){
-        $response[] = slp_add_marker($row,'search');
+        $thisLocation = slp_add_marker($row,'search');
+        if (!empty($thisLocation)) {
+            $response[] = $thisLocation;
 
-        // Reporting
-        // Insert the results into the reporting table
-        //
-        if (get_option(SLPLUS_PREFIX.'-reporting_enabled') === "on") {
-            $wpdb->query(
-                sprintf(
-                    "INSERT INTO ${dbPrefix}slp_rep_query_results
-                        (slp_repq_id,sl_id) values (%d,%d)",
-                        $slp_QueryID,
-                        $row['sl_id']
-                    )
-                );
+            // Reporting
+            // Insert the results into the reporting table
+            //
+            if (get_option(SLPLUS_PREFIX.'-reporting_enabled') === "on") {
+                $wpdb->query(
+                    sprintf(
+                        "INSERT INTO ${dbPrefix}slp_rep_query_results
+                            (slp_repq_id,sl_id) values (%d,%d)",
+                            $slp_QueryID,
+                            $row['sl_id']
+                        )
+                    );
+            }
         }
     }
     header( "Content-Type: application/json" );
