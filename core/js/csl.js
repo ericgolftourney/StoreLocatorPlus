@@ -213,7 +213,6 @@ var csl = {
                         position: this.__position,
                         map: this.__map.gmap,
                         animation: this.__animationType,
-                        position: this.__position,
                         title: this.__title
                     });
 
@@ -531,7 +530,6 @@ var csl = {
                     center: center,
                     zoom: parseInt(this.zoom),
                     scaleControl: this.mapScaleControl,
-                    overviewMapControl: this.overviewControl,
                     overviewMapControlOptions: { opened: this.overviewControl }
                 };
                 this.debugSearch(this.options);
