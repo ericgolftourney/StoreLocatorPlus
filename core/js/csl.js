@@ -247,7 +247,6 @@ var csl = {
 				shadow: this.__shadowImage,
 				icon: this.__iconImage,
 				zIndex: 0,
-  	  	  	  	position: this.__position,
   	  	  	  	title: this.__title
   	  	  	});
 		}
