@@ -31,11 +31,6 @@ if (isset($_SERVER['SERVER_NAME']) && ($_SERVER['SERVER_NAME']==='wpdev.cyberspr
 }
 
 
-// Globals
-global $sl_upload_path,$slpath;
-$sl_upload_path='';
-$sl_path='';
-
 // Drive Path Defines
 //
 if (defined('SLPLUS_PLUGINDIR') === false) {
@@ -46,6 +41,13 @@ if (defined('SLPLUS_COREDIR') === false) {
 }
 if (defined('SLPLUS_ICONDIR') === false) {
     define('SLPLUS_ICONDIR', SLPLUS_COREDIR . 'images/icons/');
+}
+if (defined('SLPLUS_UPLOADDIR') === false) {
+    $upload_dir = wp_upload_dir('slp');
+    $upload_path = preg_replace('/\/slp\/$/','/sl-uploads/',$upload_dir['path']);
+    $upload_url  = preg_replace('/\/slp\/$/','/sl-uploads/',$upload_dir['url']);
+    define('SLPLUS_UPLOADDIR', $upload_path);
+    define('SLPLUS_UPLOADURL', $upload_url);
 }
 
 // URL Defines

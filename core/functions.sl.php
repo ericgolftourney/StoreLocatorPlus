@@ -5,15 +5,12 @@
  ** The collection of main core functions for Store Locator Plus
  ***************************************************************************/
 
-global $sl_dir, $sl_base, $sl_path, $sl_upload_path, $sl_upload_base;
+global $sl_base, $sl_upload_base;
 
 $text_domain=SLPLUS_PREFIX;
 $prefix = SLPLUS_PREFIX;
 
-$sl_dir =SLPLUS_PLUGINDIR;  //plugin absolute server directory name
 $sl_base=SLPLUS_PLUGINURL;  //URL to plugin directory
-$sl_path=ABSPATH.'wp-content/plugins/'.$sl_dir; //absolute server path to plugin directory
-$sl_upload_path=ABSPATH.'wp-content/uploads/sl-uploads'; //absolute server path to store locator uploads directory
 
 $map_character_encoding=(get_option('sl_map_character_encoding')!="")? 
     "&amp;oe=".get_option('sl_map_character_encoding') : 
@@ -381,7 +378,7 @@ function do_geocoding($address,$sl_id='') {
     // Let's start using a SINGLE named array called "fnvars" to pass along anything
     // we want.
     //
-    global  $sl_dir, $sl_base, $sl_upload_base, $sl_path, $sl_upload_path, $text_domain, $wpdb,
+    global  $sl_base, $sl_upload_base, $text_domain, $wpdb,
 	    $slplus_plugin, $prefix,	        
 	    $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units, $sl_hide,
 	    $sl_radius, $sl_radius_label, $r_options, $button_style,
@@ -464,10 +461,10 @@ function do_geocoding($address,$sl_id='') {
     }
         
     $sl_theme_base=$sl_upload_base."/images";
-    $sl_theme_path=$sl_upload_path."/images";
+    $sl_theme_path=SLPLUS_UPLOADDIR."/images";
     if (!file_exists($sl_theme_path."/search_button.png")) {
         $sl_theme_base=$sl_base."/images";
-        $sl_theme_path=$sl_path."/images";
+        $sl_theme_path=SLPLUS_COREDIR."/images";
     }
     $sub_img=$sl_theme_base."/search_button.png";
     $mousedown=(file_exists($sl_theme_path."/search_button_down.png"))? 
