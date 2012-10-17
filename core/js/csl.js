@@ -1014,10 +1014,10 @@ var csl = {
 			}
 			this.debugSearch('doing search@' + center + ' for radius of ' + radius);
 			if (center == null) {
-				var center = this.gmap.getCenter();
+				center = this.gmap.getCenter();
 			}
 			if (radius == null) {
-				var radius = 40000;
+				radius = 40000;
 			}
 			this.lastCenter = center;
 			this.lastRadius = radius;
