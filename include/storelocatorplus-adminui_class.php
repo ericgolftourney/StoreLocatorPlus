@@ -274,11 +274,9 @@ if (! class_exists('SLPlus_AdminUI')) {
          * Draw the add locations page.  Use to be a separate script ./core/add-locations.php
          *
          * @global type $wpdb
-         * @global type $sl_upload_path
-         * @global type $sl_path
          */
          function renderPage_AddLocations() {
-                global $slplus_plugin,$wpdb, $sl_upload_path, $sl_path;
+                global $slplus_plugin,$wpdb;
 
                 print "<div class='wrap'>
                             <div id='icon-add-locations' class='icon32'><br/></div>
@@ -425,22 +423,27 @@ if (! class_exists('SLPlus_AdminUI')) {
          function rendorIconSelector($inputFieldID = null, $inputImageID = null) {
             if (($inputFieldID == null) || ($inputImageID == null)) { return ''; }
             $htmlStr = '';
-            $iconDir=opendir(SLPLUS_ICONDIR);
-            while (false !== ($an_icon=readdir($iconDir))) {
-                if (
-                    (preg_match('/\.(png|gif|jpg)/i', $an_icon) > 0) &&
-                    (preg_match('/shadow\.(png|gif|jpg)/i', $an_icon) <= 0)
-                    ) {
-                    $htmlStr .=
-                        "<div class='slp_icon_selector_box'>".
-                            "<img class='slp_icon_selector'
-                                 src='".SLPLUS_ICONURL.$an_icon."'
-                                 onclick='".
-                                    "document.getElementById(\"".$inputFieldID."\").value=this.src;".
-                                    "document.getElementById(\"".$inputImageID."\").src=this.src;".
-                                 "'>".
-                         "</div>"
-                         ;
+
+            $directories = apply_filters('slp_icon_directories',array(SLPLUS_ICONDIR, SLPLUS_UPLOADDIR."/custom-icons/"));
+            foreach ($directories as $directory) {
+                $iconDir=opendir($directory);
+                $iconURL = (($directory === SLPLUS_ICONDIR)?SLPLUS_ICONURL:SLPLUS_UPLOADURL.'/custom-icons/');
+                while (false !== ($an_icon=readdir($iconDir))) {
+                    if (
+                        (preg_match('/\.(png|gif|jpg)/i', $an_icon) > 0) &&
+                        (preg_match('/shadow\.(png|gif|jpg)/i', $an_icon) <= 0)
+                        ) {
+                        $htmlStr .=
+                            "<div class='slp_icon_selector_box'>".
+                                "<img class='slp_icon_selector'
+                                     src='".$iconURL.$an_icon."'
+                                     onclick='".
+                                        "document.getElementById(\"".$inputFieldID."\").value=this.src;".
+                                        "document.getElementById(\"".$inputImageID."\").src=this.src;".
+                                     "'>".
+                             "</div>"
+                             ;
+                    }
                 }
             }
             if ($htmlStr != '') {
