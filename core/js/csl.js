@@ -631,7 +631,9 @@ var csl = {
 		this.clearMarkers = function() {
 			if (this.markers) {
 				for (markerNumber in this.markers) {
-					this.markers[markerNumber].__gmarker.setMap(null);
+                    if (typeof this.markers[markerNumber].__gmarker != 'undefined') {
+                        this.markers[markerNumber].__gmarker.setMap(null);
+                    }
 				}
 				this.markers.length = 0;
 			}
