@@ -188,12 +188,14 @@ Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support
 
 = 3.6 (Early-October, 2012) =
 
+* Only load SLP admin.css on SLP pages
 * Add labels for phone, fax, directions, and hours in map settings.
 * Replace PHP ereg() and erep_replace() with PCRE versions.
 ** ereg functions are deprecated with PHP5.3, no need to be filling up warning logs with that info.
 ** This is normally hidden on a production install.
 ** PCRE is faster anyway, which makes this release a minor performance improvement.
 * Add more [Hooks and Filters](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/) for 3rd party plugins.
+* Add unique IDs to the result table elements for better JavaScript mangling.
 
 
 
