@@ -1,5 +1,5 @@
 <?php 
-global $text_domain, $sl_upload_path, $slplus_plugin;
+global $text_domain, $slplus_plugin;
 ?>
 <table cellpadding='10px' cellspacing='0' style='width:100%' class='manual_add_table'>
     <tr>

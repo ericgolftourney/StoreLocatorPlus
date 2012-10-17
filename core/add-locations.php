@@ -21,7 +21,7 @@ function add_this_addy($fields,$sl_values,$theaddress) {
 /****************************************************************************
  ***************************************************************************/
 
-global $wpdb, $sl_upload_path, $sl_path;
+global $wpdb;
 
 print "<div class='wrap'>
             <div id='icon-add-locations' class='icon32'><br/></div>
