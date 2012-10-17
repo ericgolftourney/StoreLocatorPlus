@@ -129,8 +129,6 @@ var csl = {
 			} 
 		}
 		
-		this.xmlHttp;
-		
 		this.showArticles = function(start) {
 			xmlHttp=GetXmlHttpObject();
 			if (xmlHttp==null)
