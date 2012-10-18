@@ -380,7 +380,7 @@ function do_geocoding($address,$sl_id='') {
     //
     global  $sl_base, $sl_upload_base, $text_domain, $wpdb,
 	    $slplus_plugin, $prefix,	        
-	    $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units, $sl_hide,
+	    $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units,
 	    $sl_radius, $sl_radius_label, $r_options, $button_style,
 	    $sl_instruction_message, $cs_options, $slplus_name_label,
 	    $sl_country_options, $slplus_state_options, $fnvars;	 	    
@@ -476,9 +476,6 @@ function do_geocoding($address,$sl_id='') {
     $button_style=(file_exists($sl_theme_path."/search_button.png"))? 
         "type='image' src='$sub_img' $mousedown $mouseover" : 
         "type='submit'";
-    $sl_hide=(get_option('sl_remove_credits')==1)? 
-        "style='display:none;'" : 
-        "";
 
     $columns = 1;
     $columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;
