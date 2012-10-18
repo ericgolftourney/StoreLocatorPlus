@@ -91,7 +91,7 @@ if (! class_exists('SLPlus_Actions')) {
                 array(
                     'name' => 'How to Use',
                     'description' => get_string_from_phpexec(SLPLUS_PLUGINDIR.'/how_to_use.txt'),
-                    'start_collapsed' => true
+                    'start_collapsed' => false
                 )
             );
         
