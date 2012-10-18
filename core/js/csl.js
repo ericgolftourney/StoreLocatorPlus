@@ -736,7 +736,7 @@ var csl = {
                 //
                 var newZoom =
                     Math.max(Math.min(
-                        ((this.loaded_once||(markerList.length >1)) ?
+                        ((this.loadedOnce ||(markerList.length >1)) ?
                           this.gmap.getZoom() - parseInt(slplus.zoom_tweak) :
                           parseInt(slplus.zoom_level)
                         )
