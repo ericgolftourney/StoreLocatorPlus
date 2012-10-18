@@ -1,5 +1,5 @@
 <?php
-  global $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units, $sl_hide,
+  global $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units,
       $sl_radius, $sl_radius_label, $r_options, $button_style,
       $sl_instruction_message, $cs_options, $slplus_state_options, $sl_country_options,
       $fnvars, $slplus_plugin, $slplus_name_label;
