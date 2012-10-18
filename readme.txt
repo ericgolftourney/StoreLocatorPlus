@@ -188,14 +188,17 @@ Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support
 
 = 3.6 (Mid-October, 2012) =
 
-* Fix the [zoom functionality](http://www.charlestonsw.com/support/store-locator-plus/slp-zoom-settings-for-map-display/).
-* Patch: fix the "sensor required" message, thanks jeffo.de on the WordPress Support Forums!
+* Added option to turn off the "Find Locations" image, it will be a standard form button instead, easier to style that way. 
 * Add labels for phone, fax, directions, and hours in map settings.
 * Manage/Add locations form entries for hours, fax, phone, and website URL field labels are now tied to map settings labels.
 ** Want to use the hours field as "the best beer in the house" field?  Go ahead, we won't tell anyone.  Change the label and put whatever text in there you want.
-* Fixed the custom icon processor.   Custom icons go in /wp-content/uploads/sl-uploads/custom-icons/
-* Patch: fix city selection search for some sites (javascript __gmarker is undefined error)
-* Patch: fix various undefined element errors in JavaScript that impacted map location loading on some sites.
+* Patch: Fix the [zoom functionality](http://www.charlestonsw.com/support/store-locator-plus/slp-zoom-settings-for-map-display/).
+* Patch: Fix the "sensor required" message, thanks jeffo.de on the WordPress Support Forums!
+* Patch: Fixed the custom icon processor.   Custom icons go in /wp-content/uploads/sl-uploads/custom-icons/
+* Patch: Fix city selection search for some sites (javascript __gmarker is undefined error)
+* Patch: Fix various undefined element errors in JavaScript that impacted map location loading on some sites.
+* Patch: Fix the "find locations" button image.
+* Patch: Fix the copy of images, icons, and location files to the "preservation" space at /wp-content/uploads/sl-uploads/
 * Only load SLP admin.css on SLP pages
 * Replace PHP ereg() and erep_replace() with PCRE versions.
 ** ereg functions are deprecated with PHP5.3, no need to be filling up warning logs with that info.
