@@ -5,17 +5,12 @@
  ** The collection of main core functions for Store Locator Plus
  ***************************************************************************/
 
-global $sl_base, $sl_upload_base;
-
 $text_domain=SLPLUS_PREFIX;
 $prefix = SLPLUS_PREFIX;
-
-$sl_base=SLPLUS_PLUGINURL;  //URL to plugin directory
 
 $map_character_encoding=(get_option('sl_map_character_encoding')!="")? 
     "&amp;oe=".get_option('sl_map_character_encoding') : 
     "";
-$sl_upload_base=get_option('siteurl')."/wp-content/uploads/sl-uploads"; //URL to store locator uploads directory
  
  
 /**
@@ -29,8 +24,6 @@ $sl_upload_base=get_option('siteurl')."/wp-content/uploads/sl-uploads"; //URL to
  * @global type $sl_google_map_domain
  * @global type $sl_google_map_country
  * @global type $sl_theme
- * @global string $sl_base
- * @global string $sl_upload_base
  * @global type $sl_location_table_view
  * @global type $sl_search_label
  * @global type $sl_zoom_level
@@ -53,7 +46,7 @@ $sl_upload_base=get_option('siteurl')."/wp-content/uploads/sl-uploads"; //URL to
  */
 function initialize_variables() {
     global $sl_height, $sl_width, $sl_width_units, $sl_height_units;
-    global $cl_icon, $cl_icon2, $sl_google_map_domain, $sl_google_map_country, $sl_theme, $sl_base, $sl_upload_base, $sl_location_table_view;
+    global $cl_icon, $cl_icon2, $sl_google_map_domain, $sl_google_map_country, $sl_theme, $sl_location_table_view;
     global $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_city_search, $sl_use_name_search, $sl_default_map;
     global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
     global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
@@ -378,11 +371,9 @@ function do_geocoding($address,$sl_id='') {
     // Let's start using a SINGLE named array called "fnvars" to pass along anything
     // we want.
     //
-    global  $sl_base, $sl_upload_base, $text_domain, $wpdb,
-	    $slplus_plugin, $prefix,	        
-	    $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units,
-	    $sl_radius, $sl_radius_label, $r_options, $button_style,
-	    $sl_instruction_message, $cs_options, $slplus_name_label,
+    global  $text_domain, $wpdb,
+	    $slplus_plugin, $prefix, $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units,
+	    $sl_radius, $sl_radius_label, $r_options, $sl_instruction_message, $cs_options, $slplus_name_label,
 	    $sl_country_options, $slplus_state_options, $fnvars;	 	    
     $fnvars = array();
 
@@ -459,23 +450,6 @@ function do_geocoding($address,$sl_id='') {
         $sl_country_options = '';    
         $slplus_state_options = '';
     }
-        
-    $sl_theme_base=$sl_upload_base."/images";
-    $sl_theme_path=SLPLUS_UPLOADDIR."/images";
-    if (!file_exists($sl_theme_path."/search_button.png")) {
-        $sl_theme_base=$sl_base."/images";
-        $sl_theme_path=SLPLUS_COREDIR."/images";
-    }
-    $sub_img=$sl_theme_base."/search_button.png";
-    $mousedown=(file_exists($sl_theme_path."/search_button_down.png"))? 
-        "onmousedown=\"this.src='$sl_theme_base/search_button_down.png'\" onmouseup=\"this.src='$sl_theme_base/search_button.png'\"" : 
-        "";
-    $mouseover=(file_exists($sl_theme_path."/search_button_over.png"))? 
-        "onmouseover=\"this.src='$sl_theme_base/search_button_over.png'\" onmouseout=\"this.src='$sl_theme_base/search_button.png'\"" : 
-        "";
-    $button_style=(file_exists($sl_theme_path."/search_button.png"))? 
-        "type='image' src='$sub_img' $mousedown $mouseover" : 
-        "type='submit'";
 
     $columns = 1;
     $columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;

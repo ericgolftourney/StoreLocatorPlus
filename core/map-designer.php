@@ -244,17 +244,18 @@ if (!$_POST) {
         'show_tag_any',
         'email_form',
         'show_tags',
-        'disable_scrollwheel',
+        'disable_find_image',
         'disable_initialdirectory',
         'disable_largemapcontrol3d',
         'disable_scalecontrol',
+        'disable_scrollwheel',
+        'disable_search',
         'disable_maptypecontrol',
         'hide_radius_selections',
         'hide_address_entry',
-        'disable_search',
 		'show_search_by_name',
         'use_email_form',
-        'use_location_sensor'
+        'use_location_sensor',
         );
     foreach ($BoxesToHit as $JustAnotherBox) {        
         SaveCheckBoxToDB($JustAnotherBox, SLPLUS_PREFIX, '_');

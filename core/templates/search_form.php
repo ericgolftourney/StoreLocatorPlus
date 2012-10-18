@@ -1,6 +1,6 @@
 <?php
   global $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units,
-      $sl_radius, $sl_radius_label, $r_options, $button_style,
+      $sl_radius, $sl_radius_label, $r_options,
       $sl_instruction_message, $cs_options, $slplus_state_options, $sl_country_options,
       $fnvars, $slplus_plugin, $slplus_name_label;
 
@@ -241,7 +241,31 @@ ob_start();
           // We are not hiding the submit button
           //
           if (get_option(SLPLUS_PREFIX.'_disable_search') == 0) {
-              ob_start();
+                ob_start();
+
+                if ($slplus_plugin->settings->get_item('disable_find_image','0','_') === '0') {
+                    $sl_theme_base=SLPLUS_UPLOADURL."/images";
+                    $sl_theme_path=SLPLUS_UPLOADDIR."/images";
+
+                    if (!file_exists($sl_theme_path."/search_button.png")) {
+                        $sl_theme_base=SLPLUS_PLUGINURL."/images";
+                        $sl_theme_path=SLPLUS_COREDIR."/images";
+                    }
+
+                    $sub_img=$sl_theme_base."/search_button.png";
+                    $mousedown=(file_exists($sl_theme_path."/search_button_down.png"))?
+                        "onmousedown=\"this.src='$sl_theme_base/search_button_down.png'\" onmouseup=\"this.src='$sl_theme_base/search_button.png'\"" :
+                        "";
+                    $mouseover=(file_exists($sl_theme_path."/search_button_over.png"))?
+                        "onmouseover=\"this.src='$sl_theme_base/search_button_over.png'\" onmouseout=\"this.src='$sl_theme_base/search_button.png'\"" :
+                        "";
+                    $button_style=(file_exists($sl_theme_path."/search_button.png"))?
+                        "type='image' src='$sub_img' $mousedown $mouseover" :
+                        "type='submit'";
+                } else {
+                    $button_style = 'type="submit"';
+                }
+
           ?>               
           <div id='radius_in_submit'>
               <input <?php echo $button_style?> value='Search Locations' id='addressSubmit'/>

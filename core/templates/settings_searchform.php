@@ -99,13 +99,19 @@ echo CreateInputDiv(
             !$slplus_plugin->license->packages['Pro Pack']->isenabled
             );
 
-
         echo CreateCheckboxDiv(
             '_disable_search',
             __('Hide Find Locations button',SLPLUS_PREFIX),
             __('Remove the "Find Locations" button from the search form.', SLPLUS_PREFIX) . $ppFeatureMsg,
             SLPLUS_PREFIX,
             !$slplus_plugin->license->packages['Pro Pack']->isenabled
+            );
+
+        echo CreateCheckboxDiv(
+            '_disable_find_image',
+            __('Use Find Location Text Button',SLPLUS_PREFIX),
+            __('Use a standard text button for "Find Locations" instead of the provided button images.', SLPLUS_PREFIX) . $ppFeatureMsg,
+            SLPLUS_PREFIX
             );
 
         do_action('slp_add_search_form_features_setting');
