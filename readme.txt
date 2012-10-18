@@ -186,8 +186,10 @@ We update about once per month or more frequently as needed.
 
 Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support/documentation/store-locator-plus/release-notes/) at our website.
 
-= 3.6 (Early-October, 2012) =
+= 3.6 (Mid-October, 2012) =
 
+* Fix the [zoom functionality](http://www.charlestonsw.com/support/store-locator-plus/slp-zoom-settings-for-map-display/).
+* Patch: fix the "sensor required" message, thanks jeffo.de on the WordPress Support Forums!
 * Add labels for phone, fax, directions, and hours in map settings.
 * Manage/Add locations form entries for hours, fax, phone, and website URL field labels are now tied to map settings labels.
 ** Want to use the hours field as "the best beer in the house" field?  Go ahead, we won't tell anyone.  Change the label and put whatever text in there you want.
@@ -201,8 +203,6 @@ Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support
 ** PCRE is faster anyway, which makes this release a minor performance improvement.
 * Add more [Hooks and Filters](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/) for 3rd party plugins.
 * Add unique IDs to the result table elements for better JavaScript mangling.
-
-
 
 = 3.5.3 (Early-October, 2012) =
 

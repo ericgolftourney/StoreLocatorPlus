@@ -661,16 +661,16 @@ var csl = {
 			var bounds;
             var locationIcon;
 			this.debugSearch('number results ' + markerList.length);
-			//for (markerNumber in markerList) {
             for (var markerNumber = 0 ; markerNumber < markerCount; ++markerNumber) {
 				this.debugSearch(markerList[markerNumber]);
 				var position = new google.maps.LatLng(markerList[markerNumber].lat, markerList[markerNumber].lng);
 				
-				if (markerNumber == 0)
-				{
+				if (markerNumber == 0) {
 					this.debugSearch('create initial bounds');
 					bounds = new google.maps.LatLngBounds();
-					if (this.homePoint) { bounds.extend(this.homePoint); } else {
+					if (this.homePoint) { 
+                        bounds.extend(this.homePoint);
+                    } else {
                         if (this.centerLoad) {
                             bounds.extend(this.gmap.getCenter());
                         }
@@ -679,8 +679,7 @@ var csl = {
                         }
                     }
 					bounds.extend(position);
-				}
-				else  if (markerNumber > 0) {
+				} else {
 					bounds.extend(position);
 				}
 				
@@ -730,17 +729,20 @@ var csl = {
 				this.debugSearch('rebounded');
 				this.bounds = bounds;
 				this.gmap.fitBounds(this.bounds);
+                var theCenter = this.gmap.getCenter();
 
-                // Single Location or  Immediate Load Locations
-                // Use Map Zoom level + tweak
+                // Searches, use Google Bounds - and adjust by the tweak.
+                // Initial Load Only - Use "Zoom Level"
                 //
-                if ( (markerList.length == 1) || (this.load_locations == '1') ) {
-                    var newZoom = Math.max(Math.min(parseInt(slplus.zoom_level) - parseInt(slplus.zoom_tweak),20),1);
-                    this.gmap.setZoom(newZoom);
-                } else {
-                    var newZoom = Math.max(Math.min(this.gmap.getZoom() - parseInt(slplus.zoom_tweak),20),1);
-                    this.gmap.setZoom(newZoom);
-                }
+                var newZoom =
+                    Math.max(Math.min(
+                        ((this.loaded_once||(markerList.length >1)) ?
+                          this.gmap.getZoom() - parseInt(slplus.zoom_tweak) :
+                          parseInt(slplus.zoom_level)
+                        )
+                    ,20),1)
+                    ;
+                this.gmap.setZoom(newZoom);
 			}
 		}
 		
