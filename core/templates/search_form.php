@@ -260,15 +260,15 @@ ob_start();
                         "onmouseover=\"this.src='$sl_theme_base/search_button_over.png'\" onmouseout=\"this.src='$sl_theme_base/search_button.png'\"" :
                         "";
                     $button_style=(file_exists($sl_theme_path."/search_button.png"))?
-                        "type='image' src='$sub_img' $mousedown $mouseover" :
-                        "type='submit'";
+                        "type='image' class='slp_ui_image_button' src='$sub_img' $mousedown $mouseover" :
+                        "type='submit'  class='slp_ui_button'";
                 } else {
-                    $button_style = 'type="submit"';
+                    $button_style = 'type="submit" class="slp_ui_button"';
                 }
 
           ?>               
           <div id='radius_in_submit'>
-              <input <?php echo $button_style?> value='Search Locations' id='addressSubmit'/>
+              <input <?php echo $button_style?> value='Find Locations' id='addressSubmit'/>
           </div>
           <?php
             global $slp_thishtml_80;
