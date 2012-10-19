@@ -188,8 +188,8 @@ Visit the [Store Locator Plus Release Notes](http://www.charlestonsw.com/support
 
 = 3.6 (Mid-October, 2012) =
 
-* Turned off "use city search" as being enabled by default.
-
+* Turned off "show city pulldown" on new installs.
+* Turned off "show country pulldown" on new installs.
 * Added option to turn off the "Find Locations" image, it will be a standard form button instead, easier to style that way. 
 * Add labels for phone, fax, directions, and hours in map settings.
 * Manage/Add locations form entries for hours, fax, phone, and website URL field labels are now tied to map settings labels.

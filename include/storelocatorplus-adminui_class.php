@@ -55,6 +55,11 @@ if (! class_exists('SLPlus_AdminUI')) {
                    'admin_print_styles-'  . $slugPrefix . 'slp_general_settings',
                     array($this,'enqueue_admin_stylesheet')
                     );
+           add_action(
+                   'admin_print_styles-'  . 'settings_page_csl-slplus-options',
+                    array($this,'enqueue_admin_stylesheet')
+                    );
+
 
             // Manage Locations
             //
