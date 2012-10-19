@@ -131,7 +131,7 @@ function slplus_create_state_pd() {
         // If Use State Search option is enabled
         // build our state pulldown.
         //
-        if (get_option('slplus_show_state_pd')==1) {
+        if (get_option('slplus_show_state_pd',0)==1) {
             $cs_array=$wpdb->get_results(
                 "SELECT TRIM(sl_state) as state " .
                     "FROM ".$wpdb->prefix."store_locator " .
