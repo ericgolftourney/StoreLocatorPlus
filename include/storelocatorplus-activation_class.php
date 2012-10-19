@@ -292,8 +292,9 @@ if (! class_exists('SLPlus_Activate')) {
 
             // New Installation
             //
-            if ($updater->db_version_on_start === '') {
+            if ($updater->db_version_on_start == '') {
                 add_option(SLPLUS_PREFIX."-db_version", $updater->plugin->version);
+                add_option(SLPLUS_PREFIX.'_'.'disable_find_image','1');   // Disable the image find locations on new installs
 
             // Updating previous install
             //
@@ -315,7 +316,6 @@ if (! class_exists('SLPlus_Activate')) {
                 update_option(SLPLUS_PREFIX."-db_version", $updater->plugin->version);
             }
             update_option(SLPLUS_PREFIX.'-theme_lastupdated','2006-10-05');
-
 
             // Update Tables, Setup Roles, Move Directories
             //
