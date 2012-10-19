@@ -60,3 +60,57 @@ if (! class_exists('SLPlus_UI')) {
 }        
      
 
+
+if (! class_exists('SLPlus_UI_DivManager')) {
+    class SLPlus_UI_DivManager {
+
+        function DivStr($str1, $str2) {
+            return $str1.$str2;
+        }
+
+        function buildDiv10($blank) {
+            global $slp_thishtml_10;
+            return $this->DivStr($blank,$slp_thishtml_10);
+        }
+
+        function buildDiv20($blank) {
+            global $slp_thishtml_20;
+            return $this->DivStr($blank,$slp_thishtml_20);
+        }
+
+        function buildDiv30($blank) {
+            global $slp_thishtml_30;
+            return $this->DivStr($blank,$slp_thishtml_30);
+        }
+
+        function buildDiv40($blank) {
+            global $slp_thishtml_40;
+            return $this->DivStr($blank,$slp_thishtml_40);
+        }
+
+        function buildDiv50($blank) {
+            global $slp_thishtml_50;
+            return $this->DivStr($blank,$slp_thishtml_50);
+        }
+
+        function buildDiv60($blank) {
+            global $slp_thishtml_60;
+            return $this->DivStr($blank,$slp_thishtml_60);
+        }
+
+        function buildDiv70($blank) {
+            global $slp_thishtml_70;
+            return $this->DivStr($blank,$slp_thishtml_70);
+        }
+
+        function buildDiv80($blank) {
+            global $slp_thishtml_80;
+            return $this->DivStr($blank,$slp_thishtml_80);
+        }
+
+        function buildDiv90($blank) {
+            global $slp_thishtml_90;
+            return $this->DivStr($blank,$slp_thishtml_90);
+        }
+    }
+}

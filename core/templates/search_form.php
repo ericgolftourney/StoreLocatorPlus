@@ -5,6 +5,8 @@
       $fnvars, $slplus_plugin, $slplus_name_label;
 
       $prefix = $slplus_plugin->prefix;
+
+      $slp_SearchDivs = new SLPlus_UI_DivManager();
 ?>
 
 <form onsubmit='cslmap.searchLocations(); return false;' id='searchForm' action=''>
@@ -31,13 +33,7 @@
             global $slp_thishtml_10;
             $slp_thishtml_10 = ob_get_contents();
             ob_end_clean();
-            add_filter('slp_search_form_divs',
-                    function ($blank) {
-                        global $slp_thishtml_10;
-                        return $blank.$slp_thishtml_10;
-                        },
-                    10
-                    );
+            add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv10'),10);
           }
 
           //------------------------------------------------
@@ -60,13 +56,7 @@ ob_start();
             global $slp_thishtml_20;
             $slp_thishtml_20 = ob_get_contents();
             ob_end_clean();
-            add_filter('slp_search_form_divs',
-                    function ($blank) {
-                        global $slp_thishtml_20;
-                        return $blank.$slp_thishtml_20;
-                        },
-                    20
-                    );
+            add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv20'),20);
           }
 
           //------------------------------------------------
@@ -86,14 +76,7 @@ ob_start();
             global $slp_thishtml_30;
             $slp_thishtml_30 = ob_get_contents();
             ob_end_clean();
-            add_filter('slp_search_form_divs',
-                    function ($blank) {
-                        global $slp_thishtml_30;
-                        return $blank.$slp_thishtml_30;
-                        },
-                    30
-                    );
-
+            add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv30'),30);
           }
 
           //------------------------------------------------
@@ -145,13 +128,7 @@ ob_start();
                     global $slp_thishtml_40;
                     $slp_thishtml_40 = ob_get_contents();
                     ob_end_clean();
-                    add_filter('slp_search_form_divs',
-                            function ($blank) {
-                                global $slp_thishtml_40;
-                                return $blank.$slp_thishtml_40;
-                                },
-                            40
-                            );
+                    add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv40'),40);
               }
 
               // ----------------------------------------------
@@ -168,13 +145,7 @@ ob_start();
                     global $slp_thishtml_50;
                     $slp_thishtml_50 = ob_get_contents();
                     ob_end_clean();
-                    add_filter('slp_search_form_divs',
-                            function ($blank) {
-                                global $slp_thishtml_50;
-                                return $blank.$slp_thishtml_50;
-                                },
-                            50
-                            );
+                    add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv50'),50);
               }
           }
           ?>
@@ -201,13 +172,7 @@ ob_start();
         global $slp_thishtml_60;
         $slp_thishtml_60 = ob_get_contents();
         ob_end_clean();
-        add_filter('slp_search_form_divs',
-                function ($blank) {
-                    global $slp_thishtml_60;
-                    return $blank.$slp_thishtml_60;
-                    },
-                60
-                );
+        add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv60'),60);
           ?>
 
           <?php
@@ -229,13 +194,7 @@ ob_start();
         global $slp_thishtml_70;
         $slp_thishtml_70 = ob_get_contents();
         ob_end_clean();
-        add_filter('slp_search_form_divs',
-                function ($blank) {
-                    global $slp_thishtml_70;
-                    return $blank.$slp_thishtml_70;
-                    },
-                70
-                );
+        add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv70'),70);
 
           //------------------------------------------------
           // We are not hiding the submit button
@@ -274,13 +233,7 @@ ob_start();
             global $slp_thishtml_80;
             $slp_thishtml_80 = ob_get_contents();
             ob_end_clean();
-            add_filter('slp_search_form_divs',
-                    function ($blank) {
-                        global $slp_thishtml_80;
-                        return $blank.$slp_thishtml_80;
-                        },
-                    80
-                    );
+            add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv80'),80);
           }
 
           // Render each of the divs in the order specified
