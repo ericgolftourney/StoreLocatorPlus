@@ -39,7 +39,6 @@ $map_character_encoding=(get_option('sl_map_character_encoding')!="")?
  * @global type $sl_admin_locations_per_page
  * @global type $sl_instruction_message
  * @global type $sl_map_character_encoding
- * @global type $sl_use_country_search
  * @global type $slplus_show_state_pd
  * @global string $slplus_name_label
  */
@@ -49,7 +48,7 @@ function initialize_variables() {
     global $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_name_search, $sl_default_map;
     global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
     global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
-    global $sl_map_character_encoding, $sl_use_country_search, $slplus_show_state_pd, $slplus_name_label;
+    global $sl_map_character_encoding, $slplus_show_state_pd, $slplus_name_label;
     
     $sl_map_character_encoding=get_option('sl_map_character_encoding');
     if (empty($sl_map_character_encoding)) {
@@ -110,11 +109,6 @@ function initialize_variables() {
     if (empty($sl_use_name_search)) {
         $sl_use_name_search="0";
         add_option('sl_use_name_search', $sl_use_name_search);
-        }
-    $sl_use_country_search=get_option('sl_use_country_search');
-    if (empty($sl_use_country_search)) {
-        $sl_use_country_search="1";
-        add_option('sl_use_country_search', $sl_use_country_search);
         }
     $slplus_show_state_pd=get_option('slplus_show_state_pd');
     if (empty($slplus_show_state_pd)) {
