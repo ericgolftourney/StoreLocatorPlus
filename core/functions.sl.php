@@ -28,7 +28,6 @@ $map_character_encoding=(get_option('sl_map_character_encoding')!="")?
  * @global type $sl_search_label
  * @global type $sl_zoom_level
  * @global type $sl_zoom_tweak
- * @global type $sl_use_city_search
  * @global type $sl_use_name_search
  * @global type $sl_default_map
  * @global type $sl_radius_label
@@ -47,7 +46,7 @@ $map_character_encoding=(get_option('sl_map_character_encoding')!="")?
 function initialize_variables() {
     global $sl_height, $sl_width, $sl_width_units, $sl_height_units;
     global $cl_icon, $cl_icon2, $sl_google_map_domain, $sl_google_map_country, $sl_theme, $sl_location_table_view;
-    global $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_city_search, $sl_use_name_search, $sl_default_map;
+    global $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_name_search, $sl_default_map;
     global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
     global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
     global $sl_map_character_encoding, $sl_use_country_search, $slplus_show_state_pd, $slplus_name_label;
@@ -111,11 +110,6 @@ function initialize_variables() {
     if (empty($sl_use_name_search)) {
         $sl_use_name_search="0";
         add_option('sl_use_name_search', $sl_use_name_search);
-        }
-    $sl_use_city_search=get_option('sl_use_city_search');
-    if (empty($sl_use_city_search)) {
-        $sl_use_city_search="1";
-        add_option('sl_use_city_search', $sl_use_city_search);
         }
     $sl_use_country_search=get_option('sl_use_country_search');
     if (empty($sl_use_country_search)) {
@@ -423,7 +417,7 @@ function do_geocoding($address,$sl_id='') {
     // Show City Search option is checked
     // setup the pulldown list
     //
-    if (get_option('sl_use_city_search')==1) {
+    if (get_option('sl_use_city_search',0)==1) {
         $cs_array=$wpdb->get_results(
             "SELECT CONCAT(TRIM(sl_city), ', ', TRIM(sl_state)) as city_state " .
                 "FROM ".$wpdb->prefix."store_locator " .
@@ -452,10 +446,10 @@ function do_geocoding($address,$sl_id='') {
     }
 
     $columns = 1;
-    $columns += (get_option('sl_use_city_search')!=1) ? 1 : 0;
-    $columns += (get_option('sl_use_country_search')!=1) ? 1 : 0; 	    
-    $columns += (get_option('slplus_show_state_pd')!=1) ? 1 : 0; 	    
-    $sl_radius_label=get_option('sl_radius_label');
+    $columns += (get_option('sl_use_city_search',0)!=1) ? 1 : 0;
+    $columns += (get_option('sl_use_country_search',0)!=1) ? 1 : 0;
+    $columns += (get_option('slplus_show_state_pd',0)!=1) ? 1 : 0;
+    $sl_radius_label=get_option('sl_radius_label','');
 
     // Prep fnvars for passing to our template
     //
