@@ -476,15 +476,13 @@ function do_geocoding($address,$sl_id='') {
  *
  * Set the starting point for the center of the map.
  * Uses country by default.
- * Pro Pack v2.4+ allows for a custom address.
  */
 function SetMapCenter() {
     global $slplus_plugin;
     $customAddress = get_option(SLPLUS_PREFIX.'_map_center');
     if (
         (preg_replace('/\W/','',$customAddress) != '') &&
-        $slplus_plugin->license->packages['Pro Pack']->isenabled &&
-        ($slplus_plugin->license->packages['Pro Pack']->active_version >= 2004000)
+        $slplus_plugin->license->packages['Pro Pack']->isenabled        
         ) {
         return str_replace(array("\r\n","\n","\r"),', ',esc_attr($customAddress));
     }
