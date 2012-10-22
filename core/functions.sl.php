@@ -459,7 +459,7 @@ function do_geocoding($address,$sl_id='') {
     //
     add_action('slp_render_search_form',array('SLPlus_UI','slp_render_search_form'));
 
-    return get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_and_map.php');
+    return $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_and_map.php');
 }
 
 
@@ -712,3 +712,97 @@ function slplus_shortcode_atts($attributes) {
         shortcode_atts($slpAtts,$attributes);
     }
 }
+
+
+
+/**
+ * Help deserialize data to array.
+ *
+ * Useful for sl_option_value  field processing.
+ *
+ * @param type $value
+ * @return type
+ */
+function slp_deserialize_to_array($value) {
+    $arrayData = maybe_unserialize($value);
+    if (!is_array($arrayData)) {
+        if ($arrayData == '') {
+            $arrayData = array();
+        } else {
+            $arrayData = array('value' => $arrayData);
+        }
+    }
+    return $arrayData;
+}
+
+/**************************************
+ ** function: get_string_from_phpexec()
+ **
+ ** Executes the included php (or html) file and returns the output as a string.
+ **
+ ** Parameters:
+ **  $file (string, required) - name of the file
+ **/
+function get_string_from_phpexec($file) {
+    global $slplus_plugin;
+    return $slplus_plugin->helper->get_string_from_phpexec($file);
+}
+
+
+/**************************************
+ ** function: execute_and_output_template()
+ **
+ ** Executes the included php (or html) file and prints out the results.
+ ** Makes for easy include templates that depend on processing logic to be
+ ** dumped mid-stream into a WordPress page.  A plugin in a plugin sorta.
+ **
+ ** Parameters:
+ **  $file (string, required) - name of the file in the plugin/templates dir
+ **/
+function execute_and_output_template($file) {
+    $file = SLPLUS_COREDIR.'/templates/'.$file;
+    print get_string_from_phpexec($file);
+}
+
+/**************************************
+ ** function: slp_createhelpdiv()
+ **
+ ** Generate the string that displays the help icon and the expandable div
+ ** that mimics the WPCSL-Generic forms more info buttons.
+ **
+ ** Parameters:
+ **  $divname (string, required) - the name of the div to toggle
+ **  $msg (string, required) - the message to display
+ **/
+function slp_createhelpdiv($divname,$msg) {
+    return "<a class='moreinfo_clicker' onclick=\"swapVisibility('".SLPLUS_PREFIX."-help$divname');\" href=\"javascript:;\">".
+        '<div class="'.SLPLUS_PREFIX.'-moreicon" title="click for more info"><br/></div>'.
+        "</a>".
+        "<div id='".SLPLUS_PREFIX."-help$divname' class='input_note' style='display: none;'>".
+            $msg.
+        "</div>"
+        ;
+}
+
+
+/**************************************
+ ** function: setup_stylesheet_for_slplus
+ **
+ ** Setup the CSS for the product pages.
+ **/
+function setup_stylesheet_for_slplus() {
+    global $slplus_plugin, $fnvars;
+
+    // Pro Pack - Use Themes System
+    //
+    if ($slplus_plugin->license->AmIEnabled(true, "SLPLUS-PRO")) {
+        $slplus_plugin->themes->assign_user_stylesheet(isset($fnvars['theme'])?$fnvars['theme']:'');
+    } else {
+        wp_deregister_style(SLPLUS_PREFIX.'_user_header_css');
+        wp_dequeue_style(SLPLUS_PREFIX.'_user_header_css');
+        if ( file_exists(SLPLUS_PLUGINDIR.'css/default.css')) {
+            wp_enqueue_style(SLPLUS_PREFIX.'_user_header_css', SLPLUS_PLUGINURL .'/css/default.css');
+        }
+    }
+}
+
