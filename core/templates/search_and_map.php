@@ -29,10 +29,10 @@ if ($sl_starting_image != '') {
 <?php
 }
 ?>
-                <div id='map' style='width:<?php echo $sl_width?><?php echo $sl_width_units?>; height:<?php echo $sl_height?><?php echo $sl_height_units?>'></div>
-                <table cellpadding='0px'
+                <div id='map' style='width:<?php echo $sl_width.$sl_width_units?>; height:<?php echo $sl_height.$sl_height_units?>;'></div>
+                <table cellpadding='0'
                        class='sl_footer'
-                       width='<?php echo $sl_width?><?php echo $sl_width_units?>;'
+                       width='<?php echo $sl_width.$sl_width_units?>;'
                        <?php
                         echo ((get_option('sl_remove_credits',0)==1)?"style='display:none;'":'');
                        ?>
@@ -61,5 +61,3 @@ if ($sl_starting_image != '') {
     </tr>
   </table>
 </div>
-
-
