@@ -83,9 +83,8 @@ if (defined('SLPLUS_PREFIX') === false) {
 //
 global $slplus_plugin;
 include_once(SLPLUS_PLUGINDIR . '/include/config.php'	);
-include_once(SLPLUS_PLUGINDIR . 'plus.php'		);
-include_once(SLPLUS_COREDIR   . 'csl_helpers.php'	);
 include_once(SLPLUS_COREDIR   . 'functions.sl.php'	);
+include_once(SLPLUS_COREDIR   . 'csl_helpers.php'	);
 include_once(SLPLUS_COREDIR   . 'csl-ajax-search.php'	);
 
 // General WP Action Interface
