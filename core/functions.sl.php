@@ -5,7 +5,6 @@
  ** The collection of main core functions for Store Locator Plus
  ***************************************************************************/
 
-$text_domain=SLPLUS_PREFIX;
 $prefix = SLPLUS_PREFIX;
 
 $map_character_encoding=(get_option('sl_map_character_encoding')!="")? 
@@ -353,7 +352,7 @@ function do_geocoding($address,$sl_id='') {
     // Let's start using a SINGLE named array called "fnvars" to pass along anything
     // we want.
     //
-    global  $text_domain, $wpdb,
+    global  $wpdb,
 	    $slplus_plugin, $prefix, $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units,
 	    $sl_radius, $sl_radius_label, $r_options, $sl_instruction_message, $cs_options, $slplus_name_label,
 	    $sl_country_options, $slplus_state_options, $fnvars;	 	    
