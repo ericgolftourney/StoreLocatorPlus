@@ -64,11 +64,8 @@ global $slplus_plugin;
 		</tr>
 
         <?php
-        if (
-            $slplus_plugin->license->packages['Pro Pack']->isenabled &&
-            function_exists('execute_and_output_plustemplate')
-            ) {
-            execute_and_output_plustemplate('addlocations_bulkupload.php');
+        if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+            execute_and_output_template('addlocations_bulkupload.php');
         }
         ?>  		
 	</table>
