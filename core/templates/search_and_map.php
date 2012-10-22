@@ -3,7 +3,6 @@
       $sl_radius, $sl_radius_label, $r_options, $sl_instruction_message, $slplus_state_options, $sl_country_options, 
       $fnvars, $slplus_plugin, $slplus_name_label;
 
-      $prefix = $slplus_plugin->prefix;
       print "<div id='sl_div'>";
 
     // Render the search form
