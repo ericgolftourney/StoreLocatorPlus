@@ -5,11 +5,6 @@
  ** The collection of main core functions for Store Locator Plus
  ***************************************************************************/
 
-$map_character_encoding=(get_option('sl_map_character_encoding')!="")? 
-    "&amp;oe=".get_option('sl_map_character_encoding') : 
-    "";
- 
- 
 /**
  * 
  * @global type $sl_height
