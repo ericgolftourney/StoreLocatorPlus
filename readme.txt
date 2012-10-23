@@ -234,6 +234,12 @@ Visit the [Store Locator Plus Release Notes page](http://www.charlestonsw.com/su
 
 I was listing the entire change log here but with weekly/bi-weekly updates it as getting much too long.
 
+= 3.6.1 (Late October, 2012) =
+
+* Patch: fix "use location sensor" not showing map if people choose to deny location access.
+* Patch: fix(?) the div code below the map on sites that have a language/texturize plugin or theme enabled.
+* Performance: eliminate some unused code and reduce the total file count by combining function files.
+
 = 3.6 (Mid-October, 2012) =
 
 * Turned off "show city pulldown" on new installs.
