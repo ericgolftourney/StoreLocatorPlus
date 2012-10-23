@@ -356,6 +356,10 @@ if (! class_exists('SLPlus_Actions')) {
                 
             }
 
+            // Do not texturize our shortcodes
+            //
+            add_filter('no_texturize_shortcodes',array('SLPlus_UI','no_texturize_shortcodes'));
+
             // Register Stores Taxonomy
             //
             $this->register_store_taxonomy();
