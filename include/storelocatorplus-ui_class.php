@@ -16,11 +16,19 @@ if (! class_exists('SLPlus_UI')) {
          * PUBLIC PROPERTIES & METHODS
          ******************************/
         
+
         /*************************************
          * The Constructor
          */
-        function __construct($params) {
-        } 
+        function __construct($params = null) {
+            // Do the setting override or initial settings.
+            //
+            if ($params != null) {
+                foreach ($params as $name => $sl_value) {
+                    $this->$name = $sl_value;
+                }
+            }
+        }
         
         /**
          * Do not texturize our shortcodes.
@@ -56,7 +64,7 @@ if (! class_exists('SLPlus_UI')) {
             // we want.
             //
             global  $wpdb,
-                $slplus_plugin, $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units,
+                $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units,
                 $sl_radius, $sl_radius_label, $r_options, $sl_instruction_message, $cs_options, $slplus_name_label,
                 $sl_country_options, $slplus_state_options, $fnvars;
             $fnvars = array();
@@ -64,8 +72,8 @@ if (! class_exists('SLPlus_UI')) {
             //----------------------
             // Attribute Processing
             //
-            if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
-                $slplus_plugin->shortcode_was_rendered = true;
+            if ($this->parent->license->packages['Pro Pack']->isenabled) {
+                $this->parent->shortcode_was_rendered = true;
                 slplus_shortcode_atts($attributes);
             }
 
@@ -127,7 +135,7 @@ if (! class_exists('SLPlus_UI')) {
             //----------------------
             // Create Country Pulldown
             //
-            if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+            if ($this->parent->license->packages['Pro Pack']->isenabled) {
                 $sl_country_options = slplus_create_country_pd();
                 $slplus_state_options = slplus_create_state_pd();
             } else {
@@ -169,7 +177,7 @@ if (! class_exists('SLPlus_UI')) {
             //
             add_action('slp_render_search_form',array('SLPlus_UI','slp_render_search_form'));
 
-            return '[raw]'.$slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_and_map.php') . '[/raw]';
+            return '[raw]'.$this->parent->helper->get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_and_map.php') . '[/raw]';
         }
 
 
