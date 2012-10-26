@@ -15,12 +15,14 @@ if (! class_exists('SLPlus_UI')) {
         /******************************
          * PUBLIC PROPERTIES & METHODS
          ******************************/
-        
+        private $usingThemeForest = false;
 
         /*************************************
          * The Constructor
          */
         function __construct($params = null) {
+            $this->usingThemeForest = function_exists('webtreats_formatter');
+
             // Do the setting override or initial settings.
             //
             if ($params != null) {
@@ -177,7 +179,26 @@ if (! class_exists('SLPlus_UI')) {
             //
             add_action('slp_render_search_form',array('SLPlus_UI','slp_render_search_form'));
 
-            return '[raw]'.$this->parent->helper->get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_and_map.php') . '[/raw]';
+            return $this->rawDeal($this->parent->helper->get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_and_map.php'));
+        }
+
+        /**
+         * Wraps a string in the [raw][/raw] tags if Theme Forest themes are in use
+         *
+         * @param string $inStr
+         * @return string
+         */
+        function rawDeal($inStr) {
+
+            // Re-check this because constructor is often too early for this
+            //
+            if(!$this->usingThemeForest) { $this->usingThemeForest = function_exists('webtreats_formatter'); }
+
+            if ( $this->usingThemeForest ) {
+                return '[raw]'.$inStr.'[/raw]';
+            } else {
+                return $inStr;
+            }
         }
 
 
