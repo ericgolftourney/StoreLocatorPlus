@@ -68,12 +68,18 @@ Premium add-on packages are available to extend the capabilities of this plugin.
 
 If you are a plugin developer you will be interested in the new "Roll Your Own" program where you can create SLP based premium (or free) add-ons of your own.   Create something great and list it on our site!
 
+= Support =
+
+Support for the plugin can be found in the [WordPress Forum](http://wordpress.org/support/plugin/store-locator-le).  If you have an urgent issue or want one-on-one support you can [purchase premium support](http://www.charlestonsw.com/product/product-support).
+
+You can also view the [CSA Product Documentation](http://www.charlestonsw.com/support/documentation) for more information about the plugin including [known conflicts](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/troubleshooting/known-conflicts/) with themes and plugins.
+
 = Special Requests =
 
 I accept feature requests for all plugins. The most requested features will make it into the next version if time permits.
 
 If you need something NOW, or are looking for something beyond a basic "tweak" of the plugin, please check out the
-[Customization Service](http://www.charlestonsw.com/product/customization/).  Rates start at $500/day.
+[Customization Service](http://www.charlestonsw.com/product/customization/).  
 
 = Upgrades and Patches =
 
