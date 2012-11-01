@@ -134,24 +134,24 @@ load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_COREDIR . 'languages/');
 // AJAX Hooks
 //------------------------
 
+// Mobile Listener
+//
+add_action('wp_ajax_csl_get_locations'          , array('csl_mobile_listener', 'GetLocations'));
+add_action('wp_ajax_nopriv_csl_get_locations'   , array('csl_mobile_listener', 'GetLocations'));
+
 // Ajax search
 //
-add_action('wp_ajax_csl_ajax_search', 'csl_ajax_search');
-add_action('wp_ajax_nopriv_csl_ajax_search', 'csl_ajax_search');
+add_action('wp_ajax_csl_ajax_search'            , array($slplus_plugin->AjaxHandler,'csl_ajax_search'));
+add_action('wp_ajax_nopriv_csl_ajax_search'     , array($slplus_plugin->AjaxHandler,'csl_ajax_search'));
 
 add_action('wp_ajax_nopriv_csl_get_closest_location', array('csl_mobile_listener', 'GetClosestLocation'));
 
-// Mobile Listener
-//
-add_action('wp_ajax_csl_get_locations', array('csl_mobile_listener', 'GetLocations'));
-add_action('wp_ajax_nopriv_csl_get_locations', array('csl_mobile_listener', 'GetLocations'));
-
 // Ajax Load
 //
-add_action('wp_ajax_csl_ajax_onload', 'csl_ajax_onload');
-add_action('wp_ajax_nopriv_csl_ajax_onload', 'csl_ajax_onload');
+add_action('wp_ajax_csl_ajax_onload'            , array($slplus_plugin->AjaxHandler,'csl_ajax_onload'));
+add_action('wp_ajax_nopriv_csl_ajax_onload'     , array($slplus_plugin->AjaxHandler,'csl_ajax_onload'));
 
 // License resets
-add_action('wp_ajax_license_reset_pages'    , array($slplus_plugin->AjaxHandler,'license_reset_pages'));
-add_action('wp_ajax_license_reset_propack'  , array($slplus_plugin->AjaxHandler,'license_reset_propack'));
+add_action('wp_ajax_license_reset_pages'        , array($slplus_plugin->AjaxHandler,'license_reset_pages'));
+add_action('wp_ajax_license_reset_propack'      , array($slplus_plugin->AjaxHandler,'license_reset_propack'));
 
