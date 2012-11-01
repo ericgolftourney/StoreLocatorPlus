@@ -225,7 +225,9 @@ ob_start();
 
           ?>               
           <div id='radius_in_submit'>
-              <input <?php echo $button_style?> value='Find Locations' id='addressSubmit'/>
+              <input <?php echo $button_style?> 
+                      value='<?php echo get_option(SLPLUS_PREFIX.'_find_button_label','Find Locations'); ?>'
+                      id='addressSubmit'/>
           </div>
           <?php
             global $slp_thishtml_80;

@@ -236,4 +236,4 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.7 (November 2012)
 
-* Find Locations Label
+* [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus/) - Find Locations button text can be changed from admin panel
