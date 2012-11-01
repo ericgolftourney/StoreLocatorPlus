@@ -1364,7 +1364,7 @@ function InitializeTheMap() {
 		}
 	});
 
-})(jQuery)
+})(jQuery);
 
 /*
  * When the document has been loaded...
