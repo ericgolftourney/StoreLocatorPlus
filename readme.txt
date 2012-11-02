@@ -58,7 +58,11 @@ Premium add-on packages are available to extend the capabilities of this plugin.
 ** Create pages for each location with the click of a button.
 ** Each page can be edited as an individual post.
 ** Pages support their own comments, featured image, page style, and other standard WordPress page template features.
-* [Enhanced Search](http://www.charlestonsw.com/product/store-locator-plus-enhanced-search) : Get even more control over the basic search form and even more when the Pro Pack is installed.
+* [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results)
+** Order results by name or distance.
+** Wrap the phone output in a tel: href tag.
+** Hide the distance on the results table.
+* [Enhanced Search](http://www.charlestonsw.com/product/store-locator-plus-enhanced-search) : Get even more control over the basic search form.
 ** Turn the search interface on/off.
 * [Tagalong](http://www.charlestonsw.com/product/store-locator-plus-tagalong/) : Add custom map markers based on location categories.
 ** Set a different marker for each location.
@@ -173,7 +177,8 @@ efficient as possible for everyone else.   It also provides a great way to suppo
 
 Current premium add-ons:
 
-* [Enhanced Search](http://www.charlestonsw.com/product/store-locator-plus-enhanced-search) : Get even more control over the basic search form and even more when the Pro Pack is installed.
+* [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results) : Get even more control over the search results.
+* [Enhanced Search](http://www.charlestonsw.com/product/store-locator-plus-enhanced-search) : Get even more control over the basic search form.
 * [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : More control over the map, search form, loading locations.
 * [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages) : Create SEO friendly WordPress pages for your store locations.
 * [Tagalong](http://www.charlestonsw.com/product/store-locator-plus-tagalong/) : Add custom map markers based on location categories.
