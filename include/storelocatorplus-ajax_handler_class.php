@@ -46,7 +46,7 @@ if (! class_exists('SLPlus_AjaxHandler')) {
          * @param array $data - the data from the SLP database
          * @return named array
          */
-        function slp_add_marker($row = null,$type='load') {
+        function slp_add_marker($row = null) {
             if ($row == null) {
                 return '';
             }
@@ -70,7 +70,6 @@ if (! class_exists('SLPlus_AjaxHandler')) {
                   'image'       => esc_attr($row['sl_image']),
                   'distance'    => $row['sl_distance'],
                   'tags'        => ((get_option(SLPLUS_PREFIX.'_show_tags',0) ==1)? esc_attr($row['sl_tags']) : ''),
-                  'data_from'   => $type,
                   'option_value'=> esc_js($row['sl_option_value']),
                   'id'          => $row['sl_id'],
               );
@@ -149,11 +148,18 @@ if (! class_exists('SLPlus_AjaxHandler')) {
             // Iterate through the rows, printing json nodes for each
             $response = array();
             while ($row = @mysql_fetch_assoc($result)){
-                $response[] = $this->slp_add_marker($row,'load');
+                $response[] = $this->slp_add_marker($row);
             }
 
             header( "Content-Type: application/json" );
-            echo json_encode( array( 'success' => true, 'count' => count($response) , 'slp_version' => $this->parent->version, 'response' => $response ) );
+            echo json_encode( 
+                    array(  'success'       => true,
+                            'count'         => count($response) ,
+                            'slp_version'   => $this->parent->version,
+                            'type'          => 'load',
+                            'response'      => $response
+                        )
+                    );
             die();
         }
 
@@ -259,7 +265,7 @@ if (! class_exists('SLPlus_AjaxHandler')) {
             // Iterate through the rows, printing XML nodes for each
             $response = array();
             while ($row = @mysql_fetch_assoc($result)){
-                $thisLocation = $this->slp_add_marker($row,'search');
+                $thisLocation = $this->slp_add_marker($row);
                 if (!empty($thisLocation)) {
                     $response[] = $thisLocation;
 
@@ -279,7 +285,15 @@ if (! class_exists('SLPlus_AjaxHandler')) {
                 }
             }
             header( "Content-Type: application/json" );
-            echo json_encode( array( 'success' => true, 'count' => count($response), 'option' => $_POST['address'], 'slp_version' => $this->parent->version, 'response' => $response ) );
+            echo json_encode( 
+                    array(  'success'       => true,
+                            'count'         => count($response),
+                            'option'        => $_POST['address'],
+                            'slp_version'   => $this->parent->version,
+                            'type'          => 'search', 
+                            'response'      => $response
+                        )
+                    );
             die();
          }
 
