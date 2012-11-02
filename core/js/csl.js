@@ -879,6 +879,15 @@ var csl = {
             return url;
         }
 
+        /***************************
+  	  	 * function: __createAddress
+  	  	 * usage:
+  	  	 * 		Build a formatted address string
+  	  	 * parameters:
+  	  	 * 		aMarker:
+		 *			the ajax result to build the information from
+  	  	 * returns: a formatted address string
+        */
         this.__createAddress = function(aMarker) {
 
             var address = '';
@@ -893,6 +902,8 @@ var csl = {
             if (aMarker.state != '') { address += ", " + aMarker.state; }
 
             if (aMarker.zip != '') { address += ", " + aMarker.zip; }
+
+            if (aMarker.country != '') { address += ", " + aMarker.country; }
 
             return address;
         }
@@ -1204,7 +1215,8 @@ var csl = {
                         encodeURIComponent(address),
                         slplus.label_directions,
                         tagInfo,
-                        aMarker.id
+                        aMarker.id,
+                        aMarker.country
                       )
                       ;
 			div.className = 'results_entry';
