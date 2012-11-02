@@ -183,22 +183,32 @@ if (! class_exists('SLPlus_UI')) {
         }
 
         /**
-         * Wraps a string in the [raw][/raw] tags if Theme Forest themes are in use
+         * String all \r\n from the template to try to "unbreak" Theme Forest themes.
+         *
+         * This is VERY ugly, but a lot of people use Theme Forest.  They have a known bug
+         * that MANY Theme Forest authors have introduced which will change this:
+         * <table
+         *    style="display:none"
+         *    >
+         *
+         * To this:
+         * <table<br/>
+         *    style="display:none"<br/>
+         *    >
+         *
+         * Which really fucks things up.
+         *
+         * Envato response?  "Oh well, we will tell the authors but can't really fix anything."
+         *
+         * Now our plugin has this ugly slow formatting function which sucks balls.   But we need it
+         * if we are going to not alienate a bunch of Envato users that will never tell us they had an
+         * issue. :/
          *
          * @param string $inStr
          * @return string
          */
         function rawDeal($inStr) {
-
-            // Re-check this because constructor is often too early for this
-            //
-            if(!$this->usingThemeForest) { $this->usingThemeForest = function_exists('webtreats_formatter'); }
-
-            if ( $this->usingThemeForest ) {
-                return '[raw]'.$inStr.'[/raw]';
-            } else {
-                return $inStr;
-            }
+            return str_replace(array("\r","\n"),'',$inStr);
         }
 
 
