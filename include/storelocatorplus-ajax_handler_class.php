@@ -90,16 +90,18 @@ if (! class_exists('SLPlus_AjaxHandler')) {
             $database=DB_NAME;
             $host=DB_HOST;
             $dbPrefix = $wpdb->prefix;
+            $this->setParent();
+
             $connection=mysql_connect ($host, $username, $password);
             if (!$connection) {
-                die (json_encode( array('success' => false, 'response' => 'Not connected : ' . mysql_error())));
+                die (json_encode( array('success' => false, 'slp_version' => $this->parent->version, 'response' => 'Not connected : ' . mysql_error())));
             }
 
             // Set the active MySQL database
             $db_selected = mysql_select_db($database, $connection);
             mysql_query("SET NAMES utf8");
             if (!$db_selected) {
-              die (json_encode( array('success' => false, 'response' => 'Can\'t use db : ' . mysql_error())));
+              die (json_encode( array('success' => false, 'slp_version' => $this->parent->version, 'response' => 'Can\'t use db : ' . mysql_error())));
             }
 
             $num_initial_displayed=trim(get_option('sl_num_initial_displayed','25'));
@@ -150,7 +152,7 @@ if (! class_exists('SLPlus_AjaxHandler')) {
             }
 
             header( "Content-Type: application/json" );
-            echo json_encode( array( 'success' => true, 'count' => count($response) , 'response' => $response ) );
+            echo json_encode( array( 'success' => true, 'count' => count($response) , 'slp_version' => $this->parent->version, 'response' => $response ) );
             die();
         }
 
@@ -167,6 +169,8 @@ if (! class_exists('SLPlus_AjaxHandler')) {
             $host=DB_HOST;
             $dbPrefix = $wpdb->prefix;
 
+            $this->setParent();
+
             // Get parameters from URL
             $center_lat = $_POST["lat"];
             $center_lng = $_POST["lng"];
@@ -176,11 +180,11 @@ if (! class_exists('SLPlus_AjaxHandler')) {
             // Set the active MySQL database
             //
             $connection=mysql_connect ($host, $username, $password);
-            if (!$connection) { die(json_encode( array('success' => false, 'response' => 'Not connected : ' . mysql_error()))); }
+            if (!$connection) { die(json_encode( array('success' => false, 'slp_version' => $this->parent->version, 'response' => 'Not connected : ' . mysql_error()))); }
             $db_selected = mysql_select_db($database, $connection);
             mysql_query("SET NAMES utf8");
             if (!$db_selected) {
-                die (json_encode( array('success' => false, 'response' => 'Can\'t use db : ' . mysql_error())));
+                die (json_encode( array('success' => false, 'slp_version' => $this->parent->version, 'response' => 'Can\'t use db : ' . mysql_error())));
             }
 
             // If tags are passed filter to just those tags
@@ -231,7 +235,7 @@ if (! class_exists('SLPlus_AjaxHandler')) {
 
             $result = mysql_query(apply_filters('slp_mysql_search_query',$query));
             if (!$result) {
-                die(json_encode( array('success' => false, 'query' => $query, 'response' => 'Invalid query: ' . mysql_error())));
+                die(json_encode( array('success' => false, 'slp_version' => $this->parent->version, 'query' => $query, 'response' => 'Invalid query: ' . mysql_error())));
             }
 
             // Reporting
@@ -274,7 +278,7 @@ if (! class_exists('SLPlus_AjaxHandler')) {
                 }
             }
             header( "Content-Type: application/json" );
-            echo json_encode( array( 'success' => true, 'count' => count($response), 'option' => $_POST['address'], 'response' => $response ) );
+            echo json_encode( array( 'success' => true, 'count' => count($response), 'option' => $_POST['address'], 'slp_version' => $this->parent->version, 'response' => $response ) );
             die();
          }
 
