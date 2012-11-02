@@ -247,6 +247,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.7 (November 2012)
 
+* Prevent JavaScript warning if force load javascript is on and user is on a non-SLP map page.
 * Envato Theme Forest Patch - fix open HTML under map
 ** I've been told there is [a problem Envato knows about](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/troubleshooting/known-conflicts/) that they can't fix.
 ** This update MIGHT work around their bug by stripping all newline whitespace out of SLP HTML BEFORE they bastardize it.
