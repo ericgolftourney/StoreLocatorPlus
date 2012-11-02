@@ -61,7 +61,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                 array(
                     'name' => 'Navigation',
                     'div_id' => 'slplus_navbar',
-                    'description' => get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php'),
+                    'description' => $this->parent->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php'),
                     'is_topmenu' => true,
                     'auto' => false,
                     'headerbar'     => false
@@ -74,7 +74,7 @@ if (! class_exists('SLPlus_AdminUI')) {
              $this->parent->settings->add_section(
                 array(
                     'name' => 'How to Use',
-                    'description' => get_string_from_phpexec(SLPLUS_PLUGINDIR.'/how_to_use.txt'),
+                    'description' => $this->parent->helper->get_string_from_phpexec(SLPLUS_PLUGINDIR.'/how_to_use.txt'),
                     'start_collapsed' => false
                 )
             );
