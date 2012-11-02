@@ -254,3 +254,5 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus/) - Find Locations button text can be changed from admin panel
 * [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results/) - added hooks for map results settings interface
 * Further package reduction: merge csl-ajax-search file into ajax handler class.
+* Add SLP version to JSONP response to aid debugging.
+* Country added to JSONP output.

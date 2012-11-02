@@ -57,6 +57,7 @@ if (! class_exists('SLPlus_AjaxHandler')) {
                   'city'        => esc_attr($row['sl_city']),
                   'state'       => esc_attr($row['sl_state']),
                   'zip'         => esc_attr($row['sl_zip']),
+                  'country'     => esc_attr($row['sl_country']),
                   'lat'         => $row['sl_latitude'],
                   'lng'         => $row['sl_longitude'],
                   'description' => html_entity_decode($row['sl_description']),
