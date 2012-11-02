@@ -184,6 +184,19 @@ if (! class_exists('SLPlus_AdminUI')) {
                     'can increase how long it takes to return location search results.', SLPLUS_PREFIX)
                 );
             }
+            // Custom CSS Field
+            //
+            $this->parent->settings->add_item(
+                    'Pro Pack',
+                    __('Custom CSS',SLPLUS_PREFIX),
+                    'custom_css',
+                    'textarea',
+                    false,
+                    __('Enter your custom CSS, preferably for SLPLUS styling only but it can be used for any page element as this will go in your page header.',SLPLUS_PREFIX),
+                    null,
+                    null,
+                    !$this->parent->license->packages['Pro Pack']->isenabled
+                    );
         }
 
         /**

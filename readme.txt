@@ -54,6 +54,7 @@ Premium add-on packages are available to extend the capabilities of this plugin.
 ** The search form can be customized to show or hide a country pulldown, a city and state pulldown, and tag search fields.
 ** Enable pop-up email forms to help reduce spam.
 ** Have more control over the map interface.
+** Admin panel CSS override, tweak the look without editing/saving CSS files.
 * [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages) : Create SEO friendly WordPress pages for your store locations.
 ** Create pages for each location with the click of a button.
 ** Each page can be edited as an individual post.
@@ -256,6 +257,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 ** I've been told there is [a problem Envato knows about](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/troubleshooting/known-conflicts/) that they can't fix.
 ** This update MIGHT work around their bug by stripping all newline whitespace out of SLP HTML BEFORE they bastardize it.
 * [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus/)
+** New custom css entry on general settings makes it easy to tweak the look of the SLP listings.
 ** Find Locations button text can be changed from admin panel
 * [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results/)
 ** Option to turn on telephone URI

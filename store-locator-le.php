@@ -110,6 +110,7 @@ $slplus_plugin->AjaxHandler = new SLPlus_AjaxHandler(array('parent'=>$slplus_plu
 add_action('init'               ,array($slplus_plugin->Actions,'init')                 );
 add_action('wp_enqueue_scripts' ,array($slplus_plugin->Actions,'wp_enqueue_scripts')   );
 add_action('wp_footer'          ,array($slplus_plugin->Actions,'wp_footer')            );
+add_action('wp_head'            ,array($slplus_plugin->Actions,'wp_head')              );
 add_action('shutdown'           ,array($slplus_plugin->Actions,'shutdown')             );
 
 // Admin Actions

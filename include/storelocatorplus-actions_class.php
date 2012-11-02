@@ -399,8 +399,6 @@ if (! class_exists('SLPlus_Actions')) {
         
 
         /*************************************
-         * method: wp_footer()
-         *
          * This is called whenever the WordPress shutdown action is called.
          */
         function wp_footer() {
@@ -408,9 +406,17 @@ if (! class_exists('SLPlus_Actions')) {
 		}
 
 
+        /**
+         * Called when the <head> tags are rendered.
+         */
+        function wp_head() {
+            $output = strip_tags($this->parent->settings->get_item('custom_css',''));
+            if ($output != '') {
+                echo '<!-- SLP Pro Pack Custom CSS -->'."\n".'<style type="text/css">'."\n" . $output . '</style>'."\n\n";
+            }
+        }
+
         /*************************************
-         * method: shutdown()
-         * 
          * This is called whenever the WordPress shutdown action is called.
          */
         function shutdown() {
@@ -418,8 +424,9 @@ if (! class_exists('SLPlus_Actions')) {
             SLPlus_Actions::ManageTheScripts();
 		}
 
-        // Unload The SLP Scripts If No Shortcode
-        //
+        /**
+         * Unload The SLP Scripts If No Shortcode
+         */
         function ManageTheScripts() {
             if (!defined('SLPLUS_SCRIPTS_MANAGED') || !SLPLUS_SCRIPTS_MANAGED) {
 
