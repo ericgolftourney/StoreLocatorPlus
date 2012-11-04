@@ -155,12 +155,14 @@ if (! class_exists('SLPlus_AdminUI')) {
             //-------------------------
             // Pro Pack
             //
+            $proPackMsg = (
+                    $this->parent->license->packages['Pro Pack']->isenabled            ?
+                    '' :
+                    __('This is a <a href="http://www.charlestonsw.com/product/store-locator-plus/">Pro Pack</a>  feature. ', SLPLUS_PREFIX)
+                    );
             $slp_rep_desc = __('These settings affect how the Pro Pack add-on behaves. ', SLPLUS_PREFIX);
             if (!$this->parent->license->AmIEnabled(true, "SLPLUS-PRO")) {
-                $slp_rep_desc .= '<br/><br/>'.
-                    __('This is a <a href="http://www.charlestonsw.com/product/store-locator-plus/">Pro Pack</a>'.
-                    ' feature.  It provides more settings and features that are not provided in the free plugin'
-                    , SLPLUS_PREFIX);
+                $slp_rep_desc .= '<br/><br/>'.$proPackMsg;
             } else {
                 $slp_rep_desc .= '<span style="float:right;">(<a href="#" onClick="'.
                         'jQuery.post(ajaxurl,{action: \'license_reset_propack\'},function(response){alert(response);});'.
@@ -192,7 +194,9 @@ if (! class_exists('SLPlus_AdminUI')) {
                     'custom_css',
                     'textarea',
                     false,
-                    __('Enter your custom CSS, preferably for SLPLUS styling only but it can be used for any page element as this will go in your page header.',SLPLUS_PREFIX),
+                    __('Enter your custom CSS, preferably for SLPLUS styling only but it can be used for any page element as this will go in your page header.',SLPLUS_PREFIX)
+                    .$proPackMsg
+                        ,
                     null,
                     null,
                     !$this->parent->license->packages['Pro Pack']->isenabled
