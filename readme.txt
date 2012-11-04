@@ -256,6 +256,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Envato Theme Forest Patch - fix open HTML under map
 ** I've been told there is [a problem Envato knows about](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/troubleshooting/known-conflicts/) that they can't fix.
 ** This update MIGHT work around their bug by stripping all newline whitespace out of SLP HTML BEFORE they bastardize it.
+* Prevent duplicate form entries on search form.
+** Some themes or plugins are causing the form field trigger to be called twice.  Very strange (and non-standard) behavior.
 * [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus/)
 ** New custom css entry on general settings makes it easy to tweak the look of the SLP listings.
 ** Find Locations button text can be changed from admin panel

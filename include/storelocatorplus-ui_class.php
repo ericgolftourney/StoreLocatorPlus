@@ -255,52 +255,74 @@ if (! class_exists('SLPlus_UI_DivManager')) {
     class SLPlus_UI_DivManager {
 
         function DivStr($str1, $str2) {
-            return $str1.$str2;
+            if ($str2 == '') {
+                return $str1;
+            } else {
+                return $str1.$str2;
+            }
         }
 
         function buildDiv10($blank) {
             global $slp_thishtml_10;
-            return $this->DivStr($blank,$slp_thishtml_10);
+            $content = $this->DivStr($blank,$slp_thishtml_10);
+            $slp_thishtml_10 = '';
+            return $content;
         }
 
         function buildDiv20($blank) {
             global $slp_thishtml_20;
-            return $this->DivStr($blank,$slp_thishtml_20);
+            $content = $this->DivStr($blank,$slp_thishtml_20);
+            $slp_thishtml_20 = '';
+            return $content;
         }
 
         function buildDiv30($blank) {
             global $slp_thishtml_30;
-            return $this->DivStr($blank,$slp_thishtml_30);
+            $content = $this->DivStr($blank,$slp_thishtml_30);
+            $slp_thishtml_30 = '';
+            return $content;
         }
 
         function buildDiv40($blank) {
             global $slp_thishtml_40;
-            return $this->DivStr($blank,$slp_thishtml_40);
+            $content = $this->DivStr($blank,$slp_thishtml_40);
+            $slp_thishtml_40 = '';
+            return $content;
         }
 
         function buildDiv50($blank) {
             global $slp_thishtml_50;
-            return $this->DivStr($blank,$slp_thishtml_50);
+            $content = $this->DivStr($blank,$slp_thishtml_50);
+            $slp_thishtml_50 = '';
+            return $content;
         }
 
         function buildDiv60($blank) {
             global $slp_thishtml_60;
-            return $this->DivStr($blank,$slp_thishtml_60);
+            $content = $this->DivStr($blank,$slp_thishtml_60);
+            $slp_thishtml_60 = '';
+            return $content;
         }
 
         function buildDiv70($blank) {
             global $slp_thishtml_70;
-            return $this->DivStr($blank,$slp_thishtml_70);
+            $content = $this->DivStr($blank,$slp_thishtml_70);
+            $slp_thishtml_70 = '';
+            return $content;
         }
 
         function buildDiv80($blank) {
             global $slp_thishtml_80;
-            return $this->DivStr($blank,$slp_thishtml_80);
+            $content = $this->DivStr($blank,$slp_thishtml_80);
+            $slp_thishtml_80 = '';
+            return $content;
         }
 
         function buildDiv90($blank) {
             global $slp_thishtml_90;
-            return $this->DivStr($blank,$slp_thishtml_90);
+            $content = $this->DivStr($blank,$slp_thishtml_90);
+            $slp_thishtml_90 = '';
+            return $content;
         }
     }
 }
