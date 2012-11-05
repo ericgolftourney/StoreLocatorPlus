@@ -249,6 +249,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 = 3.7 (November 2012)
 
 * Prevent JavaScript warning if force load javascript is on and user is on a non-SLP map page.
+* Fix JavaScript error on some sites where a timing issue created a JavaScript error on formParams.
 * Further package reduction: merge csl-ajax-search file into ajax handler class.
 * Add SLP version to JSONP response to aid debugging.
 * Country added to JSONP output.
@@ -258,6 +259,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 ** This update MIGHT work around their bug by stripping all newline whitespace out of SLP HTML BEFORE they bastardize it.
 * Prevent duplicate form entries on search form.
 ** Some themes or plugins are causing the form field trigger to be called twice.  Very strange (and non-standard) behavior.
+** Do not use do_shortcode() in your custom themes.  It does bad things.
 * [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus/)
 ** New custom css entry on general settings makes it easy to tweak the look of the SLP listings.
 ** Find Locations button text can be changed from admin panel
