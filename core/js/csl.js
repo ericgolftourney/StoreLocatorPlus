@@ -963,7 +963,8 @@ var csl = {
 
 			if (slplus.show_tags) {
 				if (jQuery.trim(aMarker.tags) != '') {
-					html += '<br/>'+aMarker.tags;
+					var tagclass = 'bubble_'+aMarker.tags.replace(/\W/g,'_');
+					html += '<br/><div class="'+tagclass+'"><span class="slp_info_bubble_tags">'+aMarker.tags + '</span></div>';
 				}
 			}
 			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.address) + '&daddr=' + encodeURIComponent(address) + '" target="_blank" class="storelocatorlink">'+slplus.label_directions+'</a> ' + html + '<br/><!--/td></tr--></div>';
