@@ -1,7 +1,7 @@
 /**
- ** file: csl-slplus.css
- ** label: The Original Theme
- ** description: The original SLPLUS Theme.
+ ** file: csl-slplus-toplabels.css
+ ** label: Labels Above Input
+ ** description: Show the labels above the input boxes.
  **
  **/
 
@@ -19,12 +19,14 @@
     background: -moz-linear-gradient(top,  #FFF,  #DDD); /* for firefox 3.6+ */
     text-decoration: none;
     
-    font-size: 14px;
     border: 1px solid #BBBBBB;
     border-radius: 3px 3px 3px 3px;
+    bottom: 0;
+    font-size: 14px;
     height: 26px;
     margin: 0px 2px 2px 0px;
     padding: 0px 4px;
+    position: absolute;
     text-align: center;
     cursor: pointer;
     color: #5F5E5E;
@@ -60,25 +62,67 @@
 
 /***** Search Form Inputs  *****/
 #address_search {
+    display: inline-block;
+    position: relative;
     width: 600px;
 }
 #address_search LABEL {
-    text-align: right;
-    min-width: 100px;
-    font-size: 14px;
     display:block;
-    float: left;
-    padding-right: 8px;
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: 500;
+    min-width: 100px;
+    padding-bottom: 3px;
 }
 
+
 #address_search SELECT {
-	margin:0px 6px 0px 0px;
+    background: #E9E9FF;
+	border:solid 1px silver;
+    font-size: 16px;
+
+    height: 30px;
+    line-height: 30px;
+	padding: 4px 0 0 3px;
+
+    /* Corners */
+    -webkit-border-radius:9px;
+    -moz-border-radius:9px;
+    border-radius:9px;
+     -khtml-border-radius: 9px;
+
+     /* Shadow */
+     -moz-box-shadow: 0px 1px 4px #AAA;
+     -webkit-box-shadow: 0px 1px 4px #AAA;
+     box-shadow: 0px 1px 4px #AAA;
 }
 
 #address_search INPUT {
-	margin:0px 6px 0px 0px;
+    background: #E9E9FF;
+	border:solid 1px silver;
+    height: 30px;
+	margin: 3px 6px 0px 0px;
+
+
+    /* Corners */
+    -webkit-border-radius:9px;
+    -moz-border-radius:9px;
+    border-radius:9px;
+     -khtml-border-radius: 9px;
+
+     /* Shadow */
+     -moz-box-shadow: 0px 1px 4px #AAA;
+     -webkit-box-shadow: 0px 1px 4px #AAA;
+     box-shadow: 0px 1px 4px #AAA;
 }
 
+#address_search .search_item INPUT {
+	padding-left:3px;
+	color: black;
+	margin:0px 6px 0px 0px;
+	width: 256px;
+	padding-top:0px;
+}
 
 
 #address_search .search_item {
@@ -87,19 +131,8 @@
 	clear: both;
 }
 
-#address_search .search_item INPUT {
-	border:solid 1px silver;
-	padding-left:3px; 
-	background:white url(../images/search-input.gif) repeat-x;
-	color: black;
-	margin:0px 6px 0px 0px;
-	width: 256px;
-	padding-top:0px;
-}
 
-#address_search .search_item SELECT {
-	margin:0px 6px 0px 0px;
-}
+
 
 #addy_in_city {
     clear: both;
@@ -124,7 +157,6 @@
 #radius_in_submit {
     float: left;
     width: 300px;
-    padding-top: 3px;
 }
 
 
