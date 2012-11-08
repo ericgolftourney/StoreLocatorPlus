@@ -108,10 +108,13 @@ if (! class_exists('SLPlus_AdminUI')) {
                 'goecode_retries',
                 'list',
                 false,
-                'How many times should we try to set the latitude/longitude for a new address. ' .
-                'Higher numbers mean slower bulk uploads ('.
-                '<a href="http://www.charlestonsw.com/product/store-locator-plus/">plus version</a>'.
-                '), lower numbers makes it more likely the location will not be set during bulk uploads.',
+                sprintf(__('How many times should we try to set the latitude/longitude for a new address. ' .
+                    'Higher numbers mean slower bulk uploads ('.
+                    '<a href="%s">plus version</a>'.
+                    '), lower numbers makes it more likely the location will not be set during bulk uploads.',
+                     SLPLUS_PREFIX),
+                     'http://www.charlestonsw.com/product/store-locator-plus/'
+                     ),                        
                 array (
                       'None' => 0,
                       '1' => '1',
@@ -125,6 +128,15 @@ if (! class_exists('SLPlus_AdminUI')) {
                       '9' => '9',
                       '10' => '10',
                     )
+            );
+
+             $this->parent->settings->add_item(
+                'Google Communication',
+                'Turn Off SLP Maps',
+                'no_google_js',
+                'checkbox',
+                false,
+                __('Check this box if your Theme or another plugin is providing Google Maps and generating warning messages.  THIS MAY BREAK THIS PLUGIN.', SLPLUS_PREFIX)
             );
 
             //--------------------------

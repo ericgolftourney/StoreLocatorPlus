@@ -246,7 +246,12 @@ Visit the [Store Locator Plus Release Notes page](http://www.charlestonsw.com/su
 
 I was listing the entire change log here but with weekly/bi-weekly updates it as getting much too long.
 
-= 3.7 (November 2012)
+= 3.7.1 (Early November 2012) =
+
+* Detect directory read error (permission/missing directory) for icons.
+* Add "turn of google maps js" for themes that  have a google maps call built-in.  Enabling this can break SLP.
+
+= 3.7 (November 2012) =
 
 * Prevent JavaScript warning if force load javascript is on and user is on a non-SLP map page.
 * Fix JavaScript error on some sites where a timing issue created a JavaScript error on formParams.
