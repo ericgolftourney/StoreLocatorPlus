@@ -42,13 +42,7 @@ if (defined('SLPLUS_COREDIR') === false) {
 if (defined('SLPLUS_ICONDIR') === false) {
     define('SLPLUS_ICONDIR', SLPLUS_COREDIR . 'images/icons/');
 }
-if (defined('SLPLUS_UPLOADDIR') === false) {
-    $upload_dir = wp_upload_dir('slp');
-    $upload_path = preg_replace('/\/slp\/$/','/sl-uploads/',$upload_dir['path']);
-    $upload_url  = preg_replace('/\/slp\/$/','/sl-uploads/',$upload_dir['url']);
-    define('SLPLUS_UPLOADDIR', $upload_path);
-    define('SLPLUS_UPLOADURL', $upload_url);
-}
+
 
 // URL Defines
 //
@@ -73,6 +67,27 @@ if (defined('SLPLUS_BASENAME') === false) {
     define('SLPLUS_BASENAME', plugin_basename(__FILE__));
 }
 
+// SLP Uploads Dir
+//
+if (defined('SLPLUS_UPLOADDIR') === false) {
+    $upload_dir = wp_upload_dir('slp');
+    $error = $upload_dir['error'];
+    if ( $error === '') {
+        $upload_path = preg_replace('/\/slp\/$/','/sl-uploads/',$upload_dir['path']);
+        $upload_url  = preg_replace('/\/slp\/$/','/sl-uploads/',$upload_dir['url']);
+        define('SLPLUS_UPLOADDIR', $upload_path);
+        define('SLPLUS_UPLOADURL', $upload_url);
+    } else {
+        $error = preg_replace(
+                '/Unable to create directory /',
+                'Unable to create directory ' . ABSPATH ,
+                $error
+                );
+        define('SLPLUS_UPLOADDIR', SLPLUS_PLUGINDIR);
+        define('SLPLUS_UPLOADURL', SLPLUS_PLUGINURL);
+    }
+}
+
 // Our product prefix
 //
 if (defined('SLPLUS_PREFIX') === false) {
@@ -84,6 +99,12 @@ if (defined('SLPLUS_PREFIX') === false) {
 global $slplus_plugin;
 include_once(SLPLUS_PLUGINDIR . '/include/config.php'	);
 include_once(SLPLUS_COREDIR   . 'functions.sl.php'	);
+
+// Errors?
+//
+if ($error != '') {
+    $slplus_plugin->notifications->add_notice(4,$error);
+}
 
 // General WP Action Interface
 //
