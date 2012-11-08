@@ -250,6 +250,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 * Wrap tag output in info bubble in div and span with tags.
 ** Make it easier to "iconify" the tags with CSS.
+* Add more help to the starting image setting.
 
 = 3.7.1 (Early November 2012) =
 
