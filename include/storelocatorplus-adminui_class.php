@@ -597,35 +597,50 @@ if (! class_exists('SLPlus_AdminUI')) {
           * @return string - the html of the icon selector
           */
          function rendorIconSelector($inputFieldID = null, $inputImageID = null) {
+            if (!$this->setParent()) { return 'could not set parent'; }
             if (($inputFieldID == null) || ($inputImageID == null)) { return ''; }
             $htmlStr = '';
 
             $directories = apply_filters('slp_icon_directories',array(SLPLUS_ICONDIR, SLPLUS_UPLOADDIR."/custom-icons/"));
             foreach ($directories as $directory) {
-                $iconDir=opendir($directory);
-                $iconURL = (($directory === SLPLUS_ICONDIR)?SLPLUS_ICONURL:SLPLUS_UPLOADURL.'/custom-icons/');
-                while (false !== ($an_icon=readdir($iconDir))) {
-                    if (
-                        (preg_match('/\.(png|gif|jpg)/i', $an_icon) > 0) &&
-                        (preg_match('/shadow\.(png|gif|jpg)/i', $an_icon) <= 0)
-                        ) {
-                        $htmlStr .=
-                            "<div class='slp_icon_selector_box'>".
-                                "<img class='slp_icon_selector'
-                                     src='".$iconURL.$an_icon."'
-                                     onclick='".
-                                        "document.getElementById(\"".$inputFieldID."\").value=this.src;".
-                                        "document.getElementById(\"".$inputImageID."\").src=this.src;".
-                                     "'>".
-                             "</div>"
-                             ;
+                if (is_dir($directory)) {
+                    if ($iconDir=opendir($directory)) {
+                        $iconURL = (($directory === SLPLUS_ICONDIR)?SLPLUS_ICONURL:SLPLUS_UPLOADURL.'/custom-icons/');
+                        while (false !== ($an_icon=readdir($iconDir))) {
+                            if (
+                                (preg_match('/\.(png|gif|jpg)/i', $an_icon) > 0) &&
+                                (preg_match('/shadow\.(png|gif|jpg)/i', $an_icon) <= 0)
+                                ) {
+                                $htmlStr .=
+                                    "<div class='slp_icon_selector_box'>".
+                                        "<img class='slp_icon_selector'
+                                             src='".$iconURL.$an_icon."'
+                                             onclick='".
+                                                "document.getElementById(\"".$inputFieldID."\").value=this.src;".
+                                                "document.getElementById(\"".$inputImageID."\").src=this.src;".
+                                             "'>".
+                                     "</div>"
+                                     ;
+                            }
+                        }
+                    } else {
+                        $this->parent->notifications->add_notice(
+                                9,
+                                sprintf(
+                                        __('Could not read icon directory %s',SLPLUS_PREFIX),
+                                        $directory
+                                        )
+                                );
+                         $this->parent->notifications->display();
                     }
-                }
+               }
             }
             if ($htmlStr != '') {
                 $htmlStr = '<div id="'.$inputFieldID.'_icon_row" class="slp_icon_row">'.$htmlStr.'</div>';
 
             }
+
+
             return $htmlStr;
          }
 
