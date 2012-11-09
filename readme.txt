@@ -226,6 +226,8 @@ Currently this includes:
 
 == Screenshots ==
 
+The website offers [more screen shots](http://www.charlestonsw.com/product/store-locator-plus-2/) including those from the latest updates and premium add-on packages.
+
 1. Location Details
 2. Tag filter pulldown
 3. All Options Search
@@ -251,6 +253,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Wrap tag output in info bubble in div and span with tags.
 ** Make it easier to "iconify" the tags with CSS.
 * Add more help to the starting image setting.
+* Consolidate and remove un-needed files, decreasing install package size.
+* Add CSS elements and filters for add/edit locations for better third party controls.
 
 = 3.7.1 (Early November 2012) =
 
