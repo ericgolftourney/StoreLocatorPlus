@@ -18,9 +18,9 @@ initialize_variables();
 //-------------------------
 // Navbar Section
 //-------------------------    
-print '<div id="slplus_navbar">';
-print get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php');
-print '</div>';
+print '<div id="slplus_navbar">' .
+      $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/'.'navbar.php') .
+      '</div>';
 
 
 //Inserting addresses by manual input
@@ -135,6 +135,4 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
 
 	
 $base=get_option('siteurl');
-
-// Show the manual location entry form
-execute_and_output_template('add_locations.php');
+print $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/'.'add_locations.php');
