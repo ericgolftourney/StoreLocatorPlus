@@ -5,20 +5,14 @@
  ** handles the add locations form
  ***************************************************************************/
 
-global $wpdb;
+initialize_variables();
 
 print "<div class='wrap'>
             <div id='icon-add-locations' class='icon32'><br/></div>
             <h2>".
             __('Store Locator Plus - Add Locations', SLPLUS_PREFIX).
-            "</h2>";
-            
-initialize_variables();
-
-//-------------------------
-// Navbar Section
-//-------------------------    
-print '<div id="slplus_navbar">' .
+            "</h2>" .
+      '<div id="slplus_navbar">' .
       $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/'.'navbar.php') .
       '</div>';
 
@@ -132,7 +126,6 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
 		    '.</div>';	
 	}
 }
-
 	
 $base=get_option('siteurl');
 print $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/'.'add_locations.php');
