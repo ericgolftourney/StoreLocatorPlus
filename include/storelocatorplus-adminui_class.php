@@ -599,7 +599,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                 $base=get_option('siteurl');
 
                 // Show the manual location entry form
-                execute_and_output_template('add_locations.php');
+                print $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/'.'add_locations.php');
          }
 
 

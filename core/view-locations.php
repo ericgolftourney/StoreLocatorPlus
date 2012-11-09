@@ -22,15 +22,11 @@ print "<div class='wrap'>
             <div id='icon-edit-locations' class='icon32'><br/></div>
             <h2>".
             __('Store Locator Plus - Manage Locations', SLPLUS_PREFIX).
-            "</h2>";
-
-            
-//-------------------------
-// Navbar Section
-//-------------------------    
-print '<div id="slplus_navbar">';
-print get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php');
-print '</div>';            
+            "</h2>" .
+      '<div id="slplus_navbar">' .
+      $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/'.'navbar.php') .
+      '</div>';
+       
 
 // Check Google API Key
 // Not present : who cares
@@ -476,9 +472,7 @@ if ($slpLocations=$wpdb->get_results(
                 <td valign='top'>";
 
             $slpEditForm = '';
-
-
-            execute_and_output_template('edit_location_address.php');
+            print $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/'.'edit_location_address.php');
 
             // Store Pages URLs
             //
