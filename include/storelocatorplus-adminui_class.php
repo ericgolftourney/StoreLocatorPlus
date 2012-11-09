@@ -481,15 +481,15 @@ if (! class_exists('SLPlus_AdminUI')) {
                 //-------------------------
                 // Navbar Section
                 //-------------------------
-                print '<div id="slplus_navbar">';
-                print get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php');
-                print '</div>';
+                print '<div id="slplus_navbar">'.
+                      $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php') .
+                      '</div>'
+                      ;
 
 
                 //Inserting addresses by manual input
                 //
-                $notpca = isset($_GET['mode']) ? ($_GET['mode']!="pca") : true;
-                if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
+                if ( isset($_POST['sl_store']) && $_POST['sl_store']) {
                     $fieldList = '';
                     $sl_valueList = '';
                     foreach ($_POST as $key=>$sl_value) {
@@ -595,10 +595,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                     }
                 }
 
-
                 $base=get_option('siteurl');
-
-                // Show the manual location entry form
                 print $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/'.'add_locations.php');
          }
 
