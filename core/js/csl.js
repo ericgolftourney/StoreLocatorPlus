@@ -1145,7 +1145,7 @@ var csl = {
 			if (slplus.show_tags) {
 				if (jQuery.trim(aMarker.tags) != '') {
 					var tagclass = aMarker.tags.replace(/\W/g,'_');
-					tagInfo = '<br/><div class="'+tagclass+'"><span class="tagtext">'+aMarker.tags+'</span></div>';
+					tagInfo = '<br/><div class="'+tagclass+' slp_result_table_tags"><span class="tagtext">'+aMarker.tags+'</span></div>';
 				}
 			}
 
