@@ -47,7 +47,24 @@ if (! class_exists('SLPlus_AdminUI')) {
             return (isset($this->parent) && ($this->parent != null));
         }
 
-        
+        /**
+         * Add an address into the SLP locations database.
+         * 
+         * @global type $wpdb
+         * @param type $fields
+         * @param type $sl_values
+         * @param type $theaddress
+         *
+         */
+        function add_this_addy($fields,$sl_values,$theaddress) {
+            global $wpdb;
+            $fields=substr($fields, 0, strlen($fields)-1);
+            $sl_values=substr($sl_values, 0, strlen($sl_values)-1);
+            $wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fields) VALUES ($sl_values);");
+            do_geocoding($theaddress);
+
+        }
+
         /**
          * Setup some of the general settings interface elements.
          */
@@ -407,22 +424,6 @@ if (! class_exists('SLPlus_AdminUI')) {
              );
 
          }
-
-         /**
-          * 
-          * @global type $wpdb
-          * @param type $fields
-          * @param type $sl_values
-          * @param type $theaddress
-          */
-        function add_this_addy($fields,$sl_values,$theaddress) {
-            global $wpdb;
-            $fields=substr($fields, 0, strlen($fields)-1);
-            $sl_values=substr($sl_values, 0, strlen($sl_values)-1);
-            $wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fields) VALUES ($sl_values);");
-            do_geocoding($theaddress);
-
-        }
 
         /*****************************
          * function: url_test()

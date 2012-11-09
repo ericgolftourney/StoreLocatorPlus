@@ -5,22 +5,6 @@
  ** handles the add locations form
  ***************************************************************************/
 
- 
-function add_this_addy($fields,$sl_values,$theaddress) {
-	global $wpdb;
-	$fields=substr($fields, 0, strlen($fields)-1);
-	$sl_values=substr($sl_values, 0, strlen($sl_values)-1);	
-	$wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fields) VALUES ($sl_values);");
-	do_geocoding($theaddress);
-	
-}
-
-
-
-
-/****************************************************************************
- ***************************************************************************/
-
 global $wpdb;
 
 print "<div class='wrap'>
@@ -56,7 +40,7 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
 	$this_addy = $_POST['sl_address'].', '.
 		      $_POST['sl_city'].', '.$_POST['sl_state'].' '.
 		      $_POST['sl_zip'];
-	add_this_addy($fieldList,$sl_valueList,$this_addy);
+	$slplus_plugin->AdminUI->add_this_addy($fieldList,$sl_valueList,$this_addy);
 	print "<div class='updated fade'>".
             $_POST['sl_store'] ." " .
             __("Added Succesfully",SLPLUS_PREFIX) . '.</div>';
@@ -106,7 +90,7 @@ if ( isset($_POST['sl_store']) && $_POST['sl_store'] && $notpca ) {
                                         }
                                     }
                                     $this_addy = substr($this_addy, 0, strlen($this_addy)-2);
-                                    add_this_addy($fieldList,$sl_valueList,$this_addy);
+                                    $slplus_plugin->AdminUI->add_this_addy($fieldList,$sl_valueList,$this_addy);
                                     sleep(0.5);
                                     $reccount++;
                                 } else {
