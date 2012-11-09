@@ -15,17 +15,16 @@
 if (! class_exists('SLPlus_Actions')) {
     class SLPlus_Actions {
         
-        /******************************
+        /**
          * PUBLIC PROPERTIES & METHODS
-         ******************************/
+         */
         public $parent = null;
 
-        /*************************************
+        /**
          * The Constructor
          */
         function __construct($params=null) {
         }
-
 
         /**
          * Set the parent property to point to the primary plugin object.
@@ -43,14 +42,14 @@ if (! class_exists('SLPlus_Actions')) {
             return (isset($this->parent) && ($this->parent != null));
         }
         
-        /**************************************
-         ** method: admin_init()
-         **
-         ** Called when the WordPress admin_init action is processed.
-         **
-         ** Builds the interface elements used by WPCSL-generic for the admin interface.
-         **
-         **/
+        /**
+         * method: admin_init()
+         *
+         * Called when the WordPress admin_init action is processed.
+         *
+         * Builds the interface elements used by WPCSL-generic for the admin interface.
+         *
+         */
         function admin_init() {
             if (!$this->setParent()) { return; }
         
@@ -72,7 +71,7 @@ if (! class_exists('SLPlus_Actions')) {
             $this->parent->AdminUI->build_basic_admin_settings();
         }
 
-        /**************************************
+        /**
          * method: admin_menu()
          *
          * Add the Store Locator panel to the admin sidebar.
@@ -178,12 +177,12 @@ if (! class_exists('SLPlus_Actions')) {
             }
         }
         
-        /**************************************
-         ** method: init()
-         **
-         ** Called when the WordPress init action is processed.
-         **
-         **/
+        /**
+         * method: init()
+         *
+         * Called when the WordPress init action is processed.
+         *
+         */
         function init() {
             if (!$this->setParent()) { return; }
             
@@ -234,7 +233,6 @@ if (! class_exists('SLPlus_Actions')) {
             $this->register_store_taxonomy();
         }
 
-
         /**
          * Register the store taxonomy.
          *
@@ -256,12 +254,9 @@ if (! class_exists('SLPlus_Actions')) {
                 );
         }
 
-
-
-        /**************************************
-         * SetMapCenter()
-         *
+        /**
          * Set the starting point for the center of the map.
+         *
          * Uses country by default.
          */
         function SetMapCenter() {
@@ -276,9 +271,7 @@ if (! class_exists('SLPlus_Actions')) {
             return esc_attr(get_option('sl_google_map_country','United States'));
         }
 
-        /*************************************
-         * method: wp_enqueue_scripts()
-         * 
+        /**
          * This is called whenever the WordPress wp_enqueue_scripts action is called.
          */
         static function wp_enqueue_scripts() {
@@ -400,7 +393,7 @@ if (! class_exists('SLPlus_Actions')) {
         }     
         
 
-        /*************************************
+        /**
          * This is called whenever the WordPress shutdown action is called.
          */
         function wp_footer() {
@@ -418,7 +411,7 @@ if (! class_exists('SLPlus_Actions')) {
             }
         }
 
-        /*************************************
+        /**
          * This is called whenever the WordPress shutdown action is called.
          */
         function shutdown() {
