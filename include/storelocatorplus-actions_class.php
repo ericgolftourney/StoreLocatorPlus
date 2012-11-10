@@ -378,6 +378,7 @@ if (! class_exists('SLPlus_Actions')) {
                 'map_scalectrl'     => (get_option(SLPLUS_PREFIX.'_disable_scalecontrol')==0),
                 'map_type'          => get_option('sl_map_type','roadmap'),
                 'map_typectrl'      => (get_option(SLPLUS_PREFIX.'_disable_maptypecontrol')==0),
+                'msg_noresults'     => $slplus_plugin->settings->get_item('message_noresultsfound','No results found.','_'),
                 'results_string'    => apply_filters('slp_javascript_results_string',$results_string),
                 'show_tags'         => (get_option(SLPLUS_PREFIX.'_show_tags')==1),
                 'overview_ctrl'     => get_option('sl_map_overview_control',0),

@@ -238,7 +238,7 @@ The website offers [more screen shots](http://www.charlestonsw.com/product/store
 8. Admin Manage Locations
 9. Default settings
 
-More screenshots are available via the [Store Locator Plus website](http://www.storelocatorplus.com/).
+More screenshots are available via [the CSA website](http://www.charlestonsw.com/products/store-locator-plus/).
 
 == Changelog ==
 
@@ -250,13 +250,14 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.7.2 (November 9 2012) =
 
-* Patch: Using only_with_tag in the Pro Pack no longer requires you check off "Tag Input" under Map Settings/Search Form/Tags for the tag filter to work.
 * Wrap tag output in info bubble in div and span with tags.
 ** Make it easier to "iconify" the tags with CSS.
 * Add more help to the starting image setting.
 * Consolidate and remove un-needed files, decreasing install package size.
 * Add CSS elements and filters for add/edit locations for better third party controls.
 * Style add locations page after manage locations edit page.
+* [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) Patch: Using only_with_tag in the Pro Pack no longer requires you check off "Tag Input" under Map Settings/Search Form/Tags for the tag filter to work.
+* [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) Added setting to customize "no results found" message that appears after a search with no results returned.
 
 = 3.7.1 (Early November 2012) =
 

@@ -721,7 +721,7 @@ var csl = {
 			if (markerList.length == 0) {
 				this.gmap.panTo(this.homePoint);
                 var sidebar = document.getElementById('map_sidebar');
-				sidebar.innerHTML = '<div class="no_results_found"><h2>No results found.</h2></div>';
+				sidebar.innerHTML = '<div class="no_results_found"><h2>'+slplus.msg_noresults+'</h2></div>';
                 jQuery('#map_sidebar').trigger('contentchanged');
 			} else {
                 jQuery('#map_sidebar').trigger('contentchanged');
