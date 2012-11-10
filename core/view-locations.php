@@ -464,7 +464,7 @@ if ($slpLocations=$wpdb->get_results(
         if (isset($_GET['edit']) && ($locID==$_GET['edit'])) {
             print 
                 "<tr id='slp_location_edit_row'>"               . 
-                "<td class='slp_location_edit_cell' colspan='".(count($slpManageColumns)+4)."'>".
+                "<td class='slp_locationinfoform_cell' colspan='".(count($slpManageColumns)+4)."'>".
                 $slplus_plugin->AdminUI->createString_LocationInfoForm($sl_value, $locID) .
                 '</td></tr>';
 

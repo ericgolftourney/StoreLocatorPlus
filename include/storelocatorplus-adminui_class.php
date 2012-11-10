@@ -469,19 +469,14 @@ if (! class_exists('SLPlus_AdminUI')) {
          */
          function renderPage_AddLocations() {
                 global $slplus_plugin,$wpdb;
+                initialize_variables();
 
                 print "<div class='wrap'>
                             <div id='icon-add-locations' class='icon32'><br/></div>
                             <h2>".
                             __('Store Locator Plus - Add Locations', SLPLUS_PREFIX).
-                            "</h2>";
-
-                initialize_variables();
-
-                //-------------------------
-                // Navbar Section
-                //-------------------------
-                print '<div id="slplus_navbar">'.
+                            "</h2>".
+                      '<div id="slplus_navbar">'.
                       $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php') .
                       '</div>'
                       ;
@@ -489,23 +484,28 @@ if (! class_exists('SLPlus_AdminUI')) {
 
                 //Inserting addresses by manual input
                 //
-                if ( isset($_POST['sl_store']) && $_POST['sl_store']) {
+                if ( isset($_POST['store-']) && $_POST['store-']) {
                     $fieldList = '';
                     $sl_valueList = '';
                     foreach ($_POST as $key=>$sl_value) {
-                        if (preg_match('#sl_#', $key)) {
-                            $fieldList.="$key,";
+                        if (preg_match('#\-$#', $key)) {
+                            $fieldList.='sl_'.preg_replace('#\-$#','',$key).',';
                             $sl_value=comma($sl_value);
                             $sl_valueList.="\"".stripslashes($sl_value)."\",";
                         }
                     }
 
-                    $this_addy = $_POST['sl_address'].', '.
-                              $_POST['sl_city'].', '.$_POST['sl_state'].' '.
-                              $_POST['sl_zip'];
+                    $this_addy = 
+                              $_POST['address-'].', '.
+                              $_POST['address2-'].', '.
+                              $_POST['city-'].', '.$_POST['state-'].' '.
+                              $_POST['zip-'] . ', ' .
+                              $_POST['country-']
+                              ;
+
                     $slplus_plugin->AdminUI->add_this_addy($fieldList,$sl_valueList,$this_addy);
                     print "<div class='updated fade'>".
-                            $_POST['sl_store'] ." " .
+                            $_POST['store-'] ." " .
                             __("Added Succesfully",SLPLUS_PREFIX) . '.</div>';
 
                 /** Bulk Upload
@@ -605,15 +605,17 @@ if (! class_exists('SLPlus_AdminUI')) {
           * @global wpCSL_plugin__slplus $slplus_plugin
           * @param mixed $sl_value - the data values for this location in array format
           * @param int $locID - the ID number for this location
+          * @param bool $addform - true if rendering add locations form
           */
-         function createString_LocationInfoForm($sl_value, $locID) {
+         function createString_LocationInfoForm($sl_value, $locID, $addform=false) {
              global $slplus_plugin;
+             $slplus_plugin->addform = $addform;
              $slpEditForm = '';
              
              $content  = ''                                                                     .
-                "<form name='manualAddForm' method=post>"                                       .
+                "<form name='manualAddForm' method='post' enctype='multipart/form-data'>"       .
                 "<a name='a".$locID."'></a>"                                                    .
-                "<table cellpadding='0' class='manual_update_table'>"                           .
+                "<table cellpadding='0' class='slp_locationinfoform_table'>"                           .
                 "<!--thead><tr><td id='slp_manual_update_table_left_cell'>"                     .
                      __("Type&nbsp;Address", SLPLUS_PREFIX)."</td></tr></thead-->"              .
                 "<tr><td valign='top'>"                                                         .
@@ -624,6 +626,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                 //
                 if (
                     ($slplus_plugin->license->packages['Store Pages']->isenabled) &&
+                    !$addform &&
                     ($sl_value['sl_pages_url'] != '')
                     ){
                     $shortSPurl = preg_replace('/^.*?store_page=/','',$sl_value['sl_pages_url']);
@@ -631,11 +634,11 @@ if (! class_exists('SLPlus_AdminUI')) {
                 }
 
                 $slpEditForm .= "<br><nobr>".
-                        "<input type='submit' value='".__("Update", SLPLUS_PREFIX)."' class='button-primary'>".
-                        "<input type='button' class='button' value='".__("Cancel", SLPLUS_PREFIX)."' onclick='location.href=\"".preg_replace('/&edit=$_GET[edit]/', '',$_SERVER['REQUEST_URI'])."\"'>".
-                        "<input type='hidden' name='option_value-$locID' value='$sl_value[sl_option_value]' />" .
+                        "<input type='submit' value='".($slplus_plugin->addform?__('Add',SLPLUS_PREFIX):__('Update', SLPLUS_PREFIX))."' class='button-primary'>".
+                        "<input type='button' class='button' value='".__('Cancel', SLPLUS_PREFIX)."' onclick='location.href=\"".preg_replace('/&edit=$_GET[edit]/', '',$_SERVER['REQUEST_URI'])."\"'>".
+                        "<input type='hidden' name='option_value-$locID' value='".($addform?'':$sl_value['sl_option_value'])."' />" .
                         "</nobr>";
-                
+
                 $content .= apply_filters('slp_edit_location_left_column',$slpEditForm)             .
                     '</td>'                                                                         .
                     "<td id='slp_manual_update_table_right_cell'>"
@@ -643,21 +646,51 @@ if (! class_exists('SLPlus_AdminUI')) {
                         
                 $slpEditForm =
                         "<div id='slp_edit_right_column'>" .
-                        "<strong>".__("Additional Information", SLPLUS_PREFIX)."</strong><br>
-                        <textarea name='description-$locID' rows='5' cols='17'>$sl_value[sl_description]</textarea>&nbsp;<small>".__("Description", SLPLUS_PREFIX)."</small><br>
-                        <input name='tags-$locID' value='$sl_value[sl_tags]'>&nbsp;<small>"  .__("Tags (seperate with commas)", SLPLUS_PREFIX)."</small><br>		
-                        <input name='url-$locID'  value='$sl_value[sl_url]'>&nbsp;<small>"   .get_option('sl_website_label','Website')."</small><br>
-                        <input name='email-$locID' value='$sl_value[sl_email]'>&nbsp;<small>".__("Email", SLPLUS_PREFIX)."</small><br>
-                        <input name='hours-$locID' value='$sl_value[sl_hours]'>&nbsp;<small>".$slplus_plugin->settings->get_item('label_hours','Hours','_')."</small><br>
-                        <input name='phone-$locID' value='$sl_value[sl_phone]'>&nbsp;<small>".$slplus_plugin->settings->get_item('label_phone','Phone','_')."</small><br>
-                        <input name='fax-$locID'   value='$sl_value[sl_fax]'>&nbsp;<small>"  .$slplus_plugin->settings->get_item('label_fax','Fax','_')."</small><br>
-                        <input name='image-$locID' value='$sl_value[sl_image]'>&nbsp;<small>".__("Image URL (shown with location)", SLPLUS_PREFIX)."</small>" .
+
+                        "<strong>".__("Additional Information", SLPLUS_PREFIX)."</strong><br>".
+
+                        "<textarea name='description-$locID' rows='5' cols='17'>".($addform?'':$sl_value['sl_description'])."</textarea>&nbsp;<small>".
+                            __("Description", SLPLUS_PREFIX)."</small><br>".
+
+                        "<input    name='tags-$locID'  value='".($addform?'':$sl_value['sl_tags'] )."'>&nbsp;<small>".
+                            __("Tags (seperate with commas)", SLPLUS_PREFIX)."</small><br>".
+
+                        "<input    name='url-$locID'   value='".($addform?'':$sl_value['sl_url']  )."'>&nbsp;<small>".
+                            get_option('sl_website_label','Website')."</small><br>".
+
+                        "<input    name='email-$locID' value='".($addform?'':$sl_value['sl_email'])."'>&nbsp;<small>".
+                            __("Email", SLPLUS_PREFIX)."</small><br>".
+
+                        "<input    name='hours-$locID' value='".($addform?'':$sl_value['sl_hours'])."'>&nbsp;<small>".
+                            $slplus_plugin->settings->get_item('label_hours','Hours','_')."</small><br>".
+
+                        "<input    name='phone-$locID' value='".($addform?'':$sl_value['sl_phone'])."'>&nbsp;<small>".
+                            $slplus_plugin->settings->get_item('label_phone','Phone','_')."</small><br>".
+
+                        "<input    name='fax-$locID'   value='".($addform?'':$sl_value['sl_fax']  )."'>&nbsp;<small>".
+                            $slplus_plugin->settings->get_item('label_fax','Fax','_')."</small><br>".
+
+                        "<input    name='image-$locID' value='".($addform?'':$sl_value['sl_image'])."'>&nbsp;<small>".
+                            __("Image URL (shown with location)", SLPLUS_PREFIX)."</small>" .
+
                         '</div>'
                         ;
                 
-                $content .= apply_filters('slp_edit_location_right_column',$slpEditForm)                .                
-                    '</td></tr></table></form>'
-                        ;
+                $content .= apply_filters('slp_edit_location_right_column',$slpEditForm);
+                $content .= '</td></tr></table>';
+
+                // Bulk upload form
+                //
+                if ($addform && ($slplus_plugin->license->packages['Pro Pack']->isenabled)) {
+                    $content .=
+                        '<div class="slp_bulk_upload_div">' .
+                        '<h2>'.__('Bulk Upload', SLPLUS_PREFIX).'</h2>'.
+                        '<input type="file" name="csvfile" value="" id="bulk_file" size="60"><br/>' .
+                        "<input type='submit' value='".__("Upload Locations", SLPLUS_PREFIX)."' class='button-primary'>".
+                        '</div>';
+                }
+
+                $content .= '</form>';
 
                 return apply_filters('slp_locationinfoform',$content);
          }
