@@ -250,6 +250,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.7.2 (November 9 2012) =
 
+* Patch: Using only_with_tag in the Pro Pack no longer requires you check off "Tag Input" under Map Settings/Search Form/Tags for the tag filter to work.
 * Wrap tag output in info bubble in div and span with tags.
 ** Make it easier to "iconify" the tags with CSS.
 * Add more help to the starting image setting.
