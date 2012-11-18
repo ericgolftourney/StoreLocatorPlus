@@ -1159,8 +1159,6 @@ var csl = {
 
 			//keep empty data lines out of the final result
 			//
-			if (jQuery.trim(street) != '') { street = street + '<br/>'; }
-			if (jQuery.trim(street2) != '') { street2 = street2 + '<br/>'; }
             var city_state_zip = '';
             if (jQuery.trim(city) != '') {
                 city_state_zip += city;
@@ -1177,16 +1175,13 @@ var csl = {
             if (jQuery.trim(zip) != '') {
                 city_state_zip += zip;
             }
-            if (jQuery.trim(city_state_zip) != '') {
-                city_state_zip += '<br/>';
-            }
             if (jQuery.trim(aMarker.phone) != '') {
-                thePhone = '<br/>' + slplus.label_phone+ aMarker.phone;
+                thePhone = slplus.label_phone+ aMarker.phone;
             } else {
                 thePhone = ''
             }
             if (jQuery.trim(aMarker.fax) != '') {
-                theFax = '<br/>' + slplus.label_fax + aMarker.fax;
+                theFax = slplus.label_fax + aMarker.fax;
             } else {
                 theFax = ''
             }
@@ -1207,6 +1202,8 @@ var csl = {
            };
 
          /** Create the results table
+          *
+          * use {0} to {17} to place in the output
           *
           *              {0} aMarker.name,
           *              {1} parseFloat(aMarker.distance).toFixed(1),

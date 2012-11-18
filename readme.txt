@@ -258,7 +258,10 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.7.4 (Mid-November 2012) =
 
+* Change to under-map results HTML structure, address blocks now use span.
+** More control for 3rd party add-ons, removing extra <br/> tags in output.
 * Make store hours available to 3rd party add-ons.
+** [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results/) add-on has option to turn on the hours display under the map.
 * JavaScript load/search tests for valid servers response.
 ** Logs to console if SLP server does not return properly JSONP response.
 * Tested for WordPress 3.4.3 compatibility.

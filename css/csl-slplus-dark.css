@@ -303,3 +303,7 @@ span.slp_checkbox_entry {
 span.slp_checkbox_entry input[type="checkbox"] {
     vertical-align: text-bottom;
 }
+span.slp_result_address {
+    width: 100%;
+    display: inline-block;
+}

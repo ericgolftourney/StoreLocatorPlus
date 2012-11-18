@@ -362,7 +362,14 @@ if (! class_exists('SLPlus_Actions')) {
                     '<table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable" id="slp_results_table">'  .
                         '<tr class="slp_results_row" id="slp_location_{15}">'  .
                             '<td class="results_row_left_column" id="slp_left_cell_{15}"><span class="location_name">{0}</span><br/>{1} {2}</td>'  .
-                            '<td class="results_row_center_column" id="slp_center_cell_{15}">{3}{4}{5}{16}{6}{7}</td>'  .
+                            '<td class="results_row_center_column" id="slp_center_cell_{15}">' .
+                                '<span class="slp_result_address slp_result_street">{3}</span>'.
+                                '<span class="slp_result_address slp_result_street2">{4}</span>' .
+                                '<span class="slp_result_address slp_result_citystatezip">{5}</span>' .
+                                '<span class="slp_result_address slp_result_country">{16}</span>'.
+                                '<span class="slp_result_address slp_result_phone">{6}</span>' .
+                                '<span class="slp_result_address slp_result_fax">{7}</span>' .
+                            '</td>'   .
                             '<td class="results_row_right_column" id="slp_right_cell_{15}">{8}{9}'  .
                                 '<a href="http://{10}' .
                                 '/maps?saddr={11}'  .
