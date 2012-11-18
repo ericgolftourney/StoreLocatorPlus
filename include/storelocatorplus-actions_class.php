@@ -335,8 +335,28 @@ if (! class_exists('SLPlus_Actions')) {
                 getimagesize($slplus_end_icon_file)  :
                 array(0 => 20, 1 => 34);
 
-            // Results Output String In JavaScript Format
-            //
+            /** 
+             * Results Output String In JavaScript Format
+             *
+             *              {0} aMarker.name,
+             *              {1} parseFloat(aMarker.distance).toFixed(1),
+             *              {2} slplus.distance_unit,
+             *              {3} street,
+             *              {4} street2,
+             *              {5} city_state_zip,
+             *              {6} thePhone,
+             *              {7} theFax,
+             *              {8} link,
+             *              {9} elink,
+             *              {10} slplus.map_domain,
+             *              {11} encodeURIComponent(this.address),
+             *              {12} encodeURIComponent(address),
+             *              {13} slplus.label_directions,
+             *              {14} tagInfo,
+             *              {15} aMarker.id
+             *              {16} aMarker.country
+             *              {17} aMarker.hours
+             */
             $results_string =
                     '<center>' .
                     '<table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable" id="slp_results_table">'  .

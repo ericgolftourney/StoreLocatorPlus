@@ -1206,8 +1206,27 @@ var csl = {
              });
            };
 
-         // Create the results table
-         //
+         /** Create the results table
+          *
+          *              {0} aMarker.name,
+          *              {1} parseFloat(aMarker.distance).toFixed(1),
+          *              {2} slplus.distance_unit,
+          *              {3} street,
+          *              {4} street2,
+          *              {5} city_state_zip,
+          *              {6} thePhone,
+          *              {7} theFax,
+          *              {8} link,
+          *              {9} elink,
+          *              {10} slplus.map_domain,
+          *              {11} encodeURIComponent(this.address),
+          *              {12} encodeURIComponent(address),
+          *              {13} slplus.label_directions,
+          *              {14} tagInfo,
+          *              {15} aMarker.id
+          *              {16} aMarker.country
+          *              {17} aMarker.hours
+          */
  		 div.innerHTML = slplus.results_string.format(
                         aMarker.name,
                         parseFloat(aMarker.distance).toFixed(1),
@@ -1225,7 +1244,8 @@ var csl = {
                         slplus.label_directions,
                         tagInfo,
                         aMarker.id,
-                        aMarker.country
+                        aMarker.country,
+                        aMarker.hours
                       )
                       ;
 			div.className = 'results_entry';
