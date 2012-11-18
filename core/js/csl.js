@@ -1050,12 +1050,20 @@ var csl = {
 			var ajax = new csl.Ajax();
 			if (!realsearch) {
 				ajax.send(action, function (response) {
-					_this.dropMarkers.call(_this, response.response);
+                    if (typeof response.response != 'undefined') {
+                        _this.dropMarkers.call(_this, response.response);
+                    } else {
+                        if (window.console) { console.log('SLP server did not send back a valid JSONP response on load.'); }
+                    }
 				});
 			}
 			else {
 				ajax.send(action, function (response) {
-					_this.bounceMarkers.call(_this, response.response);
+                    if (typeof response.response != 'undefined') {                    
+    					_this.bounceMarkers.call(_this, response.response);
+                    } else {
+                        if (window.console) { console.log('SLP server did not send back a valid JSONP response on search.'); }
+                    }
 				});
 			}
 		}
