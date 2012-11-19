@@ -695,6 +695,7 @@ var csl = {
 				if (this.loadedOnce) {
 					var sidebarEntry = this.createSidebar(markerList[markerNumber]);
 					sidebar.appendChild(sidebarEntry);
+                    jQuery('div#map_sidebar span:empty').hide();
 				}
 
 				//create info windows
