@@ -7,15 +7,6 @@
 
 global $slplus_plugin;
 
-// Save all values except a few for subsequent form processing
-//
-$sl_hidden='';
-foreach($_REQUEST as $key=>$val) {
-	if ($key!="q" && $key!="o" && $key!="sortorder" && $key!="start" && $key!="act" && $key!='sl_tags' && $key!='sl_id') {
-		$sl_hidden.="<input type='hidden' value='$val' name='$key'>\n"; 
-	}
-}
-
 // Header Text
 //
 print "<div class='wrap'>
@@ -28,13 +19,15 @@ print "<div class='wrap'>
       '</div>';
        
 
-// Check Google API Key
-// Not present : who cares
+// Form and variable setup for processing
 //
-$slak=$slplus_plugin->driver_args['api_key'];
-    
-// Initialize Variables
-//
+$sl_hidden='';
+foreach($_REQUEST as $key=>$val) {
+	if ($key!="q" && $key!="o" && $key!="sortorder" && $key!="start" && $key!="act" && $key!='sl_tags' && $key!='sl_id') {
+		$sl_hidden.="<input type='hidden' value='$val' name='$key'>\n";
+	}
+}
+$slak=$slplus_plugin->driver_args['api_key'];    
 initialize_variables();  
 
 // If delete link is clicked
@@ -338,14 +331,6 @@ if (isset($_REQUEST['act'])) {
     }
 }
 
-//for search links
-$numMembers=$wpdb->get_results(
-    "SELECT sl_id FROM " . $wpdb->prefix . "store_locator $where");
-$numMembers2=count($numMembers); 
-$start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
-//edit this to determine how many locations to view per page of 'Manage Locations' page
-$num_per_page=$sl_admin_locations_per_page; 
-if ($numMembers2!=0) {include(SLPLUS_COREDIR.'search-links.php');}
 
 $opt= (isset($_GET['o']) && (trim($_GET['o']) != ''))
 ? $_GET['o'] : "sl_store";
@@ -356,18 +341,33 @@ $dir= (isset($_GET['sortorder']) && (trim($_GET['sortorder'])=='DESC'))
 //
 $slpCleanURL = str_replace("&o=$opt&sortorder=$dir", '', $_SERVER['REQUEST_URI']);    
 
-
-
 //------------------------------------------------------------------------
 // UI
 //------------------------------------------------------------------------
 
+// Pagination
+//
+$numMembers=$wpdb->get_results(
+    "SELECT sl_id FROM " . $wpdb->prefix . "store_locator $where");
+$totalLocations=count($numMembers);
+$start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
+$num_per_page=$sl_admin_locations_per_page;
+if ($totalLocations>0) {
+    $slplus_plugin->AdminUI->manage_locations_pagination(
+            $totalLocations,
+            $num_per_page,
+            $start
+            );
+}
+
 // Actionbar Section
 //
-print '<div id="slplus_actionbar">';
-print get_string_from_phpexec(SLPLUS_COREDIR.'/templates/managelocations_actionbar.php');
-print '</div>';
-print '<br/>';
+print '<form id="manage_locations_actionbar_form" name="locationForm" method="post">'.
+        '<input name="act" type="hidden">' .
+        '<div id="slplus_actionbar">' .
+            $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/managelocations_actionbar.php') .
+        '</div>'
+        ;
 
 // We have matching locations
 //
@@ -431,7 +431,7 @@ if ($slpLocations=$wpdb->get_results(
     // Render Table Headings
     //
     print
-        "<table class='slplus widefat' cellspacing=0>
+        "<table id='manage_locations_table' class='slplus widefat' cellspacing=0>
             <thead>
             <tr >
                 <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
@@ -544,5 +544,11 @@ if ($slpLocations=$wpdb->get_results(
               "</div>";
 }
 
-if ($numMembers2!=0) {include(SLPLUS_COREDIR.'/search-links.php');}
+if ($totalLocations!=0) {
+    $slplus_plugin->AdminUI->manage_locations_pagination(
+            $totalLocations,
+            $num_per_page,
+            $start
+            );
+}
 print "</form></div>";

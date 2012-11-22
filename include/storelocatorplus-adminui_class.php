@@ -233,6 +233,114 @@ if (! class_exists('SLPlus_AdminUI')) {
         }
 
         /**
+         * Display the manage locations pagination
+         *
+         * @param type $totalLocations
+         * @param int $num_per_page
+         * @param int $start
+         */
+        function manage_locations_pagination($totalLocations = 0, $num_per_page = 10, $start = 0) {
+            
+            // Variable Init
+            $pos=0;
+            $prev=$start-$num_per_page;
+            $next=$start+$num_per_page;
+            $qry = isset($_GET['q'])?$_GET['q']:'';
+
+            $extra_text=(trim($qry)!='')    ?
+                __("for your search of", SLPLUS_PREFIX).
+                    " <strong>\"$qry\"</strong>&nbsp;|&nbsp;<a href='$cleared'>".
+                    __("Clear&nbsp;Results", SLPLUS_PREFIX)."</a>" :
+                "" ;
+
+            // URL Regex Replace
+            //
+            if (preg_match('#&start='.$start.'#',$_SERVER['QUERY_STRING'])) {
+                $prev_page=str_replace("&start=$start","&start=$prev",$_SERVER['REQUEST_URI']);
+                $next_page=str_replace("&start=$start","&start=$next",$_SERVER['REQUEST_URI']);
+            } else {
+                $prev_page=$_SERVER['REQUEST_URI']."&start=$prev";
+                $next_page=$_SERVER['REQUEST_URI']."&start=$next";
+            }
+            $cleared=preg_replace('/q=$qry/', '', $_SERVER['REQUEST_URI']);
+
+            // Total String
+            //
+
+            // Pages String
+            //
+            $pagesString = '';
+            if ($totalLocations>$num_per_page) {
+                if ((($start/$num_per_page)+1)-5<1) {
+                    $beginning_link=1;
+                } else {
+                    $beginning_link=(($start/$num_per_page)+1)-5;
+                }
+                if ((($start/$num_per_page)+1)+5>(($totalLocations/$num_per_page)+1)) {
+                    $end_link=(($totalLocations/$num_per_page)+1);
+                } else {
+                    $end_link=(($start/$num_per_page)+1)+5;
+                }
+                $pos=($beginning_link-1)*$num_per_page;
+                for ($k=$beginning_link; $k<$end_link; $k++) {
+                    if (preg_match('#&start='.$start.'#',$_SERVER['QUERY_STRING'])) {
+                        $curr_page=str_replace("&start=$start","&start=$pos",$_SERVER['QUERY_STRING']);
+                    }
+                    else {
+                        $curr_page=$_SERVER['QUERY_STRING']."&start=$pos";
+                    }
+                    if (($start-($k-1)*$num_per_page)<0 || ($start-($k-1)*$num_per_page)>=$num_per_page) {
+                        $pagesString .= "<a class='' href=\"{$_SERVER['PHP_SELF']}?$curr_page\" rel='nofollow'>";
+                    }
+                    $pagesString .= $k;
+                    if (($start-($k-1)*$num_per_page)<0 || ($start-($k-1)*$num_per_page)>=$num_per_page) {
+                        $pagesString .= "</a>";
+                    }
+                    $pos=$pos+$num_per_page;
+                }
+            }
+
+            $end_num=($totalLocations<($start+$num_per_page))? $totalLocations : ($start+$num_per_page) ;
+            $prevpages = '';
+            if (($start-$num_per_page)>=0) {
+              $prevpages .=
+                "<a class='' href='$prev_page' rel='nofollow'>"     .
+                __("Previous", SLPLUS_PREFIX)."&nbsp;$num_per_page" .
+                "</a>"
+                ;
+            }
+            $nextpages = '';
+            if (($start+$num_per_page)<$totalLocations) {
+             $nextpages .=
+                "<a class='' href='$next_page' rel='nofollow'>" .
+                __("Next", SLPLUS_PREFIX)."&nbsp;$num_per_page" .
+                "</a>"
+                ;
+            }
+
+            $pagesString =
+                $prevpages .
+                $pagesString .
+                $nextpages
+                ;
+
+            print
+                '<div id="slp_pagination" class="tablenav top">'              .
+                    '<div id="slp_pagination_pages" class="tablenav-pages">'    .
+                        '<span class="displaying-num">'                         .
+                                $totalLocations                                 .
+                                ' '.__('locations',SLPLUS_PREFIX)               .
+                            '</span>'                                           .
+                            '<span class="pagination-links">'                   .
+                            $pagesString                                        .
+                            '</span>'                                           .
+                        '</div>'                                                .
+                        $extra_text                                             .
+                    '</div>'
+                ;
+        }
+
+        /**
          * Enqueue the admin stylesheet when needed.
          */
         function enqueue_admin_stylesheet() {
