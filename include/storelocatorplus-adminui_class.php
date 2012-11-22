@@ -243,9 +243,10 @@ if (! class_exists('SLPlus_AdminUI')) {
             
             // Variable Init
             $pos=0;
-            $prev=$start-$num_per_page;
-            $next=$start+$num_per_page;
+            $prev = min(max(0,$start-$num_per_page),$totalLocations);
+            $next = min(max(0,$start+$num_per_page),$totalLocations);
             $qry = isset($_GET['q'])?$_GET['q']:'';
+            $cleared=preg_replace('/q=$qry/', '', $_SERVER['REQUEST_URI']);
 
             $extra_text=(trim($qry)!='')    ?
                 __("for your search of", SLPLUS_PREFIX).
@@ -262,11 +263,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                 $prev_page=$_SERVER['REQUEST_URI']."&start=$prev";
                 $next_page=$_SERVER['REQUEST_URI']."&start=$next";
             }
-            $cleared=preg_replace('/q=$qry/', '', $_SERVER['REQUEST_URI']);
-
-            // Total String
-            //
-
+            
             // Pages String
             //
             $pagesString = '';
@@ -290,33 +287,31 @@ if (! class_exists('SLPlus_AdminUI')) {
                         $curr_page=$_SERVER['QUERY_STRING']."&start=$pos";
                     }
                     if (($start-($k-1)*$num_per_page)<0 || ($start-($k-1)*$num_per_page)>=$num_per_page) {
-                        $pagesString .= "<a class='' href=\"{$_SERVER['PHP_SELF']}?$curr_page\" rel='nofollow'>";
+                        $pagesString .= "<a class='page-button' href=\"{$_SERVER['PHP_SELF']}?$curr_page\" >";
+                    } else {
+                        $pagesString .= "<a class='page-button thispage' href='#'>";
                     }
-                    $pagesString .= $k;
-                    if (($start-($k-1)*$num_per_page)<0 || ($start-($k-1)*$num_per_page)>=$num_per_page) {
-                        $pagesString .= "</a>";
-                    }
+
+
+                    $pagesString .= "$k</a>";
                     $pos=$pos+$num_per_page;
                 }
             }
 
-            $end_num=($totalLocations<($start+$num_per_page))? $totalLocations : ($start+$num_per_page) ;
-            $prevpages = '';
-            if (($start-$num_per_page)>=0) {
-              $prevpages .=
-                "<a class='' href='$prev_page' rel='nofollow'>"     .
-                __("Previous", SLPLUS_PREFIX)."&nbsp;$num_per_page" .
-                "</a>"
+            $prevpages = 
+                "<a class='prev-page page-button" .
+                    ((($start-$num_per_page)>=0) ? '' : ' disabled' ) .
+                    "' href='".
+                    ((($start-$num_per_page)>=0) ? $prev_page : '#' ).
+                    "'>‹</a>"
                 ;
-            }
-            $nextpages = '';
-            if (($start+$num_per_page)<$totalLocations) {
-             $nextpages .=
-                "<a class='' href='$next_page' rel='nofollow'>" .
-                __("Next", SLPLUS_PREFIX)."&nbsp;$num_per_page" .
-                "</a>"
+            $nextpages = 
+                "<a class='next-page page-button" .
+                    ((($start+$num_per_page)<$totalLocations) ? '' : ' disabled') .
+                    "' href='".
+                    ((($start+$num_per_page)<$totalLocations) ? $next_page : '#').
+                    "'>›</a>"
                 ;
-            }
 
             $pagesString =
                 $prevpages .

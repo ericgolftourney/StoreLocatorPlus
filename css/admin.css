@@ -346,6 +346,15 @@ input#bulk_file {
     text-align: right;
     white-space: nowrap;
  }
+ a.page-button {
+     margin: 0px 2px;
+ }
+ a.page-button.thispage {
+    font-weight: bold;
+    background-color: #FAFAD2;
+    border-color: #B8860B;
+    color: #B8860B;
+ }
  table#manage_locations_table {
     margin: 0px;
     padding: 0px;

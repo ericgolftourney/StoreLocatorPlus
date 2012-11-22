@@ -258,6 +258,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.7.5 (Turkey Day Aftermath) =
 
+* Update the manage locations action/filter bar UI (prepare for more functions in tagalong/bulk processing).
+* Update the manage locations pagination interface, similar to WordPress admin panel UI.
 * Stuff.ing.
 
 = 3.7.4 (Mid-November 2012) =
