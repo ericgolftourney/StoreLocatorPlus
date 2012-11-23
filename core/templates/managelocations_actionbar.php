@@ -40,15 +40,14 @@ function doAction(theAction,thePrompt) {
                      <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('recode','<?php echo __('Recode selected?',SLPLUS_PREFIX);?>')" name="delete_selected"><?php echo __("Recode Selected", SLPLUS_PREFIX); ?></a></p>
                 <?php
                 }
-                ?>
-        </div>
-        <?php
+        print '</div>';
+
         //----------
         // Pro Pack
         //
         if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+            print '<div id="tag_block" class="actionbox">';
         ?>
-            <div id="tag_block" class='actionbox'>
                 <div id="tag_actions">
                     <ul>
                         <a href="#" name="tag_selected"    onclick="doAction('add_tag','<?php echo __('Tag selected?',SLPLUS_PREFIX);?>');"   ><li class='like-a-button'><?php echo __('Tag Selected', SLPLUS_PREFIX);?></li></a>
@@ -58,27 +57,29 @@ function doAction(theAction,thePrompt) {
                 <div id="tagentry">
                     <label for="sl_tags"><?php echo __('Tags', SLPLUS_PREFIX); ?></label><input name='sl_tags'>
                 </div>
-            </div>
         <?php
+            print '</div>';
         }
 
         //----------
         // Store Pages
         //
         if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
+            print '<div id="create_pages_block"  class="actionbox">';
             ?>
-            <div id="create_pages_block"  class='actionbox'>
                  <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('createpage','<?php echo __('Create Pages?',SLPLUS_PREFIX);?>')" name="createpage_selected"><?php echo __("Create Pages", SLPLUS_PREFIX); ?></a></p>
-             </div>
         <?php
+             print '</div>';
         }
+        print '<div id="search_block" class="searchlocations filterbox">';
         ?>
-        <div id="search_block" class='searchlocations filterbox'>
                 <p class="centerbutton"><input class='like-a-button' type='submit' value='<?php print __("Search Locations", SLPLUS_PREFIX); ?>'></p>
                 <input id='search-q' value='<?php print (isset($_REQUEST['q'])?$_REQUEST['q']:''); ?>' name='q'>
-                <?php print $sl_hidden; ?>
-        </div>
-        <div id="list_options" class='filterbox'>
+                <?php 
+                print $sl_hidden;
+        print '</div>';
+        print '<div id="list_options" class="filterbox">';
+        ?>
             <p class="centerbutton"><a class='like-a-button' href='#' onclick="doAction('changeview','<?php echo $altViewText; ?>');"><?php echo $viewText; ?></a></p>
             <?php print __('Show ', SLPLUS_PREFIX); ?>
             <select name='sl_admin_locations_per_page'
@@ -92,22 +93,23 @@ function doAction(theAction,thePrompt) {
         }
     ?>
             </select>
-            <?php print __(' locations', SLPLUS_PREFIX); ?>.
-        </div>
+            <?php print __(' locations', SLPLUS_PREFIX) . '.';
+        print '</div>';
 
-        <?php
         //----------
         // Pro Pack
         //
         if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+            print '<div id="filterbox"  class="filterbox">';
         ?>
-        <div id="filterbox"  class='filterbox'>
             <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('show_uncoded','')" name="show_uncoded"><?php echo __("Show Uncoded", SLPLUS_PREFIX); ?></a></p>
             <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('show_all','')" name="show_all"><?php echo __("Show All", SLPLUS_PREFIX); ?></a></p>
-        </div>
         <?php
+            print '</div>';
         }
 
-    do_action('slp_add_manage_locations_action_box');
- echo '</div>';
-echo '</div>';
+do_action('slp_add_manage_locations_action_box');
+
+print
+    '</div>' .
+'</div>';

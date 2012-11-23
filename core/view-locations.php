@@ -431,7 +431,7 @@ if ($slpLocations=$wpdb->get_results(
     // Render Table Headings
     //
     print
-        "<table id='manage_locations_table' class='slplus widefat' cellspacing=0>
+        "<div id='location_table_wrapper'><table id='manage_locations_table' class='slplus widefat' cellspacing=0>
             <thead>
             <tr >
                 <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
@@ -529,7 +529,7 @@ if ($slpLocations=$wpdb->get_results(
 
     // Close Out Table
     //
-    print '</table><br/>';
+    print '</table></div>';
 
 // No Locations Found
 //

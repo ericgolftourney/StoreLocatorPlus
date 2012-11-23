@@ -259,7 +259,7 @@ div.boxbar {
 div.actionbox,
 div.filterbox
 {
-    border-right: 1px solid #E0D57B;
+    border-right: 1px solid #e6e6fa;
     display: inline-block;
     text-align: center;
     padding: 0px;
@@ -274,10 +274,10 @@ div.filterbox:last-child
     border:none;
 }
 div.filterbox {
-    background-color: #FAFAD2;
+    background-color: #F0FFFF;
 }
 div.actionbox {
-    background-color: #f5deb3;
+    background-color: #F0F8FF;
 }
 
 /***************************
@@ -345,6 +345,10 @@ input#bulk_file {
     right: 0;
     text-align: right;
     white-space: nowrap;
+ }
+ div#location_table_wrapper {
+     padding: 0px;
+     margin: -5px 0px 0px;
  }
  a.page-button {
      margin: 0px 2px;
