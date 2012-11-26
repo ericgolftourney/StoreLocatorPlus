@@ -423,25 +423,15 @@ if ($slpLocations=$wpdb->get_results(
                 );
 
     }
-
-    // Third party plugin add-ons
-    //
     $slpManageColumns = apply_filters('slp_manage_location_columns', $slpManageColumns);
-    
-    // Render Table Headings
-    //
-    print
-        "<div id='location_table_wrapper'><table id='manage_locations_table' class='slplus widefat' cellspacing=0>
-            <thead>
-            <tr >
-                <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
-                <th colspan='1'>".__("Actions", SLPLUS_PREFIX)."</th>"
-            ;
-    foreach ($slpManageColumns as $slpField => $slpLabel) {
-        print $slplus_plugin->AdminUI->slpCreateColumnHeader($slpCleanURL,$slpField,$slpLabel,$opt,$dir);
-    }
-    print '<th>Lat</th><th>Lon</th></tr></thead>';
 
+
+    // Get the manage locations table header
+    //
+    $tableHeaderString = $slplus_plugin->AdminUI->manage_locations_table_header($slpManageColumns,$slpCleanURL,$opt,$dir);
+    print  "<div id='location_table_wrapper'>" .
+                "<table id='manage_locations_table' class='slplus wp-list-table widefat fixed posts' cellspacing=0>" .
+                    $tableHeaderString;
 
     // Render The Data
     //
@@ -529,6 +519,7 @@ if ($slpLocations=$wpdb->get_results(
 
     // Close Out Table
     //
+    print $tableHeaderString;
     print '</table></div>';
 
 // No Locations Found
@@ -543,6 +534,7 @@ if ($slpLocations=$wpdb->get_results(
                 ) .
               "</div>";
 }
+
 
 if ($totalLocations!=0) {
     $slplus_plugin->AdminUI->manage_locations_pagination(

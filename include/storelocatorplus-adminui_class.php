@@ -336,6 +336,25 @@ if (! class_exists('SLPlus_AdminUI')) {
         }
 
         /**
+         * Render the manage locations table header
+         *
+         * @param array $slpManageColumns - the manage locations columns pre-filter
+         */
+        function manage_locations_table_header($slpManageColumns,$slpCleanURL,$opt,$dir) {
+            $tableHeaderString =
+                    "<thead>
+                    <tr >
+                        <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
+                        <th colspan='1'>".__("Actions", SLPLUS_PREFIX)."</th>"
+                    ;
+            foreach ($slpManageColumns as $slpField => $slpLabel) {
+                $tableHeaderString .= $this->slpCreateColumnHeader($slpCleanURL,$slpField,$slpLabel,$opt,$dir);
+            }
+            $tableHeaderString .= '<th>Lat</th><th>Lon</th></tr></thead>';
+            return $tableHeaderString;
+        }
+
+        /**
          * Enqueue the admin stylesheet when needed.
          */
         function enqueue_admin_stylesheet() {
@@ -624,19 +643,26 @@ if (! class_exists('SLPlus_AdminUI')) {
             return (strtolower(substr($url,0,7))=="http://");
         }
 
-        /*****************************
-        * function: slpCreateColumnHeader()
-        *
-        * Create the column headers for sorting the table.
-        *
-        */
+        /**
+         * Create the column headers for sorting the table.
+         *
+         * @param type $theURL
+         * @param type $fldID
+         * @param type $fldLabel
+         * @param type $opt
+         * @param type $dir
+         * @return type
+         */
         function slpCreateColumnHeader($theURL,$fldID='sl_store',$fldLabel='ID',$opt='sl_store',$dir='ASC') {
             if ($opt == $fldID) {
                 $curDIR = (($dir=='ASC')?'DESC':'ASC');
             } else {
                 $curDIR = $dir;
             }
-            return "<th><a href='$theURL&o=$fldID&sortorder=$curDIR'>$fldLabel</a></th>";
+            return "<th class='manage-column sortable'><a href='$theURL&o=$fldID&sortorder=$curDIR'>" .
+                    "<span>$fldLabel</span>".
+                    "<span class='sorting-indicator'></span>".
+                    "</a></th>";
         }
 
         /**
