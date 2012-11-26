@@ -108,12 +108,11 @@ if ($_POST                                                  &&
 // ACTION HANDLER
 // If post action is set
 //------------------------------------------------------------------------
-extract($_POST);
+if ($_POST) {extract($_POST);}
 if (isset($_REQUEST['act'])) {
 
     // Delete Action	    
     if ($_REQUEST['act']=="delete") {
-        if ($_POST) {extract($_POST);}
         if (isset($sl_id)) {
 
             // use this to delete 100 at a time
@@ -183,8 +182,6 @@ if (isset($_REQUEST['act'])) {
     }  elseif (preg_match('#tag#i', $_REQUEST['act'])) {
 
         //adding or removing tags for specified a locations
-        if ($_POST) {extract($_POST);}
-
         if (isset($sl_id)) {
             if (is_array($sl_id)) {
                 $id_string='';
@@ -217,7 +214,6 @@ if (isset($_REQUEST['act'])) {
 
     // Locations Per Page Action
     } elseif ($_REQUEST['act']=="locationsPerPage") {
-        //If bulk delete is used
         update_option('sl_admin_locations_per_page', $_REQUEST['sl_admin_locations_per_page']);
         extract($_REQUEST);
 
@@ -347,8 +343,7 @@ $slpCleanURL = str_replace("&o=$opt&sortorder=$dir", '', $_SERVER['REQUEST_URI']
 
 // Pagination
 //
-$numMembers=$wpdb->get_results(
-    "SELECT sl_id FROM " . $wpdb->prefix . "store_locator $where");
+$numMembers=$wpdb->get_results("SELECT count(*) FROM ".$wpdb->prefix."store_locator $where");
 $totalLocations=count($numMembers);
 $start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
 $num_per_page=$sl_admin_locations_per_page;
