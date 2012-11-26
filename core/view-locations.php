@@ -343,8 +343,7 @@ $slpCleanURL = str_replace("&o=$opt&sortorder=$dir", '', $_SERVER['REQUEST_URI']
 
 // Pagination
 //
-$numMembers=$wpdb->get_results("SELECT count(*) FROM ".$wpdb->prefix."store_locator $where");
-$totalLocations=count($numMembers);
+$totalLocations=$wpdb->get_var("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where");
 $start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
 $num_per_page=$sl_admin_locations_per_page;
 if ($totalLocations>0) {
@@ -363,6 +362,13 @@ print '<form id="manage_locations_actionbar_form" name="locationForm" method="po
             $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/managelocations_actionbar.php') .
         '</div>'
         ;
+
+// Search Filter, no actions
+// Clear the start, we want all records
+//
+if (isset($_POST['q']) && ($_POST['q'] != '') && ($_POST['act'] == '')) {
+    $start = 0;
+}
 
 // We have matching locations
 //

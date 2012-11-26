@@ -258,6 +258,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.7.5 (Turkey Day Aftermath) =
 
+* Make the search fitler on manage locations work from page 2+ as well.
 * Update the manage locations action/filter bar UI (prepare for more functions in tagalong/bulk processing).
 * Update the manage locations pagination interface, similar to WordPress admin panel UI.
 * Stuff.ing.
