@@ -262,6 +262,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Fix cancel button on edit/manage locations.
 * Update the manage locations action/filter bar UI (prepare for more functions in tagalong/bulk processing).
 * Update the manage locations pagination interface, similar to WordPress admin panel UI.
+* Add filter: "slp_action_box_3_content" to allow add-ons to tweak that UI location.
 * Stuff.ing.
 
 = 3.7.4 (Mid-November 2012) =

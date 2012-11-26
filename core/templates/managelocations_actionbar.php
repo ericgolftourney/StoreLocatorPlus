@@ -27,7 +27,7 @@ function doAction(theAction,thePrompt) {
 }
 </script>
 <div id="action_buttons">
-    <div id="action_bar_header"><h3><?php print __('Location Actions and Filters',SLPLUS_PREFIX); ?></h3></div>
+    <div id="action_bar_header"><h3><?php print __('Actions and Filters',SLPLUS_PREFIX); ?></h3></div>
     <div class="boxbar">
         <div id="other_actions"  class='actionbox'>
             <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('delete','<?php echo __('Delete selected?',SLPLUS_PREFIX);?>')" name="delete_selected"><?php echo __("Delete Selected", SLPLUS_PREFIX); ?></a></p>
@@ -65,11 +65,21 @@ function doAction(theAction,thePrompt) {
         // Store Pages
         //
         if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
-            print '<div id="create_pages_block"  class="actionbox">';
-            ?>
-                 <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('createpage','<?php echo __('Create Pages?',SLPLUS_PREFIX);?>')" name="createpage_selected"><?php echo __("Create Pages", SLPLUS_PREFIX); ?></a></p>
-        <?php
-             print '</div>';
+            $actionBoxContent =            
+                '<div id="action_box_3" class="actionbox">'       .
+                    '<p class="centerbutton">'                          .
+                        "<a class='like-a-button' href='#' "            .
+                                "onclick=\"doAction('createpage','"     .
+                                    __('Create Pages?',SLPLUS_PREFIX)   .
+                                    "')\" name='createpage_selected'>"  .
+                                    __('Create Pages', SLPLUS_PREFIX)   .
+                                 '</a>'                                 .
+                    '</p>'                                              .
+                '</div>'
+                ;
+
+            print apply_filters('slp_action_box_3_content',$actionBoxContent);
+
         }
         print '<div id="search_block" class="searchlocations filterbox">';
         ?>
