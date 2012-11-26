@@ -836,8 +836,6 @@ if (! class_exists('SLPlus_AdminUI')) {
                 "<form name='manualAddForm' method='post' enctype='multipart/form-data'>"       .
                 "<a name='a".$locID."'></a>"                                                    .
                 "<table cellpadding='0' class='slp_locationinfoform_table'>"                           .
-                "<!--thead><tr><td id='slp_manual_update_table_left_cell'>"                     .
-                     __("Type&nbsp;Address", SLPLUS_PREFIX)."</td></tr></thead-->"              .
                 "<tr><td valign='top'>"                                                         .
                 $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/'.'edit_location_address.php')
                 ;
