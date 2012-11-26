@@ -853,7 +853,7 @@ if (! class_exists('SLPlus_AdminUI')) {
 
                 $slpEditForm .= "<br><nobr>".
                         "<input type='submit' value='".($slplus_plugin->addform?__('Add',SLPLUS_PREFIX):__('Update', SLPLUS_PREFIX))."' class='button-primary'>".
-                        "<input type='button' class='button' value='".__('Cancel', SLPLUS_PREFIX)."' onclick='location.href=\"".preg_replace('/&edit=$_GET[edit]/', '',$_SERVER['REQUEST_URI'])."\"'>".
+                        "<input type='button' class='button' value='".__('Cancel', SLPLUS_PREFIX)."' onclick='location.href=\"".preg_replace('/&edit='.$_GET[edit].'/', '',$_SERVER['REQUEST_URI'])."\"'>".
                         "<input type='hidden' name='option_value-$locID' value='".($addform?'':$sl_value['sl_option_value'])."' />" .
                         "</nobr>";
 
