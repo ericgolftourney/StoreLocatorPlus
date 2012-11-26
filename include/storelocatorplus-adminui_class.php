@@ -690,8 +690,8 @@ if (! class_exists('SLPlus_AdminUI')) {
 
                 print "<div class='wrap'>
                             <div id='icon-add-locations' class='icon32'><br/></div>
-                            <h2>".
-                            __('Store Locator Plus - Add Locations', SLPLUS_PREFIX).
+                            <h2>Store Locator Plus - ".
+                            __('Add Locations', SLPLUS_PREFIX).
                             "</h2>".
                       '<div id="slplus_navbar">'.
                       $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php') .
@@ -814,9 +814,15 @@ if (! class_exists('SLPlus_AdminUI')) {
 
                 $base=get_option('siteurl');
                 $slplus_plugin->addform = true;
-                print '<table style="clear:both;"><tr><td class="slp_locationinfoform_cell">';
-                print $slplus_plugin->AdminUI->createString_LocationInfoForm(array(),'', true);
-                print '</td></tr></table>';
+                print 
+                    '<div id="location_table_wrapper">'.
+                        "<table id='manage_locations_table' class='slplus wp-list-table widefat fixed posts' cellspacing=0>" .
+                            '<tr><td class="slp_locationinfoform_cell">' .
+                                $slplus_plugin->AdminUI->createString_LocationInfoForm(array(),'', true) .
+                            '</td></tr>' .
+                        '</table>' .
+                    '</div>'
+                    ;
          }
 
          /**
@@ -833,7 +839,7 @@ if (! class_exists('SLPlus_AdminUI')) {
              $slpEditForm = '';
              
              $content  = ''                                                                     .
-                "<form name='manualAddForm' method='post' enctype='multipart/form-data'>"       .
+                "<form id='manualAddForm' name='manualAddForm' method='post' enctype='multipart/form-data'>"       .
                 "<a name='a".$locID."'></a>"                                                    .
                 "<table cellpadding='0' class='slp_locationinfoform_table'>"                           .
                 "<tr><td valign='top'>"                                                         .
@@ -856,11 +862,11 @@ if (! class_exists('SLPlus_AdminUI')) {
                     $_SERVER['REQUEST_URI']
                     ;
 
-                $slpEditForm .= "<br><nobr>".
+                $slpEditForm .= 
                         "<input type='submit' value='".($slplus_plugin->addform?__('Add',SLPLUS_PREFIX):__('Update', SLPLUS_PREFIX))."' class='button-primary'>".
                         "<input type='button' class='button' value='".__('Cancel', SLPLUS_PREFIX)."' onclick='location.href=\"".$edCancelURL."\"'>".
-                        "<input type='hidden' name='option_value-$locID' value='".($addform?'':$sl_value['sl_option_value'])."' />" .
-                        "</nobr>";
+                        "<input type='hidden' name='option_value-$locID' value='".($addform?'':$sl_value['sl_option_value'])."' />"
+                        ;
 
                 $content .= apply_filters('slp_edit_location_left_column',$slpEditForm)             .
                     '</td>'                                                                         .

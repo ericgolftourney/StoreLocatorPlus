@@ -325,6 +325,18 @@ table.manual_add_table label,
 input#bulk_file {
     width: 70%;
 }
+td#slp_manual_update_table_right_cell {
+    min-width:300px;
+}
+table.slp_locationinfoform_table {
+	padding-left:0px; padding-right:0px;
+}
+table.slp_locationinfoform_table td {
+	border-bottom:none;
+    clear: both;
+	padding-left:0px;
+    padding-right:0px;
+}
 
 
 /***************************
@@ -552,13 +564,6 @@ div.feedburnerFeedBlock ul li span.headline {
 }
 .map_designer_section td {
 	border-bottom:none;
-}
-.manual_add_table td, .manual_add_table td td, slp_locationinfoform_table td, slp_locationinfoform_table td td, .slp_locationinfoform_table{
-	border-bottom:none;
-    clear: both;
-}
-.manual_add_table td td td, slp_locationinfoform_table td td{
-	padding-left:0px; padding-right:0px;
 }
 .left_side {
 	border-right:solid #ddd 1px;
