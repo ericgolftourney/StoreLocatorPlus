@@ -64,23 +64,29 @@ function doAction(theAction,thePrompt) {
         //----------
         // Store Pages
         //
+
+        $actionBoxContent =
+            '<div id="action_box_3" class="actionbox">'       .
+                '<p class="centerbutton">'
+            ;
         if ($slplus_plugin->license->packages['Store Pages']->isenabled) {
-            $actionBoxContent =            
-                '<div id="action_box_3" class="actionbox">'       .
-                    '<p class="centerbutton">'                          .
-                        "<a class='like-a-button' href='#' "            .
-                                "onclick=\"doAction('createpage','"     .
-                                    __('Create Pages?',SLPLUS_PREFIX)   .
-                                    "')\" name='createpage_selected'>"  .
-                                    __('Create Pages', SLPLUS_PREFIX)   .
-                                 '</a>'                                 .
-                    '</p>'                                              .
-                '</div>'
-                ;
-
-            print apply_filters('slp_action_box_3_content',$actionBoxContent);
-
+            $actionBoxContent .=
+                    "<a class='like-a-button' href='#' "            .
+                            "onclick=\"doAction('createpage','"     .
+                                __('Create Pages?',SLPLUS_PREFIX)   .
+                                "')\" name='createpage_selected'>"  .
+                                __('Create Pages', SLPLUS_PREFIX)   .
+                             '</a>'
+                    ;
         }
+
+        $actionBoxContent .=
+                '</p>'                                              .
+            '</div>'
+            ;
+
+        print apply_filters('slp_action_box_3_content',$actionBoxContent);
+
         print '<div id="search_block" class="searchlocations filterbox">';
         ?>
                 <p class="centerbutton"><input class='like-a-button' type='submit' value='<?php print __("Search Locations", SLPLUS_PREFIX); ?>'></p>
