@@ -56,6 +56,11 @@ if (! class_exists('SLPlus_Actions')) {
             // Already been here?  Get out.
             if (isset($this->parent->settings->sections['How to Use'])) { return; }
 
+            // Update system hook
+            // Premium add-ons can use the admin_init hook to utilize this.
+            //
+            require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-updates_class.php');
+
             // Activation Helpers
             // Updates are handled via WPCSL via namespace style call
             //
@@ -178,10 +183,7 @@ if (! class_exists('SLPlus_Actions')) {
         }
         
         /**
-         * method: init()
-         *
          * Called when the WordPress init action is processed.
-         *
          */
         function init() {
             if (!$this->setParent()) { return; }
