@@ -263,7 +263,7 @@ if (isset($_REQUEST['act'])) {
 
             // Setup Store Pages Objects
             //
-            if (!is_set($slplus_plugin->StorePages) || !is_object($slplus_plugin->StorePages)) {
+            if (!isset($slplus_plugin->StorePages) || !is_object($slplus_plugin->StorePages)) {
                 require_once(SLPLUS_PLUGINDIR . '/slp-pages/slp-pages.php');
                 $slplus_plugin->StorePages = new SLPPages();
             }
