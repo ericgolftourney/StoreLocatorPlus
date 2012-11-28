@@ -171,11 +171,23 @@ if ( ! class_exists( 'SLPPages' ) ) {
                 if (empty($slpStorePage->ID)) {
                     $store['sl_linked_postid'] = -1;
                 }
-
-
+                
                 // Update the row
                 //
                 $wpdb->update($wpdb->prefix."store_locator", $store, array('sl_id' => $locationID));
+
+                // Prior Post Status
+                // If new post, use 'draft' as status
+                // otherwise keep the current publication state.
+                //
+                if ($post_status === 'prior') {
+                    $post_status =
+                        (empty($slpStorePage->ID))      ?
+                        'draft'                         :
+                        $slpStorePage->post_status
+                        ;
+                }
+
 
                 // Create the page
                 //
@@ -185,9 +197,13 @@ if ( ! class_exists( 'SLPPages' ) ) {
                     'post_status'   => $post_status,
                     'post_title'    => $store['sl_store'],
                     'post_content' =>
-                        ($keepContent)                      ?
-                        $slpStorePage->post_content         :
-                        $this->CreatePageContent($store)
+                        ($keepContent) ?
+                            (empty($slpStorePage->ID) ?
+                                '' 
+                                : 
+                                $slpStorePage->post_content
+                            ):
+                            $this->CreatePageContent($store)
                     );
 
                 // Apply Third Party Filters
