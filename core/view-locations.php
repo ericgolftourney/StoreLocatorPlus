@@ -259,8 +259,14 @@ if (isset($_REQUEST['act'])) {
             } else {
                 $theLocations = $_REQUEST['sl_id'];
             }
+
+            // Setup Store Pages Objects
+            //
+            require_once(SLPLUS_PLUGINDIR . '/slp-pages/slp-pages.php');
+            $slplus_plugin->StorePages = new SLPPages();
+
             foreach ($theLocations as $thisLocation) {    
-                $slpNewPostID = call_user_func(array('SLPlus_AdminUI','slpCreatePage'),$thisLocation);
+                $slpNewPostID = $slplus_plugin->StorePages->CreatePage($thisLocation);
                 if ($slpNewPostID >= 0) {
                     $slpNewPostURL = get_permalink($slpNewPostID);
                     $wpdb->query("UPDATE ".$wpdb->prefix."store_locator ".

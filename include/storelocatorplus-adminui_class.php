@@ -425,51 +425,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                             "&act=createpage&sl_id=$locationID&slp_pageid=$storePageID#a$locationID'
                    ></a>";            
         }  
-        
-        /*****************************************************
-         * method: slpCreatePage()
-         *
-         * Create a new store pages page.
-         */
-         function slpCreatePage($locationID=-1)  {
-            global $slplus_plugin, $wpdb;
-            
-            // If not licensed or incorrect location ID get out of here
-            //
-            if (
-                !$slplus_plugin->license->packages['Store Pages']->isenabled ||
-                ($locationID < 0)
-                ) {
-                return -1;
-            } 
 
-            // Get The Store Data
-            //
-            if ($store=$wpdb->get_row('SELECT * FROM '.$wpdb->prefix."store_locator WHERE sl_id = $locationID", ARRAY_A)) {            
-                
-                $slpStorePage = get_post($store['sl_linked_postid']);
-                if (empty($slpStorePage->ID)) {
-                    $store['sl_linked_postid'] = -1;
-                }
-
-
-                // Create the page
-                //
-                $slpNewListing = array(
-                    'ID'            => (($store['sl_linked_postid'] > 0)?$store['sl_linked_postid']:''),
-                    'post_type'     => 'store_page',
-                    'post_status'   => 'publish',
-                    'post_title'    => $store['sl_store'],
-                    'post_content'  => call_user_func(array('SLPlus_AdminUI','slpCreatePageContent'),$store),
-                    );
-                
-                // Update the row
-                //
-                $wpdb->update($wpdb->prefix."store_locator", $store, array('sl_id' => $locationID));
-
-                return wp_insert_post($slpNewListing);
-             }                
-         }
          
         /*****************************************************
          * method: slpCreatePageContent()
