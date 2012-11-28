@@ -426,48 +426,6 @@ if (! class_exists('SLPlus_AdminUI')) {
                    ></a>";            
         }  
 
-         
-        /*****************************************************
-         * method: slpCreatePageContent()
-         *
-         * Creates the content for the page.  If plus pack is installed
-         * it uses the plus template file, otherwise we use the hard-coded 
-         * layout.
-         *
-         */         
-         function slpCreatePageContent($store) {
-             $content = '';
-
-             // Default Content
-             //
-             $content .= "<span class='storename'>".$store['sl_store']."</span>\n";
-             if ($store['sl_image']         !='') { 
-                 $content .= '<img class="alignright size-full" title="'.$store['sl_store'].'" src="'.$store['sl_image'].'"/>'."\n"; 
-             }
-             if ($store['sl_address']       !='') { $content .= $store['sl_address'] . "\n"; }
-             if ($store['sl_address2']      !='') { $content .= $store['sl_address2'] . "\n"; }
-             
-             if ($store['sl_city']          !='') { 
-                $content .= $store['sl_city']; 
-                if ($store['sl_state'] !='') { $content .= ', '; }
-             }
-             if ($store['sl_state']         !='') { $content .= $store['sl_state']; }
-             if ($store['sl_zip']           !='') { $content .= " ".$store['sl_zip']."\n"; }
-             if ($store['sl_country']       !='') { $content .= " ".$store['sl_country']."\n"; }
-             if ($store['sl_description']   !='') { $content .= "<h1>Description</h1>\n<p>". html_entity_decode($store['sl_description']) ."</p>\n"; }
-             
-             $slpContactInfo = '';
-             if ($store['sl_phone'] !='') { $slpContactInfo .= __('Phone: ',SLPLUS_PREFIX).$store['sl_phone'] . "\n"; }
-             if ($store['sl_fax'] !='') { $slpContactInfo .= __('Fax: ',SLPLUS_PREFIX).$store['sl_fax'] . "\n"; }
-             if ($store['sl_email'] !='') { $slpContactInfo .= '<a href="mailto:'.$store['sl_email'].'">'.$store['sl_email']."</a>\n"; }
-             if ($store['sl_url']   !='') { $slpContactInfo .= '<a href="'.$store['sl_url'].'">'.$store['sl_url']."</a>\n"; }
-             if ($slpContactInfo    != '') { 
-                $content .= "<h1>Contact Info</h1>\n<p>".$slpContactInfo."</p>\n"; 
-             }
-
-             return $content;             
-         }
-
          /**
           * method: slp_add_search_form_settings_panel
           *
