@@ -259,6 +259,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 = 3.7.6 (End November 2012)
 
 * Add built-in WordPress update for premium add-ons.
+* Revise geocoding error messages.
+* Further performance improvement, smaller global function footprint.
 
 = 3.7.5 (Turkey Day Aftermath) =
 

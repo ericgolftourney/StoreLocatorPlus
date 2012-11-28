@@ -12,6 +12,27 @@
 global $slplus_plugin;
 
 /**************************************
+ ** function: slp_createhelpdiv()
+ **
+ ** Generate the string that displays the help icon and the expandable div
+ ** that mimics the WPCSL-Generic forms more info buttons.
+ **
+ ** Parameters:
+ **  $divname (string, required) - the name of the div to toggle
+ **  $msg (string, required) - the message to display
+ **/
+function slp_createhelpdiv($divname,$msg) {
+    return "<a class='moreinfo_clicker' onclick=\"swapVisibility('".SLPLUS_PREFIX."-help$divname');\" href=\"javascript:;\">".
+        '<div class="'.SLPLUS_PREFIX.'-moreicon" title="click for more info"><br/></div>'.
+        "</a>".
+        "<div id='".SLPLUS_PREFIX."-help$divname' class='input_note' style='display: none;'>".
+            $msg.
+        "</div>"
+        ;
+}
+
+
+/**************************************
  ** function: choose_units
  **
  ** Display the map size units pulldown (%,px,em,pt)

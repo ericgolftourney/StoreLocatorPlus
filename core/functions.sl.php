@@ -256,10 +256,9 @@ function do_geocoding($address,$sl_id='') {
                        mysql_real_escape_string($lat), 
                        mysql_real_escape_string($lng)
                        );
-            }
             // Update an existing address
             //
-            else {
+            } else {
                 $query = sprintf("UPDATE " . $wpdb->prefix ."store_locator SET sl_latitude = '%s', sl_longitude = '%s' WHERE sl_id = $sl_id LIMIT 1;", mysql_real_escape_string($lat), mysql_real_escape_string($lng));
             }
             
@@ -268,14 +267,14 @@ function do_geocoding($address,$sl_id='') {
             $update_result = $wpdb->query($query);
             if ($update_result == 0) {
                 $theDBError = htmlspecialchars(mysql_error($wpdb->dbh),ENT_QUOTES);
-                $errorMessage .= __("Could not add/update address.  ", SLPLUS_PREFIX);
+                $errorMessage .= __("Could not set the latitude and/or longitude  ", SLPLUS_PREFIX);
                 if ($theDBError != '') {
                     $errorMessage .= sprintf(
                                             __("Error: %s.", SLPLUS_PREFIX),
                                             $theDBError
                                             );
                 } elseif ($update_result === 0) {
-                    $errorMessage .=  __("It appears the data did not change.", SLPLUS_PREFIX);
+                    $errorMessage .=  __("It appears the address did not change.", SLPLUS_PREFIX);
                 } else {
                     $errorMessage .=  __("No error logged.", SLPLUS_PREFIX);
                     $errorMessage .= "<br/>\n" . __('Query: ', SLPLUS_PREFIX);
@@ -342,23 +341,6 @@ function comma($a) {
 	$a=preg_replace('/,/'     , '&#44;'   , $a);
 	$a=preg_replace('/ & /'   , ' &amp; ' , $a);
     return $a;
-}
-
-
-/**************************************
- ** function: custom_upload_mimes
- **
- ** Allows WordPress to process csv file types
- **
- **/
-function custom_upload_mimes ( $existing_mimes=array() ) {
-
-     // add CSV type
-    $existing_mimes['csv'] = 'text/csv';
-
-    // and return the new full result
-    return $existing_mimes;
-
 }
 
 /**************************************
@@ -599,25 +581,6 @@ function get_string_from_phpexec($file) {
     return $slplus_plugin->helper->get_string_from_phpexec($file);
 }
 
-/**************************************
- ** function: slp_createhelpdiv()
- **
- ** Generate the string that displays the help icon and the expandable div
- ** that mimics the WPCSL-Generic forms more info buttons.
- **
- ** Parameters:
- **  $divname (string, required) - the name of the div to toggle
- **  $msg (string, required) - the message to display
- **/
-function slp_createhelpdiv($divname,$msg) {
-    return "<a class='moreinfo_clicker' onclick=\"swapVisibility('".SLPLUS_PREFIX."-help$divname');\" href=\"javascript:;\">".
-        '<div class="'.SLPLUS_PREFIX.'-moreicon" title="click for more info"><br/></div>'.
-        "</a>".
-        "<div id='".SLPLUS_PREFIX."-help$divname' class='input_note' style='display: none;'>".
-            $msg.
-        "</div>"
-        ;
-}
 
 
 /**************************************

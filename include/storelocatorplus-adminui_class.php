@@ -731,7 +731,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                        ($_FILES['csvfile']['name']!='')  &&
                         ($_FILES['csvfile']['size'] > 0)
                     ) {
-                    add_filter('upload_mimes', 'custom_upload_mimes');
+                    add_filter('upload_mimes', array('SLPlus_AdminUI','custom_upload_mimes'));
 
                     // Get the type of the uploaded file. This is returned as "type/extension"
                     $arr_file_type = wp_check_filetype(basename($_FILES['csvfile']['name']));
@@ -923,6 +923,15 @@ if (! class_exists('SLPlus_AdminUI')) {
 
                 return apply_filters('slp_locationinfoform',$content);
          }
+
+        /**
+         * Allows WordPress to process csv file types
+         *
+         */
+        function custom_upload_mimes ( $existing_mimes=array() ) {
+            $existing_mimes['csv'] = 'text/csv';
+            return $existing_mimes;
+        }
 
          /**
           * Render an icon selector for the icon images store in the SLP plugin icon directory.
