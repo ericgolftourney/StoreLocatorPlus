@@ -100,7 +100,8 @@ if ($_POST                                                  &&
 
     // Redirect to the edit page
     //
-    print "<script>location.replace('".preg_replace('/&edit='.$_GET['edit'].'/', '',$_SERVER['REQUEST_URI'])."');</script>";
+    $pageRedirect = "<script>location.replace('".preg_replace('/&edit='.$_GET['edit'].'/', '',$_SERVER['REQUEST_URI'])."');</script>";
+    print apply_filters('slp_edit_location_redirect',$pageRedirect);
 }
 
 //------------------------------------------------------------------------
