@@ -100,8 +100,7 @@ if ($_POST                                                  &&
 
     // Redirect to the edit page
     //
-    print "<script>location.replace('".preg_replace('/&edit='.$_GET['edit'].'/', '',
-                $_SERVER['REQUEST_URI'])."');</script>";
+    print "<script>location.replace('".preg_replace('/&edit='.$_GET['edit'].'/', '',$_SERVER['REQUEST_URI'])."');</script>";
 }
 
 //------------------------------------------------------------------------
@@ -482,10 +481,10 @@ if ($slpLocations=$wpdb->get_results(
                 __("View", SLPLUS_PREFIX)."</a>" : 
                 "" ;
 
-            print "<tr style='background-color:$bgcol'>";
-            print "<th><input type='checkbox' name='sl_id[]' value='$locID'></th>";            // Bulk Action Checkbox
-            print "<th class='thnowrap'>".                                                     // Action Column
-
+            print
+            "<tr style='background-color:$bgcol'>" .
+                "<th><input type='checkbox' name='sl_id[]' value='$locID'></th>" .
+                "<th class='thnowrap'>".
                 "<a class='action_icon edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."' 
                     href='".preg_replace('/&edit='.(isset($_GET['edit'])?$_GET['edit']:'').'/', '',$_SERVER['REQUEST_URI']).
                 "&edit=" . $locID ."#a$locID'></a>".
@@ -512,16 +511,16 @@ if ($slpLocations=$wpdb->get_results(
 
             // Lat/Long Columns
             //
-            print "<td>".$sl_value['sl_latitude']."</td>";
-            print "<td>".$sl_value['sl_longitude']."</td>";
-            print "</tr>";
+            print 
+                    '<td>'.$sl_value['sl_latitude'] .'</td>' .
+                    '<td>'.$sl_value['sl_longitude'].'</td>' .
+                '</tr>';
         }
     }
 
     // Close Out Table
     //
-    print $tableHeaderString;
-    print '</table></div>';
+    print $tableHeaderString .'</table></div>';
 
 // No Locations Found
 //
