@@ -113,7 +113,7 @@ if ( ! class_exists( 'SLPPages' ) ) {
                   "<pre>".print_r($parm1,true)."</pre>".
                   "<pre>".print_r($parm2,true)."</pre>"
                     ;
-            die('Tagalong debug hooked.');
+            die($this->slug . ' debug hooked.');
         }
 
 
