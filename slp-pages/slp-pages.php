@@ -153,7 +153,7 @@ if ( ! class_exists( 'SLPPages' ) ) {
          * @param type $locationID
          * @return type
          */
-         function CreatePage($locationID=-1)  {
+         function CreatePage($locationID=-1, $keepContent = false, $post_status = 'publish')  {
             if (!$this->setPlugin()) { return ''; }
 
             // If incorrect location ID get out of here
@@ -173,19 +173,26 @@ if ( ! class_exists( 'SLPPages' ) ) {
                 }
 
 
+                // Update the row
+                //
+                $wpdb->update($wpdb->prefix."store_locator", $store, array('sl_id' => $locationID));
+
                 // Create the page
                 //
                 $slpNewListing = array(
                     'ID'            => (($store['sl_linked_postid'] > 0)?$store['sl_linked_postid']:''),
                     'post_type'     => 'store_page',
-                    'post_status'   => 'publish',
+                    'post_status'   => $post_status,
                     'post_title'    => $store['sl_store'],
-                    'post_content'  => $this->CreatePageContent($store),
+                    'post_content' =>
+                        ($keepContent)                      ?
+                        $slpStorePage->post_content         :
+                        $this->CreatePageContent($store)
                     );
 
-                // Update the row
+                // Apply Third Party Filters
                 //
-                $wpdb->update($wpdb->prefix."store_locator", $store, array('sl_id' => $locationID));
+                $slpNewListing = apply_filters('slp_pages_insert_post',$slpNewListing);
 
                 return wp_insert_post($slpNewListing);
              }

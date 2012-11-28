@@ -261,6 +261,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Add built-in WordPress update for premium add-ons.
 * Revise geocoding error messages.
 * Further performance improvement, smaller global function footprint.
+* Start moving all Store Pages related hooks into a completely separate class.
+** This will make it far easier to extend this premium add-on and have other add-ons (like Tagalong) interact with it.
 
 = 3.7.5 (Turkey Day Aftermath) =
 
