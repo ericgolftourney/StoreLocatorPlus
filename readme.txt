@@ -266,6 +266,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 ** Store Pages CreatePage() now accepts a keepcontent and post_status flag.
 ** CreatePage() post_status of 'prior' keeps the previous publication state of a store page
 * New Hooks/Filters for 3rd party add-ons
+** slp_edit_location_data - allow plugins to get ahold of the incoming location data prior to editing
 ** slp_edit_location_redirect - prevent page redirect when updating location data (good for seeing edit error messages)
 ** slp_pages_insert_post - allow plugins (Tagalong) to change the default store pages attributes
 ** slp_pages_content - allow plugins to change how store pages content is built

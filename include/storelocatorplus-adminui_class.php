@@ -751,7 +751,12 @@ if (! class_exists('SLPlus_AdminUI')) {
              global $slplus_plugin;
              $slplus_plugin->addform = $addform;
              $slpEditForm = '';
-             
+
+            /**
+             * @see  http://goo.gl/ooXFC 'slp_edit_location_data' filter to manipulate edit location incoming data
+             */
+            $sl_value = apply_filters('slp_edit_location_data',$sl_value);
+
              $content  = ''                                                                     .
                 "<form id='manualAddForm' name='manualAddForm' method='post' enctype='multipart/form-data'>"       .
                 "<a name='a".$locID."'></a>"                                                    .
@@ -782,6 +787,9 @@ if (! class_exists('SLPlus_AdminUI')) {
                         "<input type='hidden' name='option_value-$locID' value='".($addform?'':$sl_value['sl_option_value'])."' />"
                         ;
 
+                /**
+                 * @see  http://goo.gl/ooXFC 'slp_edit_location_left_column' filter to manipulate edit location form, left column
+                 */
                 $content .= apply_filters('slp_edit_location_left_column',$slpEditForm)             .
                     '</td>'                                                                         .
                     "<td id='slp_manual_update_table_right_cell'>"
@@ -818,7 +826,10 @@ if (! class_exists('SLPlus_AdminUI')) {
 
                         '</div>'
                         ;
-                
+
+                /**
+                 * @see  http://goo.gl/ooXFC 'slp_edit_location_right_column' filter to manipulate edit location form, right column
+                 */
                 $content .= apply_filters('slp_edit_location_right_column',$slpEditForm);
                 $content .= '</td></tr></table>';
 
