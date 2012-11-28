@@ -165,7 +165,7 @@ if (! class_exists('SLPlus_UI')) {
 
             // Setup the style sheets
             //
-            setup_stylesheet_for_slplus();
+            $this->setup_stylesheet_for_slplus();
 
 
             // Set our flag for later processing
@@ -181,6 +181,26 @@ if (! class_exists('SLPlus_UI')) {
 
             return $this->rawDeal($this->parent->helper->get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_and_map.php'));
         }
+
+        /**
+         * Setup the CSS for the product pages.
+         */
+        function setup_stylesheet_for_slplus() {
+            global $slplus_plugin, $fnvars;
+
+            // Pro Pack - Use Themes System
+            //
+            if ($slplus_plugin->license->AmIEnabled(true, "SLPLUS-PRO")) {
+                $slplus_plugin->themes->assign_user_stylesheet(isset($fnvars['theme'])?$fnvars['theme']:'');
+            } else {
+                wp_deregister_style(SLPLUS_PREFIX.'_user_header_css');
+                wp_dequeue_style(SLPLUS_PREFIX.'_user_header_css');
+                if ( file_exists(SLPLUS_PLUGINDIR.'css/default.css')) {
+                    wp_enqueue_style(SLPLUS_PREFIX.'_user_header_css', SLPLUS_PLUGINURL .'/css/default.css');
+                }
+            }
+        }
+
 
         /**
          * String all \r\n from the template to try to "unbreak" Theme Forest themes.
