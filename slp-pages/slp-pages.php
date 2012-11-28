@@ -231,7 +231,7 @@ if ( ! class_exists( 'SLPPages' ) ) {
                 $content .= "<h1>Contact Info</h1>\n<p>".$slpContactInfo."</p>\n";
              }
 
-             return $content;
+             return apply_filters('slp_pages_content',$content);
          }
     }
 
