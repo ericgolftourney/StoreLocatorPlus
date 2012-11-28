@@ -302,17 +302,22 @@ if (! class_exists('SLPlus_Actions')) {
                     //"http://$sl_google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$sl_map_character_encoding}"
                     wp_enqueue_script(
                             'google_maps',
-                            'http://'.$sl_google_map_domain.'/maps/api/js?sensor=false&v=3.9&key='.$api_key
+                            'http'.(is_ssl()?'s':'').'://'.$sl_google_map_domain.'/maps/api/js?sensor=false&v=3.9&key='.$api_key
                             );
                 }
                 else {
                     wp_enqueue_script(
                         'google_maps',
-                        'http://'.$sl_google_map_domain.'/maps/api/js?sensor=false&v=3.9'
+                        'http'.(is_ssl()?'s':'').'://'.$sl_google_map_domain.'/maps/api/js?sensor=false&v=3.9'
                     );
                 }
             }
 
+            $sslURL =
+                (is_ssl()?
+                preg_replace('/http:/','https:',SLPLUS_PLUGINURL) :
+                SLPLUS_PLUGINURL
+                );
             wp_enqueue_script(
                     'csl_script',
                     SLPLUS_PLUGINURL.'/core/js/csl.js',
