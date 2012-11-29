@@ -467,7 +467,6 @@ if (! class_exists('SLPlus_AdminUI')) {
           */
          function slp_add_results_settings_panel() {
             global $slpMapSettings, $slplus_plugin;
-            global $cl_icon_notification_msg,$cl_icon,$cl_icon2,$cl_icon_str,$cl_icon2_str;
             $slplus_message = ($slplus_plugin->license->packages['Pro Pack']->isenabled) ?
                 __('',SLPLUS_PREFIX) :
                 __('Extended settings are available in the <a href="%s">%s</a> premium add-on.',SLPLUS_PREFIX)
@@ -520,20 +519,20 @@ if (! class_exists('SLPlus_AdminUI')) {
                 "<div class='section_column'>".
                     "<div class='map_designer_settings'>".
                         "<h2>".__('Icons', SLPLUS_PREFIX)."</h2>".
-                        $cl_icon_notification_msg .
+                        $slplus_plugin->data['iconNotice'] .
                         "<div class='form_entry'>".
                             "<label for='icon'>".__('Home Icon', SLPLUS_PREFIX)."</label>".
-                            "<input id='icon' name='icon' dir='rtl' size='45' value='".$cl_icon."' ".
+                            "<input id='icon' name='icon' dir='rtl' size='45' value='".$slplus_plugin->data['homeIcon']."' ".
                                     'onchange="document.getElementById(\'prev\').src=this.value">'.
-                            "<img id='prev' src='".$cl_icon."' align='top'><br/>".
-                            $cl_icon_str.
+                            "<img id='prev' src='".$slplus_plugin->data['homeIcon']."' align='top'><br/>".
+                            $slplus_plugin->data['homeIconPicker'].
                         "</div>".
                         "<div class='form_entry'>".
                             "<label for='icon2'>".__('Destination Icon', SLPLUS_PREFIX)."</label>".
-                            "<input id='icon2' name='icon2' dir='rtl' size='45' value='".$cl_icon2."' ".
+                            "<input id='icon2' name='icon2' dir='rtl' size='45' value='".$slplus_plugin->data['endIcon']."' ".
                                 'onchange="document.getElementById(\'prev2\').src=this.value">'.
-                            "<img id='prev2' src='".$cl_icon2."'align='top'><br/>".
-                            $cl_icon2_str.
+                            "<img id='prev2' src='".$slplus_plugin->data['endIcon']."'align='top'><br/>".
+                            $slplus_plugin->data['endIconPicker'].
                         "</div>".
                     "</div>".
                 "</div>"
@@ -858,12 +857,13 @@ if (! class_exists('SLPlus_AdminUI')) {
             return $existing_mimes;
         }
 
-         /**
-          * Render an icon selector for the icon images store in the SLP plugin icon directory.
-          * 
-          * @param string $elementToUpate - the name of the input ID to update on click
-          * @return string - the html of the icon selector
-          */
+        /**
+         * Render an icon selector for the icon images store in the SLP plugin icon directory.
+         *
+         * @param type $inputFieldID
+         * @param type $inputImageID
+         * @return string
+         */
          function rendorIconSelector($inputFieldID = null, $inputImageID = null) {
             if (!$this->setParent()) { return 'could not set parent'; }
             if (($inputFieldID == null) || ($inputImageID == null)) { return ''; }

@@ -11,8 +11,6 @@
  * @global type $sl_width
  * @global type $sl_width_units
  * @global type $sl_height_units
- * @global type $cl_icon
- * @global type $cl_icon2
  * @global type $sl_google_map_domain
  * @global type $sl_google_map_country
  * @global type $sl_theme
@@ -35,7 +33,7 @@
  */
 function initialize_variables() {
     global $sl_height, $sl_width, $sl_width_units, $sl_height_units;
-    global $cl_icon, $cl_icon2, $sl_google_map_domain, $sl_google_map_country, $sl_theme, $sl_location_table_view;
+    global $sl_google_map_domain, $sl_google_map_country, $sl_theme, $sl_location_table_view;
     global $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_name_search, $sl_default_map;
     global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
     global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
@@ -136,16 +134,6 @@ function initialize_variables() {
     if (empty($sl_google_map_domain)) {
         $sl_google_map_domain="maps.google.com";
         add_option('sl_google_map_domain', $sl_google_map_domain);
-    }
-    $cl_icon2=get_option('sl_map_end_icon');
-    if (empty($cl_icon2)) {
-        add_option('sl_map_end_icon', SLPLUS_COREURL . 'images/icons/marker.png');
-        $cl_icon2=get_option('sl_map_end_icon');
-    }
-    $cl_icon=get_option('sl_map_home_icon');
-    if (empty($cl_icon)) {
-        add_option('sl_map_home_icon', SLPLUS_COREURL . 'images/icons/arrow.png');
-        $cl_icon=get_option('sl_map_home_icon');
     }
     $sl_height=get_option('sl_map_height');
     if (empty($sl_height)) {

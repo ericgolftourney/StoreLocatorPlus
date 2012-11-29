@@ -362,27 +362,29 @@ $sl_city_checked	= (get_option('sl_use_city_search',0) ==1)?' checked ':'';
 $checked3	        = (get_option('sl_remove_credits',0)  ==1)?' checked ':'';
 
 //---- ICONS ----
-$cl_icon_str   =(isset($cl_icon_str)  ?$cl_icon_str  :'');
-$cl_icon_str .= $slplus_plugin->AdminUI->rendorIconSelector('icon','prev');
-$cl_icon2_str  =(isset($cl_icon2_str) ?$cl_icon2_str :'');
-$cl_icon2_str = preg_replace('/\.icon\.value/','.icon2.value',$cl_icon_str);
-$cl_icon2_str = preg_replace('/getElementById\("prev"\)/','getElementById("prev2")',$cl_icon2_str);
-$cl_icon2_str = preg_replace('/getElementById\("icon"\)/','getElementById("icon2")',$cl_icon2_str);
+if (!isset($slplus_plugin->data['homeIconPicker'] )) {
+    $slplus_plugin->data['homeIconPicker'] = $slplus_plugin->AdminUI->rendorIconSelector('icon','prev');
+}
+if (!isset($slplus_plugin->data['endIconPicker'] )) {
+    $slplus_plugin->data['endIconPicker'] = preg_replace('/\.icon\.value/','.icon2.value',$slplus_plugin->data['homeIconPicker']);
+    $slplus_plugin->data['endIconPicker'] = preg_replace('/getElementById\("prev"\)/','getElementById("prev2")',$slplus_plugin->data['endIconPicker']);
+    $slplus_plugin->data['endIconPicker'] = preg_replace('/getElementById\("icon"\)/','getElementById("icon2")',$slplus_plugin->data['endIconPicker']);
+}
 
 // Icon is the old path, notify them to re-select
 //
-$cl_icon_notification_msg= '';
-$slplus_plugin->data['siteURL']  = get_site_url();
-$slplus_plugin->data['homeIcon'] = get_option('sl_map_home_icon');
-$slplus_plugin->data['endIcon']  = get_option('sl_map_end_icon');
-if (!strpos($slplus_plugin->data['homeIcon'],'http')===0) {
+$slplus_plugin->data['iconNotice'] = '';
+if (!isset($slplus_plugin->data['siteURL'] )) { $slplus_plugin->data['siteURL']  = get_site_url();                  }
+if (!isset($slplus_plugin->data['homeIcon'])) { $slplus_plugin->data['homeIcon'] = get_option('sl_map_home_icon');  }
+if (!isset($slplus_plugin->data['endIcon'] )) { $slplus_plugin->data['endIcon']  = get_option('sl_map_end_icon');   }
+if (!(strpos($slplus_plugin->data['homeIcon'],'http')===0)) {
     $slplus_plugin->data['homeIcon'] = $slplus_plugin->data['siteURL']. $slplus_plugin->data['homeIcon'];
 }
-if (!strpos($slplus_plugin->data['endIcon'],'http')===0) {
+if (!(strpos($slplus_plugin->data['endIcon'],'http')===0)) {
     $slplus_plugin->data['endIcon'] = $slplus_plugin->data['siteURL']. $slplus_plugin->data['endIcon'];
 }
 if (!$slplus_plugin->helper->webItemExists($slplus_plugin->data['homeIcon'])) {
-    $cl_icon_notification_msg .= 
+    $slplus_plugin->data['iconNotice'] .=
         sprintf(
                 __('Your home icon %s cannot be located, please select a new one.', 'csl-slplus'),
                 $slplus_plugin->data['homeIcon']
@@ -392,6 +394,7 @@ if (!$slplus_plugin->helper->webItemExists($slplus_plugin->data['homeIcon'])) {
         ;
 }
 if (!$slplus_plugin->helper->webItemExists($slplus_plugin->data['endIcon'])) {
+    $slplus_plugin->data['iconNotice'] .=
         sprintf(
                 __('Your destination icon %s cannot be located, please select a new one.', 'csl-slplus'),
                 $slplus_plugin->data['endIcon']
@@ -400,10 +403,10 @@ if (!$slplus_plugin->helper->webItemExists($slplus_plugin->data['endIcon'])) {
         '<br/>'
         ;
 }
-if ($cl_icon_notification_msg != '') {
-    $cl_icon_notification_msg =
+if ($slplus_plugin->data['iconNotice'] != '') {
+    $slplus_plugin->data['iconNotice'] =
         "<div class='highlight' style='background-color:LightYellow;color:red'><span style='color:red'>".
-            $cl_icon_notification_msg .
+            $slplus_plugin->data['iconNotice'] .
         "</span></div>"
         ;
 }

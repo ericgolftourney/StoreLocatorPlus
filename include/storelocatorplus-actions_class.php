@@ -331,10 +331,10 @@ if (! class_exists('SLPlus_Actions')) {
             //--------------------
             // Prepare some data for JavaScript injection...
             //
-            $slplus_home_icon = get_option('sl_map_home_icon');
-            $slplus_end_icon  = get_option('sl_map_end_icon');
-            $slplus_home_icon_file = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$slplus_home_icon);
-            $slplus_end_icon_file  = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$slplus_end_icon);
+            if (!isset($slplus_plugin->data['homeIcon'])) { $slplus_plugin->data['homeIcon'] = get_option('sl_map_home_icon');  }
+            if (!isset($slplus_plugin->data['endIcon'] )) { $slplus_plugin->data['endIcon']  = get_option('sl_map_end_icon');   }
+            $slplus_home_icon_file = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$slplus_plugin->data['homeIcon']);
+            $slplus_end_icon_file  = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$slplus_plugin->data['endIcon']);
             $slplus_home_size=(function_exists('getimagesize') && file_exists($slplus_home_icon_file))?
                 getimagesize($slplus_home_icon_file) :
                 array(0 => 20, 1 => 34);
@@ -402,10 +402,10 @@ if (! class_exists('SLPlus_Actions')) {
                 'map_3dcontrol'     => (get_option(SLPLUS_PREFIX.'_disable_largemapcontrol3d')==0),
                 'map_country'       => $slplus_plugin->Actions->SetMapCenter(),
                 'map_domain'        => get_option('sl_google_map_domain','maps.google.com'),
-                'map_home_icon'     => $slplus_home_icon,
+                'map_home_icon'     => $slplus_plugin->data['homeIcon'],
                 'map_home_sizew'    => $slplus_home_size[0],
                 'map_home_sizeh'    => $slplus_home_size[1],
-                'map_end_icon'      => $slplus_end_icon,
+                'map_end_icon'      => $slplus_plugin->data['endIcon'],
                 'map_end_sizew'     => $slplus_end_size[0],
                 'map_end_sizeh'     => $slplus_end_size[1],
                 'use_sensor'        => (get_option(SLPLUS_PREFIX."_use_location_sensor",0)==1),
