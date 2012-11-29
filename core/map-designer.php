@@ -371,23 +371,42 @@ $cl_icon2_str = preg_replace('/getElementById\("icon"\)/','getElementById("icon2
 
 // Icon is the old path, notify them to re-select
 //
-$cl_icon_notification_msg=
-(
-    ( !preg_match('#/core/images/icons/#', get_option('sl_map_home_icon'))
-        && 
-      !preg_match('#/custom-icons/#', get_option('sl_map_home_icon'))
-    )
-        || 
-    ( !preg_match('#/core/images/icons/#', get_option('sl_map_end_icon'))
-        && 
-      !preg_match('#/custom-icons/#', get_option('sl_map_end_icon'))
-    )
-)
-    ? 
-"<div class='highlight' style='background-color:LightYellow;color:red'><span style='color:red'>".
-__("Please re-select your <b>Home Icon</b> and <b>Destination Icon</b> below, so that they show up properly on your map.", SLPLUS_PREFIX).
-"</span></div>" : 
-"" ;
+$cl_icon_notification_msg= '';
+$slplus_plugin->data['siteURL']  = get_site_url();
+$slplus_plugin->data['homeIcon'] = get_option('sl_map_home_icon');
+$slplus_plugin->data['endIcon']  = get_option('sl_map_end_icon');
+if (!strpos($slplus_plugin->data['homeIcon'],'http')===0) {
+    $slplus_plugin->data['homeIcon'] = $slplus_plugin->data['siteURL']. $slplus_plugin->data['homeIcon'];
+}
+if (!strpos($slplus_plugin->data['endIcon'],'http')===0) {
+    $slplus_plugin->data['endIcon'] = $slplus_plugin->data['siteURL']. $slplus_plugin->data['endIcon'];
+}
+if (!$slplus_plugin->helper->webItemExists($slplus_plugin->data['homeIcon'])) {
+    $cl_icon_notification_msg .= 
+        sprintf(
+                __('Your home icon %s cannot be located, please select a new one.', 'csl-slplus'),
+                $slplus_plugin->data['homeIcon']
+                )
+                .
+        '<br/>'
+        ;
+}
+if (!$slplus_plugin->helper->webItemExists($slplus_plugin->data['endIcon'])) {
+        sprintf(
+                __('Your destination icon %s cannot be located, please select a new one.', 'csl-slplus'),
+                $slplus_plugin->data['endIcon']
+                )
+                .
+        '<br/>'
+        ;
+}
+if ($cl_icon_notification_msg != '') {
+    $cl_icon_notification_msg =
+        "<div class='highlight' style='background-color:LightYellow;color:red'><span style='color:red'>".
+            $cl_icon_notification_msg .
+        "</span></div>"
+        ;
+}
 
 
 // Instantiate the form rendering object

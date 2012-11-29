@@ -21,6 +21,8 @@ if (defined('SLPLUS_PLUGINDIR')) {
     global $slplus_plugin;
     $slplus_plugin = new wpCSL_plugin__slplus(
         array(
+            'data'                  => array(),
+
             // We don't want default wpCSL objects, let's set our own
             //
             'use_obj_defaults'      => false,
