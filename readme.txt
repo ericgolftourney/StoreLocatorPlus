@@ -258,6 +258,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.7.6 (End November 2012)
 
+* Directions start from entered address, or GPS location if location sensor is used.
 * Update the Map Settings icon check.  Now recognizes remote icon URLs as valid entries.
 * Add built-in WordPress update for premium add-ons.
 * Revise geocoding error messages.

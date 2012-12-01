@@ -54,6 +54,8 @@ var csl = {
     LocationServices: function() {
         this.theService = null;
         this.location_timeout = null;
+        this.lat = 0.00;
+        this.lng = 0.00;
 
         this.__init = function() {
             try {
@@ -968,11 +970,44 @@ var csl = {
 					html += '<br/><div class="'+tagclass+'"><span class="slp_info_bubble_tags">'+aMarker.tags + '</span></div>';
 				}
 			}
-			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + aMarker.name + '</strong><br>' + address + '<br/> <a href="http://' + slplus.map_domain + '/maps?saddr=' + /*todo: searched address goes here*/ encodeURIComponent(this.address) + '&daddr=' + encodeURIComponent(address) + '" target="_blank" class="storelocatorlink">'+slplus.label_directions+'</a> ' + html + '<br/><!--/td></tr--></div>';
+
+
+			var complete_html = '<div id="sl_info_bubble"><!--tr><td--><strong>' + 
+                    aMarker.name + '</strong><br>' +
+                    address + '<br/> ' +
+                    '<a href="http://' + slplus.map_domain +
+                        '/maps?saddr=' + encodeURIComponent(this.getSearchAddress(this.address)) +
+                        '&daddr=' + encodeURIComponent(address) +
+                        '" target="_blank" class="storelocatorlink">'+
+                        slplus.label_directions+
+                        '</a> ' + html +
+                        '<br/><!--/td></tr--></div>'
+                    ;
 
 			return complete_html;
 		}
 
+        /**
+         * Return a proper search address for directions.
+         * Use the address entered if provided.
+         * Use the GPS coordinates if not and use location is on and coords available.
+         * Otherwise use the center of the country.
+         */
+        this.getSearchAddress = function (defaultAddress) {
+            var searchAddress = jQuery('#addressInput').val();
+            if (!searchAddress) {
+                if ((slplus.use_sensor) && (sensor.lat != 0.00) && (sensor.lng != 0.00)) {
+                    searchAddress = sensor.lat + ',' + sensor.lng;
+                } else {
+                    searchAddress = defaultAddress;
+                }
+            }
+            return searchAddress;
+        }
+
+        /**
+         * debug the search mechanism
+         */
 		this.debugSearch = function(toLog) {
 		    if (slplus.debug_mode == 1) {
                 try {
@@ -1237,7 +1272,7 @@ var csl = {
                         link,
                         elink,
                         slplus.map_domain,
-                        encodeURIComponent(this.address),
+                        encodeURIComponent(this.getSearchAddress(this.address)),
                         encodeURIComponent(address),
                         slplus.label_directions,
                         tagInfo,
@@ -1281,6 +1316,8 @@ function InitializeTheMap() {
         sensor.currentLocation(function(loc) {
             cslmap.usingSensor = true;
             clearTimeout(sensor.location_timeout);
+            sensor.lat = loc.coords.latitude;
+            sensor.lng = loc.coords.longitude;
             cslmap.__buildMap(new google.maps.LatLng(loc.coords.latitude, loc.coords.longitude));
         },
         function(error) {
