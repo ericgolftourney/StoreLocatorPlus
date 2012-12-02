@@ -62,14 +62,12 @@ if (! class_exists('SLPlus_UI')) {
             // the other option is to unset($GLOBAL['<varname>']) at then end of this
             // function call.
             //
-            // Let's start using a SINGLE named array called "fnvars" to pass along anything
-            // we want.
+            // We now use $slplus_plugin->data to hold attribute data.
             //
-            global  $wpdb,
+            global  $wpdb, $slplus_plugin,
                 $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units,
                 $sl_radius_label, $r_options, $sl_instruction_message, $cs_options, $slplus_name_label,
-                $sl_country_options, $slplus_state_options, $fnvars;
-            $fnvars = array();
+                $sl_country_options, $slplus_state_options;
 
             //----------------------
             // Attribute Processing
@@ -151,9 +149,9 @@ if (! class_exists('SLPlus_UI')) {
             $columns += (get_option('slplus_show_state_pd',0)!=1) ? 1 : 0;
             $sl_radius_label=get_option('sl_radius_label','');
 
-            // Prep fnvars for passing to our template
+            // Merge attributes set into our slplus_plugin->data object.
             //
-            $fnvars = array_merge($fnvars,(array) $attributes);       // merge in passed attributes
+            $slplus_plugin->data = array_merge($slplus_plugin->data,(array) $attributes);
 
 
             //todo: make sure map type gets set to a sane value before getting here. Maybe not...
@@ -186,12 +184,15 @@ if (! class_exists('SLPlus_UI')) {
          * Setup the CSS for the product pages.
          */
         function setup_stylesheet_for_slplus() {
-            global $slplus_plugin, $fnvars;
+            global $slplus_plugin;
 
             // Pro Pack - Use Themes System
             //
-            if ($slplus_plugin->license->AmIEnabled(true, "SLPLUS-PRO")) {
-                $slplus_plugin->themes->assign_user_stylesheet(isset($fnvars['theme'])?$fnvars['theme']:'');
+          /**
+           * @see http://goo.gl/UAXly - theme - the file name for a SLPlus display theme from ./core/css
+           */
+            if ($slplus_plugin->license->packages['Pro Pack']->isenabled)  {
+                $slplus_plugin->themes->assign_user_stylesheet(isset($slplus_plugin->data['theme'])?$slplus_plugin->data['theme']:'');
             } else {
                 wp_deregister_style(SLPLUS_PREFIX.'_user_header_css');
                 wp_dequeue_style(SLPLUS_PREFIX.'_user_header_css');

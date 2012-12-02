@@ -361,7 +361,14 @@ $checked2   	    = (isset($checked2)  ?$checked2  :'');
 $sl_city_checked	= (get_option('sl_use_city_search',0) ==1)?' checked ':'';
 $checked3	        = (get_option('sl_remove_credits',0)  ==1)?' checked ':'';
 
-//---- ICONS ----
+/**
+ * @see http://goo.gl/UAXly - endIcon - the default map marker to be used for locations shown on the map
+ * @see http://goo.gl/UAXly - endIconPicker -  the icon selection HTML interface
+ * @see http://goo.gl/UAXly - homeIcon - the default map marker to be used for the starting location during a search
+ * @see http://goo.gl/UAXly - homeIconPicker -  the icon selection HTML interface
+ * @see http://goo.gl/UAXly - iconNotice - the admin panel message if there is a problem with the home or end icon
+ * @see http://goo.gl/UAXly - siteURL - get_site_url() WordPress call
+ */
 if (!isset($slplus_plugin->data['homeIconPicker'] )) {
     $slplus_plugin->data['homeIconPicker'] = $slplus_plugin->AdminUI->rendorIconSelector('icon','prev');
 }
