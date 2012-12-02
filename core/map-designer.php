@@ -382,29 +382,29 @@ if (!isset($slplus_plugin->data['endIconPicker'] )) {
 //
 $slplus_plugin->data['iconNotice'] = '';
 if (!isset($slplus_plugin->data['siteURL'] )) { $slplus_plugin->data['siteURL']  = get_site_url();                  }
-if (!isset($slplus_plugin->data['homeIcon'])) { $slplus_plugin->data['homeIcon'] = get_option('sl_map_home_icon');  }
-if (!isset($slplus_plugin->data['endIcon'] )) { $slplus_plugin->data['endIcon']  = get_option('sl_map_end_icon');   }
-if (!(strpos($slplus_plugin->data['homeIcon'],'http')===0)) {
-    $slplus_plugin->data['homeIcon'] = $slplus_plugin->data['siteURL']. $slplus_plugin->data['homeIcon'];
+if (!isset($slplus_plugin->data['homeicon'])) { $slplus_plugin->data['homeicon'] = get_option('sl_map_home_icon');  }
+if (!isset($slplus_plugin->data['endicon'] )) { $slplus_plugin->data['endicon']  = get_option('sl_map_end_icon');   }
+if (!(strpos($slplus_plugin->data['homeicon'],'http')===0)) {
+    $slplus_plugin->data['homeicon'] = $slplus_plugin->data['siteURL']. $slplus_plugin->data['homeicon'];
 }
-if (!(strpos($slplus_plugin->data['endIcon'],'http')===0)) {
-    $slplus_plugin->data['endIcon'] = $slplus_plugin->data['siteURL']. $slplus_plugin->data['endIcon'];
+if (!(strpos($slplus_plugin->data['endicon'],'http')===0)) {
+    $slplus_plugin->data['endicon'] = $slplus_plugin->data['siteURL']. $slplus_plugin->data['endicon'];
 }
-if (!$slplus_plugin->helper->webItemExists($slplus_plugin->data['homeIcon'])) {
+if (!$slplus_plugin->helper->webItemExists($slplus_plugin->data['homeicon'])) {
     $slplus_plugin->data['iconNotice'] .=
         sprintf(
                 __('Your home icon %s cannot be located, please select a new one.', 'csl-slplus'),
-                $slplus_plugin->data['homeIcon']
+                $slplus_plugin->data['homeicon']
                 )
                 .
         '<br/>'
         ;
 }
-if (!$slplus_plugin->helper->webItemExists($slplus_plugin->data['endIcon'])) {
+if (!$slplus_plugin->helper->webItemExists($slplus_plugin->data['endicon'])) {
     $slplus_plugin->data['iconNotice'] .=
         sprintf(
                 __('Your destination icon %s cannot be located, please select a new one.', 'csl-slplus'),
-                $slplus_plugin->data['endIcon']
+                $slplus_plugin->data['endicon']
                 )
                 .
         '<br/>'

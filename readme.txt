@@ -288,10 +288,13 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 ** More control for 3rd party add-ons, removing extra <br/> tags in output.
 ** Update some of the CSS templates to tweak new span classes to adjust output display.
 * Make store hours available to 3rd party add-ons.
-** [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results/) add-on has option to turn on the hours display under the map.
 * JavaScript load/search tests for valid servers response.
 ** Logs to console if SLP server does not return properly JSONP response.
 * Tested for WordPress 3.4.3 compatibility.
+* More minor performance tweaks with less data I/O and less memory usage on the admin interface.
+* [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results/) add-on has option to turn on the hours display under the map.
+* [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) - gets a couple more themes
+* [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) - new shortcode attributes endicon and homeicon, requires Force Load JavaScript to be  disabled (WP 3.3 compatible themes only)
 
 = 3.7.3 (November 12 2012) =
 

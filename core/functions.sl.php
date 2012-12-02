@@ -501,34 +501,6 @@ function slpreport_downloads() {
     <?php
 }
 
-/**************************************
- ** function: slplus_shortcode_atts()
- **
- ** Set the entire list of accepted attributes.
- ** The shortcode_atts function ensures that all possible
- ** attributes that could be passed are given a value which
- ** makes later processing in the code a bit easier.
- ** This is basically the equivalent of the php array_merge()
- ** function.
- **
- **/
-function slplus_shortcode_atts($attributes) {
-    global $slplus_plugin;
-
-    // Pro Pack Enabled
-    //
-    if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
-        $slpAtts =
-            array(
-                'tags_for_pulldown'=> null,
-                'only_with_tag'    => null,
-                'theme'            => null,
-                );
-        shortcode_atts($slpAtts,$attributes);
-    }
-}
-
-
 
 /**
  * Help deserialize data to array.

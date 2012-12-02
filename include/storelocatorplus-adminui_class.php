@@ -522,16 +522,16 @@ if (! class_exists('SLPlus_AdminUI')) {
                         $slplus_plugin->data['iconNotice'] .
                         "<div class='form_entry'>".
                             "<label for='icon'>".__('Home Icon', SLPLUS_PREFIX)."</label>".
-                            "<input id='icon' name='icon' dir='rtl' size='45' value='".$slplus_plugin->data['homeIcon']."' ".
+                            "<input id='icon' name='icon' dir='rtl' size='45' value='".$slplus_plugin->data['homeicon']."' ".
                                     'onchange="document.getElementById(\'prev\').src=this.value">'.
-                            "<img id='prev' src='".$slplus_plugin->data['homeIcon']."' align='top'><br/>".
+                            "<img id='prev' src='".$slplus_plugin->data['homeicon']."' align='top'><br/>".
                             $slplus_plugin->data['homeIconPicker'].
                         "</div>".
                         "<div class='form_entry'>".
                             "<label for='icon2'>".__('Destination Icon', SLPLUS_PREFIX)."</label>".
-                            "<input id='icon2' name='icon2' dir='rtl' size='45' value='".$slplus_plugin->data['endIcon']."' ".
+                            "<input id='icon2' name='icon2' dir='rtl' size='45' value='".$slplus_plugin->data['endicon']."' ".
                                 'onchange="document.getElementById(\'prev2\').src=this.value">'.
-                            "<img id='prev2' src='".$slplus_plugin->data['endIcon']."'align='top'><br/>".
+                            "<img id='prev2' src='".$slplus_plugin->data['endicon']."'align='top'><br/>".
                             $slplus_plugin->data['endIconPicker'].
                         "</div>".
                     "</div>".
