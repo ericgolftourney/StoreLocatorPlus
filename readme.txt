@@ -263,15 +263,18 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Add built-in WordPress update for premium add-ons.
 * Revise geocoding error messages.
 * Further performance improvement, smaller global function footprint.
-* [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages) : Start moving all Store Pages related hooks into a completely separate class.
-** This will make it far easier to extend this premium add-on and have other add-ons (like Tagalong) interact with it.
-** Store Pages CreatePage() now accepts a keepcontent and post_status flag.
-** CreatePage() post_status of 'prior' keeps the previous publication state of a store page
+* More minor performance tweaks with less data I/O and less memory usage on the admin interface.
 * New Hooks/Filters for 3rd party add-ons
 ** slp_edit_location_data - allow plugins to get ahold of the incoming location data prior to editing
 ** slp_edit_location_redirect - prevent page redirect when updating location data (good for seeing edit error messages)
 ** slp_pages_insert_post - allow plugins (Tagalong) to change the default store pages attributes
 ** slp_pages_content - allow plugins to change how store pages content is built
+* [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) - gets a couple more themes
+* [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) - new shortcode attributes endicon and homeicon, requires Force Load JavaScript to be  disabled (WP 3.3 compatible themes only)
+* [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages) : Start moving all Store Pages related hooks into a completely separate class.
+** This will make it far easier to extend this premium add-on and have other add-ons (like Tagalong) interact with it.
+** Store Pages CreatePage() now accepts a keepcontent and post_status flag.
+** CreatePage() post_status of 'prior' keeps the previous publication state of a store page
 
 = 3.7.5 (Turkey Day Aftermath) =
 
@@ -280,7 +283,6 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Update the manage locations action/filter bar UI (prepare for more functions in tagalong/bulk processing).
 * Update the manage locations pagination interface, similar to WordPress admin panel UI.
 * Add filter: "slp_action_box_3_content" to allow add-ons to tweak that UI location.
-* Stuff.ing.
 
 = 3.7.4 (Mid-November 2012) =
 
@@ -291,10 +293,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * JavaScript load/search tests for valid servers response.
 ** Logs to console if SLP server does not return properly JSONP response.
 * Tested for WordPress 3.4.3 compatibility.
-* More minor performance tweaks with less data I/O and less memory usage on the admin interface.
 * [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results/) add-on has option to turn on the hours display under the map.
-* [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) - gets a couple more themes
-* [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) - new shortcode attributes endicon and homeicon, requires Force Load JavaScript to be  disabled (WP 3.3 compatible themes only)
 
 = 3.7.3 (November 12 2012) =
 
