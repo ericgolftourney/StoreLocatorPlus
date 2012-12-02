@@ -13,7 +13,6 @@
  * @global type $sl_height_units
  * @global type $sl_google_map_domain
  * @global type $sl_google_map_country
- * @global type $sl_theme
  * @global type $sl_location_table_view
  * @global type $sl_search_label
  * @global type $sl_zoom_level
@@ -33,7 +32,7 @@
  */
 function initialize_variables() {
     global $sl_height, $sl_width, $sl_width_units, $sl_height_units;
-    global $sl_google_map_domain, $sl_google_map_country, $sl_theme, $sl_location_table_view;
+    global $sl_google_map_domain, $sl_google_map_country, $sl_location_table_view;
     global $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_name_search, $sl_default_map;
     global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
     global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
@@ -119,11 +118,6 @@ function initialize_variables() {
     if (empty($sl_location_table_view)) {
         $sl_location_table_view="Normal";
         add_option('sl_location_table_view', $sl_location_table_view);
-        }
-    $sl_theme=get_option('sl_map_theme');
-    if (empty($sl_theme)) {
-        $sl_theme="";
-        add_option('sl_map_theme', $sl_theme);
         }
     $sl_google_map_country=get_option('sl_google_map_country');
     if (empty($sl_google_map_country)) {
