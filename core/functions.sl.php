@@ -1,12 +1,6 @@
 <?php
-/****************************************************************************
- ** file: functions.sl.php
- **
- ** The collection of main core functions for Store Locator Plus
- ***************************************************************************/
-
 /**
- * 
+ *
  * @global type $sl_height
  * @global type $sl_width
  * @global type $sl_width_units
@@ -362,8 +356,7 @@ function slplus_add_pages_settings() {
  **
  **/
 function slplus_create_country_pd() {
-    global $wpdb;
-    global $slplus_plugin;
+    global $wpdb, $slplus_plugin;
 
     // Pro Pack Enabled
     //
@@ -409,8 +402,7 @@ function slplus_create_country_pd() {
  **
  **/
 function slplus_create_state_pd() {
-    global $wpdb;
-    global $slplus_plugin;
+    global $wpdb, $slplus_plugin;
 
     // Pro Pack Enabled
     //
@@ -534,7 +526,3 @@ function get_string_from_phpexec($file) {
     global $slplus_plugin;
     return $slplus_plugin->helper->get_string_from_phpexec($file);
 }
-
-
-
-
