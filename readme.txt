@@ -271,6 +271,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 ** slp_pages_content - allow plugins to change how store pages content is built
 * [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) - gets a couple more themes
 * [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) - new shortcode attributes endicon and homeicon, requires Force Load JavaScript to be  disabled (WP 3.3 compatible themes only)
+* [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) - theme selector cleaned up a bit, sorted and empties removed
 * [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages) : Start moving all Store Pages related hooks into a completely separate class.
 ** This will make it far easier to extend this premium add-on and have other add-ons (like Tagalong) interact with it.
 ** Store Pages CreatePage() now accepts a keepcontent and post_status flag.
