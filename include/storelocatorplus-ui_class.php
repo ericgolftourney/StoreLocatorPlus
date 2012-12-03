@@ -164,19 +164,6 @@ if (! class_exists('SLPlus_UI')) {
             $columns += (get_option('slplus_show_state_pd',0)!=1) ? 1 : 0;
             $sl_radius_label=get_option('sl_radius_label','');
 
-
-
-            //todo: make sure map type gets set to a sane value before getting here. Maybe not...
-            //todo: if we allow map setting overrides via shortcode attributes we will need
-            // to re-localize the script.  It was moved to the actions class so we can
-            // localize prior to enqueue in the header.
-            //
-
-            // Setup the style sheets
-            //
-            $this->setup_stylesheet_for_slplus();
-
-
             // Set our flag for later processing
             // of JavaScript files
             //
@@ -185,10 +172,19 @@ if (! class_exists('SLPlus_UI')) {
             }
             $this->parent->shortcode_was_rendered = true;
 
+            // Setup the style sheets
+            //
+            $this->setup_stylesheet_for_slplus();
+
             // Search / Map Actions
             //
             add_action('slp_render_search_form',array('SLPlus_UI','slp_render_search_form'));
 
+            //todo: make sure map type gets set to a sane value before getting here. Maybe not...
+            //todo: if we allow map setting overrides via shortcode attributes we will need
+            // to re-localize the script.  It was moved to the actions class so we can
+            // localize prior to enqueue in the header.
+            //
             // Localize the CSL Script
             $this->localizeCSLScript();
 
@@ -304,15 +300,17 @@ if (! class_exists('SLPlus_UI')) {
          * Setup the CSS for the product pages.
          */
         function setup_stylesheet_for_slplus() {
-            global $slplus_plugin;
 
-            // Pro Pack - Use Themes System
-            //
           /**
            * @see http://goo.gl/UAXly - theme - the file name for a SLPlus display theme from ./core/css
            */
-            if ($slplus_plugin->license->packages['Pro Pack']->isenabled)  {
-                $slplus_plugin->themes->assign_user_stylesheet(isset($slplus_plugin->data['theme'])?$slplus_plugin->data['theme']:'');
+            if ($this->parent->license->packages['Pro Pack']->isenabled)  {
+                $this->parent->helper->setData(
+                        'theme',
+                        function($_this) { return  $_this->parent->settings->get_item('theme'); },
+                        $this
+                        );
+                $this->parent->themes->assign_user_stylesheet($this->parent->data['theme']);
             } else {
                 wp_deregister_style(SLPLUS_PREFIX.'_user_header_css');
                 wp_dequeue_style(SLPLUS_PREFIX.'_user_header_css');
