@@ -235,7 +235,7 @@ if (! class_exists('SLPlus_UI')) {
              */
             $results_string =
                     '<center>' .
-                    '<table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable" id="slp_results_table">'  .
+                    '<table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable" id="slp_results_table_{15}">'  .
                         '<tr class="slp_results_row" id="slp_location_{15}">'  .
                             '<td class="results_row_left_column" id="slp_left_cell_{15}"><span class="location_name">{0}</span><br/>{1} {2}</td>'  .
                             '<td class="results_row_center_column" id="slp_center_cell_{15}">' .
