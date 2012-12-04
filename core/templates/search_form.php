@@ -3,18 +3,15 @@
       $sl_radius_label, $r_options,
       $cs_options, $slplus_state_options, $sl_country_options,
       $slplus_plugin, $slplus_name_label;
-
       $slp_SearchDivs = new SLPlus_UI_DivManager();
 ?>
-
 <form onsubmit='cslmap.searchLocations(); return false;' id='searchForm' action=''>
-  <table  id='search_table' border='0' cellpadding='3px' class='sl_header'><tr>
-  <td valign='top'>
-      <div id='address_search'>
-
+    <table  id='search_table' border='0' cellpadding='3px' class='sl_header'>
+        <tbody id='search_table_body'>
+            <tr id='search_form_table_row'>
+                <td id='search_form_table_cell' valign='top'>
+                    <div id='address_search'>
           <?php
-
-
           //------------------------------------------------
           // Show City Pulldown Is Enabled
           //
@@ -238,8 +235,9 @@ ob_start();
           //
           echo apply_filters('slp_search_form_divs','');
           ?>
-      </div>
-    </td>
-  </tr>
-  </table>
-  </form>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
