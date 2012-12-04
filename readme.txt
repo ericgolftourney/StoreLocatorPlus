@@ -259,7 +259,12 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 = 3.7.6 (End November 2012)
 
 * Directions start from entered address, or GPS location if location sensor is used.
+* Fixed hide radius option.   Radius allows a single entry, which becomes the default setting.
 * Update the Map Settings icon check.  Now recognizes remote icon URLs as valid entries.
+* Update the default theme to use a yellow v. salmon  highlight.
+* Multiple CSS/HTML docucment structure changes, test this update before installing if you've tweaked the CSS.
+** Results under map now in own table with ID.
+** Most results entries have their own span class with ID.
 * Add built-in WordPress update for premium add-ons.
 * Revise geocoding error messages.
 * Further performance improvement, smaller global function footprint.
@@ -269,6 +274,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 ** slp_edit_location_redirect - prevent page redirect when updating location data (good for seeing edit error messages)
 ** slp_pages_insert_post - allow plugins (Tagalong) to change the default store pages attributes
 ** slp_pages_content - allow plugins to change how store pages content is built
+* [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results) : Hours field can now render HTML (like <br/>)
 * [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) - gets a couple more themes
 * [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) - new shortcode attributes endicon and homeicon, requires Force Load JavaScript to be  disabled (WP 3.3 compatible themes only)
 * [Pro Pack](http://www.charlestonsw.com/products/store-locator-plus/) - theme selector cleaned up a bit, sorted and empties removed
