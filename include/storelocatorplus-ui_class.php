@@ -99,7 +99,6 @@ if (! class_exists('SLPlus_UI')) {
             $sl_width          = get_option('sl_map_width','100');
             $sl_width_units    = get_option('sl_map_width_units','%');
             $slplus_name_label = get_option('sl_name_label');
-            $r_array           = explode(",",get_option('sl_map_radii','1,5,10,(25),50,100,200,500'));
 
             $sl_instruction_message = get_option('sl_instruction_message',__('Enter Your Address or Zip Code Above.',SLPLUS_PREFIX));
 
@@ -109,20 +108,23 @@ if (! class_exists('SLPlus_UI')) {
             $sl_country_options=(isset($sl_country_options)   ?$sl_country_options:'');
             $slplus_state_options=(isset($slplus_state_options)   ?$slplus_state_options:'');
 
-            foreach ($r_array as $sl_value) {
-                $selected=(preg_match('/\(.*\)/', $sl_value))? " selected='selected' " : "" ;
+            // Radius Options
+            //
+            $radiusSelections = get_option('sl_map_radii','1,5,10,(25),50,100,200,500');
 
-                // Hiding Radius?
-                if (get_option(SLPLUS_PREFIX.'_hide_radius_selections') == 1) {
-                    if ($s == " selected='selected' ") {
-                        $sl_value=preg_replace('/[^0-9]/', '', $sl_value);
-                        $r_options = "<input type='hidden' id='radiusSelect' name='radiusSelect' value='$sl_value'>";
-                    }
+            // Hide Radius, set the only (or default) radius
+            if (get_option(SLPLUS_PREFIX.'_hide_radius_selections', 0) == 1) {
+                preg_match('/\((.*?)\)/', $radiusSelections, $selectedRadius);
+                $selectedRadius = preg_replace('/[^0-9]/', '', (isset($selectedRadius[1])?$selectedRadius[1]:$radiusSelections));
+                $r_options = "<input type='hidden' id='radiusSelect' name='radiusSelect' value='$selectedRadius'>";
 
-                // Not hiding radius, build pulldown.
-                } else {
-                    $sl_value=preg_replace('/[^0-9]/', '', $sl_value);
-                    $r_options.="<option value='$sl_value' $selected>$sl_value $unit_display</option>";
+            // Build Pulldown
+            } else {
+                $radiusSelectionArray  = explode(",",$radiusSelections);
+                foreach ($radiusSelectionArray as $radius) {
+                    $selected=(preg_match('/\(.*\)/', $radius))? " selected='selected' " : "" ;
+                    $radius=preg_replace('/[^0-9]/', '', $radius);
+                    $r_options.="<option value='$radius' $selected>$radius $unit_display</option>";
                 }
             }
 
@@ -234,10 +236,13 @@ if (! class_exists('SLPlus_UI')) {
              *              {17} aMarker.hours
              */
             $results_string =
-                    '<center>' .
+                '<center>' .
                     '<table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable" id="slp_results_table_{15}">'  .
                         '<tr class="slp_results_row" id="slp_location_{15}">'  .
-                            '<td class="results_row_left_column" id="slp_left_cell_{15}"><span class="location_name">{0}</span><br/>{1} {2}</td>'  .
+                            '<td class="results_row_left_column" id="slp_left_cell_{15}">'.
+                                '<span class="location_name">{0}</span>'.
+                                '<span class="location_distance"><br/>{1} {2}</span>'.
+                            '</td>'  .
                             '<td class="results_row_center_column" id="slp_center_cell_{15}">' .
                                 '<span class="slp_result_address slp_result_street">{3}</span>'.
                                 '<span class="slp_result_address slp_result_street2">{4}</span>' .
@@ -246,14 +251,18 @@ if (! class_exists('SLPlus_UI')) {
                                 '<span class="slp_result_address slp_result_phone">{6}</span>' .
                                 '<span class="slp_result_address slp_result_fax">{7}</span>' .
                             '</td>'   .
-                            '<td class="results_row_right_column" id="slp_right_cell_{15}">{8}{9}'  .
-                                '<a href="http://{10}' .
+                            '<td class="results_row_right_column" id="slp_right_cell_{15}">' .
+                                '<span class="slp_result_contact slp_result_website">{8}</span>' .
+                                '<span class="slp_result_contact slp_result_email">{9}</span>' .
+                                '<span class="slp_result_contact slp_result_directions"><a href="http://{10}' .
                                 '/maps?saddr={11}'  .
                                 '&daddr={12}'  .
-                                '" target="_blank" class="storelocatorlink">{13}</a>{14}</td>'  .
-                            '</tr>'  .
-                        '</table>'  .
-                        '</center>';
+                                '" target="_blank" class="storelocatorlink">{13}</a></span>'.
+                                '<span class="slp_result_contact slp_result_tags">{14}</span>'.
+                            '</td>'  .
+                        '</tr>'  .
+                    '</table>'  .
+                '</center>';
 
 
             // Lets get some variables into our script
