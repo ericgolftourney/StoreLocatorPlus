@@ -950,7 +950,8 @@ var csl = {
 			}
 
 			if (aMarker.hours != '') {
-				html+="<br/><span class='location_detail_label'>"+slplus.label_hours+"</span> "+aMarker.hours;
+                var decoded = jQuery("<div/>").html(aMarker.hours).text();
+				html+="<br/><span class='location_detail_label'>"+slplus.label_hours+"</span> "+ decoded;
 			} else {
 				aMarker.hours = "";
 			}
@@ -1260,6 +1261,7 @@ var csl = {
           *              {16} aMarker.country
           *              {17} aMarker.hours
           */
+         var decodedHours = jQuery("<div/>").html(aMarker.hours).text();
  		 div.innerHTML = slplus.results_string.format(
                         aMarker.name,
                         parseFloat(aMarker.distance).toFixed(1),
@@ -1278,7 +1280,7 @@ var csl = {
                         tagInfo,
                         aMarker.id,
                         aMarker.country,
-                        aMarker.hours
+                        decodedHours
                       )
                       ;
 			div.className = 'results_entry';
