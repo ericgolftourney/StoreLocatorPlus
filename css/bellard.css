@@ -13,35 +13,63 @@
     margin: 0px;
     padding: 0px;
 }
-#search_table td {
-    border: none;
+#search_table_body {
 }
 #search_form_table_row {
     display: inline;     /* Keep the map right up to the bottom of the search form. */
 }
 #search_form_table_cell {
-    width: 100%;
-    display: inline;
+}
+#search_table td {
+    border: none;
 }
 div#address_search {
+}
+div#addy_in_state {
     display: inline-block;
-    position: relatvie;
+    margin-right: 8px;
+    position: relative;
+    width: 315px;
+}
+div#addy_in_state LABEL {
+    display: none;
+}
+#addressInputState {
+    border: solid 1px #DDDDDD;
+    background-color: #FFFFFF;
+    color: #8F8F8F;
+    display: inline-block;
+    font-family: "Arial", sans-serif;
+    font-size: 12px;
+    height: 31px;
+    position: absolute;
+    top: -22px;
+    width: 315px;
+    white-space: nowrap;
+    -webkit-appearance: button;
+    -webkit-linear-gradient(#FFFF,#FFFF, #FFFF);
 }
 div#addy_in_address {
-    border: solid 1px #F0F0F0;
     color: #8F8F8F;
+    display: inline-block;
     font-family: "Arial", sans-serif;
     font-size: 12px;
     font-weight: 400;
     height: 40px;
+    margin-right: 15px;
     width: 490px;
 }
+#addressInput {
+    width: 490px;
 }
-
+div#radius_in_submit {
+    display: inline-block;
+}
 #addressSubmit {
     background-color: #00D6F2;
     border: medium none;
     color: #FFFFFF;
+    cursor: pointer;
     font: "Arial", sans-serif;
     font-size: 12px;
     font-weight: 400;
