@@ -201,9 +201,17 @@ if (! class_exists('SLPlus_UI')) {
          */
         function localizeCSLScript() {
             global $slplus_plugin;
-            
-            if (!isset($slplus_plugin->data['homeicon'])) { $slplus_plugin->data['homeicon'] = get_option('sl_map_home_icon');  }
-            if (!isset($slplus_plugin->data['endicon'] )) { $slplus_plugin->data['endicon']  = get_option('sl_map_end_icon');   }
+
+            $this->parent->helper->setData(
+                      'homeicon',
+                      'get_option',
+                      array('sl_map_home_icon', SLPLUS_ICONURL . 'sign_yellow_home.png')
+                      );
+            $this->parent->helper->setData(
+                      'endicon',
+                      'get_option',
+                      array('sl_map_end_icon', SLPLUS_ICONURL . 'a_marker_azure.png')
+                      );
             $slplus_home_icon_file = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$slplus_plugin->data['homeicon']);
             $slplus_end_icon_file  = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$slplus_plugin->data['endicon']);
             $slplus_plugin->data['home_size'] =(function_exists('getimagesize') && file_exists($slplus_home_icon_file))?

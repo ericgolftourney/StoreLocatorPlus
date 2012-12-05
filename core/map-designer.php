@@ -382,8 +382,16 @@ if (!isset($slplus_plugin->data['endIconPicker'] )) {
 //
 $slplus_plugin->data['iconNotice'] = '';
 if (!isset($slplus_plugin->data['siteURL'] )) { $slplus_plugin->data['siteURL']  = get_site_url();                  }
-if (!isset($slplus_plugin->data['homeicon'])) { $slplus_plugin->data['homeicon'] = get_option('sl_map_home_icon');  }
-if (!isset($slplus_plugin->data['endicon'] )) { $slplus_plugin->data['endicon']  = get_option('sl_map_end_icon');   }
+$slplus_plugin->helper->setData(
+          'homeicon',
+          'get_option',
+          array('sl_map_home_icon', SLPLUS_ICONURL . 'sign_yellow_home.png')
+          );
+$slplus_plugin->helper->setData(
+          'endicon',
+          'get_option',
+          array('sl_map_end_icon', SLPLUS_ICONURL . 'a_marker_azure.png')
+          );
 if (!(strpos($slplus_plugin->data['homeicon'],'http')===0)) {
     $slplus_plugin->data['homeicon'] = $slplus_plugin->data['siteURL']. $slplus_plugin->data['homeicon'];
 }
