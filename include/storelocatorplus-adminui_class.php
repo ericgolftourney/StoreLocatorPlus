@@ -113,7 +113,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                 'api_key',
                 'text',
                 false,
-                'Your Google API Key.  You will need to ' .
+                'Your Google Maps V3 API Key.  You will need to ' .
                 '<a href="http://code.google.com/apis/console/" target="newinfo">'.
                 'go to Google</a> to get your Google Maps API Key.'
             );
