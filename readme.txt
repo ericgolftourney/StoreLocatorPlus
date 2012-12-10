@@ -262,6 +262,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Remove warning about themes setting a product object property when it does not exist.
 * New Filters/Hooks:
 ** slp_add_search_form_label_setting
+* Patch updater warning on add_new plugin screen.
 * HBTM.
 
 = 3.7.7 (December 2012)  =
