@@ -258,6 +258,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.7.8 (December 6th 2012) =
 
+* Get IE8 to not stop when location sensor is turned on.
 * Tell people they need Google Maps V3 API Key.
 * Remove warning about themes setting a product object property when it does not exist.
 * New Filters/Hooks:
