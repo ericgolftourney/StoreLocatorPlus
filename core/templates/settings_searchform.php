@@ -198,7 +198,7 @@ if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
             );
     echo CreateInputDiv(
             '_state_pd_label',
-            __('State', 'csl-slplus'),
+            __('State Label', 'csl-slplus'),
             __('Search form label to prefix the state selector.','csl-slplus')
             );
     echo CreateInputDiv(
