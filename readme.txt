@@ -262,3 +262,4 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * WordPress 3.5 testing.
 * Change admin page button bar to use standard WordPress style tabs.
 * Increase admin page performance, remove excess JavaScript from multiple locations.
+* Decrease memory footprint eliminating framework classes that are not used.
