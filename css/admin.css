@@ -199,6 +199,11 @@ div#slplus_actionbar
     visibility: hidden;
 }
 
+div#csa_mapsettings_searchform,
+div#csa_plugin_info {
+    margin-top: 18px;
+}
+
 /***************************************
 * Action Bar
 */

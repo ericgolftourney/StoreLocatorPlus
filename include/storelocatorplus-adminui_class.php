@@ -437,6 +437,7 @@ if (! class_exists('SLPlus_AdminUI')) {
             $slpDescription = get_string_from_phpexec(SLPLUS_COREDIR.'/templates/settings_searchform.php');
             $slpMapSettings->add_section(
                 array(
+                        'div_id'        => 'csa_mapsettings_searchform',
                         'name'          => __('Search Form',SLPLUS_PREFIX),
                         'description'   => $slpDescription,
                         'auto'          => true
