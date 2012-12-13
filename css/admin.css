@@ -359,8 +359,9 @@ table.slp_locationinfoform_table td {
     white-space: nowrap;
  }
  div#location_table_wrapper {
-     padding: 0px;
-     margin: -4px 0px 0px;
+    border: 1px solid #CCCCCC;
+    margin: -1px 0 0;
+    padding: 6px;
  }
  a.page-button {
      margin: 0px 2px;

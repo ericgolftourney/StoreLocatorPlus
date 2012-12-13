@@ -670,10 +670,8 @@ if (! class_exists('SLPlus_AdminUI')) {
                             <div id='icon-add-locations' class='icon32'><br/></div>
                             <h2>Store Locator Plus - ".
                             __('Add Locations', SLPLUS_PREFIX).
-                            "</h2>".
-                      '<div id="slplus_navbar">'.
-                      $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php') .
-                      '</div>'
+                            "</h2>".                      
+                      $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php')                      
                       ;
 
 
