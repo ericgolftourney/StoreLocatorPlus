@@ -7,6 +7,31 @@
 
 global $slplus_plugin;
 
+// Script
+//
+?>
+<script language="JavaScript">
+    /*=================== Confirming Button Click ===================== */
+    function confirmClick(message,href) {
+        if (confirm(message)) {	location.href=href; }
+        else  { return false; }
+    }
+
+    /* ================= For Player Form: Checks All or None ======== */
+    function checkAll(cbox,formObj) {
+        var i=0;
+        if (cbox.checked==true)
+            cbox.checked==false;
+        else
+            cbox.checked==true;
+        while (formObj.elements[i]!=null) {
+            formObj.elements[i].checked=cbox.checked;
+            i++;
+        }
+    }
+</script>
+
+<?php
 // Header Text
 //
 print "<div class='wrap'>

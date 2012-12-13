@@ -260,4 +260,5 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 = 3.8 (Mid-December 2012) =
 
 * WordPress 3.5 testing.
-
+* Change admin page button bar to use standard WordPress style tabs.
+* Increase admin page performance, remove excess JavaScript from multiple locations.

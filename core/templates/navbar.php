@@ -11,8 +11,7 @@ global $submenu, $slplus_plugin;
 if (!isset($slplus_plugin) || !isset($submenu[$slplus_plugin->prefix]) || !is_array($submenu[$slplus_plugin->prefix])) {
     echo apply_filters('slp_navbar','');
 } else {
-    $content =
-        '<script src="'.SLPLUS_COREURL.'js/functions.js"></script>'.
+    $content =        
         '<div class="about-wrap"><h2 class="nav-tab-wrapper">';
 
     // Loop through all SLP sidebar menu items on admin page
