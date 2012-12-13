@@ -13,7 +13,7 @@ if (!isset($slplus_plugin) || !isset($submenu[$slplus_plugin->prefix]) || !is_ar
 } else {
     $content =
         '<script src="'.SLPLUS_COREURL.'js/functions.js"></script>'.
-        '<ul>';
+        '<div class="about-wrap"><h2 class="nav-tab-wrapper">';
 
     // Loop through all SLP sidebar menu items on admin page
     //
@@ -32,14 +32,15 @@ if (!isset($slplus_plugin) || !isset($submenu[$slplus_plugin->prefix]) || !is_ar
 
         // Create top menu item
         //
+        $selectedTab = ((isset($_REQUEST['page']) && ($_REQUEST['page'] === $slp_menu_item[2])) ? ' nav-tab-active' : '' );
         $content .= apply_filters(
                 'slp_navbar_item_tweak',
-                '<a href="'.menu_page_url( $slp_menu_item[2], false ).'">'.
-                    "<li class='like-a-button'>$slp_menu_item[0]</li>".
+                '<a class="nav-tab'.$selectedTab.'" href="'.menu_page_url( $slp_menu_item[2], false ).'">'.
+                    $slp_menu_item[0].
                 '</a>'
                 );
     }
     $content .= apply_filters('slp_navbar_item','');
-    $content .='</ul>';
+    $content .='</h2></div>';
     echo apply_filters('slp_navbar',$content);
 }
