@@ -153,8 +153,18 @@ a.moreinfo_clicker {
 /***************************
  * The Navbar
  */
-div #slplus_navbar,
-div #slplus_actionbar
+ div#csa_admin_wrapper.metabox-holder {
+     margin: 0px;
+     padding: 0px;
+ }
+
+ div#slplus_navbar_wrapper {
+     background: none;
+     border: none;
+ }
+
+div#slplus_navbar,
+div#slplus_actionbar
 {
     background: none;
     border: none;

@@ -449,7 +449,7 @@ $slpMapSettings = new wpCSL_settings__slplus(
 $slpMapSettings->add_section(
     array(
         'name'          => 'Navigation',
-        'div_id'        => 'slplus_navbar',
+        'div_id'        => 'slplus_navbar_wrapper',
         'description'   => get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php'),
         'auto'          => false,
         'headerbar'     => false,
