@@ -651,7 +651,8 @@ p.slp_admin_info {
     clear: both;
 }
 
-#poststuff #rb_details h2, #poststuff .section_column h2 {
+div.section_column h2,
+#rb_details h2 {
     margin-bottom: 3px;  
     margin-top: 0px;
     padding: 0px 6px;

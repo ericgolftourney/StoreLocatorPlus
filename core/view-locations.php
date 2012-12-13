@@ -39,9 +39,8 @@ print "<div class='wrap'>
             <h2>".
             __('Store Locator Plus - Manage Locations', SLPLUS_PREFIX).
             "</h2>" .
-      '<div id="slplus_navbar">' .
-      $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/'.'navbar.php') .
-      '</div>';
+      $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php') 
+      ;
        
 
 // Form and variable setup for processing

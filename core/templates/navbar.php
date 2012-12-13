@@ -11,8 +11,9 @@ global $submenu, $slplus_plugin;
 if (!isset($slplus_plugin) || !isset($submenu[$slplus_plugin->prefix]) || !is_array($submenu[$slplus_plugin->prefix])) {
     echo apply_filters('slp_navbar','');
 } else {
-    $content =        
-        '<div class="about-wrap"><h2 class="nav-tab-wrapper">';
+    $content = 
+        '<div id="slplus_navbar">' .
+            '<div class="about-wrap"><h2 class="nav-tab-wrapper">';
 
     // Loop through all SLP sidebar menu items on admin page
     //
@@ -40,6 +41,6 @@ if (!isset($slplus_plugin) || !isset($submenu[$slplus_plugin->prefix]) || !is_ar
                 );
     }
     $content .= apply_filters('slp_navbar_item','');
-    $content .='</h2></div>';
+    $content .='</h2></div></div>';
     echo apply_filters('slp_navbar',$content);
 }
