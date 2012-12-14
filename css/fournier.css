@@ -18,7 +18,7 @@
  **       <span class="slp_result_address slp_result_country">{16}</span>
  **       <span class="slp_result_header_hours result_subheader">Business Hours</span>
  **       <span class="slp_hours">{17}</span>
- **       <span class="slp_result_contact slp_result_email">{9}</span>
+ **       <span class="slp_result_contact slp_result_email"><a href="mailto:{18.email}" target="csa">Contact Us</a>  . </span>
  **       <span class="slp_result_contact slp_result_directions"><a href="http://{10}/maps?saddr={11}&daddr={12}" target="_blank" class="storelocatorlink">{13}</a></span>
  **       <span class="slp_result_buffer">&nbsp;</span>
  **       </div>
