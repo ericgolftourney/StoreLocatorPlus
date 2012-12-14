@@ -164,7 +164,7 @@ function CreateTextAreaDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $de
         "<div class='form_entry'>" .
             "<div class='".SLPLUS_PREFIX."-input'>" .
                 "<label for='$whichbox'>$label:</label>".
-                "<textarea  name='$whichbox'>".get_option($whichbox,$default)."</textarea>".
+                "<textarea  name='$whichbox'>".stripslashes(esc_textarea(get_option($whichbox,$default)))."</textarea>".
             "</div>".
             slp_createhelpdiv($boxname,$msg).
          "</div>"
