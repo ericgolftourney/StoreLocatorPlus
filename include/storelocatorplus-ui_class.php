@@ -16,6 +16,7 @@ if (! class_exists('SLPlus_UI')) {
          * PUBLIC PROPERTIES & METHODS
          ******************************/
         private $usingThemeForest = false;
+        public  $resultsString = '';
 
         /*************************************
          * The Constructor
@@ -221,56 +222,7 @@ if (! class_exists('SLPlus_UI')) {
                 getimagesize($slplus_end_icon_file)  :
                 array(0 => 20, 1 => 34);
 
-            /**
-             * Results Output String In JavaScript Format
-             *
-             *              {0} aMarker.name,
-             *              {1} parseFloat(aMarker.distance).toFixed(1),
-             *              {2} slplus.distance_unit,
-             *              {3} street,
-             *              {4} street2,
-             *              {5} city_state_zip,
-             *              {6} thePhone,
-             *              {7} theFax,
-             *              {8} link,
-             *              {9} elink,
-             *              {10} slplus.map_domain,
-             *              {11} encodeURIComponent(this.address),
-             *              {12} encodeURIComponent(address),
-             *              {13} slplus.label_directions,
-             *              {14} tagInfo,
-             *              {15} aMarker.id
-             *              {16} aMarker.country
-             *              {17} aMarker.hours
-             */
-            $results_string =
-                '<center>' .
-                    '<table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable" id="slp_results_table_{15}">'  .
-                        '<tr class="slp_results_row" id="slp_location_{15}">'  .
-                            '<td class="results_row_left_column" id="slp_left_cell_{15}">'.
-                                '<span class="location_name">{0}</span>'.
-                                '<span class="location_distance"><br/>{1} {2}</span>'.
-                            '</td>'  .
-                            '<td class="results_row_center_column" id="slp_center_cell_{15}">' .
-                                '<span class="slp_result_address slp_result_street">{3}</span>'.
-                                '<span class="slp_result_address slp_result_street2">{4}</span>' .
-                                '<span class="slp_result_address slp_result_citystatezip">{5}</span>' .
-                                '<span class="slp_result_address slp_result_country">{16}</span>'.
-                                '<span class="slp_result_address slp_result_phone">{6}</span>' .
-                                '<span class="slp_result_address slp_result_fax">{7}</span>' .
-                            '</td>'   .
-                            '<td class="results_row_right_column" id="slp_right_cell_{15}">' .
-                                '<span class="slp_result_contact slp_result_website">{8}</span>' .
-                                '<span class="slp_result_contact slp_result_email">{9}</span>' .
-                                '<span class="slp_result_contact slp_result_directions"><a href="http://{10}' .
-                                '/maps?saddr={11}'  .
-                                '&daddr={12}'  .
-                                '" target="_blank" class="storelocatorlink">{13}</a></span>'.
-                                '<span class="slp_result_contact slp_result_tags">{14}</span>'.
-                            '</td>'  .
-                        '</tr>'  .
-                    '</table>'  .
-                '</center>';
+            $this->setResultsString();
 
 
             // Lets get some variables into our script
@@ -300,7 +252,7 @@ if (! class_exists('SLPlus_UI')) {
                 'map_type'          => get_option('sl_map_type','roadmap'),
                 'map_typectrl'      => (get_option(SLPLUS_PREFIX.'_disable_maptypecontrol')==0),
                 'msg_noresults'     => $slplus_plugin->settings->get_item('message_noresultsfound','No results found.','_'),
-                'results_string'    => apply_filters('slp_javascript_results_string',$results_string),
+                'results_string'    => apply_filters('slp_javascript_results_string',$this->resultsString),
                 'show_tags'         => (get_option(SLPLUS_PREFIX.'_show_tags')==1),
                 'overview_ctrl'     => get_option('sl_map_overview_control',0),
                 'use_email_form'    => (get_option(SLPLUS_PREFIX.'_use_email_form',0)==1),
@@ -311,6 +263,64 @@ if (! class_exists('SLPlus_UI')) {
                 'zoom_tweak'        => get_option('sl_zoom_tweak',1)
                 );
             wp_localize_script('csl_script','slplus',$scriptData);
+        }
+
+        /**
+         * Set the default results string for stuff under the map.
+         *
+         * Results Output String In JavaScript Format
+         *
+         *              {0} aMarker.name,
+         *              {1} parseFloat(aMarker.distance).toFixed(1),
+         *              {2} slplus.distance_unit,
+         *              {3} street,
+         *              {4} street2,
+         *              {5} city_state_zip,
+         *              {6} thePhone,
+         *              {7} theFax,
+         *              {8} link,
+         *              {9} elink,
+         *              {10} slplus.map_domain,
+         *              {11} encodeURIComponent(this.address),
+         *              {12} encodeURIComponent(address),
+         *              {13} slplus.label_directions,
+         *              {14} tagInfo,
+         *              {15} aMarker.id
+         *              {16} aMarker.country
+         *              {17} aMarker.hours
+         *
+         */
+        function setResultsString() {
+            if ($this->resultsString === '') {
+                $this->resultsString =
+                    '<center>' .
+                        '<table width="96%" cellpadding="4px" cellspacing="0" class="searchResultsTable" id="slp_results_table_{15}">'  .
+                            '<tr class="slp_results_row" id="slp_location_{15}">'  .
+                                '<td class="results_row_left_column" id="slp_left_cell_{15}">'.
+                                    '<span class="location_name">{0}</span>'.
+                                    '<span class="location_distance"><br/>{1} {2}</span>'.
+                                '</td>'  .
+                                '<td class="results_row_center_column" id="slp_center_cell_{15}">' .
+                                    '<span class="slp_result_address slp_result_street">{3}</span>'.
+                                    '<span class="slp_result_address slp_result_street2">{4}</span>' .
+                                    '<span class="slp_result_address slp_result_citystatezip">{5}</span>' .
+                                    '<span class="slp_result_address slp_result_country">{16}</span>'.
+                                    '<span class="slp_result_address slp_result_phone">{6}</span>' .
+                                    '<span class="slp_result_address slp_result_fax">{7}</span>' .
+                                '</td>'   .
+                                '<td class="results_row_right_column" id="slp_right_cell_{15}">' .
+                                    '<span class="slp_result_contact slp_result_website">{8}</span>' .
+                                    '<span class="slp_result_contact slp_result_email">{9}</span>' .
+                                    '<span class="slp_result_contact slp_result_directions"><a href="http://{10}' .
+                                    '/maps?saddr={11}'  .
+                                    '&daddr={12}'  .
+                                    '" target="_blank" class="storelocatorlink">{13}</a></span>'.
+                                    '<span class="slp_result_contact slp_result_tags">{14}</span>'.
+                                '</td>'  .
+                            '</tr>'  .
+                        '</table>'  .
+                    '</center>';
+            }
         }
 
         /**
