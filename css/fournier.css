@@ -240,7 +240,7 @@ div.slp_result_block span.slp_result_header_hours.result_subheader {
     bottom: 115px;
 }
 div.slp_result_block span.slp_hours {
-    bottom: 93px;
+    top: 217px;
 }
 div.slp_result_block span.slp_result_contact {
     color: #008FAD;
