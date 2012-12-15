@@ -126,6 +126,9 @@ require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-activation_class.php'
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-ui_class.php');
 $slplus_plugin->UI = new SLPlus_UI(array('parent'=>$slplus_plugin));
 
+// TODO Pro Pack Temp Include
+require_once(SLPLUS_PLUGINDIR . '/slp-pro/slp-pro.php');
+
 require_once(SLPLUS_PLUGINDIR . '/include/mobile-listener.php');
 
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-ajax_handler_class.php');
