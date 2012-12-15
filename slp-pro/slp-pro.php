@@ -58,6 +58,10 @@ if ( ! class_exists( 'SLPPro' ) ) {
             add_action('admin_menu' ,
                     array($this,'admin_menu')
                     );
+
+            // Filters
+            //
+            add_filter('slp_shortcode_atts',array($this,'extend_main_shortcode'));
         }
 
 
@@ -144,6 +148,29 @@ if ( ! class_exists( 'SLPPro' ) ) {
         //====================================================
         // Pro Pack Custom Methods
         //====================================================
+
+        /**
+         * Extends the main SLP shortcode approved attributes list, setting defaults.
+         * 
+         * This will extend the approved shortcode attributes to include the items listed.
+         * The array key is the attribute name, the value is the default if the attribute is not set.
+         * 
+         * @param array $valid_atts - current list of approved attributes
+         */
+        function extend_main_shortcode($valid_atts) {
+            if (!$this->setPlugin()) { return array(); }
+
+            return array_merge(
+                    array(
+                        'endicon'          => null,
+                        'homeicon'         => null,
+                        'only_with_tag'    => null,
+                        'tags_for_pulldown'=> null,
+                        'theme'            => null,
+                        ),
+                    $valid_atts
+                );
+        }
     }
 
     // Instantiate ourselves as an object

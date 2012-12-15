@@ -70,28 +70,18 @@ if (! class_exists('SLPlus_UI')) {
                 $sl_radius_label, $r_options, $sl_instruction_message, $cs_options, $slplus_name_label,
                 $sl_country_options, $slplus_state_options;
 
-            //----------------------
-            // Attribute Processing
-            //
-            // The allowed attributes go in the shortcode_atts array.
-            //
-            if ($this->parent->license->packages['Pro Pack']->isenabled) {
-                $attributes =
-                    shortcode_atts(
-                        array(
-                            'endicon'          => null,
-                            'homeicon'         => null,
-                            'only_with_tag'    => null,
-                            'tags_for_pulldown'=> null,
-                            'theme'            => null,
-                        ),
-                        $attributes
-                        );
-                $slplus_plugin->data = array_merge(
-                        $slplus_plugin->data,
-                        (array) $attributes
-                        );
-            }
+
+            // Get Approved Shortcode Attributes
+            $attributes =
+                shortcode_atts(
+                    apply_filters('slp_shortcode_atts',array()),
+                    $attributes
+                   );
+            $slplus_plugin->data =
+                array_merge(
+                    $slplus_plugin->data,
+                    (array) $attributes
+                );
 
             $sl_height         = get_option('sl_map_height','500');
             $sl_height_units   = get_option('sl_map_height_units','px');

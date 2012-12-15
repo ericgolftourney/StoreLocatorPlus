@@ -264,5 +264,6 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Increase admin page performance, remove excess JavaScript from multiple locations.
 * Decrease memory footprint eliminating framework classes that are not used.
 * Added the Fournier theme for the Pro Pack / Enhanced Results add-ons.
+* Added slp_shortcode_atts filter to allow add-ons to extend shortcode attributes.
 * [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results) Updates:
 ** Added the [Results String](http://www.charlestonsw.com/support/documentation/store-locator-plus/enhanced-results-add-on/) setting, highly customized results formats.
