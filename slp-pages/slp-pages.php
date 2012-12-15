@@ -260,6 +260,6 @@ if ( ! class_exists( 'SLPPages' ) ) {
 
     // Instantiate ourselves as an object
     //
-    global$SLPPages;
-    $SLPPages = new SLPPages();
+    global$slplus_plugin;
+    $slplus_plugin->StorePages = new SLPPages();
 }

@@ -289,7 +289,6 @@ if (isset($_REQUEST['act'])) {
             //
             if (!isset($slplus_plugin->StorePages) || !is_object($slplus_plugin->StorePages)) {
                 require_once(SLPLUS_PLUGINDIR . '/slp-pages/slp-pages.php');
-                $slplus_plugin->StorePages = new SLPPages();
             }
 
             foreach ($theLocations as $thisLocation) {    
