@@ -461,9 +461,10 @@ $slpMapSettings->add_section(
 //------------------------------------
 // Create The Search Form Settings Panel
 //
-add_action('slp_build_map_settings_panels',array('SLPlus_AdminUI','slp_add_search_form_settings_panel') ,10);
-add_action('slp_build_map_settings_panels',array('SLPlus_AdminUI','slp_add_map_settings_panel')         ,20);
-add_action('slp_build_map_settings_panels',array('SLPlus_AdminUI','slp_add_results_settings_panel')     ,30);
+require_once(SLPLUS_PLUGINDIR . '/include/slp-adminui_mapsettings_class.php');
+add_action('slp_build_map_settings_panels',array('SLPlus_AdminUI_MapSettings','search_form_settings') ,10);
+add_action('slp_build_map_settings_panels',array('SLPlus_AdminUI_MapSettings','map_settings')         ,20);
+add_action('slp_build_map_settings_panels',array('SLPlus_AdminUI_MapSettings','results_settings')     ,30);
 
     
 //------------------------------------
