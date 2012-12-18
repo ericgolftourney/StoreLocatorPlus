@@ -70,8 +70,6 @@ if (! class_exists('SLPlus_Actions')) {
 
             // Admin UI Helpers
             //
-            require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-adminui_class.php');
-            $this->parent->AdminUI = new SLPlus_AdminUI();     // Lets invoke this and make it an object
             $this->parent->AdminUI->set_style_as_needed();
             $this->parent->AdminUI->build_basic_admin_settings();
         }
@@ -87,16 +85,17 @@ if (! class_exists('SLPlus_Actions')) {
                 (!function_exists('add_slplus_roles_and_caps') || current_user_can('manage_slp'))
                 )
             {
-
-                global $slplus_plugin;
+                if (!$this->setParent()) { return; }
+                require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-adminui_class.php');
+                $this->parent->AdminUI = new SLPlus_AdminUI();     // Lets invoke this and make it an object
                 
                 // The main hook for the menu
                 //
                 add_menu_page(
-                    $slplus_plugin->name,
-                    $slplus_plugin->name,
+                    $this->parent->name,
+                    $this->parent->name,
                     'administrator',
-                    $slplus_plugin->prefix,
+                    $this->parent->prefix,
                     array('SLPlus_AdminUI','renderPage_GeneralSettings'),
                     SLPLUS_COREURL . 'images/icon_from_jpg_16x16.png'
                     );
@@ -107,18 +106,20 @@ if (! class_exists('SLPlus_Actions')) {
                     array(
                         'label'             => __('General Settings',SLPLUS_PREFIX),
                         'slug'              => 'slp_general_settings',
-                        'class'             => 'SLPlus_AdminUI',
+                        'class'             => $this->parent->AdminUI,
                         'function'          => 'renderPage_GeneralSettings'
                     ),
                     array(
                         'label'             => __('Add Locations',SLPLUS_PREFIX),
                         'slug'              => 'slp_add_locations',
-                        'class'             => 'SLPlus_AdminUI',
+                        'class'             => $this->parent->AdminUI,
                         'function'          => 'renderPage_AddLocations'
                     ),
                     array(
                         'label' => __('Manage Locations',SLPLUS_PREFIX),
-                        'url'   => SLPLUS_COREDIR.'view-locations.php'
+                        'slug'              => 'slp_manage_locations',
+                        'class'             => $this,
+                        'function'          => 'managelocations'
                     ),
                     array(
                         'label' => __('Map Settings',SLPLUS_PREFIX),
@@ -128,7 +129,7 @@ if (! class_exists('SLPlus_Actions')) {
 
                 // Pro Pack menu items
                 //
-                if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+                if ($this->parent->license->packages['Pro Pack']->isenabled) {
                     $menuItems = array_merge(
                                 $menuItems,
                                 array(
@@ -155,7 +156,7 @@ if (! class_exists('SLPlus_Actions')) {
                     //
                     if (isset($menuItem['class'])) {
                         add_submenu_page(
-                            $slplus_plugin->prefix,
+                            $this->parent->prefix,
                             $menuItem['label'],
                             $menuItem['label'],
                             'administrator',
@@ -167,7 +168,7 @@ if (! class_exists('SLPlus_Actions')) {
                     //
                     } else {
                         add_submenu_page(
-                            $slplus_plugin->prefix,
+                            $this->parent->prefix,
                             $menuItem['label'],
                             $menuItem['label'],
                             'administrator',
@@ -178,7 +179,7 @@ if (! class_exists('SLPlus_Actions')) {
 
                 // Remove the duplicate menu entry
                 //
-                remove_submenu_page($slplus_plugin->prefix, $slplus_plugin->prefix);
+                remove_submenu_page($this->parent->prefix, $this->parent->prefix);
             }
         }
         
@@ -233,6 +234,15 @@ if (! class_exists('SLPlus_Actions')) {
             // Register Stores Taxonomy
             //
             $this->register_store_taxonomy();
+        }
+
+        /**
+         * Render Manage Locations Page
+         */
+        function managelocations() {
+            require_once(SLPLUS_PLUGINDIR . '/include/slp-adminui_managelocations_class.php');
+            $this->parent->AdminUI->ManageLocations = new SLPlus_AdminUI_ManageLocations();
+            $this->parent->AdminUI->ManageLocations->render_adminpage();
         }
 
         /**

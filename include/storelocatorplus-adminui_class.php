@@ -693,7 +693,7 @@ if (! class_exists('SLPlus_AdminUI')) {
             // Manage Locations
             //
             add_action(
-                   'admin_print_styles-' . 'store-locator-le/core/view-locations.php',
+                   'admin_print_styles-' . $slugPrefix . 'slp_manage_locations',
                     array($this,'enqueue_admin_stylesheet')
                     );
 
