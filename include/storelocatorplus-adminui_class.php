@@ -960,10 +960,17 @@ if (! class_exists('SLPlus_AdminUI')) {
                     $_SERVER['REQUEST_URI']
                     ;
 
+                $alTitle =
+                    ($slplus_plugin->addform?
+                        __('Add Location',SLPLUS_PREFIX):
+                        sprintf("%s #%d",__('Update Location', SLPLUS_PREFIX),$locID)
+                    );
                 $slpEditForm .= 
-                        "<input type='submit' value='".($slplus_plugin->addform?__('Add',SLPLUS_PREFIX):__('Update', SLPLUS_PREFIX))."' class='button-primary'>".
+                        ($slplus_plugin->addform? '' : "<span class='slp-edit-location-id'>Location # $locID</span>") .
+                        "<input type='submit' value='".($slplus_plugin->addform?__('Add',SLPLUS_PREFIX):__('Update', SLPLUS_PREFIX)).
+                            "' alt='$alTitle' title='$alTitle' class='button-primary'>".
                         "<input type='button' class='button' value='".__('Cancel', SLPLUS_PREFIX)."' onclick='location.href=\"".$edCancelURL."\"'>".
-                        "<input type='hidden' name='option_value-$locID' value='".($addform?'':$sl_value['sl_option_value'])."' />"
+                        "<input type='hidden' name='option_value-$locID' value='".($addform?'':$sl_value['sl_option_value'])."' />" 
                         ;
 
                 /**

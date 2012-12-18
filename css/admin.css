@@ -424,6 +424,14 @@ table.slp_locationinfoform_table td {
  tr td.slp_locationinfoform_cell {
      border: 3px dashed #999999;
  }
+ span.slp-edit-location-id {
+     display: inline-block;
+     margin: 24px 3px;
+     width: 100%;
+     
+     color: #B4B4B4;
+     font-size: 1.5em;
+ }
 
 /***************************
  * Settings: Map
