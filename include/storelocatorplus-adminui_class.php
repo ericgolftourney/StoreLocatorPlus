@@ -61,7 +61,7 @@ if (! class_exists('SLPlus_AdminUI')) {
             $fields=substr($fields, 0, strlen($fields)-1);
             $sl_values=substr($sl_values, 0, strlen($sl_values)-1);
             $wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fields) VALUES ($sl_values);");
-            do_geocoding($theaddress);
+            $this->do_geocoding($theaddress);
 
         }
 
@@ -237,6 +237,164 @@ if (! class_exists('SLPlus_AdminUI')) {
                     null,
                     !$this->parent->license->packages['Pro Pack']->isenabled
                     );
+        }
+
+
+        /**
+         * GeoCode a given location and update it in the database.
+         * 
+         * @global type $wpdb
+         * @global type $slplus_plugin
+         * @param type $address
+         * @param type $sl_id
+         */
+        function do_geocoding($address,$sl_id='') {
+            global $wpdb, $slplus_plugin;
+
+            $delay = 0;
+            $base_url = "http://maps.googleapis.com/maps/api/geocode/json?sensor=false";
+
+            // Loop through for X retries
+            //
+            $iterations = get_option(SLPLUS_PREFIX.'-goecode_retries');
+            if ($iterations <= 0) { $iterations = 1; }
+            while($iterations){
+                $iterations--;
+
+                // Iterate through the rows, geocoding each address
+                $request_url = $base_url . "&address=" . urlencode($address);
+                $errorMessage = '';
+
+
+                // Use HTTP Handler (WP_HTTP) first...
+                //
+                if (isset($slplus_plugin->http_handler)) {
+                    $result = $slplus_plugin->http_handler->request(
+                                    $request_url,
+                                    array('timeout' => 3)
+                                    );
+                    if ($slplus_plugin->http_result_is_ok($result) ) {
+                        $raw_json = $result['body'];
+                    }
+
+                // Then Curl...
+                //
+                } elseif (extension_loaded("curl") && function_exists("curl_init")) {
+                        $cURL = curl_init();
+                        curl_setopt($cURL, CURLOPT_URL, $request_url);
+                        curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
+                        $raw_json = curl_exec($cURL);
+                        curl_close($cURL);
+
+                // Lastly file_get_contents
+                //
+                } else {
+                     $raw_json = file_get_contents($request_url);
+                }
+
+                // If raw_json exists, parse it
+                //
+                if (isset($raw_json)) {
+                    $json = json_decode($raw_json);
+                    $status = $json->{'status'};
+
+                // no raw json
+                //
+                } else {
+                    $json = '';
+                    $status = '';
+                }
+
+                // Geocode completed successfully
+                //
+                if (strcmp($status, "OK") == 0) {
+                    $iterations = 0;      // Break out of retry loop if we are OK
+                    $delay = 0;
+
+                    // successful geocode
+                    $geocode_pending = false;
+                    $lat = $json->results[0]->geometry->location->lat;
+                    $lng = $json->results[0]->geometry->location->lng;
+                    // Update newly inserted address
+                    //
+                    if ($sl_id=='') {
+                        $query = sprintf("UPDATE " . $wpdb->prefix ."store_locator " .
+                               "SET sl_latitude = '%s', sl_longitude = '%s' " .
+                               "WHERE sl_id = LAST_INSERT_ID()".
+                               " LIMIT 1;",
+                               mysql_real_escape_string($lat),
+                               mysql_real_escape_string($lng)
+                               );
+                    // Update an existing address
+                    //
+                    } else {
+                        $query = sprintf("UPDATE " . $wpdb->prefix ."store_locator SET sl_latitude = '%s', sl_longitude = '%s' WHERE sl_id = $sl_id LIMIT 1;", mysql_real_escape_string($lat), mysql_real_escape_string($lng));
+                    }
+
+                    // Run insert/update
+                    //
+                    $update_result = $wpdb->query($query);
+                    if ($update_result == 0) {
+                        $theDBError = htmlspecialchars(mysql_error($wpdb->dbh),ENT_QUOTES);
+                        $errorMessage .= __("Could not set the latitude and/or longitude  ", SLPLUS_PREFIX);
+                        if ($theDBError != '') {
+                            $errorMessage .= sprintf(
+                                                    __("Error: %s.", SLPLUS_PREFIX),
+                                                    $theDBError
+                                                    );
+                        } elseif ($update_result === 0) {
+                            $errorMessage .=  __(", The latitude and longitude did not change.", SLPLUS_PREFIX);
+                        } else {
+                            $errorMessage .=  __("No error logged.", SLPLUS_PREFIX);
+                            $errorMessage .= "<br/>\n" . __('Query: ', SLPLUS_PREFIX);
+                            $errorMessage .= print_r($wpdb->last_query,true);
+                            $errorMessage .= "<br/>\n" . "Results: " . gettype($update_result) . ' '. $update_result;
+                        }
+
+                    }
+
+                // Geocoding done too quickly
+                //
+                } else if (strcmp($status, "OVER_QUERY_LIMIT") == 0) {
+
+                  // No iterations left, tell user of failure
+                  //
+                  if(!$iterations){
+                    $errorMessage .= sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
+                    $errorMessage .= sprintf(__("Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
+                  }
+                  $delay += 100000;
+
+                // Invalid address
+                //
+                } else if (strcmp($status, 'ZERO_RESULTS') == 0) {
+                    $iterations = 0;
+                    $errorMessage .= sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
+                    $errorMessage .= sprintf(__("Unknown Address! Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
+
+                // Could Not Geocode
+                //
+                } else {
+                    $geocode_pending = false;
+                    echo sprintf(__("Address %s <font color=red>failed to geocode</font>. ", SLPLUS_PREFIX),$address);
+                    if ($status != '') {
+                        $errorMessage .= sprintf(__("Received data %s.", SLPLUS_PREFIX),'<pre>'.print_r($json,true).'</pre>')."\n";
+                    } else {
+                        $errorMessage .= sprintf(__("Reqeust sent to %s.", SLPLUS_PREFIX),$request_url)."\n<br>";
+                        $errorMessage .= sprintf(__("Received status %s.", SLPLUS_PREFIX),$status)."\n<br>";
+                    }
+                }
+
+                // Show Error Messages
+                //
+                if ($errorMessage != '') {
+                    print '<div class="geocode_error">' .
+                            $errorMessage .
+                            '</div>';
+                }
+
+                usleep($delay);
+            }
         }
 
         /**

@@ -119,7 +119,7 @@ if ($_POST                                                  &&
             ) ||
             ($old_address[0]['sl_latitude']=="" || $old_address[0]['sl_longitude']=="")
             ) {        
-        do_geocoding($the_address,$_GET['edit']);
+        $slplus_plugin->AdminUI->do_geocoding($the_address,$_GET['edit']);
     }
 
     // Redirect to the edit page
@@ -271,7 +271,7 @@ if (isset($_REQUEST['act'])) {
                     if (!isset($address['sl_state'])) 	{ $address['sl_state'] = ''; 	} 
                     if (!isset($address['sl_zip'])) 	{ $address['sl_zip'] = ''; 		}
 
-                    do_geocoding("$address[sl_address] $address[sl_address2], $address[sl_city], $address[sl_state] $address[sl_zip]",$thisLocation);
+                    $slplus_plugin->AdminUI->do_geocoding("$address[sl_address] $address[sl_address2], $address[sl_city], $address[sl_state] $address[sl_zip]",$thisLocation);
             }                
         }
 
