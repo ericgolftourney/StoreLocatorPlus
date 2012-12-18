@@ -104,7 +104,6 @@ if (defined('SLPLUS_PREFIX') === false) {
 //
 global $slplus_plugin;
 include_once(SLPLUS_PLUGINDIR . '/include/config.php'	);
-include_once(SLPLUS_COREDIR   . 'functions.sl.php'	);
 
 // Errors?
 //

@@ -276,7 +276,7 @@ if (!$_POST) {
 
 //---------------------------
 //
-initialize_variables();
+$slplug_plugin->AdminUI->initialize_variables();
 
 //-- Set Checkboxes
 //

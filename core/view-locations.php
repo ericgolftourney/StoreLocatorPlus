@@ -52,7 +52,7 @@ foreach($_REQUEST as $key=>$val) {
 	}
 }
 $slak=$slplus_plugin->driver_args['api_key'];    
-initialize_variables();  
+$slplug_plugin->AdminUI->initialize_variables();
 
 // If delete link is clicked
 if (isset($_GET['delete']) && ($_GET['delete']!='')) {
