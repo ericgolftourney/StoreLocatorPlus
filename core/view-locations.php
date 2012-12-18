@@ -88,7 +88,7 @@ if ($_POST                                                  &&
                     continue;
                 }
             }			         
-            $field_value_str.="sl_".$slpFieldName."='".trim(comma($sl_value))."', ";
+            $field_value_str.="sl_".$slpFieldName."='".trim($slplus_plugin->AdminUI->slp_escape($sl_value))."', ";
             $_POST[$slpFieldName]=$sl_value;
         }
     }
@@ -503,7 +503,7 @@ if ($slpLocations=$wpdb->get_results(
                 "<a href='$sl_value[sl_image]' target='blank'>".__("View", SLPLUS_PREFIX)."</a>" : 
                 "" ;
             $sl_value['sl_description']=($sl_value['sl_description']!="")? 
-                "<a onclick='alert(\"".comma($sl_value['sl_description'])."\")' href='#'>".
+                "<a onclick='alert(\"".$slplus_plugin->AdminUI->slp_escape($sl_value['sl_description'])."\")' href='#'>".
                 __("View", SLPLUS_PREFIX)."</a>" : 
                 "" ;
 

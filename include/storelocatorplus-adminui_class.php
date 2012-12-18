@@ -239,6 +239,20 @@ if (! class_exists('SLPlus_AdminUI')) {
                     );
         }
 
+        /**
+         *
+         * @param type $a
+         * @return type
+         */
+        function slp_escape($a) {
+            $a=preg_replace("/'/"     , '&#39;'   , $a);
+            $a=preg_replace('/"/'     , '&quot;'  , $a);
+            $a=preg_replace('/>/'     , '&gt;'    , $a);
+            $a=preg_replace('/</'     , '&lt;'    , $a);
+            $a=preg_replace('/,/'     , '&#44;'   , $a);
+            $a=preg_replace('/ & /'   , ' &amp; ' , $a);
+            return $a;
+        }
 
         /**
          * GeoCode a given location and update it in the database.
@@ -661,7 +675,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                     foreach ($_POST as $key=>$sl_value) {
                         if (preg_match('#\-$#', $key)) {
                             $fieldList.='sl_'.preg_replace('#\-$#','',$key).',';
-                            $sl_value=comma($sl_value);
+                            $sl_value=$this->slp_escape($sl_value);
                             $sl_valueList.="\"".stripslashes($sl_value)."\",";
                         }
                     }
@@ -717,7 +731,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                                                     $this_addy = '';
                                                     for ($fldno=0; $fldno < $num; $fldno++) {
                                                         $fieldList.=$fldNames[$fldno].',';
-                                                        $sl_valueList.="\"".stripslashes(comma($data[$fldno]))."\",";
+                                                        $sl_valueList.="\"".stripslashes($this->slp_escape($data[$fldno]))."\",";
                                                         if (($fldno>=1) && ($fldno<=6)) {
                                                             $this_addy .= $data[$fldno] . ', ';
                                                         }

@@ -125,21 +125,6 @@ function initialize_variables() {
    
 
 /**
- *
- * @param type $a
- * @return type
- */
-function comma($a) {
-	$a=preg_replace("/'/"     , '&#39;'   , $a);
-	$a=preg_replace('/"/'     , '&quot;'  , $a);
-	$a=preg_replace('/>/'     , '&gt;'    , $a);
-	$a=preg_replace('/</'     , '&lt;'    , $a);
-	$a=preg_replace('/,/'     , '&#44;'   , $a);
-	$a=preg_replace('/ & /'   , ' &amp; ' , $a);
-    return $a;
-}
-
-/**
  * Help deserialize data to array.
  *
  * Useful for sl_option_value  field processing.

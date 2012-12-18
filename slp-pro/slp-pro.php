@@ -156,7 +156,7 @@ if ( ! class_exists( 'SLPPro' ) ) {
          ** Create the county pulldown list, mark the checked item.
          **
          **/
-        function slplus_create_country_pd() {
+        function create_country_pd() {
             if (!$this->setPlugin()) { return ''; }
 
             global $wpdb;
