@@ -410,10 +410,12 @@ if (! class_exists('SLPlus_AdminUI')) {
 
         }
 
-        /*************************************
-         * method: slpRenderCreatePageButton()
-         *
+        /**
          * Render The Create Page Button
+         *
+         * @param type $locationID
+         * @param type $storePageID
+         * @return type
          */
         function slpRenderCreatePageButton($locationID=-1,$storePageID=-1) {
             if ($locationID < 0) { return; }            
@@ -427,11 +429,11 @@ if (! class_exists('SLPlus_AdminUI')) {
                    ></a>";            
         }  
 
-         /**
-          * method: slp_add_search_form_settings_panel
-          *
-          * Add the search form panel to the map settings page on the admin UI.
-          */
+        /**
+         * Add the search form panel to the map settings page on the admin UI.
+         *
+         * @global type $slpMapSettings
+         */
          function slp_add_search_form_settings_panel() {
             global $slpMapSettings;
             $slpDescription = get_string_from_phpexec(SLPLUS_COREDIR.'/templates/settings_searchform.php');
@@ -446,9 +448,9 @@ if (! class_exists('SLPlus_AdminUI')) {
          }
 
          /**
-          * method: slp_add_map_settings_panel
-          *
           * Add the map panel to the map settings page on the admin UI.
+          *
+          * @global type $slpMapSettings
           */
          function slp_add_map_settings_panel() {
             global $slpMapSettings;
@@ -615,9 +617,11 @@ if (! class_exists('SLPlus_AdminUI')) {
              );
          }
 
-        /*****************************
-         * function: url_test()
+        /**
+         * Check if a URL starts with http://
          *
+         * @param type $url
+         * @return type
          */
         function url_test($url) {
             return (strtolower(substr($url,0,7))=="http://");
@@ -646,8 +650,6 @@ if (! class_exists('SLPlus_AdminUI')) {
         }
 
         /**
-         * method: redirectTo_GeneralSettings
-         * 
          * Bring users to the main SLP settings page.
          * 
          */
@@ -658,8 +660,6 @@ if (! class_exists('SLPlus_AdminUI')) {
 
 
         /**
-         * method: renderPage_AddLocations()
-         *
          * Draw the add locations page.  Use to be a separate script ./core/add-locations.php
          *
          * @global type $wpdb
