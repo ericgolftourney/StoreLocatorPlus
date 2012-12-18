@@ -64,7 +64,8 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
           *
           */
          function map_settings() {
-            $slpDescription = get_string_from_phpexec(SLPLUS_COREDIR.'/templates/settings_mapform.php');
+            global $slplus_plugin;
+            $slpDescription = $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/settings_mapform.php');
             $this->settings->add_section(
                 array(
                         'name'          => __('Map',SLPLUS_PREFIX),

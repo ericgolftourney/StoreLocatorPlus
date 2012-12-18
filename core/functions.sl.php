@@ -488,16 +488,3 @@ function slp_deserialize_to_array($value) {
     }
     return $arrayData;
 }
-
-/**************************************
- ** function: get_string_from_phpexec()
- **
- ** Executes the included php (or html) file and returns the output as a string.
- **
- ** Parameters:
- **  $file (string, required) - name of the file
- **/
-function get_string_from_phpexec($file) {
-    global $slplus_plugin;
-    return $slplus_plugin->helper->get_string_from_phpexec($file);
-}
