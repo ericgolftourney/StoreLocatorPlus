@@ -376,7 +376,7 @@ $slpCleanURL = str_replace("&o=$opt&sortorder=$dir", '', $_SERVER['REQUEST_URI']
 //
 $totalLocations=$wpdb->get_var("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where");
 $start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
-$num_per_page=$sl_admin_locations_per_page;
+$num_per_page=get_option('sl_admin_locations_per_page','50');
 if ($totalLocations>0) {
     $slplus_plugin->AdminUI->manage_locations_pagination(
             $totalLocations,

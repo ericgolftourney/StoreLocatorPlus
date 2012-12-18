@@ -87,7 +87,6 @@ if (! class_exists('SLPlus_UI')) {
          * @global type $sl_radius_label
          * @global type $r_options
          * @global type $cs_options
-         * @global type $slplus_name_label
          * @global type $sl_country_options
          * @global type $slplus_state_options
          * @param type $attributes
@@ -97,7 +96,7 @@ if (! class_exists('SLPlus_UI')) {
          function render_shortcode($attributes, $content = null) {
             global  $wpdb, $slplus_plugin,
                 $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units,
-                $sl_radius_label, $r_options, $cs_options, $slplus_name_label,
+                $sl_radius_label, $r_options, $cs_options,
                 $sl_country_options, $slplus_state_options;
 
 
@@ -119,7 +118,6 @@ if (! class_exists('SLPlus_UI')) {
             $unit_display      = get_option('sl_distance_unit','mi');
             $sl_width          = get_option('sl_map_width','100');
             $sl_width_units    = get_option('sl_map_width_units','%');
-            $slplus_name_label = get_option('sl_name_label');
 
             $r_options      =(isset($r_options)         ?$r_options      :'');
             $cs_options     =(isset($cs_options)        ?$cs_options     :'');

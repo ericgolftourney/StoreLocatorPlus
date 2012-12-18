@@ -2,7 +2,7 @@
   global $sl_search_label,
       $sl_radius_label, $r_options,
       $cs_options, $slplus_state_options, $sl_country_options,
-      $slplus_plugin, $slplus_name_label;
+      $slplus_plugin;
       $slp_SearchDivs = new SLPlus_UI_DivManager();
 ?>
 <form onsubmit='cslmap.searchLocations(); return false;' id='searchForm' action=''>
@@ -134,7 +134,7 @@ ob_start();
                   ob_start();
                   ?>
                   <div id='name_search_div' class='search_item'>
-                      <label for='nameSearch'><?php echo $slplus_name_label?></label>
+                      <label for='nameSearch'><?php echo get_option('sl_name_label',__('Name of Store','csl-slplus'));?></label>
                       <input type='text' id='nameSearch' size='50' />
                   </div>
                   <?php

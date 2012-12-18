@@ -12,29 +12,20 @@
  * @global type $sl_zoom_level
  * @global type $sl_zoom_tweak
  * @global type $sl_use_name_search
- * @global type $sl_default_map
  * @global type $sl_radius_label
  * @global type $sl_website_label
  * @global type $sl_num_initial_displayed
  * @global type $sl_load_locations_default
  * @global type $sl_distance_unit
  * @global type $sl_map_overview_control
- * @global type $sl_admin_locations_per_page
- * @global string $slplus_name_label
  */
 function initialize_variables() {
     global $sl_height, $sl_width, $sl_width_units, $sl_height_units;
     global $sl_google_map_domain, $sl_google_map_country, $sl_location_table_view;
-    global $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_name_search, $sl_default_map;
+    global $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_name_search;
     global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
-    global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page;
-    global $slplus_name_label;
+    global $sl_distance_unit, $sl_map_overview_control;
     
-    $sl_admin_locations_per_page=get_option('sl_admin_locations_per_page');
-    if (empty($sl_admin_locations_per_page)) {
-        $sl_admin_locations_per_page="100";
-        add_option('sl_admin_locations_per_page', $sl_admin_locations_per_page);
-        }
     $sl_map_overview_control=get_option('sl_map_overview_control');
     if (empty($sl_map_overview_control)) {
         $sl_map_overview_control="0";
@@ -92,10 +83,6 @@ function initialize_variables() {
         $sl_search_label="Address";
         add_option('sl_search_label', $sl_search_label);
         }
-	if (empty($slplus_name_label)) {
-		$$slplus_name_label = "Store to search for";
-		add_option('sl_name_label', $slplus_name_label);
-	}
     $sl_location_table_view=get_option('sl_location_table_view');
     if (empty($sl_location_table_view)) {
         $sl_location_table_view="Normal";

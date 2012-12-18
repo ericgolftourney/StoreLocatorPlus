@@ -1,5 +1,5 @@
 <?php
-global $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units, $sl_radius_label, $sl_instruction_message, $slplus_plugin;
+global $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units, $sl_radius_label, $slplus_plugin;
 print "<div id='sl_div'>";
 
 // Render the search form
