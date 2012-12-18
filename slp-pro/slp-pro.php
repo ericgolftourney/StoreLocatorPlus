@@ -149,6 +149,85 @@ if ( ! class_exists( 'SLPPro' ) ) {
         // Pro Pack Custom Methods
         //====================================================
 
+
+        /**************************************
+         ** function: slplus_create_country_pd()
+         **
+         ** Create the county pulldown list, mark the checked item.
+         **
+         **/
+        function slplus_create_country_pd() {
+            if (!$this->setPlugin()) { return ''; }
+
+            global $wpdb;
+            $myOptions = '';
+
+            // If Use Country Search option is enabled
+            // build our country pulldown.
+            //
+            if (get_option('sl_use_country_search',0)==1) {
+                $cs_array=$wpdb->get_results(
+                    "SELECT TRIM(sl_country) as country " .
+                        "FROM ".$wpdb->prefix."store_locator " .
+                        "WHERE sl_country<>'' " .
+                            "AND sl_latitude<>'' AND sl_longitude<>'' " .
+                        "GROUP BY country " .
+                        "ORDER BY country ASC",
+                    ARRAY_A);
+
+                // If we have country data show it in the pulldown
+                //
+                if ($cs_array) {
+                    foreach($cs_array as $sl_value) {
+                      $myOptions.=
+                        "<option value='$sl_value[country]'>" .
+                        $sl_value['country']."</option>";
+                    }
+                }
+            }
+            return $myOptions;
+        }
+
+
+        /**
+         * Create the state pulldown list, mark the checked item.
+         *
+         * @global type $wpdb
+         * @global type $slplus_plugin
+         * @return string
+         */
+        function create_state_pd() {
+            if (!$this->setPlugin()) { return ''; }
+
+            global $wpdb;
+            $myOptions = '';
+
+            // If Use State Search option is enabled
+            // build our state pulldown.
+            //
+            if (get_option('slplus_show_state_pd',0)==1) {
+                $cs_array=$wpdb->get_results(
+                    "SELECT TRIM(sl_state) as state " .
+                        "FROM ".$wpdb->prefix."store_locator " .
+                        "WHERE sl_state<>'' " .
+                            "AND sl_latitude<>'' AND sl_longitude<>'' " .
+                        "GROUP BY state " .
+                        "ORDER BY state ASC",
+                    ARRAY_A);
+
+                // If we have country data show it in the pulldown
+                //
+                if ($cs_array) {
+                    foreach($cs_array as $sl_value) {
+                      $myOptions.=
+                        "<option value='$sl_value[state]'>" .
+                        $sl_value['state']."</option>";
+                    }
+                }
+            }
+            return $myOptions;
+        }
+
         /**
          * Extends the main SLP shortcode approved attributes list, setting defaults.
          * 

@@ -164,17 +164,8 @@ if (! class_exists('SLPlus_UI')) {
                     }
                 }
             }
-
-            //----------------------
-            // Create Country Pulldown
-            //
-            if ($this->parent->license->packages['Pro Pack']->isenabled) {
-                $sl_country_options = slplus_create_country_pd();
-                $slplus_state_options = slplus_create_state_pd();
-            } else {
-                $sl_country_options = '';
-                $slplus_state_options = '';
-            }
+            $sl_country_options     = $this->parent->ProPack->create_country_pd();
+            $slplus_state_options   = $this->parent->ProPack->create_state_pd();
 
             $columns = 1;
             $columns += (get_option('sl_use_city_search',0)!=1) ? 1 : 0;
