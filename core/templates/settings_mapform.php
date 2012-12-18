@@ -1,5 +1,5 @@
 <?php 
-    global $sl_num_initial_displayed, $sl_the_domain, $sl_char_enc,
+    global $sl_num_initial_displayed, $sl_char_enc,
             $sl_zoom, $sl_zoom_adj, $sl_height,$sl_height_units,$sl_width,$sl_width_units,$checked3,
             $slplus_plugin;
 
@@ -151,13 +151,13 @@
             <div class='form_entry'>
                 <label for='height'><?php _e("Map Height", SLPLUS_PREFIX);?>:</label>
                 <input name='height' value='<?php echo $sl_height;?>' class='small'>&nbsp;
-                <?php print choose_units($sl_height_units, "height_units"); ?>
+                <?php $slplus_plugin->AdminUI->MapSettings->render_unit_selector($sl_height_units, "height_units"); ?>
             </div>
             
             <div class='form_entry'>
                 <label for='height'><?php _e("Map Width", SLPLUS_PREFIX);?>:</label>
                 <input name='width' value='<?php echo $sl_width;?>'  class='small'>&nbsp;
-                <?php print choose_units($sl_width_units, "width_units"); ?>
+                <?php $slplus_plugin->AdminUI->MapSettings->render_unit_selector($sl_width_units, "width_units"); ?>
             </div>
         </div>
     </div>
@@ -169,7 +169,7 @@
                 <label for='google_map_domain'><?php _e("Select Your Location", SLPLUS_PREFIX);?></label>
                 <select name='google_map_domain'>
                 <?php
-                    foreach ($sl_the_domain as $key=>$sl_value) {
+                    foreach ($slplus_plugin->AdminUI->MapSettings->get_map_domains() as $key=>$sl_value) {
                         $selected=(get_option('sl_google_map_domain')==$sl_value)?" selected " : "";
                         print "<option value='$key:$sl_value' $selected>$key ($sl_value)</option>\n";
                     }

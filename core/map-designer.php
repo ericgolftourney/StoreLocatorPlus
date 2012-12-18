@@ -8,8 +8,11 @@
 //===========================================================================
 // Supporting Functions
 //===========================================================================
+require_once(SLPLUS_PLUGINDIR . '/include/slp-adminui_mapsettings_class.php');
 
 global $slplus_plugin;
+$slplus_plugin->AdminUI->MapSettings = new SLPlus_AdminUI_MapSettings();
+
 
 /**************************************
  ** function: slp_createhelpdiv()
@@ -29,24 +32,6 @@ function slp_createhelpdiv($divname,$msg) {
             $msg.
         "</div>"
         ;
-}
-
-
-/**************************************
- ** function: choose_units
- **
- ** Display the map size units pulldown (%,px,em,pt)
- **
- **/
-function choose_units($unit, $input_name) {   
-	$unit_arr     = array('%','px','em','pt');
-	$select_field = "<select name='$input_name'>";	
-	foreach ($unit_arr as $sl_value) {
-		$selected=($sl_value=="$unit")? " selected='selected' " : "" ;
-        $select_field.="\n<option value='$sl_value' $selected>$sl_value</option>";
-	}
-	$select_field.="</select>";
-	return $select_field;
 }
 
 /**
@@ -292,48 +277,6 @@ if (!$_POST) {
 //---------------------------
 //
 initialize_variables();
-
-$sl_the_domain = array(    
-    "United States"=>"maps.google.com",
-    "Argentina"=>"maps.google.com.ar",
-    "Australia"=>"maps.google.com.au",
-    "Austria"=>"maps.google.at",
-    "Belgium"=>"maps.google.be",
-    "Brazil"=>"maps.google.com.br",
-    "Canada"=>"maps.google.ca",
-    "Chile"=>"maps.google.cl", 
-    "China"=>"ditu.google.com",
-    "Czech Republic"=>"maps.google.cz",
-    "Denmark"=>"maps.google.dk",
-    "Estonia" => 'maps.google.ee',
-    "Finland"=>"maps.google.fi",
-    "France"=>"maps.google.fr",
-    "Germany"=>"maps.google.de",
-    "Greece"=>"maps.google.gr",
-    "Hong Kong"=>"maps.google.com.hk",
-    "Hungary"=>"maps.google.hu",
-    "India"=>"maps.google.co.in", 
-    "Republic of Ireland"=>"maps.google.ie",
-    "Italy"=>"maps.google.it",
-    "Japan"=>"maps.google.co.jp", 
-    "Liechtenstein"=>"maps.google.li", 
-    "Mexico"=>"maps.google.com.mx", 
-    "Netherlands"=>"maps.google.nl",
-    "New Zealand"=>"maps.google.co.nz",
-    "Norway"=>"maps.google.no",
-    "Poland"=>"maps.google.pl",
-    "Portugal"=>"maps.google.pt", 
-    "Russia"=>"maps.google.ru",
-    "Singapore"=>"maps.google.com.sg", 
-    "South Africa"=>"maps.google.co.za",
-    "South Korea"=>"maps.google.co.kr", 
-    "Spain"=>"maps.google.es",
-    "Sweden"=>"maps.google.se",
-    "Switzerland"=>"maps.google.ch",
-    "Taiwan"=>"maps.google.com.tw", 
-    "United Kingdom"=>"maps.google.co.uk",
-    );
-
 $sl_char_enc["Default (UTF-8)"]="utf-8";
 $sl_char_enc["Western European (ISO-8859-1)"]="iso-8859-1";
 $sl_char_enc["Western/Central European (ISO-8859-2)"]="iso-8859-2";
@@ -426,27 +369,10 @@ if ($slplus_plugin->data['iconNotice'] != '') {
         ;
 }
 
-
-// Instantiate the form rendering object
-//
-global $slpMapSettings;
-$slpMapSettings = new wpCSL_settings__slplus(
-    array(
-            'no_license'        => true,
-            'prefix'            => $slplus_plugin->prefix,
-            'url'               => $slplus_plugin->url,
-            'name'              => $slplus_plugin->name . ' - Map Settings',
-            'plugin_url'        => $slplus_plugin->plugin_url,
-            'render_csl_blocks' => false,
-            'form_action'       => SLPLUS_ADMINPAGE.'map-designer.php',
-            'save_text'         => 'Save Settings'
-        )
- ); 
-
 //-------------------------
 // Navbar Section
 //-------------------------    
-$slpMapSettings->add_section(
+$slplus_plugin->AdminUI->MapSettings->settings->add_section(
     array(
         'name'          => 'Navigation',
         'div_id'        => 'slplus_navbar_wrapper',
@@ -461,10 +387,9 @@ $slpMapSettings->add_section(
 //------------------------------------
 // Create The Search Form Settings Panel
 //
-require_once(SLPLUS_PLUGINDIR . '/include/slp-adminui_mapsettings_class.php');
-add_action('slp_build_map_settings_panels',array('SLPlus_AdminUI_MapSettings','search_form_settings') ,10);
-add_action('slp_build_map_settings_panels',array('SLPlus_AdminUI_MapSettings','map_settings')         ,20);
-add_action('slp_build_map_settings_panels',array('SLPlus_AdminUI_MapSettings','results_settings')     ,30);
+add_action('slp_build_map_settings_panels',array($slplus_plugin->AdminUI->MapSettings,'search_form_settings') ,10);
+add_action('slp_build_map_settings_panels',array($slplus_plugin->AdminUI->MapSettings,'map_settings')         ,20);
+add_action('slp_build_map_settings_panels',array($slplus_plugin->AdminUI->MapSettings,'results_settings')     ,30);
 
     
 //------------------------------------
@@ -472,4 +397,4 @@ add_action('slp_build_map_settings_panels',array('SLPlus_AdminUI_MapSettings','r
 //
 print $update_msg;
 do_action('slp_build_map_settings_panels');
-$slpMapSettings->render_settings_page();    
+$slplus_plugin->AdminUI->MapSettings->settings->render_settings_page();
