@@ -37,7 +37,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                         'name'              => $this->parent->name . ' - Map Settings',
                         'plugin_url'        => $this->parent->plugin_url,
                         'render_csl_blocks' => false,
-                        'form_action'       => SLPLUS_ADMINPAGE.'map-designer.php',
+                        'form_action'       => '',
                         'save_text'         => __('Save Settings','csl-slplus')
                     )
              );
@@ -109,7 +109,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
         function SaveCheckboxToDB($boxname,$prefix = SLPLUS_PREFIX, $separator='-') {
             $whichbox = $prefix.$separator.$boxname;
             $_POST[$whichbox] = isset($_POST[$whichbox])?1:0;
-            SavePostToOptionsTable($whichbox,0);
+            $this->SavePostToOptionsTable($whichbox,0);
         }
 
         /**************************************
@@ -401,7 +401,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
                     );
                 foreach ($BoxesToHit as $JustAnotherBox) {
-                    SavePostToOptionsTable($JustAnotherBox);
+                    $this->SavePostToOptionsTable($JustAnotherBox);
                 }
 
 
@@ -417,7 +417,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     'slplus_show_state_pd',
                     );
                 foreach ($BoxesToHit as $JustAnotherBox) {
-                    SaveCheckBoxToDB($JustAnotherBox, '','');
+                    $this->SaveCheckBoxToDB($JustAnotherBox, '','');
                 }
 
                 // Checkboxes with normal names
@@ -441,7 +441,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     'use_location_sensor',
                     );
                 foreach ($BoxesToHit as $JustAnotherBox) {
-                    SaveCheckBoxToDB($JustAnotherBox, SLPLUS_PREFIX, '_');
+                    $this->SaveCheckBoxToDB($JustAnotherBox, SLPLUS_PREFIX, '_');
                 }
 
                 do_action('slp_save_map_settings');

@@ -775,7 +775,7 @@ if (! class_exists('SLPlus_AdminUI')) {
 
 
         /**
-         * Draw the add locations page.  Use to be a separate script ./core/add-locations.php
+         * Draw the add locations page.
          *
          * @global type $wpdb
          */
