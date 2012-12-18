@@ -49,22 +49,37 @@ if (! class_exists('SLPlus_UI')) {
                    );
         }
 
-
-        /**************************************
-         ** function: render_shortcode
-         **
-         ** Process the store locator shortcode.
-         **
-         **/
+        /**
+         * Process the store locator plus shortcode.
+         *
+         * Variables this function uses and passes to the template
+         * we need a better way to pass vars to the template parser so we don't
+         * carry around the weight of these global definitions.
+         * the other option is to unset($GLOBAL['<varname>']) at then end of this
+         * function call.
+         *
+         * We now use $slplus_plugin->data to hold attribute data.
+         *
+         *
+         * @global type $wpdb
+         * @global type $slplus_plugin
+         * @global type $sl_search_label
+         * @global type $sl_width
+         * @global type $sl_height
+         * @global type $sl_width_units
+         * @global type $sl_height_units
+         * @global type $sl_radius_label
+         * @global type $r_options
+         * @global type $sl_instruction_message
+         * @global type $cs_options
+         * @global type $slplus_name_label
+         * @global type $sl_country_options
+         * @global type $slplus_state_options
+         * @param type $attributes
+         * @param type $content
+         * @return string HTML the shortcode will render
+         */
          function render_shortcode($attributes, $content = null) {
-            // Variables this function uses and passes to the template
-            // we need a better way to pass vars to the template parser so we don't
-            // carry around the weight of these global definitions.
-            // the other option is to unset($GLOBAL['<varname>']) at then end of this
-            // function call.
-            //
-            // We now use $slplus_plugin->data to hold attribute data.
-            //
             global  $wpdb, $slplus_plugin,
                 $sl_search_label, $sl_width, $sl_height, $sl_width_units, $sl_height_units,
                 $sl_radius_label, $r_options, $sl_instruction_message, $cs_options, $slplus_name_label,
@@ -367,21 +382,18 @@ if (! class_exists('SLPlus_UI')) {
             return str_replace(array("\r","\n"),'',$inStr);
         }
 
-
-        /*************************************
-         * method: slp_render_search_form()
-         *
+        /**
          * Render the search form for the map.
          */
         function slp_render_search_form() {
             echo apply_filters('slp_search_form_html',get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_form.php'));
         }
 
-
-        /*************************************
-         * method: slp_render_search_form_tag_list()
-         *
+        /**
          * Puts the tag list on the search form for users to select tags.
+         *
+         * @param type $tags
+         * @param type $showany
          */
         function slp_render_search_form_tag_list($tags,$showany = false) {
             print "<select id='tag_to_search_for' >";
