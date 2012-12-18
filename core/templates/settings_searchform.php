@@ -1,6 +1,6 @@
 <?php 
 global  $sl_city_checked, $sl_country_checked, $sl_show_tag_checked, $sl_show_any_checked,
-    $sl_radius_label, $sl_website_label,$slpMapSettings,$sl_the_distance_unit;
+    $sl_radius_label, $sl_website_label,$slpMapSettings,$sl_the_distance_unit, $slplus_plugin;
 
 echo "<div id='search_settings'>";
 echo "<div class='section_column'>";
@@ -34,7 +34,6 @@ echo CreateInputDiv(
         //----------------------------------------------------------------------
         // Pro Pack Enabled
         //
-        global $slplus_plugin;
         $ppFeatureMsg = (!$slplus_plugin->license->packages['Pro Pack']->isenabled ?
                             sprintf(
                                     __(' This is a <a href="%s" target="csa">Pro Pack</a> feature.', SLPLUS_PREFIX),
