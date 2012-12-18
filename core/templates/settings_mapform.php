@@ -1,5 +1,5 @@
 <?php 
-    global $sl_num_initial_displayed, $sl_char_enc,
+    global $sl_num_initial_displayed,
             $sl_zoom, $sl_zoom_adj, $sl_height,$sl_height_units,$sl_width,$sl_width_units,$checked3,
             $slplus_plugin;
 
@@ -181,7 +181,7 @@
                 <label for='sl_map_character_encoding'><?php _e('Select Character Encoding', SLPLUS_PREFIX);?></label>
                 <select name='sl_map_character_encoding'>
                 <?php
-                    foreach ($sl_char_enc as $key=>$sl_value) {
+                    foreach ($slplus_plugin->AdminUI->MapSettings->get_map_encodings() as $key=>$sl_value) {
                         $selected=(get_option('sl_map_character_encoding')==$sl_value)?" selected " : "";
                         print "<option value='$sl_value' $selected>$key</option>\n";                        
                     }

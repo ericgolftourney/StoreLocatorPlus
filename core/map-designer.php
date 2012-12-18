@@ -277,26 +277,6 @@ if (!$_POST) {
 //---------------------------
 //
 initialize_variables();
-$sl_char_enc["Default (UTF-8)"]="utf-8";
-$sl_char_enc["Western European (ISO-8859-1)"]="iso-8859-1";
-$sl_char_enc["Western/Central European (ISO-8859-2)"]="iso-8859-2";
-$sl_char_enc["Western/Southern European (ISO-8859-3)"]="iso-8859-3";
-$sl_char_enc["Western European/Baltic Countries (ISO-8859-4)"]="iso-8859-4";
-$sl_char_enc["Russian (Cyrillic)"]="iso-8859-5";
-$sl_char_enc["Arabic (ISO-8859-6)"]="iso-8859-6";
-$sl_char_enc["Greek (ISO-8859-7)"]="iso-8859-7";
-$sl_char_enc["Hebrew (ISO-8859-8)"]="iso-8859-8";
-$sl_char_enc["Western European w/amended Turkish (ISO-8859-9)"]="iso-8859-9";
-$sl_char_enc["Western European w/Nordic characters (ISO-8859-10)"]="iso-8859-10";
-$sl_char_enc["Thai (ISO-8859-11)"]="iso-8859-11";
-$sl_char_enc["Baltic languages & Polish (ISO-8859-13)"]="iso-8859-13";
-$sl_char_enc["Celtic languages (ISO-8859-14)"]="iso-8859-14";
-$sl_char_enc["Japanese (Shift JIS)"]="shift_jis";
-$sl_char_enc["Simplified Chinese (China)(GB 2312)"]="gb2312";
-$sl_char_enc["Traditional Chinese (Taiwan)(Big 5)"]="big5";
-$sl_char_enc["Hong Kong (HKSCS)"]="hkscs";
-$sl_char_enc["Korea (EUS-KR)"]="eus-kr";
-
 
 //-- Set Checkboxes
 //
