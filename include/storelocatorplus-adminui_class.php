@@ -179,7 +179,13 @@ if (! class_exists('SLPlus_AdminUI')) {
                 )
             );
             if ($this->parent->license->AmIEnabled(true, "SLPLUS-PAGES")) {
-                slplus_add_pages_settings();
+
+                // Setup Store Pages Objects
+                //
+                if (!isset($slplus_plugin->StorePages) || !is_object($slplus_plugin->StorePages)) {
+                    require_once(SLPLUS_PLUGINDIR . '/slp-pages/slp-pages.php');
+                }
+                $this->parent->StorePages->add_pages_settings();
             }
 
             //-------------------------

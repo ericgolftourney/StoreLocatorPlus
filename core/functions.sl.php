@@ -294,35 +294,6 @@ function comma($a) {
     return $a;
 }
 
-/**************************************
- ** function: slplus_add_pages_settings()
- **
- ** Add store pages settings to the admin interface.
- **
- **/
-function slplus_add_pages_settings() {
-    global $slplus_plugin;
-
-    if ($slplus_plugin->license->AmIEnabled(true, "SLPLUS-PAGES")) {
-        $slplus_plugin->settings->add_item(
-            'Store Pages',
-            __('Pages Replace Websites', SLPLUS_PREFIX),
-            'use_pages_links',
-            'checkbox',
-            false,
-            __('Use the Store Pages local URL in place of the website URL on the map results list.', SLPLUS_PREFIX)
-        );
-        $slplus_plugin->settings->add_item(
-            'Store Pages',
-            __('Prevent New Window', SLPLUS_PREFIX),
-            'use_same_window',
-            'checkbox',
-            false,
-            __('Prevent Store Pages web links from opening in a new window.', SLPLUS_PREFIX)
-        );
-    }
-}
-
 /**
  * Help deserialize data to array.
  *

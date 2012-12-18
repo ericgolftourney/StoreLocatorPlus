@@ -285,12 +285,6 @@ if (isset($_REQUEST['act'])) {
                 $theLocations = $_REQUEST['sl_id'];
             }
 
-            // Setup Store Pages Objects
-            //
-            if (!isset($slplus_plugin->StorePages) || !is_object($slplus_plugin->StorePages)) {
-                require_once(SLPLUS_PLUGINDIR . '/slp-pages/slp-pages.php');
-            }
-
             foreach ($theLocations as $thisLocation) {    
                 $slpNewPostID = $slplus_plugin->StorePages->CreatePage($thisLocation);
                 if ($slpNewPostID >= 0) {
