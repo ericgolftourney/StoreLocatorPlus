@@ -123,7 +123,9 @@ if (! class_exists('SLPlus_Actions')) {
                     ),
                     array(
                         'label' => __('Map Settings',SLPLUS_PREFIX),
-                        'url'   => SLPLUS_COREDIR.'map-designer.php'
+                        'slug'              => 'slp_map_settings',
+                        'class'             => $this,
+                        'function'          => 'mapsettings'
                     )
                 );
 
@@ -243,6 +245,14 @@ if (! class_exists('SLPlus_Actions')) {
             require_once(SLPLUS_PLUGINDIR . '/include/slp-adminui_managelocations_class.php');
             $this->parent->AdminUI->ManageLocations = new SLPlus_AdminUI_ManageLocations();
             $this->parent->AdminUI->ManageLocations->render_adminpage();
+        }
+
+        function mapsettings() {
+            require_once(SLPLUS_PLUGINDIR . '/include/slp-adminui_mapsettings_class.php');
+            $this->parent->AdminUI->MapSettings = new SLPlus_AdminUI_MapSettings();
+            $this->parent->AdminUI->MapSettings->render_adminpage();
+
+
         }
 
         /**

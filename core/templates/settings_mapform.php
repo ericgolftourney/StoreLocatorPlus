@@ -27,7 +27,7 @@
             </div>
 <?php
 
-                echo CreateCheckboxDiv(
+                echo $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
                     '-force_load_js',
                     __('Force Load JavaScript',SLPLUS_PREFIX),
                     __('Force the JavaScript for Store Locator Plus to load on every page with early loading. ' .
@@ -37,13 +37,13 @@
                     1
                     );
 
-                echo CreateCheckboxDiv(
+                echo $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
                         'sl_load_locations_default',
                         __('Immediately Show Locations', SLPLUS_PREFIX),
                         __('Display locations as soon as map loads, based on map center and default radius',SLPLUS_PREFIX),
                         ''
                         );
-                echo CreateInputDiv(
+                echo $slplus_plugin->AdminUI->MapSettings->CreateInputDiv(
                         'sl_num_initial_displayed',
                         __('Number To Show Initially',SLPLUS_PREFIX),
                         __('How many locations should be shown when Immediately Show Locations is checked.  Recommended maximum is 50.',SLPLUS_PREFIX),
@@ -53,13 +53,13 @@
                 // Pro Pack : Initial Look & Feel
                 //
                 if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
-                        echo CreateInputDiv(
+                        echo $slplus_plugin->AdminUI->MapSettings->CreateInputDiv(
                                 'sl_starting_image',
                                 __('Starting Image',SLPLUS_PREFIX),
                                 __('If set, this image will be displayed until a search is performed.  Enter the full URL for the image.',SLPLUS_PREFIX),
                                 ''
                                 );
-                        echo CreateCheckboxDiv(
+                        echo $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
                             '_disable_initialdirectory',
                             __('Disable Initial Directory',SLPLUS_PREFIX),
                             __('Do not display the listings under the map when "immediately show locations" is checked.', SLPLUS_PREFIX)
@@ -71,7 +71,7 @@
                 //
                 echo '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Map Settings',SLPLUS_PREFIX).'</strong></p>';
                 echo '<p>'.sprintf($slplus_message,$slplus_plugin->purchase_url,'Pro Pack').'</p>';
-                echo CreatePulldownDiv(
+                echo $slplus_plugin->AdminUI->MapSettings->CreatePulldownDiv(
                         'sl_map_type',
                         array('roadmap','hybrid','satellite','terrain'),
                         $label=__('Default Map Type', SLPLUS_PREFIX),
@@ -83,34 +83,34 @@
                 // Pro Pack : Map Settings
                 //
                 if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
-                        echo CreateTextAreaDiv(
+                        echo $slplus_plugin->AdminUI->MapSettings->CreateTextAreaDiv(
                                 SLPLUS_PREFIX.'_map_center',
                                 __('Center Map At',SLPLUS_PREFIX),
                                 __('Enter an address to serve as the initial focus for the map. Default is the center of the country.',SLPLUS_PREFIX),
                                 ''
                                 );
-                        echo CreateCheckboxDiv(
+                        echo $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
                             'sl_map_overview_control',
                             __('Show Map Inset Box',SLPLUS_PREFIX),
                             __('When checked the map inset is shown.', SLPLUS_PREFIX),
                             ''
                             );
-                        echo CreateCheckboxDiv(
+                        echo $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
                             '_disable_scrollwheel',
                             __('Disable Scroll Wheel',SLPLUS_PREFIX),
                             __('Disable the scrollwheel zoom on the maps interface.', SLPLUS_PREFIX)
                             );
-                        echo CreateCheckboxDiv(
+                        echo $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
                             '_disable_largemapcontrol3d',
                             __('Hide map 3d control',SLPLUS_PREFIX),
                             __('Turn the large map 3D control off.', SLPLUS_PREFIX)
                             );
-                        echo CreateCheckboxDiv(
+                        echo $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
                             '_disable_scalecontrol',
                             __('Hide map scale',SLPLUS_PREFIX),
                             __('Turn the map scale off.', SLPLUS_PREFIX)
                             );
-                        echo CreateCheckboxDiv(
+                        echo $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
                             '_disable_maptypecontrol',
                             __('Hide map type',SLPLUS_PREFIX),
                             __('Turn the map type selector off.', SLPLUS_PREFIX)
@@ -129,7 +129,7 @@
             <h2><?php _e('Dimensions', SLPLUS_PREFIX);?></h2>
 
             <?php
-                echo CreatePulldownDiv(
+                echo $slplus_plugin->AdminUI->MapSettings->CreatePulldownDiv(
                         'sl_zoom_level',
                         array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19),
                         $label=__('Zoom Level', SLPLUS_PREFIX),
@@ -138,7 +138,7 @@
                         $default=4
                         );
 
-                echo CreatePulldownDiv(
+                echo $slplus_plugin->AdminUI->MapSettings->CreatePulldownDiv(
                         'sl_zoom_tweak',
                         array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19),
                         $label=__('Zoom Adjustment', SLPLUS_PREFIX),

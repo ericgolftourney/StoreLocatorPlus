@@ -700,7 +700,7 @@ if (! class_exists('SLPlus_AdminUI')) {
             // Map Settings
             //
             add_action(
-                   'admin_print_styles-' . 'store-locator-le/core/map-designer.php',
+                   'admin_print_styles-' . $slugPrefix . 'slp_map_settings',
                     array($this,'enqueue_admin_stylesheet')
                     );
 
