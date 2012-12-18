@@ -146,27 +146,18 @@ ob_start();
           ?>
 
           <?php
-            //------------------------------------------------
-            // We are not hiding the address input
-            //
-            ob_start();
-            if (get_option(SLPLUS_PREFIX.'_hide_address_entry') == 0) {
-            ?>
-                <div id='addy_in_address' class='search_item'>
-                    <label for="addressInput"><?php echo $sl_search_label?></label>
-                    <input type='text' id='addressInput' size='50' />
-               </div>
-           <?php
-           } else {
-           ?>
-            <div id='addy_in_address' class='search_item'>
-                <input type='hidden' id='addressInput' value='' />
-            </div>
-         <?php
-         }
-        global $slp_thishtml_60;
-        $slp_thishtml_60 = ob_get_clean();
-        add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv60'),60);
+            /*
+             * Address input
+             */
+            global $slp_thishtml_60;
+            $slp_thishtml_60 = $slplus_plugin->UI->create_input_div(
+                    'addressInput',
+                    $sl_search_label,
+                    '',
+                    (get_option(SLPLUS_PREFIX.'_hide_address_entry',0) == 1),
+                    'add_in_address'
+                    );
+            add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv60'),60);
           ?>
 
           <?php

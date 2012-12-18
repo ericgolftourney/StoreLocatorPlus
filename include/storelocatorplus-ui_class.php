@@ -32,6 +32,22 @@ if (! class_exists('SLPlus_UI')) {
                 }
             }
         }
+
+        /**
+         * Create a search form input div.
+         */
+        function create_input_div($fldID=null,$label='',$placeholder='',$hidden=false,$divID=null) {
+            if ($fldID === null) { return; }
+            if ($divID === null) { $divID = $fldID; }
+
+            $content =
+                "<div id='$divID' class='search_item'>" .
+                    (($label === '') ? '' : "<label for='$fldID'>$label</label>") .
+                    "<input type='".($hidden?'hidden':'text')."' id='$fldID' placeholder='$placeholder' size='50' value='' />" .
+                "</div>"
+                ;
+            return $content;
+        }
         
         /**
          * Do not texturize our shortcodes.
