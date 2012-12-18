@@ -118,14 +118,14 @@ if (! class_exists('SLPlus_Actions')) {
                     array(
                         'label' => __('Manage Locations',SLPLUS_PREFIX),
                         'slug'              => 'slp_manage_locations',
-                        'class'             => $this,
-                        'function'          => 'managelocations'
+                        'class'             => $this->parent->AdminUI,
+                        'function'          => 'renderPage_ManageLocations'
                     ),
                     array(
                         'label' => __('Map Settings',SLPLUS_PREFIX),
                         'slug'              => 'slp_map_settings',
-                        'class'             => $this,
-                        'function'          => 'mapsettings'
+                        'class'             => $this->parent->AdminUI,
+                        'function'          => 'renderPage_MapSettings'
                     )
                 );
 
@@ -236,23 +236,6 @@ if (! class_exists('SLPlus_Actions')) {
             // Register Stores Taxonomy
             //
             $this->register_store_taxonomy();
-        }
-
-        /**
-         * Render Manage Locations Page
-         */
-        function managelocations() {
-            require_once(SLPLUS_PLUGINDIR . '/include/slp-adminui_managelocations_class.php');
-            $this->parent->AdminUI->ManageLocations = new SLPlus_AdminUI_ManageLocations();
-            $this->parent->AdminUI->ManageLocations->render_adminpage();
-        }
-
-        function mapsettings() {
-            require_once(SLPLUS_PLUGINDIR . '/include/slp-adminui_mapsettings_class.php');
-            $this->parent->AdminUI->MapSettings = new SLPlus_AdminUI_MapSettings();
-            $this->parent->AdminUI->MapSettings->render_adminpage();
-
-
         }
 
         /**

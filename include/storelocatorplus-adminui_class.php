@@ -765,22 +765,15 @@ if (! class_exists('SLPlus_AdminUI')) {
         }
 
         /**
-         * Bring users to the main SLP settings page.
-         * 
-         */
-        function renderPage_GeneralSettings() {
-            global $slplus_plugin;
-            $slplus_plugin->settings->render_settings_page();
-        }
-
-
-        /**
          * Draw the add locations page.
          *
          * @global type $wpdb
          */
          function renderPage_AddLocations() {
                 global $slplus_plugin,$wpdb;
+                require_once(SLPLUS_PLUGINDIR . '/include/slp-adminui_managelocations_class.php');
+                $slplus_plugin->AdminUI->ManageLocations = new SLPlus_AdminUI_ManageLocations();
+
                 $this->initialize_variables();
 
                 print "<div class='wrap'>
@@ -917,6 +910,37 @@ if (! class_exists('SLPlus_AdminUI')) {
                     '</div>'
                     ;
          }
+
+        /**
+         * Render the General Settings admin page.
+         *
+         */
+        function renderPage_GeneralSettings() {
+            global $slplus_plugin;
+            $slplus_plugin->settings->render_settings_page();
+        }
+
+
+        /**
+         * Render the Manage Locations admin page.
+         */
+        function renderPage_ManageLocations() {
+            require_once(SLPLUS_PLUGINDIR . '/include/slp-adminui_managelocations_class.php');
+            $this->parent->AdminUI->ManageLocations = new SLPlus_AdminUI_ManageLocations();
+            $this->parent->AdminUI->ManageLocations->render_adminpage();
+        }
+
+        /**
+         * Render the Map Settings admin page.
+         */
+        function renderPage_MapSettings() {
+            require_once(SLPLUS_PLUGINDIR . '/include/slp-adminui_mapsettings_class.php');
+            $this->parent->AdminUI->MapSettings = new SLPlus_AdminUI_MapSettings();
+            $this->parent->AdminUI->MapSettings->render_adminpage();
+
+
+        }
+
 
          /**
           * Returns the string that is the Location Info Form guts.
