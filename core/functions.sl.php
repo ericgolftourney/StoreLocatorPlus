@@ -32,11 +32,6 @@ function initialize_variables() {
     global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
     global $sl_map_character_encoding, $slplus_name_label;
     
-    $sl_map_character_encoding=get_option('sl_map_character_encoding');
-    if (empty($sl_map_character_encoding)) {
-        $sl_map_character_encoding="";
-        add_option('sl_map_character_encoding', $sl_map_character_encoding);
-        }
     $sl_instruction_message=get_option('sl_instruction_message');
     if (empty($sl_instruction_message)) {
         $sl_instruction_message="Enter Your Address or Zip Code Above.";
