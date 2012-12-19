@@ -125,27 +125,22 @@ ob_start();
                     global $slp_thishtml_40;
                     $slp_thishtml_40 = ob_get_clean();
                     add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv40'),40);
-              }
+                }
 
-              // ----------------------------------------------
-              // We are showing the name search
-              //
-              if (get_option(SLPLUS_PREFIX.'_show_search_by_name') == 1) {
-                  ob_start();
-                  ?>
-                  <div id='name_search_div' class='search_item'>
-                      <label for='nameSearch'><?php echo get_option('sl_name_label',__('Name of Store','csl-slplus'));?></label>
-                      <input type='text' id='nameSearch' size='50' />
-                  </div>
-                  <?php
-                    global $slp_thishtml_50;
-                    $slp_thishtml_50 = ob_get_clean();
-                    add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv50'),50);
-              }
-          }
-          ?>
+                /*
+                 * Name Search
+                 */
+                global $slp_thishtml_50;
+                $slp_thishtml_50 = $slplus_plugin->UI->create_input_div(
+                        'nameSearch',
+                        get_option('sl_name_label',__('Name of Store','csl-slplus')),
+                        '',
+                        (get_option(SLPLUS_PREFIX.'_show_search_by_name',0) == 0),
+                        'nameSearch'
+                        );
+                add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv50'),50);
+            }
 
-          <?php
             /*
              * Address input
              */
