@@ -46,6 +46,7 @@
 #search_table td {
     border: none;
 }
+
 div#address_search {
 }
 div#addy_in_state {
@@ -73,7 +74,7 @@ div#addy_in_state LABEL {
     -moz-appearance: button;
     -webkit-appearance: button;
 }
-div#addy_in_address {
+#address_search div#add_in_address {
     color: #8F8F8F;
     display: inline-block;
     font-family: "Arial", sans-serif;
@@ -81,9 +82,9 @@ div#addy_in_address {
     font-weight: 400;
     height: 40px;
     margin-right: 15px;
-    width: 431px;
+    width: 429px;
 }
-#addressInput {
+#address_search .search_item INPUT#addressInput {
     width: 421px;
 }
 div#radius_in_submit {

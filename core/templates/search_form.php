@@ -131,13 +131,17 @@ ob_start();
                  * Name Search
                  */
                 global $slp_thishtml_50;
-                $slp_thishtml_50 = $slplus_plugin->UI->create_input_div(
-                        'nameSearch',
-                        get_option('sl_name_label',__('Name of Store','csl-slplus')),
-                        '',
-                        (get_option(SLPLUS_PREFIX.'_show_search_by_name',0) == 0),
-                        'nameSearch'
-                        );
+                if (get_option(SLPLUS_PREFIX.'_show_search_by_name',0) == 1) {
+                    $slp_thishtml_50 = $slplus_plugin->UI->create_input_div(
+                            'nameSearch',
+                            get_option('sl_name_label',__('Name of Store','csl-slplus')),
+                            '',
+                            (get_option(SLPLUS_PREFIX.'_show_search_by_name',0) == 0),
+                            'nameSearch'
+                            );
+                } else {
+                    $slp_thishtml_50 = '';
+                }
                 add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv50'),50);
             }
 
