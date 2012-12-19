@@ -869,8 +869,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
             // Search Form Labels
             //
-            $slpDescription .= "<div class='section_column'>" .
-                 '<h2>'.__('Labels', 'csl-slplus') . '</h2>' .
+            $settingsHTML =
                 $this->CreateInputDiv(
                     'sl_search_label',
                     __('Address', SLPLUS_PREFIX),
@@ -898,17 +897,18 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             // Pro Pack Enabled
             //
             if ($this->parent->license->packages['Pro Pack']->isenabled) {
-                $slpDescription .= $this->CreateInputDiv(
+                $settingsHTML .=
+                    $this->CreateInputDiv(
                         '_search_tag_label',
                         __('Tags', 'csl-slplus'),
                         __('Search form label to prefix the tag selector.','csl-slplus')
-                        );
-                $slpDescription .= $this->CreateInputDiv(
+                        ) .
+                    $this->CreateInputDiv(
                         '_state_pd_label',
                         __('State Label', 'csl-slplus'),
                         __('Search form label to prefix the state selector.','csl-slplus')
-                        );
-                $slpDescription .= $this->CreateInputDiv(
+                        ).
+                    $this->CreateInputDiv(
                         '_find_button_label',
                         __('Find Button', 'csl-slplus'),
                         __('The label on the find button, if text mode is selected.','csl-slplus'),
@@ -919,19 +919,51 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
             ob_start();
             do_action('slp_add_search_form_label_setting');
-            $slpDescription .= ob_get_clean();            
-            $slpDescription .=  "</div></div>";
+            $settingsHTML .= ob_get_clean() . '</div>';
+
+            $slpDescription .= $this->createSettingsGroup(
+                                    'search_labels',
+                                    __('Labels','csl-slplus'),
+                                    '',
+                                    $settingsHTML
+                                    );
 
             $this->settings->add_section(
                 array(
                         'div_id'        => 'csa_mapsettings_searchform',
-                        'name'          => __('Search Form',SLPLUS_PREFIX),
-                        'description'   => $slpDescription,
+                        'name'          => __('Search Form','csl-slplus'),
+                        'description'   => apply_filters('slp_map_settings_searchform',$slpDescription),
                         'auto'          => true
                     )
              );
          }
 
+         /**
+          * Create a settings group box.
+          *
+          * @param string $slug - a unique div ID (slug) for this group box, required.  alpha_numeric _ and - only please.
+          * @param string $header - the text to put in the header
+          * @param string $intro - the text to put directly under the header
+          * @param string $content - the settings HTML
+          */
+         function createSettingsGroup($slug=null, $header='Settings',$intro='',$content='') {
+             if ($slug === null) { return ''; }
+
+             $content = 
+                "<div class='section_column' id='slp_settings_group-$slug'>" .
+                    "<h2>$header</h2>" .
+                    (($intro != '')     ?
+                        "<div class='section_column_intro' id='slp_settings_group_intro-$slug'>$intro</div>" :
+                        ''
+                    ).
+                    (($content != '')   ?
+                        "<div class='section_column_content' id='slp_settings_group_content-$slug'>$content</div>" :
+                        ''
+                    ).
+                '</div>'
+                ;
+             return apply_filters('slp_settings_group-'.$slug,$content);
+         }
     }
 }        
      
