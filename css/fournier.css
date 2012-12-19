@@ -48,6 +48,9 @@
 }
 
 div#address_search {
+    height: 40px;
+    display: inline-block;
+    position: relative;
 }
 div#addy_in_state {
     display: inline-block;
@@ -55,20 +58,58 @@ div#addy_in_state {
     position: relative;
     width: 315px;
 }
-div#addy_in_state LABEL {
-    display: none;
+/* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    div#add_in_state SELECT {padding-right:18px}
 }
+div#addy_in_state LABEL {
+    /* display: none; */
+    position:relative;
+    z-index: 99;
+}
+div#addy_in_state LABEL:after {
+    position:absolute;
+    height: 24px;
+    width: 26px;
+    right:0px;
+    top:7px;
+    padding: 0px;
+    margin: 1px;
+
+    content:'>';
+    font:24px "Consolas", monospace;
+    color: #8F8F8F;
+    -webkit-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    transform:rotate(90deg);
+    text-align: center;
+    line-height: 20px;
+
+    background:#FFFFFF;
+    border-left: solid 1px #F0F0F0;
+
+    pointer-events:none;
+}
+div#addy_in_state LABEL:before {
+    content:'';
+    right:6px; top:0px;
+    width:20px; height:20px;
+    background:#FFFFFF;
+    position:absolute;
+    pointer-events:none;
+    display:block;
+}
+
 #addressInputState {
-    border: solid 1px #DDDDDD;
+    border: solid 1px #F0F0F0;
     background-color: #FFFFFF;
     background-image: -webkit-linear-gradient(#FFFF,#FFFF, #FFFF);
     color: #8F8F8F;
     display: inline-block;
     font-family: "Arial", sans-serif;
     font-size: 12px;
-    height: 31px;
-    position: absolute;
-    top: -22px;
+    height: 34px;
     width: 315px;
     white-space: nowrap;
     -moz-appearance: button;
