@@ -467,7 +467,7 @@ div.section_column .form_entry {
 }
 
 .section_description INPUT {
-    width: 20em;
+    width: 240px;
 }
 
 .section_description INPUT[type="checkbox"] {
@@ -659,13 +659,24 @@ td.optionpack {
 
 
 
-#rb_details .rb_column, .section_column {
+#rb_details .rb_column {
     float: left;
     border: solid 1px #D0D0FF;
     margin-right: 24px;
     margin-top: 3px;
 }
 
+div.section_column {
+    float: left;
+    width: 520px;
+    margin: 3px 6px 0px 0px;
+
+    border: solid 1px #D0D0FF;
+    overflow: auto;
+}
+div.section_column_intro {
+    padding: 0px 6px;
+}
 
 div.section_column_content {
     padding: 0px 6px;
