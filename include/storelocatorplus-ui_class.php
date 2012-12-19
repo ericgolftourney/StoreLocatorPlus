@@ -41,10 +41,10 @@ if (! class_exists('SLPlus_UI')) {
             if ($divID === null) { $divID = $fldID; }
 
             $content =
-                "<div id='$divID' class='search_item'>" .
-                    (($label === '') ? '' : "<label for='$fldID'>$label</label>") .
+                ($hidden?'':"<div id='$divID' class='search_item'>") .
+                    (($hidden || ($label === '')) ? '' : "<label for='$fldID'>$label</label>") .
                     "<input type='".($hidden?'hidden':'text')."' id='$fldID' placeholder='$placeholder' size='50' value='' />" .
-                "</div>"
+                ($hidden?'':"</div>")
                 ;
             return $content;
         }
