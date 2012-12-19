@@ -200,6 +200,40 @@ if (! class_exists('SLPlus_Actions')) {
                 remove_submenu_page($this->parent->prefix, $this->parent->prefix);
             }
         }
+
+
+        /**
+         * Retrieves map setting options, whether serialized or not.
+         *
+         * Simple options (non-serialized) return with a normal get_option() call result.
+         *
+         * Complex options (serialized) save any fetched result in $this->settingsData.
+         * Doing so provides a basic cache so we don't keep hammering the database when
+         * getting our map settings.  Legacy code expects a 1:1 relationship for options
+         * to settings.   This mechanism ensures on database read/page render for the
+         * complex options v. one database read/serialized element.
+         *
+         * @param string $optionName - the option name
+         * @param mixed $default - what the default value should be
+         * @return mixed the value of the option as saved in the database
+         */
+        function getCompoundOption($optionName,$default='') {
+            if (!$this->setParent()) { return; }
+            $matches = array();
+            if (preg_match('/^(.*?)\[(.*?)\]/',$optionName,&$matches) === 1) {
+                if (!isset($this->parent->mapsettingsData[$matches[1]])) {
+                    $this->parent->mapsettingsData[$matches[1]] = get_option($matches[1],$default);
+                }
+                return 
+                    isset($this->parent->mapsettingsData[$matches[1]][$matches[2]]) ?
+                    $this->parent->mapsettingsData[$matches[1]][$matches[2]] :
+                    ''
+                    ;
+
+            } else {
+                return get_option($optionName,$default);
+            }
+        }
         
         /**
          * Called when the WordPress init action is processed.
