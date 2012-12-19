@@ -21,9 +21,8 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
         /**
          * Called when this object is created.
          *
-         * @param type $params
          */
-        function __construct($params=null) {
+        function __construct() {
             if (!$this->setParent()) {
                 die('could not set parent');
                 return;
