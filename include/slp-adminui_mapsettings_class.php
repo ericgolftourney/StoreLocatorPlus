@@ -305,25 +305,25 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
              return apply_filters(
                      'slp_map_encodings',
                         array(
-                        'Default (UTF-8)'=>'utf-8',
-                        'Western European (ISO-8859-1)'=>'iso-8859-1',
-                        'Western/Central European (ISO-8859-2)'=>'iso-8859-2',
-                        'Western/Southern European (ISO-8859-3)'=>'iso-8859-3',
+                        'Default (UTF-8)'                               =>'utf-8',
+                        'Western European (ISO-8859-1)'                 =>'iso-8859-1',
+                        'Western/Central European (ISO-8859-2)'         =>'iso-8859-2',
+                        'Western/Southern European (ISO-8859-3)'        =>'iso-8859-3',
                         'Western European/Baltic Countries (ISO-8859-4)'=>'iso-8859-4',
-                        'Russian (Cyrillic)'=>'iso-8859-5',
-                        'Arabic (ISO-8859-6)'=>'iso-8859-6',
-                        'Greek (ISO-8859-7)'=>'iso-8859-7',
-                        'Hebrew (ISO-8859-8)'=>'iso-8859-8',
+                        'Russian (Cyrillic)'                            =>'iso-8859-5',
+                        'Arabic (ISO-8859-6)'                           =>'iso-8859-6',
+                        'Greek (ISO-8859-7)'                            =>'iso-8859-7',
+                        'Hebrew (ISO-8859-8)'                           =>'iso-8859-8',
                         'Western European w/amended Turkish (ISO-8859-9)'=>'iso-8859-9',
                         'Western European w/Nordic characters (ISO-8859-10)'=>'iso-8859-10',
-                        'Thai (ISO-8859-11)'=>'iso-8859-11',
-                        'Baltic languages & Polish (ISO-8859-13)'=>'iso-8859-13',
-                        'Celtic languages (ISO-8859-14)'=>'iso-8859-14',
-                        'Japanese (Shift JIS)'=>'shift_jis',
-                        'Simplified Chinese (China)(GB 2312)'=>'gb2312',
-                        'Traditional Chinese (Taiwan)(Big 5)'=>'big5',
-                        'Hong Kong (HKSCS)'=>'hkscs',
-                        'Korea (EUS-KR)'=>'eus-kr',
+                        'Thai (ISO-8859-11)'                            =>'iso-8859-11',
+                        'Baltic languages & Polish (ISO-8859-13)'       =>'iso-8859-13',
+                        'Celtic languages (ISO-8859-14)'                =>'iso-8859-14',
+                        'Japanese (Shift JIS)'                          =>'shift_jis',
+                        'Simplified Chinese (China)(GB 2312)'           =>'gb2312',
+                        'Traditional Chinese (Taiwan)(Big 5)'           =>'big5',
+                        'Hong Kong (HKSCS)'                             =>'hkscs',
+                        'Korea (EUS-KR)'                                =>'eus-kr',
                         )
                     );
          }
@@ -828,7 +828,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             ob_start();
             do_action('slp_add_search_form_features_setting');
             $slpDescription .= ob_get_clean();
-
             $slpDescription .= '</div>';
 
             /**
@@ -920,8 +919,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
             ob_start();
             do_action('slp_add_search_form_label_setting');
-            $slpDescription .= ob_get_clean();
-            
+            $slpDescription .= ob_get_clean();            
             $slpDescription .=  "</div></div>";
 
             $this->settings->add_section(
