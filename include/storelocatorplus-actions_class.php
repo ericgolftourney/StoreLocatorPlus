@@ -18,6 +18,7 @@ if (! class_exists('SLPlus_Actions')) {
         /**
          * PUBLIC PROPERTIES & METHODS
          */
+        public $initialized = false;
         public $parent = null;
 
         /**
@@ -66,9 +67,10 @@ if (! class_exists('SLPlus_Actions')) {
          */
         function admin_init() {
             if (!$this->setParent()) { return; }
-        
+
             // Already been here?  Get out.
-            if (isset($this->parent->settings->sections['How to Use'])) { return; }
+            if ($this->initialized)  { return; }            
+            $this->initialized = true;
 
             // Update system hook
             // Premium add-ons can use the admin_init hook to utilize this.
