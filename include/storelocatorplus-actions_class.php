@@ -41,6 +41,20 @@ if (! class_exists('SLPlus_Actions')) {
             }
             return (isset($this->parent) && ($this->parent != null));
         }
+
+        /**
+         * Attach and instantiated AdminUI object to the main plugin object.
+         *
+         * @return boolean - true unless the main plugin is not found
+         */
+        function attachAdminUI() {
+            if (!$this->setParent()) { return false; }
+            if (!isset($this->parent->AdminUI) || !is_object($this->parent->AdminUI)) {
+                require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-adminui_class.php');
+                $this->parent->AdminUI = new SLPlus_AdminUI();     // Lets invoke this and make it an object
+            }
+            return true;
+        }
         
         /**
          * method: admin_init()
@@ -70,6 +84,7 @@ if (! class_exists('SLPlus_Actions')) {
 
             // Admin UI Helpers
             //
+            $this->attachAdminUI();
             $this->parent->AdminUI->set_style_as_needed();
             $this->parent->AdminUI->build_basic_admin_settings();
         }
@@ -86,8 +101,7 @@ if (! class_exists('SLPlus_Actions')) {
                 )
             {
                 if (!$this->setParent()) { return; }
-                require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-adminui_class.php');
-                $this->parent->AdminUI = new SLPlus_AdminUI();     // Lets invoke this and make it an object
+                $this->attachAdminUI();
                 
                 // The main hook for the menu
                 //
