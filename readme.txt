@@ -192,6 +192,7 @@ Current premium add-ons:
 * [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : More control over the map, search form, loading locations.
 * [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages) : Create SEO friendly WordPress pages for your store locations.
 * [Tagalong](http://www.charlestonsw.com/product/store-locator-plus-tagalong/) : Add custom map markers based on location categories.
+* [Widget Pack](http://www.charlestonsw.com/product/store-locator-plus-widget-pack/) : SLP sidebar widgets.
 
 = Who is Charleston Software Associates? =
 
@@ -257,7 +258,7 @@ Visit the [Store Locator Plus Release Notes page](http://www.charlestonsw.com/su
 
 I was listing the entire change log here but with weekly/bi-weekly updates it as getting much too long.
 
-= 3.8 (Mid-December 2012) =
+= 3.8 (Late-December 2012) =
 
 * WordPress 3.5 testing.
 * Change admin page button bar to use standard WordPress style tabs.
@@ -270,3 +271,5 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Added slp_map_encodings filter.
 * [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results) Updates:
 ** Added the [Results String](http://www.charlestonsw.com/support/documentation/store-locator-plus/enhanced-results-add-on/) setting, highly customized results formats.
+* [Enhanced Search](http://www.charlestonsw.com/product/store-locator-plus-enhanced-search) Updates:
+** Added placeholder option for name and address search field.  These are the instructions that appear in a field and disappear when clicked. HTML5 only.
