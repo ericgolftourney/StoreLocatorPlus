@@ -279,7 +279,7 @@ div.filterbox
     text-align: center;
     padding: 0px;
     margin: 0px;
-    width: 180px;
+    min-width: 180px;
     height: 70px;
     vertical-align: top;
 }
