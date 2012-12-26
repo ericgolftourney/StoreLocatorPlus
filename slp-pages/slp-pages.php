@@ -296,20 +296,20 @@ if ( ! class_exists( 'SLPPages' ) ) {
                        '<p class="centerbutton">' .
                            '<a class="like-a-button" href="#" ' .
                                'onclick="doAction(\'recode\',\''.__('Recode selected?',SLPLUS_PREFIX).'\');" '.
-                               'name="delete_selected">'.__("Recode Selected", SLPLUS_PREFIX).
+                               'name="recode_selected">'.__("Recode Selected", SLPLUS_PREFIX).
                            '</a>' .
                         '</p>'
                         ;
                 $actionBoxes ['B'][] =
                     '<div id="tag_actions">' .
-                        '<ul>' .
-                            '<a href="#" name="tag_selected"    '.
+                            '<a  class="like-a-button" href="#" name="tag_selected"    '.
                                 'onclick="doAction(\'add_tag\',\''.__('Tag selected?',SLPLUS_PREFIX).'\');">'.
-                                '<li class="like-a-button">'.__('Tag Selected', SLPLUS_PREFIX).'</li></a>'.
-                            '<a href="#" name="untag_selected"  ' .
+                                __('Tag Selected', SLPLUS_PREFIX).
+                            '</a>'.
+                            '<a  class="like-a-button" href="#" name="untag_selected"  ' .
                                 'onclick="doAction(\'remove_tag\',\''. __('Remove tag from selected?',SLPLUS_PREFIX).'\');">'.
-                                '<li class="like-a-button">'.__('Untag Selected', SLPLUS_PREFIX).'</li></a>'.
-                        '</ul>' .
+                                __('Untag Selected', SLPLUS_PREFIX).
+                            '</a>'.
                     '</div>' .
                     '<div id="tagentry">'.
                         '<label for="sl_tags">'.__('Tags', SLPLUS_PREFIX).'</label><input name="sl_tags">'.
