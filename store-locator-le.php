@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 */
 
-if (isset($_SERVER['SERVER_NAME']) && ($_SERVER['SERVER_NAME']==='wpdev.cybersprocket.com')){
+if (isset($_SERVER['SERVER_NAME']) && ($_SERVER['SERVER_NAME']==='d.csa.com')){
     error_reporting(E_ALL);
 }
 
