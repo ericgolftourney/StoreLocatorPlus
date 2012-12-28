@@ -260,7 +260,10 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.8.1 (Christmas 1012) =
 
-* 
+* Fix premature headers error messages on some installs (could cause site/plugin failure)
+* Fix call time reference warning message.
+* Improved over query limit messaging.
+* Update the manage locations action bar processing.
 
 = 3.8 (Late-December 2012) =
 
