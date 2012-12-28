@@ -146,7 +146,9 @@ add_action('shutdown'           ,array($slplus_plugin->Actions,'shutdown')      
 //
 add_action('admin_menu'         ,array($slplus_plugin->Actions,'admin_menu')           );
 add_action('admin_init'         ,array($slplus_plugin->Actions,'admin_init'),10        );
-add_action('admin_head'         ,array($slplus_plugin->ProPack,'report_downloads')     );
+if (isset($slplus_plugin->ProPack)) {
+    add_action('admin_head'         ,array($slplus_plugin->ProPack,'report_downloads')     );
+}
 
 // Short Codes
 //
