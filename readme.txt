@@ -262,6 +262,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 * Simplify geocoding calls.
 * Fix warnings for non Pro Pack users.
+* Rework Map Settings panel.
+* Add filters to map settings admin panel in preparation for Enhanced Maps plugin.
 
 = 3.8.1 (Christmas 1012) =
 
