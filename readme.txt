@@ -260,7 +260,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.8.2 (January 2013) =
 
-*
+* Simplify geocoding calls.
+* Fix warnings for non Pro Pack users.
 
 = 3.8.1 (Christmas 1012) =
 
