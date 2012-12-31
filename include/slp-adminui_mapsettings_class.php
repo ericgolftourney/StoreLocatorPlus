@@ -77,6 +77,130 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     $msg.
                 "</div>"
                 ;
+
+            }
+
+        /**
+         * Generate the HTML for a checkbox settings interface element.
+         *
+         * @param string $boxname - the name of the checkbox (db option name)
+         * @param string $label - default '', the label to go in front of the checkbox
+         * @param string $msg - default '', the help message
+         * @param string $prefix - defaults to SLPLUS_PREFIX, can be ''
+         * @param boolean $disabled - defaults to false
+         * @param mixed $default
+         * @return type
+         */
+        function CreateCheckboxDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $disabled=false, $default=0) {
+            $whichbox = $prefix.$boxname;
+            return
+                "<div class='form_entry'>".
+                    "<div class='".SLPLUS_PREFIX."-input'>" .
+                    "<label  for='$whichbox' ".
+                        ($disabled?"class='disabled '":' ').
+                        ">$label:</label>".
+                    "<input name='$whichbox' value='1' ".
+                        "type='checkbox' ".
+                        ((get_option($whichbox,$default) ==1)?' checked ':' ').
+                        ($disabled?"disabled='disabled'":' ') .
+                    ">".
+                    "</div>".
+                    $this->CreateHelpDiv($boxname,$msg) .
+                "</div>"
+                ;
+            }
+
+        /**
+         * Generate the HTML for an input settings interface element.
+         *
+         * @param type $boxname
+         * @param type $label
+         * @param type $msg
+         * @param type $prefix
+         * @param type $default
+         * @return type
+         */
+        function CreateInputDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $default='') {
+            $whichbox = $prefix.$boxname;
+            return
+                "<div class='form_entry'>" .
+                    "<div class='".SLPLUS_PREFIX."-input'>" .
+                        "<label for='$whichbox'>$label:</label>".
+                        "<input  name='$whichbox' value='".$this->parent->Actions->getCompoundOption($whichbox,$default)."'>".
+                    "</div>".
+                    $this->CreateHelpDiv($boxname,$msg).
+                 "</div>"
+                ;
+        }
+
+        /**
+         * Generate the HTML for a Pulldown settings interface element.
+         * 
+         * @param type $boxname
+         * @param type $values
+         * @param type $label
+         * @param type $msg
+         * @param type $prefix
+         * @param type $default
+         * @return string
+         */
+        function CreatePulldownDiv($boxname,$values,$label='',$msg='',$prefix=SLPLUS_PREFIX, $default='') {
+            $whichbox = $prefix.$boxname;
+            $selected = get_option($whichbox,$default);
+
+            $content =
+                    "<div class='form_entry'>".
+                        "<div class='".SLPLUS_PREFIX."-input'>" .
+                            "<label for='$whichbox'>$label:</label>" .
+                            "<select name='$whichbox'>"
+                    ;
+
+            foreach ($values as $value){
+                $content.="<option value='$value' ".(($value == $selected)?'selected':'').">".
+                          $value.
+                        "</option>";
+            }
+
+            $content.=      "</select>".
+                        "</div>".
+                        $this->CreateHelpDiv($boxname,$msg).
+                    "</div>"
+                    ;
+
+            return $content;
+        }
+
+        /**
+         * Generate the HTML for a sub-heading label in a settings panel.
+         * 
+         * @param type $label
+         */
+        function CreateSubheadingLabel($label) {
+            return "<p class='slp_admin_info'><strong>$label</strong></p>";
+            }
+
+        /**
+         * Generate the HTML for a text area settings interface element.
+         * 
+         * @param type $boxname
+         * @param type $label
+         * @param type $msg
+         * @param type $prefix
+         * @param type $default
+         * @return type
+         */
+        function CreateTextAreaDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $default='') {
+            $whichbox = $prefix.$boxname;
+            return
+                "<div class='form_entry'>" .
+                    "<div class='".SLPLUS_PREFIX."-input'>" .
+                        "<label for='$whichbox'>$label:</label>".
+                        "<textarea  name='$whichbox'>".stripslashes(esc_textarea(get_option($whichbox,$default)))."</textarea>".
+                    "</div>".
+                    $this->CreateHelpDiv($boxname,$msg).
+                 "</div>"
+                ;
+
         }
 
         /**
@@ -108,99 +232,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             $this->SavePostToOptionsTable($whichbox,0);
         }
 
-        /**************************************
-        ** function: CreateCheckboxDiv
-         **
-         ** Update the checkbox setting in the database.
-         **
-         ** Parameters:
-         **  $boxname (string, required) - the name of the checkbox (db option name)
-         **  $label (string, optional) - default '', the label to go in front of the checkbox
-         **  $message (string, optional) - default '', the help message
-         **  $prefix (string, optional) - defaults to SLPLUS_PREFIX, can be ''
-         **/
-        function CreateCheckboxDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $disabled=false, $default=0) {
-            $whichbox = $prefix.$boxname;
-            return
-                "<div class='form_entry'>".
-                    "<div class='".SLPLUS_PREFIX."-input'>" .
-                    "<label  for='$whichbox' ".
-                        ($disabled?"class='disabled '":' ').
-                        ">$label:</label>".
-                    "<input name='$whichbox' value='1' ".
-                        "type='checkbox' ".
-                        ((get_option($whichbox,$default) ==1)?' checked ':' ').
-                        ($disabled?"disabled='disabled'":' ') .
-                    ">".
-                    "</div>".
-                    $this->CreateHelpDiv($boxname,$msg) .
-                "</div>"
-                ;
-        }
-
-
-        /**
-         * function: CreateInputDiv
-         */
-        function CreateInputDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $default='') {
-            $whichbox = $prefix.$boxname;
-            return
-                "<div class='form_entry'>" .
-                    "<div class='".SLPLUS_PREFIX."-input'>" .
-                        "<label for='$whichbox'>$label:</label>".
-                        "<input  name='$whichbox' value='".$this->parent->Actions->getCompoundOption($whichbox,$default)."'>".
-                    "</div>".
-                    $this->CreateHelpDiv($boxname,$msg).
-                 "</div>"
-                ;
-        }
-
-        /**
-         * function: CreatePulldownDiv
-         */
-        function CreatePulldownDiv($boxname,$values,$label='',$msg='',$prefix=SLPLUS_PREFIX, $default='') {
-            $whichbox = $prefix.$boxname;
-            $selected = get_option($whichbox,$default);
-
-            $content =
-                    "<div class='form_entry'>".
-                        "<div class='".SLPLUS_PREFIX."-input'>" .
-                            "<label for='$whichbox'>$label:</label>" .
-                            "<select name='$whichbox'>"
-                    ;
-
-            foreach ($values as $value){
-                $content.="<option value='$value' ".(($value == $selected)?'selected':'').">".
-                          $value.
-                        "</option>";
-            }
-
-            $content.=      "</select>".
-                        "</div>".
-                        $this->CreateHelpDiv($boxname,$msg).
-                    "</div>"
-                    ;
-
-            return $content;
-        }
-
-        /**
-         * function: CreateTextAreaDiv
-         */
-        function CreateTextAreaDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $default='') {
-            $whichbox = $prefix.$boxname;
-            return
-                "<div class='form_entry'>" .
-                    "<div class='".SLPLUS_PREFIX."-input'>" .
-                        "<label for='$whichbox'>$label:</label>".
-                        "<textarea  name='$whichbox'>".stripslashes(esc_textarea(get_option($whichbox,$default)))."</textarea>".
-                    "</div>".
-                    $this->CreateHelpDiv($boxname,$msg).
-                 "</div>"
-                ;
-
-        }
-
 
         //=======================================
         // RENDER FUNCTIONS
@@ -218,14 +249,12 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 __('Extended settings are available in the <a href="%s">%s</a> premium add-on.',SLPLUS_PREFIX)
                ;
 
+
             // Features
             //
             $slpDescription =
-                "<div class='section_column'>".
-                "<div class='map_designer_settings'>".
-                "<h2>".__('Features', SLPLUS_PREFIX)."</h2>".
                 "<div class='section_column_content'>" .
-                '<p class="slp_admin_info"><strong>'.__('Initial Look and Feel',SLPLUS_PREFIX).'</strong></p>' .
+                $this->CreateSubheadingLabel(__('Initial Look and Feel','csl-slplus')) .
                 "<div class='form_entry'>" .
                 "<label for='sl_remove_credits'>".__('Remove Credits', SLPLUS_PREFIX)."</label>" .
                 "<input name='sl_remove_credits' value='1' type='checkbox' $checked3>" .
@@ -272,7 +301,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
                 // Features : Country
                 $slpDescription .=
-                    '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Country',SLPLUS_PREFIX).'</strong></p>' .
+                    $this->CreateSubheadingLabel(__('Country','csl-slplus')) .
                     "<div class='form_entry'>" .
                     "<label for='google_map_domain'>". __("Map Domain", SLPLUS_PREFIX) . "</label>" .
                     "<select name='google_map_domain'>"
@@ -291,15 +320,12 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     $selected=(get_option('sl_map_character_encoding')==$sl_value)?" selected " : "";
                     $slpDescription .= "<option value='$sl_value' $selected>$key</option>\n";
                 }
-                $slpDescription .= "</select></div></div></div></div>";
+                $slpDescription .= "</select></div></div>";
                 $mapSettings['features'] = apply_filters('slp_map_features_settings',$slpDescription);
 
                 // Settings
                 //
                 $slpDescription =
-                    "<div class='section_column'>" .
-                    "<div class='map_designer_settings'>" .
-                    "<h2>".__('Settings', SLPLUS_PREFIX)."</h2>" .
                     "<div class='section_column_content'>" .
                     '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Dimensions',SLPLUS_PREFIX).'</strong></p>' .
                     $slplus_plugin->AdminUI->MapSettings->CreatePulldownDiv(
@@ -378,16 +404,13 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                             )
                         ;
                 }
-                $slpDescription .= "</div></div></div></div>";
+                $slpDescription .= "</div></div>";
                 $mapSettings['settings'] = apply_filters('slp_map_settings_settings',$slpDescription);
 
 
             // ===== Icons
             //
             $slpDescription =
-                "<div class='section_column'>".
-                    "<div class='map_designer_settings'>".
-                        "<h2>".__('Icons', SLPLUS_PREFIX)."</h2>".
                         $this->parent->data['iconNotice'] .
                         "<div class='form_entry'>".
                             "<label for='icon'>".__('Home Icon', SLPLUS_PREFIX)."</label>".
@@ -401,9 +424,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                             "<input id='icon2' name='icon2' dir='rtl' size='45' value='".$this->parent->data['endicon']."' ".
                                 'onchange="document.getElementById(\'prev2\').src=this.value">'.
                             "<img id='prev2' src='".$this->parent->data['endicon']."'align='top'><br/>".
-                            $this->parent->data['endIconPicker'].
-                        "</div>".
-                    "</div>"
+                            $this->parent->data['endIconPicker']
                 ;
             $mapSettings['icons'] = apply_filters('slp_map_icons_settings',$slpDescription);
 
@@ -411,9 +432,24 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             $slpDescription =
                 "<div id='map_settings'>" .
                     sprintf('<p style="display:block; clear: both;">'.$slplus_message.'</p>',$slplus_plugin->purchase_url,'Pro Pack') .
-                    $mapSettings['features'] .
-                    $mapSettings['settings'] .
-                    $mapSettings['icons'] .
+                    $this->CreateSettingsGroup(
+                                        'map_features',
+                                        __('Features','csl-slplus'),
+                                        '',
+                                        $mapSettings['features']
+                                        ) .
+                    $this->CreateSettingsGroup(
+                                        'map_settings',
+                                        __('Settings','csl-slplus'),
+                                        '',
+                                        $mapSettings['settings']
+                                        ) .
+                    $this->CreateSettingsGroup(
+                                        'map_icons',
+                                        __('Icons','csl-slplus'),
+                                        '',
+                                        $mapSettings['icons']
+                                        ) .
                 "</div>"
                 ;
 
