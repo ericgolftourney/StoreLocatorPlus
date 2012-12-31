@@ -216,6 +216,32 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
          function map_settings() {
             global $slplus_plugin;
             $slpDescription = $slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/settings_mapform.php');
+
+            // ===== Icons
+            //
+            $slpDescription .=
+                "<div class='section_column'>".
+                    "<div class='map_designer_settings'>".
+                        "<h2>".__('Icons', SLPLUS_PREFIX)."</h2>".
+                        $this->parent->data['iconNotice'] .
+                        "<div class='form_entry'>".
+                            "<label for='icon'>".__('Home Icon', SLPLUS_PREFIX)."</label>".
+                            "<input id='icon' name='icon' dir='rtl' size='45' value='".$this->parent->data['homeicon']."' ".
+                                    'onchange="document.getElementById(\'prev\').src=this.value">'.
+                            "<img id='prev' src='".$this->parent->data['homeicon']."' align='top'><br/>".
+                            $this->parent->data['homeIconPicker'].
+                        "</div>".
+                        "<div class='form_entry'>".
+                            "<label for='icon2'>".__('Destination Icon', SLPLUS_PREFIX)."</label>".
+                            "<input id='icon2' name='icon2' dir='rtl' size='45' value='".$this->parent->data['endicon']."' ".
+                                'onchange="document.getElementById(\'prev2\').src=this.value">'.
+                            "<img id='prev2' src='".$this->parent->data['endicon']."'align='top'><br/>".
+                            $this->parent->data['endIconPicker'].
+                        "</div>".
+                    "</div>".
+                "</div>"
+                ;
+
             $this->settings->add_section(
                 array(
                         'name'          => __('Map',SLPLUS_PREFIX),
@@ -603,31 +629,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     "<div class='map_designer_settings'>".
                     $slpDescription .
                     "</div>" .
-                "</div>"
-                ;
-
-            // ===== Icons
-            //
-            $slpDescription .=
-                "<div class='section_column'>".
-                    "<div class='map_designer_settings'>".
-                        "<h2>".__('Icons', SLPLUS_PREFIX)."</h2>".
-                        $this->parent->data['iconNotice'] .
-                        "<div class='form_entry'>".
-                            "<label for='icon'>".__('Home Icon', SLPLUS_PREFIX)."</label>".
-                            "<input id='icon' name='icon' dir='rtl' size='45' value='".$this->parent->data['homeicon']."' ".
-                                    'onchange="document.getElementById(\'prev\').src=this.value">'.
-                            "<img id='prev' src='".$this->parent->data['homeicon']."' align='top'><br/>".
-                            $this->parent->data['homeIconPicker'].
-                        "</div>".
-                        "<div class='form_entry'>".
-                            "<label for='icon2'>".__('Destination Icon', SLPLUS_PREFIX)."</label>".
-                            "<input id='icon2' name='icon2' dir='rtl' size='45' value='".$this->parent->data['endicon']."' ".
-                                'onchange="document.getElementById(\'prev2\').src=this.value">'.
-                            "<img id='prev2' src='".$this->parent->data['endicon']."'align='top'><br/>".
-                            $this->parent->data['endIconPicker'].
-                        "</div>".
-                    "</div>".
                 "</div>"
                 ;
 
