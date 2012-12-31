@@ -1,7 +1,5 @@
 <?php 
-    global $sl_num_initial_displayed,
-            $sl_zoom, $sl_zoom_adj, $sl_height,$sl_height_units,$sl_width,$sl_width_units,$checked3,
-            $slplus_plugin;
+    global $sl_height,$sl_height_units,$sl_width,$sl_width_units,$checked3, $slplus_plugin;
 
     $slplus_message = ($slplus_plugin->license->packages['Pro Pack']->isenabled) ?
         __('',SLPLUS_PREFIX) :
@@ -132,19 +130,19 @@
                 echo $slplus_plugin->AdminUI->MapSettings->CreatePulldownDiv(
                         'sl_zoom_level',
                         array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19),
-                        $label=__('Zoom Level', SLPLUS_PREFIX),
-                        $msg=__('Initial zoom level of the map if "immediately show locations" is NOT selected or if only a single location is found.  0 = world view, 19 = house view.', SLPLUS_PREFIX),
-                        $prefix='',
-                        $default=4
+                        __('Zoom Level', SLPLUS_PREFIX),
+                        __('Initial zoom level of the map if "immediately show locations" is NOT selected or if only a single location is found.  0 = world view, 19 = house view.', SLPLUS_PREFIX),
+                        '',
+                        4
                         );
 
                 echo $slplus_plugin->AdminUI->MapSettings->CreatePulldownDiv(
                         'sl_zoom_tweak',
                         array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19),
-                        $label=__('Zoom Adjustment', SLPLUS_PREFIX),
-                        $msg=__('Changes how tight auto-zoom bounds the locations shown.  Lower numbers are closer to the locations.', SLPLUS_PREFIX),
-                        $prefix='',
-                        $default=4
+                        __('Zoom Adjustment', SLPLUS_PREFIX),
+                        __('Changes how tight auto-zoom bounds the locations shown.  Lower numbers are closer to the locations.', SLPLUS_PREFIX),
+                        '',
+                        4
                         );
             ?>
             
