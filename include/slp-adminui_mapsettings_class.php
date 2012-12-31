@@ -1098,7 +1098,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             do_action('slp_add_search_form_label_setting');
             $settingsHTML .= ob_get_clean() . '</div>';
 
-            $slpDescription .= $this->createSettingsGroup(
+            $slpDescription .= $this->CreateSettingsGroup(
                                     'search_labels',
                                     __('Labels','csl-slplus'),
                                     '',
@@ -1123,7 +1123,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
           * @param string $intro - the text to put directly under the header
           * @param string $content - the settings HTML
           */
-         function createSettingsGroup($slug=null, $header='Settings',$intro='',$content='') {
+         function CreateSettingsGroup($slug=null, $header='Settings',$intro='',$content='') {
              if ($slug === null) { return ''; }
 
              $content = 
