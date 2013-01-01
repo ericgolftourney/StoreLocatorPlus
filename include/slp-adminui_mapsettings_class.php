@@ -204,7 +204,10 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
         }
 
         /**
-         * function: SavePostToOptionsTable
+         * Save a POST variable to the WP options table.
+         *
+         * @param string $optionname
+         * @param string $default
          */
         function SavePostToOptionsTable($optionname,$default=null) {
             if ($default != null) {
@@ -217,15 +220,13 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             }
         }
 
-        /**************************************
-         ** function: SaveCheckboxToDB
-         **
-         ** Update the checkbox setting in the database.
-         **
-         ** Parameters:
-         **  $boxname (string, required) - the name of the checkbox (db option name)
-         **  $prefix (string, optional) - defaults to SLPLUS_PREFIX, can be ''
-         **/
+        /**
+         * Save a checkbox form variable to the WP options table.
+         *
+         * @param string $boxname - the name of the checkbox (db option name)
+         * @param string $prefix - defaults to SLPLUS_PREFIX, can be ''
+         * @param string $separator - the option name separator
+         */
         function SaveCheckboxToDB($boxname,$prefix = SLPLUS_PREFIX, $separator='-') {
             $whichbox = $prefix.$separator.$boxname;
             $_POST[$whichbox] = isset($_POST[$whichbox])?1:0;
