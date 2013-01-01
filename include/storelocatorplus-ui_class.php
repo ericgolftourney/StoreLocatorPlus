@@ -187,7 +187,8 @@ if (! class_exists('SLPlus_UI')) {
 
             // Search / Map Actions
             //
-            add_action('slp_render_search_form',array('SLPlus_UI','slp_render_search_form'));
+            add_action('slp_render_search_form' ,array('SLPlus_UI','slp_render_search_form'));
+            add_action('slp_render_map'         ,array('SLPlus_UI','render_the_map'));
 
             //todo: make sure map type gets set to a sane value before getting here. Maybe not...
             //todo: if we allow map setting overrides via shortcode attributes we will need
@@ -197,7 +198,11 @@ if (! class_exists('SLPlus_UI')) {
             // Localize the CSL Script
             $this->localizeCSLScript();
 
-            return $this->rawDeal($this->parent->helper->get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_and_map.php'));
+            return
+                '<div id="sl_div">' .
+                    $this->rawDeal($this->parent->helper->get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_and_map.php')) .
+                '</div>'
+                ;
         }
 
 
@@ -390,6 +395,75 @@ if (! class_exists('SLPlus_UI')) {
             global $slplus_plugin;
             echo apply_filters('slp_search_form_html',$slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_form.php'));
         }
+
+        /**
+         * Render the SLP map
+         *
+         */
+        function render_the_map() {
+            global $sl_width, $sl_height, $sl_width_units, $sl_height_units, $slplus_plugin;
+
+            // Start the map table
+            //
+            $content =  
+                '<table id="map_table" width="100%" cellspacing="0px" cellpadding="0px">' .
+                '<tbody id="map_table_body">' .
+                '<tr id="map_table_row">'.
+                '<td id="map_table_cell" width="100%" valign="top">'
+                ;
+
+            // If starting image is set, create the overlay div.
+            //
+            $startingImage=get_option('sl_starting_image','');
+            if ($startingImage != '') {
+                $startingImage =
+                    ((preg_match('/^http/',$startingImage) <= 0) ?SLPLUS_PLUGINURL:'').
+                    $startingImage
+                    ;
+
+                $content .=
+                    "<div id='map_box_image' " .
+                        "style='width:$sl_width$sl_width_units; height:$sl_height$sl_height_units;'>" .
+                    "<img src='$startingImage'>".
+                    '</div>' .
+                    '<div id="map_box_map">'
+                    ;
+            }
+            
+            // The Map Div
+            //
+            $content .=
+                "<div id='map' ".
+                    "style='width:$sl_width$sl_width_units; height:$sl_height$sl_height_units;'>".
+                '</div>'
+                ;
+
+            // Credits Line
+            if (!(get_option('sl_remove_credits',0)==1)) {
+                $content .=
+                    "<div id='slp_tagline'style='width:$sl_width$sl_width_units;'>" .
+                        __('search provided by', 'csl-slplus') .
+                        "<a href='".$slplus_plugin->url."' target='_blank'>".
+                            $slplus_plugin->name.
+                        "</a>".
+                    '</div>'
+                    ;
+            }
+
+            // If starting image is set, close the overlay div.
+            //
+            if ($startingImage != '') {
+                $content .= '</div>';
+            }
+            
+            // Close the table
+            //
+            $content .= '</td></tr></tbody></table>';
+
+            // Render
+            //
+            echo $content;
+            }
 
         /**
          * Puts the tag list on the search form for users to select tags.
