@@ -590,21 +590,13 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 if ($_POST['height_units'] == '%') {
                     $_POST['height'] = max(0,min($_POST['height'],100));
                 }
-                update_option('sl_map_height_units', $_POST['height_units']);
-                update_option('sl_map_height', $_POST['height']);
 
                 // Width if % set range 0..100
                 if ($_POST['width_units'] == '%') {
                     $_POST['width'] = max(0,min($_POST['width'],100));
                 }
-                update_option('sl_map_width_units', $_POST['width_units']);
-                update_option('sl_map_width', $_POST['width']);
 
-                update_option('sl_map_home_icon', $_POST['icon']);
-                update_option('sl_map_end_icon', $_POST['icon2']);
-
-
-                // Text boxes
+                // Standard Input Saves
                 //
                 $BoxesToHit = array(
                     'sl_language'                           ,
@@ -613,6 +605,12 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     'sl_instruction_message'                ,
                     'sl_zoom_level'                         ,
                     'sl_zoom_tweak'                         ,
+                    'sl_map_height_units'                   ,
+                    'sl_map_height'                         ,
+                    'sl_map_width_units'                    ,
+                    'sl_map_width'                          ,
+                    'sl_map_home_icon'                      ,
+                    'sl_map_end_icon'                       ,
                     'sl_map_type'                           ,
                     'sl_num_initial_displayed'              ,
                     'sl_distance_unit'                      ,
@@ -642,44 +640,35 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     $this->SavePostToOptionsTable($JustAnotherBox);
                 }
 
-
-                // Checkboxes with custom names
+                // Checkboxes
                 //
                 $BoxesToHit = array(
-                    SLPLUS_PREFIX.'-force_load_js',
-                    'sl_use_city_search',
-                    'sl_use_country_search',
-                    'sl_load_locations_default',
-                    'sl_map_overview_control',
-                    'sl_remove_credits',
-                    'slplus_show_state_pd',
+                    SLPLUS_PREFIX.'_show_tag_search'            ,
+                    SLPLUS_PREFIX.'_show_tag_any'               ,
+                    SLPLUS_PREFIX.'_email_form'                 ,
+                    SLPLUS_PREFIX.'_show_tags'                  ,
+                    SLPLUS_PREFIX.'_disable_find_image'         ,
+                    SLPLUS_PREFIX.'_disable_initialdirectory'   ,
+                    SLPLUS_PREFIX.'_disable_largemapcontrol3d'  ,
+                    SLPLUS_PREFIX.'_disable_scalecontrol'       ,
+                    SLPLUS_PREFIX.'_disable_scrollwheel'        ,
+                    SLPLUS_PREFIX.'_disable_search'             ,
+                    SLPLUS_PREFIX.'_disable_maptypecontrol'     ,
+                    SLPLUS_PREFIX.'_hide_radius_selections'     ,
+                    SLPLUS_PREFIX.'_hide_address_entry'         ,
+                    SLPLUS_PREFIX.'_show_search_by_name'        ,
+                    SLPLUS_PREFIX.'_use_email_form'             ,
+                    SLPLUS_PREFIX.'_use_location_sensor'        ,
+                    SLPLUS_PREFIX.'-force_load_js'              ,
+                    'sl_use_city_search'                        ,
+                    'sl_use_country_search'                     ,
+                    'sl_load_locations_default'                 ,
+                    'sl_map_overview_control'                   ,
+                    'sl_remove_credits'                         ,
+                    'slplus_show_state_pd'                      ,
                     );
                 foreach ($BoxesToHit as $JustAnotherBox) {
                     $this->SaveCheckBoxToDB($JustAnotherBox, '','');
-                }
-
-                // Checkboxes with normal names
-                //
-                $BoxesToHit = array(
-                    'show_tag_search',
-                    'show_tag_any',
-                    'email_form',
-                    'show_tags',
-                    'disable_find_image',
-                    'disable_initialdirectory',
-                    'disable_largemapcontrol3d',
-                    'disable_scalecontrol',
-                    'disable_scrollwheel',
-                    'disable_search',
-                    'disable_maptypecontrol',
-                    'hide_radius_selections',
-                    'hide_address_entry',
-                    'show_search_by_name',
-                    'use_email_form',
-                    'use_location_sensor',
-                    );
-                foreach ($BoxesToHit as $JustAnotherBox) {
-                    $this->SaveCheckBoxToDB($JustAnotherBox, SLPLUS_PREFIX, '_');
                 }
 
                 do_action('slp_save_map_settings');
