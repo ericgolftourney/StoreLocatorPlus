@@ -598,43 +598,41 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
                 // Standard Input Saves
                 //
-                $BoxesToHit = array(
-                    'sl_language'                           ,
-                    'sl_map_character_encoding'             ,
-                    'sl_map_radii'                          ,
-                    'sl_instruction_message'                ,
-                    'sl_zoom_level'                         ,
-                    'sl_zoom_tweak'                         ,
-                    'sl_map_height_units'                   ,
-                    'sl_map_height'                         ,
-                    'sl_map_width_units'                    ,
-                    'sl_map_width'                          ,
-                    'sl_map_home_icon'                      ,
-                    'sl_map_end_icon'                       ,
-                    'sl_map_type'                           ,
-                    'sl_num_initial_displayed'              ,
-                    'sl_distance_unit'                      ,
-                    'sl_name_label'                         ,
-                    'sl_radius_label'                       ,
-                    'sl_search_label'                       ,
-                    'sl_website_label'                      ,
-
-                    SLPLUS_PREFIX.'_label_directions'       ,
-                    SLPLUS_PREFIX.'_label_fax'              ,
-                    SLPLUS_PREFIX.'_label_hours'            ,
-                    SLPLUS_PREFIX.'_label_phone'            ,
-
-                    SLPLUS_PREFIX.'_message_noresultsfound' ,
-
-                    'sl_starting_image'                     ,
-                    SLPLUS_PREFIX.'_tag_search_selections'  ,
-                    SLPLUS_PREFIX.'_map_center'             ,
-                    SLPLUS_PREFIX.'_maxreturned'            ,
-
-                    SLPLUS_PREFIX.'_search_tag_label'       ,
-                    SLPLUS_PREFIX.'_state_pd_label'         ,
-                    SLPLUS_PREFIX.'_find_button_label'      ,
-
+                $BoxesToHit = 
+                    apply_filters('slp_save_map_settings_inputs',
+                        array(
+                            'sl_language'                           ,
+                            'sl_map_character_encoding'             ,
+                            'sl_map_radii'                          ,
+                            'sl_instruction_message'                ,
+                            'sl_zoom_level'                         ,
+                            'sl_zoom_tweak'                         ,
+                            'sl_map_height_units'                   ,
+                            'sl_map_height'                         ,
+                            'sl_map_width_units'                    ,
+                            'sl_map_width'                          ,
+                            'sl_map_home_icon'                      ,
+                            'sl_map_end_icon'                       ,
+                            'sl_map_type'                           ,
+                            'sl_num_initial_displayed'              ,
+                            'sl_distance_unit'                      ,
+                            'sl_name_label'                         ,
+                            'sl_radius_label'                       ,
+                            'sl_search_label'                       ,
+                            'sl_starting_image'                     ,
+                            'sl_website_label'                      ,
+                            SLPLUS_PREFIX.'_label_directions'       ,
+                            SLPLUS_PREFIX.'_label_fax'              ,
+                            SLPLUS_PREFIX.'_label_hours'            ,
+                            SLPLUS_PREFIX.'_label_phone'            ,
+                            SLPLUS_PREFIX.'_message_noresultsfound' ,
+                            SLPLUS_PREFIX.'_tag_search_selections'  ,
+                            SLPLUS_PREFIX.'_map_center'             ,
+                            SLPLUS_PREFIX.'_maxreturned'            ,
+                            SLPLUS_PREFIX.'_search_tag_label'       ,
+                            SLPLUS_PREFIX.'_state_pd_label'         ,
+                            SLPLUS_PREFIX.'_find_button_label'      ,
+                        )
                     );
                 foreach ($BoxesToHit as $JustAnotherBox) {
                     $this->SavePostToOptionsTable($JustAnotherBox);
@@ -642,31 +640,34 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
                 // Checkboxes
                 //
-                $BoxesToHit = array(
-                    SLPLUS_PREFIX.'_show_tag_search'            ,
-                    SLPLUS_PREFIX.'_show_tag_any'               ,
-                    SLPLUS_PREFIX.'_email_form'                 ,
-                    SLPLUS_PREFIX.'_show_tags'                  ,
-                    SLPLUS_PREFIX.'_disable_find_image'         ,
-                    SLPLUS_PREFIX.'_disable_initialdirectory'   ,
-                    SLPLUS_PREFIX.'_disable_largemapcontrol3d'  ,
-                    SLPLUS_PREFIX.'_disable_scalecontrol'       ,
-                    SLPLUS_PREFIX.'_disable_scrollwheel'        ,
-                    SLPLUS_PREFIX.'_disable_search'             ,
-                    SLPLUS_PREFIX.'_disable_maptypecontrol'     ,
-                    SLPLUS_PREFIX.'_hide_radius_selections'     ,
-                    SLPLUS_PREFIX.'_hide_address_entry'         ,
-                    SLPLUS_PREFIX.'_show_search_by_name'        ,
-                    SLPLUS_PREFIX.'_use_email_form'             ,
-                    SLPLUS_PREFIX.'_use_location_sensor'        ,
-                    SLPLUS_PREFIX.'-force_load_js'              ,
-                    'sl_use_city_search'                        ,
-                    'sl_use_country_search'                     ,
-                    'sl_load_locations_default'                 ,
-                    'sl_map_overview_control'                   ,
-                    'sl_remove_credits'                         ,
-                    'slplus_show_state_pd'                      ,
-                    );
+                $BoxesToHit = 
+                    apply_filters('slp_save_map_settings_checkboxes',
+                        array(
+                            SLPLUS_PREFIX.'_show_tag_search'            ,
+                            SLPLUS_PREFIX.'_show_tag_any'               ,
+                            SLPLUS_PREFIX.'_email_form'                 ,
+                            SLPLUS_PREFIX.'_show_tags'                  ,
+                            SLPLUS_PREFIX.'_disable_find_image'         ,
+                            SLPLUS_PREFIX.'_disable_initialdirectory'   ,
+                            SLPLUS_PREFIX.'_disable_largemapcontrol3d'  ,
+                            SLPLUS_PREFIX.'_disable_scalecontrol'       ,
+                            SLPLUS_PREFIX.'_disable_scrollwheel'        ,
+                            SLPLUS_PREFIX.'_disable_search'             ,
+                            SLPLUS_PREFIX.'_disable_maptypecontrol'     ,
+                            SLPLUS_PREFIX.'_hide_radius_selections'     ,
+                            SLPLUS_PREFIX.'_hide_address_entry'         ,
+                            SLPLUS_PREFIX.'_show_search_by_name'        ,
+                            SLPLUS_PREFIX.'_use_email_form'             ,
+                            SLPLUS_PREFIX.'_use_location_sensor'        ,
+                            SLPLUS_PREFIX.'-force_load_js'              ,
+                            'sl_use_city_search'                        ,
+                            'sl_use_country_search'                     ,
+                            'sl_load_locations_default'                 ,
+                            'sl_map_overview_control'                   ,
+                            'sl_remove_credits'                         ,
+                            'slplus_show_state_pd'                      ,
+                            )
+                        );
                 foreach ($BoxesToHit as $JustAnotherBox) {
                     $this->SaveCheckBoxToDB($JustAnotherBox, '','');
                 }
