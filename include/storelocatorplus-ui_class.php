@@ -33,6 +33,49 @@ if (! class_exists('SLPlus_UI')) {
             }
         }
 
+
+        /**
+         * Set the plugin property to point to the primary plugin object.
+         *
+         * Returns false if we can't get to the main plugin object.
+         *
+         * @global wpCSL_plugin__slplus $slplus_plugin
+         * @return boolean true if plugin property is valid
+         */
+        function setPlugin() {
+            if (!isset($this->plugin) || ($this->plugin == null)) {
+                global $slplus_plugin;
+                $this->plugin = $slplus_plugin;
+            }
+            return (isset($this->plugin) && ($this->plugin != null));
+        }
+
+        /**
+         * Returns true if the shortcode attribute='true' or settings is set to 1 (checkbox enabled)
+         *
+         * If the shortcode attribute = true
+         * OR
+         * attribute is not set (null) AND
+         * the setting is checked
+         *
+         *
+         * @param string $attribute - the key for the shortcode attribute
+         * @param string $setting - the key for the admin panel setting
+         * @return boolean
+         */
+        function ShortcodeOrSettingEnabled($attribute,$setting) {
+            if (!$this->setPlugin()) { return false; }
+
+            return (
+                    (strcasecmp($this->plugin->data[$attribute],'true')==0)
+                    ||
+                    (($this->plugin->data[$attribute] === null) &&
+                     (($this->plugin->settings->get_item($setting,0) == 1))
+                    )
+               );
+
+            }
+
         /**
          * Create a search form input div.
          */
