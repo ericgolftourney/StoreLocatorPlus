@@ -51,6 +51,43 @@ if (! class_exists('SLPlus_UI')) {
         }
 
         /**
+         * Return the HTML for a slider button.
+         *
+         * The setting parameter will be used for several things:
+         * the div ID will be "settingid_div"
+         * the assumed matching label option will be "settingid_label" for WP get_option()
+         * the a href ID will be "settingid_toggle"
+         *
+         * @param string $setting - the ID for the setting
+         * @param string $label - the default label to show
+         * @param boolean $isChecked - default on/off state of checkbox
+         * @param string $onClick - the onClick javascript
+         * @return string - the slider HTML
+         */
+        function CreateSliderButton($setting=null, $label='', $isChecked = true, $onClick='') {
+            if ($setting === null) { return ''; }
+            if (!$this->setPlugin()) { return ''; }
+
+            $label   = $this->plugin->settings->get_item($setting.'_label',$label);
+            $checked = ($isChecked ? 'checked' : '');
+            $onClick = (($onClick === '') ? '' : ' onClick="'.$onClick.'"');
+
+            $content =
+                "<div id='{$setting}_div' class='onoffswitch-block'>" .
+                "<span class='onoffswitch-pretext'>$label</span>" .
+                "<div class='onoffswitch'>" .
+                "<input type='checkbox' name='onoffswitch' class='onoffswitch-checkbox' id='{$setting}-checkbox' $checked>" .
+                "<label class='onoffswitch-label' for='{$setting}-checkbox'  $onClick>" .
+                '<div class="onoffswitch-inner"></div>'.
+                "<div class='onoffswitch-switch'></div>".
+                '</label>'.
+                '</div>' .
+                '</div>';
+             return $content;
+        }
+
+
+        /**
          * Returns true if the shortcode attribute='true' or settings is set to 1 (checkbox enabled)
          *
          * If the shortcode attribute = true
@@ -505,7 +542,7 @@ if (! class_exists('SLPlus_UI')) {
 
             // Render
             //
-            echo $content;
+            echo apply_filters('slp_map_html',$content);
             }
 
         /**
