@@ -261,6 +261,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 = 3.8.3 (January 2013) =
 
 * Map settings panel updates to prep for Enhanced Maps.
+* Add the on/off slider button method for new UI elements including the map on/off toggle on Enhanced Maps.
 
 = 3.8.2 (December 31 2012) =
 
