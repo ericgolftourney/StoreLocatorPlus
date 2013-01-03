@@ -285,8 +285,8 @@ if ( ! class_exists( 'SLPPro' ) ) {
                     '</div>'
                     ;
                 return $actionBoxes;
-         }
-    }
+        }
+
         /**
          * Report Downloads admin header, setup JavaScript.
          */
@@ -333,12 +333,10 @@ if ( ! class_exists( 'SLPPro' ) ) {
             </script>
             <?php
         }
-
-
     }
 
     // Instantiate ourselves as an object
     //
-    global$slplus_plugin;
+    global $slplus_plugin;
     $slplus_plugin->ProPack = new SLPPro();
 }
