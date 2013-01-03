@@ -170,6 +170,33 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             return $content;
         }
 
+         /**
+          * Create a settings group box.
+          *
+          * @param string $slug - a unique div ID (slug) for this group box, required.  alpha_numeric _ and - only please.
+          * @param string $header - the text to put in the header
+          * @param string $intro - the text to put directly under the header
+          * @param string $content - the settings HTML
+          */
+         function CreateSettingsGroup($slug=null, $header='Settings',$intro='',$content='') {
+             if ($slug === null) { return ''; }
+
+             $content =
+                "<div class='section_column' id='slp_settings_group-$slug'>" .
+                    "<h2>$header</h2>" .
+                    (($intro != '')     ?
+                        "<div class='section_column_intro' id='slp_settings_group_intro-$slug'>$intro</div>" :
+                        ''
+                    ).
+                    (($content != '')   ?
+                        "<div class='section_column_content' id='slp_settings_group_content-$slug'>$content</div>" :
+                        ''
+                    ).
+                '</div>'
+                ;
+             return apply_filters('slp_settings_group-'.$slug,$content);
+         }
+
         /**
          * Generate the HTML for a sub-heading label in a settings panel.
          * 
@@ -1160,33 +1187,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                         'auto'          => true
                     )
              );
-         }
-
-         /**
-          * Create a settings group box.
-          *
-          * @param string $slug - a unique div ID (slug) for this group box, required.  alpha_numeric _ and - only please.
-          * @param string $header - the text to put in the header
-          * @param string $intro - the text to put directly under the header
-          * @param string $content - the settings HTML
-          */
-         function CreateSettingsGroup($slug=null, $header='Settings',$intro='',$content='') {
-             if ($slug === null) { return ''; }
-
-             $content = 
-                "<div class='section_column' id='slp_settings_group-$slug'>" .
-                    "<h2>$header</h2>" .
-                    (($intro != '')     ?
-                        "<div class='section_column_intro' id='slp_settings_group_intro-$slug'>$intro</div>" :
-                        ''
-                    ).
-                    (($content != '')   ?
-                        "<div class='section_column_content' id='slp_settings_group_content-$slug'>$content</div>" :
-                        ''
-                    ).
-                '</div>'
-                ;
-             return apply_filters('slp_settings_group-'.$slug,$content);
          }
     }
 }        
