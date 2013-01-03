@@ -204,6 +204,19 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
         }
 
         /**
+         * Save a checkbox form variable to the WP options table.
+         *
+         * @param string $boxname - the name of the checkbox (db option name)
+         * @param string $prefix - defaults to SLPLUS_PREFIX, can be ''
+         * @param string $separator - the option name separator
+         */
+        function SaveCheckboxToDB($boxname,$prefix = SLPLUS_PREFIX, $separator='-') {
+            $whichbox = $prefix.$separator.$boxname;
+            $_POST[$whichbox] = isset($_POST[$whichbox])?1:0;
+            $this->SavePostToOptionsTable($whichbox,0);
+        }
+
+        /**
          * Save a POST variable to the WP options table.
          *
          * @param string $optionname
@@ -221,18 +234,104 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
         }
 
         /**
-         * Save a checkbox form variable to the WP options table.
+         * Execute the save settings action.
          *
-         * @param string $boxname - the name of the checkbox (db option name)
-         * @param string $prefix - defaults to SLPLUS_PREFIX, can be ''
-         * @param string $separator - the option name separator
+         * Called when a $_POST is set when doing render_adminpage.
          */
-        function SaveCheckboxToDB($boxname,$prefix = SLPLUS_PREFIX, $separator='-') {
-            $whichbox = $prefix.$separator.$boxname;
-            $_POST[$whichbox] = isset($_POST[$whichbox])?1:0;
-            $this->SavePostToOptionsTable($whichbox,0);
-        }
+        function save_settings() {
+                $sl_google_map_arr=explode(":", $_POST['google_map_domain']);
+                update_option('sl_google_map_country', $sl_google_map_arr[0]);
+                update_option('sl_google_map_domain', $sl_google_map_arr[1]);
 
+                $_POST['height']=preg_replace('/[^0-9]/', '', $_POST['height']);
+                $_POST['width'] =preg_replace('/[^0-9]/', '', $_POST['width']);
+
+                // Height if % set range 0..100
+                if ($_POST['height_units'] == '%') {
+                    $_POST['height'] = max(0,min($_POST['height'],100));
+                }
+
+                // Width if % set range 0..100
+                if ($_POST['width_units'] == '%') {
+                    $_POST['width'] = max(0,min($_POST['width'],100));
+                }
+
+                // Standard Input Saves
+                //
+                $BoxesToHit =
+                    apply_filters('slp_save_map_settings_inputs',
+                        array(
+                            'sl_language'                           ,
+                            'sl_map_character_encoding'             ,
+                            'sl_map_radii'                          ,
+                            'sl_instruction_message'                ,
+                            'sl_zoom_level'                         ,
+                            'sl_zoom_tweak'                         ,
+                            'sl_map_height_units'                   ,
+                            'sl_map_height'                         ,
+                            'sl_map_width_units'                    ,
+                            'sl_map_width'                          ,
+                            'sl_map_home_icon'                      ,
+                            'sl_map_end_icon'                       ,
+                            'sl_map_type'                           ,
+                            'sl_num_initial_displayed'              ,
+                            'sl_distance_unit'                      ,
+                            'sl_name_label'                         ,
+                            'sl_radius_label'                       ,
+                            'sl_search_label'                       ,
+                            'sl_starting_image'                     ,
+                            'sl_website_label'                      ,
+                            SLPLUS_PREFIX.'_label_directions'       ,
+                            SLPLUS_PREFIX.'_label_fax'              ,
+                            SLPLUS_PREFIX.'_label_hours'            ,
+                            SLPLUS_PREFIX.'_label_phone'            ,
+                            SLPLUS_PREFIX.'_message_noresultsfound' ,
+                            SLPLUS_PREFIX.'_tag_search_selections'  ,
+                            SLPLUS_PREFIX.'_map_center'             ,
+                            SLPLUS_PREFIX.'_maxreturned'            ,
+                            SLPLUS_PREFIX.'_search_tag_label'       ,
+                            SLPLUS_PREFIX.'_state_pd_label'         ,
+                            SLPLUS_PREFIX.'_find_button_label'      ,
+                        )
+                    );
+                foreach ($BoxesToHit as $JustAnotherBox) {
+                    $this->SavePostToOptionsTable($JustAnotherBox);
+                }
+
+                // Checkboxes
+                //
+                $BoxesToHit =
+                    apply_filters('slp_save_map_settings_checkboxes',
+                        array(
+                            SLPLUS_PREFIX.'_show_tag_search'            ,
+                            SLPLUS_PREFIX.'_show_tag_any'               ,
+                            SLPLUS_PREFIX.'_email_form'                 ,
+                            SLPLUS_PREFIX.'_show_tags'                  ,
+                            SLPLUS_PREFIX.'_disable_find_image'         ,
+                            SLPLUS_PREFIX.'_disable_initialdirectory'   ,
+                            SLPLUS_PREFIX.'_disable_largemapcontrol3d'  ,
+                            SLPLUS_PREFIX.'_disable_scalecontrol'       ,
+                            SLPLUS_PREFIX.'_disable_scrollwheel'        ,
+                            SLPLUS_PREFIX.'_disable_search'             ,
+                            SLPLUS_PREFIX.'_disable_maptypecontrol'     ,
+                            SLPLUS_PREFIX.'_hide_radius_selections'     ,
+                            SLPLUS_PREFIX.'_hide_address_entry'         ,
+                            SLPLUS_PREFIX.'_show_search_by_name'        ,
+                            SLPLUS_PREFIX.'_use_email_form'             ,
+                            SLPLUS_PREFIX.'_use_location_sensor'        ,
+                            SLPLUS_PREFIX.'-force_load_js'              ,
+                            'sl_use_city_search'                        ,
+                            'sl_use_country_search'                     ,
+                            'sl_load_locations_default'                 ,
+                            'sl_map_overview_control'                   ,
+                            'sl_remove_credits'                         ,
+                            'slplus_show_state_pd'                      ,
+                            )
+                        );
+                foreach ($BoxesToHit as $JustAnotherBox) {
+                    $this->SaveCheckBoxToDB($JustAnotherBox, '','');
+                }
+        }
 
         //=======================================
         // RENDER FUNCTIONS
@@ -243,7 +342,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
           *
           */
          function map_settings() {
-            global $sl_height,$sl_height_units,$sl_width,$sl_width_units,$checked3, $slplus_plugin;
+            global $sl_height,$sl_height_units,$sl_width,$sl_width_units,$slplus_plugin;
 
             $slplus_message = ($slplus_plugin->license->packages['Pro Pack']->isenabled) ?
                 __('',SLPLUS_PREFIX) :
@@ -255,30 +354,41 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             //
             $slpDescription =
                 "<div class='section_column_content'>" .
-                $this->CreateSubheadingLabel(__('Initial Look and Feel','csl-slplus')) .
-                "<div class='form_entry'>" .
-                "<label for='sl_remove_credits'>".__('Remove Credits', SLPLUS_PREFIX)."</label>" .
-                "<input name='sl_remove_credits' value='1' type='checkbox' $checked3>" .
-                "</div>" .
-                $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
+
+                $this->CreateSubheadingLabel(__('Look and Feel','csl-slplus')) .
+
+                $this->CreateCheckboxDiv(
+                        'sl_remove_credits',
+                        __('Remove Credits','csl-slplus'),
+                        __('Remove the search provided by tagline under the map.','csl-slplus'),
+                        '',
+                        false,
+                        0
+                        ).
+
+                $this->CreateCheckboxDiv(
                     '-force_load_js',
-                    __('Force Load JavaScript',SLPLUS_PREFIX),
+                    __('Force Load JavaScript','csl-slplus'),
                     __('Force the JavaScript for Store Locator Plus to load on every page with early loading. ' .
-                    'This can slow down your site, but is compatible with more themes and plugins.', SLPLUS_PREFIX),
+                    'This can slow down your site, but is compatible with more themes and plugins.', 'csl-slplus'),
                     SLPLUS_PREFIX,
                     false,
                     1
                     ).
-                $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
+
+                $this->CreateCheckboxDiv(
                         'sl_load_locations_default',
-                        __('Immediately Show Locations', SLPLUS_PREFIX),
-                        __('Display locations as soon as map loads, based on map center and default radius',SLPLUS_PREFIX),
-                        ''
+                        __('Immediately Show Locations', 'csl-slplus'),
+                        __('Display locations as soon as map loads, based on map center and default radius','csl-slplus'),
+                        '',
+                        false,
+                        0
                         ).
+
                 $slplus_plugin->AdminUI->MapSettings->CreateInputDiv(
                         'sl_num_initial_displayed',
-                        __('Number To Show Initially',SLPLUS_PREFIX),
-                        __('How many locations should be shown when Immediately Show Locations is checked.  Recommended maximum is 50.',SLPLUS_PREFIX),
+                        __('Number To Show Initially','csl-slplus'),
+                        __('How many locations should be shown when Immediately Show Locations is checked.  Recommended maximum is 50.','csl-slplus'),
                         ''
                         )
                     ;
@@ -573,105 +683,16 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
          function render_adminpage() {
              if (!$this->setParent()) { return; }
              
+             // Save Settings
+             //
+             add_action('slp_save_map_settings',array($this,'save_settings') ,10);
+             
             if (!$_POST) {
                 if (is_a($this->parent->Activate,'SLPlus_Activate')) {
                     $this->parent->Activate->move_upload_directories();
                 }
                 $update_msg ='';
             } else {
-                $sl_google_map_arr=explode(":", $_POST['google_map_domain']);
-                update_option('sl_google_map_country', $sl_google_map_arr[0]);
-                update_option('sl_google_map_domain', $sl_google_map_arr[1]);
-
-                $_POST['height']=preg_replace('/[^0-9]/', '', $_POST['height']);
-                $_POST['width'] =preg_replace('/[^0-9]/', '', $_POST['width']);
-
-                // Height if % set range 0..100
-                if ($_POST['height_units'] == '%') {
-                    $_POST['height'] = max(0,min($_POST['height'],100));
-                }
-
-                // Width if % set range 0..100
-                if ($_POST['width_units'] == '%') {
-                    $_POST['width'] = max(0,min($_POST['width'],100));
-                }
-
-                // Standard Input Saves
-                //
-                $BoxesToHit = 
-                    apply_filters('slp_save_map_settings_inputs',
-                        array(
-                            'sl_language'                           ,
-                            'sl_map_character_encoding'             ,
-                            'sl_map_radii'                          ,
-                            'sl_instruction_message'                ,
-                            'sl_zoom_level'                         ,
-                            'sl_zoom_tweak'                         ,
-                            'sl_map_height_units'                   ,
-                            'sl_map_height'                         ,
-                            'sl_map_width_units'                    ,
-                            'sl_map_width'                          ,
-                            'sl_map_home_icon'                      ,
-                            'sl_map_end_icon'                       ,
-                            'sl_map_type'                           ,
-                            'sl_num_initial_displayed'              ,
-                            'sl_distance_unit'                      ,
-                            'sl_name_label'                         ,
-                            'sl_radius_label'                       ,
-                            'sl_search_label'                       ,
-                            'sl_starting_image'                     ,
-                            'sl_website_label'                      ,
-                            SLPLUS_PREFIX.'_label_directions'       ,
-                            SLPLUS_PREFIX.'_label_fax'              ,
-                            SLPLUS_PREFIX.'_label_hours'            ,
-                            SLPLUS_PREFIX.'_label_phone'            ,
-                            SLPLUS_PREFIX.'_message_noresultsfound' ,
-                            SLPLUS_PREFIX.'_tag_search_selections'  ,
-                            SLPLUS_PREFIX.'_map_center'             ,
-                            SLPLUS_PREFIX.'_maxreturned'            ,
-                            SLPLUS_PREFIX.'_search_tag_label'       ,
-                            SLPLUS_PREFIX.'_state_pd_label'         ,
-                            SLPLUS_PREFIX.'_find_button_label'      ,
-                        )
-                    );
-                foreach ($BoxesToHit as $JustAnotherBox) {
-                    $this->SavePostToOptionsTable($JustAnotherBox);
-                }
-
-                // Checkboxes
-                //
-                $BoxesToHit = 
-                    apply_filters('slp_save_map_settings_checkboxes',
-                        array(
-                            SLPLUS_PREFIX.'_show_tag_search'            ,
-                            SLPLUS_PREFIX.'_show_tag_any'               ,
-                            SLPLUS_PREFIX.'_email_form'                 ,
-                            SLPLUS_PREFIX.'_show_tags'                  ,
-                            SLPLUS_PREFIX.'_disable_find_image'         ,
-                            SLPLUS_PREFIX.'_disable_initialdirectory'   ,
-                            SLPLUS_PREFIX.'_disable_largemapcontrol3d'  ,
-                            SLPLUS_PREFIX.'_disable_scalecontrol'       ,
-                            SLPLUS_PREFIX.'_disable_scrollwheel'        ,
-                            SLPLUS_PREFIX.'_disable_search'             ,
-                            SLPLUS_PREFIX.'_disable_maptypecontrol'     ,
-                            SLPLUS_PREFIX.'_hide_radius_selections'     ,
-                            SLPLUS_PREFIX.'_hide_address_entry'         ,
-                            SLPLUS_PREFIX.'_show_search_by_name'        ,
-                            SLPLUS_PREFIX.'_use_email_form'             ,
-                            SLPLUS_PREFIX.'_use_location_sensor'        ,
-                            SLPLUS_PREFIX.'-force_load_js'              ,
-                            'sl_use_city_search'                        ,
-                            'sl_use_country_search'                     ,
-                            'sl_load_locations_default'                 ,
-                            'sl_map_overview_control'                   ,
-                            'sl_remove_credits'                         ,
-                            'slplus_show_state_pd'                      ,
-                            )
-                        );
-                foreach ($BoxesToHit as $JustAnotherBox) {
-                    $this->SaveCheckBoxToDB($JustAnotherBox, '','');
-                }
-
                 do_action('slp_save_map_settings');
                 $update_msg = "<div class='highlight'>".__("Successful Update", SLPLUS_PREFIX).'</div>';
             }
@@ -684,7 +705,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             //
             $checked2   	    = (isset($checked2)  ?$checked2  :'');
             $sl_city_checked	= (get_option('sl_use_city_search',0) ==1)?' checked ':'';
-            $checked3	        = (get_option('sl_remove_credits',0)  ==1)?' checked ':'';
 
             /**
              * @see http://goo.gl/UAXly - endIcon - the default map marker to be used for locations shown on the map
