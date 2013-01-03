@@ -263,6 +263,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Fix remove credits not saving.
 * Fix an error in how Pro Pack was being loaded.  Unmatched } caused erratic behavior.
 * Fix a Pro Pack / Store Pages hook issue.
+* Find button is now text based button by default on new installs.
 
 = 3.8.3 (January 2013) =
 

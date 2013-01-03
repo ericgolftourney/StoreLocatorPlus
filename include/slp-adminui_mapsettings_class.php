@@ -701,11 +701,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             //
             $this->parent->AdminUI->initialize_variables();
 
-            //-- Set Checkboxes
-            //
-            $checked2   	    = (isset($checked2)  ?$checked2  :'');
-            $sl_city_checked	= (get_option('sl_use_city_search',0) ==1)?' checked ':'';
-
             /**
              * @see http://goo.gl/UAXly - endIcon - the default map marker to be used for locations shown on the map
              * @see http://goo.gl/UAXly - endIconPicker -  the icon selection HTML interface
@@ -933,11 +928,11 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
          *
          */
          function search_form_settings() {
-            global  $sl_city_checked, $sl_country_checked, $sl_show_tag_checked, $sl_show_any_checked,
-                $sl_radius_label, $sl_website_label,$sl_the_distance_unit;
+            global  $sl_the_distance_unit;
 
             $sl_the_distance_unit[__("Kilometers", SLPLUS_PREFIX)]="km";
             $sl_the_distance_unit[__("Miles", SLPLUS_PREFIX)]="miles";
+
             $ppFeatureMsg = (!$this->parent->license->packages['Pro Pack']->isenabled ?
                     sprintf(
                             __(' This is a <a href="%s" target="csa">Pro Pack</a> feature.', SLPLUS_PREFIX),
@@ -954,15 +949,16 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 "<div id='search_settings'>" .
                     "<div class='section_column'>" .
                         "<h2>".__('Features', SLPLUS_PREFIX)."</h2>"
-                ;
-            $slpDescription .= $this->CreateInputDiv(
+                .
+
+                $this->CreateInputDiv(
                     'sl_map_radii',
                     __('Radii Options', SLPLUS_PREFIX),
                     __('Separate each number with a comma ",". Put parenthesis "( )" around the default.',SLPLUS_PREFIX),
                     '',
                     '10,25,50,100,(200),500'
-                    );
-            $slpDescription .=
+                    ) .
+
                 "<div class='form_entry'>" .
                     "<label for='sl_distance_unit'>".__('Distance Unit', 'csl-slplus').':</label>' .
                         "<select name='sl_distance_unit'>"
@@ -977,77 +973,80 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 '</div>'
                 ;
 
-            $slpDescription .=$this->CreateCheckboxDiv(
-                '_hide_radius_selections',
-                __('Hide radius selection',SLPLUS_PREFIX),
-                __('Hides the radius selection from the user, the default radius will be used.', SLPLUS_PREFIX) . $ppFeatureMsg,
-                SLPLUS_PREFIX,
-                !$this->parent->license->packages['Pro Pack']->isenabled
-                );
+            $slpDescription .=
+                $this->CreateCheckboxDiv(
+                    '_hide_radius_selections',
+                    __('Hide radius selection','csl-slplus'),
+                    __('Hides the radius selection from the user, the default radius will be used.', 'csl-slplus') . $ppFeatureMsg,
+                    SLPLUS_PREFIX,
+                    !$this->parent->license->packages['Pro Pack']->isenabled
+                    ) .
 
-            $slpDescription .=$this->CreateCheckboxDiv(
-                '_show_search_by_name',
-                __('Show search by name box', SLPLUS_PREFIX),
-                __('Shows the name search entry box to the user.', SLPLUS_PREFIX) . $ppFeatureMsg,
-                SLPLUS_PREFIX,
-                !$this->parent->license->packages['Pro Pack']->isenabled
+                $this->CreateCheckboxDiv(
+                    '_show_search_by_name',
+                    __('Show search by name box', 'csl-slplus'),
+                    __('Shows the name search entry box to the user.', 'csl-slplus') . $ppFeatureMsg,
+                    SLPLUS_PREFIX,
+                    !$this->parent->license->packages['Pro Pack']->isenabled
+                    ) .
 
-                );
+                $this->CreateCheckboxDiv(
+                    '_hide_address_entry',
+                    __('Hide address entry box','csl-slplus'),
+                    __('Hides the address entry box from the user.', 'csl-slplus') . $ppFeatureMsg,
+                    SLPLUS_PREFIX,
+                    !$this->parent->license->packages['Pro Pack']->isenabled
+                    ) .
 
-            $slpDescription .=$this->CreateCheckboxDiv(
-                '_hide_address_entry',
-                __('Hide address entry box',SLPLUS_PREFIX),
-                __('Hides the address entry box from the user.', SLPLUS_PREFIX) . $ppFeatureMsg,
-                SLPLUS_PREFIX,
-                !$this->parent->license->packages['Pro Pack']->isenabled
-                );
+                $this->CreateCheckboxDiv(
+                    '_use_location_sensor',
+                    __('Use location sensor', 'csl-slplus'),
+                    __('This turns on the location sensor (GPS) to set the default search address.  This can be slow to load and customers are prompted whether or not to allow location sensing.', 'csl-slplus') . $ppFeatureMsg,
+                    SLPLUS_PREFIX,
+                    !$this->parent->license->packages['Pro Pack']->isenabled
+                    ) .
 
-            $slpDescription .=$this->CreateCheckboxDiv(
-                '_use_location_sensor',
-                __('Use location sensor', SLPLUS_PREFIX),
-                __('This turns on the location sensor (GPS) to set the default search address.  This can be slow to load and customers are prompted whether or not to allow location sensing.', SLPLUS_PREFIX) . $ppFeatureMsg,
-                SLPLUS_PREFIX,
-                !$this->parent->license->packages['Pro Pack']->isenabled
-                );
+                $this->CreateCheckboxDiv(
+                    'sl_use_city_search',
+                    __('Show City Pulldown','csl-slplus'),
+                    __('Displays the city pulldown on the search form. It is built from the unique city names in your location list.','csl-slplus') . $ppFeatureMsg,
+                    '',
+                    !$this->parent->license->packages['Pro Pack']->isenabled
+                    ) .
 
-            $slpDescription .=$this->CreateCheckboxDiv(
-                'sl_use_city_search',
-                __('Show City Pulldown',SLPLUS_PREFIX),
-                __('Displays the city pulldown on the search form. It is built from the unique city names in your location list.',SLPLUS_PREFIX) . $ppFeatureMsg,
-                '',
-                !$this->parent->license->packages['Pro Pack']->isenabled
-                );
+                $this->CreateCheckboxDiv(
+                    'sl_use_country_search',
+                    __('Show Country Pulldown','csl-slplus'),
+                    __('Displays the country pulldown on the search form. It is built from the unique country names in your location list.','csl-slplus') . $ppFeatureMsg,
+                    '',
+                    !$this->parent->license->packages['Pro Pack']->isenabled
+                    ) .
 
-            $slpDescription .=$this->CreateCheckboxDiv(
-                'sl_use_country_search',
-                __('Show Country Pulldown',SLPLUS_PREFIX),
-                __('Displays the country pulldown on the search form. It is built from the unique country names in your location list.',SLPLUS_PREFIX) . $ppFeatureMsg,
-                '',
-                !$this->parent->license->packages['Pro Pack']->isenabled
-                );
+                $this->CreateCheckboxDiv(
+                    'slplus_show_state_pd',
+                    __('Show State Pulldown','csl-slplus'),
+                    __('Displays the state pulldown on the search form. It is built from the unique state names in your location list.','csl-slplus') . $ppFeatureMsg,
+                    '',
+                    !$this->parent->license->packages['Pro Pack']->isenabled
+                    ) .
 
-            $slpDescription .=$this->CreateCheckboxDiv(
-                'slplus_show_state_pd',
-                __('Show State Pulldown',SLPLUS_PREFIX),
-                __('Displays the state pulldown on the search form. It is built from the unique state names in your location list.',SLPLUS_PREFIX) . $ppFeatureMsg,
-                '',
-                !$this->parent->license->packages['Pro Pack']->isenabled
-                );
+                $this->CreateCheckboxDiv(
+                    '_disable_search',
+                    __('Hide Find Locations button','csl-slplus'),
+                    __('Remove the "Find Locations" button from the search form.', 'csl-slplus') . $ppFeatureMsg,
+                    SLPLUS_PREFIX,
+                    !$this->parent->license->packages['Pro Pack']->isenabled
+                    ) .
 
-            $slpDescription .=$this->CreateCheckboxDiv(
-                '_disable_search',
-                __('Hide Find Locations button',SLPLUS_PREFIX),
-                __('Remove the "Find Locations" button from the search form.', SLPLUS_PREFIX) . $ppFeatureMsg,
-                SLPLUS_PREFIX,
-                !$this->parent->license->packages['Pro Pack']->isenabled
-                );
-
-            $slpDescription .=$this->CreateCheckboxDiv(
-                '_disable_find_image',
-                __('Use Find Location Text Button',SLPLUS_PREFIX),
-                __('Use a standard text button for "Find Locations" instead of the provided button images.', SLPLUS_PREFIX) . $ppFeatureMsg,
-                SLPLUS_PREFIX
-                );
+                $this->CreateCheckboxDiv(
+                    '_disable_find_image',
+                    __('Use Find Location Text Button','csl-slplus'),
+                    __('Use a standard text button for "Find Locations" instead of the provided button images.', SLPLUS_PREFIX) . $ppFeatureMsg,
+                    SLPLUS_PREFIX,
+                    false,
+                    1
+                    )
+                    ;
 
             ob_start();
             do_action('slp_add_search_form_features_setting');
