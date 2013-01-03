@@ -260,6 +260,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.8.4 (January 2013) =
 
+* Fix remove credits not saving.
+* Fix an error in how Pro Pack was being loaded.  Unmatched } caused erratic behavior.
 * Fix a Pro Pack / Store Pages hook issue.
 
 = 3.8.3 (January 2013) =
