@@ -682,23 +682,25 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
           */
          function render_adminpage() {
              if (!$this->setParent()) { return; }
-             
-             // Save Settings
-             //
-             add_action('slp_save_map_settings',array($this,'save_settings') ,10);
-             
+
+            // Not a post
+            //
             if (!$_POST) {
+
+                // Plugin Activation
+                //
                 if (is_a($this->parent->Activate,'SLPlus_Activate')) {
                     $this->parent->Activate->move_upload_directories();
                 }
                 $update_msg ='';
+
+            // We Have a POST - Save Settings
+            //
             } else {
+                add_action('slp_save_map_settings',array($this,'save_settings') ,10);
                 do_action('slp_save_map_settings');
                 $update_msg = "<div class='highlight'>".__("Successful Update", SLPLUS_PREFIX).'</div>';
             }
-
-            //---------------------------
-            //
             $this->parent->AdminUI->initialize_variables();
 
             /**
