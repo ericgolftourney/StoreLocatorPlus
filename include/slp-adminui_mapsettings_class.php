@@ -699,7 +699,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             } else {
                 add_action('slp_save_map_settings',array($this,'save_settings') ,10);
                 do_action('slp_save_map_settings');
-                $update_msg = "<div class='highlight'>".__("Successful Update", SLPLUS_PREFIX).'</div>';
+                $update_msg = "<div class='highlight'>".__('Successful Update', 'csl-slplus').'</div>';
             }
             $this->parent->AdminUI->initialize_variables();
 
@@ -786,17 +786,16 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             //------------------------------------
             // Create The Search Form Settings Panel
             //
-            add_action('slp_build_map_settings_panels',array($this->parent->AdminUI->MapSettings,'search_form_settings') ,10);
-            add_action('slp_build_map_settings_panels',array($this->parent->AdminUI->MapSettings,'map_settings')         ,20);
-            add_action('slp_build_map_settings_panels',array($this->parent->AdminUI->MapSettings,'results_settings')     ,30);
-
+            add_action('slp_build_map_settings_panels',array($this,'search_form_settings') ,10);
+            add_action('slp_build_map_settings_panels',array($this,'map_settings')         ,20);
+            add_action('slp_build_map_settings_panels',array($this,'results_settings')     ,30);
 
             //------------------------------------
             // Render It
             //
             print $update_msg;
             do_action('slp_build_map_settings_panels');
-            $this->parent->AdminUI->MapSettings->settings->render_settings_page();
+            $this->settings->render_settings_page();
         }
 
          /**
