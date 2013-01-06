@@ -465,7 +465,9 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 //
                 $slpDescription =
                     "<div class='section_column_content'>" .
-                    '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Dimensions',SLPLUS_PREFIX).'</strong></p>' .
+
+                    $this->CreateSubheadingLabel(__('Dimensions','csl-slplus')) .
+
                     $this->CreatePulldownDiv(
                         'sl_zoom_level',
                         array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19),
@@ -474,6 +476,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                         '',
                         4
                         ) .
+
                     $this->CreatePulldownDiv(
                         'sl_zoom_tweak',
                         array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19),
@@ -482,11 +485,17 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                         '',
                         4
                         ) .
-                    "<div class='form_entry'>" .
-                    "<label for='height'>".__("Map Height", SLPLUS_PREFIX).":</label>" .
-                    "<input name='height' value='$sl_height' class='small'>&nbsp;" .
+
+                    $this->CreateInputDiv(
+                        'sl_map_height',
+                        __('Map Height','csl-slplus'),
+                        __('The initial map height in pixels or percent of initial page height.','csl-slplus'),
+                        '',
+                        '480'
+                        ) .
+
                     $this->render_unit_selector($sl_height_units, "height_units") .
-                    "</div>" .
+
                     "<div class='form_entry'>" .
                     "<label for='height'>".__("Map Width", SLPLUS_PREFIX).":</label>" .
                     "<input name='width' value='$sl_width' class='small'>&nbsp;" .
