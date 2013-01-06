@@ -412,7 +412,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                         0
                         ).
 
-                $slplus_plugin->AdminUI->MapSettings->CreateInputDiv(
+                $this->CreateInputDiv(
                         'sl_num_initial_displayed',
                         __('Number To Show Initially','csl-slplus'),
                         __('How many locations should be shown when Immediately Show Locations is checked.  Recommended maximum is 50.','csl-slplus'),
@@ -424,13 +424,13 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 //
                 if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
                         $slpDescription .=
-                            $slplus_plugin->AdminUI->MapSettings->CreateInputDiv(
+                            $this->CreateInputDiv(
                                 'sl_starting_image',
                                 __('Starting Image',SLPLUS_PREFIX),
                                 __('If set, this image will be displayed until a search is performed.  Enter the full URL for the image.',SLPLUS_PREFIX),
                                 ''
                                 ) .
-                            $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
+                            $this->CreateCheckboxDiv(
                                 '_disable_initialdirectory',
                                 __('Disable Initial Directory',SLPLUS_PREFIX),
                                 __('Do not display the listings under the map when "immediately show locations" is checked.', SLPLUS_PREFIX)
@@ -444,7 +444,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     "<label for='google_map_domain'>". __("Map Domain", SLPLUS_PREFIX) . "</label>" .
                     "<select name='google_map_domain'>"
                     ;
-                foreach ($slplus_plugin->AdminUI->MapSettings->get_map_domains() as $key=>$sl_value) {
+                foreach ($this->get_map_domains() as $key=>$sl_value) {
                     $selected=(get_option('sl_google_map_domain')==$sl_value)?" selected " : "";
                     $slpDescription .= "<option value='$key:$sl_value' $selected>$key ($sl_value)</option>\n";
                 }
@@ -454,7 +454,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     "<label for='sl_map_character_encoding'>".__('Character Encoding', SLPLUS_PREFIX)."</label>" .
                     "<select name='sl_map_character_encoding'>"
                     ;
-                foreach ($slplus_plugin->AdminUI->MapSettings->get_map_encodings() as $key=>$sl_value) {
+                foreach ($this->get_map_encodings() as $key=>$sl_value) {
                     $selected=(get_option('sl_map_character_encoding')==$sl_value)?" selected " : "";
                     $slpDescription .= "<option value='$sl_value' $selected>$key</option>\n";
                 }
@@ -466,7 +466,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 $slpDescription =
                     "<div class='section_column_content'>" .
                     '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Dimensions',SLPLUS_PREFIX).'</strong></p>' .
-                    $slplus_plugin->AdminUI->MapSettings->CreatePulldownDiv(
+                    $this->CreatePulldownDiv(
                         'sl_zoom_level',
                         array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19),
                         __('Zoom Level', SLPLUS_PREFIX),
@@ -474,7 +474,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                         '',
                         4
                         ) .
-                    $slplus_plugin->AdminUI->MapSettings->CreatePulldownDiv(
+                    $this->CreatePulldownDiv(
                         'sl_zoom_tweak',
                         array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19),
                         __('Zoom Adjustment', SLPLUS_PREFIX),
@@ -485,15 +485,15 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     "<div class='form_entry'>" .
                     "<label for='height'>".__("Map Height", SLPLUS_PREFIX).":</label>" .
                     "<input name='height' value='$sl_height' class='small'>&nbsp;" .
-                    $slplus_plugin->AdminUI->MapSettings->render_unit_selector($sl_height_units, "height_units") .
+                    $this->render_unit_selector($sl_height_units, "height_units") .
                     "</div>" .
                     "<div class='form_entry'>" .
                     "<label for='height'>".__("Map Width", SLPLUS_PREFIX).":</label>" .
                     "<input name='width' value='$sl_width' class='small'>&nbsp;" .
-                    $slplus_plugin->AdminUI->MapSettings->render_unit_selector($sl_width_units, "width_units") .
+                    $this->render_unit_selector($sl_width_units, "width_units") .
                     "</div>" .
                     '<p class="slp_admin_info" style="clear:both;"><strong>'.__('General',SLPLUS_PREFIX).'</strong></p>' .
-                    $slplus_plugin->AdminUI->MapSettings->CreatePulldownDiv(
+                    $this->CreatePulldownDiv(
                         'sl_map_type',
                         array('roadmap','hybrid','satellite','terrain'),
                         __('Default Map Type', SLPLUS_PREFIX),
@@ -507,35 +507,35 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 //
                 if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
                     $slpDescription .=
-                        $slplus_plugin->AdminUI->MapSettings->CreateTextAreaDiv(
+                        $this->CreateTextAreaDiv(
                                 SLPLUS_PREFIX.'_map_center',
                                 __('Center Map At',SLPLUS_PREFIX),
                                 __('Enter an address to serve as the initial focus for the map. Default is the center of the country.',SLPLUS_PREFIX),
                                 ''
                                 ) .
                         '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Controls',SLPLUS_PREFIX).'</strong></p>' .
-                        $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
+                        $this->CreateCheckboxDiv(
                             'sl_map_overview_control',
                             __('Show Map Inset Box',SLPLUS_PREFIX),
                             __('When checked the map inset is shown.', SLPLUS_PREFIX),
                             ''
                             ) .
-                        $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
+                        $this->CreateCheckboxDiv(
                             '_disable_scrollwheel',
                             __('Disable Scroll Wheel',SLPLUS_PREFIX),
                             __('Disable the scrollwheel zoom on the maps interface.', SLPLUS_PREFIX)
                             ) .
-                        $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
+                        $this->CreateCheckboxDiv(
                             '_disable_largemapcontrol3d',
                             __('Hide map 3d control',SLPLUS_PREFIX),
                             __('Turn the large map 3D control off.', SLPLUS_PREFIX)
                             ) .
-                        $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
+                        $this->CreateCheckboxDiv(
                             '_disable_scalecontrol',
                             __('Hide map scale',SLPLUS_PREFIX),
                             __('Turn the map scale off.', SLPLUS_PREFIX)
                             ) .
-                        $slplus_plugin->AdminUI->MapSettings->CreateCheckboxDiv(
+                        $this->CreateCheckboxDiv(
                             '_disable_maptypecontrol',
                             __('Hide map type',SLPLUS_PREFIX),
                             __('Turn the map type selector off.', SLPLUS_PREFIX)
