@@ -272,17 +272,16 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 update_option('sl_google_map_country', $sl_google_map_arr[0]);
                 update_option('sl_google_map_domain', $sl_google_map_arr[1]);
 
+                // Height, strip non-digits, if % set range 0..100
                 $_POST['sl_map_height']=preg_replace('/[^0-9]/', '', $_POST['sl_map_height']);
-                $_POST['sl_map_width'] =preg_replace('/[^0-9]/', '', $_POST['sl_map_width']);
-
-                // Height if % set range 0..100
-                if ($_POST['height_units'] == '%') {
-                    $_POST['height'] = max(0,min($_POST['height'],100));
+                if ($_POST['sl_map_height_units'] == '%') {
+                    $_POST['sl_map_height'] = max(0,min($_POST['sl_map_height'],100));
                 }
 
-                // Width if % set range 0..100
-                if ($_POST['width_units'] == '%') {
-                    $_POST['width'] = max(0,min($_POST['width'],100));
+                // Width, strip non-digtis, if % set range 0..100
+                $_POST['sl_map_width'] =preg_replace('/[^0-9]/', '', $_POST['sl_map_width']);
+                if ($_POST['slp_map_width_units'] == '%') {
+                    $_POST['sl_map_width'] = max(0,min($_POST['sl_map_width'],100));
                 }
 
                 // Standard Input Saves
@@ -371,8 +370,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
           *
           */
          function map_settings() {
-            global $sl_height_units,$sl_width_units;
-
             $this->plugin->helper->loadPluginData();
 
             $slplus_message = ($this->plugin->license->packages['Pro Pack']->isenabled) ?
@@ -498,7 +495,14 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                         '480'
                         ) .
 
-                    $this->render_unit_selector($sl_height_units, "height_units") .
+                    $this->CreatePulldownDiv(
+                        'sl_map_height_units',
+                        array('%','px','em','pt'),
+                        __('Height Units','csl-slplus'),
+                        __('Is the width a percentage of page width or absolute pixel size?','csl-slplus'),
+                        '',
+                        'px'
+                        ) .
 
                     $this->CreateInputDiv(
                         'sl_map_width',
@@ -508,7 +512,14 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                         '640'
                         ) .
 
-                    $this->render_unit_selector($sl_width_units, "width_units") .
+                    $this->CreatePulldownDiv(
+                        'sl_map_width_units',
+                        array('%','px','em','pt'),
+                        __('Width Units','csl-slplus'),
+                        __('Is the width a percentage of page width or absolute pixel size?','csl-slplus'),
+                        '',
+                        '%'
+                        ) .
 
                     $this->CreateSubheadingLabel(__('General','csl-slplus')) .
 
@@ -570,17 +581,19 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             $slpDescription =
                         $this->parent->data['iconNotice'] .
                         "<div class='form_entry'>".
-                            "<label for='icon'>".__('Home Icon', SLPLUS_PREFIX)."</label>".
-                            "<input id='icon' name='icon' dir='rtl' size='45' value='".$this->parent->data['homeicon']."' ".
+                            "<label for='sl_map_home_icon'>".__('Home Icon', SLPLUS_PREFIX)."</label>".
+                            "<input id='sl_map_home_icon' name='sl_map_home_icon' dir='rtl' size='45' ".
+                                    "value='".$this->parent->data['sl_map_home_icon']."' ".
                                     'onchange="document.getElementById(\'prev\').src=this.value">'.
-                            "<img id='prev' src='".$this->parent->data['homeicon']."' align='top'><br/>".
+                            "<img id='home_icon_preview' src='".$this->parent->data['sl_map_home_icon']."' align='top'><br/>".
                             $this->parent->data['homeIconPicker'].
                         "</div>".
                         "<div class='form_entry'>".
-                            "<label for='icon2'>".__('Destination Icon', SLPLUS_PREFIX)."</label>".
-                            "<input id='icon2' name='icon2' dir='rtl' size='45' value='".$this->parent->data['endicon']."' ".
+                            "<label for='sl_map_end_icon'>".__('Destination Icon', SLPLUS_PREFIX)."</label>".
+                            "<input id='sl_map_end_icon' name='sl_map_end_icon' dir='rtl' size='45' ".
+                                "value='".$this->parent->data['sl_map_end_icon']."' ".
                                 'onchange="document.getElementById(\'prev2\').src=this.value">'.
-                            "<img id='prev2' src='".$this->parent->data['endicon']."'align='top'><br/>".
+                            "<img id='end_icon_preview' src='".$this->parent->data['sl_map_end_icon']."'align='top'><br/>".
                             $this->parent->data['endIconPicker']
                 ;
             $mapSettings['icons'] = apply_filters('slp_map_icons_settings',$slpDescription);
@@ -610,8 +623,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 "</div>"
                 ;
 
-
-
             $this->settings->add_section(
                 array(
                         'name'          => __('Map',SLPLUS_PREFIX),
@@ -620,24 +631,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     )
              );
          }
-
-         /**
-          *Render the HTML for the map size units pulldown (%,px,em,pt)
-          *
-          * @param string $unit
-          * @param string $input_name
-          * @return string HTML for the pulldown
-          */
-        function render_unit_selector($unit, $input_name) {
-            $unit_arr     = array('%','px','em','pt');
-            $select_field = "<select name='$input_name'>";
-            foreach ($unit_arr as $sl_value) {
-                $selected=($sl_value=="$unit")? " selected='selected' " : "" ;
-                $select_field.="\n<option value='$sl_value' $selected>$sl_value</option>";
-            }
-            $select_field.="</select>";
-            return  $select_field;
-        }
 
          /**
           * Return the list of Google map domains.
@@ -759,39 +752,37 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
              * @see http://goo.gl/UAXly - siteURL - get_site_url() WordPress call
              */
             if (!isset($this->parent->data['homeIconPicker'] )) {
-                $this->parent->data['homeIconPicker'] = $this->parent->AdminUI->rendorIconSelector('icon','prev');
+                $this->parent->data['homeIconPicker'] = $this->parent->AdminUI->rendorIconSelector('sl_map_home_icon','home_icon_preview');
             }
             if (!isset($this->parent->data['endIconPicker'] )) {
-                $this->parent->data['endIconPicker'] = preg_replace('/\.icon\.value/','.icon2.value',$this->parent->data['homeIconPicker']);
-                $this->parent->data['endIconPicker'] = preg_replace('/getElementById\("prev"\)/','getElementById("prev2")',$this->parent->data['endIconPicker']);
-                $this->parent->data['endIconPicker'] = preg_replace('/getElementById\("icon"\)/','getElementById("icon2")',$this->parent->data['endIconPicker']);
+                $this->parent->data['endIconPicker'] = $this->parent->AdminUI->rendorIconSelector('sl_map_end_icon','end_icon_preview');
             }
 
             // Icon is the old path, notify them to re-select
             //
             $this->parent->data['iconNotice'] = '';
             if (!isset($this->parent->data['siteURL'] )) { $this->parent->data['siteURL']  = get_site_url();                  }
-            if (!(strpos($this->parent->data['homeicon'],'http')===0)) {
-                $this->parent->data['homeicon'] = $this->parent->data['siteURL']. $this->parent->data['homeicon'];
+            if (!(strpos($this->parent->data['sl_map_home_icon'],'http')===0)) {
+                $this->parent->data['sl_map_home_icon'] = $this->parent->data['siteURL']. $this->parent->data['sl_map_home_icon'];
             }
-            if (!(strpos($this->parent->data['endicon'],'http')===0)) {
-                $this->parent->data['endicon'] = $this->parent->data['siteURL']. $this->parent->data['endicon'];
+            if (!(strpos($this->parent->data['sl_map_end_icon'],'http')===0)) {
+                $this->parent->data['sl_map_end_icon'] = $this->parent->data['siteURL']. $this->parent->data['sl_map_end_icon'];
             }
-            if (!$this->parent->helper->webItemExists($this->parent->data['homeicon'])) {
+            if (!$this->parent->helper->webItemExists($this->parent->data['sl_map_home_icon'])) {
                 $this->parent->data['iconNotice'] .=
                     sprintf(
                             __('Your home icon %s cannot be located, please select a new one.', 'csl-slplus'),
-                            $this->parent->data['homeicon']
+                            $this->parent->data['sl_map_home_icon']
                             )
                             .
                     '<br/>'
                     ;
             }
-            if (!$this->parent->helper->webItemExists($this->parent->data['endicon'])) {
+            if (!$this->parent->helper->webItemExists($this->parent->data['sl_map_end_icon'])) {
                 $this->parent->data['iconNotice'] .=
                     sprintf(
                             __('Your destination icon %s cannot be located, please select a new one.', 'csl-slplus'),
-                            $this->parent->data['endicon']
+                            $this->parent->data['sl_map_end_icon']
                             )
                             .
                     '<br/>'

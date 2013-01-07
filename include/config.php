@@ -30,12 +30,36 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'data'                  => array(),
             'dataElements'          =>
                 array(
-                      array('endicon'       ,'get_option'   ,array('sl_map_end_icon'    ,SLPLUS_ICONURL.'a_marker_azure.png')   ),
-                      array('homeicon'      ,'get_option'   ,array('sl_map_home_icon'   ,SLPLUS_ICONURL.'sign_yellow_home.png') ),
-                      array('sl_map_height' ,'get_option'   ,array('sl_map_height'      ,'480')                                 ),
-                      array('sl_map_width'  ,'get_option'   ,array('sl_map_width'       ,'100')                                 ),
-                      array('theme'         ,'get_item'     ,array('theme'              ,'default')                             ),
-                    ),
+                      array(
+                        'sl_map_end_icon'                   ,
+                        'get_option'                ,
+                        array('sl_map_end_icon'         ,SLPLUS_ICONURL.'a_marker_azure.png'    )
+                      ),
+                      array('sl_map_home_icon'              ,
+                          'get_option'              ,
+                          array('sl_map_home_icon'      ,SLPLUS_ICONURL.'sign_yellow_home.png'  )
+                      ),
+                      array('sl_map_height'         ,
+                          'get_option'              ,
+                          array('sl_map_height'         ,'480'                                  )
+                      ),
+                      array('sl_map_height_units'   ,
+                          'get_option'              ,
+                          array('sl_map_height_units'   ,'px'                                   )
+                      ),
+                      array('sl_map_width'          ,
+                          'get_option'              ,
+                          array('sl_map_width'          ,'100'                                  )
+                      ),
+                      array('sl_map_width_units'    ,
+                          'get_option'              ,
+                          array('sl_map_width_units'    ,'%'                                    )
+                      ),
+                      array('theme'                 ,
+                          'get_item'                ,
+                          array('theme'                 ,'default'                              )
+                      ),
+                ),
 
             // We don't want default wpCSL objects, let's set our own
             //

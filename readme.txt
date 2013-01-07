@@ -258,15 +258,21 @@ Visit the [Store Locator Plus Release Notes page](http://www.charlestonsw.com/su
 
 I was listing the entire change log here but with weekly/bi-weekly updates it as getting much too long.
 
-= 3.8.6 (January 2013) =
+= 3.8.6 (January 7th 2013) =
 
-* Fix save map height/width settings.
+* Fix save map height.
+* Fix save map height units.
+* Fix save map width.
+* Fix save map width units.
+* Fix home marker saving.
+* Fix end marker saving.
+* Add azure_chrome marker.
 
-= 3.8.5 (January 2013) =
+= 3.8.5 (January 3rd 2013) =
 
 * Fix bug in store pages syntax error in slp-pages.php on line 310.
 
-= 3.8.4 (January 2013) =
+= 3.8.4 (January 1st 2013) =
 
 * Fix remove credits not saving.
 * Fix an error in how Pro Pack was being loaded.  Unmatched } caused erratic behavior.

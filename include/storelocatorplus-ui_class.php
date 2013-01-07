@@ -160,8 +160,6 @@ if (! class_exists('SLPlus_UI')) {
          * @global type $wpdb
          * @global type $slplus_plugin
          * @global type $sl_search_label
-         * @global type $sl_width_units
-         * @global type $sl_height_units
          * @global type $sl_radius_label
          * @global type $r_options
          * @global type $cs_options
@@ -173,8 +171,7 @@ if (! class_exists('SLPlus_UI')) {
          */
          function render_shortcode($attributes, $content = null) {
             global  $wpdb, $slplus_plugin,
-                $sl_search_label, $sl_width_units, $sl_height_units,
-                $sl_radius_label, $r_options, $cs_options,
+                $sl_search_label, $sl_radius_label, $r_options, $cs_options,
                 $sl_country_options, $slplus_state_options;
 
 
@@ -190,10 +187,8 @@ if (! class_exists('SLPlus_UI')) {
                     (array) $attributes
                 );
 
-            $sl_height_units   = get_option('sl_map_height_units','px');
             $sl_search_label   = get_option('sl_search_label',__('Address',SLPLUS_PREFIX));
             $unit_display      = get_option('sl_distance_unit','mi');
-            $sl_width_units    = get_option('sl_map_width_units','%');
 
             $r_options      =(isset($r_options)         ?$r_options      :'');
             $cs_options     =(isset($cs_options)        ?$cs_options     :'');
@@ -291,8 +286,8 @@ if (! class_exists('SLPlus_UI')) {
             if (!$this->setPlugin()) { return false; }
             $this->plugin->helper->loadPluginData();
 
-            $slplus_home_icon_file = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$this->plugin->data['homeicon']);
-            $slplus_end_icon_file  = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$this->plugin->data['endicon']);
+            $slplus_home_icon_file = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$this->plugin->data['sl_map_home_icon']);
+            $slplus_end_icon_file  = str_replace(SLPLUS_ICONURL,SLPLUS_ICONDIR,$this->plugin->data['sl_map_end_icon']);
             $this->plugin->data['home_size'] =(function_exists('getimagesize') && file_exists($slplus_home_icon_file))?
                 getimagesize($slplus_home_icon_file) :
                 array(0 => 20, 1 => 34);
@@ -319,10 +314,10 @@ if (! class_exists('SLPlus_UI')) {
                 'map_3dcontrol'     => (get_option(SLPLUS_PREFIX.'_disable_largemapcontrol3d')==0),
                 'map_country'       => $this->plugin->Actions->SetMapCenter(),
                 'map_domain'        => get_option('sl_google_map_domain','maps.google.com'),
-                'map_home_icon'     => $this->plugin->data['homeicon'],
+                'map_home_icon'     => $this->plugin->data['sl_map_home_icon'],
                 'map_home_sizew'    => $this->plugin->data['home_size'][0],
                 'map_home_sizeh'    => $this->plugin->data['home_size'][1],
-                'map_end_icon'      => $this->plugin->data['endicon'],
+                'map_end_icon'      => $this->plugin->data['sl_map_end_icon'],
                 'map_end_sizew'     => $this->plugin->data['end_size'][0],
                 'map_end_sizeh'     => $this->plugin->data['end_size'][1],
                 'use_sensor'        => (get_option(SLPLUS_PREFIX."_use_location_sensor",0)==1),
@@ -465,7 +460,7 @@ if (! class_exists('SLPlus_UI')) {
          *
          */
         function render_the_map() {
-            global $sl_width_units, $sl_height_units, $slplus_plugin;
+            global $slplus_plugin;
 
              $slplus_plugin->helper->loadPluginData();
 
@@ -488,12 +483,16 @@ if (! class_exists('SLPlus_UI')) {
                     ;
 
                 $content .=
-                    "<div id='map_box_image' " .
-                        "style='".
-                            "width:". $slplus_plugin->data['sl_map_width']."$sl_width_units; ".
-                            "height:". $slplus_plugin->data['sl_map_height']."$sl_height_units;".
-                        "'".
-                    ">" .
+                    '<div id="map_box_image" ' .
+                        'style="'.
+                            "width:". $slplus_plugin->data['sl_map_width'].
+                                      $slplus_plugin->data['sl_map_width_units'] .
+                                      ';'.
+                            "height:".$slplus_plugin->data['sl_map_height'].
+                                      $slplus_plugin->data['sl_map_height_units'].
+                                      ';'.
+                        '"'.
+                    '>'.
                     "<img src='$startingImage'>".
                     '</div>' .
                     '<div id="map_box_map">'
@@ -503,20 +502,33 @@ if (! class_exists('SLPlus_UI')) {
             // The Map Div
             //
             $content .=
-                "<div id='map' ".
-                    "style='width:". $slplus_plugin->data['sl_map_width']."$sl_width_units;" .
-                    "height:". $slplus_plugin->data['sl_map_height']."$sl_height_units;'>".
+                '<div id="map" ' .
+                    'style="'.
+                        "width:". $slplus_plugin->data['sl_map_width'].
+                                  $slplus_plugin->data['sl_map_width_units'] .
+                                  ';'.
+                        "height:".$slplus_plugin->data['sl_map_height'].
+                                  $slplus_plugin->data['sl_map_height_units'].
+                                  ';'.
+                    '"'.
+                '>'.
                 '</div>'
                 ;
 
             // Credits Line
             if (!(get_option('sl_remove_credits',0)==1)) {
                 $content .=
-                    "<div id='slp_tagline'style='width:". $slplus_plugin->data['sl_map_width']."$sl_width_units;'>" .
-                        __('search provided by', 'csl-slplus') .
-                        "<a href='". $slplus_plugin->url."' target='_blank'>".
-                             $slplus_plugin->name.
-                        "</a>".
+                    '<div id="slp_tagline" ' .
+                        'style="'.
+                            "width:". $slplus_plugin->data['sl_map_width'].
+                                      $slplus_plugin->data['sl_map_width_units'] .
+                                      ';'.
+                        '"'.
+                    '>'.
+                    __('search provided by', 'csl-slplus') .
+                    "<a href='". $slplus_plugin->url."' target='_blank'>".
+                         $slplus_plugin->name.
+                    "</a>".
                     '</div>'
                     ;
             }
