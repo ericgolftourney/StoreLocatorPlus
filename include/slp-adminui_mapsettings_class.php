@@ -272,8 +272,8 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 update_option('sl_google_map_country', $sl_google_map_arr[0]);
                 update_option('sl_google_map_domain', $sl_google_map_arr[1]);
 
-                $_POST['height']=preg_replace('/[^0-9]/', '', $_POST['height']);
-                $_POST['width'] =preg_replace('/[^0-9]/', '', $_POST['width']);
+                $_POST['sl_map_height']=preg_replace('/[^0-9]/', '', $_POST['sl_map_height']);
+                $_POST['sl_map_width'] =preg_replace('/[^0-9]/', '', $_POST['sl_map_width']);
 
                 // Height if % set range 0..100
                 if ($_POST['height_units'] == '%') {
@@ -371,7 +371,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
           *
           */
          function map_settings() {
-            global $sl_height_units,$sl_width,$sl_width_units;
+            global $sl_height_units,$sl_width_units;
 
             $this->plugin->helper->loadPluginData();
 
@@ -500,12 +500,18 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
                     $this->render_unit_selector($sl_height_units, "height_units") .
 
-                    "<div class='form_entry'>" .
-                    "<label for='height'>".__("Map Width", SLPLUS_PREFIX).":</label>" .
-                    "<input name='width' value='$sl_width' class='small'>&nbsp;" .
+                    $this->CreateInputDiv(
+                        'sl_map_width',
+                        __('Map Width','csl-slplus'),
+                        __('The initial map width in pixels or percent of page width. Also sets results width.','csl-slplus'),
+                        '',
+                        '640'
+                        ) .
+
                     $this->render_unit_selector($sl_width_units, "width_units") .
-                    "</div>" .
-                    '<p class="slp_admin_info" style="clear:both;"><strong>'.__('General',SLPLUS_PREFIX).'</strong></p>' .
+
+                    $this->CreateSubheadingLabel(__('General','csl-slplus')) .
+
                     $this->CreatePulldownDiv(
                         'sl_map_type',
                         array('roadmap','hybrid','satellite','terrain'),

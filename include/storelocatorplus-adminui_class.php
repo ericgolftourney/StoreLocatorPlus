@@ -427,7 +427,6 @@ if (! class_exists('SLPlus_AdminUI')) {
 
         /**
          *
-         * @global type $sl_width
          * @global type $sl_width_units
          * @global type $sl_height_units
          * @global type $sl_google_map_domain
@@ -445,7 +444,7 @@ if (! class_exists('SLPlus_AdminUI')) {
          * @global type $sl_map_overview_control
          */
         function initialize_variables() {
-            global $sl_width, $sl_width_units, $sl_height_units;
+            global $sl_width_units, $sl_height_units;
             global $sl_google_map_domain, $sl_google_map_country, $sl_location_table_view;
             global $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_name_search;
             global $sl_radius_label, $sl_website_label, $sl_num_initial_displayed, $sl_load_locations_default;
@@ -523,16 +522,11 @@ if (! class_exists('SLPlus_AdminUI')) {
                 $sl_google_map_domain="maps.google.com";
                 add_option('sl_google_map_domain', $sl_google_map_domain);
             }
+
             $sl_height_units=get_option('sl_map_height_units');
             if (empty($sl_height_units)) {
                 add_option('sl_map_height_units', "px");
                 $sl_height_units=get_option('sl_map_height_units');
-                }
-
-            $sl_width=get_option('sl_map_width');
-            if (empty($sl_width)) {
-                add_option('sl_map_width', "100");
-                $sl_width=get_option('sl_map_width');
                 }
 
             $sl_width_units=get_option('sl_map_width_units');

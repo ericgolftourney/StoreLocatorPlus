@@ -160,7 +160,6 @@ if (! class_exists('SLPlus_UI')) {
          * @global type $wpdb
          * @global type $slplus_plugin
          * @global type $sl_search_label
-         * @global type $sl_width
          * @global type $sl_width_units
          * @global type $sl_height_units
          * @global type $sl_radius_label
@@ -174,7 +173,7 @@ if (! class_exists('SLPlus_UI')) {
          */
          function render_shortcode($attributes, $content = null) {
             global  $wpdb, $slplus_plugin,
-                $sl_search_label, $sl_width, $sl_width_units, $sl_height_units,
+                $sl_search_label, $sl_width_units, $sl_height_units,
                 $sl_radius_label, $r_options, $cs_options,
                 $sl_country_options, $slplus_state_options;
 
@@ -194,7 +193,6 @@ if (! class_exists('SLPlus_UI')) {
             $sl_height_units   = get_option('sl_map_height_units','px');
             $sl_search_label   = get_option('sl_search_label',__('Address',SLPLUS_PREFIX));
             $unit_display      = get_option('sl_distance_unit','mi');
-            $sl_width          = get_option('sl_map_width','100');
             $sl_width_units    = get_option('sl_map_width_units','%');
 
             $r_options      =(isset($r_options)         ?$r_options      :'');
@@ -467,7 +465,7 @@ if (! class_exists('SLPlus_UI')) {
          *
          */
         function render_the_map() {
-            global $sl_width, $sl_width_units, $sl_height_units, $slplus_plugin;
+            global $sl_width_units, $sl_height_units, $slplus_plugin;
 
              $slplus_plugin->helper->loadPluginData();
 
@@ -491,7 +489,11 @@ if (! class_exists('SLPlus_UI')) {
 
                 $content .=
                     "<div id='map_box_image' " .
-                        "style='width:$sl_width$sl_width_units; height:". $slplus_plugin->data['sl_map_height']."$sl_height_units;'>" .
+                        "style='".
+                            "width:". $slplus_plugin->data['sl_map_width']."$sl_width_units; ".
+                            "height:". $slplus_plugin->data['sl_map_height']."$sl_height_units;".
+                        "'".
+                    ">" .
                     "<img src='$startingImage'>".
                     '</div>' .
                     '<div id="map_box_map">'
@@ -502,14 +504,15 @@ if (! class_exists('SLPlus_UI')) {
             //
             $content .=
                 "<div id='map' ".
-                    "style='width:$sl_width$sl_width_units; height:". $slplus_plugin->data['sl_map_height']."$sl_height_units;'>".
+                    "style='width:". $slplus_plugin->data['sl_map_width']."$sl_width_units;" .
+                    "height:". $slplus_plugin->data['sl_map_height']."$sl_height_units;'>".
                 '</div>'
                 ;
 
             // Credits Line
             if (!(get_option('sl_remove_credits',0)==1)) {
                 $content .=
-                    "<div id='slp_tagline'style='width:$sl_width$sl_width_units;'>" .
+                    "<div id='slp_tagline'style='width:". $slplus_plugin->data['sl_map_width']."$sl_width_units;'>" .
                         __('search provided by', 'csl-slplus') .
                         "<a href='". $slplus_plugin->url."' target='_blank'>".
                              $slplus_plugin->name.

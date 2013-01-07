@@ -33,7 +33,8 @@ if (defined('SLPLUS_PLUGINDIR')) {
                       array('endicon'       ,'get_option'   ,array('sl_map_end_icon'    ,SLPLUS_ICONURL.'a_marker_azure.png')   ),
                       array('homeicon'      ,'get_option'   ,array('sl_map_home_icon'   ,SLPLUS_ICONURL.'sign_yellow_home.png') ),
                       array('sl_map_height' ,'get_option'   ,array('sl_map_height'      ,'480')                                 ),
-                      array('theme'         ,'get_item'     ,array('theme','default')                                           ),
+                      array('sl_map_width'  ,'get_option'   ,array('sl_map_width'       ,'100')                                 ),
+                      array('theme'         ,'get_item'     ,array('theme'              ,'default')                             ),
                     ),
 
             // We don't want default wpCSL objects, let's set our own
