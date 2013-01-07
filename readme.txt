@@ -266,7 +266,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Fix save map width units.
 * Fix home marker saving.
 * Fix end marker saving.
-* Add azure_chrome marker.
+* Clean up the map marker icon set.
+* Save icons/images/languages now go in ./wp-content/uploads/slp/
 
 = 3.8.5 (January 3rd 2013) =
 
