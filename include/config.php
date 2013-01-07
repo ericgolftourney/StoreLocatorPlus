@@ -33,11 +33,11 @@ if (defined('SLPLUS_PLUGINDIR')) {
                       array(
                         'sl_map_end_icon'                   ,
                         'get_option'                ,
-                        array('sl_map_end_icon'         ,SLPLUS_ICONURL.'a_marker_azure.png'    )
+                        array('sl_map_end_icon'         ,SLPLUS_ICONURL.'bulb_azure.png'    )
                       ),
                       array('sl_map_home_icon'              ,
                           'get_option'              ,
-                          array('sl_map_home_icon'      ,SLPLUS_ICONURL.'sign_yellow_home.png'  )
+                          array('sl_map_home_icon'      ,SLPLUS_ICONURL.'box_yellow_home.png'  )
                       ),
                       array('sl_map_height'         ,
                           'get_option'              ,

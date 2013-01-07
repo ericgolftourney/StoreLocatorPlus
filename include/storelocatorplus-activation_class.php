@@ -241,10 +241,23 @@ if (! class_exists('SLPlus_Activate')) {
             return true;
         }
 
+        /**
+         * Delete all files in a directory, non-recursive.
+         * 
+         * @param type $dirname
+         * @param type $filepattern
+         * @return type
+         */
+        function emptydir($dirname=null, $filepattern='*') {
+           if ($dirname === null) { return; }
+           array_map('unlink', glob($dirname.$filepattern));
+        }
+
         /*************************************
          * Copy language and image files to wp-content/uploads/sl-uploads for safekeeping.
          */
         function save_important_files() {
+            $allOK = true;
 
             // Make the upload director(ies)
             //
@@ -264,20 +277,22 @@ if (! class_exists('SLPlus_Activate')) {
             // Copy core language files to languages save location
             //
             if (is_dir(SLPLUS_COREDIR. "languages") && is_dir(SLPLUS_UPLOADDIR . "languages")) {
-                $this->copyr(SLPLUS_COREDIR . "languages", SLPLUS_UPLOADDIR . "languages");
+                $allOK = $allOK && $this->copyr(SLPLUS_COREDIR . "languages", SLPLUS_UPLOADDIR . "languages");
             }
 
             // Copy ./images/icons to custom-icons save loation
             //
             if (is_dir(SLPLUS_PLUGINDIR . "/images/icons") && is_dir(SLPLUS_UPLOADDIR . "saved-icons")) {
-                $this->copyr(SLPLUS_PLUGINDIR . "/images/icons", SLPLUS_UPLOADDIR . "saved-icons");
+                $allOK = $allOK && $this->copyr(SLPLUS_PLUGINDIR . "/images/icons", SLPLUS_UPLOADDIR . "saved-icons");
             }
 
             // Copy core images to images save location
             //
             if (is_dir(SLPLUS_COREDIR . "images/icons") && is_dir(SLPLUS_UPLOADDIR . "saved-icons")) {
-                $this->copyr(SLPLUS_COREDIR . "images/icons", SLPLUS_UPLOADDIR . "saved-icons");
+                $allOK = $allOK && $this->copyr(SLPLUS_COREDIR . "images/icons", SLPLUS_UPLOADDIR . "saved-icons");
             }
+
+            return $allOK;
         }
         
         /*************************************
@@ -312,7 +327,7 @@ if (! class_exists('SLPlus_Activate')) {
             //
             } else {
                 // Save Image and Lanuages Files
-                $updater->save_important_files();
+                $filesSaved = $updater->save_important_files();
 
                 // Change Pro Pack license info to new SKU
                 //
@@ -332,24 +347,18 @@ if (! class_exists('SLPlus_Activate')) {
                 //
                 if (is_dir(SLPLUS_COREDIR.'images/icons/')) {
 
-                    // Change home icon if it was in core/images/icons
+                    // Change home and end icon if it was in core/images/icons
                     //
-                    $home_icon =
-                        str_replace(
-                            '/store-locator-le/core/images/icons/',
-                            '/store-locator-le/images/icons/',
-                            get_option('sl_map_home_icon')
-                        );
-                    update_option('sl_map_home_icon',$home_icon);
+                    update_option('sl_map_home_icon', $updater->iconMapper(get_option('sl_map_home_icon')));
+                    update_option('sl_map_end_icon' , $updater->iconMapper(get_option('sl_map_end_icon') ));
 
-                    // Change end icon if it was in core/images/icons
-                    $end_icon =
-                        str_replace(
-                            '/store-locator-le/core/images/icons/',
-                            '/store-locator-le/images/icons/',
-                            get_option('sl_map_end_icon')
-                        );
-                    update_option('sl_map_end_icon',$end_icon);
+                    // If the icons were saved in the save dir
+                    // clean out core icons and remove the directory.
+                    //
+                    if ($filesSaved) {
+                        $updater->emptydir(SLPLUS_COREDIR.'images/icons/');
+                        rmdir(SLPLUS_COREDIR.'images/icons/');
+                    }
                 }
 
                 // Set DB Version
@@ -369,7 +378,39 @@ if (! class_exists('SLPlus_Activate')) {
          * Updates specific to 3.8.6
          *
          */
-        function update_3_8_6() {
+        function iconMapper($iconFile) {
+            $newIcon = $iconFile;
+
+            // Azure Bulb Name Change (default destination icon)
+            //
+            $newIcon =
+                str_replace(
+                    '/store-locator-le/core/images/icons/a_marker_azure.png',
+                    '/store-locator-le/images/icons/bulb_azure.png',
+                    $iconFile
+                );
+            if ($newIcon != $iconFile) { return $newIcon; }
+
+            // Box Yellow Home (default home icon)
+            //
+            $newIcon =
+                str_replace(
+                    '/store-locator-le/core/images/icons/sign_yellow_home.png',
+                    '/store-locator-le/images/icons/box_yellow_home.png',
+                    $iconFile
+                );
+            if ($newIcon != $iconFile) { return $newIcon; }
+
+            // General core/images/icons replaced with images/icons
+            $newIcon =
+                str_replace(
+                    '/store-locator-le/core/images/icons/',
+                    '/store-locator-le/images/icons/',
+                    $iconFile
+                );
+            if ($newIcon != $iconFile) { return $newIcon; }
+
+            return $newIcon;
         }
     }
 }
