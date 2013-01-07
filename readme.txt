@@ -158,9 +158,11 @@ Users that opt not to purchase the Pro Pack can still customize the look by edit
 
 = Special Thanks =
 
-Thanks to [Nicolas Mollet](http://mapicons.nicolasmollet.com/) for some of the great icons.
+Thanks to [Nicolas Mollet](http://mapicons.nicolasmollet.com/) and Icons-Land (http://www.icons-land.com/) via Icon Finder for some of the great icons.
 
 [Massive Creative](http://www.massivecreativeinc.com) for some of our banners and other creative work.
+
+Thanks to [Google](http://www.google.com) for the maps engine as well as some of the icons.  Some of the Google open-source icons are found [at this unofficial list](http://www.visual-case.it/cgi-bin/vc/GMapsIcons.pl).
 
 
 == Frequently Asked Questions ==
@@ -266,8 +268,11 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Fix save map width units.
 * Fix home marker saving.
 * Fix end marker saving.
-* Clean up the map marker icon set.
 * Save icons/images/languages now go in ./wp-content/uploads/slp/
+* Fix saving of icons when upgrading.  May cause duplicate icons to be listed after first update.
+* Clean up the map marker icon set.
+* Add some new icons.
+
 
 = 3.8.5 (January 3rd 2013) =
 
