@@ -16,6 +16,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
          * PUBLIC PROPERTIES & METHODS
          ******************************/
         public $parent = null;
+        public $plugin = null;
         public $settings = null;
 
         /**
@@ -47,13 +48,14 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
          *
          * Returns false if we can't get to the main plugin object.
          *
-         * @global wpCSL_plugin__slplus $slplus_plugin
+         * @global type wpCSL_plugin__slplus the wpCSL object
          * @return type boolean true if plugin property is valid
          */
         function setParent() {
             if (!isset($this->parent) || ($this->parent == null)) {
                 global $slplus_plugin;
                 $this->parent = $slplus_plugin;
+                $this->plugin = $slplus_plugin;
             }
             return (isset($this->parent) && ($this->parent != null));
         }
@@ -369,9 +371,11 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
           *
           */
          function map_settings() {
-            global $sl_height,$sl_height_units,$sl_width,$sl_width_units,$slplus_plugin;
+            global $sl_height_units,$sl_width,$sl_width_units;
 
-            $slplus_message = ($slplus_plugin->license->packages['Pro Pack']->isenabled) ?
+            $this->plugin->helper->loadPluginData();
+
+            $slplus_message = ($this->plugin->license->packages['Pro Pack']->isenabled) ?
                 __('',SLPLUS_PREFIX) :
                 __('Extended settings are available in the <a href="%s">%s</a> premium add-on.',SLPLUS_PREFIX)
                ;
@@ -422,7 +426,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
                 // Pro Pack : Initial Look & Feel
                 //
-                if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+                if ($this->plugin->license->packages['Pro Pack']->isenabled) {
                         $slpDescription .=
                             $this->CreateInputDiv(
                                 'sl_starting_image',
@@ -514,7 +518,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
                 // Pro Pack : Map Settings
                 //
-                if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
+                if ($this->plugin->license->packages['Pro Pack']->isenabled) {
                     $slpDescription .=
                         $this->CreateTextAreaDiv(
                                 SLPLUS_PREFIX.'_map_center',
@@ -578,7 +582,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
             $slpDescription =
                 "<div id='map_settings'>" .
-                    sprintf('<p style="display:block; clear: both;">'.$slplus_message.'</p>',$slplus_plugin->purchase_url,'Pro Pack') .
+                    sprintf('<p style="display:block; clear: both;">'.$slplus_message.'</p>',$this->plugin->purchase_url,'Pro Pack') .
                     $this->CreateSettingsGroup(
                                         'map_features',
                                         __('Features','csl-slplus'),
@@ -738,6 +742,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 $update_msg = "<div class='highlight'>".__('Successful Update', 'csl-slplus').'</div>';
             }
             $this->parent->AdminUI->initialize_variables();
+            $this->plugin->helper->loadPluginData();
 
             /**
              * @see http://goo.gl/UAXly - endIcon - the default map marker to be used for locations shown on the map
@@ -760,16 +765,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             //
             $this->parent->data['iconNotice'] = '';
             if (!isset($this->parent->data['siteURL'] )) { $this->parent->data['siteURL']  = get_site_url();                  }
-            $this->parent->helper->setData(
-                      'homeicon',
-                      'get_option',
-                      array('sl_map_home_icon', SLPLUS_ICONURL . 'sign_yellow_home.png')
-                      );
-            $this->parent->helper->setData(
-                      'endicon',
-                      'get_option',
-                      array('sl_map_end_icon', SLPLUS_ICONURL . 'a_marker_azure.png')
-                      );
             if (!(strpos($this->parent->data['homeicon'],'http')===0)) {
                 $this->parent->data['homeicon'] = $this->parent->data['siteURL']. $this->parent->data['homeicon'];
             }
