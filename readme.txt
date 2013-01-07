@@ -252,6 +252,35 @@ The website offers [more screen shots](http://www.charlestonsw.com/product/store
 
 More screenshots are available via [the CSA website](http://www.charlestonsw.com/products/store-locator-plus/).
 
+== Update Notice ==
+
+3.8.6 update notice.
+
+I have been chasing down some nasty icon (map marker) setting bugs.
+Turns out the icons were stored in TWO locations.
+Most icons were in both places.
+Most places in the code referenced a single location (under ./core/images/icons).
+Not EVERYPLACE in the code did so.
+
+Rather than hold up 3.8.6 to make a "perfect patch" I have released this version
+with the ability to change/save new home/end icons, save the map height and width,
+and a few other settings.
+
+YOU WILL LIKELY NEED TO RE-SET YOUR HOME AND END ICONS.
+
+I cleaned things up and moved all the map marker icons to ./images/icons.
+
+I also fixed the "save custom icons" which runs automatically when updating to a new version.
+If you store custom icons in ./core/images/icons or ./images/icons they are now copied to
+./wp-content/uploads/slp/saved-icons/.    This may result in a duplicate list of icons in
+your icon selector on map settings.   I will at least prevent icons that are in the core
+plugin from being copied over in a future release.  For now you may see double icons
+in the list.  I think this is better than not saving them at all (older versions) or
+not letting people save their map width/height and/or change the map marker icons.
+
+Again: YOU WILL LIKELY NEED TO RE-SET YOUR HOME AND END ICONS.
+
+
 == Changelog ==
 
 I update about once per month or more frequently as needed.
