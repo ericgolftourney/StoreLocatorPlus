@@ -81,7 +81,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'admin_slugs'           => array('slp_general_settings'),
 
             'on_update' => array('SLPlus_Activate', 'update'),
-            'version' => '3.7.6',
+            'version' => '3.8.6',
 
             'url'                   => 'http://www.charlestonsw.com/product/store-locator-plus-2/',            
             'support_url'           => 'http://www.charlestonsw.com/support/documentation/store-locator-plus/',
