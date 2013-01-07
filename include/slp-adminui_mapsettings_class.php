@@ -572,7 +572,8 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                             )
                         ;
                 }
-                $slpDescription .= "</div></div>";
+                $slpDescription .= "</div>" .
+                        "</div>";
                 $mapSettings['settings'] = apply_filters('slp_map_settings_settings',$slpDescription);
 
 
@@ -594,7 +595,9 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                                 "value='".$this->parent->data['sl_map_end_icon']."' ".
                                 'onchange="document.getElementById(\'prev2\').src=this.value">'.
                             "<img id='end_icon_preview' src='".$this->parent->data['sl_map_end_icon']."'align='top'><br/>".
-                            $this->parent->data['endIconPicker']
+                            $this->parent->data['endIconPicker'] .
+                        "</div>".
+                        "<br/><p>Saved icons live here: " . SLPLUS_UPLOADDIR . "saved-icons/</p>"
                 ;
             $mapSettings['icons'] = apply_filters('slp_map_icons_settings',$slpDescription);
 
@@ -729,7 +732,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 // Plugin Activation
                 //
                 if (is_a($this->parent->Activate,'SLPlus_Activate')) {
-                    $this->parent->Activate->move_upload_directories();
+                    $this->parent->Activate->save_prior_image_and_language_files();
                 }
                 $update_msg ='';
 
