@@ -301,6 +301,7 @@ if (! class_exists('SLPlus_UI')) {
             // Lets get some variables into our script
             //
             $scriptData = array(
+                'plugin_url'        => SLPLUS_PLUGINURL,
                 'core_url'          => SLPLUS_COREURL,
                 'debug_mode'        => (get_option(SLPLUS_PREFIX.'-debugging') == 'on'),
                 'disable_scroll'    => (get_option(SLPLUS_PREFIX.'_disable_scrollwheel')==1),
