@@ -732,7 +732,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 // Plugin Activation
                 //
                 if (is_a($this->parent->Activate,'SLPlus_Activate')) {
-                    $this->parent->Activate->save_prior_image_and_language_files();
+                    $this->parent->Activate->save_important_files();
                 }
                 $update_msg ='';
 

@@ -1138,11 +1138,11 @@ if (! class_exists('SLPlus_AdminUI')) {
             if (($inputFieldID == null) || ($inputImageID == null)) { return ''; }
             $htmlStr = '';
 
-            $directories = apply_filters('slp_icon_directories',array(SLPLUS_ICONDIR, SLPLUS_UPLOADDIR."/custom-icons/"));
+            $directories = apply_filters('slp_icon_directories',array(SLPLUS_ICONDIR, SLPLUS_UPLOADDIR."/saved-icons/"));
             foreach ($directories as $directory) {
                 if (is_dir($directory)) {
                     if ($iconDir=opendir($directory)) {
-                        $iconURL = (($directory === SLPLUS_ICONDIR)?SLPLUS_ICONURL:SLPLUS_UPLOADURL.'/custom-icons/');
+                        $iconURL = (($directory === SLPLUS_ICONDIR)?SLPLUS_ICONURL:SLPLUS_UPLOADURL.'/saved-icons/');
                         while (false !== ($an_icon=readdir($iconDir))) {
                             if (
                                 (preg_match('/\.(png|gif|jpg)/i', $an_icon) > 0) &&

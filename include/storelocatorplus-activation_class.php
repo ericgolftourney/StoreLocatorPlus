@@ -209,6 +209,7 @@ if (! class_exists('SLPlus_Activate')) {
          * Copy a file, or recursively copy a folder and its contents
          */
         function copyr($source, $dest) {
+
             // Check for symlinks
             if (is_link($source)) {
                 return symlink(readlink($source), $dest);
@@ -219,7 +220,6 @@ if (! class_exists('SLPlus_Activate')) {
                 return copy($source, $dest);
             }
 
-            // Make destination directory
             if (!is_dir($dest)) {
                 mkdir($dest, 0755);
             }
@@ -242,9 +242,9 @@ if (! class_exists('SLPlus_Activate')) {
         }
 
         /*************************************
-         * Move upload directories
+         * Copy language and image files to wp-content/uploads/sl-uploads for safekeeping.
          */
-        function move_upload_directories() {
+        function save_important_files() {
 
             // Make the upload director(ies)
             //
@@ -254,17 +254,29 @@ if (! class_exists('SLPlus_Activate')) {
             if (!is_dir(SLPLUS_UPLOADDIR)) {
                 mkdir(SLPLUS_UPLOADDIR, 0755);
             }
-            if (!is_dir(SLPLUS_UPLOADDIR . "/custom-icons")) {
-                mkdir(SLPLUS_UPLOADDIR . "/custom-icons", 0755);
+            if (!is_dir(SLPLUS_UPLOADDIR . "languages")) {
+                mkdir(SLPLUS_UPLOADDIR . "languages", 0755);
+            }
+            if (!is_dir(SLPLUS_UPLOADDIR . "saved-icons")) {
+                mkdir(SLPLUS_UPLOADDIR . "saved-icons", 0755);
             }
 
-            // Copy over language files and images
+            // Copy core language files to languages save location
             //
-            if (is_dir(SLPLUS_COREDIR. "/languages") && !is_dir(SLPLUS_UPLOADDIR . "/languages")) {
-                $this->copyr(SLPLUS_COREDIR . "/languages", SLPLUS_UPLOADDIR . "/languages");
+            if (is_dir(SLPLUS_COREDIR. "languages") && is_dir(SLPLUS_UPLOADDIR . "languages")) {
+                $this->copyr(SLPLUS_COREDIR . "languages", SLPLUS_UPLOADDIR . "languages");
             }
-            if (is_dir(SLPLUS_COREDIR . "/images") && !is_dir(SLPLUS_UPLOADDIR . "/images")) {
-                $this->copyr(SLPLUS_COREDIR . "/images", SLPLUS_UPLOADDIR . "/images");
+
+            // Copy ./images/icons to custom-icons save loation
+            //
+            if (is_dir(SLPLUS_PLUGINDIR . "/images/icons") && is_dir(SLPLUS_UPLOADDIR . "saved-icons")) {
+                $this->copyr(SLPLUS_PLUGINDIR . "/images/icons", SLPLUS_UPLOADDIR . "saved-icons");
+            }
+
+            // Copy core images to images save location
+            //
+            if (is_dir(SLPLUS_COREDIR . "images/icons") && is_dir(SLPLUS_UPLOADDIR . "saved-icons")) {
+                $this->copyr(SLPLUS_COREDIR . "images/icons", SLPLUS_UPLOADDIR . "saved-icons");
             }
         }
         
@@ -299,6 +311,8 @@ if (! class_exists('SLPlus_Activate')) {
             // Updating previous install
             //
             } else {
+                // Save Image and Lanuages Files
+                $updater->save_important_files();
 
                 // Change Pro Pack license info to new SKU
                 //
@@ -313,16 +327,49 @@ if (! class_exists('SLPlus_Activate')) {
                     update_option(SLPLUS_PREFIX.'-SLPLUS-PAGES-isenabled',get_option(SLPLUS_PREFIX.'-SLP-PAGES-isenabled',''));
                 }
 
+                // Core Icons Moved
+                // 3.8.6
+                //
+                if (is_dir(SLPLUS_COREDIR.'images/icons/')) {
+
+                    // Change home icon if it was in core/images/icons
+                    //
+                    $home_icon =
+                        str_replace(
+                            '/store-locator-le/core/images/icons/',
+                            '/store-locator-le/images/icons/',
+                            get_option('sl_map_home_icon')
+                        );
+                    update_option('sl_map_home_icon',$home_icon);
+
+                    // Change end icon if it was in core/images/icons
+                    $end_icon =
+                        str_replace(
+                            '/store-locator-le/core/images/icons/',
+                            '/store-locator-le/images/icons/',
+                            get_option('sl_map_end_icon')
+                        );
+                    update_option('sl_map_end_icon',$end_icon);
+                }
+
+                // Set DB Version
+                //
                 update_option(SLPLUS_PREFIX."-db_version", $updater->plugin->version);
             }
             update_option(SLPLUS_PREFIX.'-theme_lastupdated','2006-10-05');
 
-            // Update Tables, Setup Roles, Move Directories
+            // Update Tables, Setup Roles
             //
             $updater->install_main_table();
             $updater->install_reporting_tables();
             $updater->add_splus_roles_and_caps();
-            $updater->move_upload_directories();
+        }
+
+        /**
+         * Updates specific to 3.8.6
+         *
+         */
+        function update_3_8_6() {
         }
     }
 }
