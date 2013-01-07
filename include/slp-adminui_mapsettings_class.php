@@ -723,26 +723,19 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
           * Render the map settings admin page.
           */
          function render_adminpage() {
-             if (!$this->setParent()) { return; }
-
-            // Not a post
-            //
-            if (!$_POST) {
-
-                // Plugin Activation
-                //
-                if (is_a($this->parent->Activate,'SLPlus_Activate')) {
-                    $this->parent->Activate->save_important_files();
-                }
-                $update_msg ='';
+            if (!$this->setParent()) { return; }
+            $update_msg ='';
 
             // We Have a POST - Save Settings
             //
-            } else {
+            if ($_POST) {
                 add_action('slp_save_map_settings',array($this,'save_settings') ,10);
                 do_action('slp_save_map_settings');
                 $update_msg = "<div class='highlight'>".__('Successful Update', 'csl-slplus').'</div>';
             }
+
+            // Initialize Plugin Settings Data
+            //
             $this->parent->AdminUI->initialize_variables();
             $this->plugin->helper->loadPluginData();
 
