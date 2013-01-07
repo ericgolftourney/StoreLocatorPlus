@@ -305,7 +305,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.8.5 (January 3rd 2013) =
 
-* Fix bug in store pages syntax error in slp-pages.php on line 310.
+* Fix syntax error in slp-pages.php
 
 = 3.8.4 (January 1st 2013) =
 

@@ -280,7 +280,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
                 // Width, strip non-digtis, if % set range 0..100
                 $_POST['sl_map_width'] =preg_replace('/[^0-9]/', '', $_POST['sl_map_width']);
-                if ($_POST['slp_map_width_units'] == '%') {
+                if ($_POST['sl_map_width_units'] == '%') {
                     $_POST['sl_map_width'] = max(0,min($_POST['sl_map_width'],100));
                 }
 
