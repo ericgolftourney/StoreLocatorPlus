@@ -1143,7 +1143,12 @@ if (! class_exists('SLPlus_AdminUI')) {
                 if (is_dir($directory)) {
                     if ($iconDir=opendir($directory)) {
                         $iconURL = (($directory === SLPLUS_ICONDIR)?SLPLUS_ICONURL:SLPLUS_UPLOADURL.'/saved-icons/');
-                        while (false !== ($an_icon=readdir($iconDir))) {
+                        $files=array();
+                        while ($files[] = readdir($iconDir));
+                        sort($files);
+                        closedir($iconDir);
+
+                        foreach ($files as $an_icon) {
                             if (
                                 (preg_match('/\.(png|gif|jpg)/i', $an_icon) > 0) &&
                                 (preg_match('/shadow\.(png|gif|jpg)/i', $an_icon) <= 0)
