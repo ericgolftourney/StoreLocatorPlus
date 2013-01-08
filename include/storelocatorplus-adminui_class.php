@@ -1127,13 +1127,13 @@ if (! class_exists('SLPlus_AdminUI')) {
         }
 
         /**
-         * Render an icon selector for the icon images store in the SLP plugin icon directory.
+         * Return the icon selector HTML for the icon images in saved icons and default icon directories.
          *
          * @param type $inputFieldID
          * @param type $inputImageID
          * @return string
          */
-         function rendorIconSelector($inputFieldID = null, $inputImageID = null) {
+         function CreateIconSelector($inputFieldID = null, $inputImageID = null) {
             if (!$this->setParent()) { return 'could not set parent'; }
             if (($inputFieldID == null) || ($inputImageID == null)) { return ''; }
             $htmlStr = '';
