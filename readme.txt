@@ -164,6 +164,8 @@ Thanks to [Nicolas Mollet](http://mapicons.nicolasmollet.com/) and Icons-Land (h
 
 Thanks to [Google](http://www.google.com) for the maps engine as well as some of the icons.  Some of the Google open-source icons are found [at this unofficial list](http://www.visual-case.it/cgi-bin/vc/GMapsIcons.pl).
 
+Thanks to "PennyGrit" for pointing out security issues so I can patch them before the exploit gets into the wild.
+
 
 == Frequently Asked Questions ==
 
@@ -291,7 +293,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.8.7 (January 9th 2013) =
 
-* Icon save/select eliminate duplicates.
+* Security patch for slp-pro.php to prevent open query/injection attack.
+* Icon save/select eliminate duplicates. Base file name must be unique.  Base plugin icons take precedence.
 
 = 3.8.6 (January 7th 2013) =
 
