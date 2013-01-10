@@ -161,7 +161,6 @@ if (! class_exists('SLPlus_UI')) {
          * @global type $slplus_plugin
          * @global type $sl_search_label
          * @global type $sl_radius_label
-         * @global type $r_options
          * @global type $cs_options
          * @global type $sl_country_options
          * @global type $slplus_state_options
@@ -171,7 +170,7 @@ if (! class_exists('SLPlus_UI')) {
          */
          function render_shortcode($attributes, $content = null) {
             global  $wpdb, $slplus_plugin,
-                $sl_search_label, $sl_radius_label, $r_options, $cs_options,
+                $sl_search_label, $sl_radius_label, $cs_options,
                 $sl_country_options, $slplus_state_options;
 
 
@@ -190,7 +189,8 @@ if (! class_exists('SLPlus_UI')) {
             $sl_search_label   = get_option('sl_search_label',__('Address',SLPLUS_PREFIX));
             $unit_display      = get_option('sl_distance_unit','mi');
 
-            $r_options      =(isset($r_options)         ?$r_options      :'');
+            $slplus_plugin->data['radius_options'] =
+                    (isset($slplus_plugin->data['radius_options'])?$slplus_plugin->data['radius_options']:'');
             $cs_options     =(isset($cs_options)        ?$cs_options     :'');
             $sl_country_options=(isset($sl_country_options)   ?$sl_country_options:'');
             $slplus_state_options=(isset($slplus_state_options)   ?$slplus_state_options:'');
@@ -203,7 +203,8 @@ if (! class_exists('SLPlus_UI')) {
             if (get_option(SLPLUS_PREFIX.'_hide_radius_selections', 0) == 1) {
                 preg_match('/\((.*?)\)/', $radiusSelections, $selectedRadius);
                 $selectedRadius = preg_replace('/[^0-9]/', '', (isset($selectedRadius[1])?$selectedRadius[1]:$radiusSelections));
-                $r_options = "<input type='hidden' id='radiusSelect' name='radiusSelect' value='$selectedRadius'>";
+                $slplus_plugin->data['radius_options'] =
+                        "<input type='hidden' id='radiusSelect' name='radiusSelect' value='$selectedRadius'>";
 
             // Build Pulldown
             } else {
@@ -211,7 +212,8 @@ if (! class_exists('SLPlus_UI')) {
                 foreach ($radiusSelectionArray as $radius) {
                     $selected=(preg_match('/\(.*\)/', $radius))? " selected='selected' " : "" ;
                     $radius=preg_replace('/[^0-9]/', '', $radius);
-                    $r_options.="<option value='$radius' $selected>$radius $unit_display</option>";
+                    $slplus_plugin->data['radius_options'].=
+                            "<option value='$radius' $selected>$radius $unit_display</option>";
                 }
             }
 
