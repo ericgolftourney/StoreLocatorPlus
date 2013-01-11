@@ -135,7 +135,7 @@ if (! class_exists('SLPlus_UI')) {
          * @param array $shortcodes
          * @return array
          */
-        function no_texturize_shortcodes($shortcodes) {
+        static function no_texturize_shortcodes($shortcodes) {
            return array_merge($shortcodes,
                     array(
                      'STORE-LOCATOR',
