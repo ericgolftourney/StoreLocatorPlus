@@ -1,0 +1,3 @@
+[submodule "WPCSL-generic"]
+	path = WPCSL-generic
+	url = git@github.com:charlestonsoftware/WPCSL-generic.git
