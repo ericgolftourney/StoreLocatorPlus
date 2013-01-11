@@ -453,7 +453,7 @@ if (! class_exists('SLPlus_UI')) {
         /**
          * Render the search form for the map.
          */
-        function slp_render_search_form() {
+        static function slp_render_search_form() {
             global $slplus_plugin;
             echo apply_filters('slp_search_form_html',$slplus_plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_form.php'));
         }
@@ -462,7 +462,7 @@ if (! class_exists('SLPlus_UI')) {
          * Render the SLP map
          *
          */
-        function render_the_map() {
+        static function render_the_map() {
             global $slplus_plugin;
 
              $slplus_plugin->helper->loadPluginData();
