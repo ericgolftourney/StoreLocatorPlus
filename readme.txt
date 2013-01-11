@@ -293,7 +293,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.8.8 (January 11th 2013) =
 
-*
+* Minor change to how the radius pulldown string is built, maybe stops issue with duplicate entries for some people?
+* Change how I test if I am on my dev box before turning on PHP report ALL errrors & warnings.
 
 = 3.8.7 (January 9th 2013) =
 
