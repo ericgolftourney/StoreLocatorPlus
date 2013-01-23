@@ -172,7 +172,7 @@ if ( ! class_exists( 'SLPPro' ) ) {
                         '</p>' .
                         '<input type="file" name="csvfile" value="" id="bulk_file" size="50">' .
                         $this->plugin->helper->CreateCheckboxDiv(
-                            'bulk_skip_first_line',
+                            '-bulk_skip_first_line',
                             __('Skip First Line','slplus-pro'),
                             __('Skip the first line of the import file.','slplus-pro'),
                             SLPLUS_PREFIX,

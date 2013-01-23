@@ -827,7 +827,14 @@ if (! class_exists('SLPlus_AdminUI')) {
                                                             'sl_zip','sl_country','sl_tags','sl_description','sl_url',
                                                             'sl_hours','sl_phone','sl_email','sl_image','sl_fax');
                                             $maxcols = count($fldNames);
+                                            $skippedFirst = false;
                                             while (($data = fgetcsv($handle)) !== FALSE) {
+                                                if (!$skippedFirst &&
+                                                    ($_POST['csl-slplus-bulk_skip_first_line'] == 1)
+                                                    ){
+                                                    $skippedFirst = true;
+                                                    continue;
+                                                    }
                                                 $num = count($data);
                                                 if ($num <= $maxcols) {
                                                     $fieldList = '';
