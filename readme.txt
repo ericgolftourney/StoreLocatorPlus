@@ -294,6 +294,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 = 3.8.10 (January 23 2013) =
 
 * Add "skip first line" to bulk upload.
+* Trap JavaScript panTo error if home point on map is not defined.
 
 = 3.8.9 (January 21 2013) =
 
