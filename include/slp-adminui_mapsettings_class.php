@@ -183,37 +183,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 ;
 
         }
-
-        /**
-         * Save a checkbox form variable to the WP options table.
-         *
-         * @param string $boxname - the name of the checkbox (db option name)
-         * @param string $prefix - defaults to SLPLUS_PREFIX, can be ''
-         * @param string $separator - the option name separator
-         */
-        function SaveCheckboxToDB($boxname,$prefix = SLPLUS_PREFIX, $separator='-') {
-            $whichbox = $prefix.$separator.$boxname;
-            $_POST[$whichbox] = isset($_POST[$whichbox])?1:0;
-            $this->SavePostToOptionsTable($whichbox,0);
-        }
-
-        /**
-         * Save a POST variable to the WP options table.
-         *
-         * @param string $optionname
-         * @param string $default
-         */
-        function SavePostToOptionsTable($optionname,$default=null) {
-            if ($default != null) {
-                if (!isset($_POST[$optionname])) {
-                    $_POST[$optionname] = $default;
-                }
-            }
-            if (isset($_POST[$optionname])) {
-                update_option($optionname,$_POST[$optionname]);
-            }
-        }
-
+        
         /**
          * Execute the save settings action.
          *
@@ -275,7 +245,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                         )
                     );
                 foreach ($BoxesToHit as $JustAnotherBox) {
-                    $this->SavePostToOptionsTable($JustAnotherBox);
+                    $this->plugin->helper->SavePostToOptionsTable($JustAnotherBox);
                 }
 
                 // Checkboxes
@@ -309,7 +279,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                             )
                         );
                 foreach ($BoxesToHit as $JustAnotherBox) {
-                    $this->SaveCheckBoxToDB($JustAnotherBox, '','');
+                    $this->plugin->helper->SaveCheckBoxToDB($JustAnotherBox, '','');
                 }
         }
 

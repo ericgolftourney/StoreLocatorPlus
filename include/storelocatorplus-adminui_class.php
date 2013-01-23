@@ -809,13 +809,18 @@ if (! class_exists('SLPlus_AdminUI')) {
                     $arr_file_type = wp_check_filetype(basename($_FILES['csvfile']['name']));
                     if ($arr_file_type['type'] == 'text/csv') {
 
-                                // Save the file to disk
-                                //
-                                $updir = wp_upload_dir();
-                                $updir = $updir['basedir'].'/slplus_csv';
-                                if(!is_dir($updir)) {
-                                    mkdir($updir,0755);
-                                }
+                        // Remember the options for next time.
+                        //
+                        $this->plugin->helper->SaveCheckboxToDB('bulk_skip_first_line');
+
+                        // Save the file to disk
+                        //
+                        $updir = wp_upload_dir();
+                        $updir = $updir['basedir'].'/slplus_csv';
+                        if(!is_dir($updir)) {
+                            mkdir($updir,0755);
+                        }
+
                                 if (move_uploaded_file($_FILES['csvfile']['tmp_name'],
                                         $updir.'/'.$_FILES['csvfile']['name'])) {
                                         $reccount = 0;
