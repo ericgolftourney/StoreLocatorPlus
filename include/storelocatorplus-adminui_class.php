@@ -709,7 +709,7 @@ if (! class_exists('SLPlus_AdminUI')) {
          * @param type $storePageID
          * @return type
          */
-        function slpRenderCreatePageButton($locationID=-1,$storePageID=-1) {
+        static function slpRenderCreatePageButton($locationID=-1,$storePageID=-1) {
             if ($locationID < 0) { return; }            
             $slpPageClass = (($storePageID>0)?'haspage_icon' : 'createpage_icon');
             print "<a   class='action_icon $slpPageClass' 
