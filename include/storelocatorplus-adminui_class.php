@@ -1105,13 +1105,8 @@ if (! class_exists('SLPlus_AdminUI')) {
 
                 // Bulk upload form
                 //
-                if ($addform && ($slplus_plugin->license->packages['Pro Pack']->isenabled)) {
-                    $content .=
-                        '<div class="slp_bulk_upload_div">' .
-                        '<h2>'.__('Bulk Upload', SLPLUS_PREFIX).'</h2>'.
-                        '<input type="file" name="csvfile" value="" id="bulk_file" size="60"><br/>' .
-                        "<input type='submit' value='".__("Upload Locations", SLPLUS_PREFIX)."' class='button-primary'>".
-                        '</div>';
+                if ($addform) {
+                    $content .= apply_filters('slp_add_location_form_footer', '');
                 }
 
                 $content .= '</form>';
