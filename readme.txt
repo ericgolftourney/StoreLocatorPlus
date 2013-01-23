@@ -291,9 +291,9 @@ Visit the [Store Locator Plus Release Notes page](http://www.charlestonsw.com/su
 
 I was listing the entire change log here but with weekly/bi-weekly updates it as getting much too long.
 
-= 3.8.10 (January ?? 2013) =
+= 3.8.10 (January 23 2013) =
 
-* Stuff
+* Add "skip first line" to bulk upload.
 
 = 3.8.9 (January 21 2013) =
 
