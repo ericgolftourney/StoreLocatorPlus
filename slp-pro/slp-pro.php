@@ -186,6 +186,106 @@ if ( ! class_exists( 'SLPPro' ) ) {
         }
 
         /**
+         * Process the bulk upload files.
+         *
+         */
+        function bulk_upload_processing() {
+            if (!$this->setPlugin()) { return false; }
+
+            add_filter('upload_mimes', array($this,'custom_upload_mimes'));
+
+            // Get the type of the uploaded file. This is returned as "type/extension"
+            $arr_file_type = wp_check_filetype(basename($_FILES['csvfile']['name']));
+            if ($arr_file_type['type'] == 'text/csv') {
+
+                // Remember the options for next time.
+                //
+                $this->plugin->helper->SaveCheckboxToDB('bulk_skip_first_line');
+
+                // Save the file to disk
+                //
+                $updir = wp_upload_dir();
+                $updir = $updir['basedir'].'/slplus_csv';
+                if(!is_dir($updir)) {
+                    mkdir($updir,0755);
+                }
+
+                        if (move_uploaded_file($_FILES['csvfile']['tmp_name'],
+                                $updir.'/'.$_FILES['csvfile']['name'])) {
+                                $reccount = 0;
+
+                                $adle_setting = ini_get('auto_detect_line_endings');
+                                ini_set('auto_detect_line_endings', true);
+                                if (($handle = fopen($updir.'/'.$_FILES['csvfile']['name'], "r")) !== FALSE) {
+                                    $fldNames = array('sl_store','sl_address','sl_address2','sl_city','sl_state',
+                                                    'sl_zip','sl_country','sl_tags','sl_description','sl_url',
+                                                    'sl_hours','sl_phone','sl_email','sl_image','sl_fax');
+                                    $maxcols = count($fldNames);
+                                    $skippedFirst = false;
+                                    while (($data = fgetcsv($handle)) !== FALSE) {
+                                        if (!$skippedFirst &&
+                                            ($_POST['csl-slplus-bulk_skip_first_line'] == 1)
+                                            ){
+                                            $skippedFirst = true;
+                                            continue;
+                                            }
+                                        $num = count($data);
+                                        if ($num <= $maxcols) {
+                                            $fieldList = '';
+                                            $sl_valueList = '';
+                                            $this_addy = '';
+                                            for ($fldno=0; $fldno < $num; $fldno++) {
+                                                $fieldList.=$fldNames[$fldno].',';
+                                                $sl_valueList.="\"".stripslashes($this->plugin->AdminUI->slp_escape($data[$fldno]))."\",";
+                                                if (($fldno>=1) && ($fldno<=6)) {
+                                                    $this_addy .= $data[$fldno] . ', ';
+                                                }
+                                            }
+                                            $this_addy = substr($this_addy, 0, strlen($this_addy)-2);
+                                            $this->plugin->AdminUI->add_this_addy($fieldList,$sl_valueList,$this_addy);
+                                            sleep(0.5);
+                                            $reccount++;
+                                        } else {
+                                             print "<div class='updated fade'>".
+                                                __('The CSV file has too many fields.',
+                                                    SLPLUS_PREFIX
+                                                    );
+                                             print ' ';
+                                             printf(__('Got %d expected less than %d.', SLPLUS_PREFIX),
+                                                $num,$maxcols);
+                                             print '</div>';
+                                        }
+                                    }
+                                    fclose($handle);
+                                }
+                                ini_set('auto_detect_line_endings', $adle_setting);
+
+
+                                if ($reccount > 0) {
+                                    print "<div class='updated fade'>".
+                                            sprintf("%d",$reccount) ." " .
+                                            __("locations added succesfully.",SLPLUS_PREFIX) . '</div>';
+                                }
+
+                        // Could not save
+                        } else {
+                                print "<div class='updated fade'>".
+                                __("File could not be saved, check the plugin directory permissions:",SLPLUS_PREFIX) .
+                                    "<br/>" . $updir.
+
+                        '.</div>';
+                }
+
+            // Not CSV Format Warning
+            } else {
+                print "<div class='updated fade'>".
+                    __("Uploaded file needs to be in CSV format.",SLPLUS_PREFIX) .
+                    " Type was " . $arr_file_type['type'] .
+                    '.</div>';
+            }
+        }
+
+        /**
          * Create the county pulldown list, mark the checked item.
          * 
          * @global type $wpdb
@@ -228,7 +328,6 @@ if ( ! class_exists( 'SLPPro' ) ) {
          * Create the state pulldown list, mark the checked item.
          *
          * @global type $wpdb
-         * @global type $slplus_plugin
          * @return string
          */
         function create_state_pd() {
@@ -262,6 +361,18 @@ if ( ! class_exists( 'SLPPro' ) ) {
             }
             return $myOptions;
         }
+
+        /**
+         * Allows WordPress to process csv file types
+         *
+         * @param array $existing_mimes
+         * @return string
+         */
+        function custom_upload_mimes ( $existing_mimes=array() ) {
+            $existing_mimes['csv'] = 'text/csv';
+            return $existing_mimes;
+        }
+
 
         /**
          * Extends the main SLP shortcode approved attributes list, setting defaults.
