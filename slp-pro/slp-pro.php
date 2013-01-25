@@ -264,7 +264,7 @@ if ( ! class_exists( 'SLPPro' ) ) {
                                     }
                                 }
                                 $this_addy = substr($this_addy, 0, strlen($this_addy)-2);
-                                $resultOfAdd = $this->plugin->AdminUI->add_this_addy($fieldList,$sl_valueList,$this_addy,$skipDupes);
+                                $resultOfAdd = $this->plugin->AdminUI->add_this_addy($fieldList,$sl_valueList,$this_addy,$skipDupes,stripslashes($this->plugin->AdminUI->slp_escape($data[0])));
                                 sleep(0.5);
                                 if ($resultOfAdd == 'duplicate') { $dupeCount++; }
                                 $reccount++;

@@ -61,7 +61,7 @@ if (! class_exists('SLPlus_AdminUI')) {
          * @param type $theaddress
          *
          */
-        function add_this_addy($fields,$sl_values,$theaddress,$skipdupes=false) {
+        function add_this_addy($fields,$sl_values,$theaddress,$skipdupes=false,$storename='') {
             global $wpdb;
             $fields=substr($fields, 0, strlen($fields)-1);
             $sl_values=substr($sl_values, 0, strlen($sl_values)-1);
@@ -72,8 +72,8 @@ if (! class_exists('SLPlus_AdminUI')) {
                 $checkDupeQuery =
                 'SELECT 1 FROM '. $wpdb->prefix . 'store_locator ' .
                     ' WHERE ' .
-                        "sl_store + ', ' + sl_address + ', ' + sl_address2 + ', ' + sl_city ', ' + sl_state + ', ' + sl_zip + ', ' + sl_country".
-                        "='$theaddress' " .
+                        "CONCAT_WS(', ',sl_store,sl_address,sl_address2,sl_city,sl_state,sl_zip,sl_country)".
+                        "='$storename, $theaddress' " .
                       'LIMIT 1'
                         ;
                 $wpdb->query($checkDupeQuery);
