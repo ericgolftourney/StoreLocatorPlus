@@ -52,6 +52,8 @@ if (! class_exists('SLPlus_AdminUI')) {
 
         /**
          * Add an address into the SLP locations database.
+         *
+         * Returns 'added' or 'duplicate'
          * 
          * @global type $wpdb
          * @param type $fields
@@ -59,13 +61,30 @@ if (! class_exists('SLPlus_AdminUI')) {
          * @param type $theaddress
          *
          */
-        function add_this_addy($fields,$sl_values,$theaddress) {
+        function add_this_addy($fields,$sl_values,$theaddress,$skipdupes=false) {
             global $wpdb;
             $fields=substr($fields, 0, strlen($fields)-1);
             $sl_values=substr($sl_values, 0, strlen($sl_values)-1);
+
+            // Dupe check?
+            //
+            if ($skipdupes) {
+                $checkDupeQuery =
+                'SELECT 1 FROM '. $wpdb->prefix . 'store_locator ' .
+                    ' WHERE ' .
+                        "sl_store + ', ' + sl_address + ', ' + sl_address2 + ', ' + sl_city ', ' + sl_state + ', ' + sl_zip + ', ' + sl_country".
+                        "='$theaddress' " .
+                      'LIMIT 1'
+                        ;
+                $wpdb->query($checkDupeQuery);
+                if ($wpdb->num_rows == 1) {
+                    return 'duplicate';
+                }
+            }
+
             $wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fields) VALUES ($sl_values);");
             $this->do_geocoding($theaddress);
-
+            return 'added';
         }
 
         /**
