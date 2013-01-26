@@ -191,7 +191,7 @@ if (! class_exists('SLPlus_AjaxHandler')) {
             // Get parameters from URL
             $center_lat = $_POST["lat"];
             $center_lng = $_POST["lng"];
-            $radius = $_POST["radius"];
+            $radius     = $_POST["radius"];
 
             //-----------------
             // Set the active MySQL database
