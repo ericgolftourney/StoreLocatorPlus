@@ -293,7 +293,9 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.8.12 (January XX 2013) =
 
-* Stuff
+* Roles & Capabilities updates, must now be administrator to see SLP sidebar menu entries.
+* [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : Fix name field searches.
+* Start getting search form to send ALL form vars for better back end search functions in the future.
 
 = 3.8.11 (January 25 2013) =
 
