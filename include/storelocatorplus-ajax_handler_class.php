@@ -299,7 +299,8 @@ if (! class_exists('SLPlus_AjaxHandler')) {
                             'count'         => count($response),
                             'option'        => $_POST['address'],
                             'slp_version'   => $this->parent->version,
-                            'type'          => 'search', 
+                            'type'          => 'search',
+                            'dbquery'       => $query,
                             'response'      => $response
                         )
                     );
