@@ -34,6 +34,11 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'dataElements'          =>
                 array(
                       array(
+                        'sl_admin_locations_per_page',
+                        'get_option',
+                        array('sl_admin_locations_per_page','25')
+                      ),
+                      array(
                         'sl_map_end_icon'                   ,
                         'get_option'                ,
                         array('sl_map_end_icon'         ,SLPLUS_ICONURL.'bulb_azure.png'    )
