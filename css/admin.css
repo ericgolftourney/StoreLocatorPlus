@@ -58,6 +58,13 @@
 /*----------------------------------
  * WPCSL Magic
  */
+ div.debugging {
+     margin: 12px;
+     padding: 6px;
+     background-color: #EEE;
+     border: solid 1px #888;
+     font-family: "Courier", sans-serif;
+ }
 
 div.csl-slplus-input {
     float: left;
