@@ -17,6 +17,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
          ******************************/
         public $parent = null;
         public $settings = null;
+        public $baseAdminURL = '';
 
         /**
          * Called when this object is created.
@@ -28,6 +29,20 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 die('could not set parent');
                 return;
                 }
+                
+            // Set our base Admin URL
+            //
+            if (isset($_SERVER['REQUEST_URI'])) {
+                $this->baseAdminURL =
+                    isset($_SERVER['QUERY_STRING'])?
+                        str_replace('?'.$_SERVER['QUERY_STRING'], '', $_SERVER['REQUEST_URI']) :
+                        $_SERVER['REQUEST_URI']
+                        ;
+                if (isset($_REQUEST['page'])) {
+                    $this->baseAdminURL .= '?page=' . $_REQUEST['page'];
+                }
+            }
+
         }
 
         /**
@@ -176,6 +191,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             }
             $this->parent->AdminUI->initialize_variables();
             $this->parent->helper->bugout("<pre>REQUEST\n".print_r($_REQUEST,true)."</pre>",'',__FILE__,__LINE__);
+            $this->parent->helper->bugout("<pre>SERVER\n".print_r($_SERVER,true)."</pre>",'',__FILE__,__LINE__);
 
             //------------------------------------------------------------------------
             // ACTION HANDLER
@@ -572,8 +588,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                             "<th><input type='checkbox' name='sl_id[]' value='$locID'></th>" .
                             "<th class='thnowrap'>".
                             "<a class='action_icon edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."'
-                                href='".preg_replace('/&act=edit&edit='.(isset($_GET['edit'])?$_GET['edit']:'').'/', '',$_SERVER['REQUEST_URI']).
-                            "&act=edit&edit=$locID#a$locID'></a>".
+                                href='".$this->baseAdminURL."&act=edit&edit=$locID#a$locID'></a>".
                             "&nbsp;" .
                             "<a class='action_icon delete_icon' alt='".__('delete',SLPLUS_PREFIX)."' title='".__('delete',SLPLUS_PREFIX)."'
                                 href='".$_SERVER['REQUEST_URI']."&act=delete&delete=$locID' " .
