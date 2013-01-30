@@ -293,7 +293,9 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.8.13 (January 30th 2013) =
 
-* Stuff.
+* Manage Locations pagination fix on sub-directory installs on shared hosts.
+* Manage Locations now searches country as one of the string match fields on search.
+* Manage Locations search locations performance improved.
 
 = 3.8.12 (January 27 2013) =
 

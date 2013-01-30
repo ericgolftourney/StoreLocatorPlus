@@ -42,6 +42,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             if (!isset($this->parent) || ($this->parent == null)) {
                 global $slplus_plugin;
                 $this->parent = $slplus_plugin;
+                $this->plugin = $slplus_plugin;
             }
             return (isset($this->parent) && ($this->parent != null));
         }
@@ -53,6 +54,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
          */
         function render_adminpage() {
             if (!$this->setParent()) { return; }
+            $this->plugin->helper->loadPluginData();
             global $wpdb;
 
             // Script
@@ -382,15 +384,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             //------------------------------------------------------------------------
             $qry = isset($_REQUEST['q']) ? $_REQUEST['q'] : '';
             $where=($qry!='')?
-                    " WHERE ".
-                    "sl_store    LIKE '%$qry%' OR ".
-                    "sl_address  LIKE '%$qry%' OR ".
-                    "sl_address2 LIKE '%$qry%' OR ".
-                    "sl_city     LIKE '%$qry%' OR ".
-                    "sl_state    LIKE '%$qry%' OR ".
-                    "sl_zip      LIKE '%$qry%' OR ".
-                    "sl_tags     LIKE '%$qry%' "
-                    :
+                    " WHERE CONCAT_WS(';',sl_store,sl_address,sl_address2,sl_city,sl_state,sl_zip,sl_country,sl_tags) LIKE '%$qry%'" :
                     '' ;
 
             /* Uncoded items */
@@ -419,11 +413,10 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             //
             $totalLocations=$wpdb->get_var("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where");
             $start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
-            $num_per_page=get_option('sl_admin_locations_per_page','50');
             if ($totalLocations>0) {
                 $this->parent->AdminUI->manage_locations_pagination(
                         $totalLocations,
-                        $num_per_page,
+                        $this->plugin->data['sl_admin_locations_per_page'],
                         $start
                         );
             }
@@ -444,12 +437,13 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 $start = 0;
             }
 
+
             // We have matching locations
             //
             if ($slpLocations=$wpdb->get_results(
                     "SELECT * FROM " .$wpdb->prefix."store_locator " .
                             "$where ORDER BY $opt $dir ".
-                            "LIMIT $start,$num_per_page",
+                            "LIMIT $start,".$this->plugin->data['sl_admin_locations_per_page'],
                     ARRAY_A
                     )
                 ) {
@@ -562,7 +556,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                             "<th class='thnowrap'>".
                             "<a class='action_icon edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."'
                                 href='".preg_replace('/&edit='.(isset($_GET['edit'])?$_GET['edit']:'').'/', '',$_SERVER['REQUEST_URI']).
-                            "&edit=" . $locID ."#a$locID'></a>".
+                            "&edit=$locID#a$locID'></a>".
                             "&nbsp;" .
                             "<a class='action_icon delete_icon' alt='".__('delete',SLPLUS_PREFIX)."' title='".__('delete',SLPLUS_PREFIX)."'
                                 href='".$_SERVER['REQUEST_URI']."&delete=$locID' " .
@@ -614,7 +608,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             if ($totalLocations!=0) {
                 $this->parent->AdminUI->manage_locations_pagination(
                         $totalLocations,
-                        $num_per_page,
+                        $this->plugin->data['sl_admin_locations_per_page'],
                         $start
                         );
             }
