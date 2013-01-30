@@ -47,6 +47,19 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             return (isset($this->parent) && ($this->parent != null));
         }
 
+        /**
+         * Delete a location.
+         * 
+         * @global type $wpdb - the WP database connection
+         * @param type $locationID - the ID of the location to delete
+         */
+        function delete_location($locationID) {
+            global $wpdb;
+            $wpdb->query(
+               'DELETE FROM '.$wpdb->prefix.'store_locator '.
+                    "WHERE sl_id='$locationID'"
+               );
+        }
 
         /**
          * Render the manage locations admin page.
@@ -102,19 +115,23 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 }
             }
             $this->parent->AdminUI->initialize_variables();
+/*
+print "<pre>REQUEST\n".print_r($_REQUEST,true)."</pre>";
+print "<pre>POST\n".print_r($_POST,true)."</pre>";
+print "<pre>GET\n".print_r($_GET,true)."</pre>";
+  */
 
-            // If delete link is clicked
+            //------------------------------------------------------------------------
+            // ACTIONS
+            //------------------------------------------------------------------------
+            // DELETE
             if (isset($_GET['delete']) && ($_GET['delete']!='')) {
-                $wpdb->query("DELETE FROM ".$wpdb->prefix."store_locator ".
-                    "WHERE sl_id='".$_GET['delete']."'");
-            }
+                $this->delete_location($_GET['delete']);
 
-            //------------------------------------------------------------------------
-            // EDITING
-            //------------------------------------------------------------------------
-            if ($_POST                                                  &&
-                (isset($_GET['edit']) && $_GET['edit'])                 &&
-                (!isset($_POST['act']) || (isset($_POST['act']) && ($_POST['act']!="delete")))
+            // SAVE
+            } else if ($_REQUEST                                                &&
+                (isset($_REQUEST['edit'])&& is_numeric($_REQUEST['edit']))      &&
+                (isset($_REQUEST['act']) && ($_REQUEST['act']=='save'))
                 ) {
 
                 // Get our original address first
@@ -173,7 +190,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
 
                 // Redirect to the edit page
                 //
-                $pageRedirect = "<script>location.replace('".preg_replace('/&edit='.$_GET['edit'].'/', '',$_SERVER['REQUEST_URI'])."');</script>";
+                $pageRedirect = "<script>location.replace('".preg_replace('/&act=edit&edit='.$_GET['edit'].'/', '',$_SERVER['REQUEST_URI'])."');</script>";
                 print apply_filters('slp_edit_location_redirect',$pageRedirect);
             }
 
@@ -524,6 +541,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                         print
                             "<tr id='slp_location_edit_row'>"               .
                             "<td class='slp_locationinfoform_cell' colspan='".(count($slpManageColumns)+4)."'>".
+                            '<input type="hidden" id="act" name="act" value="save"/>'. 
                             $this->parent->AdminUI->createString_LocationInfoForm($sl_value, $locID) .
                             '</td></tr>';
 
@@ -555,11 +573,11 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                             "<th><input type='checkbox' name='sl_id[]' value='$locID'></th>" .
                             "<th class='thnowrap'>".
                             "<a class='action_icon edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."'
-                                href='".preg_replace('/&edit='.(isset($_GET['edit'])?$_GET['edit']:'').'/', '',$_SERVER['REQUEST_URI']).
-                            "&edit=$locID#a$locID'></a>".
+                                href='".preg_replace('/&act=edit&edit='.(isset($_GET['edit'])?$_GET['edit']:'').'/', '',$_SERVER['REQUEST_URI']).
+                            "&act=edit&edit=$locID#a$locID'></a>".
                             "&nbsp;" .
                             "<a class='action_icon delete_icon' alt='".__('delete',SLPLUS_PREFIX)."' title='".__('delete',SLPLUS_PREFIX)."'
-                                href='".$_SERVER['REQUEST_URI']."&delete=$locID' " .
+                                href='".$_SERVER['REQUEST_URI']."&act=delete&delete=$locID' " .
                                 "onclick=\"confirmClick('".sprintf(__('Delete %s?',SLPLUS_PREFIX),$sl_value['sl_store'])."', this.href); return false;\"></a>";
 
                         // Store Pages Active?
