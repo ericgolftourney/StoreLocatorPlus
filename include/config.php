@@ -109,7 +109,8 @@ if (defined('SLPLUS_PLUGINDIR')) {
                     'plus_pack_enabled' => get_option(SLPLUS_PREFIX.'-SLPLUS-isenabled'),
                     ),
             
-            'has_packages'           => true,            
+            'has_packages'           => true,
+            'debug_instructions'     => __('Turn it off in Store Locator Plus General Settings in the Plugin Environment panel.','csa-slplus')
         )
     );   
     
