@@ -120,11 +120,11 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 // Get our original address first
                 //
                 $old_address=$wpdb->get_results("SELECT * FROM ".$wpdb->prefix."store_locator WHERE sl_id=$_GET[edit]", ARRAY_A);
-                if (!isset($old_address[0]['sl_address']))  { $old_address[0]['sl_address'] = '';   }
-                if (!isset($old_address[0]['sl_address2'])) { $old_address[0]['sl_address2'] = '';  }
-                if (!isset($old_address[0]['sl_city'])) 	{ $old_address[0]['sl_city'] = ''; 	    }
-                if (!isset($old_address[0]['sl_state'])) 	{ $old_address[0]['sl_state'] = ''; 	}
-                if (!isset($old_address[0]['sl_zip'])) 	    { $old_address[0]['sl_zip'] = ''; 		}
+                if (!isset($old_address[0]['sl_address']))  { $old_address[0]['sl_address'] = '';}
+                if (!isset($old_address[0]['sl_address2'])) { $old_address[0]['sl_address2']= '';}
+                if (!isset($old_address[0]['sl_city']))     { $old_address[0]['sl_city']    = '';}
+                if (!isset($old_address[0]['sl_state']))    { $old_address[0]['sl_state']   = '';}
+                if (!isset($old_address[0]['sl_zip'])) 	    { $old_address[0]['sl_zip']     = '';}
 
                 // Update The Location Data
                 //
