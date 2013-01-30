@@ -53,12 +53,72 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
          * @global type $wpdb - the WP database connection
          * @param type $locationID - the ID of the location to delete
          */
-        function delete_location($locationID) {
+        function delete_location($locationID=null) {
             global $wpdb;
-            $wpdb->query(
-               'DELETE FROM '.$wpdb->prefix.'store_locator '.
-                    "WHERE sl_id='$locationID'"
-               );
+            if ($locationID === null) { return; }
+
+            $delQueries = array();
+
+            // Multiple locations
+            //
+            if (is_array($locationID)==1) {
+                $id_string="";
+                $idCount = 0;
+                foreach ($locationID as $sl_value) {
+                    $idCount++;
+                    $id_string.="$sl_value,";
+
+                    // Got 100?  Push a delete string on the stack
+                    //
+                    if ($idCount == 100) {
+                        $idCount = 0;
+                        $id_string=substr($id_string, 0, strlen($id_string)-1);
+                        array_push($delQueries,"DELETE FROM ".$wpdb->prefix."store_locator WHERE sl_id IN ($id_string)");
+                        $id_string='';
+                    }
+                }
+
+                // Clean up any stragglers
+                //
+                $id_string=substr($id_string, 0, strlen($id_string)-1);
+
+            // Single Item Delete
+            //
+            } else {
+                $id_string=$locationID;
+            }
+
+            // push the last one on the stack
+            //
+            if ($id_string != ''){
+                array_push($delQueries,"DELETE FROM ".$wpdb->prefix."store_locator WHERE sl_id IN ($id_string)");
+            }
+
+            // Run deletions
+            //
+            foreach ($delQueries as $delQuery) {
+                $delete_result = $wpdb->query($delQuery);
+                $this->parent->helper->bugout("<pre>Delete Instruction:\n$delQuery\nResult:".print_r($delete_result,true)."</pre>",'',__FILE__,__LINE__);
+                if ($delete_result == 0) {
+                    $errorMessage .= __("Could not delete the locations.  ", SLPLUS_PREFIX);
+                    $theDBError = htmlspecialchars(mysql_error($wpdb->dbh),ENT_QUOTES);
+                    if ($theDBError != '') {
+                        $errorMessage .= sprintf(
+                                                __("Error: %s.", SLPLUS_PREFIX),
+                                                $theDBError
+                                                );
+                    } elseif ($delete_result === 0) {
+                        $errorMessage .=  __("It appears the delete was for no records.", SLPLUS_PREFIX);
+                    } else {
+                        $errorMessage .=  __("No error logged.", SLPLUS_PREFIX);
+                        $errorMessage .= "<br/>\n" . __('Query: ', SLPLUS_PREFIX);
+                        $errorMessage .= print_r($wpdb->last_query,true);
+                        $errorMessage .= "<br/>\n" . "Results: " . gettype($delete_result) . ' '. $delete_result;
+                    }
+
+                }
+
+            }            
         }
 
         /**
@@ -115,13 +175,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 }
             }
             $this->parent->AdminUI->initialize_variables();
-
-            $this->parent->helper->bugout(
-                    '<pre>'.
-                        "REQUEST\n".print_r($_REQUEST,true)."\n\n".
-                    '</pre>',
-                    __('Turn it off in Store Locator Plus General Settings in the Plugin Environment panel.','csa-slplus')
-                    );
+            $this->parent->helper->bugout("<pre>REQUEST\n".print_r($_REQUEST,true)."</pre>",'',__FILE__,__LINE__);
 
             //------------------------------------------------------------------------
             // ACTION HANDLER
@@ -196,79 +250,21 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                     print apply_filters('slp_edit_location_redirect',$pageRedirect);
 
                 // DELETE
-                } else
-                if ((isset($_REQUEST['delete'])&& is_numeric($_REQUEST['delete']))  &&
-                    (isset($_REQUEST['act']) && ($_REQUEST['act']=='delete'))
-                    ){
-                   $this->delete_location($_GET['delete']);
-                }
-
-                // DELETE (again, non-qualified)
                 //
-                elseif ( ($_REQUEST['act']=="delete")  &&
-                     (isset($sl_id))
-                   ) {
-                    // use this to delete 100 at a time
-                    //
-                    $delQueries = array();
-
-                    if (is_array($sl_id)==1) {
-                        $id_string="";
-                        $idCount = 0;
-                        foreach ($sl_id as $sl_value) {
-                            $idCount++;
-                            $id_string.="$sl_value,";
-
-                            // Got 100?  Push a delete string on the stack
-                            //
-                            if ($idCount == 100) {
-                                $idCount = 0;
-                                $id_string=substr($id_string, 0, strlen($id_string)-1);
-                                array_push($delQueries,"DELETE FROM ".$wpdb->prefix."store_locator WHERE sl_id IN ($id_string)");
-                                $id_string='';
-                            }
-                        }
-
-                        // Clean up any stragglers
-                        //
-                        $id_string=substr($id_string, 0, strlen($id_string)-1);
-
-                    // Single Item Delete
-                    //
-                    } else {
-                        $id_string=$sl_id;
-                    }
-
-                    // push the last one on the stack
-                    //
-                    if ($id_string != ''){
-                        array_push($delQueries,"DELETE FROM ".$wpdb->prefix."store_locator WHERE sl_id IN ($id_string)");
-                    }
-
-                    // Run deletions
-                    //
-                    foreach ($delQueries as $delQuery) {
-                        $delete_result = $wpdb->query($delQuery);
-                        if ($delete_result == 0) {
-                            $errorMessage .= __("Could not delete the locations.  ", SLPLUS_PREFIX);
-                            $theDBError = htmlspecialchars(mysql_error($wpdb->dbh),ENT_QUOTES);
-                            if ($theDBError != '') {
-                                $errorMessage .= sprintf(
-                                                        __("Error: %s.", SLPLUS_PREFIX),
-                                                        $theDBError
-                                                        );
-                            } elseif ($delete_result === 0) {
-                                $errorMessage .=  __("It appears the delete was for no records.", SLPLUS_PREFIX);
-                            } else {
-                                $errorMessage .=  __("No error logged.", SLPLUS_PREFIX);
-                                $errorMessage .= "<br/>\n" . __('Query: ', SLPLUS_PREFIX);
-                                $errorMessage .= print_r($wpdb->last_query,true);
-                                $errorMessage .= "<br/>\n" . "Results: " . gettype($delete_result) . ' '. $delete_result;
-                            }
-
-                        }
-
-                    }
+                // location ID is either a single int coming in via REQUEST[delete]
+                // or
+                // a single int coming in from a lone checkbox in POST[sl_id]
+                // or
+                // an array of ints coming in from multiple checkboxes in POST[sl_id]
+                //
+                } else
+                if (isset($_REQUEST['act']) && ($_REQUEST['act']=='delete')){
+                   $locationID =
+                        (isset($_REQUEST['delete'])&& is_numeric($_REQUEST['delete'])) ?
+                           $_REQUEST['delete']  :
+                           (isset($_POST['sl_id']) ? $_POST['sl_id'] : null)
+                        ;
+                   $this->delete_location($locationID);
 
                 // TAG
                 //
