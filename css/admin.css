@@ -65,7 +65,13 @@
      border: solid 1px #888;
      font-family: "Courier", sans-serif;
  }
-
+ div.debugging_wrap {
+     margin: 2px;
+     padding: 3px;
+     background-color: #F4F4F4;
+     border: solid 1px #888;
+     font-family: "Courier", sans-serif;
+ }
 div.csl-slplus-input {
     float: left;
 }
