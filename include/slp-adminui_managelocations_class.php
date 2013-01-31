@@ -455,7 +455,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
 
             // Actionbar Section
             //
-            print '<form id="manage_locations_actionbar_form" name="locationForm" method="post">'.
+            print '<form id="manage_locations_actionbar_form" name="locationForm" method="post" action="'.$this->baseAdminURL.'">'.
                     '<input name="act" type="hidden">' .
                     '<div id="slplus_actionbar">' .
                         $this->parent->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/managelocations_actionbar.php') .

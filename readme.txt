@@ -296,6 +296,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Manage Locations pagination fix on sub-directory installs on shared hosts.
 * Manage Locations now searches country as one of the string match fields on search.
 * Manage Locations search locations performance improved.
+* Add debugging output to Manage Locations tab (if debug mode is on)
+* Fix: Manage Locations delete single location then multiple locations did not work.
 
 = 3.8.12 (January 27 2013) =
 
