@@ -110,7 +110,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
                     ),
             
             'has_packages'           => true,
-            'debug_instructions'     => __('Turn it off in Store Locator Plus General Settings in the Plugin Environment panel.','csa-slplus')
+            'debug_instructions'     => __('Turn debugging off via General Settings in the Plugin Environment panel.','csa-slplus')
         )
     );   
     

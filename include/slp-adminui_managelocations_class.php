@@ -113,7 +113,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             //
             foreach ($delQueries as $delQuery) {
                 $delete_result = $wpdb->query($delQuery);
-                $this->parent->helper->bugout("<pre>Delete Instruction:\n$delQuery\nResult:".print_r($delete_result,true)."</pre>",'',__FILE__,__LINE__);
+                $this->parent->helper->bugout("<pre>Delete Instruction:\n$delQuery\nResult:".print_r($delete_result,true)."</pre>",'','Delete Queries',__FILE__,__LINE__);
                 if ($delete_result == 0) {
                     $errorMessage .= __("Could not delete the locations.  ", SLPLUS_PREFIX);
                     $theDBError = htmlspecialchars(mysql_error($wpdb->dbh),ENT_QUOTES);
@@ -190,8 +190,8 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 }
             }
             $this->parent->AdminUI->initialize_variables();
-            $this->parent->helper->bugout("<pre>REQUEST\n".print_r($_REQUEST,true)."</pre>",'',__FILE__,__LINE__);
-            $this->parent->helper->bugout("<pre>SERVER\n".print_r($_SERVER,true)."</pre>",'',__FILE__,__LINE__);
+            $this->parent->helper->bugout("<pre>REQUEST\n".print_r($_REQUEST,true)."</pre>",'','REQUEST',__FILE__,__LINE__);
+            $this->parent->helper->bugout("<pre>SERVER\n".print_r($_SERVER,true)."</pre>",'','SERVER',__FILE__,__LINE__);
 
             //------------------------------------------------------------------------
             // ACTION HANDLER
