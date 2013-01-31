@@ -302,23 +302,23 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.8.12 (January 27 2013) =
 
-* Roles & Capabilities updates, must now be administrator to see SLP sidebar menu entries.
-* [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : Fix name field searches.
-* Start getting search form to send ALL form vars for better back end search functions in the future.
+* Fix: Roles & Capabilities updates, must now be administrator to see SLP sidebar menu entries.
+* Fix: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : name field searches.
+* Update: Start getting search form to send ALL form vars for better back end search functions in the future.
 
 = 3.8.11 (January 25 2013) =
 
-* [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : Add "skip duplicates" on bulk upload.
-* WP 3.5.1 compatibility testing
+* Add: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : "skip duplicates" on bulk upload.
+* Test: WP 3.5.1 compatibility
 
 = 3.8.10 (January 23 2013) =
 
-* [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : Add "skip first line" to bulk upload.
-* Trap JavaScript panTo error if home point on map is not defined.
+* Add: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : "skip first line" to bulk upload.
+* Fix: JavaScript panTo error if home point on map is not defined.
 
 = 3.8.9 (January 21 2013) =
 
-* Added Bahamas as a Google Maps domain
+* Add: Bahamas as a Google Maps domain
 
 = 3.8.8 (January 11th 2013) =
 
