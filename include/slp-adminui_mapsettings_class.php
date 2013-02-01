@@ -295,8 +295,8 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             $this->plugin->helper->loadPluginData();
 
             $slplus_message = ($this->plugin->license->packages['Pro Pack']->isenabled) ?
-                __('',SLPLUS_PREFIX) :
-                __('Extended settings are available in the <a href="%s">%s</a> premium add-on.',SLPLUS_PREFIX)
+                '' :
+                __('Extended settings are available in the <a href="%s">%s</a> premium add-on.','csa-slplus')
                ;
 
 
@@ -349,14 +349,14 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                         $slpDescription .=
                             $this->CreateInputDiv(
                                 'sl_starting_image',
-                                __('Starting Image',SLPLUS_PREFIX),
-                                __('If set, this image will be displayed until a search is performed.  Enter the full URL for the image.',SLPLUS_PREFIX),
+                                __('Starting Image','csa-slplus'),
+                                __('If set, this image will be displayed until a search is performed.  Enter the full URL for the image.','csa-slplus'),
                                 ''
                                 ) .
                             $this->plugin->helper->CreateCheckboxDiv(
                                 '_disable_initialdirectory',
-                                __('Disable Initial Directory',SLPLUS_PREFIX),
-                                __('Do not display the listings under the map when "immediately show locations" is checked.', SLPLUS_PREFIX)
+                                __('Disable Initial Directory','csa-slplus'),
+                                __('Do not display the listings under the map when "immediately show locations" is checked.', 'csa-slplus')
                                 );
                 }
 
@@ -364,7 +364,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 $slpDescription .=
                     $this->CreateSubheadingLabel(__('Country','csa-slplus')) .
                     "<div class='form_entry'>" .
-                    "<label for='google_map_domain'>". __("Map Domain", SLPLUS_PREFIX) . "</label>" .
+                    "<label for='google_map_domain'>". __("Map Domain", 'csa-slplus') . "</label>" .
                     "<select name='google_map_domain'>"
                     ;
                 foreach ($this->get_map_domains() as $key=>$sl_value) {
@@ -374,7 +374,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 $slpDescription .=
                     "</select></div>" .
                     "<div class='form_entry'>" .
-                    "<label for='sl_map_character_encoding'>".__('Character Encoding', SLPLUS_PREFIX)."</label>" .
+                    "<label for='sl_map_character_encoding'>".__('Character Encoding', 'csa-slplus')."</label>" .
                     "<select name='sl_map_character_encoding'>"
                     ;
                 foreach ($this->get_map_encodings() as $key=>$sl_value) {
@@ -394,8 +394,8 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     $this->CreatePulldownDiv(
                         'sl_zoom_level',
                         array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19),
-                        __('Zoom Level', SLPLUS_PREFIX),
-                        __('Initial zoom level of the map if "immediately show locations" is NOT selected or if only a single location is found.  0 = world view, 19 = house view.', SLPLUS_PREFIX),
+                        __('Zoom Level', 'csa-slplus'),
+                        __('Initial zoom level of the map if "immediately show locations" is NOT selected or if only a single location is found.  0 = world view, 19 = house view.', 'csa-slplus'),
                         '',
                         4
                         ) .
@@ -403,8 +403,8 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     $this->CreatePulldownDiv(
                         'sl_zoom_tweak',
                         array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19),
-                        __('Zoom Adjustment', SLPLUS_PREFIX),
-                        __('Changes how tight auto-zoom bounds the locations shown.  Lower numbers are closer to the locations.', SLPLUS_PREFIX),
+                        __('Zoom Adjustment', 'csa-slplus'),
+                        __('Changes how tight auto-zoom bounds the locations shown.  Lower numbers are closer to the locations.', 'csa-slplus'),
                         '',
                         4
                         ) .
@@ -448,8 +448,8 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     $this->CreatePulldownDiv(
                         'sl_map_type',
                         array('roadmap','hybrid','satellite','terrain'),
-                        __('Default Map Type', SLPLUS_PREFIX),
-                        __('What style Google Map should we use?', SLPLUS_PREFIX),
+                        __('Default Map Type', 'csa-slplus'),
+                        __('What style Google Map should we use?', 'csa-slplus'),
                         '',
                         'roadmap'
                         )
@@ -461,36 +461,36 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     $slpDescription .=
                         $this->CreateTextAreaDiv(
                                 SLPLUS_PREFIX.'_map_center',
-                                __('Center Map At',SLPLUS_PREFIX),
-                                __('Enter an address to serve as the initial focus for the map. Default is the center of the country.',SLPLUS_PREFIX),
+                                __('Center Map At','csa-slplus'),
+                                __('Enter an address to serve as the initial focus for the map. Default is the center of the country.','csa-slplus'),
                                 ''
                                 ) .
-                        '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Controls',SLPLUS_PREFIX).'</strong></p>' .
+                        '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Controls','csa-slplus').'</strong></p>' .
                         $this->plugin->helper->CreateCheckboxDiv(
                             'sl_map_overview_control',
-                            __('Show Map Inset Box',SLPLUS_PREFIX),
-                            __('When checked the map inset is shown.', SLPLUS_PREFIX),
+                            __('Show Map Inset Box','csa-slplus'),
+                            __('When checked the map inset is shown.', 'csa-slplus'),
                             ''
                             ) .
                         $this->plugin->helper->CreateCheckboxDiv(
                             '_disable_scrollwheel',
-                            __('Disable Scroll Wheel',SLPLUS_PREFIX),
-                            __('Disable the scrollwheel zoom on the maps interface.', SLPLUS_PREFIX)
+                            __('Disable Scroll Wheel','csa-slplus'),
+                            __('Disable the scrollwheel zoom on the maps interface.', 'csa-slplus')
                             ) .
                         $this->plugin->helper->CreateCheckboxDiv(
                             '_disable_largemapcontrol3d',
-                            __('Hide map 3d control',SLPLUS_PREFIX),
-                            __('Turn the large map 3D control off.', SLPLUS_PREFIX)
+                            __('Hide map 3d control','csa-slplus'),
+                            __('Turn the large map 3D control off.', 'csa-slplus')
                             ) .
                         $this->plugin->helper->CreateCheckboxDiv(
                             '_disable_scalecontrol',
-                            __('Hide map scale',SLPLUS_PREFIX),
-                            __('Turn the map scale off.', SLPLUS_PREFIX)
+                            __('Hide map scale','csa-slplus'),
+                            __('Turn the map scale off.', 'csa-slplus')
                             ) .
                         $this->plugin->helper->CreateCheckboxDiv(
                             '_disable_maptypecontrol',
-                            __('Hide map type',SLPLUS_PREFIX),
-                            __('Turn the map type selector off.', SLPLUS_PREFIX)
+                            __('Hide map type','csa-slplus'),
+                            __('Turn the map type selector off.', 'csa-slplus')
                             )
                         ;
                 }
@@ -504,7 +504,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             $slpDescription =
                         $this->parent->data['iconNotice'] .
                         "<div class='form_entry'>".
-                            "<label for='sl_map_home_icon'>".__('Home Icon', SLPLUS_PREFIX)."</label>".
+                            "<label for='sl_map_home_icon'>".__('Home Icon', 'csa-slplus')."</label>".
                             "<input id='sl_map_home_icon' name='sl_map_home_icon' dir='rtl' size='45' ".
                                     "value='".$this->parent->data['sl_map_home_icon']."' ".
                                     'onchange="document.getElementById(\'prev\').src=this.value">'.
@@ -512,7 +512,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                             $this->parent->data['homeIconPicker'].
                         "</div>".
                         "<div class='form_entry'>".
-                            "<label for='sl_map_end_icon'>".__('Destination Icon', SLPLUS_PREFIX)."</label>".
+                            "<label for='sl_map_end_icon'>".__('Destination Icon', 'csa-slplus')."</label>".
                             "<input id='sl_map_end_icon' name='sl_map_end_icon' dir='rtl' size='45' ".
                                 "value='".$this->parent->data['sl_map_end_icon']."' ".
                                 'onchange="document.getElementById(\'prev2\').src=this.value">'.
@@ -550,7 +550,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
             $this->settings->add_section(
                 array(
-                        'name'          => __('Map',SLPLUS_PREFIX),
+                        'name'          => __('Map','csa-slplus'),
                         'description'   => $slpDescription,
                         'auto'          => true
                     )
@@ -752,8 +752,8 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
           */
          function results_settings() {
             $slplus_message = ($this->parent->license->packages['Pro Pack']->isenabled) ?
-                __('',SLPLUS_PREFIX) :
-                __('Extended settings are available in the <a href="%s">%s</a> premium add-on.',SLPLUS_PREFIX)
+                '' :
+                __('Extended settings are available in the <a href="%s">%s</a> premium add-on.','csa-slplus')
                 ;
 
 
@@ -762,14 +762,14 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             // -- Search Results
             //
             $slpDescription =
-                    '<h2>' . __('Location Info',SLPLUS_PREFIX).'</h2>'.
-                    '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Search Results',SLPLUS_PREFIX).'</strong></p>' .
+                    '<h2>' . __('Location Info','csa-slplus').'</h2>'.
+                    '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Search Results','csa-slplus').'</strong></p>' .
                     '<p>'.sprintf($slplus_message,$this->parent->purchase_url,'Pro Pack').'</p>'
                     ;
             $slpDescription .= $this->CreateInputDiv(
                         '_maxreturned',
-                        __('Max search results',SLPLUS_PREFIX),
-                        __('How many locations does a search return? Default is 25.',SLPLUS_PREFIX)
+                        __('Max search results','csa-slplus'),
+                        __('How many locations does a search return? Default is 25.','csa-slplus')
                         );
 
             //--------
@@ -778,14 +778,14 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             if ($this->parent->license->packages['Pro Pack']->isenabled) {
                 $slpDescription .= $this->plugin->helper->CreateCheckboxDiv(
                     '_show_tags',
-                    __('Show Tags In Output',SLPLUS_PREFIX),
-                    __('Show the tags in the location output table and bubble.', SLPLUS_PREFIX)
+                    __('Show Tags In Output','csa-slplus'),
+                    __('Show the tags in the location output table and bubble.', 'csa-slplus')
                     );
 
                 $slpDescription .= $this->plugin->helper->CreateCheckboxDiv(
                     '_use_email_form',
-                    __('Use Email Form',SLPLUS_PREFIX),
-                    __('Use email form instead of mailto: link when showing email addresses.', SLPLUS_PREFIX)
+                    __('Use Email Form','csa-slplus'),
+                    __('Use email form instead of mailto: link when showing email addresses.', 'csa-slplus')
                     );
             }
 
@@ -814,48 +814,48 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                        ) .
                    $this->CreateInputDiv(
                        '_label_hours',
-                       __('Hours', SLPLUS_PREFIX),
-                       __('Hours label.',SLPLUS_PREFIX),
+                       __('Hours', 'csa-slplus'),
+                       __('Hours label.','csa-slplus'),
                        SLPLUS_PREFIX,
                        'Hours: '
                        ) .
                    $this->CreateInputDiv(
                        '_label_phone',
-                       __('Phone', SLPLUS_PREFIX),
-                       __('Phone label.',SLPLUS_PREFIX),
+                       __('Phone', 'csa-slplus'),
+                       __('Phone label.','csa-slplus'),
                        SLPLUS_PREFIX,
                        'Phone: '
                        ) .
                    $this->CreateInputDiv(
                        '_label_fax',
-                       __('Fax', SLPLUS_PREFIX),
-                       __('Fax label.',SLPLUS_PREFIX),
+                       __('Fax', 'csa-slplus'),
+                       __('Fax label.','csa-slplus'),
                        SLPLUS_PREFIX,
                        'Fax: '
                        ) .
                    $this->CreateInputDiv(
                        '_label_directions',
-                       __('Directions', SLPLUS_PREFIX),
-                       __('Directions label.',SLPLUS_PREFIX),
+                       __('Directions', 'csa-slplus'),
+                       __('Directions label.','csa-slplus'),
                        SLPLUS_PREFIX,
                        'Directions'
                        ) .
                    $this->CreateInputDiv(
                        'sl_instruction_message',
-                       __('Instructions', SLPLUS_PREFIX),
-                       __('Search results instructions shown if immediately show locations is not selected.',SLPLUS_PREFIX),
+                       __('Instructions', 'csa-slplus'),
+                       __('Search results instructions shown if immediately show locations is not selected.','csa-slplus'),
                        '',
-                       __('Enter an address or zip code and click the find locations button.',SLPLUS_PREFIX)
+                       __('Enter an address or zip code and click the find locations button.','csa-slplus')
                        )
                        ;
 
             if ($this->parent->license->packages['Pro Pack']->isenabled) {
                 $slpDescription .= $this->CreateInputDiv(
                         '_message_noresultsfound',
-                        __('No Results Message', SLPLUS_PREFIX),
-                        __('No results found message that appears under the map.',SLPLUS_PREFIX),
+                        __('No Results Message', 'csa-slplus'),
+                        __('No results found message that appears under the map.','csa-slplus'),
                         SLPLUS_PREFIX,
-                        __('Results not found.',SLPLUS_PREFIX)
+                        __('Results not found.','csa-slplus')
                         );
             }
             $slpDescription .= '</div>';
@@ -865,7 +865,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             //
             $this->settings->add_section(
                 array(
-                        'name'          => __('Results',SLPLUS_PREFIX),
+                        'name'          => __('Results','csa-slplus'),
                         'description'   => $slpDescription,
                         'auto'          => true
                     )
@@ -879,31 +879,31 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
          function search_form_settings() {
             global  $sl_the_distance_unit;
 
-            $sl_the_distance_unit[__("Kilometers", SLPLUS_PREFIX)]="km";
-            $sl_the_distance_unit[__("Miles", SLPLUS_PREFIX)]="miles";
+            $sl_the_distance_unit[__("Kilometers", 'csa-slplus')]="km";
+            $sl_the_distance_unit[__("Miles", 'csa-slplus')]="miles";
 
             $ppFeatureMsg = (!$this->parent->license->packages['Pro Pack']->isenabled ?
                     sprintf(
-                            __(' This is a <a href="%s" target="csa">Pro Pack</a> feature.', SLPLUS_PREFIX),
+                            __(' This is a <a href="%s" target="csa">Pro Pack</a> feature.', 'csa-slplus'),
                             $this->parent->purchase_url
                             ) :
                     ''
                  );
             $slplus_message = ($this->parent->license->packages['Pro Pack']->isenabled) ?
-                __('',SLPLUS_PREFIX) :
-                __('Tag features are available in the <a href="%s">%s</a> premium add-on.',SLPLUS_PREFIX)
+                '' :
+                __('Tag features are available in the <a href="%s">%s</a> premium add-on.','csa-slplus')
                 ;
 
             $slpDescription =
                 "<div id='search_settings'>" .
                     "<div class='section_column'>" .
-                        "<h2>".__('Features', SLPLUS_PREFIX)."</h2>"
+                        "<h2>".__('Features', 'csa-slplus')."</h2>"
                 .
 
                 $this->CreateInputDiv(
                     'sl_map_radii',
-                    __('Radii Options', SLPLUS_PREFIX),
-                    __('Separate each number with a comma ",". Put parenthesis "( )" around the default.',SLPLUS_PREFIX),
+                    __('Radii Options', 'csa-slplus'),
+                    __('Separate each number with a comma ",". Put parenthesis "( )" around the default.','csa-slplus'),
                     '',
                     '10,25,50,100,(200),500'
                     ) .
@@ -990,7 +990,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 $this->plugin->helper->CreateCheckboxDiv(
                     '_disable_find_image',
                     __('Use Find Location Text Button','csa-slplus'),
-                    __('Use a standard text button for "Find Locations" instead of the provided button images.', SLPLUS_PREFIX) . $ppFeatureMsg,
+                    __('Use a standard text button for "Find Locations" instead of the provided button images.', 'csa-slplus') . $ppFeatureMsg,
                     SLPLUS_PREFIX,
                     false,
                     1
@@ -1016,19 +1016,19 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             if ($this->parent->license->packages['Pro Pack']->isenabled) {
                 $slpDescription .= $this->plugin->helper->CreateCheckboxDiv(
                     '_show_tag_search',
-                    __('Tag Input',SLPLUS_PREFIX),
-                    __('Show the tag entry box on the search form.', SLPLUS_PREFIX)
+                    __('Tag Input','csa-slplus'),
+                    __('Show the tag entry box on the search form.', 'csa-slplus')
                     );
                 $slpDescription .= $this->CreateInputDiv(
                         '_tag_search_selections',
-                        __('Preselected Tag Searches', SLPLUS_PREFIX),
-                        __("Enter a comma (,) separated list of tags to show in the search pulldown, mark the default selection with parenthesis '( )'. This is a default setting that can be overriden on each page within the shortcode.",SLPLUS_PREFIX)
+                        __('Preselected Tag Searches', 'csa-slplus'),
+                        __("Enter a comma (,) separated list of tags to show in the search pulldown, mark the default selection with parenthesis '( )'. This is a default setting that can be overriden on each page within the shortcode.",'csa-slplus')
                         );
 
                 $slpDescription .= $this->plugin->helper->CreateCheckboxDiv(
                     '_show_tag_any',
-                    __('Add "any" to tags pulldown',SLPLUS_PREFIX),
-                    __('Add an "any" selection on the tag pulldown list thus allowing the user to show all locations in the area, not just those matching a selected tag.', SLPLUS_PREFIX)
+                    __('Add "any" to tags pulldown','csa-slplus'),
+                    __('Add an "any" selection on the tag pulldown list thus allowing the user to show all locations in the area, not just those matching a selected tag.', 'csa-slplus')
                     );
             }
 
@@ -1044,22 +1044,22 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             $settingsHTML =
                 $this->CreateInputDiv(
                     'sl_search_label',
-                    __('Address', SLPLUS_PREFIX),
-                    __('Search form address label.',SLPLUS_PREFIX),
+                    __('Address', 'csa-slplus'),
+                    __('Search form address label.','csa-slplus'),
                     '',
                     'Address / Zip'
                     ) .
                 $this->CreateInputDiv(
                     'sl_name_label',
-                    __('Name', SLPLUS_PREFIX),
-                    __('Search form name label.',SLPLUS_PREFIX),
+                    __('Name', 'csa-slplus'),
+                    __('Search form name label.','csa-slplus'),
                     '',
                     'Name'
                     ) .
                 $this->CreateInputDiv(
                     'sl_radius_label',
-                    __('Radius', SLPLUS_PREFIX),
-                    __('Search form radius label.',SLPLUS_PREFIX),
+                    __('Radius', 'csa-slplus'),
+                    __('Search form radius label.','csa-slplus'),
                     '',
                     'Within'
                     )
