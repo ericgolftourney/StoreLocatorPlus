@@ -957,6 +957,7 @@ if (! class_exists('SLPlus_AdminUI')) {
              */
              $content  = ''                                                                     .
                 "<form id='manualAddForm' name='manualAddForm' method='post' enctype='multipart/form-data'>"       .
+                "<input type='hidden' name='locationID' id='locationID' value='$locID' />" .
                 "<a name='a".$locID."'></a>"                                                    .
                 "<table cellpadding='0' class='slp_locationinfoform_table'>"                           .
                 "<tr><td valign='top'>"                                                         .

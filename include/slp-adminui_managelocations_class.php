@@ -226,68 +226,68 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             if (isset($_REQUEST['act'])) {
 
                 // SAVE
-                if ((isset($_REQUEST['edit'])&& is_numeric($_REQUEST['edit']))      &&
-                           (isset($_REQUEST['act']) && ($_REQUEST['act']=='save'))
-                           ) {
+                if ($_REQUEST['act']=='save') {
+                    if (is_numeric($_REQUEST['locationID'])) {
 
-                    // Get our original address first
-                    //
-                    $old_address=$wpdb->get_results("SELECT * FROM ".$wpdb->prefix."store_locator WHERE sl_id=$_GET[edit]", ARRAY_A);
-                    if (!isset($old_address[0]['sl_address']))  { $old_address[0]['sl_address'] = '';}
-                    if (!isset($old_address[0]['sl_address2'])) { $old_address[0]['sl_address2']= '';}
-                    if (!isset($old_address[0]['sl_city']))     { $old_address[0]['sl_city']    = '';}
-                    if (!isset($old_address[0]['sl_state']))    { $old_address[0]['sl_state']   = '';}
-                    if (!isset($old_address[0]['sl_zip'])) 	    { $old_address[0]['sl_zip']     = '';}
+                        // Get our original address first
+                        //
+                        $old_address=$wpdb->get_results("SELECT * FROM ".$wpdb->prefix."store_locator WHERE sl_id={$_REQUEST['locationID']}", ARRAY_A);
+                        if (!isset($old_address[0]['sl_address']))  { $old_address[0]['sl_address'] = '';}
+                        if (!isset($old_address[0]['sl_address2'])) { $old_address[0]['sl_address2']= '';}
+                        if (!isset($old_address[0]['sl_city']))     { $old_address[0]['sl_city']    = '';}
+                        if (!isset($old_address[0]['sl_state']))    { $old_address[0]['sl_state']   = '';}
+                        if (!isset($old_address[0]['sl_zip'])) 	    { $old_address[0]['sl_zip']     = '';}
 
-                    // Update The Location Data
-                    //
-                    $field_value_str = '';
-                    foreach ($_POST as $key=>$sl_value) {
-                        if (preg_match('#\-'.$_GET['edit'].'#', $key)) {
-                            $slpFieldName = preg_replace('#\-'.$_GET['edit'].'#', '', $key);
-                            if (!$this->parent->license->packages['Pro Pack']->isenabled) {
-                                if ( ($slpFieldName == 'latitude') || ($slpFieldName == 'longitude')) {
-                                    continue;
+                        // Update The Location Data
+                        //
+                        $field_value_str = '';
+                        foreach ($_POST as $key=>$sl_value) {
+                            if (preg_match('#\-'.$_REQUEST['locationID'].'#', $key)) {
+                                $slpFieldName = preg_replace('#\-'.$_REQUEST['locationID'].'#', '', $key);
+                                if (!$this->parent->license->packages['Pro Pack']->isenabled) {
+                                    if ( ($slpFieldName == 'latitude') || ($slpFieldName == 'longitude')) {
+                                        continue;
+                                    }
                                 }
+                                $field_value_str.="sl_".$slpFieldName."='".trim($this->parent->AdminUI->slp_escape($sl_value))."', ";
+                                $_POST[$slpFieldName]=$sl_value;
                             }
-                            $field_value_str.="sl_".$slpFieldName."='".trim($this->parent->AdminUI->slp_escape($sl_value))."', ";
-                            $_POST[$slpFieldName]=$sl_value;
                         }
+                        $field_value_str=substr($field_value_str, 0, strlen($field_value_str)-2);
+                        $field_value_str = apply_filters('slp_update_location_data',$field_value_str,$_REQUEST['locationID']);
+                        $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET $field_value_str WHERE sl_id={$_REQUEST['locationID']}");
+
+                        // Check our address
+                        //
+                        if (!isset($_POST['address'])   ) { $_POST['address'] = '';     }
+                        if (!isset($_POST['address2'])  ) { $_POST['address2'] = '';    }
+                        if (!isset($_POST['city'])      ) { $_POST['city'] = '';        }
+                        if (!isset($_POST['state'])     ) { $_POST['state'] = '';       }
+                        if (!isset($_POST['zip'])       ) { $_POST['zip'] = '';         }
+                        $the_address=
+                                $_POST['address']   .' '    .
+                                $_POST['address2']  .', '   .
+                                $_POST['city']      .', '   .
+                                $_POST['state']     .' '    .
+                                $_POST['zip'];
+
+                        // RE-geocode if the address changed
+                        // or if the lat/long is not set
+                        //
+                        if (   ($the_address!=
+                                $old_address[0]['sl_address'].' '.$old_address[0]['sl_address2'].', '.$old_address[0]['sl_city'].', '.
+                                $old_address[0]['sl_state'].' '.$old_address[0]['sl_zip']
+                                ) ||
+                                ($old_address[0]['sl_latitude']=="" || $old_address[0]['sl_longitude']=="")
+                                ) {
+                            $this->parent->AdminUI->do_geocoding($the_address,$_REQUEST['locationID']);
+                        }
+
+                        // Redirect to the edit page
+                        //
+                        $pageRedirect = "<script>location.replace('".$this->hangoverURL."');</script>";
+                        print apply_filters('slp_edit_location_redirect',$pageRedirect);
                     }
-                    $field_value_str=substr($field_value_str, 0, strlen($field_value_str)-2);
-                    $field_value_str = apply_filters('slp_update_location_data',$field_value_str,$_GET['edit']);
-                    $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET $field_value_str WHERE sl_id=$_GET[edit]");
-
-                    // Check our address
-                    //
-                    if (!isset($_POST['address'])   ) { $_POST['address'] = '';     }
-                    if (!isset($_POST['address2'])  ) { $_POST['address2'] = '';    }
-                    if (!isset($_POST['city'])      ) { $_POST['city'] = '';        }
-                    if (!isset($_POST['state'])     ) { $_POST['state'] = '';       }
-                    if (!isset($_POST['zip'])       ) { $_POST['zip'] = '';         }
-                    $the_address=
-                            $_POST['address']   .' '    .
-                            $_POST['address2']  .', '   .
-                            $_POST['city']      .', '   .
-                            $_POST['state']     .' '    .
-                            $_POST['zip'];
-
-                    // RE-geocode if the address changed
-                    // or if the lat/long is not set
-                    //
-                    if (   ($the_address!=
-                            $old_address[0]['sl_address'].' '.$old_address[0]['sl_address2'].', '.$old_address[0]['sl_city'].', '.
-                            $old_address[0]['sl_state'].' '.$old_address[0]['sl_zip']
-                            ) ||
-                            ($old_address[0]['sl_latitude']=="" || $old_address[0]['sl_longitude']=="")
-                            ) {
-                        $this->parent->AdminUI->do_geocoding($the_address,$_GET['edit']);
-                    }
-
-                    // Redirect to the edit page
-                    //
-                    $pageRedirect = "<script>location.replace('".preg_replace('/&act=edit&edit='.$_GET['edit'].'/', '',$_SERVER['REQUEST_URI'])."');</script>";
-                    print apply_filters('slp_edit_location_redirect',$pageRedirect);
 
                 // DELETE
                 //
