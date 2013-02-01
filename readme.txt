@@ -294,6 +294,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 = 3.8.13 (January 30th 2013) =
 
 * Add: Country to Manage Locations searches.
+* Add: Country to Manage Locations Recode Selected.
 * Add: Debugging output to Manage Locations tab (if debug mode is on)
 * Add: Israel to map domains.
 * Fix: Manage Locations delete single location then multiple locations did not work.
