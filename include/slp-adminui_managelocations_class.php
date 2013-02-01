@@ -534,7 +534,6 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                         'sl_city'       =>  __('City'     ,'csa-slplus'),
                         'sl_state'      =>  __('State'    ,'csa-slplus'),
                         'sl_zip'        =>  __('Zip'      ,'csa-slplus'),
-                        'sl_tags'       =>  __('Tags'     ,'csa-slplus'),
                     );
 
                 // Expanded View
@@ -542,8 +541,9 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 if (get_option('sl_location_table_view')!="Normal") {
                     $slpManageColumns = array_merge($slpManageColumns,
                                 array(
-                                    'sl_description'    => __('Description'  ,'csa-slplus'),
-                                    'sl_url'            => get_option('sl_website_label','Website'),
+                                    'sl_tags'       => __('Tags'     ,'csa-slplus'),
+                                    'sl_description'=> __('Description'  ,'csa-slplus'),
+                                    'sl_url'        => get_option('sl_website_label','Website'),
                                 )
                             );
 
