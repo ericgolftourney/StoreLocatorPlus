@@ -527,14 +527,14 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 // Setup Table Columns
                 //
                 $slpManageColumns = array(
-                        'sl_id'         =>  __('ID'       ,SLPLUS_PREFIX),
-                        'sl_store'      =>  __('Name'     ,SLPLUS_PREFIX),
-                        'sl_address'    =>  __('Street'   ,SLPLUS_PREFIX),
-                        'sl_address2'   =>  __('Street2'  ,SLPLUS_PREFIX),
-                        'sl_city'       =>  __('City'     ,SLPLUS_PREFIX),
-                        'sl_state'      =>  __('State'    ,SLPLUS_PREFIX),
-                        'sl_zip'        =>  __('Zip'      ,SLPLUS_PREFIX),
-                        'sl_tags'       =>  __('Tags'     ,SLPLUS_PREFIX),
+                        'sl_id'         =>  __('ID'       ,'csa-slplus'),
+                        'sl_store'      =>  __('Name'     ,'csa-slplus'),
+                        'sl_address'    =>  __('Street'   ,'csa-slplus'),
+                        'sl_address2'   =>  __('Street2'  ,'csa-slplus'),
+                        'sl_city'       =>  __('City'     ,'csa-slplus'),
+                        'sl_state'      =>  __('State'    ,'csa-slplus'),
+                        'sl_zip'        =>  __('Zip'      ,'csa-slplus'),
+                        'sl_tags'       =>  __('Tags'     ,'csa-slplus'),
                     );
 
                 // Expanded View
@@ -542,7 +542,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 if (get_option('sl_location_table_view')!="Normal") {
                     $slpManageColumns = array_merge($slpManageColumns,
                                 array(
-                                    'sl_description'    => __('Description'  ,SLPLUS_PREFIX),
+                                    'sl_description'    => __('Description'  ,'csa-slplus'),
                                     'sl_url'            => get_option('sl_website_label','Website'),
                                 )
                             );
