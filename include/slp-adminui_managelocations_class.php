@@ -229,6 +229,48 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
         }
 
         /**
+         * Tag a location
+         * 
+         * @param mixed $locationID - a single location ID (int) or an array of them.
+         */
+        function location_tag($locationID) {
+            global $wpdb;
+            
+            //adding or removing tags for specified a locations
+            //
+            if (is_array($locationID)) {
+                $id_string='';
+                foreach ($locationID as $sl_value) {
+                    $id_string.="$sl_value,";
+                }
+                $id_string=substr($id_string, 0, strlen($id_string)-1);
+            } else {
+                $id_string=$locationID;
+            }
+
+            // If we have some store IDs
+            //
+            if ($id_string != '') {
+                //adding tags
+                if ($_REQUEST['act']=="add_tag") {
+                    $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET ".
+                            "sl_tags=CONCAT_WS(',',sl_tags,'".strtolower($_REQUEST['sl_tags'])."') ".
+                            "WHERE sl_id IN ($id_string)"
+                            );
+
+                //removing tags
+                } elseif ($_REQUEST['act']=="remove_tag") {
+                    if (empty($_REQUEST['sl_tags'])) {
+                        //if no tag is specified, all tags will be removed from selected locations
+                        $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_tags='' WHERE sl_id IN ($id_string)");
+                    } else {
+                        $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_tags=REPLACE(sl_tags, ',{$_REQUEST['sl_tags']},', '') WHERE sl_id IN ($id_string)");
+                    }
+                }
+            }
+        }
+
+        /**
          * Render the manage locations admin page.
          *
          */
@@ -316,37 +358,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 // TAG
                 //
                 }  elseif (preg_match('#tag#i', $_REQUEST['act'])) {
-
-                    //adding or removing tags for specified a locations
-                    if (isset($sl_id)) {
-                        if (is_array($sl_id)) {
-                            $id_string='';
-                            foreach ($sl_id as $sl_value) {
-                                $id_string.="$sl_value,";
-                            }
-                            $id_string=substr($id_string, 0, strlen($id_string)-1);
-                        } else {
-                            $id_string=$sl_id;
-                        }
-
-                        // If we have some store IDs
-                        //
-                        if ($id_string != '') {
-                            //adding tags
-                            if ($act=="add_tag") {
-                                $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_tags=CONCAT(sl_tags, ',".strtolower($sl_tags).", ') WHERE sl_id IN ($id_string)");
-
-                            //removing tags
-                            } elseif ($act=="remove_tag") {
-                                if (empty($sl_tags)) {
-                                    //if no tag is specified, all tags will be removed from selected locations
-                                    $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_tags='' WHERE sl_id IN ($id_string)");
-                                } else {
-                                    $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET sl_tags=REPLACE(sl_tags, ',$sl_tags,', '') WHERE sl_id IN ($id_string)");
-                                }
-                            }
-                        }
-                    }
+                    if (isset($_REQUEST['sl_id'])) { $this->location_tag($_REQUEST['sl_id']); }
 
                 // Locations Per Page Action
                 } elseif ($_REQUEST['act']=="locationsPerPage") {
