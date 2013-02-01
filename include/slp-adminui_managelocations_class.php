@@ -92,7 +92,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
          * @global type $wpdb - the WP database connection
          * @param type $locationID - the ID of the location to delete
          */
-        function delete_location($locationID=null) {
+        function location_delete($locationID=null) {
             global $wpdb;
             if ($locationID === null) { return; }
 
@@ -311,7 +311,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                            $_REQUEST['delete']  :
                            (isset($_POST['sl_id']) ? $_POST['sl_id'] : null)
                         ;
-                   $this->delete_location($locationID);
+                   $this->location_delete($locationID);
 
                 // TAG
                 //
