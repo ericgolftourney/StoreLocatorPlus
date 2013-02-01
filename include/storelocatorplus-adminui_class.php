@@ -379,6 +379,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                     $update_result = $wpdb->query($query);
                     if ($update_result == 0) {
                         $theDBError = htmlspecialchars(mysql_error($wpdb->dbh),ENT_QUOTES);
+                        $errorMessage .= (($sl_id!='')?'Location #'.$sl_id.' : ' : '');
                         $errorMessage .= __("Could not set the latitude and/or longitude  ", SLPLUS_PREFIX);
                         if ($theDBError != '') {
                             $errorMessage .= sprintf(

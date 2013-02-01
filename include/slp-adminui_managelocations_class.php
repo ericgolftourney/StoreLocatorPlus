@@ -394,8 +394,9 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                                 if (!isset($address['sl_city'])) 	{ $address['sl_city'] = ''; 	}
                                 if (!isset($address['sl_state'])) 	{ $address['sl_state'] = ''; 	}
                                 if (!isset($address['sl_zip'])) 	{ $address['sl_zip'] = ''; 		}
+                                if (!isset($address['sl_country'])) 	{ $address['sl_country'] = ''; 		}
 
-                                $this->parent->AdminUI->do_geocoding("$address[sl_address] $address[sl_address2], $address[sl_city], $address[sl_state] $address[sl_zip]",$thisLocation);
+                                $this->parent->AdminUI->do_geocoding("$address[sl_address] $address[sl_address2], $address[sl_city], $address[sl_state] $address[sl_zip] $address[sl_country]",$thisLocation);
                         }
                     }
 
