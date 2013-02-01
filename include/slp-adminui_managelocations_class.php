@@ -534,6 +534,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                         'sl_city'       =>  __('City'     ,'csa-slplus'),
                         'sl_state'      =>  __('State'    ,'csa-slplus'),
                         'sl_zip'        =>  __('Zip'      ,'csa-slplus'),
+                        'sl_country'    =>  __('Country'  ,'csa-slplus'),
                     );
 
                 // Expanded View
