@@ -299,6 +299,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 * Fix: Manage Locations delete single location then multiple locations did not work.
 * Fix: Manage Locations pagination on sub-directory installs on shared hosts.
 * Fix: Manage Locations edit keeps the search filter in place so editing page 2..n locations works.
+* Improve: Saving after editing a location keeps the pagination and search filter in place.
 * Improve: Manage Locations search locations performance.
 
 = 3.8.12 (January 27 2013) =
