@@ -297,8 +297,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 // or
                 // an array of ints coming in from multiple checkboxes in POST[sl_id]
                 //
-                } else
-                if (isset($_REQUEST['act']) && ($_REQUEST['act']=='delete')){
+                } elseif ($_REQUEST['act']=='delete'){
                    $locationID =
                         (isset($_REQUEST['delete'])&& is_numeric($_REQUEST['delete'])) ?
                            $_REQUEST['delete']  :
