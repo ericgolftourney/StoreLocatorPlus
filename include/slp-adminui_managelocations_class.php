@@ -18,6 +18,8 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
         public $parent = null;
         public $settings = null;
         public $baseAdminURL = '';
+        public $cleanAdminURL = '';
+        public $hangoverURL = '';
 
         /**
          * Called when this object is created.
@@ -33,14 +35,36 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             // Set our base Admin URL
             //
             if (isset($_SERVER['REQUEST_URI'])) {
-                $this->baseAdminURL =
+                $this->cleanAdminURL =
                     isset($_SERVER['QUERY_STRING'])?
                         str_replace('?'.$_SERVER['QUERY_STRING'], '', $_SERVER['REQUEST_URI']) :
                         $_SERVER['REQUEST_URI']
                         ;
+
+                $queryParams = array();
+
+                // Base Admin URL = must have params
+                //
                 if (isset($_REQUEST['page'])) {
-                    $this->baseAdminURL .= '?page=' . $_REQUEST['page'];
+                    $queryParams['page'] = $_REQUEST['page'];
                 }
+                $this->baseAdminURL = $this->cleanAdminURL . '?' . build_query($queryParams);
+
+
+                // Hangover URL = params we like to carry around sometimes
+                //
+                if (isset($_REQUEST['searchfor'])) {
+                    $queryParams['searchfor'] = $_REQUEST['searchfor'];
+                }
+                $this->hangoverURL = $this->cleanAdminURL . '?' . build_query($queryParams);
+
+                $this->plugin->helper->bugout('<pre>'.
+                        'cleanAdminURL: '.$this->cleanAdminURL."\n".
+                        'baseAdminURL:  '.$this->baseAdminURL ."\n".
+                        'hangoverURL:   '.$this->hangoverURL.
+                        '</pre>',
+                        '','Manage Locations UI',__FILE__,__LINE__
+                        );
             }
 
         }
@@ -185,7 +209,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             //
             $sl_hidden='';
             foreach($_REQUEST as $key=>$val) {
-                if ($key!="q" && $key!="o" && $key!="sortorder" && $key!="start" && $key!="act" && $key!='sl_tags' && $key!='sl_id') {
+                if ($key!="searchfor" && $key!="o" && $key!="sortorder" && $key!="start" && $key!="act" && $key!='sl_tags' && $key!='sl_id') {
                     $sl_hidden.="<input type='hidden' value='$val' name='$key'>\n";
                 }
             }
@@ -414,7 +438,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             //------------------------------------------------------------------------
             // QUERY BUILDING
             //------------------------------------------------------------------------
-            $qry = isset($_REQUEST['q']) ? $_REQUEST['q'] : '';
+            $qry = isset($_REQUEST['searchfor']) ? $_REQUEST['searchfor'] : '';
             $where=($qry!='')?
                     " WHERE CONCAT_WS(';',sl_store,sl_address,sl_address2,sl_city,sl_state,sl_zip,sl_country,sl_tags) LIKE '%$qry%'" :
                     '' ;
@@ -465,7 +489,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             // Search Filter, no actions
             // Clear the start, we want all records
             //
-            if (isset($_POST['q']) && ($_POST['q'] != '') && ($_POST['act'] == '')) {
+            if (isset($_POST['searchfor']) && ($_POST['searchfor'] != '') && ($_POST['act'] == '')) {
                 $start = 0;
             }
 
@@ -588,7 +612,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                             "<th><input type='checkbox' name='sl_id[]' value='$locID'></th>" .
                             "<th class='thnowrap'>".
                             "<a class='action_icon edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."'
-                                href='".$this->baseAdminURL."&act=edit&edit=$locID#a$locID'></a>".
+                                href='".$this->hangoverURL."&act=edit&edit=$locID#a$locID'></a>".
                             "&nbsp;" .
                             "<a class='action_icon delete_icon' alt='".__('delete',SLPLUS_PREFIX)."' title='".__('delete',SLPLUS_PREFIX)."'
                                 href='".$_SERVER['REQUEST_URI']."&act=delete&delete=$locID' " .

@@ -61,7 +61,7 @@ function doAction(theAction,thePrompt) {
         print '<div id="search_block" class="searchlocations filterbox">';
         ?>
                 <p class="centerbutton"><input class='like-a-button' type='submit' value='<?php print __("Search Locations", SLPLUS_PREFIX); ?>'></p>
-                <input id='search-q' value='<?php print (isset($_REQUEST['q'])?$_REQUEST['q']:''); ?>' name='q'>
+                <input id='searchfor' value='<?php print (isset($_REQUEST['searchfor'])?$_REQUEST['searchfor']:''); ?>' name='searchfor'>
                 <?php 
                 print $sl_hidden;
         print '</div>';
