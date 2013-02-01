@@ -139,18 +139,18 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 $delete_result = $wpdb->query($delQuery);
                 $this->parent->helper->bugout("<pre>Delete Instruction:\n$delQuery\nResult:".print_r($delete_result,true)."</pre>",'','Delete Queries',__FILE__,__LINE__);
                 if ($delete_result == 0) {
-                    $errorMessage .= __("Could not delete the locations.  ", SLPLUS_PREFIX);
+                    $errorMessage .= __("Could not delete the locations.  ", 'csa-slplus');
                     $theDBError = htmlspecialchars(mysql_error($wpdb->dbh),ENT_QUOTES);
                     if ($theDBError != '') {
                         $errorMessage .= sprintf(
-                                                __("Error: %s.", SLPLUS_PREFIX),
+                                                __("Error: %s.", 'csa-slplus'),
                                                 $theDBError
                                                 );
                     } elseif ($delete_result === 0) {
-                        $errorMessage .=  __("It appears the delete was for no records.", SLPLUS_PREFIX);
+                        $errorMessage .=  __("It appears the delete was for no records.", 'csa-slplus');
                     } else {
-                        $errorMessage .=  __("No error logged.", SLPLUS_PREFIX);
-                        $errorMessage .= "<br/>\n" . __('Query: ', SLPLUS_PREFIX);
+                        $errorMessage .=  __("No error logged.", 'csa-slplus');
+                        $errorMessage .= "<br/>\n" . __('Query: ', 'csa-slplus');
                         $errorMessage .= print_r($wpdb->last_query,true);
                         $errorMessage .= "<br/>\n" . "Results: " . gettype($delete_result) . ' '. $delete_result;
                     }
@@ -309,7 +309,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             print "<div class='wrap'>
                         <div id='icon-edit-locations' class='icon32'><br/></div>
                         <h2>".
-                        __('Store Locator Plus - Manage Locations', SLPLUS_PREFIX).
+                        __('Store Locator Plus - Manage Locations', 'csa-slplus').
                         "</h2>" .
                   $this->parent->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php')
                   ;
@@ -553,18 +553,18 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                     if ($this->parent->license->packages['Store Pages']->isenabled) {
                         $slpManageColumns = array_merge($slpManageColumns,
                                     array(
-                                        'sl_pages_url'      => __('Pages URL'          ,SLPLUS_PREFIX),
+                                        'sl_pages_url'      => __('Pages URL'          ,'csa-slplus'),
                                     )
                                 );
                     }
 
                     $slpManageColumns = array_merge($slpManageColumns,
                                 array(
-                                    'sl_email'       => __('Email'        ,SLPLUS_PREFIX),
+                                    'sl_email'       => __('Email'        ,'csa-slplus'),
                                     'sl_hours'       => $this->parent->settings->get_item('label_hours','Hours','_'),
                                     'sl_phone'       => $this->parent->settings->get_item('label_phone','Phone','_'),
                                     'sl_fax'         => $this->parent->settings->get_item('label_fax'  ,'Fax'  ,'_'),
-                                    'sl_image'       => __('Image'        ,SLPLUS_PREFIX),
+                                    'sl_image'       => __('Image'        ,'csa-slplus'),
                                 )
                             );
 
@@ -615,29 +615,29 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                             "http://".$sl_value['sl_url'] :
                             $sl_value['sl_url'] ;
                         $sl_value['sl_url']=($sl_value['sl_url']!="")?
-                            "<a href='$sl_value[sl_url]' target='blank'>".__("View", SLPLUS_PREFIX)."</a>" :
+                            "<a href='$sl_value[sl_url]' target='blank'>".__("View", 'csa-slplus')."</a>" :
                             "" ;
                         $sl_value['sl_email']=($sl_value['sl_email']!="")?
-                            "<a href='mailto:$sl_value[sl_email]' target='blank'>".__("Email", SLPLUS_PREFIX)."</a>" :
+                            "<a href='mailto:$sl_value[sl_email]' target='blank'>".__("Email", 'csa-slplus')."</a>" :
                             "" ;
                         $sl_value['sl_image']=($sl_value['sl_image']!="")?
-                            "<a href='$sl_value[sl_image]' target='blank'>".__("View", SLPLUS_PREFIX)."</a>" :
+                            "<a href='$sl_value[sl_image]' target='blank'>".__("View", 'csa-slplus')."</a>" :
                             "" ;
                         $sl_value['sl_description']=($sl_value['sl_description']!="")?
                             "<a onclick='alert(\"".$this->parent->AdminUI->slp_escape($sl_value['sl_description'])."\")' href='#'>".
-                            __("View", SLPLUS_PREFIX)."</a>" :
+                            __("View", 'csa-slplus')."</a>" :
                             "" ;
 
                         print
                         "<tr style='background-color:$bgcol'>" .
                             "<th><input type='checkbox' name='sl_id[]' value='$locID'></th>" .
                             "<th class='thnowrap'>".
-                            "<a class='action_icon edit_icon' alt='".__('edit',SLPLUS_PREFIX)."' title='".__('edit',SLPLUS_PREFIX)."'
+                            "<a class='action_icon edit_icon' alt='".__('edit','csa-slplus')."' title='".__('edit','csa-slplus')."'
                                 href='".$this->hangoverURL."&act=edit&edit=$locID#a$locID'></a>".
                             "&nbsp;" .
-                            "<a class='action_icon delete_icon' alt='".__('delete',SLPLUS_PREFIX)."' title='".__('delete',SLPLUS_PREFIX)."'
+                            "<a class='action_icon delete_icon' alt='".__('delete','csa-slplus')."' title='".__('delete','csa-slplus')."'
                                 href='".$_SERVER['REQUEST_URI']."&act=delete&delete=$locID' " .
-                                "onclick=\"confirmClick('".sprintf(__('Delete %s?',SLPLUS_PREFIX),$sl_value['sl_store'])."', this.href); return false;\"></a>";
+                                "onclick=\"confirmClick('".sprintf(__('Delete %s?','csa-slplus'),$sl_value['sl_store'])."', this.href); return false;\"></a>";
 
                         // Store Pages Active?
                         // Show the create page button & fix up the sl_pages_url data
@@ -675,8 +675,8 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                     print "<div class='csa_info_msg'>".
                             (
                              ($qry!='')?
-                                    __("Search Locations returned no matches.", SLPLUS_PREFIX) :
-                                    __("No locations have been created yet.", SLPLUS_PREFIX)
+                                    __("Search Locations returned no matches.", 'csa-slplus') :
+                                    __("No locations have been created yet.", 'csa-slplus')
                             ) .
                           "</div>";
             }
