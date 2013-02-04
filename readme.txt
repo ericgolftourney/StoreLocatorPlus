@@ -291,6 +291,10 @@ Visit the [Store Locator Plus Release Notes page](http://www.charlestonsw.com/su
 
 I was listing the entire change log here but with weekly/bi-weekly updates it as getting much too long.
 
+= 3.8.14 (February 4th 2013) =
+
+* Add : [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) bulk import now has lat/long input to skip geocoding.
+
 = 3.8.13 (January 30th 2013) =
 
 * Add: Country to Manage Locations searches.
