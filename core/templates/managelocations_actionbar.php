@@ -57,16 +57,23 @@ function doAction(theAction,thePrompt) {
         }
         print '</div>';
     }
- 
-        print '<div id="search_block" class="searchlocations filterbox">';
-        ?>
-                <p class="centerbutton"><input class='like-a-button' type='submit' value='<?php print __("Search Locations", SLPLUS_PREFIX); ?>'></p>
-                <input id='searchfor' value='<?php print (isset($_REQUEST['searchfor'])?$_REQUEST['searchfor']:''); ?>' name='searchfor'>
-                <?php 
-                print $sl_hidden;
-        print '</div>';
-        print '<div id="list_options" class="filterbox">';
-        ?>
+
+    // Search Locations Button
+    //
+    print 
+        '<div id="search_block" class="searchlocations filterbox">' .
+            '<p class="centerbutton">'.
+                "<input class='like-a-button' type='submit' ".
+                    "value='".__('Search Locations', SLPLUS_PREFIX)."'>".
+            '</p>'.
+            "<input id='searchfor' " .
+                "value='".(isset($_REQUEST['searchfor'])?$_REQUEST['searchfor']:'')."' name='searchfor'>" .
+            $sl_hidden .
+        '</div>'
+        ;
+
+    print '<div id="list_options" class="filterbox">';
+?>
             <p class="centerbutton"><a class='like-a-button' href='#' onclick="doAction('changeview','<?php echo $altViewText; ?>');"><?php echo $viewText; ?></a></p>
             <?php print __('Show ', SLPLUS_PREFIX); ?>
             <select name='sl_admin_locations_per_page'
