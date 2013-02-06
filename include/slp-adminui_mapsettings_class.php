@@ -372,13 +372,17 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                     $slpDescription .= "<option value='$key:$sl_value' $selected>$key ($sl_value)</option>\n";
                 }
                 $slpDescription .=
-                    "</select></div>" .
+                    "</select></div>";
+
+                // Language Selection
+                //
+                $slpDescription .=
                     "<div class='form_entry'>" .
-                    "<label for='sl_map_character_encoding'>".__('Character Encoding', 'csa-slplus')."</label>" .
-                    "<select name='sl_map_character_encoding'>"
+                    "<label for='".SLPLUS_PREFIX."-map_language'>".__('Map Language', 'csa-slplus')."</label>" .
+                    "<select name='".SLPLUS_PREFIX."-map_language'>"
                     ;
-                foreach ($this->get_map_encodings() as $key=>$sl_value) {
-                    $selected=(get_option('sl_map_character_encoding')==$sl_value)?" selected " : "";
+                foreach ($this->get_map_languages() as $key=>$sl_value) {
+                    $selected=($this->plugin->helper->getData('map_language','get_item',null,'en')==$sl_value)?" selected " : "";
                     $slpDescription .= "<option value='$sl_value' $selected>$key</option>\n";
                 }
                 $slpDescription .= "</select></div></div>";
@@ -611,14 +615,14 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
          }
 
          /**
-          * Return the list of Google map character encodings.
+          * Return the list of Google map languages.
           *
-          * @return named array - list of encodings, key is the name, value is the Google encoding notation
+          * @return named array - list of languages, key is the name, value is the Google language
 
           */
-         function get_map_encodings() {
+         function get_map_languages() {
              return apply_filters(
-                     'slp_map_encodings',
+                     'slp_map_languages',
                         array(
                         'Default (UTF-8)'                               =>'utf-8',
                         'Western European (ISO-8859-1)'                 =>'iso-8859-1',
