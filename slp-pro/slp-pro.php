@@ -512,7 +512,7 @@ if ( ! class_exists( 'SLPPro' ) ) {
                     '</div>'
                     ;
 
-                $actionBoxes ['G'][] =
+                $actionBoxes ['P'][] =
                     '<div id="filterbox"  class="filterbox">' .
                         '<p class="centerbutton">' .
                             '<a class="like-a-button" href="#"  name="show_uncoded" '.
