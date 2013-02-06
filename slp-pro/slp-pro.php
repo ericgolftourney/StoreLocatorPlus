@@ -511,6 +511,24 @@ if ( ! class_exists( 'SLPPro' ) ) {
                         '<label for="sl_tags">'.__('Tags', SLPLUS_PREFIX).'</label><input name="sl_tags">'.
                     '</div>'
                     ;
+
+                $actionBoxes ['G'][] =
+                    '<div id="filterbox"  class="filterbox">' .
+                        '<p class="centerbutton">' .
+                            '<a class="like-a-button" href="#"  name="show_uncoded" '.
+                                'onclick="doAction(\'show_uncoded\',\'\');" >' .
+                                 __('Show Uncoded', 'csa-slplus') .
+                             '</a>' .
+                        '</p>' .
+                        '<p class="centerbutton">' .
+                            '<a class="like-a-button" href="#" name="show_all" '.
+                                  'onclick="doAction(\'show_all\',\'\');" >' .
+                                  __('Show All', 'csa-slplus') .
+                            '</a>'.
+                        '</p>' .
+                    '</div>'
+                    ;
+
                 return $actionBoxes;
         }
 

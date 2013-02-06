@@ -89,20 +89,9 @@ function doAction(theAction,thePrompt) {
             <?php print __(' locations', 'csa-slplus') . '.';
         print '</div>';
 
-        //----------
-        // Pro Pack
-        //
-        if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
-            print '<div id="filterbox"  class="filterbox">';
-        ?>
-            <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('show_uncoded','')" name="show_uncoded"><?php echo __("Show Uncoded", 'csa-slplus'); ?></a></p>
-            <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('show_all','')" name="show_all"><?php echo __("Show All", 'csa-slplus'); ?></a></p>
-        <?php
-            print '</div>';
-        }
-
 do_action('slp_add_manage_locations_action_box');
 
 print
     '</div>' .
-'</div>';
+'</div>'
+;
