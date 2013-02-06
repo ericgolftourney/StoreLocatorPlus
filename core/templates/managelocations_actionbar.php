@@ -10,11 +10,11 @@
 
 
  if (get_option('sl_location_table_view') == 'Expanded') {
-     $altViewText = __('Switch to normal view?',SLPLUS_PREFIX);
-     $viewText = __('Normal View',SLPLUS_PREFIX);
+     $altViewText = __('Switch to normal view?','csa-slplus');
+     $viewText = __('Normal View','csa-slplus');
  } else {
-     $altViewText = __('Switch to expanded view?',SLPLUS_PREFIX);
-     $viewText = __('Expanded View',SLPLUS_PREFIX);
+     $altViewText = __('Switch to expanded view?','csa-slplus');
+     $viewText = __('Expanded View','csa-slplus');
  }
 
  $actionBoxes = array();
@@ -31,7 +31,7 @@ function doAction(theAction,thePrompt) {
 }
 </script>
 <div id="action_buttons">
-    <div id="action_bar_header"><h3><?php print __('Actions and Filters',SLPLUS_PREFIX); ?></h3></div>
+    <div id="action_bar_header"><h3><?php print __('Actions and Filters','csa-slplus'); ?></h3></div>
     <div class="boxbar">
 <?php
 
@@ -40,8 +40,8 @@ function doAction(theAction,thePrompt) {
     $actionBoxes['A'][] =
             '<p class="centerbutton">' .
                 '<a class="like-a-button" href="#" ' .
-                        'onclick="doAction(\'delete\',\''.__('Delete selected?',SLPLUS_PREFIX).'\');" ' .
-                        'name="delete_selected">'.__("Delete Selected", SLPLUS_PREFIX).
+                        'onclick="doAction(\'delete\',\''.__('Delete selected?','csa-slplus').'\');" ' .
+                        'name="delete_selected">'.__("Delete Selected", 'csa-slplus').
                 '</a>'.
             '</p>'
             ;
@@ -64,7 +64,7 @@ function doAction(theAction,thePrompt) {
         '<div id="search_block" class="searchlocations filterbox">' .
             '<p class="centerbutton">'.
                 "<input class='like-a-button' type='submit' ".
-                    "value='".__('Search Locations', SLPLUS_PREFIX)."'>".
+                    "value='".__('Search Locations', 'csa-slplus')."'>".
             '</p>'.
             "<input id='searchfor' " .
                 "value='".(isset($_REQUEST['searchfor'])?$_REQUEST['searchfor']:'')."' name='searchfor'>" .
@@ -75,7 +75,7 @@ function doAction(theAction,thePrompt) {
     print '<div id="list_options" class="filterbox">';
 ?>
             <p class="centerbutton"><a class='like-a-button' href='#' onclick="doAction('changeview','<?php echo $altViewText; ?>');"><?php echo $viewText; ?></a></p>
-            <?php print __('Show ', SLPLUS_PREFIX); ?>
+            <?php print __('Show ', 'csa-slplus'); ?>
             <select name='sl_admin_locations_per_page'
                onchange="doAction('locationsPerPage','');">
     <?php
@@ -86,7 +86,7 @@ function doAction(theAction,thePrompt) {
         }
     ?>
             </select>
-            <?php print __(' locations', SLPLUS_PREFIX) . '.';
+            <?php print __(' locations', 'csa-slplus') . '.';
         print '</div>';
 
         //----------
@@ -95,8 +95,8 @@ function doAction(theAction,thePrompt) {
         if ($slplus_plugin->license->packages['Pro Pack']->isenabled) {
             print '<div id="filterbox"  class="filterbox">';
         ?>
-            <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('show_uncoded','')" name="show_uncoded"><?php echo __("Show Uncoded", SLPLUS_PREFIX); ?></a></p>
-            <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('show_all','')" name="show_all"><?php echo __("Show All", SLPLUS_PREFIX); ?></a></p>
+            <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('show_uncoded','')" name="show_uncoded"><?php echo __("Show Uncoded", 'csa-slplus'); ?></a></p>
+            <p class="centerbutton"><a class='like-a-button' href="#" onclick="doAction('show_all','')" name="show_all"><?php echo __("Show All", 'csa-slplus'); ?></a></p>
         <?php
             print '</div>';
         }
