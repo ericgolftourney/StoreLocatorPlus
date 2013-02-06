@@ -293,7 +293,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.8.15 (February 6th 2013) =
 
-* Enhancement: Remove Google Maps API version restriction 
+* Enhancement: Remove Google Maps API version restriction
+* Ehhancement: Add [language support](http://www.charlestonsw.com/support/documentation/store-locator-plus/release-notes/release-notes-v3-8/) back in for Google Maps API V3
 
 = 3.8.14 (February 4th 2013) =
 

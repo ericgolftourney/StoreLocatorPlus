@@ -286,6 +286,9 @@ if (! class_exists('SLPlus_AdminUI')) {
         function do_geocoding($address,$sl_id='') {
             global $wpdb, $slplus_plugin;
 
+            $api_key  = ((trim($slplus_plugin->driver_args['api_key']) == false)?'':'&key='.$slplus_plugin->driver_args['api_key']);
+            $language = '&language='.$slplus_plugin->helper->getData('map_language','get_item',null,'en');
+
             $delay = 0;
             $request_url =
                 'http://maps.googleapis.com/maps/api/geocode/json'.
