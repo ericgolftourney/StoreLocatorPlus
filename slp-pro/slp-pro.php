@@ -513,7 +513,6 @@ if ( ! class_exists( 'SLPPro' ) ) {
                     ;
 
                 $actionBoxes ['P'][] =
-                    '<div id="filterbox"  class="filterbox">' .
                         '<p class="centerbutton">' .
                             '<a class="like-a-button" href="#"  name="show_uncoded" '.
                                 'onclick="doAction(\'show_uncoded\',\'\');" >' .
@@ -525,8 +524,7 @@ if ( ! class_exists( 'SLPPro' ) ) {
                                   'onclick="doAction(\'show_all\',\'\');" >' .
                                   __('Show All', 'csa-slplus') .
                             '</a>'.
-                        '</p>' .
-                    '</div>'
+                        '</p>'
                     ;
 
                 return $actionBoxes;
