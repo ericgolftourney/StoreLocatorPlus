@@ -331,11 +331,7 @@ if (! class_exists('SLPlus_Actions')) {
          * This is called whenever the WordPress wp_enqueue_scripts action is called.
          */
         static function wp_enqueue_scripts() {
-            global $slplus_plugin;            
-            $api_key= (isset($slplus_plugin) && $slplus_plugin->ok_to_show()) ?
-                $slplus_plugin->driver_args['api_key'] :
-                ''
-                ;
+            global $slplus_plugin;                                        
             $force_load = (
                         isset($slplus_plugin) ?
                         $slplus_plugin->settings->get_item('force_load_js',true) :
@@ -349,22 +345,11 @@ if (! class_exists('SLPlus_Actions')) {
             //
             //wp_register_script('slplus_functions',SLPLUS_PLUGINURL.'/core/js/functions.js');
             if (get_option(SLPLUS_PREFIX.'-no_google_js','off') != 'on') {
-                if (isset($api_key))
-                {
-                     //todo:character encoding ???
-                     // $sl_map_character_encoding='&oe='.get_option('sl_map_character_encoding','utf8');
-                    //"http://$sl_google_map_domain/maps?file=api&amp;v=2&amp;key=$api_key&amp;sensor=false{$sl_map_character_encoding}"
-                    wp_enqueue_script(
-                            'google_maps',
-                            'http'.(is_ssl()?'s':'').'://'.$sl_google_map_domain.'/maps/api/js?sensor=false&key='.$api_key
-                            );
-                }
-                else {
-                    wp_enqueue_script(
+                $api_key = ((trim($slplus_plugin->driver_args['api_key']) == false)?'':'&key='.$slplus_plugin->driver_args['api_key']);
+                wp_enqueue_script(
                         'google_maps',
-                        'http'.(is_ssl()?'s':'').'://'.$sl_google_map_domain.'/maps/api/js?sensor=false'
-                    );
-                }
+                        'http'.(is_ssl()?'s':'').'://'.$sl_google_map_domain.'/maps/api/js?sensor=false' . $api_key
+                        );
             }
 
             $sslURL =
