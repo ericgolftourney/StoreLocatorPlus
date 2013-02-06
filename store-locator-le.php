@@ -242,7 +242,9 @@ function add_options_packages_for_slplus() {
     require_once(SLPLUS_PLUGINDIR . '/slp-pro/slp-pro.php');
     $slplus_plugin->ProPack->add_package();
 
-    configure_slplus_storepages();
+    // Store Pages
+    require_once(SLPLUS_PLUGINDIR . '/slp-pages/slp-pages.php');
+    $slplus_plugin->StorePages->add_package();
 }
 
 
