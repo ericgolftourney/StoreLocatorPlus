@@ -106,6 +106,12 @@ if (defined('SLPLUS_PREFIX') === false) {
 global $slplus_plugin;
 include_once(SLPLUS_PLUGINDIR . '/include/config.php'	);
 
+
+//====================================================================
+// Add Required Libraries
+//====================================================================
+
+
 // Errors?
 //
 if ($error != '') {
@@ -135,6 +141,11 @@ require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-ajax_handler_class.ph
 $slplus_plugin->AjaxHandler = new SLPlus_AjaxHandler(array('parent'=>$slplus_plugin));     // Lets invoke this and make it an object
 
 
+//====================================================================
+// WordPress Hooks and Filters
+//====================================================================
+
+
 // Regular Actions
 //
 add_action('init'               ,array($slplus_plugin->Actions,'init')                 );
@@ -150,17 +161,6 @@ add_action('admin_init'         ,array($slplus_plugin->Actions,'admin_init'),10 
 if (isset($slplus_plugin->ProPack)) {
     add_action('admin_head'         ,array($slplus_plugin->ProPack,'report_downloads')     );
 }
-
-// Short Codes
-//
-add_shortcode('STORE-LOCATOR', array($slplus_plugin->UI,'render_shortcode'));
-add_shortcode('SLPLUS',array($slplus_plugin->UI,'render_shortcode'));
-add_shortcode('slplus',array($slplus_plugin->UI,'render_shortcode'));
-
-// Text Domains
-//
-load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_COREDIR . 'languages/');
-
 
 //------------------------
 // AJAX Hooks
@@ -186,4 +186,20 @@ add_action('wp_ajax_nopriv_csl_ajax_onload'     , array($slplus_plugin->AjaxHand
 // License resets
 add_action('wp_ajax_license_reset_pages'        , array($slplus_plugin->AjaxHandler,'license_reset_pages'));
 add_action('wp_ajax_license_reset_propack'      , array($slplus_plugin->AjaxHandler,'license_reset_propack'));
+
+
+//====================================================================
+// WordPress Shortcodes and Text Filters
+//====================================================================
+
+// Short Codes
+//
+add_shortcode('STORE-LOCATOR', array($slplus_plugin->UI,'render_shortcode'));
+add_shortcode('SLPLUS',array($slplus_plugin->UI,'render_shortcode'));
+add_shortcode('slplus',array($slplus_plugin->UI,'render_shortcode'));
+
+
+// Text Domains
+//
+load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_COREDIR . 'languages/');
 
