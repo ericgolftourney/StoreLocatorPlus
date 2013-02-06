@@ -439,7 +439,6 @@ if (! class_exists('SLPlus_AdminUI')) {
                     $geocode_pending = false;
                     echo sprintf(__("Address %s <font color=red>failed to geocode</font>. ", 'csa-slplus'),$address);
                     if ($status != '') {
-                        $errorMessage .= __('Make sure your Google API key is authorized for this domain name.','csa-slplus')."\n<br>";
                         $errorMessage .= sprintf(__("URL %s.", 'csa-slplus'),$request_url)."\n<br>";
                         $errorMessage .= sprintf(__("Received data %s.", 'csa-slplus'),'<pre>'.print_r($json,true).'</pre>')."\n";
                     } else {
@@ -452,6 +451,12 @@ if (! class_exists('SLPlus_AdminUI')) {
                 //
                 if ($errorMessage != '') {
                     print '<div class="geocode_error">' .
+                            '<strong>'.
+                            sprintf(
+                                __('Read <a href="%s">this</a> if you are having geocoding issues.','csa_slplus'),
+                                'http://www.charlestonsw.com/support/documentation/store-locator-plus/troubleshooting/geocoding-errors/'
+                                ).
+                            "</strong><br/>\n" .
                             $errorMessage .
                             '</div>';
                 }
