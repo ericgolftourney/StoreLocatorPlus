@@ -325,5 +325,5 @@ add_shortcode('slplus',array($slplus_plugin->UI,'render_shortcode'));
 
 // Text Domains
 //
-load_plugin_textdomain(SLPLUS_PREFIX, false, SLPLUS_COREDIR . 'languages/');
+load_plugin_textdomain('csa-slplus', false, SLPLUS_COREDIR . 'languages/');
 
