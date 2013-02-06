@@ -235,7 +235,13 @@ if (defined('SLPLUS_PLUGINDIR')) {
  ** Setup the option package list.
  **/
 function add_options_packages_for_slplus() {
-    configure_slplus_propack();
+    global $slplus_plugin;
+    
+    // Pro Pack
+    //
+    require_once(SLPLUS_PLUGINDIR . '/slp-pro/slp-pro.php');
+    $slplus_plugin->ProPack->add_package();
+
     configure_slplus_storepages();
 }
 
@@ -264,9 +270,6 @@ require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-activation_class.php'
 
 require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-ui_class.php');
 $slplus_plugin->UI = new SLPlus_UI(array('parent'=>$slplus_plugin));
-
-// TODO Pro Pack Temp Include
-require_once(SLPLUS_PLUGINDIR . '/slp-pro/slp-pro.php');
 
 require_once(SLPLUS_PLUGINDIR . '/include/mobile-listener.php');
 
