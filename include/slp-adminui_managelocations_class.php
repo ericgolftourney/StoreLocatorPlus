@@ -20,6 +20,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
         public $baseAdminURL = '';
         public $cleanAdminURL = '';
         public $hangoverURL = '';
+        public $hiddenInputs = '';
 
         /**
          * Called when this object is created.
@@ -274,12 +275,11 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
         /**
          * Render the manage location action bar
          * 
-         * @global wpCSL_plugin__slplus $slplus_plugin
-         * @global type $sl_hidden
          */
         function render_actionbar() {
-            global $slplus_plugin, $sl_hidden;
-             $slplus_plugin->helper->loadPluginData();
+            if (!$this->setParent()) { return; }
+
+            $this->plugin->helper->loadPluginData();
 
 
              if (get_option('sl_location_table_view') == 'Expanded') {
@@ -331,7 +331,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                     '</p>'.
                     "<input id='searchfor' " .
                         "value='".(isset($_REQUEST['searchfor'])?$_REQUEST['searchfor']:'')."' name='searchfor'>" .
-                    $sl_hidden
+                    $this->hiddenInputs
                 ;
 
             // Expanded/Normal View
@@ -339,7 +339,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             $pdString = '';
             $opt_arr=array(10,25,50,100,200,300,400,500,1000,2000,4000,5000,10000);
             foreach ($opt_arr as $sl_value) {
-                $selected=($slplus_plugin->data['sl_admin_locations_per_page']==$sl_value)? " selected " : "";
+                $selected=($this->plugin->data['sl_admin_locations_per_page']==$sl_value)? " selected " : "";
                 $pdString .= "<option value='$sl_value' $selected>$sl_value</option>";
             }
             $actionBoxes['O'][] =
@@ -423,10 +423,10 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
 
             // Form and variable setup for processing
             //
-            $sl_hidden='';
+            $this->hiddenInputs = '';
             foreach($_REQUEST as $key=>$val) {
                 if ($key!="searchfor" && $key!="o" && $key!="sortorder" && $key!="start" && $key!="act" && $key!='sl_tags' && $key!='sl_id') {
-                    $sl_hidden.="<input type='hidden' value='$val' name='$key'>\n";
+                    $this->hiddenInputs.="<input type='hidden' value='$val' name='$key'>\n";
                 }
             }
             $this->parent->AdminUI->initialize_variables();
@@ -566,14 +566,13 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             //------------------------------------------------------------------------
             $qry = isset($_REQUEST['searchfor']) ? $_REQUEST['searchfor'] : '';
             $where=($qry!='')?
-                    " WHERE CONCAT_WS(';',sl_store,sl_address,sl_address2,sl_city,sl_state,sl_zip,sl_country,sl_tags) LIKE '%$qry%'" :
+                    " CONCAT_WS(';',sl_store,sl_address,sl_address2,sl_city,sl_state,sl_zip,sl_country,sl_tags) LIKE '%$qry%'" :
                     '' ;
 
             /* Uncoded items */
             if (isset($_REQUEST['act'])) {
                 if ($_REQUEST['act'] == 'show_uncoded') {
-                    if ($where == '') { $where = 'WHERE '; }
-                    $where .= ' sl_latitude IS NULL or sl_longitude IS NULL';
+                    $where .= " sl_latitude NOT REGEXP '^[0-9]|-' or sl_longitude NOT REGEXP '^[0-9]|-'";
                 }
             }
 
@@ -593,7 +592,9 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
 
             // Pagination
             //
+            if (trim($where) != false) { $where = "WHERE $where"; }
             $totalLocations=$wpdb->get_var("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where");
+            $this->parent->helper->bugout("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where", '', 'SQL Count', __FILE__, __LINE__);
             $start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
             if ($totalLocations>0) {
                 $this->parent->AdminUI->manage_locations_pagination(
