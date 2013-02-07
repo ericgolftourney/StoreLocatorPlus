@@ -291,6 +291,11 @@ Visit the [Store Locator Plus Release Notes page](http://www.charlestonsw.com/su
 
 I was listing the entire change log here but with weekly/bi-weekly updates it as getting much too long.
 
+= 3.8.17 (Real Emergency Patch) =
+
+* Unlink was a red herring (not the real problem).
+* This version has the proper patch, an issue with activate_plugin has been fixed.
+
 = 3.8.16 (Emergency Patch) =
 
 * Stop unlink on activation, it is breaking some sites with 3.8.15
