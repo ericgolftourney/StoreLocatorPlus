@@ -294,7 +294,8 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 = 3.8.15 (February 6th 2013) =
 
 * Enhancement: Remove Google Maps API version restriction
-* Ehhancement: Add [language support](http://www.charlestonsw.com/support/documentation/store-locator-plus/release-notes/release-notes-v3-8/) back in for Google Maps API V3
+* Enhancement: Add [language support](http://www.charlestonsw.com/support/documentation/store-locator-plus/release-notes/release-notes-v3-8/) back in for Google Maps API V3
+* Fix:  [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) show uncoded now shows locations with a blank lat/long.
 
 = 3.8.14 (February 4th 2013) =
 
