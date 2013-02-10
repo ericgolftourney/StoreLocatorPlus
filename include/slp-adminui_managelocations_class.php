@@ -88,6 +88,20 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
         }
 
         /**
+         * Create the hidden inputs HTML string from the REQUEST variable.
+         *
+         * Skips some REQUEST keys we wish to ignore.
+         */
+        function create_HiddenInputs() {
+            $this->hiddenInputs = '';
+            foreach($_REQUEST as $key=>$val) {
+                if ($key!="searchfor" && $key!="o" && $key!="sortorder" && $key!="start" && $key!="act" && $key!='sl_tags' && $key!='sl_id') {
+                    $this->hiddenInputs.="<input type='hidden' value='$val' name='$key'>\n";
+                }
+            }
+        }
+
+        /**
          * Delete a location.
          * 
          * @global type $wpdb - the WP database connection
@@ -420,6 +434,12 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             // $this->parent->helper->bugout("<pre>GET".print_r($_GET,true)."</pre>",'','GET',__FILE__,__LINE__);
             $this->parent->helper->bugout("<pre>SERVER\n".print_r($_SERVER,true)."</pre>",'','SERVER',__FILE__,__LINE__);
 
+
+            //--------------------------------
+            // Create the hidden inputs string
+            //--------------------------------            
+            $this->create_HiddenInputs();
+
             //--------------------------------
             // Render: JavaScript
             //--------------------------------
@@ -436,15 +456,6 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                   $this->parent->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php')
                   ;
 
-
-            // Form and variable setup for processing
-            //
-            $this->hiddenInputs = '';
-            foreach($_REQUEST as $key=>$val) {
-                if ($key!="searchfor" && $key!="o" && $key!="sortorder" && $key!="start" && $key!="act" && $key!='sl_tags' && $key!='sl_id') {
-                    $this->hiddenInputs.="<input type='hidden' value='$val' name='$key'>\n";
-                }
-            }
             $this->parent->AdminUI->initialize_variables();
 
             //------------------------------------------------------------------------
