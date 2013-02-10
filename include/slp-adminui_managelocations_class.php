@@ -305,12 +305,14 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
              }
 
              $actionBoxes = array();
-             
-            print '<div id="action_buttons">'.
-                '<div id="action_bar_header">'.
-                '<h3>'.__('Actions and Filters','csa-slplus').'</h3>'.
-                '</div>'.
-                '<div class="boxbar">'
+
+            print 
+                '<div id="slplus_actionbar">'             .
+                    '<div id="action_buttons">'.
+                        '<div id="action_bar_header">'.
+                            '<h3>'.__('Actions and Filters','csa-slplus').'</h3>'.
+                        '</div>'.
+                        '<div class="boxbar">'
                 ;
 
             // Basic Delete Icon
@@ -373,8 +375,9 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             do_action('slp_add_manage_locations_action_box');
 
             print
+                    '</div>' .
                 '</div>' .
-            '</div>'
+              '</div>'
             ;
         }
 
@@ -635,11 +638,9 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             // Actionbar Section
             //
             print '<form id="manage_locations_actionbar_form" name="locationForm" method="post" action="'.$this->baseAdminURL.'">'.
-                    '<input name="act" type="hidden">' .
-                    '<div id="slplus_actionbar">' .
-                        $this->render_actionbar() .
-                    '</div>'
+                    '<input name="act" type="hidden">'                         
                     ;
+            $this->render_actionbar();
 
             // Search Filter, no actions
             // Clear the start, we want all records
