@@ -339,7 +339,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             $pdString = '';
             $opt_arr=array(10,25,50,100,200,300,400,500,1000,2000,4000,5000,10000);
             foreach ($opt_arr as $sl_value) {
-                $selected=($this->plugin->data['sl_admin_locations_per_page']==$sl_value)? " selected " : "";
+                $selected=($this->plugin->helper->getData('sl_admin_locations_per_page','get_option',null,'10')==$sl_value)? " selected " : "";
                 $pdString .= "<option value='$sl_value' $selected>$sl_value</option>";
             }
             $actionBoxes['O'][] =
@@ -469,9 +469,15 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                     if (isset($_REQUEST['sl_id'])) { $this->location_tag($_REQUEST['sl_id']); }
 
                 // Locations Per Page Action
+                //   - update the option first,
+                //   - then reload the
                 } elseif ($_REQUEST['act']=="locationsPerPage") {
-                    if (isset($_REQUEST['sl_admin_locations_per_page'])) {
+                    if (
+                         isset($_REQUEST['sl_admin_locations_per_page']) &&
+                        !empty($_REQUEST['sl_admin_locations_per_page'])
+                        ) {
                         update_option('sl_admin_locations_per_page', $_REQUEST['sl_admin_locations_per_page']);
+                        $this->plugin->settings->get_item('sl_admin_locations_per_page','get_option',null,'10',true);
                     }
 
                 // Change View Action
@@ -597,12 +603,12 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             //
             if (trim($where) != false) { $where = "WHERE $where"; }
             $totalLocations=$wpdb->get_var("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where");
-            $this->parent->helper->bugout("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where", '', 'SQL Count', __FILE__, __LINE__);
+            $this->parent->helper->bugout("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where : returns $totalLocations", '', 'SQL Count', __FILE__, __LINE__);
             $start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
             if ($totalLocations>0) {
                 $this->parent->AdminUI->manage_locations_pagination(
                         $totalLocations,
-                        $this->plugin->data['sl_admin_locations_per_page'],
+                        $this->plugin->helper->getData('sl_admin_locations_per_page','get_option',null,'10'),
                         $start
                         );
             }
@@ -626,13 +632,13 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
 
             // We have matching locations
             //
-            if ($slpLocations=$wpdb->get_results(
-                    "SELECT * FROM " .$wpdb->prefix."store_locator " .
-                            "$where ORDER BY $opt $dir ".
-                            "LIMIT $start,".$this->plugin->data['sl_admin_locations_per_page'],
-                    ARRAY_A
-                    )
-                ) {
+            $dataQuery =
+                "SELECT * FROM " .$wpdb->prefix."store_locator " .
+                    "$where ORDER BY $opt $dir ".
+                     "LIMIT $start,".$this->plugin->helper->getData('sl_admin_locations_per_page','get_option',null,'10')
+                ;
+            $this->parent->helper->bugout($dataQuery, '', 'SQL Data', __FILE__, __LINE__);
+            if ($slpLocations=$wpdb->get_results($dataQuery,ARRAY_A)) {
 
                 // Setup Table Columns
                 //
@@ -795,7 +801,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             if ($totalLocations!=0) {
                 $this->parent->AdminUI->manage_locations_pagination(
                         $totalLocations,
-                        $this->plugin->data['sl_admin_locations_per_page'],
+                        $this->plugin->helper->getData('sl_admin_locations_per_page','get_item',null,'10'),
                         $start
                         );
             }
