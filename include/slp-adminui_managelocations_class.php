@@ -375,6 +375,33 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             '</div>'
             ;
         }
+
+        /**
+         * Render the JavaScript for the manage locations page.
+         */
+        function render_JavaScript() {
+            ?>
+            <script language="JavaScript">
+                function confirmClick(message,href) {
+                    if (confirm(message)) {	location.href=href; }
+                    else  { return false; }
+                }
+                function checkAll(cbox,formObj) {
+                    var i=0;
+                    if (cbox.checked==true)
+                        cbox.checked==false;
+                    else
+                        cbox.checked==true;
+                    while (formObj.elements[i]!=null) {
+                        formObj.elements[i].checked=cbox.checked;
+                        i++;
+                    }
+                }
+            </script>
+
+            <?php
+
+        }
         
         /**
          * Render the manage locations admin page.
@@ -396,26 +423,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             //--------------------------------
             // Render: JavaScript
             //--------------------------------
-            ?>
-            <script language="JavaScript">
-                function confirmClick(message,href) {
-                    if (confirm(message)) {	location.href=href; }
-                    else  { return false; }
-                }
-                function checkAll(cbox,formObj) {
-                    var i=0;
-                    if (cbox.checked==true)
-                        cbox.checked==false;
-                    else
-                        cbox.checked==true;
-                    while (formObj.elements[i]!=null) {
-                        formObj.elements[i].checked=cbox.checked;
-                        i++;
-                    }
-                }
-            </script>
-
-            <?php
+            $this->render_JavaScript();
 
             //--------------------------------
             // Render: Header Div & Nav Tabs
