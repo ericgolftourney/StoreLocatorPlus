@@ -570,6 +570,7 @@ if (! class_exists('SLPlus_AdminUI')) {
             $pos=0;
             $prev = min(max(0,$start-$num_per_page),$totalLocations);
             $next = min(max(0,$start+$num_per_page),$totalLocations);
+            $num_per_page = max(1,$num_per_page);
             $qry = isset($_GET['q'])?$_GET['q']:'';
             $cleared=preg_replace('/q=$qry/', '', $_SERVER['REQUEST_URI']);
 
