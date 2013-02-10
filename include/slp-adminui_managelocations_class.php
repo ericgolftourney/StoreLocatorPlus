@@ -349,7 +349,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             $actionBoxes['O'][] =
                     '<p class="centerbutton">' .
                         '<a class="like-a-button" href="#" ' .
-                            'onclick="doAction(\'changeview\',\'$altViewText\');">'.
+                            'onclick="doAction(\'changeview\',\''.$altViewText.'\');">'.
                             $viewText .
                         '</a>'.
                     '</p>' .
