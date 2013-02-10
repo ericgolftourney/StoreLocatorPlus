@@ -305,19 +305,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
              }
 
              $actionBoxes = array();
-            ?>
-            <script type="text/javascript">
-            function doAction(theAction,thePrompt) {
-                if((thePrompt == '') || confirm(thePrompt)){
-                    LF=document.forms['locationForm'];
-                    LF.act.value=theAction;
-                    LF.submit();
-                }else{
-                    return false;
-                }
-            }
-            </script>
-            <?php
+             
             print '<div id="action_buttons">'.
                 '<div id="action_bar_header">'.
                 '<h3>'.__('Actions and Filters','csa-slplus').'</h3>'.
@@ -411,8 +399,16 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                         i++;
                     }
                 }
+                function doAction(theAction,thePrompt) {
+                    if((thePrompt == '') || confirm(thePrompt)){
+                        LF=document.forms['locationForm'];
+                        LF.act.value=theAction;
+                        LF.submit();
+                    }else{
+                        return false;
+                    }
+                }
             </script>
-
             <?php
 
         }
