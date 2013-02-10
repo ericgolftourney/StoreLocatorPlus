@@ -375,7 +375,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             '</div>'
             ;
         }
-
+        
         /**
          * Render the manage locations admin page.
          *
@@ -385,17 +385,23 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             $this->plugin->helper->loadPluginData();
             global $wpdb;
 
-            // Script
-            //
+            //--------------------------------
+            // Debug Output : Post/Server Vars
+            //--------------------------------
+            $this->parent->helper->bugout("<pre>REQUEST\n".print_r($_REQUEST,true)."</pre>",'','REQUEST',__FILE__,__LINE__);
+            // $this->parent->helper->bugout("<pre>POST\n".print_r($_POST,true)."</pre>",'','POST',__FILE__,__LINE__);
+            // $this->parent->helper->bugout("<pre>GET".print_r($_GET,true)."</pre>",'','GET',__FILE__,__LINE__);
+            $this->parent->helper->bugout("<pre>SERVER\n".print_r($_SERVER,true)."</pre>",'','SERVER',__FILE__,__LINE__);
+
+            //--------------------------------
+            // Render: JavaScript
+            //--------------------------------
             ?>
             <script language="JavaScript">
-                /*=================== Confirming Button Click ===================== */
                 function confirmClick(message,href) {
                     if (confirm(message)) {	location.href=href; }
                     else  { return false; }
                 }
-
-                /* ================= For Player Form: Checks All or None ======== */
                 function checkAll(cbox,formObj) {
                     var i=0;
                     if (cbox.checked==true)
@@ -410,8 +416,10 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             </script>
 
             <?php
-            // Header Text
-            //
+
+            //--------------------------------
+            // Render: Header Div & Nav Tabs
+            //--------------------------------
             print "<div class='wrap'>
                         <div id='icon-edit-locations' class='icon32'><br/></div>
                         <h2>".
@@ -430,16 +438,12 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 }
             }
             $this->parent->AdminUI->initialize_variables();
-            $this->parent->helper->bugout("<pre>REQUEST\n".print_r($_REQUEST,true)."</pre>",'','REQUEST',__FILE__,__LINE__);
-            // $this->parent->helper->bugout("<pre>POST\n".print_r($_POST,true)."</pre>",'','POST',__FILE__,__LINE__);
-            // $this->parent->helper->bugout("<pre>GET".print_r($_GET,true)."</pre>",'','GET',__FILE__,__LINE__);
-            $this->parent->helper->bugout("<pre>SERVER\n".print_r($_SERVER,true)."</pre>",'','SERVER',__FILE__,__LINE__);
 
             //------------------------------------------------------------------------
             // ACTION HANDLER
             // If post action is set
             //------------------------------------------------------------------------
-            if (isset($_REQUST)) { extract($_REQUEST); }
+            if (isset($_REQUEST)) { extract($_REQUEST); }
 
             if (isset($_REQUEST['act'])) {
 
