@@ -295,6 +295,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 * Fix: Manage Locations Paging
 * Fix: Remember Manage Locations Page Length
+* Fix: Manage Locations alt view text
 
 = 3.8.17 (Real Emergency Patch) =
 
