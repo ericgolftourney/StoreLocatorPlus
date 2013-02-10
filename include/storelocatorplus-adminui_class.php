@@ -466,7 +466,8 @@ if (! class_exists('SLPlus_AdminUI')) {
         }
 
         /**
-         *
+         * Initialize variables for the map settings.
+         * 
          * @global type $sl_google_map_domain
          * @global type $sl_google_map_country
          * @global type $sl_location_table_view
