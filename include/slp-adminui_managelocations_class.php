@@ -350,7 +350,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                         '</a>'.
                     '</p>' .
                     __('Show ', 'csa-slplus') .
-                    '<select name="sl_admin_locations_per_page" onchange="doAction(\'locationsPerPage\',\'\');">' .
+                    '<select id="sl_admin_locations_per_page" name="sl_admin_locations_per_page" onchange="doAction(\'locationsPerPage\',\'\');">' .
                         $pdString .
                     '</select>'.
                     __(' locations', 'csa-slplus') . '.'
@@ -431,13 +431,15 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             }
             $this->parent->AdminUI->initialize_variables();
             $this->parent->helper->bugout("<pre>REQUEST\n".print_r($_REQUEST,true)."</pre>",'','REQUEST',__FILE__,__LINE__);
+            // $this->parent->helper->bugout("<pre>POST\n".print_r($_POST,true)."</pre>",'','POST',__FILE__,__LINE__);
+            // $this->parent->helper->bugout("<pre>GET".print_r($_GET,true)."</pre>",'','GET',__FILE__,__LINE__);
             $this->parent->helper->bugout("<pre>SERVER\n".print_r($_SERVER,true)."</pre>",'','SERVER',__FILE__,__LINE__);
 
             //------------------------------------------------------------------------
             // ACTION HANDLER
             // If post action is set
             //------------------------------------------------------------------------
-            if ($_POST) {extract($_POST);}
+            if (isset($_REQUST)) { extract($_REQUEST); }
 
             if (isset($_REQUEST['act'])) {
 
@@ -468,8 +470,9 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
 
                 // Locations Per Page Action
                 } elseif ($_REQUEST['act']=="locationsPerPage") {
-                    update_option('sl_admin_locations_per_page', $_REQUEST['sl_admin_locations_per_page']);
-                    extract($_REQUEST);
+                    if (isset($_REQUEST['sl_admin_locations_per_page'])) {
+                        update_option('sl_admin_locations_per_page', $_REQUEST['sl_admin_locations_per_page']);
+                    }
 
                 // Change View Action
                 //
