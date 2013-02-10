@@ -361,6 +361,13 @@ if (! class_exists('SLPlus_Activate')) {
                     }
                 }
 
+                // Admin Pages might be blank, set to 10
+                // 3.8.18
+                //
+                if (empty(get_option('sl_admin_locations_per_page'))) {
+                    update_option('sl_admin_locations_per_page','10');
+                }
+                
                 // Set DB Version
                 //
                 update_option(SLPLUS_PREFIX."-db_version", $updater->plugin->version);
