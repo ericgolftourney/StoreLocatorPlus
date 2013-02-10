@@ -364,7 +364,8 @@ if (! class_exists('SLPlus_Activate')) {
                 // Admin Pages might be blank, set to 10
                 // 3.8.18
                 //
-                if (empty(get_option('sl_admin_locations_per_page'))) {
+                $tmpVar = get_option('sl_admin_locations_per_page');
+                if (empty($tmpVar)) {
                     update_option('sl_admin_locations_per_page','10');
                 }
                 
