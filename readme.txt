@@ -294,6 +294,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 = 3.8.18 (February 10th, 2012) =
 
 * Fix: Manage Locations Paging
+* Fix: Remember Manage Locations Page Length
 
 = 3.8.17 (Real Emergency Patch) =
 

@@ -343,7 +343,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             $pdString = '';
             $opt_arr=array(10,25,50,100,200,300,400,500,1000,2000,4000,5000,10000);
             foreach ($opt_arr as $sl_value) {
-                $selected=($this->plugin->helper->getData('sl_admin_locations_per_page','get_option',null,'10',false,true)==$sl_value)? " selected " : "";
+                $selected=($this->plugin->data['sl_admin_locations_per_page']==$sl_value)? " selected " : "";
                 $pdString .= "<option value='$sl_value' $selected>$sl_value</option>";
             }
             $actionBoxes['O'][] =
@@ -591,6 +591,10 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 print "<script>location.replace('".$_SERVER['REQUEST_URI']."');</script>";
             }
 
+            //------------------------------------------------------------------------
+            // Reload Variables - anything that my have changed
+            //------------------------------------------------------------------------
+            $this->plugin->helper->getData('sl_admin_locations_per_page','get_option',null,'10',true,true);
 
             //------------------------------------------------------------------------
             // QUERY BUILDING
@@ -630,16 +634,22 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             if ($totalLocations>0) {
                 $this->parent->AdminUI->manage_locations_pagination(
                         $totalLocations,
-                        $this->plugin->helper->getData('sl_admin_locations_per_page','get_option',null,'10',false,true),
+                        $this->plugin->data['sl_admin_locations_per_page'],
                         $start
                         );
             }
 
-            // Actionbar Section
-            //
+
+            //--------------------------------
+            // Render: Start of Form
+            //--------------------------------
             print '<form id="manage_locations_actionbar_form" name="locationForm" method="post" action="'.$this->baseAdminURL.'">'.
                     '<input name="act" type="hidden">'                         
                     ;
+
+            //--------------------------------
+            // Render: Action Bar
+            //--------------------------------
             $this->render_actionbar();
 
             // Search Filter, no actions
@@ -655,7 +665,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             $dataQuery =
                 "SELECT * FROM " .$wpdb->prefix."store_locator " .
                     "$where ORDER BY $opt $dir ".
-                     "LIMIT $start,".$this->plugin->helper->getData('sl_admin_locations_per_page','get_option',null,'10',false,true)
+                     "LIMIT $start,".$this->plugin->data['sl_admin_locations_per_page']
                 ;
             $this->parent->helper->bugout($dataQuery, '', 'SQL Data', __FILE__, __LINE__);
             if ($slpLocations=$wpdb->get_results($dataQuery,ARRAY_A)) {
@@ -821,7 +831,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             if ($totalLocations!=0) {
                 $this->parent->AdminUI->manage_locations_pagination(
                         $totalLocations,
-                        $this->plugin->helper->getData('sl_admin_locations_per_page','get_item',null,'10',false,true),
+                        $this->plugin->data['sl_admin_locations_per_page'],
                         $start
                         );
             }
