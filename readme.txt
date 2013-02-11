@@ -5,7 +5,7 @@ Donate link: http://www.charlestonsw.com/product/store-locator-plus-2/
 Tags: google maps, store finder, store locator, store locater, google, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus, bing map, bing, yahoo maps, yahoo, mapping, retail
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 3.8.18
+Stable tag: 3.8.19
 
 Store Locator Plus makes it easy to put a fully functional store finder on your site.
 The most active store locator plugin with monthly updates!
@@ -291,7 +291,11 @@ Visit the [Store Locator Plus Release Notes page](http://www.charlestonsw.com/su
 
 I was listing the entire change log here but with weekly/bi-weekly updates it as getting much too long.
 
-= 3.8.18 (February 10th, 2012) =
+= 3.8.19 (February 2013) =
+
+* Enhancement: Add peak memory usage report to plugin environment report
+
+= 3.8.18 (February 10th, 2013) =
 
 * Fix: Manage Locations Paging
 * Fix: Remember Manage Locations Page Length
