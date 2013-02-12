@@ -456,7 +456,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                         <h2>".
                         __('Store Locator Plus - Manage Locations', 'csa-slplus').
                         "</h2>" .
-                  $this->parent->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php')
+                  $this->parent->AdminUI->create_Navbar()
                   ;
 
             $this->parent->AdminUI->initialize_variables();

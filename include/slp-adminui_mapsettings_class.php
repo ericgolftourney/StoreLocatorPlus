@@ -761,7 +761,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 array(
                     'name'          => 'Navigation',
                     'div_id'        => 'slplus_navbar_wrapper',
-                    'description'   => $this->parent->helper->get_string_from_phpexec(SLPLUS_COREDIR.'/templates/navbar.php'),
+                    'description'   => $this->parent->AdminUI->create_Navbar(),
                     'auto'          => false,
                     'headerbar'     => false,
                     'innerdiv'      => false,
