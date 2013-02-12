@@ -201,7 +201,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                         $_POST[$slpFieldName]=$sl_value;
                     }
                 }
-                $field_value_str=substr($field_value_str, 0, strlen($field_value_str)-2);
+                $field_value_str = substr($field_value_str, 0, strlen($field_value_str)-2);
                 $field_value_str = apply_filters('slp_update_location_data',$field_value_str,$_REQUEST['locationID']);
                 $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET $field_value_str WHERE sl_id={$_REQUEST['locationID']}");
 
