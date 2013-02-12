@@ -1078,12 +1078,13 @@ if (! class_exists('SLPlus_AdminUI')) {
          * Render the admin page navbar (tabs)
          *
          * @global type $submenu - the WordPress Submenu array
-         * @global wpCSL_plugin__slplus $slplus_plugin
          * @return type
          */
         function create_Navbar() {
-            global $submenu, $slplus_plugin;
-            if (!isset($slplus_plugin) || !isset($submenu[$slplus_plugin->prefix]) || !is_array($submenu[$slplus_plugin->prefix])) {
+            if (!$this->setParent()) { return; }
+
+            global $submenu;
+            if (!isset($submenu[$this->plugin->prefix]) || !is_array($submenu[$this->plugin->prefix])) {
                 echo apply_filters('slp_navbar','');
             } else {
                 $content =
@@ -1092,7 +1093,7 @@ if (! class_exists('SLPlus_AdminUI')) {
 
                 // Loop through all SLP sidebar menu items on admin page
                 //
-                foreach ($submenu[$slplus_plugin->prefix] as $slp_menu_item) {
+                foreach ($submenu[$this->plugin->prefix] as $slp_menu_item) {
 
                     // Create top menu item
                     //
