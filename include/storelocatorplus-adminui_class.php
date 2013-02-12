@@ -1077,7 +1077,7 @@ if (! class_exists('SLPlus_AdminUI')) {
         /**
          * Render the admin page navbar (tabs)
          *
-         * @global type $submenu
+         * @global type $submenu - the WordPress Submenu array
          * @global wpCSL_plugin__slplus $slplus_plugin
          * @return type
          */
@@ -1093,17 +1093,6 @@ if (! class_exists('SLPlus_AdminUI')) {
                 // Loop through all SLP sidebar menu items on admin page
                 //
                 foreach ($submenu[$slplus_plugin->prefix] as $slp_menu_item) {
-
-                    //--------------------------------------------
-                    // Check for Pro Pack, if not enabled skip:
-                    //  - Show Reports Tab
-                    //
-                    if (
-                            (!$slplus_plugin->license->packages['Pro Pack']->isenabled) &&
-                            ($slp_menu_item[0] == __('Reports',SLPLUS_PREFIX))
-                        ){
-                        continue;
-                    }
 
                     // Create top menu item
                     //
