@@ -324,8 +324,6 @@ if (! class_exists('SLPlus_Actions')) {
                         false
                     );
 
-            $sl_google_map_domain=get_option('sl_google_map_domain','maps.google.com');
-
             //------------------------
             // Register our scripts for later enqueue when needed
             //
@@ -335,7 +333,7 @@ if (! class_exists('SLPlus_Actions')) {
                 $language = '&language='.$slplus_plugin->helper->getData('map_language','get_item',null,'en');
                 wp_enqueue_script(
                         'google_maps',
-                        'http'.(is_ssl()?'s':'').'://'.$sl_google_map_domain.'/maps/api/js?sensor=false' . $api_key . $language
+                        'http'.(is_ssl()?'s':'').'://'.get_option('sl_google_map_domain','maps.googleapis.com').'/maps/api/js?sensor=false' . $api_key . $language,
                         );
             }
 
