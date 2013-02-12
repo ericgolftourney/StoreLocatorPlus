@@ -391,8 +391,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 // Settings
                 //
                 $slpDescription =
-                    "<div class='section_column_content'>" .
-
                     $this->CreateSubheadingLabel(__('Dimensions','csa-slplus')) .
 
                     $this->CreatePulldownDiv(
@@ -468,8 +466,11 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                                 __('Center Map At','csa-slplus'),
                                 __('Enter an address to serve as the initial focus for the map. Default is the center of the country.','csa-slplus'),
                                 ''
-                                ) .
-                        '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Controls','csa-slplus').'</strong></p>' .
+                                );
+
+                     $slpDescription .=
+                        $this->CreateSubheadingLabel(__('Controls','csa-slplus')) .
+
                         $this->plugin->helper->CreateCheckboxDiv(
                             'sl_map_overview_control',
                             __('Show Map Inset Box','csa-slplus'),
@@ -498,9 +499,14 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                             )
                         ;
                 }
-                $slpDescription .= "</div>" .
-                        "</div>";
-                $mapSettings['settings'] = apply_filters('slp_map_settings_settings',$slpDescription);
+                $slpDescription .= "</div>";
+
+
+                $mapSettings['settings'] = 
+                    "<div class='section_column_content'>".
+                    apply_filters('slp_map_settings_settings',$slpDescription) .
+                    '</div>'
+                    ;
 
 
             // ===== Icons
