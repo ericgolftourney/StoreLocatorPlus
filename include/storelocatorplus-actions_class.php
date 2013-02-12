@@ -144,20 +144,6 @@ if (! class_exists('SLPlus_Actions')) {
                     )
                 );
 
-                // Pro Pack menu items
-                //
-                if ($this->parent->license->packages['Pro Pack']->isenabled) {
-                    $menuItems = array_merge(
-                                $menuItems,
-                                array(
-                                    array(
-                                    'label' => __('Reports','csa-slplus'),
-                                    'url'   => SLPLUS_PLUGINDIR.'reporting.php'
-                                    )
-                                )
-                            );
-                }
-
                 // Third party plugin add-ons
                 //
                 $menuItems = apply_filters('slp_menu_items', $menuItems);
