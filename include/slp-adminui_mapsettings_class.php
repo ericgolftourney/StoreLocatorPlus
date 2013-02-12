@@ -259,11 +259,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                             SLPLUS_PREFIX.'_show_tags'                  ,
                             SLPLUS_PREFIX.'_disable_find_image'         ,
                             SLPLUS_PREFIX.'_disable_initialdirectory'   ,
-                            SLPLUS_PREFIX.'_disable_largemapcontrol3d'  ,
-                            SLPLUS_PREFIX.'_disable_scalecontrol'       ,
-                            SLPLUS_PREFIX.'_disable_scrollwheel'        ,
                             SLPLUS_PREFIX.'_disable_search'             ,
-                            SLPLUS_PREFIX.'_disable_maptypecontrol'     ,
                             SLPLUS_PREFIX.'_hide_radius_selections'     ,
                             SLPLUS_PREFIX.'_hide_address_entry'         ,
                             SLPLUS_PREFIX.'_show_search_by_name'        ,
@@ -273,7 +269,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                             'sl_use_city_search'                        ,
                             'sl_use_country_search'                     ,
                             'sl_load_locations_default'                 ,
-                            'sl_map_overview_control'                   ,
                             'sl_remove_credits'                         ,
                             'slplus_show_state_pd'                      ,
                             )
@@ -468,36 +463,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                                 ''
                                 );
 
-                     $slpDescription .=
-                        $this->CreateSubheadingLabel(__('Controls','csa-slplus')) .
-
-                        $this->plugin->helper->CreateCheckboxDiv(
-                            'sl_map_overview_control',
-                            __('Show Map Inset Box','csa-slplus'),
-                            __('When checked the map inset is shown.', 'csa-slplus'),
-                            ''
-                            ) .
-                        $this->plugin->helper->CreateCheckboxDiv(
-                            '_disable_scrollwheel',
-                            __('Disable Scroll Wheel','csa-slplus'),
-                            __('Disable the scrollwheel zoom on the maps interface.', 'csa-slplus')
-                            ) .
-                        $this->plugin->helper->CreateCheckboxDiv(
-                            '_disable_largemapcontrol3d',
-                            __('Hide map 3d control','csa-slplus'),
-                            __('Turn the large map 3D control off.', 'csa-slplus')
-                            ) .
-                        $this->plugin->helper->CreateCheckboxDiv(
-                            '_disable_scalecontrol',
-                            __('Hide map scale','csa-slplus'),
-                            __('Turn the map scale off.', 'csa-slplus')
-                            ) .
-                        $this->plugin->helper->CreateCheckboxDiv(
-                            '_disable_maptypecontrol',
-                            __('Hide map type','csa-slplus'),
-                            __('Turn the map type selector off.', 'csa-slplus')
-                            )
-                        ;
                 }
                 $slpDescription .= "</div>";
 
