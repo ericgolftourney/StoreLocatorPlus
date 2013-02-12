@@ -236,7 +236,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                             SLPLUS_PREFIX.'_label_phone'            ,
                             SLPLUS_PREFIX.'_message_noresultsfound' ,
                             SLPLUS_PREFIX.'_tag_search_selections'  ,
-                            SLPLUS_PREFIX.'_map_center'             ,
                             SLPLUS_PREFIX.'-map_language'           ,
                             SLPLUS_PREFIX.'_maxreturned'            ,
                             SLPLUS_PREFIX.'_search_tag_label'       ,
@@ -452,18 +451,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                         )
                         ;
 
-                // Pro Pack : Map Settings
-                //
-                if ($this->plugin->license->packages['Pro Pack']->isenabled) {
-                    $slpDescription .=
-                        $this->CreateTextAreaDiv(
-                                SLPLUS_PREFIX.'_map_center',
-                                __('Center Map At','csa-slplus'),
-                                __('Enter an address to serve as the initial focus for the map. Default is the center of the country.','csa-slplus'),
-                                ''
-                                );
-
-                }
                 $slpDescription .= "</div>";
 
 
