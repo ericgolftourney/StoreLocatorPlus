@@ -863,11 +863,13 @@ if (! class_exists('SLPlus_AdminUI')) {
          /**
           * Return the value of the field specified for the current location.
           * @param string $fldname - a location field
+          * @param boolean $blankifnull - if true return '' if fldname===null
           * @return string - value of the field
           */
-         function getFieldValue($fldname=null) {
+         function getFieldValue($fldname=null,$blankifnull = false) {
+             if ($blankifnull && ($fldname === null)) { return ''; }
              if (($fldname === null) || ($this->addingLocation)) { return ''; }
-             else { return $this->currentLocation[$fldname]; }
+             return $this->currentLocation[$fldname];
          }
 
         /**
