@@ -346,18 +346,18 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                 // Pro Pack : Initial Look & Feel
                 //
                 if ($this->plugin->license->packages['Pro Pack']->isenabled) {
-                        $slpDescription .=
-                            $this->CreateInputDiv(
-                                'sl_starting_image',
-                                __('Starting Image','csa-slplus'),
-                                __('If set, this image will be displayed until a search is performed.  Enter the full URL for the image.','csa-slplus'),
-                                ''
-                                ) .
-                            $this->plugin->helper->CreateCheckboxDiv(
-                                '_disable_initialdirectory',
-                                __('Disable Initial Directory','csa-slplus'),
-                                __('Do not display the listings under the map when "immediately show locations" is checked.', 'csa-slplus')
-                                );
+                    $slpDescription .=
+                        $this->CreateInputDiv(
+                            'sl_starting_image',
+                            __('Starting Image','csa-slplus'),
+                            __('If set, this image will be displayed until a search is performed.  Enter the full URL for the image.','csa-slplus'),
+                            ''
+                            ) .
+                        $this->plugin->helper->CreateCheckboxDiv(
+                            '_disable_initialdirectory',
+                            __('Disable Initial Directory','csa-slplus'),
+                            __('Do not display the listings under the map when "immediately show locations" is checked.', 'csa-slplus')
+                            );
                 }
 
                 // Features : Country
