@@ -528,7 +528,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
              return apply_filters(
                      'slp_map_domains',
                     array(
-                        __('United States' ,'csa-slplus')=>'maps.google.com',
+                        __('United States' ,'csa-slplus')=>'maps.googleapis.com',
                         __('Argentina'     ,'csa-slplus')=>'maps.google.com.ar',
                         __('Australia'     ,'csa-slplus')=>'maps.google.com.au',
                         __('Austria'       ,'csa-slplus')=>'maps.google.at',
@@ -873,11 +873,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
          *
          */
          function search_form_settings() {
-            global  $sl_the_distance_unit;
-
-            $sl_the_distance_unit[__("Kilometers", 'csa-slplus')]="km";
-            $sl_the_distance_unit[__("Miles", 'csa-slplus')]="miles";
-
             $ppFeatureMsg = (!$this->parent->license->packages['Pro Pack']->isenabled ?
                     sprintf(
                             __(' This is a <a href="%s" target="csa">Pro Pack</a> feature.', 'csa-slplus'),
@@ -909,6 +904,8 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                         "<select name='sl_distance_unit'>"
                 ;
 
+            $sl_the_distance_unit[__("Kilometers", 'csa-slplus')]="km";
+            $sl_the_distance_unit[__("Miles", 'csa-slplus')]="miles";
             foreach ($sl_the_distance_unit as $key=>$sl_value) {
                 $selected=(get_option('sl_distance_unit')==$sl_value)?" selected " : "";
                 $slpDescription .= "<option value='$sl_value' $selected>$key</option>\n";
