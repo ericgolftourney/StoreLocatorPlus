@@ -473,7 +473,6 @@ if (! class_exists('SLPlus_AdminUI')) {
         /**
          * Initialize variables for the map settings.
          * 
-         * @global type $sl_google_map_domain
          * @global type $sl_google_map_country
          * @global type $sl_location_table_view
          * @global type $sl_search_label
@@ -486,7 +485,7 @@ if (! class_exists('SLPlus_AdminUI')) {
          * @global type $sl_distance_unit
          */
         function initialize_variables() {
-            global $sl_google_map_domain, $sl_google_map_country, $sl_location_table_view,
+            global $sl_google_map_country, $sl_location_table_view,
                 $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_name_search,
                 $sl_radius_label, $sl_website_label, $sl_load_locations_default,
                 $sl_distance_unit;
@@ -548,12 +547,6 @@ if (! class_exists('SLPlus_AdminUI')) {
                 $sl_google_map_country="United States";
                 add_option('sl_google_map_country', $sl_google_map_country);
             }
-            $sl_google_map_domain=get_option('sl_google_map_domain');
-            if (empty($sl_google_map_domain)) {
-                $sl_google_map_domain="maps.google.com";
-                add_option('sl_google_map_domain', $sl_google_map_domain);
-            }
-
         }
 
 
