@@ -83,6 +83,11 @@ if (! class_exists('SLPlus_AdminUI')) {
             }
 
             $wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fields) VALUES ($sl_values);");
+            
+            // Fire slp_location_added hook
+            //
+            do_action('slp_location_added',$wpdb->insert_id());
+
             if (!$skipGeocode) {
                 $this->do_geocoding($theaddress);
             }

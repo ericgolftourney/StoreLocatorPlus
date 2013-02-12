@@ -295,6 +295,7 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 * Enhancement: Add peak memory usage report to plugin environment report
 * Enhancement: New [slp_location_updated action hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/location-management-actions-filters/)
+* Enhancement: New [slp_location_added action hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/location-management-actions-filters/)
 
 = 3.8.18 (February 10th, 2013) =
 
