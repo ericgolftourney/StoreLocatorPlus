@@ -959,54 +959,6 @@ if (! class_exists('SLPlus_AdminUI')) {
             $this->parent->AdminUI->MapSettings->render_adminpage();
         }
 
-        /**
-         * Render the admin page navbar (tabs)
-         *
-         * @global type $submenu
-         * @global wpCSL_plugin__slplus $slplus_plugin
-         * @return type
-         */
-        function create_Navbar() {
-            global $submenu, $slplus_plugin;
-            if (!isset($slplus_plugin) || !isset($submenu[$slplus_plugin->prefix]) || !is_array($submenu[$slplus_plugin->prefix])) {
-                echo apply_filters('slp_navbar','');
-            } else {
-                $content =
-                    '<div id="slplus_navbar">' .
-                        '<div class="about-wrap"><h2 class="nav-tab-wrapper">';
-
-                // Loop through all SLP sidebar menu items on admin page
-                //
-                foreach ($submenu[$slplus_plugin->prefix] as $slp_menu_item) {
-
-                    //--------------------------------------------
-                    // Check for Pro Pack, if not enabled skip:
-                    //  - Show Reports Tab
-                    //
-                    if (
-                            (!$slplus_plugin->license->packages['Pro Pack']->isenabled) &&
-                            ($slp_menu_item[0] == __('Reports',SLPLUS_PREFIX))
-                        ){
-                        continue;
-                    }
-
-                    // Create top menu item
-                    //
-                    $selectedTab = ((isset($_REQUEST['page']) && ($_REQUEST['page'] === $slp_menu_item[2])) ? ' nav-tab-active' : '' );
-                    $content .= apply_filters(
-                            'slp_navbar_item_tweak',
-                            '<a class="nav-tab'.$selectedTab.'" href="'.menu_page_url( $slp_menu_item[2], false ).'">'.
-                                $slp_menu_item[0].
-                            '</a>'
-                            );
-                }
-                $content .= apply_filters('slp_navbar_item','');
-                $content .='</h2></div></div>';
-                return apply_filters('slp_navbar',$content);
-            }
-        }
-
-
          /**
           * Returns the string that is the Location Info Form guts.
           *
@@ -1121,6 +1073,53 @@ if (! class_exists('SLPlus_AdminUI')) {
 
                 return apply_filters('slp_locationinfoform',$content);
          }
+
+        /**
+         * Render the admin page navbar (tabs)
+         *
+         * @global type $submenu
+         * @global wpCSL_plugin__slplus $slplus_plugin
+         * @return type
+         */
+        function create_Navbar() {
+            global $submenu, $slplus_plugin;
+            if (!isset($slplus_plugin) || !isset($submenu[$slplus_plugin->prefix]) || !is_array($submenu[$slplus_plugin->prefix])) {
+                echo apply_filters('slp_navbar','');
+            } else {
+                $content =
+                    '<div id="slplus_navbar">' .
+                        '<div class="about-wrap"><h2 class="nav-tab-wrapper">';
+
+                // Loop through all SLP sidebar menu items on admin page
+                //
+                foreach ($submenu[$slplus_plugin->prefix] as $slp_menu_item) {
+
+                    //--------------------------------------------
+                    // Check for Pro Pack, if not enabled skip:
+                    //  - Show Reports Tab
+                    //
+                    if (
+                            (!$slplus_plugin->license->packages['Pro Pack']->isenabled) &&
+                            ($slp_menu_item[0] == __('Reports',SLPLUS_PREFIX))
+                        ){
+                        continue;
+                    }
+
+                    // Create top menu item
+                    //
+                    $selectedTab = ((isset($_REQUEST['page']) && ($_REQUEST['page'] === $slp_menu_item[2])) ? ' nav-tab-active' : '' );
+                    $content .= apply_filters(
+                            'slp_navbar_item_tweak',
+                            '<a class="nav-tab'.$selectedTab.'" href="'.menu_page_url( $slp_menu_item[2], false ).'">'.
+                                $slp_menu_item[0].
+                            '</a>'
+                            );
+                }
+                $content .= apply_filters('slp_navbar_item','');
+                $content .='</h2></div></div>';
+                return apply_filters('slp_navbar',$content);
+            }
+        }
 
         /**
          * Return the icon selector HTML for the icon images in saved icons and default icon directories.
