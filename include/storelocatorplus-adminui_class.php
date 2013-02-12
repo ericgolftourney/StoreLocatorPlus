@@ -484,19 +484,13 @@ if (! class_exists('SLPlus_AdminUI')) {
          * @global type $sl_website_label
          * @global type $sl_load_locations_default
          * @global type $sl_distance_unit
-         * @global type $sl_map_overview_control
          */
         function initialize_variables() {
             global $sl_google_map_domain, $sl_google_map_country, $sl_location_table_view,
                 $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_name_search,
                 $sl_radius_label, $sl_website_label, $sl_load_locations_default,
-                $sl_distance_unit, $sl_map_overview_control;
+                $sl_distance_unit;
 
-            $sl_map_overview_control=get_option('sl_map_overview_control');
-            if (empty($sl_map_overview_control)) {
-                $sl_map_overview_control="0";
-                add_option('sl_map_overview_control', $sl_map_overview_control);
-                }
             $sl_distance_unit=get_option('sl_distance_unit');
             if (empty($sl_distance_unit)) {
                 $sl_distance_unit="miles";
