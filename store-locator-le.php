@@ -127,7 +127,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
     $slplus_plugin = new wpCSL_plugin__slplus(
         array(
             'on_update' => array('SLPlus_Activate', 'update'),
-            'version' => '3.8.17',
+            'version' => '3.8.19',
 
 
             // Plugin data elements, helps make data lookups more efficient
