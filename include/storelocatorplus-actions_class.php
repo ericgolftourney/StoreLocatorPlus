@@ -343,7 +343,7 @@ if (! class_exists('SLPlus_Actions')) {
                 );
             wp_enqueue_script(
                     'csl_script',
-                    SLPLUS_PLUGINURL.'/core/js/csl.js',
+                    $sslURL.'/core/js/csl.js',
                     array('jquery'),
                     false,
                     !$force_load
