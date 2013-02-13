@@ -288,12 +288,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
          function map_settings() {
             $this->plugin->helper->loadPluginData();
 
-            $slplus_message = ($this->plugin->license->packages['Pro Pack']->isenabled) ?
-                '' :
-                __('Extended settings are available in the <a href="%s">%s</a> premium add-on.','csa-slplus')
-               ;
-
-
             // Features
             //
             $slpDescription =
@@ -488,7 +482,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
 
             $slpDescription =
                 "<div id='map_settings'>" .
-                    sprintf('<p style="display:block; clear: both;">'.$slplus_message.'</p>',$this->plugin->purchase_url,'Pro Pack') .
                     $this->CreateSettingsGroup(
                                         'map_features',
                                         __('Features','csa-slplus'),
@@ -747,11 +740,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
           *
           */
          function results_settings() {
-            $slplus_message = ($this->parent->license->packages['Pro Pack']->isenabled) ?
-                '' :
-                __('Extended settings are available in the <a href="%s">%s</a> premium add-on.','csa-slplus')
-                ;
-
 
             // ===== Location Info
             //
@@ -759,8 +747,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             //
             $slpDescription =
                     '<h2>' . __('Location Info','csa-slplus').'</h2>'.
-                    '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Search Results','csa-slplus').'</strong></p>' .
-                    '<p>'.sprintf($slplus_message,$this->parent->purchase_url,'Pro Pack').'</p>'
+                    '<p class="slp_admin_info" style="clear:both;"><strong>'.__('Search Results','csa-slplus').'</strong></p>' 
                     ;
             $slpDescription .= $this->CreateInputDiv(
                         '_maxreturned',
@@ -880,10 +867,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
                             ) :
                     ''
                  );
-            $slplus_message = ($this->parent->license->packages['Pro Pack']->isenabled) ?
-                '' :
-                __('Tag features are available in the <a href="%s">%s</a> premium add-on.','csa-slplus')
-                ;
 
             $slpDescription =
                 "<div id='search_settings'>" .
@@ -1001,7 +984,6 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
             $slpDescription .= "<div class='section_column'>";
             $slpDescription .= '<h2>'.__('Tags', 'csa-slplus').'</h2>';
             $slpDescription .= '<div class="section_column_content">';
-            $slpDescription .= '<p>'.sprintf($slplus_message,$this->parent->purchase_url,'Pro Pack').'</p>';
 
             //----------------------------------------------------------------------
             // Pro Pack Enabled
