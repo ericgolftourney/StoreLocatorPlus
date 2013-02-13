@@ -327,7 +327,6 @@ if (! class_exists('SLPlus_Actions')) {
             //------------------------
             // Register our scripts for later enqueue when needed
             //
-            //wp_register_script('slplus_functions',SLPLUS_PLUGINURL.'/core/js/functions.js');
             if (get_option(SLPLUS_PREFIX.'-no_google_js','off') != 'on') {
                 $api_key  = ((trim($slplus_plugin->driver_args['api_key']) == false)?'':'&key='.$slplus_plugin->driver_args['api_key']);
                 $language = '&language='.$slplus_plugin->helper->getData('map_language','get_item',null,'en');
