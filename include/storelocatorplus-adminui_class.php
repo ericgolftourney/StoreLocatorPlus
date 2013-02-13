@@ -86,7 +86,7 @@ if (! class_exists('SLPlus_AdminUI')) {
             
             // Fire slp_location_added hook
             //
-            do_action('slp_location_added',$wpdb->insert_id());
+            do_action('slp_location_added',mysql_insert_id());
 
             if (!$skipGeocode) {
                 $this->do_geocoding($theaddress);
