@@ -117,6 +117,18 @@ if (! class_exists('SLPlus_Updates')) {
             return false;
         }
         /**
+         * Get a list of remote packages on this updater URL.
+         * @return bool|object
+         */
+        public function getRemote_list()
+        {
+            $request = wp_remote_post($this->update_path, array('body' => array('action' => 'list', 'slug' => $this->slug)));
+            if (!is_wp_error($request) || wp_remote_retrieve_response_code($request) === 200) {
+                return unserialize($request['body']);
+            }
+            return false;
+        }
+        /**
          * Return the status of the plugin licensing
          * @return boolean $remote_license
          */
