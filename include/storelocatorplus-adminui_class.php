@@ -186,31 +186,6 @@ if (! class_exists('SLPlus_AdminUI')) {
                 __('Check this box if your Theme or another plugin is providing Google Maps and generating warning messages.  THIS MAY BREAK THIS PLUGIN.', 'csa-slplus')
             );
 
-            //--------------------------
-            // Store Pages
-            //
-            $slp_rep_desc = __('These settings affect how the Store Pages add-on behaves. ', 'csa-slplus');
-            if (!$this->parent->license->AmIEnabled(true, "SLPLUS-PAGES")) {
-                $slp_rep_desc .= '<br/><br/>'.
-                    __('This is a <a href="http://www.charlestonsw.com/product/store-locator-plus-store-pages/">Store Pages</a>'.
-                    ' feature.  It provides a way to auto-create individual WordPress pages' .
-                    ' for each of your locations. ', 'csa-slplus');
-            } else {
-                $slp_rep_desc .= '<span style="float:right;">(<a href="#" onClick="'.
-                        'jQuery.post(ajaxurl,{action: \'license_reset_pages\'},function(response){alert(response);});'.
-                        '">'.__('Delete license','csa-slplus').'</a>)</span>';
-            }
-            $slp_rep_desc .= '<br/><br/>';
-            $this->parent->settings->add_section(
-                array(
-                    'name'        => 'Store Pages',
-                    'description' => $slp_rep_desc
-                )
-            );
-            if ($this->parent->license->AmIEnabled(true, "SLPLUS-PAGES")) {
-                $this->parent->StorePages->add_pages_settings();
-            }
-
             //-------------------------
             // Pro Pack
             //

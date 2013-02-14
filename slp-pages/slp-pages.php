@@ -9,7 +9,7 @@
  * Requires at least: 3.3
  * Test up to : 3.5.1
  *
- * Text Domain: csa-slplus
+ * Text Domain: csa-slp-pages
  * Domain Path: /languages/
  *
  * @package StoreLocatorPlus
@@ -36,15 +36,21 @@ if ( ! class_exists( 'SLPPages' ) ) {
      */
     class SLPPages {
 
-        /**
-         * Properties
-         */
         private $dir;
         private $metadata = null;
-        public  $plugin = null;
         private $slug = null;
         private $url;
         private $adminMode = false;
+        private $settingsSlug = 'slp_storepages';
+
+        /**
+         * Public Properties
+         *
+         * @property wpCSL_settings__slplus $Settings   the Store Pages settings object (public).
+         * @property wpCSL_plugin__slplus   $plugin     the parent wpCSL plugin object
+         */
+        public $plugin   = null;
+        public $Settings = null;
 
         /**
          * Constructor
@@ -60,12 +66,8 @@ if ( ! class_exists( 'SLPPages' ) ) {
 
             // SLP Actions & Filters
             //
-            add_filter('slp_action_boxes'               ,array($this,'manage_locations_actionbar' )             );
-            add_filter('slp_manage_location_columns'    ,array($this,'add_manage_locations_columns' )           );
-            add_filter('slp_manage_locations_actions'   ,array($this,'add_manage_locations_actionbuttons'),10,2 );
             add_filter('slp_storepage_attributes'       ,array($this,'modify_storepage_attributes')             );
         }
-
 
         //====================================================
         // WordPress Admin Actions
@@ -86,19 +88,38 @@ if ( ! class_exists( 'SLPPages' ) ) {
                         $this->slug
                         );
             }
+
+            // SLP Action Hooks & Filters (admin UI only)
+            //
+            add_filter('slp_action_boxes'               ,array($this,'manage_locations_actionbar' )             );
+            add_filter('slp_manage_location_columns'    ,array($this,'add_manage_locations_columns' )           );
+            add_filter('slp_manage_locations_actions'   ,array($this,'add_manage_locations_actionbuttons'),10,2 );
         }
 
         /**
-         * WordPress admin_menu hook for Tagalong.
+         * WordPress admin_menu hook.
          */
         function admin_menu(){
-            $this->adminMode = true;
             if (!$this->setPlugin()) { return ''; }
+            $this->adminMode = true;
+            $slugPrefix = 'store-locator-plus_page_';
+
+           // Admin Styles
+            //
+            add_action(
+                    'admin_print_styles-' . 'store-locator-plus_page_'.$this->settingsSlug,
+                    array($this,'enqueue_admin_stylesheet')
+                    );
 
             // Admin Actions
             //
             add_action('admin_init' ,
                     array($this,'admin_init')
+                    );
+
+            add_filter('slp_menu_items',
+                    array($this,'add_menu_items'),
+                    90
                     );
         }
 
@@ -147,6 +168,13 @@ if ( ! class_exists( 'SLPPages' ) ) {
             die($this->slug . ' debug hooked.');
         }
 
+        /**
+         * Enqueue the style sheet when needed.
+         */
+        function enqueue_admin_stylesheet() {
+            wp_enqueue_style('slp_storepages_style');
+            wp_enqueue_style($this->plugin->AdminUI->styleHandle);
+        }        
 
         /**
          * Set the plugin property to point to the primary plugin object.
@@ -228,28 +256,24 @@ if ( ! class_exists( 'SLPPages' ) ) {
         }
 
         /**
-         * Add store pages settings to the admin interface.
+         * Add the Store Pages Menu Item
          *
-         * @return string
+         * @param type $menuItems
+         * @return type
          */
-        function add_pages_settings() {
-            if (!$this->setPlugin()) { return ''; }
-                $this->plugin->settings->add_item(
-                    'Store Pages',
-                    __('Pages Replace Websites', SLPLUS_PREFIX),
-                    'use_pages_links',
-                    'checkbox',
-                    false,
-                    __('Use the Store Pages local URL in place of the website URL on the map results list.', SLPLUS_PREFIX)
-                );
-                $this->plugin->settings->add_item(
-                    'Store Pages',
-                    __('Prevent New Window', SLPLUS_PREFIX),
-                    'use_same_window',
-                    'checkbox',
-                    false,
-                    __('Prevent Store Pages web links from opening in a new window.', SLPLUS_PREFIX)
-                );
+        function add_menu_items($menuItems) {
+            if (!$this->setPlugin()) { return $menuItems; }
+            return array_merge(
+                        $menuItems,
+                        array(
+                            array(
+                            'label' => __('Store Pages',SLPLUS_PREFIX),
+                            'slug'              => 'slp_storepages',
+                            'class'             => $this,
+                            'function'          => 'render_SettingsPage'
+                            )
+                        )
+                    );
         }
 
         /**
@@ -401,6 +425,88 @@ if ( ! class_exists( 'SLPPages' ) ) {
                         'public' => true
                     )
                     );
+         }
+
+         // Render the settings page
+         //
+         function render_SettingsPage() {
+            if (!$this->setPlugin()) { return __('Store Pages has not been activated.','csa-slp-pages'); }
+
+            // If we are updating settings...
+            //
+            if (isset($_REQUEST['action']) && ($_REQUEST['action']==='update')) {
+                $this->updateSettings();
+            }
+
+            // Setup and render settings page
+            //
+            $this->Settings = new wpCSL_settings__slplus(
+                array(
+                        'no_license'        => true,
+                        'prefix'            => $this->plugin->prefix,
+                        'css_prefix'        => $this->plugin->prefix,
+                        'url'               => $this->plugin->url,
+                        'name'              => $this->plugin->name . ' - Store Pages',
+                        'plugin_url'        => $this->plugin->plugin_url,
+                        'render_csl_blocks' => true,
+                        'form_action'       => admin_url().'admin.php?page='.$this->settingsSlug
+                    )
+             );
+
+            //-------------------------
+            // Navbar Section
+            //-------------------------
+            $this->Settings->add_section(
+                array(
+                    'name'          => 'Navigation',
+                    'div_id'        => 'slplus_navbar',
+                    'description'   => $this->plugin->AdminUI->create_Navbar(),
+                    'is_topmenu'    => true,
+                    'auto'          => false,
+                    'headerbar'     => false
+                )
+            );
+
+            //-------------------------
+            // General Settings
+            //-------------------------
+            $sectName = __('General Settings','csa-slp-pages');
+            $this->Settings->add_section(
+                array(
+                        'name'          => $sectName,
+                        'description'   => '',
+                        'auto'          => true
+                    )
+             );
+            $this->Settings->add_item(
+                $sectName,
+                __('Pages Replace Websites', 'csa-slp-pages'),
+                'use_pages_links',
+                'checkbox',
+                false,
+                __('Use the Store Pages local URL in place of the website URL on the map results list.', 'csa-slp-pages')
+            );
+            $this->Settings->add_item(
+                $sectName,
+                __('Prevent New Window', 'csa-slp-pages'),
+                'use_same_window',
+                'checkbox',
+                false,
+                __('Prevent Store Pages web links from opening in a new window.', 'csa-slp-pages')
+            );
+
+            //------------------------------------------
+            // RENDER
+            //------------------------------------------
+            $this->Settings->render_settings_page();
+         }
+
+         /**
+          * Update Store Pages settings
+          */
+         function updateSettings() {
+            if (!isset($_REQUEST['page']) || ($_REQUEST['page']!=$this->settingsSlug)) { return; }
+            if (!isset($_REQUEST['_wpnonce'])) { return; }
          }
     }
 
