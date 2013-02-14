@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // No SLP? Get out...
 //
-if ( !in_array( 'store-locator-le/store-locator-le.php', apply_filters( 'active_plugins', get_option('active_plugins')))) {
+if ( !is_plugin_active( 'store-locator-le/store-locator-le.php')) {
     return;
 }
 
