@@ -774,9 +774,6 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
 
                         $actionButtonsHTML = apply_filters('slp_manage_locations_actions',$actionButtonsHTML, $sl_value);
 
-                        // Store Pages Active?
-                        // Show the create page button & fix up the sl_pages_url data
-                        //
                         print "<tr style='background-color:$bgcol'>" .
                             "<th><input type='checkbox' name='sl_id[]' value='$locID'></th>" .
                             "<th class='thnowrap'>".
