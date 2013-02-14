@@ -89,6 +89,13 @@ if ( ! class_exists( 'SLPPages' ) ) {
                         );
             }
 
+            // Register the admin stylesheet
+            //
+            wp_register_style(
+                $this->settingsSlug.'_style',
+                $this->url . '/admin.css'
+                );
+
             // SLP Action Hooks & Filters (admin UI only)
             //
             add_filter('slp_action_boxes'               ,array($this,'manage_locations_actionbar' )             );
@@ -107,7 +114,7 @@ if ( ! class_exists( 'SLPPages' ) ) {
            // Admin Styles
             //
             add_action(
-                    'admin_print_styles-' . 'store-locator-plus_page_'.$this->settingsSlug,
+                    'admin_print_styles-' . $slugPrefix .$this->settingsSlug,
                     array($this,'enqueue_admin_stylesheet')
                     );
 
@@ -172,7 +179,7 @@ if ( ! class_exists( 'SLPPages' ) ) {
          * Enqueue the style sheet when needed.
          */
         function enqueue_admin_stylesheet() {
-            wp_enqueue_style('slp_storepages_style');
+            wp_enqueue_style($this->settingsSlug.'_style');
             wp_enqueue_style($this->plugin->AdminUI->styleHandle);
         }        
 
