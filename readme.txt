@@ -293,5 +293,6 @@ I was listing the entire change log here but with weekly/bi-weekly updates it as
 
 = 3.9 (February 2013) =
 
+* Enhancement: Add [slp_manage_locations_actions hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/location-management-actions-filters/)
 * Fix: tests for SLP is active now works on WPMU sites.
 
