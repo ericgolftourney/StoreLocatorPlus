@@ -5,7 +5,7 @@ Donate link: http://www.charlestonsw.com/product/store-locator-plus-2/
 Tags: google maps, store finder, store locator, store locater, google, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus, bing map, bing, yahoo maps, yahoo, mapping, retail
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 3.8.19
+Stable tag: 3.9
 
 Store Locator Plus makes it easy to put a fully functional store finder on your site.
 The most active store locator plugin with monthly updates!
@@ -291,141 +291,7 @@ Visit the [Store Locator Plus Release Notes page](http://www.charlestonsw.com/su
 
 I was listing the entire change log here but with weekly/bi-weekly updates it as getting much too long.
 
-= 3.8.19 (February 2013) =
+= 3.9 (February 2013) =
 
-* Enhancement: Speed up the admin page navbar rendering.
-* Enhancement: Speed up the edit location saving.
-* Enhancement: Add peak memory usage report to plugin environment report.
-* Enhancement: New [slp_location_updated action hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/location-management-actions-filters/).
-* Enhancement: New [slp_location_added action hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/location-management-actions-filters/).
-* Fix: Make the csl.js script recognize that it is on an https connection.
+* Fix: tests for SLP is active now works on WPMU sites.
 
-= 3.8.18 (February 10th, 2013) =
-
-* Fix: Manage Locations Paging
-* Fix: Remember Manage Locations Page Length
-* Fix: Manage Locations alt view text
-
-= 3.8.17 (Real Emergency Patch) =
-
-* Unlink was a red herring (not the real problem).
-* This version has the proper patch, an issue with activate_plugin has been fixed.
-
-= 3.8.16 (Emergency Patch) =
-
-* Stop unlink on activation, it is breaking some sites with 3.8.15
-
-= 3.8.15 (February 6th 2013 : DO NOT INSTALL use 3.8.16) =
-
-* Enhancement: Remove Google Maps API version restriction
-* Enhancement: Add [language support](http://www.charlestonsw.com/support/documentation/store-locator-plus/release-notes/release-notes-v3-8/) back in for Google Maps API V3
-* Fix:  [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) show uncoded now shows locations with a blank lat/long.
-
-= 3.8.14 (February 4th 2013) =
-
-* Add : [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) bulk import now has lat/long input to skip geocoding.
-
-= 3.8.13 (January 30th 2013) =
-
-* Add: Country to Manage Locations searches.
-* Add: Country to Manage Locations Recode Selected.
-* Add: Country to the Manage Locations normal view.
-* Add: Debugging output to Manage Locations tab (if debug mode is on)
-* Add: Israel to map domains.
-* Change: Move tags column in Manage Locations to expanded view mode.
-* Fix: Manage Locations delete single location then multiple locations did not work.
-* Fix: Manage Locations pagination on sub-directory installs on shared hosts.
-* Fix: Manage Locations edit keeps the search filter in place so editing page 2..n locations works.
-* Improve: Saving after editing a location keeps the pagination and search filter in place.
-* Improve: Manage Locations search locations performance.
-* Improve: Add location ID on recode location error messages.
-
-= 3.8.12 (January 27 2013) =
-
-* Fix: Roles & Capabilities updates, must now be administrator to see SLP sidebar menu entries.
-* Fix: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : name field searches.
-* Update: Start getting search form to send ALL form vars for better back end search functions in the future.
-
-= 3.8.11 (January 25 2013) =
-
-* Add: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : "skip duplicates" on bulk upload.
-* Test: WP 3.5.1 compatibility
-
-= 3.8.10 (January 23 2013) =
-
-* Add: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) : "skip first line" to bulk upload.
-* Fix: JavaScript panTo error if home point on map is not defined.
-
-= 3.8.9 (January 21 2013) =
-
-* Add: Bahamas as a Google Maps domain
-
-= 3.8.8 (January 11th 2013) =
-
-* Minor change to how the radius pulldown string is built, maybe stops issue with duplicate entries for some people?
-* Change how I test if I am on my dev box before turning on PHP report ALL errrors & warnings.
-
-= 3.8.7 (January 9th 2013) =
-
-* Security patch for slp-pro.php to prevent open query/injection attack.
-* Icon save/select eliminate duplicates. Base file name must be unique.  Base plugin icons take precedence.
-
-= 3.8.6 (January 7th 2013) =
-
-* Fix save map height.
-* Fix save map height units.
-* Fix save map width.
-* Fix save map width units.
-* Fix home marker saving.
-* Fix end marker saving.
-* Save icons/images/languages now go in ./wp-content/uploads/slp/
-* Fix saving of icons when upgrading.  May cause duplicate icons to be listed after first update.
-* Clean up the map marker icon set.
-* Add some new icons.
-
-
-= 3.8.5 (January 3rd 2013) =
-
-* Fix syntax error in slp-pages.php
-
-= 3.8.4 (January 1st 2013) =
-
-* Fix remove credits not saving.
-* Fix an error in how Pro Pack was being loaded.  Unmatched } caused erratic behavior.
-* Fix a Pro Pack / Store Pages hook issue.
-* Find button is now text based button by default on new installs.
-
-= 3.8.3 (January 2013) =
-
-* Map settings panel updates to prep for Enhanced Maps.
-* Add the on/off slider button method for new UI elements including the map on/off toggle on Enhanced Maps.
-
-= 3.8.2 (December 31 2012) =
-
-* Simplify geocoding calls.
-* Fix warnings for non Pro Pack users.
-* Rework Map Settings panel.
-* Add filters to map settings admin panel in preparation for Enhanced Maps plugin.
-
-= 3.8.1 (Christmas 1012) =
-
-* Fix premature headers error messages on some installs (could cause site/plugin failure)
-* Fix call time reference warning message.
-* Improved over query limit messaging.
-* Update the manage locations action bar processing.
-
-= 3.8 (Late-December 2012) =
-
-* WordPress 3.5 testing.
-* Change admin page button bar to use standard WordPress style tabs.
-* Increase admin page performance, remove excess JavaScript from multiple locations.
-* Decrease memory footprint eliminating framework classes that are not used.
-* Added the Fournier theme for the Pro Pack / Enhanced Results add-ons.
-* Significant rework to the admin pages.  Far better isolation of code and memory management.
-* Added slp_shortcode_atts filter to allow add-ons to extend shortcode attributes.
-* Added slp_map_domains filter.
-* Added slp_map_encodings filter.
-* [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results) Updates:
-** Added the [Results String](http://www.charlestonsw.com/support/documentation/store-locator-plus/enhanced-results-add-on/) setting, highly customized results formats.
-* [Enhanced Search](http://www.charlestonsw.com/product/store-locator-plus-enhanced-search) Updates:
-** Added placeholder option for name and address search field.  These are the instructions that appear in a field and disappear when clicked. HTML5 only.
