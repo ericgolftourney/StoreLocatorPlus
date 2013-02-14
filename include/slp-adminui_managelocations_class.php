@@ -762,26 +762,27 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                             __("View", 'csa-slplus')."</a>" :
                             "" ;
 
-                        print
-                        "<tr style='background-color:$bgcol'>" .
-                            "<th><input type='checkbox' name='sl_id[]' value='$locID'></th>" .
-                            "<th class='thnowrap'>".
+                        // create Action Buttons
+                        $actionButtonsHTML =
                             "<a class='action_icon edit_icon' alt='".__('edit','csa-slplus')."' title='".__('edit','csa-slplus')."'
                                 href='".$this->hangoverURL."&act=edit&edit=$locID#a$locID'></a>".
                             "&nbsp;" .
                             "<a class='action_icon delete_icon' alt='".__('delete','csa-slplus')."' title='".__('delete','csa-slplus')."'
                                 href='".$_SERVER['REQUEST_URI']."&act=delete&delete=$locID' " .
-                                "onclick=\"confirmClick('".sprintf(__('Delete %s?','csa-slplus'),$sl_value['sl_store'])."', this.href); return false;\"></a>";
+                                "onclick=\"confirmClick('".sprintf(__('Delete %s?','csa-slplus'),$sl_value['sl_store'])."', this.href); return false;\"></a>"
+                                ;
+
+                        $actionButtonsHTML = apply_filters('slp_manage_locations_actions',$actionButtonsHTML, $sl_value);
 
                         // Store Pages Active?
                         // Show the create page button & fix up the sl_pages_url data
                         //
-                        if ($this->parent->license->packages['Store Pages']->isenabled) {
-                            $shortSPurl = preg_replace('/^.*?store_page=/','',$sl_value['sl_pages_url']);
-                            $sl_value['sl_pages_url'] = "<a href='$sl_value[sl_pages_url]' target='cybersprocket'>$shortSPurl</a>";
-                            call_user_func_array(array('SLPlus_AdminUI','slpRenderCreatePageButton'),array($locID,$sl_value['sl_linked_postid']));
-                        }
-                        print "</th>";
+                        print "<tr style='background-color:$bgcol'>" .
+                            "<th><input type='checkbox' name='sl_id[]' value='$locID'></th>" .
+                            "<th class='thnowrap'>".
+                                $actionButtonsHTML . 
+                            "</th>"
+                            ;
 
                         // Data Columns
                         //

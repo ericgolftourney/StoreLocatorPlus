@@ -60,8 +60,9 @@ if ( ! class_exists( 'SLPPages' ) ) {
                     array($this,'admin_menu')
                     );
 
-            add_filter('slp_action_boxes',array($this,'manage_locations_actionbar'));
-            add_filter('slp_manage_location_columns',array($this,'add_manage_location_columns'));
+            add_filter('slp_action_boxes'               ,array($this,'manage_locations_actionbar' )            );
+            add_filter('slp_manage_location_columns'    ,array($this,'add_manage_locations_columns' )           );
+            add_filter('slp_manage_locations_actions'   ,array($this,'add_manage_locations_actionbuttons'),10,2 );
         }
 
 
@@ -175,7 +176,49 @@ if ( ! class_exists( 'SLPPages' ) ) {
         // Store Pages Custom Methods
         //====================================================
 
-        function add_manage_location_columns($theColumns) {
+        /**
+         * Add a location action button.
+         *
+         * @param string $theHTML - the HTML of the original buttons in place
+         * @param array $locationValues
+         * @return string - the augmented HTML
+         */
+        function add_manage_locations_actionbuttons($theHTML,$locationValues) {
+            if (!$this->setPlugin())            { return 'a' . $theHTML;  }
+            if (!isset($locationValues['sl_id'])) { return 'c' . $theHTML; }
+            if ($locationValues['sl_id'] < 0)   { return 'b' . $theHTML;  }
+
+            // Set the URL
+            //
+            $shortSPurl = preg_replace('/^.*?store_page=/','',$locationValues['sl_pages_url']);
+            $locationValues['sl_pages_url'] = "<a href='$locationValues[sl_pages_url]' target='cybersprocket'>$shortSPurl</a>";
+
+            $pageClass = (($locationValues['sl_linked_postid']>0)?'haspage_icon' : 'createpage_icon');
+            $pageURL  = preg_replace(
+                            '/&createpage=/'.(isset($_GET['createpage'])?$_GET['createpage']:''),
+                            '',
+                            $_SERVER['REQUEST_URI']
+                            ).
+                         '&act=createpage'.
+                         '&sl_id='.$locationValues['sl_id'].
+                         '&slp_pageid='.$locationValues['sl_linked_postid'].
+                         '#a'.$locationValues['sl_id']
+                    ;
+            return $theHTML .
+                   "<a  class='action_icon $pageClass' ".
+                        "alt='".__('create page','csa-slplus')."' ".
+                        "title='".__('create page','csa-slplus')."' ".
+                        "href='$pageURL'></a>"
+                    ;
+        }
+
+        /**
+         * Add the Store Pages URL column.
+         * 
+         * @param array $theColumns - the array of column data/titles
+         * @return array - modified columns array
+         */
+        function add_manage_locations_columns($theColumns) {
             if (!$this->setPlugin()) { return $theColumns; }
             return array_merge($theColumns,
                     array(
@@ -322,7 +365,7 @@ if ( ! class_exists( 'SLPPages' ) ) {
          }
 
          /**
-          * Add Pro Pack action buttons to the action bar
+          * Add Stor Pages action buttons to the action bar
           *
           * @param array $actionBoxes - the existing action boxes, 'A'.. each named array element is an array of HTML strings
           * @return string

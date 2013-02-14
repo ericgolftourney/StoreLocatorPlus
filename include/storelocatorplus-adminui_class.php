@@ -729,25 +729,6 @@ if (! class_exists('SLPlus_AdminUI')) {
         }
 
         /**
-         * Render The Create Page Button
-         *
-         * @param type $locationID
-         * @param type $storePageID
-         * @return type
-         */
-        static function slpRenderCreatePageButton($locationID=-1,$storePageID=-1) {
-            if ($locationID < 0) { return; }            
-            $slpPageClass = (($storePageID>0)?'haspage_icon' : 'createpage_icon');
-            print "<a   class='action_icon $slpPageClass' 
-                        alt='".__('create page','csa-slplus')."'
-                        title='".__('create page','csa-slplus')."'
-                        href='".
-                            preg_replace('/&createpage=/'.(isset($_GET['createpage'])?$_GET['createpage']:''), "",$_SERVER['REQUEST_URI']).
-                            "&act=createpage&sl_id=$locationID&slp_pageid=$storePageID#a$locationID'
-                   ></a>";            
-        }  
-
-        /**
          * Check if a URL starts with http://
          *
          * @param type $url
