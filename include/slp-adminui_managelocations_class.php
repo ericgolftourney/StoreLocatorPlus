@@ -693,16 +693,6 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                                 )
                             );
 
-                    // Store Pages URLs
-                    //
-                    if ($this->parent->license->packages['Store Pages']->isenabled) {
-                        $slpManageColumns = array_merge($slpManageColumns,
-                                    array(
-                                        'sl_pages_url'      => __('Pages URL'          ,'csa-slplus'),
-                                    )
-                                );
-                    }
-
                     $slpManageColumns = array_merge($slpManageColumns,
                                 array(
                                     'sl_email'       => __('Email'        ,'csa-slplus'),
@@ -715,8 +705,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
 
                 }
                 $slpManageColumns = apply_filters('slp_manage_location_columns', $slpManageColumns);
-
-
+                
                 // Get the manage locations table header
                 //
                 $tableHeaderString = $this->parent->AdminUI->manage_locations_table_header($slpManageColumns,$slpCleanURL,$opt,$dir);

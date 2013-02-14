@@ -22,7 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // No SLP? Get out...
 //
-if ( !is_plugin_active( 'store-locator-le/store-locator-le.php')) {
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if ( !function_exists('is_plugin_active') ||  !is_plugin_active( 'store-locator-le/store-locator-le.php')) {
     return;
 }
 
@@ -60,6 +61,7 @@ if ( ! class_exists( 'SLPPages' ) ) {
                     );
 
             add_filter('slp_action_boxes',array($this,'manage_locations_actionbar'));
+            add_filter('slp_manage_location_columns',array($this,'add_manage_location_columns'));
         }
 
 
@@ -172,6 +174,15 @@ if ( ! class_exists( 'SLPPages' ) ) {
         //====================================================
         // Store Pages Custom Methods
         //====================================================
+
+        function add_manage_location_columns($theColumns) {
+            if (!$this->setPlugin()) { return $theColumns; }
+            return array_merge($theColumns,
+                    array(
+                        'sl_pages_url'      => __('Pages URL'          ,'csa-slplus'),
+                    )
+                );
+        }
 
         /**
          * Add store pages settings to the admin interface.
