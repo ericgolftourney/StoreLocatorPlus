@@ -57,8 +57,6 @@ if ( ! class_exists( 'SLPPages' ) ) {
             // WordPress Actions & Filters
             //
             add_action('admin_menu'                     ,array($this,'admin_menu')                              );
-            add_action('init'                           ,array($this,'init')                                    );
-
 
             // SLP Actions & Filters
             //
@@ -101,45 +99,6 @@ if ( ! class_exists( 'SLPPages' ) ) {
             add_action('admin_init' ,
                     array($this,'admin_init')
                     );
-        }
-
-        /**
-         * Add the Store Pages page type to the WP engine.
-         */
-        function init() {
-            if (!$this->setPlugin())                { return; }
-
-            // Register Store Pages Custom Type
-            register_post_type( 'store_page',
-                array(
-                    'labels' => array(
-                        'name'              => __( 'Store Pages','csa-slplus' ),
-                        'singular_name'     => __( 'Store Page', 'csa-slplus' ),
-                        'add_new'           => __('Add New Store Page', 'csa-slplus'),
-                    ),
-                'public'            => true,
-                'has_archive'       => true,
-                'description'       => __('Store Locator Plus location pages.','csa-slplus'),
-                'menu_postion'      => 20,   
-                'menu_icon'         => SLPLUS_COREURL . 'images/icon_from_jpg_16x16.png',
-                'show_in_menu'      => current_user_can('manage_slp'),
-                'capability_type'   => 'page',
-                'supports'          =>
-                    array(
-                        'title',
-                        'editor',
-                        'author',
-                        'excerpt',
-                        'trackback',
-                        'thumbnail',
-                        'comments',
-                        'revisions',
-                        'custom-fields',
-                        'page-attributes',
-                        'post-formats'
-                    ),
-                )
-            );                
         }
 
         //====================================================

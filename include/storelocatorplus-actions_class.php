@@ -231,30 +231,72 @@ if (! class_exists('SLPlus_Actions')) {
             //
             add_filter('no_texturize_shortcodes',array('SLPlus_UI','no_texturize_shortcodes'));
 
-            // Register Stores Taxonomy
-            //
-            $this->register_store_taxonomy();
-        }
-
-        /**
-         * Register the store taxonomy.
-         *
-         * We need this for Store Pages, Tagalong, and third party plugins.
-         *
-         */
-        function register_store_taxonomy() {
-            register_taxonomy(
-                    'stores',
-                    'store_page',
-                    array (
-                        'hierarchical'  => true,
-                        'labels'        =>
-                            array(
-                                    'menu_name' => __('Categories','csa-slplus'),
-                                    'name'      => __('Store Categories','csa-slplus'),
-                                 )
+            /**
+             * Register the store taxonomy & page type.
+             *
+             * This is used in multiple add-on packs.
+             *
+             */
+            if (!taxonomy_exists('stores')) {
+                // Store Page Labels
+                //
+                $storepage_labels =
+                    apply_filters(
+                        'slp_storepage_labels',
+                        array(
+                            'name'              => __( 'Store Pages','csa-slplus' ),
+                            'singular_name'     => __( 'Store Page', 'csa-slplus' ),
+                            'add_new'           => __('Add New Store Page', 'csa-slplus'),
                         )
+                    );
+
+                $storepage_features =
+                    apply_filters(
+                        'slp_storepage_features',
+                        array(
+                            'title',
+                            'editor',
+                            'author',
+                            'excerpt',
+                            'trackback',
+                            'thumbnail',
+                            'comments',
+                            'revisions',
+                            'custom-fields',
+                            'page-attributes',
+                            'post-formats'
+                        )
+                    );
+
+                // Register Store Pages Custom Type
+                register_post_type( 'store_page',
+                    array(
+                    'labels'            => $storepage_labels,
+                    'public'            => true,
+                    'has_archive'       => true,
+                    'description'       => __('Store Locator Plus location pages.','csa-slplus'),
+                    'menu_postion'      => 20,
+                    'menu_icon'         => SLPLUS_COREURL . 'images/icon_from_jpg_16x16.png',
+                    'show_in_menu'      => current_user_can('manage_slp'),
+                    'capability_type'   => 'page',
+                    'supports'          => $storepage_features,
+                    )
                 );
+
+                register_taxonomy(
+                        'stores',
+                        'store_page',
+                        array (
+                            'hierarchical'  => true,
+                            'labels'        =>
+                                array(
+                                        'menu_name' => __('Categories','csa-slplus'),
+                                        'name'      => __('Store Categories','csa-slplus'),
+                                     )
+                            )
+                    );
+            }
+
         }
 
         /**
