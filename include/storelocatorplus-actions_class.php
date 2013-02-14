@@ -227,45 +227,6 @@ if (! class_exists('SLPlus_Actions')) {
         function init() {
             if (!$this->setParent()) { return; }
             
-            //--------------------------------
-            // Store Pages Is Licensed
-            //
-            if (isset($this->parent->license->packages) && ($this->parent->license->packages['Store Pages']->isenabled)) {
-
-                // Register Store Pages Custom Type
-                register_post_type( 'store_page',
-                    array(
-                        'labels' => array(
-                            'name'              => __( 'Store Pages','csa-slplus' ),
-                            'singular_name'     => __( 'Store Page', 'csa-slplus' ),
-                            'add_new'           => __('Add New Store Page', 'csa-slplus'),
-                        ),
-                    'public'            => true,
-                    'has_archive'       => true,
-                    'description'       => __('Store Locator Plus location pages.','csa-slplus'),
-                    'menu_postion'      => 20,   
-                    'menu_icon'         => SLPLUS_COREURL . 'images/icon_from_jpg_16x16.png',
-                    'show_in_menu'      => current_user_can('manage_slp'),
-                    'capability_type'   => 'page',
-                    'supports'          =>
-                        array(
-                            'title',
-                            'editor',
-                            'author',
-                            'excerpt',
-                            'trackback',
-                            'thumbnail',
-                            'comments',
-                            'revisions',
-                            'custom-fields',
-                            'page-attributes',
-                            'post-formats'
-                        ),
-                    )
-                );                
-                
-            }
-
             // Do not texturize our shortcodes
             //
             add_filter('no_texturize_shortcodes',array('SLPlus_UI','no_texturize_shortcodes'));

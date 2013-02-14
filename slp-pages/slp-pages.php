@@ -54,13 +54,15 @@ if ( ! class_exists( 'SLPPages' ) ) {
             $this->dir  = plugin_dir_path(__FILE__);
             $this->slug = plugin_basename(__FILE__);
 
-            // Admin / Nav Menus (start of admin stack)
+            // WordPress Actions & Filters
             //
-            add_action('admin_menu' ,
-                    array($this,'admin_menu')
-                    );
+            add_action('admin_menu'                     ,array($this,'admin_menu')                              );
+            add_action('init'                           ,array($this,'init')                                    );
 
-            add_filter('slp_action_boxes'               ,array($this,'manage_locations_actionbar' )            );
+
+            // SLP Actions & Filters
+            //
+            add_filter('slp_action_boxes'               ,array($this,'manage_locations_actionbar' )             );
             add_filter('slp_manage_location_columns'    ,array($this,'add_manage_locations_columns' )           );
             add_filter('slp_manage_locations_actions'   ,array($this,'add_manage_locations_actionbuttons'),10,2 );
         }
@@ -101,6 +103,44 @@ if ( ! class_exists( 'SLPPages' ) ) {
                     );
         }
 
+        /**
+         * Add the Store Pages page type to the WP engine.
+         */
+        function init() {
+            if (!$this->setPlugin())                { return; }
+
+            // Register Store Pages Custom Type
+            register_post_type( 'store_page',
+                array(
+                    'labels' => array(
+                        'name'              => __( 'Store Pages','csa-slplus' ),
+                        'singular_name'     => __( 'Store Page', 'csa-slplus' ),
+                        'add_new'           => __('Add New Store Page', 'csa-slplus'),
+                    ),
+                'public'            => true,
+                'has_archive'       => true,
+                'description'       => __('Store Locator Plus location pages.','csa-slplus'),
+                'menu_postion'      => 20,   
+                'menu_icon'         => SLPLUS_COREURL . 'images/icon_from_jpg_16x16.png',
+                'show_in_menu'      => current_user_can('manage_slp'),
+                'capability_type'   => 'page',
+                'supports'          =>
+                    array(
+                        'title',
+                        'editor',
+                        'author',
+                        'excerpt',
+                        'trackback',
+                        'thumbnail',
+                        'comments',
+                        'revisions',
+                        'custom-fields',
+                        'page-attributes',
+                        'post-formats'
+                    ),
+                )
+            );                
+        }
 
         //====================================================
         // Helpers
@@ -184,9 +224,9 @@ if ( ! class_exists( 'SLPPages' ) ) {
          * @return string - the augmented HTML
          */
         function add_manage_locations_actionbuttons($theHTML,$locationValues) {
-            if (!$this->setPlugin())            { return 'a' . $theHTML;  }
-            if (!isset($locationValues['sl_id'])) { return 'c' . $theHTML; }
-            if ($locationValues['sl_id'] < 0)   { return 'b' . $theHTML;  }
+            if (!$this->setPlugin())                { return $theHTML;  }
+            if (!isset($locationValues['sl_id']))   { return $theHTML;  }
+            if ($locationValues['sl_id'] < 0)       { return $theHTML;  }
 
             // Set the URL
             //
