@@ -2,7 +2,7 @@
 Plugin Name:  Store Locator Plus
 Contributors: charlestonsw
 Donate link: http://www.charlestonsw.com/product/store-locator-plus-2/
-Tags: google maps, store finder, store locator, store locater, google, dealer locator, dealer locater, zip code search, shop locator, shop finder, zipcode, location finder, places, stores, maps, mapping, mapper, plugin, posts, post, page, coordinates, latitude, longitude, geo, geocoding, shops, ecommerce, e-commerce, business locations, store locator plus, store locater plus, bing map, bing, yahoo maps, yahoo, mapping, retail
+Tags: google,bing,map,directory,location,place,store,dealer,shop,business,retail,brick,mortar,coordinates,latitude,longitude,geo,geocoding,miles,kilometers,locator,finder,search,mapper,zipcode,name,radius
 Requires at least: 3.3
 Tested up to: 3.5.1
 Stable tag: 3.9
