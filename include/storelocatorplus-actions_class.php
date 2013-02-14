@@ -268,20 +268,24 @@ if (! class_exists('SLPlus_Actions')) {
                         )
                     );
 
+                $storepage_attributes =
+                    apply_filters(
+                        'slp_storepage_attributes',
+                        array(
+                            'labels'            => $storepage_labels,
+                            'public'            => false,
+                            'has_archive'       => true,
+                            'description'       => __('Store Locator Plus location pages.','csa-slplus'),
+                            'menu_postion'      => 20,
+                            'menu_icon'         => SLPLUS_COREURL . 'images/icon_from_jpg_16x16.png',
+                            'show_in_menu'      => current_user_can('manage_slp'),
+                            'capability_type'   => 'page',
+                            'supports'          => $storepage_features,
+                        )
+                    );
+
                 // Register Store Pages Custom Type
-                register_post_type( 'store_page',
-                    array(
-                    'labels'            => $storepage_labels,
-                    'public'            => true,
-                    'has_archive'       => true,
-                    'description'       => __('Store Locator Plus location pages.','csa-slplus'),
-                    'menu_postion'      => 20,
-                    'menu_icon'         => SLPLUS_COREURL . 'images/icon_from_jpg_16x16.png',
-                    'show_in_menu'      => current_user_can('manage_slp'),
-                    'capability_type'   => 'page',
-                    'supports'          => $storepage_features,
-                    )
-                );
+                register_post_type( 'store_page',$storepage_attributes);
 
                 register_taxonomy(
                         'stores',
