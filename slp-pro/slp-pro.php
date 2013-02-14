@@ -22,7 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // No SLP? Get out...
 //
-if ( !is_plugin_active( 'store-locator-le/store-locator-le.php')) {
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); 
+if ( !function_exists('is_plugin_active') ||  !is_plugin_active( 'store-locator-le/store-locator-le.php')) {
     return;
 }
 
