@@ -63,6 +63,7 @@ if ( ! class_exists( 'SLPPages' ) ) {
             add_filter('slp_action_boxes'               ,array($this,'manage_locations_actionbar' )             );
             add_filter('slp_manage_location_columns'    ,array($this,'add_manage_locations_columns' )           );
             add_filter('slp_manage_locations_actions'   ,array($this,'add_manage_locations_actionbuttons'),10,2 );
+            add_filter('slp_storepage_attributes'       ,array($this,'modify_storepage_attributes')             );
         }
 
 
@@ -382,6 +383,24 @@ if ( ! class_exists( 'SLPPages' ) ) {
                         '</p>'
                 ;
                 return $actionBoxes;
+         }
+
+         /**
+          * Modify the default store pages attributes.
+          *
+          * Basically turns on/off store pages.
+          *
+          * @param type $attributes
+          * @return type
+          */
+         function modify_storepage_attributes($attributes) {
+            if (!$this->setPlugin()) { return $attributes; }
+            return array_merge(
+                    $attributes,
+                    array(
+                        'public' => true
+                    )
+                    );
          }
     }
 
