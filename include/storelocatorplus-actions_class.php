@@ -230,7 +230,7 @@ if (! class_exists('SLPlus_Actions')) {
             //--------------------------------
             // Store Pages Is Licensed
             //
-            if ($this->parent->license->packages['Store Pages']->isenabled) {
+            if (isset($this->parent->license->packages) && ($this->parent->license->packages['Store Pages']->isenabled)) {
 
                 // Register Store Pages Custom Type
                 register_post_type( 'store_page',
