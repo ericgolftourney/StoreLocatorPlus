@@ -90,6 +90,10 @@ if (! class_exists('SLPlus_Actions')) {
             $this->attachAdminUI();
             $this->parent->AdminUI->set_style_as_needed();
             $this->parent->AdminUI->build_basic_admin_settings();
+
+            // Action hook for 3rd party plugins
+            //
+            do_action('slp_admin_init_complete');
         }
 
         /**
@@ -103,6 +107,7 @@ if (! class_exists('SLPlus_Actions')) {
 
             if (current_user_can('manage_slp')) {
                 $this->attachAdminUI();
+                do_action('slp_admin_menu_starting');
                 
                 // The main hook for the menu
                 //
