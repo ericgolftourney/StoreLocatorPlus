@@ -226,12 +226,6 @@ if (defined('SLPLUS_PLUGINDIR')) {
     if (isset($slplus_plugin->ProPack)) {
         $slplus_plugin->ProPack->add_package();
     }
-
-    // Store Pages
-    require_once(SLPLUS_PLUGINDIR . '/slp-pages/slp-pages.php');
-    if (isset($slplus_plugin->StorePages)) {
-        $slplus_plugin->StorePages->add_package();
-    }
 }
 
 //====================================================================
