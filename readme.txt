@@ -291,11 +291,22 @@ Visit the [Store Locator Plus Release Notes page](http://www.charlestonsw.com/su
 
 I was listing the entire change log here but with weekly/bi-weekly updates it as getting much too long.
 
+= UPGRADING TO 3.9.X =
+
+[Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages) users upgrading to 3.9 will need to download the separate Store Pages zip file.
+To have the v3.9 Store Pages download added to your account, please use the [contacting me](http://www.charlestonsw.com/mindset/contact-us/) form.
+Send your order number or license number for Store Pages so I can look up your order and add the download to your account.
+Your Store Pages license is no longer needed.
+You will need to go to the new "Store Pages" tab and re-enable some of your settings.
+
+
 = 3.9 (February 2013) =
 
+* Change: Store Pages is no longer a license key based add-on, it requires a separate .zip download.
 * Enhancement: Add [slp_manage_locations_actions hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/location-management-actions-filters/)
 * Enhancement: Add [slp_storepage_attributes filter](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/store-pages-action-hooks-filters/)
 * Enhancement: Add [slp_storepage_features filter](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/store-pages-action-hooks-filters/)
 * Enhancement: Add [slp_storepage_labels filter](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/store-pages-action-hooks-filters/)
+* Enhancement: SLP is now leaner, using a smaller memory footprint and with faster page loads for all users.
 * Fix: tests for SLP is active now works on WPMU sites.
 
