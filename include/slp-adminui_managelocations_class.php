@@ -537,7 +537,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                     }
                 }
 
-                do_action('slp_managelocations_action');
+                do_action('slp_manage_locations_action');
                 
             } //--- REQUEST['act'] is set
 
@@ -740,7 +740,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                                 "onclick=\"confirmClick('".sprintf(__('Delete %s?','csa-slplus'),$sl_value['sl_store'])."', this.href); return false;\"></a>"
                                 ;
 
-                        $actionButtonsHTML = apply_filters('slp_manage_locations_actions',$actionButtonsHTML, $sl_value);
+                        $actionButtonsHTML = apply_filters('slp_manage_locations_actionbuttons',$actionButtonsHTML, $sl_value);
 
                         print "<tr style='background-color:$bgcol'>" .
                             "<th><input type='checkbox' name='sl_id[]' value='$locID'></th>" .
