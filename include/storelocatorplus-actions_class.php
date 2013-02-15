@@ -301,6 +301,9 @@ if (! class_exists('SLPlus_Actions')) {
                     );
             }
 
+            // Fire the SLP initialized trigger
+            //
+            do_action('slp_init_complete');
         }
 
         /**
