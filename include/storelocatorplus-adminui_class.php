@@ -929,17 +929,6 @@ if (! class_exists('SLPlus_AdminUI')) {
                 $slplus_plugin->AdminUI->renderFields_editlocation()
                 ;
 
-                // Store Pages URLs
-                //
-                if (
-                    ($slplus_plugin->license->packages['Store Pages']->isenabled) &&
-                    !$addform &&
-                    ($sl_value['sl_pages_url'] != '')
-                    ){
-                    $shortSPurl = preg_replace('/^.*?store_page=/','',$sl_value['sl_pages_url']);
-                    $slpEditForm .= "<label for='store_page'>Store Page</label><a href='$sl_value[sl_pages_url]' target='csa'>$shortSPurl</a><br/>";
-                }
-
                 $edCancelURL = isset($_GET['edit']) ?
                     preg_replace('/&edit='.$_GET['edit'].'/', '',$_SERVER['REQUEST_URI']) :
                     $_SERVER['REQUEST_URI']

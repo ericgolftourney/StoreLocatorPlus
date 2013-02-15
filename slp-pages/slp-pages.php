@@ -40,12 +40,13 @@ if ( ! class_exists( 'SLPPages' ) ) {
      */
     class SLPPages {
 
+        private $adminMode = false;
+        private $currentLocationData    = null;
         private $dir;
         private $metadata = null;
+        private $settingsSlug = 'slp_storepages';
         private $slug = null;
         private $url;
-        private $adminMode = false;
-        private $settingsSlug = 'slp_storepages';
 
         /**
          * Public Properties
@@ -104,9 +105,11 @@ if ( ! class_exists( 'SLPPages' ) ) {
 
             // SLP Action Hooks & Filters (admin UI only)
             //
-            add_filter('slp_action_boxes'               ,array($this,'manage_locations_actionbar' )             );
-            add_filter('slp_manage_location_columns'    ,array($this,'add_manage_locations_columns' )           );
-            add_filter('slp_manage_locations_actions'   ,array($this,'add_manage_locations_actionbuttons'),10,2 );
+            add_filter('slp_action_boxes'               ,array($this,'manage_locations_actionbar'           )             );
+            add_filter('slp_edit_location_data'         ,array($this,'SetLocationProperties'                )             );
+            add_filter('slp_edit_location_right_column' ,array($this,'add_edit_location_settings'           )             );
+            add_filter('slp_manage_location_columns'    ,array($this,'add_manage_locations_columns'         )             );
+            add_filter('slp_manage_locations_actions'   ,array($this,'add_manage_locations_actionbuttons'   ),15,2        );
         }
 
         /**
@@ -126,14 +129,8 @@ if ( ! class_exists( 'SLPPages' ) ) {
 
             // Admin Actions
             //
-            add_action('admin_init' ,
-                    array($this,'admin_init')
-                    );
-
-            add_filter('slp_menu_items',
-                    array($this,'add_menu_items'),
-                    90
-                    );
+            add_action('admin_init' ,   array($this,'admin_init') );
+            add_filter('slp_menu_items',array($this,'add_menu_items'),90);
         }
 
         /**
@@ -226,6 +223,27 @@ if ( ! class_exists( 'SLPPages' ) ) {
         //====================================================
         // Store Pages Custom Methods
         //====================================================
+
+        function add_edit_location_settings($theHTML,$locationValues) {
+            if (!$this->setPlugin()                         ) { return $theHTML;  }
+            if (!isset($this->currentLocationData['sl_id']) ) { return $theHTML;  }
+            if ($this->currentLocationData['sl_id'] < 0     ) { return $theHTML;  }
+
+            $shortSPurl = preg_replace('/^.*?store_page=/','',$this->currentLocationData['sl_pages_url']);
+            $theHTML .=
+                '<div id="store_pages_extradata" class="section_column_content">'.
+                    '<p class="slp_admin_info"><strong>Store Pages</strong></p>'.
+                    '<div class="form_entry">'.
+                        '<div class="csl-slplus-input">'.
+                            "<label for='store_page'>".__('Permalink','slp-pages').': </label>'.
+                            "<a name='store_page' href='".$this->currentLocationData['sl_pages_url']."' target='csa'>$shortSPurl</a>" .
+                        '</div>'.
+                    '</div>'.
+                '</div>'
+                ;
+
+            return $theHTML;
+        }
 
         /**
          * Add a location action button.
@@ -535,25 +553,36 @@ if ( ! class_exists( 'SLPPages' ) ) {
             $this->Settings->render_settings_page();
          }
 
-         /**
-          * Update Store Pages settings
-          */
-         function updateSettings() {
-            if (!isset($_REQUEST['page']) || ($_REQUEST['page']!=$this->settingsSlug)) { return; }
-            if (!isset($_REQUEST['_wpnonce'])) { return; }
+        /**
+         * Grab a copy of the incoming location data.
+         *
+         * @param type $locationData
+         * @return type
+         */
+        function SetLocationProperties($locationData) {
+            $this->currentLocationData = $locationData;
+            return $locationData;
+        }
 
-            $BoxesToHit = array(
-                'pages_replace_websites',
-                'prevent_new_window',
-                );
-            foreach ($BoxesToHit as $BoxName) {
-                if (!isset($_REQUEST[$this->settingsSlug.'-'.$BoxName])) {
-                    $_REQUEST[$this->settingsSlug.'-'.$BoxName] = '';
-                }
-            }
-            array_walk($_REQUEST,array($this,'isanOption'));
-            update_option($this->settingsSlug.'-options', $this->options);
-         }
+        /**
+         * Update Store Pages settings
+         */
+        function updateSettings() {
+           if (!isset($_REQUEST['page']) || ($_REQUEST['page']!=$this->settingsSlug)) { return; }
+           if (!isset($_REQUEST['_wpnonce'])) { return; }
+
+           $BoxesToHit = array(
+               'pages_replace_websites',
+               'prevent_new_window',
+               );
+           foreach ($BoxesToHit as $BoxName) {
+               if (!isset($_REQUEST[$this->settingsSlug.'-'.$BoxName])) {
+                   $_REQUEST[$this->settingsSlug.'-'.$BoxName] = '';
+               }
+           }
+           array_walk($_REQUEST,array($this,'isanOption'));
+           update_option($this->settingsSlug.'-options', $this->options);
+        }
     }
 
     // Instantiate ourselves as an object
