@@ -33,6 +33,10 @@ if ( ! class_exists( 'SLPPages' ) ) {
 
     /**
      * Main SLP Pages Class
+     *
+     * @property wpCSL_settings__slplus $Settings   the Store Pages settings object (public).
+     * @property wpCSL_plugin__slplus   $plugin     the parent wpCSL plugin object
+     * @property named array            $options    the valid store pages options array
      */
     class SLPPages {
 
@@ -45,12 +49,13 @@ if ( ! class_exists( 'SLPPages' ) ) {
 
         /**
          * Public Properties
-         *
-         * @property wpCSL_settings__slplus $Settings   the Store Pages settings object (public).
-         * @property wpCSL_plugin__slplus   $plugin     the parent wpCSL plugin object
          */
         public $plugin   = null;
         public $Settings = null;
+        public $options  = array(
+            'pages_replace_websites'            => '0',
+            'prevent_new_window'                => '0',
+            );
 
         /**
          * Constructor
@@ -63,6 +68,7 @@ if ( ! class_exists( 'SLPPages' ) ) {
             // WordPress Actions & Filters
             //
             add_action('admin_menu'                     ,array($this,'admin_menu')                              );
+            add_action('init'                           ,array($this,'init')                                    );
 
             // SLP Actions & Filters
             //
@@ -128,6 +134,16 @@ if ( ! class_exists( 'SLPPages' ) ) {
                     array($this,'add_menu_items'),
                     90
                     );
+        }
+
+        /**
+         * Init this plugin when WordPress init is called.
+         */
+        function init() {
+            $dbOptions = get_option($this->settingsSlug.'-options');
+            if (is_array($dbOptions)) {
+                $this->options = array_merge($this->options,$dbOptions);
+            }
         }
 
         //====================================================
@@ -395,6 +411,19 @@ if ( ! class_exists( 'SLPPages' ) ) {
              return apply_filters('slp_pages_content',$content);
          }
 
+        /**
+         * Set the options from the incoming REQUEST
+         *
+         * @param mixed $val - the value of a form var
+         * @param string $key - the key for that form var
+         */
+        function isanOption($val,$key) {
+            $simpleKey = preg_replace('/^'.$this->settingsSlug.'\-/','',$key);
+            if ($simpleKey !== $key){
+                $this->options[$simpleKey] = $val;
+            }
+         }         
+
          /**
           * Add Stor Pages action buttons to the action bar
           *
@@ -450,7 +479,7 @@ if ( ! class_exists( 'SLPPages' ) ) {
             $this->Settings = new wpCSL_settings__slplus(
                 array(
                         'no_license'        => true,
-                        'prefix'            => $this->plugin->prefix,
+                        'prefix'            => $this->settingsSlug,
                         'css_prefix'        => $this->plugin->prefix,
                         'url'               => $this->plugin->url,
                         'name'              => $this->plugin->name . ' - Store Pages',
@@ -485,23 +514,21 @@ if ( ! class_exists( 'SLPPages' ) ) {
                         'auto'          => true
                     )
              );
-            $this->Settings->add_item(
-                $sectName,
-                __('Pages Replace Websites', 'csa-slp-pages'),
-                'use_pages_links',
-                'checkbox',
-                false,
-                __('Use the Store Pages local URL in place of the website URL on the map results list.', 'csa-slp-pages')
-            );
-            $this->Settings->add_item(
-                $sectName,
-                __('Prevent New Window', 'csa-slp-pages'),
-                'use_same_window',
-                'checkbox',
-                false,
-                __('Prevent Store Pages web links from opening in a new window.', 'csa-slp-pages')
-            );
-
+            $this->Settings->add_checkbox(
+                    $sectName,
+                    __('Pages Replace Websites', 'csa-slp-pages'),
+                    'pages_replace_websites',
+                    __('Use the Store Pages local URL in place of the website URL on the map results list.', 'csa-slp-pages'),
+                    $this->options['pages_replace_websites']
+                    );
+            $this->Settings->add_checkbox(
+                    $sectName,
+                    __('Prevent New Window', 'csa-slp-pages'),
+                    'prevent_new_window',
+                    __('Prevent Store Pages web links from opening in a new window.', 'csa-slp-pages'),
+                    $this->options['prevent_new_window']
+                    );
+            
             //------------------------------------------
             // RENDER
             //------------------------------------------
@@ -514,6 +541,18 @@ if ( ! class_exists( 'SLPPages' ) ) {
          function updateSettings() {
             if (!isset($_REQUEST['page']) || ($_REQUEST['page']!=$this->settingsSlug)) { return; }
             if (!isset($_REQUEST['_wpnonce'])) { return; }
+
+            $BoxesToHit = array(
+                'pages_replace_websites',
+                'prevent_new_window',
+                );
+            foreach ($BoxesToHit as $BoxName) {
+                if (!isset($_REQUEST[$this->settingsSlug.'-'.$BoxName])) {
+                    $_REQUEST[$this->settingsSlug.'-'.$BoxName] = '';
+                }
+            }
+            array_walk($_REQUEST,array($this,'isanOption'));
+            update_option($this->settingsSlug.'-options', $this->options);
          }
     }
 
