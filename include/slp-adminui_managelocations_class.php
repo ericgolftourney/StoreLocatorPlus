@@ -535,39 +535,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                                 $this->parent->AdminUI->do_geocoding("$address[sl_address] $address[sl_address2], $address[sl_city], $address[sl_state] $address[sl_zip] $address[sl_country]",$thisLocation);
                         }
                     }
-
-                // Create Store Page(s)
-                //
-                } elseif ($_REQUEST['act'] == 'createpage') {
-                    if (isset($_REQUEST['sl_id'])) {
-                        if (!is_array($_REQUEST['sl_id'])) {
-                            $theLocations = array($_REQUEST['sl_id']);
-                        } else {
-                            $theLocations = $_REQUEST['sl_id'];
-                        }
-
-                        foreach ($theLocations as $thisLocation) {
-                            $slpNewPostID = $this->parent->StorePages->CreatePage($thisLocation);
-                            if ($slpNewPostID >= 0) {
-                                $slpNewPostURL = get_permalink($slpNewPostID);
-                                $wpdb->query("UPDATE ".$wpdb->prefix."store_locator ".
-                                                "SET sl_linked_postid=$slpNewPostID, ".
-                                                "sl_pages_url='$slpNewPostURL' ".
-                                                "WHERE sl_id=$thisLocation"
-                                                );
-                                print "<div class='updated settings-error'>" .
-                                        ( (isset($_REQUEST['slp_pageid']) && ($slpNewPostID != $_REQUEST['slp_pageid']))?'Created new ':'Updated ').
-                                        " store page #<a href='$slpNewPostURL'>$slpNewPostID</a>" .
-                                        " for location # $thisLocation" .
-                                        "</div>\n";
-                            } else {
-                                print "<div class='updated settings-error'>Could NOT create page" .
-                                        " for location # $thisLocation" .
-                                        "</div>\n";
-                            }
-                        }
-                    }
-                } //--- Create Page Action
+                }
 
                 do_action('slp_managelocations_action');
                 
