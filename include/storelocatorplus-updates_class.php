@@ -57,6 +57,7 @@ if (! class_exists('SLPlus_Updates')) {
             if (empty($transient->checked)) {
                 return $transient;
             }
+            
             // Get the remote version
             $remote_version = $this->getRemote_version();
             // If a newer version is available, add the update
@@ -68,12 +69,11 @@ if (! class_exists('SLPlus_Updates')) {
                 $obj->package = $this->update_path;
                 $transient->response[$this->plugin_slug] = $obj;
             }
-            /*
-            print '<pre>';
-            var_dump($transient);
-            print '</pre>';
-             * 
-             */
+            
+//            print '<pre>';
+//            var_dump($transient);
+//            print '</pre>';
+
             return $transient;
         }
         /**
