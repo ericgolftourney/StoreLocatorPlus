@@ -112,15 +112,17 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             if ($locationID === null) { return; }
 
             $delQueries = array();
+            $idList = array();
 
             // Multiple locations
             //
-            if (is_array($locationID)==1) {
+            if (is_array($locationID)) {
                 $id_string="";
                 $idCount = 0;
                 foreach ($locationID as $sl_value) {
                     $idCount++;
                     $id_string.="$sl_value,";
+                    array_push($idList,$locationID);
 
                     // Got 100?  Push a delete string on the stack
                     //
@@ -140,6 +142,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             //
             } else {
                 $id_string=$locationID;
+                array_push($idList,$locationID);
             }
 
             // push the last one on the stack
@@ -147,6 +150,10 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             if ($id_string != ''){
                 array_push($delQueries,"DELETE FROM ".$wpdb->prefix."store_locator WHERE sl_id IN ($id_string)");
             }
+
+            // Fire any action hooks on location delete
+            //
+            do_action('slp_deletelocation_starting',$idList);
 
             // Run deletions
             //
