@@ -273,7 +273,7 @@ if (! class_exists('SLPlus_AdminUI')) {
          * @param type $address
          * @param type $sl_id
          */
-        function do_geocoding($address,$sl_id='') {
+        function do_geocoding($address,$sl_id='',$extendedInfo = false) {
             global $wpdb, $slplus_plugin;
 
             $language = '&language='.$slplus_plugin->helper->getData('map_language','get_item',null,'en');
@@ -439,6 +439,14 @@ if (! class_exists('SLPlus_AdminUI')) {
                             "</strong><br/>\n" .
                             $errorMessage .
                             '</div>';
+                } elseif ($extendedInfo) {
+                    $slplus_plugin->notifications->add_notice(
+                             9,
+                             sprintf(
+                                     __('Google thinks %s is at lat: %s long %s','csa-slplus'),
+                                     $address, $lat, $lng
+                                     )
+                             );
                 }
 
                 usleep($delay);
