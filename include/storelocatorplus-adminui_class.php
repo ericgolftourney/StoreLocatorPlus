@@ -422,7 +422,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                         $errorMessage .= sprintf(__("URL %s.", 'csa-slplus'),$request_url)."\n<br>";
                         $errorMessage .= sprintf(__("Received data %s.", 'csa-slplus'),'<pre>'.print_r($json,true).'</pre>')."\n";
                     } else {
-                        $errorMessage .= sprintf(__("Reqeust sent to %s.", 'csa-slplus'),$request_url)."\n<br>";
+                        $errorMessage .= sprintf(__("Request sent to %s.", 'csa-slplus'),$request_url)."\n<br>";
                         $errorMessage .= sprintf(__("Received status %s.", 'csa-slplus'),$status)."\n<br>";
                     }
                 }
