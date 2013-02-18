@@ -287,6 +287,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Add [slp_storepage_labels filter](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/store-pages-action-hooks-filters/)
 * Enhancement: SLP is now leaner, using a smaller memory footprint and with faster page loads for all users.
 * Enhancement: Remove slp_edit_location_redirect filter, speed up manage locations saving of edits.
-* Enhancement: Improve the edit locations notification when an address has been re-geocoded.
+* Enhancement: Improve the edit locations notification when an address has been edited and the coordinates were updated.
+* Enhancement: Improve the recode selected notification messages.
 * Fix: tests for SLP is active now works on WPMU sites.
 
