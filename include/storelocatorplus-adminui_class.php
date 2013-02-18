@@ -298,7 +298,6 @@ if (! class_exists('SLPlus_AdminUI')) {
                 // Iterate through the rows, geocoding each address
                 $errorMessage = '';
 
-
                 // Use HTTP Handler (WP_HTTP) first...
                 //
                 if (isset($slplus_plugin->http_handler)) {
