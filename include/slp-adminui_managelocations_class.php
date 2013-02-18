@@ -150,6 +150,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
 
             // Run deletions
             //
+            $errorMessage = '';
             foreach ($delQueries as $delQuery) {
                 $delete_result = $wpdb->query($delQuery);
                 $this->parent->helper->bugout("<pre>Delete Instruction:\n$delQuery\nResult:".print_r($delete_result,true)."</pre>",'','Delete Queries',__FILE__,__LINE__);
