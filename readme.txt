@@ -279,8 +279,8 @@ You will likely need to reset your home and destination map markers.
 * Change: Store Pages is no longer a license key based add-on, it requires a separate .zip download.
 * Enhancement: Add [slp_admin_init_complete hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/plugin-management-hooks-filters/)
 * Enhancement: Add [slp_admin_menu_starting hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/plugin-management-hooks-filters/)
-* Enhancement: Add [slp_init_starting hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/plugin-management-hooks-filters/)
 * Enhancement: Add [slp_init_complete hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/plugin-management-hooks-filters/)
+* Enhancement: Add [slp_init_starting hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/plugin-management-hooks-filters/)
 * Enhancement: Add [slp_manage_locations_actions hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/location-management-actions-filters/)
 * Enhancement: Add [slp_storepage_attributes filter](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/store-pages-action-hooks-filters/)
 * Enhancement: Add [slp_storepage_features filter](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/store-pages-action-hooks-filters/)
@@ -289,6 +289,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Remove slp_edit_location_redirect filter, speed up manage locations saving of edits.
 * Enhancement: Improve the edit locations notification when an address has been edited and the coordinates were updated.
 * Enhancement: Improve the recode selected notification messages.
+* Enhancement: Catch more theme/plugin conflict quirks, test for map javascript processor having an undefined marker mid-processing.
 * Fix: tests for SLP is active now works on WPMU sites.
 * Fix: Delete not working, the URL is incorrect on manage locations when running deletes back-to-back.
 
