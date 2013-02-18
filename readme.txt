@@ -277,7 +277,6 @@ You will likely need to reset your home and destination map markers.
 = 3.9 (February 2013) =
 
 * Change: Store Pages is no longer a license key based add-on, it requires a separate .zip download.
-* Enhancement: SLP is now leaner, using a smaller memory footprint and with faster page loads for all users.
 * Enhancement: Add [slp_admin_init_complete hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/plugin-management-hooks-filters/)
 * Enhancement: Add [slp_admin_menu_starting hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/plugin-management-hooks-filters/)
 * Enhancement: Add [slp_init_starting hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/plugin-management-hooks-filters/)
@@ -286,5 +285,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Add [slp_storepage_attributes filter](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/store-pages-action-hooks-filters/)
 * Enhancement: Add [slp_storepage_features filter](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/store-pages-action-hooks-filters/)
 * Enhancement: Add [slp_storepage_labels filter](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/store-pages-action-hooks-filters/)
+* Enhancement: SLP is now leaner, using a smaller memory footprint and with faster page loads for all users.
+* Enhancement: Remove slp_edit_location_redirect filter, speed up manage locations saving of edits.
 * Fix: tests for SLP is active now works on WPMU sites.
 
