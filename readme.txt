@@ -273,7 +273,6 @@ You will need to go to the new "Store Pages" tab and re-enable some of your sett
 Updating from a version 3.8.6 or earlier?
 You will likely need to reset your home and destination map markers.
 
-
 = 3.9 (February 2013) =
 
 * Change: Store Pages is no longer a license key based add-on, it requires a separate .zip download.
