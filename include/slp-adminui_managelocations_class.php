@@ -520,7 +520,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                         // Process SL_ID Array
                         //
                         foreach ($theLocations as $thisLocation) {
-                                $address=$wpdb->get_row("SELECT * FROM ".$wpdb->prefix."store_locator WHERE sl_id=$thisLocation", ARRAY_A);
+                                $address=$wpdb->get_row($this->plugin->database['query']['selectall']."WHERE sl_id=$thisLocation", ARRAY_A);
 
                                 if (!isset($address['sl_address'])) { $address['sl_address'] = '';  print 'BLANK<br/>';	}
                                 if (!isset($address['sl_address2'])){ $address['sl_address2'] = ''; }
@@ -529,8 +529,9 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                                 if (!isset($address['sl_zip'])) 	{ $address['sl_zip'] = ''; 		}
                                 if (!isset($address['sl_country'])) 	{ $address['sl_country'] = ''; 		}
 
-                                $this->parent->AdminUI->do_geocoding("$address[sl_address] $address[sl_address2], $address[sl_city], $address[sl_state] $address[sl_zip] $address[sl_country]",$thisLocation);
+                                $this->plugin->AdminUI->do_geocoding("$address[sl_address] $address[sl_address2], $address[sl_city], $address[sl_state] $address[sl_zip] $address[sl_country]",$thisLocation,true);
                         }
+                        $this->plugin->notifications->display();
                     }
                 }
 

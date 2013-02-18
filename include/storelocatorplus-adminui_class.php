@@ -20,6 +20,7 @@ if (! class_exists('SLPlus_AdminUI')) {
         public $parent = null;
         public $plugin = null;
         public $styleHandle = 'csl_slplus_admin_css';
+        private $geocodeIssuesRendered = false;
 
         /*************************************
          * The Constructor
@@ -430,15 +431,27 @@ if (! class_exists('SLPlus_AdminUI')) {
                 // Show Error Messages
                 //
                 if ($errorMessage != '') {
-                    print '<div class="geocode_error">' .
-                            '<strong>'.
-                            sprintf(
-                                __('Read <a href="%s">this</a> if you are having geocoding issues.','csa_slplus'),
-                                'http://www.charlestonsw.com/support/documentation/store-locator-plus/troubleshooting/geocoding-errors/'
-                                ).
-                            "</strong><br/>\n" .
-                            $errorMessage .
-                            '</div>';
+                    if (!$this->geocodeIssuesRendered) {
+                        print
+                            '<div class="geocode_error">' .
+                           '<strong>'.
+                           sprintf(
+                               __('Read <a href="%s">this</a> if you are having geocoding issues.','csa_slplus'),
+                               'http://www.charlestonsw.com/support/documentation/store-locator-plus/troubleshooting/geocoding-errors/'
+                               ).
+                           "</strong><br/>\n" .
+                           '</div>'
+                           ;
+                        $this->geocodeIssuesRendered = true;
+                    }
+
+                    if ($extendedInfo) {
+                        $slplus_plugin->notifications->add_notice(4,$errorMessage);
+                    } else {
+                        print '<div class="geocode_error">' .
+                                $errorMessage .
+                                '</div>';
+                    }
                 } elseif ($extendedInfo) {
                     $slplus_plugin->notifications->add_notice(
                              9,
