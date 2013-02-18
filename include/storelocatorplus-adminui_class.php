@@ -443,8 +443,13 @@ if (! class_exists('SLPlus_AdminUI')) {
                     $slplus_plugin->notifications->add_notice(
                              9,
                              sprintf(
-                                     __('Google thinks %s is at lat: %s long %s','csa-slplus'),
-                                     $address, $lat, $lng
+                                     __('Google thinks %s is at <a href="%s" target="_blank">lat: %s long %s</a>','csa-slplus'),
+                                     $address, 
+                                     sprintf('http://%s/?q=%s,%s',
+                                             $slplus_plugin->helper->getData('mapdomain','get_option',array('sl_google_map_domain','maps.google.com')),
+                                             $lat,
+                                             $lng),
+                                     $lat, $lng
                                      )
                              );
                 }
