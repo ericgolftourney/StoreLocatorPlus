@@ -376,7 +376,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                                                     $theDBError
                                                     );
                         } elseif ($update_result === 0) {
-                            $errorMessage .=  __(", The latitude and longitude did not change.", 'csa-slplus');
+                            $errorMessage .=  sprintf(__(", The latitude %s and longitude %s did not change.", 'csa-slplus'),$lat,$lng);
                         } else {
                             $errorMessage .=  __("No error logged.", 'csa-slplus');
                             $errorMessage .= "<br/>\n" . __('Query: ', 'csa-slplus');
