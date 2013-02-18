@@ -138,8 +138,10 @@ if (defined('SLPLUS_PLUGINDIR')) {
                     'table'     => ' '.$wpdb->prefix.'store_locator ',
                     'query'     =>
                         array(
-                            'fromslp'   => ' FROM '        .$wpdb->prefix.'store_locator ',
-                            'selectall' => 'SELECT * FROM '.$wpdb->prefix.'store_locator ',
+                            'fromslp'   => ' FROM '         .$wpdb->prefix.'store_locator ' ,
+                            'selectall' => 'SELECT * FROM ' .$wpdb->prefix.'store_locator ' ,
+                            'selectthis'=> 'SELECT %s FROM '.$wpdb->prefix.'store_locator ' ,
+                            'whereslid' => 'WHERE sl_id=%d '                                ,
                         ),
                 ),
 
