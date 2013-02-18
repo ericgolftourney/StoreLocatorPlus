@@ -124,11 +124,23 @@ if (defined('SLPLUS_PLUGINDIR')) {
     /**
      * This section defines the settings for the admin menu.
      */
+    global $wpdb;
     $slplus_plugin = new wpCSL_plugin__slplus(
         array(
             'on_update' => array('SLPlus_Activate', 'update'),
             'version' => '3.9',
 
+            /**
+             * @property database - elements related to the SLP database tables
+             */
+            'database'             =>
+                array(
+                    'table'     => $wpdb->prefix.'store_locator',
+                    'query'     =>
+                        array(
+                            'selectall' => 'SELECT * FROM '.$wpdb->prefix.'store_locator ',
+                        ),
+                ),
 
             // Plugin data elements, helps make data lookups more efficient
             //
