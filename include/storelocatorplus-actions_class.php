@@ -231,6 +231,10 @@ if (! class_exists('SLPlus_Actions')) {
          */
         function init() {
             if (!$this->setParent()) { return; }
+
+            // Fire the SLP init starting trigger
+            //
+            do_action('slp_init_starting', $this);
             
             // Do not texturize our shortcodes
             //

@@ -280,6 +280,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: SLP is now leaner, using a smaller memory footprint and with faster page loads for all users.
 * Enhancement: Add [slp_admin_init_complete hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/plugin-management-hooks-filters/)
 * Enhancement: Add [slp_admin_menu_starting hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/plugin-management-hooks-filters/)
+* Enhancement: Add [slp_init_starting hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/plugin-management-hooks-filters/)
 * Enhancement: Add [slp_init_complete hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/plugin-management-hooks-filters/)
 * Enhancement: Add [slp_manage_locations_actions hook](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/location-management-actions-filters/)
 * Enhancement: Add [slp_storepage_attributes filter](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/store-pages-action-hooks-filters/)
