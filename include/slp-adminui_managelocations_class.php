@@ -734,7 +734,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                                 href='".$this->hangoverURL."&act=edit&edit=$locID#a$locID'></a>".
                             "&nbsp;" .
                             "<a class='action_icon delete_icon' alt='".__('delete','csa-slplus')."' title='".__('delete','csa-slplus')."'
-                                href='".$_SERVER['REQUEST_URI']."&act=delete&delete=$locID' " .
+                                href='".$this->hangoverURL."&act=delete&delete=$locID' " .
                                 "onclick=\"confirmClick('".sprintf(__('Delete %s?','csa-slplus'),$sl_value['sl_store'])."', this.href); return false;\"></a>"
                                 ;
 
