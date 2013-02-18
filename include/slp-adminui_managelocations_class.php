@@ -94,8 +94,9 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
          */
         function create_HiddenInputs() {
             $this->hiddenInputs = '';
+            $donotHide = array('searchfor','o','sortorder','start','act','sl_tags','sl_id','delete');
             foreach($_REQUEST as $key=>$val) {
-                if ($key!="searchfor" && $key!="o" && $key!="sortorder" && $key!="start" && $key!="act" && $key!='sl_tags' && $key!='sl_id') {
+                if (!in_array($key,$donotHide,true)) {
                     $this->hiddenInputs.="<input type='hidden' value='$val' name='$key'>\n";
                 }
             }
@@ -615,7 +616,8 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             //--------------------------------
             // Render: Start of Form
             //--------------------------------
-            print '<form id="manage_locations_actionbar_form" name="locationForm" method="post" action="'.$this->baseAdminURL.'">'.
+            print "\n".
+                    '<form id="manage_locations_actionbar_form" name="locationForm" method="post" action="'.$this->baseAdminURL.'">'.
                     '<input name="act" type="hidden">'                         
                     ;
 
