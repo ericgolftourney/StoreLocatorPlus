@@ -630,7 +630,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             // We have matching locations
             //
             $dataQuery =
-                "SELECT * FROM " .$wpdb->prefix."store_locator " .
+                $this->plugin->database['query']['selectall'] .
                     "$where ORDER BY $opt $dir ".
                      "LIMIT $start,".$this->plugin->data['sl_admin_locations_per_page']
                 ;
