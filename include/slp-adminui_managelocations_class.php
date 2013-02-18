@@ -151,7 +151,6 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 array_push($delQueries,'DELETE'.$this->plugin->database['query']['fromslp']."WHERE sl_id IN ($id_string)");
             }
 
-
             // Fire any action hooks on location delete
             //
             do_action('slp_deletelocation_starting',$idList);
