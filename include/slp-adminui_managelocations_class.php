@@ -236,13 +236,6 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 $this->parent->AdminUI->do_geocoding($the_address,$_REQUEST['locationID'], true);
             }
 
-            // Redirect to the edit page
-            //
-            /*
-            $pageRedirect = "<script>location.replace('".$this->hangoverURL."');</script>";
-            print apply_filters('slp_edit_location_redirect',$pageRedirect);
-             * 
-             */
             $this->plugin->notifications->display();
         }
 
