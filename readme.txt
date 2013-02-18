@@ -290,6 +290,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Improve the edit locations notification when an address has been edited and the coordinates were updated.
 * Enhancement: Improve the recode selected notification messages.
 * Enhancement: Catch more theme/plugin conflict quirks, test for map javascript processor having an undefined marker mid-processing.
+* Enhancement: Add new database helpers to the core plugin to make for more consistent data I/O between add-on packs.
 * Fix: tests for SLP is active now works on WPMU sites.
 * Fix: Delete not working, the URL is incorrect on manage locations when running deletes back-to-back.
 
