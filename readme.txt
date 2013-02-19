@@ -7,13 +7,12 @@ Requires at least: 3.3
 Tested up to: 3.5.1
 Stable tag: 3.9
 
-Store Locator Plus makes it easy to put a fully functional store finder on your site.
-The most active store locator plugin with monthly updates!
+A high end location management system that makes it easy to put a store location finder on your site.  Extensive premium add-on library available!
 
 == Description ==
 
 Learn more about [Store Locator Plus at CSA](http://www.charlestonsw.com/product/store-locator-plus-2).
-The website offers [more screen shots](http://www.charlestonsw.com/product/store-locator-plus-2/), [technical documentation](http://www.charlestonsw.com/support/documentation/technical-documentation/), [full release notes](http://www.charlestonsw.com/support/documentation/store-locator-plus/release-notes/) and more.
+The website offers [more screen shots](http://www.charlestonsw.com/product/store-locator-plus-2/), [technical documentation](http://www.charlestonsw.com/support/documentation/technical-documentation/), and [full release notes](http://www.charlestonsw.com/support/documentation/store-locator-plus/release-notes/).
 
 Store Locator Plus is an advanced system for managing multiple physical locations via a fully integrated WordPress solution.
 Whether you have ten locations or ten-thousand, you manage them with ease right from within your WordPress admin panel.
@@ -33,9 +32,12 @@ Re-label entry fields and results fields.
 
 = Features =
 
-* You can use it for a variety of countries, as supported by Google Maps.
-* Supports international languages and character sets.
-* Allows you to use unique map icons or your own custom map icons.
+* Very active support via the [free support forum](http://wordpress.org/support/plugin/store-locator-le).
+* Regularly updated [online documentation](http://wordpress.org/support/plugin/store-locator-le).
+* Multiple [premium add-ons available](http://wordpress.org/support/plugin/store-locator-le).
+* You can use it for a [variety of countries](http://wordpress.org/support/plugin/store-locator-le), as supported by Google Maps.
+* Supports [international languages](http://wordpress.org/support/plugin/store-locator-le) and character sets.
+* Allows you to use [unique map icons](http://wordpress.org/support/plugin/store-locator-le) or your own custom map icons.
 * Change default map settings via the admin panel including:
 * Map type (terrain, satellite, street, etc.)
 * Inset map show/hide
@@ -59,12 +61,22 @@ Premium add-on packages are available to extend the capabilities of this plugin.
 ** Create pages for each location with the click of a button.
 ** Each page can be edited as an individual post.
 ** Pages support their own comments, featured image, page style, and other standard WordPress page template features.
+* [Enhanced Map](http://www.charlestonsw.com/product/store-locator-plus-enhanced-map) : Get even more control over the map interface.
+** Show or hide the map.
+** Add a map slider on/off to allow users to show/hide the map.
+** Add a center map at setting.
+** Show/Hide map inset.
+** Enable/Disable scroll wheel.
+** Show/Hide Map 3D control.
+** Show/Hide Map scale.
+** Show/Hide Map type.
 * [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results)
 ** Order results by name or distance.
 ** Wrap the phone output in a tel: href tag.
 ** Hide the distance on the results table.
 * [Enhanced Search](http://www.charlestonsw.com/product/store-locator-plus-enhanced-search) : Get even more control over the basic search form.
 ** Turn the search interface on/off.
+* [Icon Packs](http://www.charlestonsw.com/product/store-locator-plus-icon-packs/) : Add new icon sets to your map markers.
 * [Tagalong](http://www.charlestonsw.com/product/store-locator-plus-tagalong/) : Add custom map markers based on location categories.
 ** Set a different marker for each location.
 ** Categorize your stores.
@@ -242,15 +254,15 @@ Currently this includes:
 
 The website offers [more screen shots](http://www.charlestonsw.com/product/store-locator-plus-2/) including those from the latest updates and premium add-on packages.
 
-1. Location Details
-2. Tag filter pulldown
-3. All Options Search
-4. Tag Filtered by location search
-5. Tag Filter, location and name search
-6. Admin Map Settings
-7. Admin Add Locations
-8. Admin Manage Locations
-9. Default settings
+1. Example Map with Enhanced Maps On/Off Slider
+2. Manage Locations with Pro Pack and Store Pages
+3. Search Settings with Pro Pack and Enhanced Search
+4. Map Settings with Pro Pack and Enhanced Map
+5. Result Settings with Enhanced Results
+6. Search and Result Reports with Pro Pack
+7. SEO via Store Pages
+8. Add Locations with Pro Pack Bulk Import
+9. Directions from results link
 
 More screenshots are available via [the CSA website](http://www.charlestonsw.com/products/store-locator-plus/).
 
