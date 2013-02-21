@@ -206,6 +206,10 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             foreach ($_POST as $key=>$sl_value) {
                 if (preg_match('#\-'.$_REQUEST['locationID'].'#', $key)) {
                     $slpFieldName = preg_replace('#\-'.$_REQUEST['locationID'].'#', '', $key);
+                    if (($slpFieldName === 'latitude') || ($slpFieldName === 'longitude')) {
+                        if (!$this->plugin->license->packages['Pro Pack']->isenabled) { continue; }
+                        if (!is_numeric(trim($this->parent->AdminUI->slp_escape($sl_value)))) { continue; }
+                    }
                     $field_value_str.="sl_".$slpFieldName."='".trim($this->parent->AdminUI->slp_escape($sl_value))."', ";
                     $_POST[$slpFieldName]=$sl_value;
                 }
