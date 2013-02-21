@@ -37,6 +37,7 @@ if (
         (get_option('blogdescription'  ,'') === 'Lance Testing' ) 
     ){
     error_reporting(-1);
+    ini_set('display_errors','1');
 }
 
 
@@ -104,6 +105,10 @@ if (defined('SLPLUS_PREFIX') === false) {
 //====================================================================
 // Main Plugin Configuration ($slplus_plugin)
 //====================================================================
+
+/**
+ * @var wpCSL_plugin__slplus $slplus_plugin the wpCSL plugin object
+ */
 global $slplus_plugin;
 
 /**
@@ -229,6 +234,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
                     'plus_pack_enabled' => get_option(SLPLUS_PREFIX.'-SLPLUS-isenabled'),
                     ),
 
+            'display_settings'       => true,
             'has_packages'           => true,
             'debug_instructions'     => __('Turn debugging off via General Settings in the Plugin Environment panel.','csa-slplus')
         )
