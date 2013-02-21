@@ -189,6 +189,8 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
          */
         function location_save() {
             if (!is_numeric($_REQUEST['locationID'])) { return; }
+            $this->plugin->notifications->delete_all_notices();
+
 
             // Get our original address first
             //
