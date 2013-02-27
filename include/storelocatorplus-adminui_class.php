@@ -70,11 +70,12 @@ if (! class_exists('SLPlus_AdminUI')) {
             // Dupe check?
             //
             if ($skipdupes) {
+                $checkAddress = esc_html("$storename, $theaddress");
                 $checkDupeQuery =
                 'SELECT 1 FROM '. $wpdb->prefix . 'store_locator ' .
                     ' WHERE ' .
                         "CONCAT_WS(', ',sl_store,sl_address,sl_address2,sl_city,sl_state,sl_zip,sl_country)".
-                        "='$storename, $theaddress' " .
+                        "='$checkAddress' " .
                       'LIMIT 1'
                         ;
                 $wpdb->query($checkDupeQuery);
