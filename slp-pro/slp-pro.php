@@ -253,6 +253,10 @@ if ( ! class_exists( 'SLPPro' ) ) {
         function bulk_upload_processing() {
             if (!$this->setPlugin()) { return false; }
 
+            // Reset the notification message to get a clean message stack.
+            //
+            $this->plugin->notifications->delete_all_notices();
+
             add_filter('upload_mimes', array($this,'custom_upload_mimes'));
             $this->plugin->helper->SaveCheckboxToDB('bulk_skip_first_line');
             $this->plugin->helper->SaveCheckboxToDB('bulk_skip_duplicates');
@@ -325,6 +329,7 @@ if ( ! class_exists( 'SLPPro' ) ) {
                                         $this_addy .= $data[$fldno] . ', ';
                                     }
                                 }
+print $data[15].','.$data[16].' is '.((is_numeric($data[15]) && is_numeric($data[16]))?'':'not').' a valid lat/long.<br/>';
                                 $this_addy = substr($this_addy, 0, strlen($this_addy)-2);
                                 $resultOfAdd = $this->plugin->AdminUI->add_this_addy(
                                         $fieldList,
