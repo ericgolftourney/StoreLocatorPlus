@@ -56,35 +56,36 @@ if (! class_exists('SLPlus_AdminUI')) {
          *
          * Returns 'added' or 'duplicate'
          * 
-         * @global type $wpdb
-         * @param type $fields
-         * @param type $sl_values
-         * @param type $theaddress
+         * @global object $wpdb
+         * @param array[] $locationData
+         * @param string $theaddress
+         * @param boolean $skipdupes
+         * @param boolean $skipGeocode
+         * @return string 'duplicate' or 'added'
          *
          */
-        function add_this_addy($fields,$sl_values,$theaddress,$skipdupes=false,$storename='',$skipGeocode=false) {
+        function add_this_addy($locationData,$theaddress,$skipdupes=false,$storename='',$skipGeocode=false) {
             global $wpdb;
-            $fields=substr($fields, 0, strlen($fields)-1);
-            $sl_values=substr($sl_values, 0, strlen($sl_values)-1);
 
             // Dupe check?
             //
             if ($skipdupes) {
-                $checkAddress = esc_html("$storename, $theaddress");
                 $checkDupeQuery =
                 'SELECT 1 FROM '. $wpdb->prefix . 'store_locator ' .
                     ' WHERE ' .
-                        "CONCAT_WS(', ',sl_store,sl_address,sl_address2,sl_city,sl_state,sl_zip,sl_country)".
-                        "='$checkAddress' " .
+                        'sl_store = %s AND ' .
+                        "CONCAT_WS(', ',sl_address,sl_address2,sl_city,sl_state,sl_zip,sl_country) = %s " .
                       'LIMIT 1'
                         ;
-                $wpdb->query($checkDupeQuery);
+                $wpdb->query($wpdb->prepare($checkDupeQuery,$storename,esc_html($theaddress)));
                 if ($wpdb->num_rows == 1) {
                     return 'duplicate';
                 }
             }
 
-            $wpdb->query("INSERT into ". $wpdb->prefix . "store_locator ($fields) VALUES ($sl_values);");
+            // Insert the new location into the database
+            //
+            $wpdb->insert($this->plugin->database['table_ns'],$locationData);
             
             // Fire slp_location_added hook
             //
@@ -780,14 +781,12 @@ if (! class_exists('SLPlus_AdminUI')) {
 
                 //Inserting addresses by manual input
                 //
+                $locationData = array();
                 if ( isset($_POST['store-']) && $_POST['store-']) {
-                    $fieldList = '';
-                    $sl_valueList = '';
                     foreach ($_POST as $key=>$sl_value) {
                         if (preg_match('#\-$#', $key)) {
-                            $fieldList.='sl_'.preg_replace('#\-$#','',$key).',';
-                            $sl_value=$this->slp_escape($sl_value);
-                            $sl_valueList.="\"".stripslashes($sl_value)."\",";
+                            $fieldName='sl_'.preg_replace('#\-$#','',$key);
+                            $locationData[$fieldName]=stripslashes($this->slp_escape($sl_value));
                         }
                     }
 
@@ -799,7 +798,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                               $_POST['country-']
                               ;
 
-                    $slplus_plugin->AdminUI->add_this_addy($fieldList,$sl_valueList,$this_addy);
+                    $slplus_plugin->AdminUI->add_this_addy($locationData,$this_addy);
                     print "<div class='updated fade'>".
                             $_POST['store-'] ." " .
                             __("Added Succesfully",'csa-slplus') . '.</div>';
