@@ -70,14 +70,27 @@ if (! class_exists('SLPlus_AdminUI')) {
             // Dupe check?
             //
             if ($skipdupes) {
-                $checkDupeQuery =
-                'SELECT 1 FROM '. $wpdb->prefix . 'store_locator ' .
-                    ' WHERE ' .
-                        'sl_store = %s AND ' .
-                        "CONCAT_WS(', ',sl_address,sl_address2,sl_city,sl_state,sl_zip,sl_country) = %s " .
-                      'LIMIT 1'
-                        ;
-                $wpdb->query($wpdb->prepare($checkDupeQuery,$storename,esc_html($theaddress)));
+                $wpdb->query(
+                    $wpdb->prepare(
+                        'SELECT 1 ' . $this->plugin->database['query']['fromslp'] .
+                            'WHERE ' .
+                                'sl_store   = %s AND '.
+                                'sl_address = %s AND '.
+                                'sl_address2= %s AND '.
+                                'sl_city    = %s AND '.
+                                'sl_state   = %s AND '.
+                                'sl_zip     = %s AND '.
+                                'sl_country = %s     '.
+                              'LIMIT 1',
+                        $this->ValOrBlank($locationData['sl_store'])    ,
+                        $this->ValOrBlank($locationData['sl_address'])  ,
+                        $this->ValOrBlank($locationData['sl_address2']) ,
+                        $this->ValOrBlank($locationData['sl_city'])     ,
+                        $this->ValOrBlank($locationData['sl_state'])    ,
+                        $this->ValOrBlank($locationData['sl_zip'])      ,
+                        $this->ValOrBlank($locationData['sl_country'])
+                    )
+                );
                 if ($wpdb->num_rows == 1) {
                     return 'duplicate';
                 }
@@ -738,6 +751,17 @@ if (! class_exists('SLPlus_AdminUI')) {
          */
         function url_test($url) {
             return (strtolower(substr($url,0,7))=="http://");
+        }
+
+        /**
+         * Return the value of the data element or blank if not set.
+         *
+         * @param mixed $dataElement - the variable to test
+         * @param mixed $setTo - the value to set the variable to if not set
+         * @return mixed - the data element value or value of $setTo
+         */
+        function ValOrBlank($dataElement,$setTo='') {
+            return isset($dataElement) ? $dataElement : $setTo;
         }
 
         /**
