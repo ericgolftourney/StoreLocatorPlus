@@ -287,7 +287,7 @@ You will likely need to reset your home and destination map markers.
 
 = 3.9.1 (February 27th 2013) =
 
-* Fix: map directions.
+* Fix: map directions link when upgrade is made from the 3.8.X release with broken maps.googleapis.com setting.
 * Fix: Workaround the dbDelta() bug, stop creating duplicate database indexes.
 
 = 3.9 (February 2013) =
