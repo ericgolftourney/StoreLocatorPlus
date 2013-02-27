@@ -384,6 +384,12 @@ if (! class_exists('SLPlus_Activate')) {
                 if (empty($tmpVar)) {
                     update_option('sl_admin_locations_per_page','10');
                 }
+
+                // Update incorrect google map domain
+                //
+                if (get_option('sl_google_map_domain','maps.google.com') === 'maps.googleapis.com') {
+                    update_option('sl_google_map_domain','maps.google.com');
+                }
                 
                 // Set DB Version
                 //
