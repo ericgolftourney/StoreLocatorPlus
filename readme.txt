@@ -287,8 +287,10 @@ You will likely need to reset your home and destination map markers.
 
 = 3.9.1 (February 27th 2013) =
 
+* Enhancement: Speed up [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) bulk upload.
 * Enhancement: Clean up [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) bulk upload messages.
 * Enhancement: Clean up [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) recode messages.
+* Enhancement: Better location data handling on insert of special characters including & and '.
 * Fix: map directions link when upgrade is made from the 3.8.X release with broken maps.googleapis.com setting.
 * Fix: Workaround the dbDelta() bug, stop creating duplicate database indexes.
 

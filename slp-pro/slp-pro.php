@@ -320,33 +320,17 @@ if ( ! class_exists( 'SLPPro' ) ) {
                             $num = count($data);
                             $locationData = array();
                             if ($num <= $maxcols) {
-                                $this_addy = '';
                                 for ($fldno=0; $fldno < $num; $fldno++) {
-                                    if (($fldno>=1) && ($fldno<=6)) {
-                                        $this_addy .= $data[$fldno] . ', ';
-                                    }
                                     $locationData[$fldNames[$fldno]] = stripslashes($this->plugin->AdminUI->slp_escape($data[$fldno]));
                                 }
-                                $this_addy = substr($this_addy, 0, strlen($this_addy)-2);
                                 $resultOfAdd = $this->plugin->AdminUI->add_this_addy(
                                         $locationData,
-                                        $this_addy,
                                         $skipDupes,
                                         stripslashes($this->plugin->AdminUI->slp_escape($data[0])),
                                         (is_numeric($data[15]) && is_numeric($data[16]))
                                         );
                                 sleep(0.5);
                                 if ($resultOfAdd == 'duplicate') { $dupeCount++; }
-                                else {
-                                    $this->plugin->notifications->add_notice(
-                                        9,
-                                        sprintf(
-                                                __('Added %s, %s','csa-slplus'),
-                                                stripslashes($this->plugin->AdminUI->slp_escape($data[0])),
-                                                $this_addy
-                                                )
-                                        );
-                                }
                                 $reccount++;
                             } else {
                                  print "<div class='updated fade'>".

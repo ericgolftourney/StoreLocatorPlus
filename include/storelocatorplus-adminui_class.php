@@ -58,13 +58,12 @@ if (! class_exists('SLPlus_AdminUI')) {
          * 
          * @global object $wpdb
          * @param array[] $locationData
-         * @param string $theaddress
          * @param boolean $skipdupes
          * @param boolean $skipGeocode
          * @return string 'duplicate' or 'added'
          *
          */
-        function add_this_addy($locationData,$theaddress,$skipdupes=false,$storename='',$skipGeocode=false) {
+        function add_this_addy($locationData,$skipdupes=false,$storename='',$skipGeocode=false) {
             global $wpdb;
 
             // Dupe check?
@@ -105,7 +104,14 @@ if (! class_exists('SLPlus_AdminUI')) {
             do_action('slp_location_added',mysql_insert_id());
 
             if (!$skipGeocode) {
-                $this->do_geocoding($theaddress);
+                $this->do_geocoding(
+                        $this->ValOrBlank($locationData['sl_address'])  .','.
+                        $this->ValOrBlank($locationData['sl_address2']) .','.
+                        $this->ValOrBlank($locationData['sl_city'])     .','.
+                        $this->ValOrBlank($locationData['sl_state'])    .','.
+                        $this->ValOrBlank($locationData['sl_zip'])      .','.
+                        $this->ValOrBlank($locationData['sl_country'])
+                        );
             }
             return 'added';
         }
@@ -813,16 +819,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                             $locationData[$fieldName]=stripslashes($this->slp_escape($sl_value));
                         }
                     }
-
-                    $this_addy = 
-                              $_POST['address-'].', '.
-                              $_POST['address2-'].', '.
-                              $_POST['city-'].', '.$_POST['state-'].' '.
-                              $_POST['zip-'] . ', ' .
-                              $_POST['country-']
-                              ;
-
-                    $slplus_plugin->AdminUI->add_this_addy($locationData,$this_addy);
+                    $resultOfAdd = $this->plugin->AdminUI->add_this_addy($locationData);
                     print "<div class='updated fade'>".
                             $_POST['store-'] ." " .
                             __("Added Succesfully",'csa-slplus') . '.</div>';
