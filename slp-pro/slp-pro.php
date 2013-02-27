@@ -329,7 +329,6 @@ if ( ! class_exists( 'SLPPro' ) ) {
                                         $this_addy .= $data[$fldno] . ', ';
                                     }
                                 }
-print $data[15].','.$data[16].' is '.((is_numeric($data[15]) && is_numeric($data[16]))?'':'not').' a valid lat/long.<br/>';
                                 $this_addy = substr($this_addy, 0, strlen($this_addy)-2);
                                 $resultOfAdd = $this->plugin->AdminUI->add_this_addy(
                                         $fieldList,
