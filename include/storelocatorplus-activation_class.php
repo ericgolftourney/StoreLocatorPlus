@@ -98,9 +98,9 @@ if (! class_exists('SLPlus_Activate')) {
                     sl_option_value longtext NULL,
                     sl_lastupdated  timestamp NOT NULL default current_timestamp,			
                     PRIMARY KEY  (sl_id),
-                    INDEX (sl_store),
-                    INDEX (sl_longitude),
-                    INDEX (sl_latitude)
+                    KEY (sl_store),
+                    KEY (sl_longitude),
+                    KEY (sl_latitude)
                     ) 
                     $charset_collate
                     ";
@@ -242,6 +242,22 @@ if (! class_exists('SLPlus_Activate')) {
         }
 
         /**
+         * Workaround the dbDelta() glitch, drop dupe indexes.
+         *
+         * Only looks for the first "infraction".
+         *
+         * @global object $wpdb
+         * @return null
+         */
+        function drop_duplicate_indexes() {
+            global $wpdb;
+            $wpdb->query('DROP INDEX sl_store_2     ON ' . $this->plugin->database['table']);
+            $wpdb->query('DROP INDEX sl_latitude_2  ON ' . $this->plugin->database['table']);
+            $wpdb->query('DROP INDEX sl_longitude_2 ON ' . $this->plugin->database['table']);
+            return null;
+        }
+
+        /**
          * Delete all files in a directory, non-recursive.
          * 
          * @param type $dirname
@@ -378,6 +394,7 @@ if (! class_exists('SLPlus_Activate')) {
             // Update Tables, Setup Roles
             //
             $updater->install_main_table();
+            $updater->drop_duplicate_indexes();
             $updater->install_reporting_tables();
             $updater->add_splus_roles_and_caps();
             /* $updater->get_addonpack_metadata(); */
