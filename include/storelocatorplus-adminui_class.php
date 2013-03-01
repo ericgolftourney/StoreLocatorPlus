@@ -18,7 +18,10 @@ if (! class_exists('SLPlus_AdminUI')) {
         public $addingLocation = false;
         public $currentLocation = array();
         public $parent = null;
+
+        /** @var wpCSL_plugin__slplus $plugin the WPCSL instantiation for the plugin **/
         public $plugin = null;
+        
         public $styleHandle = 'csl_slplus_admin_css';
         private $geocodeIssuesRendered = false;
 
@@ -32,6 +35,17 @@ if (! class_exists('SLPlus_AdminUI')) {
             if (file_exists(SLPLUS_PLUGINDIR.'css/admin.css')) {
                 wp_register_style($this->styleHandle, SLPLUS_PLUGINURL .'/css/admin.css');
             }
+        }
+
+        /**
+         * Set a currentLocation field value.
+         *
+         * @param string $name name of the currenLocation field to set
+         * @param string $value what to set that field to
+         */
+        function setFieldValue($name,$value='') {
+            $this->currentLocation[$name] = $value;
+            return null;
         }
 
         /**
@@ -49,6 +63,54 @@ if (! class_exists('SLPlus_AdminUI')) {
                 $this->plugin = $slplus_plugin;
             }
             return (isset($this->parent) && ($this->parent != null));
+        }
+
+        
+        /**
+         * Creates a store page if needed.
+         * 
+         * @param array[] $locationData - the location fields and new values
+         * @return int - the page ID
+         */
+        function getorcreate_Page($locationData) {
+
+            // If linked_postid is set and valid (an int as string) then return that.
+            if (isset($locationData['sl_linked_postid']) && ctype_digit($locationData['sl_linked_postid'])) { return $locationData['sl_linked_postid']; }
+            
+            // We have a location record ID, let's pull data and see...
+            //
+            if (isset($locationData['sl_id']) && ctype_digit($locationData['sl_id'])) {
+                global $wpdb;
+                $this->currentLocation = 
+                    $wpdb->get_row(
+                        $wpdb->prepare(
+                                $this->plugin->database['query']['selectall'] .
+                                $this->plugin->databaes['query']['whereslid'],
+                                $locationData['sl_id']
+                        ),
+                        ARRAY_A
+                    );
+            }
+
+            // No Page, create one
+            //
+            if (!ctype_digit($this->getFieldValue('sl_linked_postid'))) {
+
+                // Create a blank draft page for this location to store meta
+                //
+                $slpNewListing = array(
+                    'ID'            => '',
+                    'post_type'     => 'store_page',
+                    'post_status'   => 'draft',
+                    'post_title'    => $this->getFieldValue('sl_store'),
+                    'post_content'  => ''
+                    );
+
+                // Save the new page ID into currentLocation
+                $this->setFieldValue('sl_linked_postid',wp_insert_post($slpNewListing));
+            }
+
+            return $this->getFieldValue('sl_linked_postid');
         }
 
         /**
@@ -94,6 +156,10 @@ if (! class_exists('SLPlus_AdminUI')) {
                     return 'duplicate';
                 }
             }
+
+            // Make sure all locations have a related page
+            //
+            $this->getorcreate_Page($locationData);
 
             // Insert the new location into the database
             //
