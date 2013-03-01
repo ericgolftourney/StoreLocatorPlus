@@ -43,7 +43,7 @@ if (! class_exists('SLPlus_AdminUI')) {
          * @param string $name name of the currenLocation field to set
          * @param string $value what to set that field to
          */
-        function setFieldValue($name,$value='') {
+        function set_CurrentLocationVal($name,$value='') {
             $this->currentLocation[$name] = $value;
             return null;
         }
@@ -107,7 +107,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                     );
 
                 // Save the new page ID into currentLocation
-                $this->setFieldValue('sl_linked_postid',wp_insert_post($slpNewListing));
+                $this->set_CurrentLocationVal('sl_linked_postid',wp_insert_post($slpNewListing));
             }
 
             return $this->get_CurrentLocationVal('sl_linked_postid');
