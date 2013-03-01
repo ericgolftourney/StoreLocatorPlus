@@ -94,7 +94,7 @@ if (! class_exists('SLPlus_AdminUI')) {
 
             // No Page, create one
             //
-            if (!ctype_digit($this->getFieldValue('sl_linked_postid'))) {
+            if (!ctype_digit($this->get_CurrentLocationVal('sl_linked_postid'))) {
 
                 // Create a blank draft page for this location to store meta
                 //
@@ -102,7 +102,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                     'ID'            => '',
                     'post_type'     => 'store_page',
                     'post_status'   => 'draft',
-                    'post_title'    => $this->getFieldValue('sl_store'),
+                    'post_title'    => $this->get_CurrentLocationVal('sl_store'),
                     'post_content'  => ''
                     );
 
@@ -110,7 +110,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                 $this->setFieldValue('sl_linked_postid',wp_insert_post($slpNewListing));
             }
 
-            return $this->getFieldValue('sl_linked_postid');
+            return $this->get_CurrentLocationVal('sl_linked_postid');
         }
 
         /**
@@ -919,7 +919,7 @@ if (! class_exists('SLPlus_AdminUI')) {
           * @param string $fldname - a location field
           * @return string - value of the field
           */
-         function getFieldValue($fldname=null) {
+         function get_CurrentLocationVal($fldname=null) {
              if ($fldname === null      ) { return ''; }
              if ($this->addingLocation  ) {
                  return apply_filters('slp_addlocation_fieldvalue','',$fldname);
@@ -942,38 +942,38 @@ if (! class_exists('SLPlus_AdminUI')) {
             <table>
                 <tr>
                     <td><div class="add_location_form">
-                        <label  for='store-<?php echo $this->getFieldValue('sl_id')?>'><?php _e('Name of Location', 'csa-slplus');?></label>
-                        <input name='store-<?php echo $this->getFieldValue('sl_id')?>' value='<?php echo $this->getFieldValue('sl_store')?>'><br/>
+                        <label  for='store-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('Name of Location', 'csa-slplus');?></label>
+                        <input name='store-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_store')?>'><br/>
 
-                        <label  for='address-<?php echo $this->getFieldValue('sl_id')?>'><?php _e('Street - Line 1', 'csa-slplus');?></label>
-                        <input name='address-<?php echo $this->getFieldValue('sl_id')?>' value='<?php echo $this->getFieldValue('sl_address')?>'><br/>
+                        <label  for='address-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('Street - Line 1', 'csa-slplus');?></label>
+                        <input name='address-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_address')?>'><br/>
 
-                        <label  for='address2-<?php echo $this->getFieldValue('sl_id')?>'><?php _e('Street - Line 2', 'csa-slplus');?></label>
-                        <input name='address2-<?php echo $this->getFieldValue('sl_id')?>' value='<?php echo $this->getFieldValue('sl_address2')?>'><br/>
+                        <label  for='address2-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('Street - Line 2', 'csa-slplus');?></label>
+                        <input name='address2-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_address2')?>'><br/>
 
-                        <label  for='city-<?php echo $this->getFieldValue('sl_id')?>'><?php _e('City, State, ZIP', 'csa-slplus');?></label>
-                        <input name='city-<?php echo $this->getFieldValue('sl_id')?>'    value='<?php echo $this->getFieldValue('sl_city')?>'     style='width: 21.4em; margin-right: 1em;'>
-                        <input name='state-<?php echo $this->getFieldValue('sl_id')?>'   value='<?php echo $this->getFieldValue('sl_state')?>'    style='width: 7em; margin-right: 1em;'>
-                        <input name='zip-<?php echo $this->getFieldValue('sl_id')?>'     value='<?php echo $this->getFieldValue('sl_zip')?>'      style='width: 7em;'><br/>
+                        <label  for='city-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('City, State, ZIP', 'csa-slplus');?></label>
+                        <input name='city-<?php echo $this->get_CurrentLocationVal('sl_id')?>'    value='<?php echo $this->get_CurrentLocationVal('sl_city')?>'     style='width: 21.4em; margin-right: 1em;'>
+                        <input name='state-<?php echo $this->get_CurrentLocationVal('sl_id')?>'   value='<?php echo $this->get_CurrentLocationVal('sl_state')?>'    style='width: 7em; margin-right: 1em;'>
+                        <input name='zip-<?php echo $this->get_CurrentLocationVal('sl_id')?>'     value='<?php echo $this->get_CurrentLocationVal('sl_zip')?>'      style='width: 7em;'><br/>
 
-                        <label  for='country-<?php echo $this->getFieldValue('sl_id')?>'><?php _e('Country', 'csa-slplus');?></label>
-                        <input name='country-<?php echo $this->getFieldValue('sl_id')?>' value='<?php echo $this->getFieldValue('sl_country')?>'  style='width: 40em;'><br/>
+                        <label  for='country-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('Country', 'csa-slplus');?></label>
+                        <input name='country-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_country')?>'  style='width: 40em;'><br/>
 
                         <?php
                         if ($this->parent->AdminUI->addingLocation === false) {
                         ?>
-                            <label  for='latitude-<?php echo $this->getFieldValue('sl_id')?>'><?php _e('Latitude (N/S)', 'csa-slplus');?></label>
+                            <label  for='latitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('Latitude (N/S)', 'csa-slplus');?></label>
                             <?php if ($this->parent->license->packages['Pro Pack']->isenabled) { ?>
-                                <input name='latitude-<?php echo $this->getFieldValue('sl_id')?>' value='<?php echo $this->getFieldValue('sl_latitude')?>'  style='width: 40em;'><br/>
+                                <input name='latitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_latitude')?>'  style='width: 40em;'><br/>
                             <?php } else { ?>
-                                <input class='disabled'  name='latitude-<?php echo $this->getFieldValue('sl_id')?>' value='<?php echo __('Changing the latitude is a Pro Pack feature.','csa-slplus').' ('.$this->getFieldValue('sl_latitude').')';?>'  style='width: 40em;'><br/>
+                                <input class='disabled'  name='latitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo __('Changing the latitude is a Pro Pack feature.','csa-slplus').' ('.$this->get_CurrentLocationVal('sl_latitude').')';?>'  style='width: 40em;'><br/>
                             <?php } ?>
 
-                            <label  for='longitude-<?php echo $this->getFieldValue('sl_id')?>'><?php _e('Longitude (E/W)', 'csa-slplus');?></label>
+                            <label  for='longitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('Longitude (E/W)', 'csa-slplus');?></label>
                             <?php if ($this->parent->license->packages['Pro Pack']->isenabled) { ?>
-                                <input name='longitude-<?php echo $this->getFieldValue('sl_id')?>' value='<?php echo $this->getFieldValue('sl_longitude')?>'  style='width: 40em;'><br/>
+                                <input name='longitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_longitude')?>'  style='width: 40em;'><br/>
                             <?php } else { ?>
-                                <input class='disabled' name='longitude-<?php echo $this->getFieldValue('sl_id')?>' value='<?php echo __('Changing the longitude is a Pro Pack feature.','csa-slplus').' ('.$this->getFieldValue('sl_longitude').')'; ?>'  style='width: 40em;'><br/>
+                                <input class='disabled' name='longitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo __('Changing the longitude is a Pro Pack feature.','csa-slplus').' ('.$this->get_CurrentLocationVal('sl_longitude').')'; ?>'  style='width: 40em;'><br/>
                             <?php } ?>
                         <?php
                         }
