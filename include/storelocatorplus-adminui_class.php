@@ -924,7 +924,7 @@ if (! class_exists('SLPlus_AdminUI')) {
              if ($this->addingLocation  ) {
                  return apply_filters('slp_addlocation_fieldvalue','',$fldname);
              }
-             return $this->currentLocation[$fldname];
+             return isset($this->currentLocation[$fldname])?$this->currentLocation[$fldname]:'';
          }
 
         /**
