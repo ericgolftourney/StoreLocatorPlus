@@ -72,7 +72,7 @@ if (! class_exists('SLPlus_AdminUI')) {
          * @param array[] $locationData - the location fields and new values
          * @return int - the page ID
          */
-        function getorcreate_Page($locationData) {
+        function getorcreate_PageID($locationData) {
 
             // If linked_postid is set and valid (an int as string) then return that.
             if (isset($locationData['sl_linked_postid']) && ctype_digit($locationData['sl_linked_postid'])) { return $locationData['sl_linked_postid']; }
@@ -159,7 +159,7 @@ if (! class_exists('SLPlus_AdminUI')) {
 
             // Make sure all locations have a related page
             //
-            $this->getorcreate_Page($locationData);
+            $this->getorcreate_PageID($locationData);
 
             // Insert the new location into the database
             //
@@ -1052,8 +1052,9 @@ if (! class_exists('SLPlus_AdminUI')) {
                         __('Add Location','csa-slplus'):
                         sprintf("%s #%d",__('Update Location', 'csa-slplus'),$locID)
                     );
+                $idString = (!empty($sl_value['sl_link_id'])?$locID.' - '.$sl_value['sl_link_id']:$locID);
                 $slpEditForm .= 
-                        ($addform? '' : "<span class='slp-edit-location-id'>Location # $locID</span>") .
+                        ($addform? '' : "<span class='slp-edit-location-id'>Location # $idString</span>") .
                         "<div id='slp_form_buttons'>" .
                         "<input type='submit' value='".($addform?__('Add','csa-slplus'):__('Update', 'csa-slplus')).
                             "' alt='$alTitle' title='$alTitle' class='button-primary'>".
