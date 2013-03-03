@@ -79,13 +79,13 @@ if (! class_exists('SLPlus_AdminUI')) {
             
             // We have a location record ID, let's pull data and see...
             //
+            global $wpdb;
             if (isset($locationData['sl_id']) && ctype_digit($locationData['sl_id'])) {
-                global $wpdb;
                 $this->currentLocation = 
                     $wpdb->get_row(
                         $wpdb->prepare(
                                 $this->plugin->database['query']['selectall'] .
-                                $this->plugin->databaes['query']['whereslid'],
+                                $this->plugin->database['query']['whereslid'],
                                 $locationData['sl_id']
                         ),
                         ARRAY_A
@@ -94,7 +94,7 @@ if (! class_exists('SLPlus_AdminUI')) {
 
             // No Page, create one
             //
-            if (!ctype_digit($this->get_CurrentLocationVal('sl_linked_postid'))) {
+            if (!ctype_digit($this->get_CurrentLocationVal('sl_linked_postid')) || ($this->get_CurrentLocationVal('sl_linked_postid') <= 0)) {
 
                 // Create a blank draft page for this location to store meta
                 //
@@ -106,12 +106,36 @@ if (! class_exists('SLPlus_AdminUI')) {
                     'post_content'  => ''
                     );
 
-                // Save the new page ID into currentLocation
+                // Set the in-memory location property
+                //
                 $this->set_CurrentLocationVal('sl_linked_postid',wp_insert_post($slpNewListing));
+
+//                // Save the new page ID into currentLocation
+//                $rowsUpdated = $wpdb->update(
+//                        $this->plugin->database['table_ns'],
+//                        array( 'sl_linked_postid'    => $this->get_CurrentLocationVal('sl_linked_postid' )),
+//                        array( 'sl_id'               => $this->get_CurrentLocationVal('sl_id'            )),
+//                        '%d',
+//                        '%d'
+//                );
+
+                // Debugging output
+                //
+                $this->plugin->helper->bugout(
+                        sprintf(__('Created linked page %s for location # %s.','csa-slplus'),
+                                $this->get_CurrentLocationVal('sl_linked_postid'),
+                                $this->get_CurrentLocationVal('sl_id')
+                                ),
+                        '',
+                        'AdminUI.getorcreate_PageID()',
+                        __FILE__,
+                        __LINE__
+                        );
             }
 
             return $this->get_CurrentLocationVal('sl_linked_postid');
         }
+
 
         /**
          * Add an address into the SLP locations database.
@@ -159,7 +183,7 @@ if (! class_exists('SLPlus_AdminUI')) {
 
             // Make sure all locations have a related page
             //
-            $this->getorcreate_PageID($locationData);
+            $locationData['sl_linked_postid'] = $this->getorcreate_PageID($locationData);
 
             // Insert the new location into the database
             //
@@ -1052,7 +1076,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                         __('Add Location','csa-slplus'):
                         sprintf("%s #%d",__('Update Location', 'csa-slplus'),$locID)
                     );
-                $idString = (!empty($sl_value['sl_link_id'])?$locID.' - '.$sl_value['sl_link_id']:$locID);
+                $idString = (!empty($sl_value['sl_linked_postid'])?$locID.' - '.$sl_value['sl_linked_postid']:$locID);
                 $slpEditForm .= 
                         ($addform? '' : "<span class='slp-edit-location-id'>Location # $idString</span>") .
                         "<div id='slp_form_buttons'>" .
