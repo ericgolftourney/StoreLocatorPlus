@@ -974,8 +974,8 @@ if (! class_exists('SLPlus_AdminUI')) {
                                 <input name='longitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_longitude')?>'  style='width: 40em;'><br/>
                             <?php } else { ?>
                                 <input class='disabled' name='longitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo __('Changing the longitude is a Pro Pack feature.','csa-slplus').' ('.$this->get_CurrentLocationVal('sl_longitude').')'; ?>'  style='width: 40em;'><br/>
-                            <?php } ?>
-                        <?php
+                            <?php
+                            }
                         }
                         ?>
                         </div>
@@ -1036,7 +1036,7 @@ if (! class_exists('SLPlus_AdminUI')) {
              $content  = ''                                                                     .
                 "<form id='manualAddForm' name='manualAddForm' method='post' enctype='multipart/form-data'>"       .
                 "<input type='hidden' name='locationID' id='locationID' value='$locID' />" .
-                "<a name='a".$locID."'></a>"                                                    .
+                "<a name='a$locID'></a>"                                                    .
                 "<table cellpadding='0' class='slp_locationinfoform_table'>"                           .
                 "<tr><td valign='top'>"                                                         .
                 $slplus_plugin->AdminUI->renderFields_editlocation()
