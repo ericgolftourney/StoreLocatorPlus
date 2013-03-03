@@ -992,8 +992,8 @@ if (! class_exists('SLPlus_AdminUI')) {
          *
          */
         function renderPage_GeneralSettings() {
-            global $slplus_plugin;
-            $slplus_plugin->settings->render_settings_page();
+            if (!$this->setParent()) { return; }
+            $this->plugin->settings->render_settings_page();
         }
 
 
