@@ -121,12 +121,23 @@ global $slplus_plugin;
  * installed, and if not then we load it.
  */
 if (defined('SLPLUS_PLUGINDIR')) {
+
+    // Hook up WPCSL
+    //
     if (class_exists('wpCSL_plugin__slplus') === false) {
         require_once(SLPLUS_PLUGINDIR.'WPCSL-generic/classes/CSL-plugin.php');
     }
 
+    // Hook up the Activation class
+    //
     if (class_exists('SLPlus_Activation') == false) {
         require_once(SLPLUS_PLUGINDIR.'include/storelocatorplus-activation_class.php');
+    }
+
+    // Hook up the Locations class
+    //
+    if (class_exists('SLPlus_Location') == false) {
+        require_once(SLPLUS_PLUGINDIR.'include/class.location.php');
     }
 
     /**
@@ -137,6 +148,11 @@ if (defined('SLPLUS_PLUGINDIR')) {
         array(
             'on_update' => array('SLPlus_Activate', 'update'),
             'version' => SLPLUS_VERSION,
+
+            /**
+             * @property currentLocation - location object for the current active location
+             */
+            'currentLocation' => new SLPlus_Location(),
 
             /**
              * @property database - elements related to the SLP database tables
