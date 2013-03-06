@@ -6,7 +6,7 @@
  * Make a location an in-memory object and handle persistence via data I/O to the MySQL tables.
  *
  * @package StoreLocatorPlus
- * @subpackage Locations
+ * @subpackage Location
  * @category DataManagement
  * @author Lance Cleveland <lance@charlestonsw.com>
  *
