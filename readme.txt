@@ -32,7 +32,7 @@ Re-label entry fields and results fields.
 
 = Features =
 
-* Very active support via the [free support forum](http://wordpress.org/support/plugin/store-locator-le).
+* Very active support via the [free support forum](http://www.charlestonsw.com/forums/).
 * Regularly updated [online documentation](http://wordpress.org/support/plugin/store-locator-le).
 * Multiple [premium add-ons available](http://wordpress.org/support/plugin/store-locator-le).
 * You can use it for a [variety of countries](http://wordpress.org/support/plugin/store-locator-le), as supported by Google Maps.
@@ -88,7 +88,7 @@ If you are a plugin developer you will be interested in the new "Roll Your Own" 
 
 = Support =
 
-Support for the plugin can be found in the [WordPress Forum](http://wordpress.org/support/plugin/store-locator-le).  If you have an urgent issue or want one-on-one support you can [purchase premium support](http://www.charlestonsw.com/product/product-support).
+Support for the plugin can be found in the [CSA Forums](http://www.charlestonsw.com/forums/).  If you have an urgent issue or want one-on-one support you can [purchase premium support](http://www.charlestonsw.com/product/product-support).
 
 You can also view the [CSA Product Documentation](http://www.charlestonsw.com/support/documentation) for more information about the plugin including [known conflicts](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/troubleshooting/known-conflicts/) with themes and plugins.
 
@@ -136,7 +136,7 @@ Rating the plugin, hopefully with 5 stars, helps increase the exposure on WordPr
 The more add-ons I sell the easier it is to put food on the table and give me more time to code cool new features.
 No ratings, no food, more hours working as the Walmart Greeter, less coolness in the plugins.
 
-Give me a chance to address your concerns if this plugin doesn't earn 5 stars by [contacting me](http://www.charlestonsw.com/mindset/contact-us/) directly or by posting in the [support forum](http://wordpress.org/support/plugin/store-locator-le) here at WordPress.
+Give me a chance to address your concerns if this plugin doesn't earn 5 stars by [contacting me](http://www.charlestonsw.com/mindset/contact-us/) directly or by posting in the [support forum](http://www.charlestonsw.com/forums/) at the CSA website.
 
 == Installation ==
 
@@ -190,7 +190,7 @@ Basic upgrades are free and available directly from the WordPress plugin reposit
 
 = How do I report a bug? =
 
-Post in the [support forum](http://wordpress.org/support/plugin/store-locator-le).
+Post in the [support forum](http://www.charlestonsw.com/forums/).
 You can also [contact me](http://www.charlestonsw.com/product/product-support) to request premium support if you need immediate assistance.
 
 = What are the premium add-ons? =
