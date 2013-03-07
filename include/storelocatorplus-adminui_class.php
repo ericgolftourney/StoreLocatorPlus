@@ -105,6 +105,7 @@ if (! class_exists('SLPlus_AdminUI')) {
                     'post_title'    => $this->get_CurrentLocationVal('sl_store'),
                     'post_content'  => ''
                     );
+                $slpNewListing = apply_filters('slp_location_page_attributes',$slpNewListing);
 
                 // Set the in-memory location property
                 //
