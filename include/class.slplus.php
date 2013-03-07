@@ -1,100 +1,32 @@
 <?php
 
 /**
- * The location data interface and management class.
+ * The base plugin class for Store Locator Plus.
  *
- * Make a location an in-memory object and handle persistence via data I/O to the MySQL tables.
+ * "gloms onto" the WPCSL base class, extending it for our needs.
  *
  * @package StoreLocatorPlus
- * @subpackage Location
- * @category DataManagement
+ * @category PluginInterface
  * @author Lance Cleveland <lance@charlestonsw.com>
  *
- * @property int $id
- * @property string $store
- * @property string $address
- * @property string $address2
- * @property string $city
- * @property string $state
- * @property string $zip
- * @property string $country
- * @property string $latitude
- * @property string $longitude
- * @property string $tags
- * @property string $description
- * @property string $email
- * @property string $url
- * @property string $hours
- * @property string $phone
- * @property string $fax
- * @property string $image
- * @property boolean $private
- * @property string $neat_title
- * @property int $linked_postid
- * @property string $pages_url
- * @property boolean $pages_on
- * @property string $option_value
- * @property datetime $lastupdated
- *
+ * @property currentLocation - location object for the current active location
  */
-class SLPlus_Location {
-
-    private $id;
-    private $store;
-    private $address;
-    private $address2;
-    private $city;
-    private $state;
-    private $zip;
-    private $country;
-    private $latitude;
-    private $longitude;
-    private $tags;
-    private $description;
-    private $email;
-    private $url;
-    private $hours;
-    private $phone;
-    private $fax;
-    private $image;
-    private $private;
-    private $neat_title;
-    private $linked_postid;
-    private $pages_url;
-    private $pages_on;
-    private $option_value;
-    private $lastupdated;
+class SLPlus extends wpCSL_plugin__slplus {
 
     /**
-     * Fetch a location property from the valid object properties list.
-     *
-     * $currentLocation = new SLPlus_Location();
-     * print $currentLocation->id;
+     * The current location.
      * 
-     * @param mixed $property - which property to set.
-     * @return null
+     * @var SLPlus_Location $currentLocation
      */
-    public function __get($property) {
-        if (property_exists($this, $property)) {
-            return $this->$property;
-        }
-        return null;
-    }
+    public $currentLocation;
 
     /**
-     * Set a location property in the valid object properties list to the given value.
+     * Initialize a new SLPlus Object
      *
-     * $currentLocation = new SLPlus_Location();
-     * $currentLocation->store = 'My Place';
-     *
-     * @param mixed $property
-     * @param mixed $value
-     * @return \SLPlus_Location
+     * @param mixed[] $params - a named array of the plugin options for wpCSL.
      */
-    public function __set($property,$value) {
-        if (property_exists($this, $property)) {
-            $this->$property = $value;
-        }
-        return $this;
+    function __construct($params) {
+        parent::__construct($params);
+        $this->currentLocation = new SLPlus_Location();
     }
 }
