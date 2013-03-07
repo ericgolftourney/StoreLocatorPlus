@@ -287,6 +287,7 @@ You will likely need to reset your home and destination map markers.
 
 = 3.9.2 (March 2013) =
 
+* Enhancement: Take some of the newline/carriage return white space out of search form interface, makes some themes happier with the layout.
 * Enhancement: Behind-the-scenes updates to better support [Tagalong](http://www.charlestonsw.com/product/store-locator-plus-tagalong/) and other add-on packs.
 
 = 3.9.1 (February 27th 2013) =
