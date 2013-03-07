@@ -35,6 +35,7 @@
  * @property boolean $pages_on
  * @property string $option_value
  * @property datetime $lastupdated
+ * @property mixed[] $settings - the deserialized option_value field
  *
  */
 class SLPlus_Location {
@@ -66,6 +67,10 @@ class SLPlus_Location {
     private $pages_on;
     private $option_value;
     private $lastupdated;
+
+    // Deserialized database elements
+    //
+    private $settings;
 
     // Assistants for this class
     //
@@ -131,6 +136,11 @@ class SLPlus_Location {
                 //
                 $this->$property = $value;
             }
+
+            // Deserialize the option_value field
+            //
+            $this->settings = maybe_unserialize($this->option_value);
+
             return true;
         }
         return false;
