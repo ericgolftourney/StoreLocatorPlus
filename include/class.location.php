@@ -11,7 +11,7 @@
  * @author Lance Cleveland <lance@charlestonsw.com>
  *
  * @property int $id
- * @property string $store
+ * @property string $store - the store name
  * @property string $address
  * @property string $address2
  * @property string $city
@@ -39,6 +39,10 @@
  *
  */
 class SLPlus_Location {
+
+    //-------------------------------------------------
+    // Properties
+    //-------------------------------------------------
 
     // Our database fields
     //
@@ -82,6 +86,10 @@ class SLPlus_Location {
     // Assistants for this class
     //
     private $dbFieldPrefix = 'sl_';
+
+    //-------------------------------------------------
+    // Methods
+    //-------------------------------------------------
 
     /**
      * Fetch a location property from the valid object properties list.
