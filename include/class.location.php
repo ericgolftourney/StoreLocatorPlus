@@ -39,6 +39,8 @@
  */
 class SLPlus_Location {
 
+    // Our database fields
+    //
     private $id;
     private $store;
     private $address;
@@ -64,6 +66,10 @@ class SLPlus_Location {
     private $pages_on;
     private $option_value;
     private $lastupdated;
+
+    // Assistants for this class
+    //
+    private $dbFieldPrefix = 'sl_';
 
     /**
      * Fetch a location property from the valid object properties list.
@@ -96,5 +102,37 @@ class SLPlus_Location {
             $this->$property = $value;
         }
         return $this;
+    }
+
+    /**
+     * Set our location properties via a named array containing the data.
+     *
+     * Used to set our properties based on the MySQL SQL fetch to ARRAY_A method.
+     *
+     * Assumes the properties all start with 'sl_';
+     *
+     * @param type $locationData
+     * @return boolean
+     */
+    public function set_PropertiesViaArray($locationData) {
+
+        // If we have an array, assume we are on the right track...
+        if (is_array($locationData)) {
+
+            // Go through the named array and extract our properties.
+            //
+            foreach ($locationData as $field => $value) {
+
+                // Get rid of the leading field prefix (usually sl_)
+                //
+                $property = str_replace($this->dbFieldPrefix,'',$field);
+
+                // Set our property value
+                //
+                $this->$property = $value;
+            }
+            return true;
+        }
+        return false;
     }
 }
