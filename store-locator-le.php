@@ -106,11 +106,11 @@ if (defined('SLPLUS_PREFIX') === false) {
 }
 
 //====================================================================
-// Main Plugin Configuration ($slplus_plugin)
+// Main Plugin Configuration
 //====================================================================
 
 /**
- * @var wpCSL_plugin__slplus $slplus_plugin the wpCSL plugin object
+ * @var SLPlus $slplus_plugin an extended wpCSL object for this plugin.
  */
 global $slplus_plugin;
 
@@ -126,6 +126,12 @@ if (defined('SLPLUS_PLUGINDIR')) {
     //
     if (class_exists('wpCSL_plugin__slplus') === false) {
         require_once(SLPLUS_PLUGINDIR.'WPCSL-generic/classes/CSL-plugin.php');
+    }
+
+    // SLPlus Base Class
+    //
+    if (class_exists('SLPlus') == false) {
+        require_once(SLPLUS_PLUGINDIR.'include/class.slplus.php');
     }
 
     // Hook up the Activation class
@@ -144,15 +150,10 @@ if (defined('SLPLUS_PLUGINDIR')) {
      * This section defines the settings for the admin menu.
      */
     global $wpdb;
-    $slplus_plugin = new wpCSL_plugin__slplus(
+    $slplus_plugin = new SLPlus(
         array(
             'on_update' => array('SLPlus_Activate', 'update'),
             'version' => SLPLUS_VERSION,
-
-            /**
-             * @property currentLocation - location object for the current active location
-             */
-            'currentLocation' => new SLPlus_Location(),
 
             /**
              * @property database - elements related to the SLP database tables
