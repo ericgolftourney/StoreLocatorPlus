@@ -110,15 +110,6 @@ if (! class_exists('SLPlus_AdminUI')) {
                 //
                 $this->set_CurrentLocationVal('sl_linked_postid',wp_insert_post($slpNewListing));
 
-//                // Save the new page ID into currentLocation
-//                $rowsUpdated = $wpdb->update(
-//                        $this->plugin->database['table_ns'],
-//                        array( 'sl_linked_postid'    => $this->get_CurrentLocationVal('sl_linked_postid' )),
-//                        array( 'sl_id'               => $this->get_CurrentLocationVal('sl_id'            )),
-//                        '%d',
-//                        '%d'
-//                );
-
                 // Debugging output
                 //
                 $this->plugin->helper->bugout(
