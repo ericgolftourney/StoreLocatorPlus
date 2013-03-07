@@ -68,8 +68,15 @@ class SLPlus_Location {
     private $option_value;
     private $lastupdated;
 
-    // Deserialized database elements
-    //
+    /**
+     * The deserialized option_value field. This can be augmented by multiple add-on packs.
+     *
+     * Tagalong adds:
+     *  ['store_categories'] - array of arrays
+     *       ['stores'] - array of ints
+     *
+     * @var settings
+     */
     private $settings;
 
     // Assistants for this class
