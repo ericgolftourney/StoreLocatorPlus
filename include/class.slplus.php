@@ -9,7 +9,8 @@
  * @category PluginInterface
  * @author Lance Cleveland <lance@charlestonsw.com>
  *
- * @property currentLocation - location object for the current active location
+ * @property SLPlus_Location $currentLocation - location object for the current active location
+ * @property-read wpdb $db - the global wpdb object
  */
 class SLPlus extends wpCSL_plugin__slplus {
 
@@ -21,12 +22,21 @@ class SLPlus extends wpCSL_plugin__slplus {
     public $currentLocation;
 
     /**
+     * The global $wpdb object for WordPress.
+     *
+     * @var wpdb $db
+     */
+    public $db;
+
+    /**
      * Initialize a new SLPlus Object
      *
      * @param mixed[] $params - a named array of the plugin options for wpCSL.
      */
     function __construct($params) {
+        global $wpdb;
         parent::__construct($params);
-        $this->currentLocation = new SLPlus_Location();
+        $this->currentLocation = new SLPlus_Location(array('plugin'=>$this));
+        $this->db = $wpdb;
     }
 }
