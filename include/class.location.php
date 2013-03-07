@@ -172,11 +172,21 @@ class SLPlus_Location {
 
         // Setup the page properties.
         //
-        $this->get_PageData();
+        $this->set_PageData();
 
         // Create or update the page and set our linked post ID to that page.
         //
         $touched_pageID = wp_insert_post($this->pageData);
+
+        $this->plugin->helper->bugout(
+                (($touched_pageID != $this->linked_postid) ? 'Created':'Updated') .
+                   " location page $touched_pageID",
+                '',
+                'SLPlus_Location.crupdate_Page()',
+                __FILE__,
+                __LINE__
+                );
+
 
         // If we created a page or changed the page ID,
         // set it in our location property and make it
@@ -207,7 +217,7 @@ class SLPlus_Location {
     }
 
     /**
-     * Get the data for the current page, run through augmentation filters.
+     * Setup the data for the current page, run through augmentation filters.
      *
      * This method applies the slp_location_page_attributes filter.
      *
@@ -216,7 +226,7 @@ class SLPlus_Location {
      *
      * @return mixed[] WordPress custom post type property array
      */
-    public function get_PageData() {
+    public function set_PageData() {
 
         // We have an existing page
         //
@@ -229,10 +239,12 @@ class SLPlus_Location {
         // No page yet, default please.
         //
         } else {
+print '<pre>'.print_r($this,true).'</pre>';
             $this->pageData = array(
                 'ID'            => $this->linked_postid,
                 'post_type'     => $this->pageType,
                 'post_status'   => $this->pageDefaultStatus,
+                'post_title'    => $this->storename,
                 'post_content'  => ''
             );
         }
@@ -247,7 +259,7 @@ class SLPlus_Location {
         $this->plugin->helper->bugout(
                 '<pre>'.print_r($this->pageData,true).'</pre>',
                 '',
-                'SLPlus_Location.get_PageData()',
+                'SLPlus_Location.set_PageData()',
                 __FILE__,
                 __LINE__
                 );
