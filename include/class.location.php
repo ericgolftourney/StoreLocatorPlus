@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The location data interface and management class.
  *
@@ -54,6 +53,12 @@ class SLPlus_Location {
 
     // Our database fields
     //
+
+    /**
+     * Unique location ID.
+     * 
+     * @var int $id
+     */
     private $id;
     private $store;
     private $address;
@@ -157,7 +162,7 @@ class SLPlus_Location {
      *
      * @param mixed[] $params - a named array of the plugin options.
      */
-    function __construct($params) {
+    public function __construct($params) {
         foreach ($params as $property=>$value) {
             $this->$property = $value;
         }
@@ -239,12 +244,11 @@ class SLPlus_Location {
         // No page yet, default please.
         //
         } else {
-print '<pre>'.print_r($this,true).'</pre>';
             $this->pageData = array(
                 'ID'            => $this->linked_postid,
                 'post_type'     => $this->pageType,
                 'post_status'   => $this->pageDefaultStatus,
-                'post_title'    => $this->storename,
+                'post_title'    => $this->store,
                 'post_content'  => ''
             );
         }
@@ -272,7 +276,7 @@ print '<pre>'.print_r($this,true).'</pre>';
      *
      * Write the data to the locations table in WordPress.
      */
-    function MakePersistent() {
+    public function MakePersistent() {
 
         // Location is set, update it.
         //
@@ -281,7 +285,7 @@ print '<pre>'.print_r($this,true).'</pre>';
 //                    $this->plugin->database['table_ns'],
 //                    $this->array_map(array($this,'mapPropertyToField'),$this->DBFields)
 //            );
-            print "Persisting: <pre>".$this->array_map(array($this,'mapPropertyToField'),$this->dbFields).'</pre>';
+            print "Persisting: <pre>".array_map(array($this,'mapPropertyToField'),$this->dbFields).'</pre>';
         }
     }
 
@@ -347,5 +351,32 @@ print '<pre>'.print_r($this,true).'</pre>';
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * Load a location from the database.
+     *
+     * Only re-reads database if the location ID has changed.
+     *
+     * @param int $locationID - ID of location to be loaded
+     * @return SLPlus_Location $this - the location object
+     */
+    public function set_PropertiesViaDB($locationID) {
+        // Our current ID does not match, load new location data from DB
+        //
+        if ($this->id != $locationID) {
+            $this->set_PropertiesViaArray(
+                    $this->plugin->db->get_row(
+                        $this->plugin->db->prepare(
+                                $this->plugin->database['query']['selectall'] .
+                                $this->plugin->database['query']['whereslid'],
+                                $locationID
+                        ),
+                        ARRAY_A
+                    )
+                );
+        }
+        return $this;
     }
 }
