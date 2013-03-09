@@ -277,16 +277,39 @@ class SLPlus_Location {
      * Write the data to the locations table in WordPress.
      */
     public function MakePersistent() {
+        $dataToWrite = array_reduce($this->dbFields,array($this,'mapPropertyToField'));
 
         // Location is set, update it.
         //
         if ($this->id > 0) {
-//            $this->plugin->db->insert(
-//                    $this->plugin->database['table_ns'],
-//                    $this->array_map(array($this,'mapPropertyToField'),$this->DBFields)
-//            );
-            print "Persisting: <pre>".array_map(array($this,'mapPropertyToField'),$this->dbFields).'</pre>';
+            unset($dataToWrite['sl_id']);
+            if(!$this->plugin->db->update($this->plugin->database['table_ns'],$dataToWrite,array('sl_id' => $this->id))) {
+                $this->plugin->notifications->add_notice(
+                        8,
+                        sprintf(__('Could not update %s, location id %d.','csa-slplus'),$this->store,$this->id)
+                        );
+            }
+
+        // No location, add it.
+        //
+        } else {
+            if (!$this->plugin->db->insert($this->plugin->database['table_ns'],$dataToWrite)) {
+                $this->plugin->notifications->add_notice(
+                        8,
+                        sprintf(__('Could not add %s as a new location','csa-slplus'),$this->store)
+                        );
+            }
         }
+
+        $this->plugin->helper->bugout(
+                (($this->id<=0) ? 'Created':'Updated') .
+                   ' location record '.$this->id.
+                   ' <pre>'.print_r($dataToWrite,true).'</pre>',
+                '',
+                'SLPlus_Location.MakePersistent()',
+                __FILE__,
+                __LINE__
+                );
     }
 
     /**
@@ -295,8 +318,9 @@ class SLPlus_Location {
      * @param string $property - name of the location property
      * @return mixed[] - key = string of db field name, value = location property value
      */
-    function mapPropertyToField($property) {
-        return (array($this->dbFieldPrefix.$property,$this->$property));
+    private function mapPropertyToField($result, $property) {
+        $result[$this->dbFieldPrefix.$property]=$this->$property;
+        return $result;
     }
 
     /**
