@@ -179,9 +179,15 @@ class SLPlus_Location {
         //
         $this->set_PageData();
 
-        // Create or update the page and set our linked post ID to that page.
+        // Update an existing page.
         //
-        $touched_pageID = wp_insert_post($this->pageData, true);
+        if ($this->linked_postid > 0) {
+            $touched_pageID = wp_update_post($this->pageData);
+
+        // Create a new page.
+        } else {
+            $touched_pageID = wp_insert_post($this->pageData, true);
+        }
 
         // Ok - we are good...
         //
