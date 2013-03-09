@@ -9,8 +9,6 @@
  * @category PluginInterface
  * @author Lance Cleveland <lance@charlestonsw.com>
  *
- * @property SLPlus_Location $currentLocation - location object for the current active location
- * @property-read wpdb $db - the global wpdb object
  */
 class SLPlus extends wpCSL_plugin__slplus {
 
