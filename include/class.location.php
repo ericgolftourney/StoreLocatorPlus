@@ -181,26 +181,43 @@ class SLPlus_Location {
 
         // Create or update the page and set our linked post ID to that page.
         //
-        $touched_pageID = wp_insert_post($this->pageData);
+        $touched_pageID = wp_insert_post($this->pageData, true);
 
-        $this->plugin->helper->bugout(
-                (($touched_pageID != $this->linked_postid) ? 'Created':'Updated') .
-                   " location page $touched_pageID",
-                '',
-                'SLPlus_Location.crupdate_Page()',
-                __FILE__,
-                __LINE__
-                );
-
-
-        // If we created a page or changed the page ID,
-        // set it in our location property and make it
-        // persistent.
+        // Ok - we are good...
         //
-        if ($touched_pageID != $this->linked_postid) {
-            $this->linked_postid = $touched_pageID;
-            $this->MakePersistent();
+        if (!is_wp_error($touched_pageID)) {
+
+            // Debugging Output (if flag turned on)
+            //
+            $this->plugin->helper->bugout(
+                    (($touched_pageID != $this->linked_postid) ? 'Created':'Updated') .
+                       " location page $touched_pageID",
+                    '',
+                    'SLPlus_Location.crupdate_Page()',
+                    __FILE__,
+                    __LINE__
+                    );
+
+            // If we created a page or changed the page ID,
+            // set it in our location property and make it
+            // persistent.
+            //
+            if ($touched_pageID != $this->linked_postid) {
+                $this->linked_postid = $touched_pageID;
+                $this->MakePersistent();
+            }
+
+
+        // We got an error... oh shit...
+        //
+        } else {
+            $this->plugin->notifications->add_notice('error',
+                    'Could not create or update the custom page for this location. <pre>'.
+                    print_r($touched_pageID->get_error_messages(),true).
+                    '</pre>'
+                    );
         }
+
 
         return $this->linked_postid;
     }
