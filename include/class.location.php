@@ -285,7 +285,7 @@ class SLPlus_Location {
             unset($dataToWrite['sl_id']);
             if(!$this->plugin->db->update($this->plugin->database['table_ns'],$dataToWrite,array('sl_id' => $this->id))) {
                 $this->plugin->notifications->add_notice(
-                        8,
+                        'warning',
                         sprintf(__('Could not update %s, location id %d.','csa-slplus'),$this->store,$this->id)
                         );
             }
@@ -295,7 +295,7 @@ class SLPlus_Location {
         } else {
             if (!$this->plugin->db->insert($this->plugin->database['table_ns'],$dataToWrite)) {
                 $this->plugin->notifications->add_notice(
-                        8,
+                        'warning',
                         sprintf(__('Could not add %s as a new location','csa-slplus'),$this->store)
                         );
             }
