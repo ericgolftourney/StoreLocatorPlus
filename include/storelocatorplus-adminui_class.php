@@ -79,6 +79,8 @@ if (! class_exists('SLPlus_AdminUI')) {
             
             // We have a location record ID, let's pull data and see...
             //
+            // TODO: swap this with the location class
+            //
             global $wpdb;
             if (isset($locationData['sl_id']) && ctype_digit($locationData['sl_id'])) {
                 $this->currentLocation = 

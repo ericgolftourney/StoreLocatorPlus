@@ -534,6 +534,9 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
 
                         // Process SL_ID Array
                         //
+                        // TODO: use where clause in database property
+                        //
+                        //
                         foreach ($theLocations as $thisLocation) {
                                 $address=$wpdb->get_row($this->plugin->database['query']['selectall']."WHERE sl_id=$thisLocation", ARRAY_A);
 
