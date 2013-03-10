@@ -173,6 +173,8 @@ class SLPlus_Location {
      * @return int $linke_postid - return the page ID linked to this location.
      */
     public function crupdate_Page() {
+        
+        $crupdateOK = false;
 
         // Setup the page properties.
         //
@@ -182,15 +184,17 @@ class SLPlus_Location {
         //
         if ($this->linked_postid > 0) {
             $touched_pageID = wp_update_post($this->pageData);
+            $crupdateOK = ($touched_pageID > 0);
 
         // Create a new page.
         } else {
             $touched_pageID = wp_insert_post($this->pageData, true);
+            $crupdateOK = !is_wp_error($touched_pageID);
         }
 
         // Ok - we are good...
         //
-        if (!is_wp_error($touched_pageID)) {
+        if ($crupdateOK) {
 
             // Debugging Output (if flag turned on)
             //
