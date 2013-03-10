@@ -10,9 +10,10 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
      */
     class SLPlus_AdminUI_ManageLocations {
         
-        /******************************
-         * PUBLIC PROPERTIES & METHODS
-         ******************************/
+
+        //----------------------------------
+        // Properties
+        //----------------------------------
         public $parent = null;
         public $settings = null;
         public $baseAdminURL = '';
@@ -23,7 +24,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
         /**
          * Called when this object is created.
          *
-         * @param type $params
+         * @param mixed[] $params
          */
         function __construct($params=null) {
             if (!$this->setParent()) {
