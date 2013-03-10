@@ -4,7 +4,7 @@ if (! class_exists('SLPlus_AdminUI_MapSettings')) {
     /**
      * Store Locator Plus map settings admin user interface.
      *
-     * @package StoreLocatorPlus\AdminUI\ManageLocations
+     * @package StoreLocatorPlus\AdminUI\MapSettings
      * @author Lance Cleveland <lance@charlestonsw.com>
      * @copyright 2012-2013 Charleston Software Associates, LLC
      */
