@@ -612,7 +612,6 @@ class SLPlus_AdminUI_ManageLocations {
         //
         if (trim($where) != false) { $where = "WHERE $where"; }
         $totalLocations=$wpdb->get_var("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where");
-        $this->plugin->helper->bugout("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where : returns $totalLocations", '', 'SQL Count', __FILE__, __LINE__);
         $start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
         if ($totalLocations>0) {
             $this->plugin->AdminUI->manage_locations_pagination(
