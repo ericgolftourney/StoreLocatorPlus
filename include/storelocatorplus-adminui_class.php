@@ -8,23 +8,28 @@
  */
 class SLPlus_AdminUI {
 
-    /******************************
-     * PUBLIC PROPERTIES & METHODS
-     ******************************/
+    //-------------------------------------
+    // Properties
+    //-------------------------------------
     public $addingLocation = false;
     public $currentLocation = array();
     public $parent = null;
 
-    /** @var wpCSL_plugin__slplus $plugin the WPCSL instantiation for the plugin **/
-    public $plugin = null;
+    /**
+     * The SLPlus object.
+     * 
+     * @var SLPlus $plugin
+     */
+    private $plugin;
 
     public $styleHandle = 'csl_slplus_admin_css';
     private $geocodeIssuesRendered = false;
 
-    /*************************************
-     * The Constructor
+    /**
+     * Invoke the AdminUI class.
+     *
      */
-    function __construct($params=null) {
+    function __construct() {
 
         // Register our admin styleseheet
         //
@@ -1032,28 +1037,27 @@ class SLPlus_AdminUI {
      /**
       * Returns the string that is the Location Info Form guts.
       *
-      * @global wpCSL_plugin__slplus $slplus_plugin
+      * Invoke SLP Filter: slp_edit_location_data before rending form.
+      *
       * @param mixed $sl_value - the data values for this location in array format
       * @param int $locID - the ID number for this location
       * @param bool $addform - true if rendering add locations form
       */
      function createString_LocationInfoForm($sl_value, $locID, $addform=false) {
-        global $slplus_plugin;
+        if (!$this->setParent()) { return; }
         $this->addingLocation = $addform;
-
         $slpEditForm = '';
+
         $this->currentLocation = apply_filters('slp_edit_location_data',$sl_value);
 
-        /**
-         * @see  http://goo.gl/ooXFC 'slp_edit_location_data' filter to manipulate edit location incoming data
-         */
-         $content  = ''                                                                     .
+         $content  = 
             "<form id='manualAddForm' name='manualAddForm' method='post' enctype='multipart/form-data'>"       .
-            "<input type='hidden' name='locationID' id='locationID' value='$locID' />" .
+            "<input type='hidden' name='locationID'       id='locationID'       value='$locID'                          />" .
+            "<input type='hidden' name='linked_postid-$locID' id='linked_postid-$locID' value='{$sl_value['sl_linked_postid']}' />" .
             "<a name='a$locID'></a>"                                                    .
             "<table cellpadding='0' class='slp_locationinfoform_table'>"                           .
             "<tr><td valign='top'>"                                                         .
-            $slplus_plugin->AdminUI->renderFields_editlocation()
+            $this->plugin->AdminUI->renderFields_editlocation()
             ;
 
             $edCancelURL = isset($_GET['edit']) ?
@@ -1103,13 +1107,13 @@ class SLPlus_AdminUI {
                         __("Email", 'csa-slplus')."</small><br>".
 
                     "<input    name='hours-$locID' value='".($addform?'':$sl_value['sl_hours'])."'>&nbsp;<small>".
-                        $slplus_plugin->settings->get_item('label_hours','Hours','_')."</small><br>".
+                        $this->plugin->settings->get_item('label_hours','Hours','_')."</small><br>".
 
                     "<input    name='phone-$locID' value='".($addform?'':$sl_value['sl_phone'])."'>&nbsp;<small>".
-                        $slplus_plugin->settings->get_item('label_phone','Phone','_')."</small><br>".
+                        $this->plugin->settings->get_item('label_phone','Phone','_')."</small><br>".
 
                     "<input    name='fax-$locID'   value='".($addform?'':$sl_value['sl_fax']  )."'>&nbsp;<small>".
-                        $slplus_plugin->settings->get_item('label_fax','Fax','_')."</small><br>".
+                        $this->plugin->settings->get_item('label_fax','Fax','_')."</small><br>".
 
                     "<input    name='image-$locID' value='".($addform?'':$sl_value['sl_image'])."'>&nbsp;<small>".
                         __("Image URL (shown with location)", 'csa-slplus')."</small>" .
