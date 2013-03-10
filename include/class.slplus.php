@@ -5,7 +5,7 @@
  *
  * "gloms onto" the WPCSL base class, extending it for our needs.
  *
- * @package SLPlus
+ * @package StoreLocatorPlus
  * @author Lance Cleveland <lance@charlestonsw.com>
  * @copyright 2012-2013 Charleston Software Associates, LLC
  *
