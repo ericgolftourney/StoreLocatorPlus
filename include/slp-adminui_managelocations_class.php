@@ -17,7 +17,14 @@ class SLPlus_AdminUI_ManageLocations {
      * 
      * @var SLPlus $plugin
      */
-    private $plugin = null;
+    private $plugin;
+    
+    /**
+     * Current location as an object.
+     * 
+     * @var SLPlus_Location $currentLocation 
+     */
+    private $currentLocation;
 
     public $settings = null;
     public $baseAdminURL = '';
@@ -71,6 +78,7 @@ class SLPlus_AdminUI_ManageLocations {
                     );
         }
 
+        $this->currentLocation = $this->plugin->currentLocation;
     }
 
     /**
@@ -653,7 +661,7 @@ class SLPlus_AdminUI_ManageLocations {
         $this->plugin->helper->bugout($dataQuery, '', 'SQL Data', __FILE__, __LINE__);
 
         //---------------------------------------------------------
-        // Display a list of hte locations that match our query.
+        // Display a list of the locations that match our query.
         //---------------------------------------------------------
         if ($slpLocations=$wpdb->get_results($dataQuery,ARRAY_A)) {
 
@@ -707,6 +715,7 @@ class SLPlus_AdminUI_ManageLocations {
             foreach ($slpLocations as $sl_value) {
                 // Set our current location
                 //
+                $this->currentLocation->set_PropertiesViaArray($sl_value);
 
                 // Row color
                 // no lat/long = salmon
