@@ -1,13 +1,12 @@
 <?php
 /**
- * The location data interface and management class.
+ * Store Locator Plus location interface and management class.
  *
  * Make a location an in-memory object and handle persistence via data I/O to the MySQL tables.
  *
- * @package StoreLocatorPlus
- * @subpackage Location
- * @category DataManagement
+ * @package StoreLocatorPlus\Location
  * @author Lance Cleveland <lance@charlestonsw.com>
+ * @copyright 2012-2013 Charleston Software Associates, LLC
  *
  * @property int $id
  * @property string $store          the store name
