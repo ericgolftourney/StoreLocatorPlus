@@ -651,6 +651,10 @@ class SLPlus_AdminUI_ManageLocations {
                  "LIMIT $start,".$this->plugin->data['sl_admin_locations_per_page']
             ;
         $this->plugin->helper->bugout($dataQuery, '', 'SQL Data', __FILE__, __LINE__);
+
+        //---------------------------------------------------------
+        // Display a list of hte locations that match our query.
+        //---------------------------------------------------------
         if ($slpLocations=$wpdb->get_results($dataQuery,ARRAY_A)) {
 
             // Setup Table Columns
