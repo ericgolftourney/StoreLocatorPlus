@@ -9,7 +9,6 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
      * @copyright 2012-2013 Charleston Software Associates, LLC
      */
     class SLPlus_AdminUI_ManageLocations {
-        
 
         //----------------------------------
         // Properties
