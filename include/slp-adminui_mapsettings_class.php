@@ -1,15 +1,13 @@
 <?php
-
-/***********************************************************************
-* Class: SLPlus_AdminUI_MapSettings
-*
-* The Store Locator Plus admin UI Map Settings class.
-*
-* Provides various UI functions when someone is an admin on the WP site.
-*
-************************************************************************/
-
 if (! class_exists('SLPlus_AdminUI_MapSettings')) {
+
+    /**
+     * Store Locator Plus map settings admin user interface.
+     *
+     * @package StoreLocatorPlus\AdminUI\ManageLocations
+     * @author Lance Cleveland <lance@charlestonsw.com>
+     * @copyright 2012-2013 Charleston Software Associates, LLC
+     */
     class SLPlus_AdminUI_MapSettings {
         
         /******************************
