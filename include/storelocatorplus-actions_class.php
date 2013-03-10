@@ -56,7 +56,7 @@ class SLPlus_Actions {
      * @return boolean - true unless the main plugin is not found
      */
     function attachAdminUI() {
-        if (!$this->setParent()) { return false; }
+        if (!$this->set_Plugin()) { return false; }
         if (!isset($this->plugin->AdminUI) || !is_object($this->plugin->AdminUI)) {
             require_once(SLPLUS_PLUGINDIR . '/include/storelocatorplus-adminui_class.php');
             $this->plugin->AdminUI = new SLPlus_AdminUI();     // Lets invoke this and make it an object
@@ -73,7 +73,7 @@ class SLPlus_Actions {
      *
      */
     function admin_init() {
-        if (!$this->setParent()) { return; }
+        if (!$this->set_Plugin()) { return; }
 
         // Already been here?  Get out.
         if ($this->initialized)  { return; }            
@@ -109,7 +109,7 @@ class SLPlus_Actions {
      *
      */
     function admin_menu() {
-        if (!$this->setParent()) { return; }
+        if (!$this->set_Plugin()) { return; }
 
         if (current_user_can('manage_slp')) {
             $this->attachAdminUI();
@@ -214,7 +214,7 @@ class SLPlus_Actions {
      * @return mixed the value of the option as saved in the database
      */
     function getCompoundOption($optionName,$default='') {
-        if (!$this->setParent()) { return; }
+        if (!$this->set_Plugin()) { return; }
         $matches = array();
         if (preg_match('/^(.*?)\[(.*?)\]/',$optionName,$matches) === 1) {
             if (!isset($this->plugin->mapsettingsData[$matches[1]])) {
@@ -236,7 +236,7 @@ class SLPlus_Actions {
      * Called when the WordPress init action is processed.
      */
     function init() {
-        if (!$this->setParent()) { return; }
+        if (!$this->set_Plugin()) { return; }
 
         // Fire the SLP init starting trigger
         //
