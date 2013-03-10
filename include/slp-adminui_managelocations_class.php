@@ -215,6 +215,7 @@ class SLPlus_AdminUI_ManageLocations {
         // Update The Location Data
         //
         $field_value_str = '';
+        $persistentData = array();
         foreach ($_POST as $key=>$sl_value) {
             if (preg_match('#\-'.$_REQUEST['locationID'].'#', $key)) {
                 $slpFieldName = preg_replace('#\-'.$_REQUEST['locationID'].'#', '', $key);
@@ -222,12 +223,26 @@ class SLPlus_AdminUI_ManageLocations {
                     if (!$this->plugin->license->packages['Pro Pack']->isenabled) { continue; }
                     if (!is_numeric(trim($this->plugin->AdminUI->slp_escape($sl_value)))) { continue; }
                 }
-                $field_value_str.="sl_".$slpFieldName."='".trim($this->plugin->AdminUI->slp_escape($sl_value))."', ";
+                $field_value_str.=
+                        $this->plugin->currentLocation->dbFieldPrefix.$slpFieldName.
+                        "='".trim($this->plugin->AdminUI->slp_escape($sl_value))."', "
+                        ;
                 $_POST[$slpFieldName]=$sl_value;
+                $persistentData[$this->plugin->currentLocation->dbFieldPrefix.$slpFieldName] = $sl_value;
             }
         }
+
+        // Set our current location data from the inputs.
+        //
+        $this->plugin->currentLocation->set_PropertiesViaArray($persistentData);
+
+        // Clean up the SQL data strings
+        //
         $field_value_str = substr($field_value_str, 0, strlen($field_value_str)-2);
         $field_value_str = apply_filters('slp_update_location_data',$field_value_str,$_REQUEST['locationID']);
+
+        // Update the database
+        //
         $wpdb->query("UPDATE ".$wpdb->prefix."store_locator SET $field_value_str WHERE sl_id={$_REQUEST['locationID']}");
 
         // Run the Location updated Action
