@@ -54,8 +54,8 @@ class SLPlus_AdminUI_MapSettings {
      *
      * Returns false if we can't get to the main plugin object.
      *
-     * @global type wpCSL_plugin__slplus the wpCSL object
-     * @return type boolean true if plugin property is valid
+     * @global SLPlus the wpCSL object
+     * @return boolean true if plugin property is valid
      */
     function set_Plugin() {
         if (!isset($this->plugin) || ($this->plugin == null)) {
@@ -72,12 +72,12 @@ class SLPlus_AdminUI_MapSettings {
     /**
      * Generate the HTML for an input settings interface element.
      *
-     * @param type $boxname
-     * @param type $label
-     * @param type $msg
-     * @param type $prefix
-     * @param type $default
-     * @return type
+     * @param string $boxname
+     * @param string $label
+     * @param string $msg
+     * @param string $prefix
+     * @param string $default
+     * @return string HTML for the div box.
      */
     function CreateInputDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $default='') {
         $whichbox = $prefix.$boxname;
@@ -95,13 +95,13 @@ class SLPlus_AdminUI_MapSettings {
     /**
      * Generate the HTML for a Pulldown settings interface element.
      * 
-     * @param type $boxname
-     * @param type $values
-     * @param type $label
-     * @param type $msg
-     * @param type $prefix
-     * @param type $default
-     * @return string
+     * @param string $boxname
+     * @param string $values
+     * @param string $label
+     * @param string $msg
+     * @param string $prefix
+     * @param string $default
+     * @return string HTML
      */
     function CreatePulldownDiv($boxname,$values,$label='',$msg='',$prefix=SLPLUS_PREFIX, $default='') {
         $whichbox = $prefix.$boxname;
@@ -136,6 +136,7 @@ class SLPlus_AdminUI_MapSettings {
       * @param string $header - the text to put in the header
       * @param string $intro - the text to put directly under the header
       * @param string $content - the settings HTML
+      * @return string HTML
       */
      function CreateSettingsGroup($slug=null, $header='Settings',$intro='',$content='') {
          if ($slug === null) { return ''; }
@@ -159,21 +160,22 @@ class SLPlus_AdminUI_MapSettings {
     /**
      * Generate the HTML for a sub-heading label in a settings panel.
      * 
-     * @param type $label
+     * @param string $label
+     * @return string HTML
      */
     function CreateSubheadingLabel($label) {
         return "<p class='slp_admin_info'><strong>$label</strong></p>";
-        }
+    }
 
     /**
      * Generate the HTML for a text area settings interface element.
      * 
-     * @param type $boxname
-     * @param type $label
-     * @param type $msg
-     * @param type $prefix
-     * @param type $default
-     * @return type
+     * @param string $boxname
+     * @param string $label
+     * @param string $msg
+     * @param string $prefix
+     * @param string $default
+     * @return string HTML
      */
     function CreateTextAreaDiv($boxname,$label='',$msg='',$prefix=SLPLUS_PREFIX, $default='') {
         $whichbox = $prefix.$boxname;
@@ -520,7 +522,7 @@ class SLPlus_AdminUI_MapSettings {
      /**
       * Return the list of Google map domains.
       * 
-      * @return named array - list of domains, key is the name, value is the Google URL
+      * @return string[] list of domains, key is the name, value is the Google URL
       */
      function get_map_domains() {
          return apply_filters(
@@ -573,7 +575,7 @@ class SLPlus_AdminUI_MapSettings {
      /**
       * Return the list of Google map languages.
       *
-      * @return named array - list of languages, key is the name, value is the Google language
+      * @return string[] list of languages, key is the name, value is the Google language
 
       */
      function get_map_languages() {
