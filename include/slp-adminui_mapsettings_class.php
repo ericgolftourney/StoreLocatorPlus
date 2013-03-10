@@ -8,30 +8,40 @@
  */
 class SLPlus_AdminUI_MapSettings {
 
-    /******************************
-     * PUBLIC PROPERTIES & METHODS
-     ******************************/
-    public $parent = null;
-    public $plugin = null;
+    //-----------------------------
+    // Properties
+    //-----------------------------
+
+    /**
+     * The SLPlus plugin object.
+     *
+     * @var SLPlus $plugin
+     */
+    private $plugin;
+
     public $settings = null;
+
+    //-----------------------------
+    // Methods
+    //-----------------------------
 
     /**
      * Called when this object is created.
      *
      */
     function __construct() {
-        if (!$this->setParent()) {
-            die('could not set parent');
+        if (!$this->set_Plugin()) {
+            die('could not set plugin');
             return;
             }
 
         $this->settings = new wpCSL_settings__slplus(
             array(
                     'no_license'        => true,
-                    'prefix'            => $this->parent->prefix,
-                    'url'               => $this->parent->url,
-                    'name'              => $this->parent->name . ' - Map Settings',
-                    'plugin_url'        => $this->parent->plugin_url,
+                    'prefix'            => $this->plugin->prefix,
+                    'url'               => $this->plugin->url,
+                    'name'              => $this->plugin->name . ' - Map Settings',
+                    'plugin_url'        => $this->plugin->plugin_url,
                     'render_csl_blocks' => false,
                     'form_action'       => '',
                     'save_text'         => __('Save Settings','csa-slplus')
@@ -40,20 +50,19 @@ class SLPlus_AdminUI_MapSettings {
     }
 
     /**
-     * Set the parent property to point to the primary plugin object.
+     * Set the plugin property to point to the primary plugin object.
      *
      * Returns false if we can't get to the main plugin object.
      *
      * @global type wpCSL_plugin__slplus the wpCSL object
      * @return type boolean true if plugin property is valid
      */
-    function setParent() {
-        if (!isset($this->parent) || ($this->parent == null)) {
+    function set_Plugin() {
+        if (!isset($this->plugin) || ($this->plugin == null)) {
             global $slplus_plugin;
-            $this->parent = $slplus_plugin;
             $this->plugin = $slplus_plugin;
         }
-        return (isset($this->parent) && ($this->parent != null));
+        return (isset($this->plugin) && ($this->plugin != null));
     }
 
     //=======================================
@@ -76,7 +85,7 @@ class SLPlus_AdminUI_MapSettings {
             "<div class='form_entry'>" .
                 "<div class='".SLPLUS_PREFIX."-input'>" .
                     "<label for='$whichbox'>$label:</label>".
-                    "<input  name='$whichbox' value='".$this->parent->Actions->getCompoundOption($whichbox,$default)."'>".
+                    "<input  name='$whichbox' value='".$this->plugin->Actions->getCompoundOption($whichbox,$default)."'>".
                 "</div>".
                 $this->plugin->helper->CreateHelpDiv($boxname,$msg).
              "</div>"
@@ -454,22 +463,22 @@ class SLPlus_AdminUI_MapSettings {
         // ===== Icons
         //
         $slpDescription =
-                    $this->parent->data['iconNotice'] .
+                    $this->plugin->data['iconNotice'] .
                     "<div class='form_entry'>".
                         "<label for='sl_map_home_icon'>".__('Home Icon', 'csa-slplus')."</label>".
                         "<input id='sl_map_home_icon' name='sl_map_home_icon' dir='rtl' size='45' ".
-                                "value='".$this->parent->data['sl_map_home_icon']."' ".
+                                "value='".$this->plugin->data['sl_map_home_icon']."' ".
                                 'onchange="document.getElementById(\'prev\').src=this.value">'.
-                        "<img id='home_icon_preview' src='".$this->parent->data['sl_map_home_icon']."' align='top'><br/>".
-                        $this->parent->data['homeIconPicker'].
+                        "<img id='home_icon_preview' src='".$this->plugin->data['sl_map_home_icon']."' align='top'><br/>".
+                        $this->plugin->data['homeIconPicker'].
                     "</div>".
                     "<div class='form_entry'>".
                         "<label for='sl_map_end_icon'>".__('Destination Icon', 'csa-slplus')."</label>".
                         "<input id='sl_map_end_icon' name='sl_map_end_icon' dir='rtl' size='45' ".
-                            "value='".$this->parent->data['sl_map_end_icon']."' ".
+                            "value='".$this->plugin->data['sl_map_end_icon']."' ".
                             'onchange="document.getElementById(\'prev2\').src=this.value">'.
-                        "<img id='end_icon_preview' src='".$this->parent->data['sl_map_end_icon']."'align='top'><br/>".
-                        $this->parent->data['endIconPicker'] .
+                        "<img id='end_icon_preview' src='".$this->plugin->data['sl_map_end_icon']."'align='top'><br/>".
+                        $this->plugin->data['endIconPicker'] .
                     "</div>".
                     "<br/><p>Saved icons live here: " . SLPLUS_UPLOADDIR . "saved-icons/</p>"
             ;
@@ -632,7 +641,7 @@ class SLPlus_AdminUI_MapSettings {
       * Render the map settings admin page.
       */
      function render_adminpage() {
-        if (!$this->setParent()) { return; }
+        if (!$this->set_Plugin()) { return; }
         $update_msg ='';
 
         // We Have a POST - Save Settings
@@ -645,7 +654,7 @@ class SLPlus_AdminUI_MapSettings {
 
         // Initialize Plugin Settings Data
         //
-        $this->parent->AdminUI->initialize_variables();
+        $this->plugin->AdminUI->initialize_variables();
         $this->plugin->helper->loadPluginData();
 
         /**
@@ -656,47 +665,47 @@ class SLPlus_AdminUI_MapSettings {
          * @see http://goo.gl/UAXly - iconNotice - the admin panel message if there is a problem with the home or end icon
          * @see http://goo.gl/UAXly - siteURL - get_site_url() WordPress call
          */
-        if (!isset($this->parent->data['homeIconPicker'] )) {
-            $this->parent->data['homeIconPicker'] = $this->parent->AdminUI->CreateIconSelector('sl_map_home_icon','home_icon_preview');
+        if (!isset($this->plugin->data['homeIconPicker'] )) {
+            $this->plugin->data['homeIconPicker'] = $this->plugin->AdminUI->CreateIconSelector('sl_map_home_icon','home_icon_preview');
         }
-        if (!isset($this->parent->data['endIconPicker'] )) {
-            $this->parent->data['endIconPicker'] = $this->parent->AdminUI->CreateIconSelector('sl_map_end_icon','end_icon_preview');
+        if (!isset($this->plugin->data['endIconPicker'] )) {
+            $this->plugin->data['endIconPicker'] = $this->plugin->AdminUI->CreateIconSelector('sl_map_end_icon','end_icon_preview');
         }
 
         // Icon is the old path, notify them to re-select
         //
-        $this->parent->data['iconNotice'] = '';
-        if (!isset($this->parent->data['siteURL'] )) { $this->parent->data['siteURL']  = get_site_url();                  }
-        if (!(strpos($this->parent->data['sl_map_home_icon'],'http')===0)) {
-            $this->parent->data['sl_map_home_icon'] = $this->parent->data['siteURL']. $this->parent->data['sl_map_home_icon'];
+        $this->plugin->data['iconNotice'] = '';
+        if (!isset($this->plugin->data['siteURL'] )) { $this->plugin->data['siteURL']  = get_site_url();                  }
+        if (!(strpos($this->plugin->data['sl_map_home_icon'],'http')===0)) {
+            $this->plugin->data['sl_map_home_icon'] = $this->plugin->data['siteURL']. $this->plugin->data['sl_map_home_icon'];
         }
-        if (!(strpos($this->parent->data['sl_map_end_icon'],'http')===0)) {
-            $this->parent->data['sl_map_end_icon'] = $this->parent->data['siteURL']. $this->parent->data['sl_map_end_icon'];
+        if (!(strpos($this->plugin->data['sl_map_end_icon'],'http')===0)) {
+            $this->plugin->data['sl_map_end_icon'] = $this->plugin->data['siteURL']. $this->plugin->data['sl_map_end_icon'];
         }
-        if (!$this->parent->helper->webItemExists($this->parent->data['sl_map_home_icon'])) {
-            $this->parent->data['iconNotice'] .=
+        if (!$this->plugin->helper->webItemExists($this->plugin->data['sl_map_home_icon'])) {
+            $this->plugin->data['iconNotice'] .=
                 sprintf(
                         __('Your home icon %s cannot be located, please select a new one.', 'csa-slplus'),
-                        $this->parent->data['sl_map_home_icon']
+                        $this->plugin->data['sl_map_home_icon']
                         )
                         .
                 '<br/>'
                 ;
         }
-        if (!$this->parent->helper->webItemExists($this->parent->data['sl_map_end_icon'])) {
-            $this->parent->data['iconNotice'] .=
+        if (!$this->plugin->helper->webItemExists($this->plugin->data['sl_map_end_icon'])) {
+            $this->plugin->data['iconNotice'] .=
                 sprintf(
                         __('Your destination icon %s cannot be located, please select a new one.', 'csa-slplus'),
-                        $this->parent->data['sl_map_end_icon']
+                        $this->plugin->data['sl_map_end_icon']
                         )
                         .
                 '<br/>'
                 ;
         }
-        if ($this->parent->data['iconNotice'] != '') {
-            $this->parent->data['iconNotice'] =
+        if ($this->plugin->data['iconNotice'] != '') {
+            $this->plugin->data['iconNotice'] =
                 "<div class='highlight' style='background-color:LightYellow;color:red'><span style='color:red'>".
-                    $this->parent->data['iconNotice'] .
+                    $this->plugin->data['iconNotice'] .
                 "</span></div>"
                 ;
         }
@@ -704,11 +713,11 @@ class SLPlus_AdminUI_MapSettings {
         //-------------------------
         // Navbar Section
         //-------------------------
-        $this->parent->AdminUI->MapSettings->settings->add_section(
+        $this->plugin->AdminUI->MapSettings->settings->add_section(
             array(
                 'name'          => 'Navigation',
                 'div_id'        => 'slplus_navbar_wrapper',
-                'description'   => $this->parent->AdminUI->create_Navbar(),
+                'description'   => $this->plugin->AdminUI->create_Navbar(),
                 'auto'          => false,
                 'headerbar'     => false,
                 'innerdiv'      => false,
@@ -754,7 +763,7 @@ class SLPlus_AdminUI_MapSettings {
         //--------
         // Pro Pack : Search Results Settings
         //
-        if ($this->parent->license->packages['Pro Pack']->isenabled) {
+        if ($this->plugin->license->packages['Pro Pack']->isenabled) {
             $slpDescription .= $this->plugin->helper->CreateCheckboxDiv(
                 '_show_tags',
                 __('Show Tags In Output','csa-slplus'),
@@ -828,7 +837,7 @@ class SLPlus_AdminUI_MapSettings {
                    )
                    ;
 
-        if ($this->parent->license->packages['Pro Pack']->isenabled) {
+        if ($this->plugin->license->packages['Pro Pack']->isenabled) {
             $slpDescription .= $this->CreateInputDiv(
                     '_message_noresultsfound',
                     __('No Results Message', 'csa-slplus'),
@@ -856,10 +865,10 @@ class SLPlus_AdminUI_MapSettings {
      *
      */
      function search_form_settings() {
-        $ppFeatureMsg = (!$this->parent->license->packages['Pro Pack']->isenabled ?
+        $ppFeatureMsg = (!$this->plugin->license->packages['Pro Pack']->isenabled ?
                 sprintf(
                         __(' This is a <a href="%s" target="csa">Pro Pack</a> feature.', 'csa-slplus'),
-                        $this->parent->purchase_url
+                        $this->plugin->purchase_url
                         ) :
                 ''
              );
@@ -900,7 +909,7 @@ class SLPlus_AdminUI_MapSettings {
                 __('Hide radius selection','csa-slplus'),
                 __('Hides the radius selection from the user, the default radius will be used.', 'csa-slplus') . $ppFeatureMsg,
                 SLPLUS_PREFIX,
-                !$this->parent->license->packages['Pro Pack']->isenabled
+                !$this->plugin->license->packages['Pro Pack']->isenabled
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
@@ -908,7 +917,7 @@ class SLPlus_AdminUI_MapSettings {
                 __('Show search by name box', 'csa-slplus'),
                 __('Shows the name search entry box to the user.', 'csa-slplus') . $ppFeatureMsg,
                 SLPLUS_PREFIX,
-                !$this->parent->license->packages['Pro Pack']->isenabled
+                !$this->plugin->license->packages['Pro Pack']->isenabled
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
@@ -916,7 +925,7 @@ class SLPlus_AdminUI_MapSettings {
                 __('Hide address entry box','csa-slplus'),
                 __('Hides the address entry box from the user.', 'csa-slplus') . $ppFeatureMsg,
                 SLPLUS_PREFIX,
-                !$this->parent->license->packages['Pro Pack']->isenabled
+                !$this->plugin->license->packages['Pro Pack']->isenabled
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
@@ -924,7 +933,7 @@ class SLPlus_AdminUI_MapSettings {
                 __('Use location sensor', 'csa-slplus'),
                 __('This turns on the location sensor (GPS) to set the default search address.  This can be slow to load and customers are prompted whether or not to allow location sensing.', 'csa-slplus') . $ppFeatureMsg,
                 SLPLUS_PREFIX,
-                !$this->parent->license->packages['Pro Pack']->isenabled
+                !$this->plugin->license->packages['Pro Pack']->isenabled
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
@@ -932,7 +941,7 @@ class SLPlus_AdminUI_MapSettings {
                 __('Show City Pulldown','csa-slplus'),
                 __('Displays the city pulldown on the search form. It is built from the unique city names in your location list.','csa-slplus') . $ppFeatureMsg,
                 '',
-                !$this->parent->license->packages['Pro Pack']->isenabled
+                !$this->plugin->license->packages['Pro Pack']->isenabled
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
@@ -940,7 +949,7 @@ class SLPlus_AdminUI_MapSettings {
                 __('Show Country Pulldown','csa-slplus'),
                 __('Displays the country pulldown on the search form. It is built from the unique country names in your location list.','csa-slplus') . $ppFeatureMsg,
                 '',
-                !$this->parent->license->packages['Pro Pack']->isenabled
+                !$this->plugin->license->packages['Pro Pack']->isenabled
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
@@ -948,7 +957,7 @@ class SLPlus_AdminUI_MapSettings {
                 __('Show State Pulldown','csa-slplus'),
                 __('Displays the state pulldown on the search form. It is built from the unique state names in your location list.','csa-slplus') . $ppFeatureMsg,
                 '',
-                !$this->parent->license->packages['Pro Pack']->isenabled
+                !$this->plugin->license->packages['Pro Pack']->isenabled
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
@@ -956,7 +965,7 @@ class SLPlus_AdminUI_MapSettings {
                 __('Hide Find Locations button','csa-slplus'),
                 __('Remove the "Find Locations" button from the search form.', 'csa-slplus') . $ppFeatureMsg,
                 SLPLUS_PREFIX,
-                !$this->parent->license->packages['Pro Pack']->isenabled
+                !$this->plugin->license->packages['Pro Pack']->isenabled
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
@@ -984,7 +993,7 @@ class SLPlus_AdminUI_MapSettings {
         //----------------------------------------------------------------------
         // Pro Pack Enabled
         //
-        if ($this->parent->license->packages['Pro Pack']->isenabled) {
+        if ($this->plugin->license->packages['Pro Pack']->isenabled) {
             $slpDescription .= $this->plugin->helper->CreateCheckboxDiv(
                 '_show_tag_search',
                 __('Tag Input','csa-slplus'),
@@ -1039,7 +1048,7 @@ class SLPlus_AdminUI_MapSettings {
         //----------------------------------------------------------------------
         // Pro Pack Enabled
         //
-        if ($this->parent->license->packages['Pro Pack']->isenabled) {
+        if ($this->plugin->license->packages['Pro Pack']->isenabled) {
             $settingsHTML .=
                 $this->CreateInputDiv(
                     '_search_tag_label',
