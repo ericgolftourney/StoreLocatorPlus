@@ -244,6 +244,13 @@ class SLPlus_Location {
     }
 
     /**
+     * Return the values for each of the persistent properties of this location.
+     */
+    public function get_DBValues() {
+        return (array_reduce($this->dbFields,array($this,'mapPropertyToField')));
+    }
+
+    /**
      * Setup the data for the current page, run through augmentation filters.
      *
      * This method applies the slp_location_page_attributes filter.
