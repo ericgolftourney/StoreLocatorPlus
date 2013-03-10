@@ -245,9 +245,13 @@ class SLPlus_Location {
 
     /**
      * Return the values for each of the persistent properties of this location.
+     *
+     * @param string $property name of the persistent property to get, defaults to 'all' = array of all properties
+     * @return mixed the value the property or a named array of all properties (default)
      */
-    public function get_DBValues() {
-        return (array_reduce($this->dbFields,array($this,'mapPropertyToField')));
+    public function get_PersistentProperty($property='all') {
+        $persistentData = array_reduce($this->dbFields,array($this,'mapPropertyToField'));
+        return (($property==='all')?$persistentData:(isset($persistenData[$property])?$persistenData[$property]:null));
     }
 
     /**
