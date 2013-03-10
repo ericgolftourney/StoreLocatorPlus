@@ -702,11 +702,17 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 //
                 $bgcol = '#eee';
                 foreach ($slpLocations as $sl_value) {
+                    // Set our current location
+                    //
 
                     // Row color
+                    // no lat/long = salmon
+                    // otherwise alternate
                     //
-                    $bgcol=($bgcol=="#eee")?"#fff":"#eee";
-                    $bgcol=($sl_value['sl_latitude']=="" || $sl_value['sl_longitude']=="")? "salmon" : $bgcol;
+                    $bgcol=($sl_value['sl_latitude']=="" || $sl_value['sl_longitude']=="")?
+                            "salmon" :
+                            (($bgcol=="#eee")?"#fff":"#eee")
+                            ;
 
                     // Clean Up Data with trim()
                     //
