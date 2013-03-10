@@ -10,7 +10,7 @@
  * @author Lance Cleveland <lance@charlestonsw.com>
  *
  * @property int $id
- * @property string $store - the store name
+ * @property string $store          the store name
  * @property string $address
  * @property string $address2
  * @property string $city
