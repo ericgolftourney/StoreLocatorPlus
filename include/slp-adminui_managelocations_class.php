@@ -14,7 +14,14 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
         //----------------------------------
         // Properties
         //----------------------------------
-        public $parent = null;
+
+        /**
+         * The SLPlus plugin object.
+         * 
+         * @var SLPlus $plugin
+         */
+        private $plugin = null;
+
         public $settings = null;
         public $baseAdminURL = '';
         public $cleanAdminURL = '';
@@ -28,7 +35,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
          */
         function __construct($params=null) {
             if (!$this->set_Plugin()) {
-                die('could not set parent');
+                die('could not set plugin');
                 return;
                 }
                 
@@ -70,7 +77,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
         }
 
         /**
-         * Set the parent property to point to the primary plugin object.
+         * Set the plugin property to point to the primary plugin object.
          *
          * Returns false if we can't get to the main plugin object.
          *
@@ -78,12 +85,11 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
          * @return type boolean true if plugin property is valid
          */
         function set_Plugin() {
-            if (!isset($this->parent) || ($this->parent == null)) {
+            if (!isset($this->plugin) || ($this->plugin == null)) {
                 global $slplus_plugin;
-                $this->parent = $slplus_plugin;
                 $this->plugin = $slplus_plugin;
             }
-            return (isset($this->parent) && ($this->parent != null));
+            return (isset($this->plugin) && ($this->plugin != null));
         }
 
         /**
@@ -160,7 +166,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             $errorMessage = '';
             foreach ($delQueries as $delQuery) {
                 $delete_result = $wpdb->query($delQuery);
-                $this->parent->helper->bugout("<pre>Delete Instruction:\n$delQuery\nResult:".print_r($delete_result,true)."</pre>",'','Delete Queries',__FILE__,__LINE__);
+                $this->plugin->helper->bugout("<pre>Delete Instruction:\n$delQuery\nResult:".print_r($delete_result,true)."</pre>",'','Delete Queries',__FILE__,__LINE__);
                 if ($delete_result == 0) {
                     $errorMessage .= __("Could not delete the locations.  ", 'csa-slplus');
                     $theDBError = htmlspecialchars(mysql_error($wpdb->dbh),ENT_QUOTES);
@@ -209,9 +215,9 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                     $slpFieldName = preg_replace('#\-'.$_REQUEST['locationID'].'#', '', $key);
                     if (($slpFieldName === 'latitude') || ($slpFieldName === 'longitude')) {
                         if (!$this->plugin->license->packages['Pro Pack']->isenabled) { continue; }
-                        if (!is_numeric(trim($this->parent->AdminUI->slp_escape($sl_value)))) { continue; }
+                        if (!is_numeric(trim($this->plugin->AdminUI->slp_escape($sl_value)))) { continue; }
                     }
-                    $field_value_str.="sl_".$slpFieldName."='".trim($this->parent->AdminUI->slp_escape($sl_value))."', ";
+                    $field_value_str.="sl_".$slpFieldName."='".trim($this->plugin->AdminUI->slp_escape($sl_value))."', ";
                     $_POST[$slpFieldName]=$sl_value;
                 }
             }
@@ -246,7 +252,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                     ) ||
                     ($old_address[0]['sl_latitude']=="" || $old_address[0]['sl_longitude']=="")
                     ) {
-                $this->parent->AdminUI->do_geocoding($the_address,$_REQUEST['locationID'], true);
+                $this->plugin->AdminUI->do_geocoding($the_address,$_REQUEST['locationID'], true);
             }
 
             $this->plugin->notifications->display();
@@ -437,10 +443,8 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             //--------------------------------
             // Debug Output : Post/Server Vars
             //--------------------------------
-            $this->parent->helper->bugout("<pre>REQUEST\n".print_r($_REQUEST,true)."</pre>",'','REQUEST',__FILE__,__LINE__);
-            // $this->parent->helper->bugout("<pre>POST\n".print_r($_POST,true)."</pre>",'','POST',__FILE__,__LINE__);
-            // $this->parent->helper->bugout("<pre>GET".print_r($_GET,true)."</pre>",'','GET',__FILE__,__LINE__);
-            $this->parent->helper->bugout("<pre>SERVER\n".print_r($_SERVER,true)."</pre>",'','SERVER',__FILE__,__LINE__);
+            $this->plugin->helper->bugout("<pre>REQUEST\n".print_r($_REQUEST,true)."</pre>",'','REQUEST',__FILE__,__LINE__);
+            $this->plugin->helper->bugout("<pre>SERVER\n".print_r($_SERVER,true)."</pre>",'','SERVER',__FILE__,__LINE__);
 
 
             //--------------------------------
@@ -461,10 +465,10 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                         <h2>".
                         __('Store Locator Plus - Manage Locations', 'csa-slplus').
                         "</h2>" .
-                  $this->parent->AdminUI->create_Navbar()
+                  $this->plugin->AdminUI->create_Navbar()
                   ;
 
-            $this->parent->AdminUI->initialize_variables();
+            $this->plugin->AdminUI->initialize_variables();
 
             //------------------------------------------------------------------------
             // ACTION HANDLER
@@ -611,10 +615,10 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
             //
             if (trim($where) != false) { $where = "WHERE $where"; }
             $totalLocations=$wpdb->get_var("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where");
-            $this->parent->helper->bugout("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where : returns $totalLocations", '', 'SQL Count', __FILE__, __LINE__);
+            $this->plugin->helper->bugout("SELECT count(sl_id) FROM ".$wpdb->prefix."store_locator $where : returns $totalLocations", '', 'SQL Count', __FILE__, __LINE__);
             $start=(isset($_GET['start'])&&(trim($_GET['start'])!=''))?$_GET['start']:0;
             if ($totalLocations>0) {
-                $this->parent->AdminUI->manage_locations_pagination(
+                $this->plugin->AdminUI->manage_locations_pagination(
                         $totalLocations,
                         $this->plugin->data['sl_admin_locations_per_page'],
                         $start
@@ -650,7 +654,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                     "$where ORDER BY $opt $dir ".
                      "LIMIT $start,".$this->plugin->data['sl_admin_locations_per_page']
                 ;
-            $this->parent->helper->bugout($dataQuery, '', 'SQL Data', __FILE__, __LINE__);
+            $this->plugin->helper->bugout($dataQuery, '', 'SQL Data', __FILE__, __LINE__);
             if ($slpLocations=$wpdb->get_results($dataQuery,ARRAY_A)) {
 
                 // Setup Table Columns
@@ -680,9 +684,9 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                     $slpManageColumns = array_merge($slpManageColumns,
                                 array(
                                     'sl_email'       => __('Email'        ,'csa-slplus'),
-                                    'sl_hours'       => $this->parent->settings->get_item('label_hours','Hours','_'),
-                                    'sl_phone'       => $this->parent->settings->get_item('label_phone','Phone','_'),
-                                    'sl_fax'         => $this->parent->settings->get_item('label_fax'  ,'Fax'  ,'_'),
+                                    'sl_hours'       => $this->plugin->settings->get_item('label_hours','Hours','_'),
+                                    'sl_phone'       => $this->plugin->settings->get_item('label_phone','Phone','_'),
+                                    'sl_fax'         => $this->plugin->settings->get_item('label_fax'  ,'Fax'  ,'_'),
                                     'sl_image'       => __('Image'        ,'csa-slplus'),
                                 )
                             );
@@ -692,7 +696,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                 
                 // Get the manage locations table header
                 //
-                $tableHeaderString = $this->parent->AdminUI->manage_locations_table_header($slpManageColumns,$slpCleanURL,$opt,$dir);
+                $tableHeaderString = $this->plugin->AdminUI->manage_locations_table_header($slpManageColumns,$slpCleanURL,$opt,$dir);
                 print  "<div id='location_table_wrapper'>" .
                             "<table id='manage_locations_table' class='slplus wp-list-table widefat fixed posts' cellspacing=0>" .
                                 $tableHeaderString;
@@ -726,7 +730,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                             "<tr id='slp_location_edit_row'>"               .
                             "<td class='slp_locationinfoform_cell' colspan='".(count($slpManageColumns)+4)."'>".
                             '<input type="hidden" id="act" name="act" value="save"/>'. 
-                            $this->parent->AdminUI->createString_LocationInfoForm($sl_value, $locID) .
+                            $this->plugin->AdminUI->createString_LocationInfoForm($sl_value, $locID) .
                             '</td></tr>';
 
                     // DISPLAY MODE
@@ -735,7 +739,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
 
                         // Custom Filters to set the links on special data like URLs and Email
                         //
-                        $sl_value['sl_url']=(!$this->parent->AdminUI->url_test($sl_value['sl_url']) && trim($sl_value['sl_url'])!="")?
+                        $sl_value['sl_url']=(!$this->plugin->AdminUI->url_test($sl_value['sl_url']) && trim($sl_value['sl_url'])!="")?
                             "http://".$sl_value['sl_url'] :
                             $sl_value['sl_url'] ;
                         $sl_value['sl_url']=($sl_value['sl_url']!="")?
@@ -748,7 +752,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
                             "<a href='$sl_value[sl_image]' target='blank'>".__("View", 'csa-slplus')."</a>" :
                             "" ;
                         $sl_value['sl_description']=($sl_value['sl_description']!="")?
-                            "<a onclick='alert(\"".$this->parent->AdminUI->slp_escape($sl_value['sl_description'])."\")' href='#'>".
+                            "<a onclick='alert(\"".$this->plugin->AdminUI->slp_escape($sl_value['sl_description'])."\")' href='#'>".
                             __("View", 'csa-slplus')."</a>" :
                             "" ;
 
@@ -805,7 +809,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
 
 
             if ($totalLocations!=0) {
-                $this->parent->AdminUI->manage_locations_pagination(
+                $this->plugin->AdminUI->manage_locations_pagination(
                         $totalLocations,
                         $this->plugin->data['sl_admin_locations_per_page'],
                         $start
