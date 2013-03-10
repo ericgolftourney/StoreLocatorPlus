@@ -196,7 +196,8 @@ class SLPlus_Location {
             //
             $this->plugin->helper->bugout(
                     (($touched_pageID != $this->linked_postid) ? 'Created':'Updated') .
-                       " location page $touched_pageID",
+                       " location page $touched_pageID with <pre>" .
+                       print_r($this->pageData,true).'</pre>',
                     '',
                     'SLPlus_Location.crupdate_Page()',
                     __FILE__,
