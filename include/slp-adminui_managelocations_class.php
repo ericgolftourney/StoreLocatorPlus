@@ -27,7 +27,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
          * @param mixed[] $params
          */
         function __construct($params=null) {
-            if (!$this->setParent()) {
+            if (!$this->set_Plugin()) {
                 die('could not set parent');
                 return;
                 }
@@ -77,7 +77,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
          * @global wpCSL_plugin__slplus $slplus_plugin
          * @return type boolean true if plugin property is valid
          */
-        function setParent() {
+        function set_Plugin() {
             if (!isset($this->parent) || ($this->parent == null)) {
                 global $slplus_plugin;
                 $this->parent = $slplus_plugin;
@@ -300,7 +300,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
          * 
          */
         function render_actionbar() {
-            if (!$this->setParent()) { return; }
+            if (!$this->set_Plugin()) { return; }
 
             $this->plugin->helper->loadPluginData();
 
@@ -430,7 +430,7 @@ if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
          *
          */
         function render_adminpage() {
-            if (!$this->setParent()) { return; }
+            if (!$this->set_Plugin()) { return; }
             $this->plugin->helper->loadPluginData();
             global $wpdb;
 
