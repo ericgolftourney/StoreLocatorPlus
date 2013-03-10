@@ -1,15 +1,13 @@
 <?php
-
-/***********************************************************************
-* Class: SLPlus_AdminUI_ManageLocations
-*
-* The Store Locator Plus admin UI Manage Locations class.
-*
-* Provides various UI functions when someone is an admin on the WP site.
-*
-************************************************************************/
-
 if (! class_exists('SLPlus_AdminUI_ManageLocations')) {
+
+    /**
+     * Store Locator Plus manage locations admin user interface.
+     *
+     * @package StoreLocatorPlus\AdminUI\ManageLocations
+     * @author Lance Cleveland <lance@charlestonsw.com>
+     * @copyright 2012-2013 Charleston Software Associates, LLC
+     */
     class SLPlus_AdminUI_ManageLocations {
         
         /******************************
