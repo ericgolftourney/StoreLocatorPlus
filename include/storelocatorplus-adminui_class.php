@@ -25,6 +25,10 @@ class SLPlus_AdminUI {
     public $styleHandle = 'csl_slplus_admin_css';
     private $geocodeIssuesRendered = false;
 
+    //----------------------------------
+    // Methods
+    //----------------------------------
+
     /**
      * Invoke the AdminUI class.
      *
