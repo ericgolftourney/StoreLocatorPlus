@@ -12,10 +12,6 @@
  * Text Domain: csl-slplus
  * Domain Path: /languages/
  *
- * @package StoreLocatorPlus
- * @subpackage ProPack
- * @category UserInterfaces
- * @author Charleston Software Associates
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -31,14 +27,18 @@ if ( !function_exists('is_plugin_active') ||  !is_plugin_active( 'store-locator-
 //
 if ( ! class_exists( 'SLPPro' ) ) {
 
-    /**bulk
-     * Main SLP Pro Class
+    /**
+     * Store Locator Plus Pro Pack Premium Add-On.
+     *
+     * @package StoreLocatorPlus\ProPack
+     * @author Lance Cleveland <lance@charlestonsw.com>
+     * @copyright 2012-2013 Charleston Software Associates, LLC
      */
     class SLPPro {
 
-        /**
-         * Properties
-         */
+        //-------------------------
+        // Properties
+        //-------------------------
         private $dir;
         private $metadata = null;
         public  $plugin = null;
