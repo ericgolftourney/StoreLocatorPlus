@@ -5,9 +5,9 @@
  *
  * "gloms onto" the WPCSL base class, extending it for our needs.
  *
- * @package StoreLocatorPlus
- * @category PluginInterface
+ * @package SLPlus
  * @author Lance Cleveland <lance@charlestonsw.com>
+ * @copyright 2012-2013 Charleston Software Associates, LLC
  *
  */
 class SLPlus extends wpCSL_plugin__slplus {
