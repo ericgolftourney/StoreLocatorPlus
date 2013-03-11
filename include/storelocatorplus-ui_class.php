@@ -556,10 +556,10 @@ class SLPlus_UI {
     /**
      * Puts the tag list on the search form for users to select tags.
      *
-     * @param type $tags
-     * @param type $showany
+     * @param string[] $tags tags as an array of strings
+     * @param boolean $showany show the any pulldown entry if true
      */
-    function slp_render_search_form_tag_list($tags,$showany = false) {
+    static function slp_render_search_form_tag_list($tags,$showany = false) {
         print "<select id='tag_to_search_for' >";
 
         // Show Any Option (blank value)
