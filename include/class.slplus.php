@@ -33,8 +33,9 @@ class SLPlus extends wpCSL_plugin__slplus {
      */
     function __construct($params) {
         global $wpdb;
+        $this->db = $wpdb;
         parent::__construct($params);
         $this->currentLocation = new SLPlus_Location(array('plugin'=>$this));
-        $this->db = $wpdb;
+        $this->themes->css_dir = SLPLUS_PLUGINDIR . 'css/';
     }
 }
