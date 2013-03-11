@@ -146,17 +146,6 @@ if ( ! class_exists( 'SLPPro' ) ) {
                         'purchase_url'      => $myPurl
                     )
                 );
-
-            // Enable Features Is Licensed
-            //
-            if ($slplus_plugin->license->packages['Pro Pack']->isenabled_after_forcing_recheck()) {
-
-                     //--------------------------------
-                     // Enable Themes
-                     //
-                     $slplus_plugin->themes_enabled = true;
-                     $slplus_plugin->themes->css_dir = SLPLUS_PLUGINDIR . 'css/';
-            }
         }
 
         /**

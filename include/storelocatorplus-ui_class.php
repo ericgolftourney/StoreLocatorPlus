@@ -406,19 +406,10 @@ class SLPlus_UI {
     function setup_stylesheet_for_slplus() {
         if (!$this->setPlugin()) { return false; }
         $this->plugin->helper->loadPluginData();
-
-      /**
-       * @see http://goo.gl/UAXly - theme - the file name for a SLPlus display theme from ./core/css
-       */
-        if ($this->parent->license->packages['Pro Pack']->isenabled)  {
-            $this->parent->themes->assign_user_stylesheet($this->parent->data['theme']);
-        } else {
-            wp_deregister_style(SLPLUS_PREFIX.'_user_header_css');
-            wp_dequeue_style(SLPLUS_PREFIX.'_user_header_css');
-            if ( file_exists(SLPLUS_PLUGINDIR.'css/default.css')) {
-                wp_enqueue_style(SLPLUS_PREFIX.'_user_header_css', SLPLUS_PLUGINURL .'/css/default.css');
-            }
+        if (!isset($this->parent->data['theme']) || empty($this->parent->data['theme'])) {
+            $this->parent->data['theme'] = 'default';
         }
+        $this->parent->themes->assign_user_stylesheet($this->parent->data['theme']);
     }
 
 

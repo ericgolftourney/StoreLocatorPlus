@@ -287,6 +287,8 @@ You will likely need to reset your home and destination map markers.
 
 = 3.9.2 (March 2013) =
 
+* Enhancement: Store Locator Plus themes are now in the free base product.
+* Enhancement: Fix some of the CSS themes.
 * Enhancement: Take some of the newline/carriage return white space out of search form interface, makes some themes happier with the layout.
 * Enhancement: Behind-the-scenes updates to better support [Tagalong](http://www.charlestonsw.com/product/store-locator-plus-tagalong/) and other add-on packs.
 * Enhancement: Better code documentation with online publication for third party devs via phpDocumentor2.

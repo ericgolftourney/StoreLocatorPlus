@@ -225,6 +225,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'products_obj_name'     => 'none',
             'settings_obj_name'     => 'default',
 
+            'themes_enabled'        => true,
             'themes_obj_name'       => 'default',
             'no_default_css'        => true,
 
