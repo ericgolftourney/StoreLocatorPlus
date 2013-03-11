@@ -5,9 +5,6 @@
 
 /***************************
   * CSA Labs Namespace
-  *
-  * For stuff to do awesome stuff like save lobby jones if he got stuck in a tree.
-  *
   */
 var csl = {
 
