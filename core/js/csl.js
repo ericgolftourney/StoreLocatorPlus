@@ -290,8 +290,6 @@ var csl = {
 		 *
 		 */
 		this.show_email_form = function(to) {
-			var allScripts=document.getElementsByTagName('script');
-			var add_base=allScripts[allScripts.length -2].src.replace(/\/js\/csl.js(.*)$/,'');
 			emailWin=window.open("about:blank","",
 				"height=220,width=310,scrollbars=no,top=50,left=50,status=0,toolbar=0,location=0,menubar=0,directories=0,resizable=0");
 			with (emailWin.document) {
@@ -311,7 +309,7 @@ var csl = {
 				writeln("</style>");
 
 				writeln("<form id='emailForm' method='GET'");
-				writeln(    " action='"+add_base+"/send-email.php'>");
+				writeln(    " action='"+slplus.core_url+"send-email.php'>");
 
 				writeln("    <div id='email_form_content'>");
 

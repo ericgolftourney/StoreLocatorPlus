@@ -293,6 +293,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Behind-the-scenes updates to better support [Tagalong](http://www.charlestonsw.com/product/store-locator-plus-tagalong/) and other add-on packs.
 * Enhancement: Better code documentation with online publication for third party devs via phpDocumentor2.
 * Enhancement: Lighten some of the adminUI object testing, make loading admin pages a microsecond faster.
+* Fix: Popup Email Form URL now addresses the correct file location.
 
 = 3.9.1 (February 27th 2013) =
 
