@@ -91,10 +91,15 @@ class SLPlus_UI {
     /**
      * Returns true if the shortcode attribute='true' or settings is set to 1 (checkbox enabled)
      *
-     * If the shortcode attribute = true
-     * OR
-     * attribute is not set (null) AND
-     * the setting is checked
+     * If...
+     *
+     * The shortcode attribute is set.
+     *
+     * AND EITHER...
+     *    The shortcode attribute = true.
+     *    OR
+     *    attribute is not set (null)
+     *       AND the setting is checked
      *
      *
      * @param string $attribute - the key for the shortcode attribute
@@ -105,10 +110,15 @@ class SLPlus_UI {
         if (!$this->setPlugin()) { return false; }
 
         return (
-                (strcasecmp($this->plugin->data[$attribute],'true')==0)
-                ||
-                (($this->plugin->data[$attribute] === null) &&
-                 (($this->plugin->settings->get_item($setting,0) == 1))
+                isset($this->plugin->data[$attribute])
+                &&
+                (                  
+                    (strcasecmp($this->plugin->data[$attribute],'true')==0)
+                    ||
+                    (
+                       ($this->plugin->data[$attribute] === null) &&
+                       (($this->plugin->settings->get_item($setting,0) == 1))
+                    )
                 )
            );
 
