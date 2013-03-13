@@ -1,5 +1,13 @@
 <?php
-global $sl_search_label, $sl_radius_label, $cs_options, $slplus_state_options, $sl_country_options, $slplus_plugin;
+
+global $sl_search_label, $sl_radius_label, $cs_options, $slplus_state_options, $sl_country_options;
+
+/**
+ * The plugin object.
+ * 
+ * @var SLPlus $slplus_plugin
+ */
+global $slplus_plugin;
 
 $slp_SearchDivs = new SLPlus_UI_DivManager();
 ?>
@@ -223,6 +231,7 @@ if (get_option(SLPLUS_PREFIX.'_disable_search') == 0) {
 // Render each of the divs in the order specified
 // by the filters we've setup.
 //
-echo apply_filters('slp_search_form_divs','');
+echo $slplus_plugin->UI->rawDeal(apply_filters('slp_search_form_divs',''));
+
 
 echo '</div></td></tr></tbody></table></form>';
