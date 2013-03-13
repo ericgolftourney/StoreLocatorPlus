@@ -1043,6 +1043,8 @@ class SLPlus_AdminUI {
       *
       * Invoke SLP Filter: slp_edit_location_data before rending form.
       *
+      * TODO: rip out local sl_value calls and use plugin.currentLocation object instead.
+      *
       * @param mixed $sl_value - the data values for this location in array format
       * @param int $locID - the ID number for this location
       * @param bool $addform - true if rendering add locations form
@@ -1052,12 +1054,18 @@ class SLPlus_AdminUI {
         $this->addingLocation = $addform;
         $slpEditForm = '';
 
+        // TODO: currentLocation can be replaced with the plugin.currentLocation object
+        // make sure to transfer the filter down to the plugin setup first.
+        //
         $this->currentLocation = apply_filters('slp_edit_location_data',$sl_value);
+        $this->plugin->currentLocation->set_PropertiesViaArray($this->currentLocation);
 
          $content  = 
             "<form id='manualAddForm' name='manualAddForm' method='post' enctype='multipart/form-data'>"       .
             "<input type='hidden' name='locationID'       id='locationID'       value='$locID'                          />" .
-            "<input type='hidden' name='linked_postid-$locID' id='linked_postid-$locID' value='{$sl_value['sl_linked_postid']}' />" .
+            "<input type='hidden' name='linked_postid-$locID' id='linked_postid-$locID' value='".
+                 $this->plugin->currentLocation->linked_postid
+                 ."' />" .
             "<a name='a$locID'></a>"                                                    .
             "<table cellpadding='0' class='slp_locationinfoform_table'>"                           .
             "<tr><td valign='top'>"                                                         .
@@ -1074,7 +1082,12 @@ class SLPlus_AdminUI {
                     __('Add Location','csa-slplus'):
                     sprintf("%s #%d",__('Update Location', 'csa-slplus'),$locID)
                 );
-            $idString = (!empty($sl_value['sl_linked_postid'])?$locID.' - '.$sl_value['sl_linked_postid']:$locID);
+            $idString = 
+                    $locID .
+                    (!empty($this->plugin->currentLocation->linked_postid)?
+                     ' - '. $this->plugin->currentLocation->linked_postid :
+                     ''
+                     );
             $slpEditForm .= 
                     ($addform? '' : "<span class='slp-edit-location-id'>Location # $idString</span>") .
                     "<div id='slp_form_buttons'>" .
