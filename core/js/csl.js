@@ -946,14 +946,14 @@ var csl = {
             var url = this.__getMarkerUrl(aMarker);
 
 			if (url != '') {
-				html += "| <a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +" </nobr></a>";
+				html += "| <a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' id='slp_marker_website' class='storelocatorlink'><nobr>" + slplus.website_label +" </nobr></a>";
 			}
 
 			if (aMarker.email.indexOf("@") != -1 && aMarker.email.indexOf(".") != -1) {
 				if (!this.useEmailForm) {
-					html += "| <a href='mailto:"+aMarker.email+"' target='_blank' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a>";
+					html += "| <a href='mailto:"+aMarker.email+"' target='_blank' id='slp_marker_email' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a>";
 				} else {
-					html += "| <a href='javascript:cslutils.show_email_form("+'"'+aMarker.email+'"'+");' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a><br/>";
+					html += "| <a href='javascript:cslutils.show_email_form("+'"'+aMarker.email+'"'+");' id='slp_marker_email' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a><br/>";
 				}
 			}
 
@@ -1211,10 +1211,10 @@ var csl = {
 			var elink = '';
 			if (aMarker.email.indexOf('@') != -1 && aMarker.email.indexOf('.') != -1) {
 				if (!slplus.use_email_form) {
-					elink = "<a href='mailto:"+aMarker.email+"' target='_blank' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a><br/>";
+					elink = "<a href='mailto:"+aMarker.email+"' target='_blank'  id='slp_marker_email' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a><br/>";
 				}
 				else {
-					elink = "<a href='javascript:cslutils.show_email_form("+'"'+aMarker.email+'"'+");' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a><br/>";
+					elink = "<a href='javascript:cslutils.show_email_form("+'"'+aMarker.email+'"'+");'  id='slp_marker_email' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a><br/>";
 				}
 			}
 
