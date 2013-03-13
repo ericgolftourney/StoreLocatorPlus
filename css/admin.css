@@ -433,6 +433,11 @@ table.slp_locationinfoform_table td {
 /***************************
  * Locations: Manage
  */
+td.slp_manage_locations_cell {
+    word-break: keep-all;
+    display: table-cell;
+}
+
  div#slp_pagination {
      margin: 0px;
      overflow: auto;

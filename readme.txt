@@ -295,6 +295,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Lighten some of the adminUI object testing, make loading admin pages a microsecond faster.
 * Enhancement: Add id=slp_marker_email to popup bubble email link for better CSS access.
 * Enhancement: Add id=slp_marker_website to popup bubble web link for better CSS access.
+* Enhancement: Make manage locations less "wrappy" on location info.
 * Fix: Popup Email Form URL now addresses the correct file location.
 
 = 3.9.1 (February 27th 2013) =

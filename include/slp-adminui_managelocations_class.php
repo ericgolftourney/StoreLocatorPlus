@@ -802,7 +802,7 @@ class SLPlus_AdminUI_ManageLocations {
                     // Data Columns
                     //
                     foreach ($slpManageColumns as $slpField => $slpLabel) {
-                        print '<td>' . apply_filters('slp_column_data',$sl_value[$slpField], $slpField, $slpLabel) . '</td>';
+                        print '<td class="slp_manage_locations_cell">' . apply_filters('slp_column_data',$sl_value[$slpField], $slpField, $slpLabel) . '</td>';
                     }
 
                     // Lat/Long Columns
