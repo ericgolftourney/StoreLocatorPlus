@@ -93,7 +93,7 @@ var csl = {
                 errorCallback(null);
             }
 
-        }
+        };
     },
 
     /***************************************************************************
@@ -120,7 +120,7 @@ var csl = {
 		 * returns: none
 		 */
 	    this.send = function (action, callback) {
-	        if (window.location.protocol != csl_ajax.ajaxurl.substring(0, csl_ajax.ajaxurl.indexOf(':') + 1)) {
+	        if (window.location.protocol !== csl_ajax.ajaxurl.substring(0, csl_ajax.ajaxurl.indexOf(':') + 1)) {
 	            csl_ajax.ajaxurl = csl_ajax.ajaxurl.replace(csl_ajax.ajaxurl.substring(0, csl_ajax.ajaxurl.indexOf(':') + 1), window.location.protocol);
 	        }
 
@@ -146,14 +146,14 @@ var csl = {
 		};
 
 		this.stateChanged = function() {
-			if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete") {
+			if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete") {
 				document.getElementById("ajaxMsg").innerHTML="Submission Successful.";
 			}
 		};
 
 		this.showArticles = function(start) {
 			xmlHttp=GetXmlHttpObject();
-			if (xmlHttp==null)
+			if (xmlHttp===null)
 			{
 				alert ("Browser does not support HTTP Request (1)");
 				return false;
@@ -167,7 +167,7 @@ var csl = {
 		};
 
 		this.doc_counter = function(the_loc) {
-			if (the_loc.search.indexOf('u=')!=-1) {
+			if (the_loc.search.indexOf('u=')!==-1) {
 				parts=the_loc.href.split('u=');
 				u_part=parts[1].split('&')[0];
 			}
@@ -178,7 +178,7 @@ var csl = {
 			}
 
 			xmlHttp=GetXmlHttpObject();
-			if (xmlHttp==null)
+			if (xmlHttp===null)
 			{
 				alert ("Browser does not support HTTP Request (2)");
 				return false;
@@ -221,13 +221,13 @@ var csl = {
          */
   	  	this.__init = function() {
 
-			if (this.__iconUrl != null) {
+			if (this.__iconUrl !== null) {
 				this.__iconImage = this.__iconUrl;
 			}
 
             // No icon image
             //
-			if (this.__iconImage == null) {
+			if (this.__iconImage === null) {
 				this.__gmarker = new google.maps.Marker(
                     {
                         position: this.__position,
@@ -491,7 +491,7 @@ var csl = {
   	  	 */
   	  	this.__init = function() {
 
-            if (typeof slplus != 'undefined') {
+            if (typeof slplus !== 'undefined') {
                 this.address = slplus.map_country;
                 this.zoom = slplus.zoom_level;
                 this.mapType = slplus.map_type;
@@ -536,7 +536,7 @@ var csl = {
   	  	 * returns: none
   	  	 */
         this.__buildMap = function(center) {
-            if (this.gmap == null)
+            if (this.gmap === null)
             {
                 this.options = {
                     mapTypeControl: this.mapTypeControl,
@@ -565,8 +565,8 @@ var csl = {
                 }
 
                 //load all the markers
-                if (this.load_locations == '1') {
-                    if (this.saneValue('addressInput', null) == null || this.saneValue('addressInput', null) == '') {
+                if (this.load_locations === '1') {
+                    if (this.saneValue('addressInput', null) === null || this.saneValue('addressInput', null) === '') {
                         this.forceAll = true;
 
                         this.loadMarkers(null, null, this.saneValue('tag_to_search_for', null));
@@ -595,7 +595,7 @@ var csl = {
   	  	 */
 		this.__waitForTileLoad = function() {
 			var _this = this;
-			if (this.__tilesLoaded == null)
+			if (this.__tilesLoaded === null)
 			{
 				this.__tilesLoaded = google.maps.event.addListener(this.gmap, 'tilesloaded', function() {
 					_this.__tilesAreLoaded.call(_this);
@@ -686,7 +686,7 @@ var csl = {
 				this.debugSearch(markerList[markerNumber]);
 				var position = new google.maps.LatLng(markerList[markerNumber].lat, markerList[markerNumber].lng);
 
-				if (markerNumber == 0) {
+				if (markerNumber === 0) {
 					this.debugSearch('create initial bounds');
 					bounds = new google.maps.LatLngBounds();
 					if (this.homePoint) {
@@ -706,7 +706,7 @@ var csl = {
 
 				this.debugSearch(position);
 
-                locationIcon = ((typeof markerList[markerNumber].icon != 'undefined') && (markerList[markerNumber].icon.length > 4)?markerList[markerNumber].icon:this.mapEndIconUrl);
+                locationIcon = ((typeof markerList[markerNumber].icon !== 'undefined') && (markerList[markerNumber].icon.length > 4)?markerList[markerNumber].icon:this.mapEndIconUrl);
 				this.markers.push(new csl.Marker(animation, this, "", position, locationIcon, this.mapEndIconWidth, this.mapEndIconHeight ));
 				_this = this;
 
@@ -738,9 +738,9 @@ var csl = {
 			this.loadedOnce = true;
 
 			//check for results
-			if (markerList.length == 0) {
-                            if ( (typeof this.homePoint != 'undefined') &&
-                                 (this.homePoint != null)
+			if (markerList.length === 0) {
+                            if ( (typeof this.homePoint !== 'undefined') &&
+                                 (this.homePoint !== null)
                                ) {
 				this.gmap.panTo(this.homePoint);
                             }
@@ -751,7 +751,7 @@ var csl = {
                 jQuery('#map_sidebar').trigger('contentchanged');
             }
 
-			if (bounds != null) {
+			if (bounds !== null) {
 				this.debugSearch('rebounded');
 				this.bounds = bounds;
 				this.gmap.fitBounds(this.bounds);
@@ -838,10 +838,10 @@ var csl = {
 					'address': this.address
   	  	  	  	},
   	  	  	  	function (results, status) {
-                    if (status == 'OK' && results.length > 0)
+                    if (status === 'OK' && results.length > 0)
                     {
                         // if the map hasn't been created, then create one
-                        if (_this.gmap == null)
+                        if (_this.gmap === null)
                         {
                             _this.__buildMap(results[0].geometry.location);
                         }
@@ -859,7 +859,7 @@ var csl = {
                         }
                         //if the user entered an address, replace it with a formatted one
                         var addressInput = _this.saneValue('addressInput','');
-                        if (addressInput != '') {
+                        if (addressInput !== '') {
                             addressInput = results[0].formatted_address;
                         }
                     } else {
@@ -886,15 +886,15 @@ var csl = {
         this.__getMarkerUrl = function(aMarker) {
             var url = '';
             //add an http to the url
-            if ((slplus.use_pages_links == "1") && (aMarker.sl_pages_url != '')) {
+            if ((slplus.use_pages_links === "1") && (aMarker.sl_pages_url !== '')) {
                 url = aMarker.sl_pages_url;
             }
-            else if (aMarker.url != '') {
-                if (aMarker.url.indexOf("http://") == -1) {
+            else if (aMarker.url !== '') {
+                if (aMarker.url.indexOf("http://") === -1) {
                     aMarker.url = "http://" + aMarker.url;
                 }
 
-                if (aMarker.url.indexOf(".") != -1) {
+                if (aMarker.url.indexOf(".") !== -1) {
                     url = aMarker.url;
                 }
             }
@@ -914,19 +914,19 @@ var csl = {
         this.__createAddress = function(aMarker) {
 
             var address = '';
-            if (aMarker.address != '') {
+            if (aMarker.address !== '') {
                 address += aMarker.address;
             }
 
-            if (aMarker.address2 != '') { address += ", " + aMarker.address2; }
+            if (aMarker.address2 !== '') { address += ", " + aMarker.address2; }
 
-            if (aMarker.city != '') { address += ", " + aMarker.city; }
+            if (aMarker.city !== '') { address += ", " + aMarker.city; }
 
-            if (aMarker.state != '') { address += ", " + aMarker.state; }
+            if (aMarker.state !== '') { address += ", " + aMarker.state; }
 
-            if (aMarker.zip != '') { address += ", " + aMarker.zip; }
+            if (aMarker.zip !== '') { address += ", " + aMarker.zip; }
 
-            if (aMarker.country != '') { address += ", " + aMarker.country; }
+            if (aMarker.country !== '') { address += ", " + aMarker.country; }
 
             return address;
         };
@@ -945,11 +945,11 @@ var csl = {
 
             var url = this.__getMarkerUrl(aMarker);
 
-			if (url != '') {
+			if (url !== '') {
 				html += "| <a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' id='slp_marker_website' class='storelocatorlink'><nobr>" + slplus.website_label +" </nobr></a>";
 			}
 
-			if (aMarker.email.indexOf("@") != -1 && aMarker.email.indexOf(".") != -1) {
+			if (aMarker.email.indexOf("@") !== -1 && aMarker.email.indexOf(".") !== -1) {
 				if (!this.useEmailForm) {
 					html += "| <a href='mailto:"+aMarker.email+"' target='_blank' id='slp_marker_email' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a>";
 				} else {
@@ -957,36 +957,36 @@ var csl = {
 				}
 			}
 
-			if (aMarker.image.indexOf(".") != -1) {
+			if (aMarker.image.indexOf(".") !== -1) {
 				html+="<br/><img src='"+aMarker.image+"' class='sl_info_bubble_main_image'>";
 			} else {
 				aMarker.image = "";
 			}
 
-			if (aMarker.description != '') {
+			if (aMarker.description !== '') {
 				html+="<br/>"+aMarker.description+"";
 			} else {
 				aMarker.description = '';
 			}
 
-			if (aMarker.hours != '') {
+			if (aMarker.hours !== '') {
                 var decoded = jQuery("<div/>").html(aMarker.hours).text();
 				html+="<br/><span class='location_detail_label'>"+slplus.label_hours+"</span> "+ decoded;
 			} else {
 				aMarker.hours = "";
 			}
 
-			if (aMarker.phone != '') {
+			if (aMarker.phone !== '') {
 				html+="<br/><span class='location_detail_label'>"+slplus.label_phone+"</span> "+aMarker.phone;
 			}
-			if (aMarker.fax != '') {
+			if (aMarker.fax !== '') {
 				html+="<br/><span class='location_detail_label'>"+slplus.label_fax+"</span> "+aMarker.fax;
 			}
 
 			var address = this.__createAddress(aMarker);
 
 			if (slplus.show_tags) {
-				if (jQuery.trim(aMarker.tags) != '') {
+				if (jQuery.trim(aMarker.tags) !== '') {
 					var tagclass = 'bubble_'+aMarker.tags.replace(/\W/g,'_');
 					html += '<br/><div class="'+tagclass+'"><span class="slp_info_bubble_tags">'+aMarker.tags + '</span></div>';
 				}
@@ -1002,8 +1002,7 @@ var csl = {
                         '" target="_blank" class="storelocatorlink">'+
                         slplus.label_directions+
                         '</a> ' + html +
-                        '<br/><!--/td></tr--></div>'
-                    ;
+                        '<br/><!--/td></tr--></div>';
 
 			return complete_html;
 		};
@@ -1017,7 +1016,7 @@ var csl = {
         this.getSearchAddress = function (defaultAddress) {
             var searchAddress = jQuery('#addressInput').val();
             if (!searchAddress) {
-                if ((slplus.use_sensor) && (sensor.lat != 0.00) && (sensor.lng != 0.00)) {
+                if ((slplus.use_sensor) && (sensor.lat !== 0.00) && (sensor.lng !== 0.00)) {
                     searchAddress = sensor.lat + ',' + sensor.lng;
                 } else {
                     searchAddress = defaultAddress;
@@ -1030,7 +1029,7 @@ var csl = {
          * debug the search mechanism
          */
 		this.debugSearch = function(toLog) {
-		    if (slplus.debug_mode == 1) {
+		    if (slplus.debug_mode === 1) {
                 try {
                     if (console) {
 				        console.log(toLog);
@@ -1055,7 +1054,7 @@ var csl = {
   	  	 */
 		this.saneValue = function(id, defaultValue) {
 			var name = document.getElementById(id);
-			if (name == null) {
+			if (name === null) {
 				name = defaultValue;
 			}
 			else {
@@ -1084,11 +1083,11 @@ var csl = {
                         this.forceAll = false;
                     }
                     this.debugSearch('doing search@' + center + ' for radius of ' + radius);
-                    if (center == null) { center = this.gmap.getCenter(); }
-                    if (radius == null) { radius = 40000; }
+                    if (center === null) { center = this.gmap.getCenter(); }
+                    if (radius === null) { radius = 40000; }
                     this.lastCenter = center;
                     this.lastRadius = radius;
-                    if (tags == null) { tags = ''; }
+                    if (tags === null) { tags = ''; }
                     this.debugSearch('searching: ' + center.lat() +','+ center.lng());
 
                     var _this = this;
@@ -1106,7 +1105,7 @@ var csl = {
                         this.debugSearch(action);
 
                         ajax.send(action, function (response) {
-                                if (typeof response.response != 'undefined') {
+                                if (typeof response.response !== 'undefined') {
                                     _this.dropMarkers.call(_this, response.response);
                                 } else {
                                     if (window.console) { console.log('SLP server did not send back a valid JSONP response on load.'); }
@@ -1124,13 +1123,13 @@ var csl = {
                             lng     : center.lng(),
                             name    : name,
                             radius  : radius,
-                            tags    : tags,
+                            tags    : tags
                         };
 
                         this.debugSearch(action);
 
                         ajax.send(action, function (response) {
-                                if (typeof response.response != 'undefined') {
+                                if (typeof response.response !== 'undefined') {
                                                     _this.bounceMarkers.call(_this, response.response);
                                 } else {
                                     if (window.console) { console.log('SLP server did not send back a valid JSONP response on search.'); }
@@ -1172,7 +1171,7 @@ var csl = {
 
 			// Address was given, use it...
 			//
-			if (address != '') {
+			if (address !== '') {
 				this.address = cslutils.escapeExtended(address);
 				this.doGeocode();
 
@@ -1204,12 +1203,12 @@ var csl = {
 
             var url = this.__getMarkerUrl(aMarker);
 
-			if (url != '') {
+			if (url !== '') {
 				link = link = "<a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>";
 			}
 
 			var elink = '';
-			if (aMarker.email.indexOf('@') != -1 && aMarker.email.indexOf('.') != -1) {
+			if (aMarker.email.indexOf('@') !== -1 && aMarker.email.indexOf('.') !== -1) {
 				if (!slplus.use_email_form) {
 					elink = "<a href='mailto:"+aMarker.email+"' target='_blank'  id='slp_marker_email' class='storelocatorlink'><nobr>" + aMarker.email +"</nobr></a><br/>";
 				}
@@ -1222,7 +1221,7 @@ var csl = {
 			//
 			var tagInfo = '';
 			if (slplus.show_tags) {
-				if (jQuery.trim(aMarker.tags) != '') {
+				if (jQuery.trim(aMarker.tags) !== '') {
 					var tagclass = aMarker.tags.replace(/\W/g,'_');
 					tagInfo = '<br/><div class="'+tagclass+' slp_result_table_tags"><span class="tagtext">'+aMarker.tags+'</span></div>';
 				}
@@ -1231,30 +1230,30 @@ var csl = {
 			//keep empty data lines out of the final result
 			//
             var city_state_zip = '';
-            if (jQuery.trim(city) != '') {
+            if (jQuery.trim(city) !== '') {
                 city_state_zip += city;
-                if (jQuery.trim(state) != '' || jQuery.trim(zip) != '') {
+                if (jQuery.trim(state) !== '' || jQuery.trim(zip) !== '') {
                     city_state_zip += ', ';
                 }
             }
-            if (jQuery.trim(state) != '') {
+            if (jQuery.trim(state) !== '') {
                 city_state_zip += state;
-                if (jQuery.trim(zip) != '') {
+                if (jQuery.trim(zip) !== '') {
                     city_state_zip += ', ';
                 }
             }
-            if (jQuery.trim(zip) != '') {
+            if (jQuery.trim(zip) !== '') {
                 city_state_zip += zip;
             }
-            if (jQuery.trim(aMarker.phone) != '') {
+            if (jQuery.trim(aMarker.phone) !== '') {
                 thePhone = slplus.label_phone+ aMarker.phone;
             } else {
-                thePhone = ''
+                thePhone = '';
             }
-            if (jQuery.trim(aMarker.fax) != '') {
+            if (jQuery.trim(aMarker.fax) !== '') {
                 theFax = slplus.label_fax + aMarker.fax;
             } else {
-                theFax = ''
+                theFax = '';
             }
 
             var address = this.__createAddress(aMarker);
@@ -1265,8 +1264,8 @@ var csl = {
             String.prototype.format = function() {
              var args = arguments;
              return this.replace(/{(\d+)(\.(\w+))*}/g, function(match, number, dotsubname, subname) {
-               return typeof args[number] != 'undefined'
-                 ? typeof args[number] != 'object'
+               return typeof args[number] !== 'undefined'
+                 ? typeof args[number] !== 'object'
                      ? args[number]
                      : args[number][subname]
                  : match
@@ -1325,12 +1324,12 @@ var csl = {
             div.id = 'slp_results_entry_'+aMarker.id;
 
 			return div;
-		}
+		};
 
   	  	//dumb browser quirk trick ... wasted two hours on that one
   	  	this.__init();
 	}
-}
+};
 
 
 /***************************************************************************
@@ -1397,11 +1396,11 @@ jQuery('#document').ready(
                     numberMatcher = /^[\-+]?[0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?$/;
 
                 var isNumber = function( value ) {
-                    if ( typeof value == 'number' ) {
+                    if ( typeof value === 'number' ) {
                         return true;
                     }
 
-                    if ( typeof value != 'string' ) {
+                    if ( typeof value !== 'string' ) {
                         return false;
                     }
 
@@ -1503,5 +1502,5 @@ jQuery('#document').ready(
                 if (jQuery('div#sl_div').is(":visible")) {
                     InitializeTheMap();
                 }
-    };
+    }
 );
