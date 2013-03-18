@@ -1183,13 +1183,11 @@ var csl = {
 			}
 		};
 
-		/***************************
-  	  	 * function: createSidebar
-  	  	 * usage:
-  	  	 * 		Builds to side bar
-  	  	 * parameters:
-  	  	 * 		aMarker: the marker data
-  	  	 * returns: a html div with the data properly displayed
+		/**
+  	  	 * Render a marker in the results section
+         *
+         * @param {object} aMarker marker data for a single location
+  	  	 * @returns {string} a html div with the data properly displayed
   	  	 */
 		this.createSidebar = function(aMarker) {
 			document.getElementById('map_sidebar_td').style.display='block';
