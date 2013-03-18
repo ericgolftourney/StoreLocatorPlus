@@ -1256,7 +1256,6 @@ var csl = {
 
             var address = this.__createAddress(aMarker);
 
-
             // JavaScript version of sprintf
             //
             String.prototype.format = function() {
