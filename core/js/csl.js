@@ -57,7 +57,7 @@ var csl = {
         this.__init = function() {
             this.Initialized = true;
             try {
-                if (typeof navigator.geolocation == 'undefined') {
+                if (typeof navigator.geolocation === 'undefined') {
                     if (google.gears) {
                         this.theService = google.gears.factory.create('beta.geolocation');
                     } else {
@@ -133,7 +133,7 @@ var csl = {
 			    }
 				callback(response);
 			});
-		}
+		};
 
 		this.GetXmlHttpObject = function() {
 			var objXMLHttp=null;
@@ -143,13 +143,13 @@ var csl = {
 				objXMLHttp=new ActiveXObject("Microsoft.XMLHTTP");
 			}
 			return objXMLHttp;
-		}
+		};
 
 		this.stateChanged = function() {
 			if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete") {
 				document.getElementById("ajaxMsg").innerHTML="Submission Successful.";
 			}
-		}
+		};
 
 		this.showArticles = function(start) {
 			xmlHttp=GetXmlHttpObject();
@@ -164,7 +164,7 @@ var csl = {
 			xmlHttp.onreadystatechange=stateChanged;
 			xmlHttp.open("GET",url,true);
 			xmlHttp.send(null);
-		}
+		};
 
 		this.doc_counter = function(the_loc) {
 			if (the_loc.search.indexOf('u=')!=-1) {
@@ -187,7 +187,7 @@ var csl = {
 			url=url+"?u="+u_part;
 			xmlHttp.open("GET",url,true);
 			xmlHttp.send(null);
-		}
+		};
 	},
 
     /***************************************************************************
@@ -255,7 +255,7 @@ var csl = {
                 this.__shadowImage = cslmap.shadows[shadowKey];
                 this.buildMarker();
             }
-  	  	}
+  	  	};
 
         /*------------------------
          * MARKERS buildMarker
@@ -271,7 +271,7 @@ var csl = {
 				zIndex: 0,
   	  	  	  	title: this.__title
   	  	  	});
-		}
+		};
 
   	  	this.__init();
   	},
@@ -350,7 +350,7 @@ var csl = {
 				writeln("</body></html>");
 				close();
 			}
-		}
+		};
 
 		/**************************************
 		 * function: escapeExtended()
@@ -362,7 +362,7 @@ var csl = {
 		this.escapeExtended = function(string)
 		{
 			return string;
-		}
+		};
 	},
 
     /***************************************************************************
@@ -388,24 +388,24 @@ var csl = {
 			this.__content = content;
   	  		this.__gwindow = setContent = this.__content;
   	  	  	this.open(map, object);
-  	  	}
+  	  	};
 
   	  	this.open = function(map, object) {
 			this.__gmap = map.gmap;
   	  	  	this.__anchor = object;
   	  	  	this.__gwindow.open(this.__gmap, this.__anchor);
-  	  	}
+  	  	};
 
   	  	this.close = function() {
 			this.__gwindow.close();
-  	  	}
+  	  	};
 
   	  	this.__init = function() {
 			this.__gwindow = new google.maps.InfoWindow(
   	  	  	{
 				content: this.__content
   	  	  	});
-  	  	}
+  	  	};
 
   	  	this.__init();
   	},
@@ -524,7 +524,7 @@ var csl = {
             } else {
                 alert('Store Locator Plus script not loaded properly.');
             }
-  	  	}
+  	  	};
 
         /***************************
   	  	 * function: __buildMap
@@ -583,7 +583,7 @@ var csl = {
                     this.load_locations = '0';
                 }
             }
-        }
+        };
 
 		/***************************
   	  	 * function: __waitForTileLoad
@@ -601,7 +601,7 @@ var csl = {
 					_this.__tilesAreLoaded.call(_this);
 				});
 			}
-		}
+		};
 
 		/***************************
   	  	 * function: __tilesAreLoaded
@@ -615,7 +615,7 @@ var csl = {
 			jQuery('#map').find('img').css({'max-width': 'none'});
 			google.maps.event.removeListener(this.__tilesLoaded);
 			this.__tilesLoaded = null;
-		}
+		};
 
   	  	/***************************
   	  	 * function: addMarkerAtCenter
@@ -632,7 +632,7 @@ var csl = {
 			if (this.homePoint) {
 				this.centerMarker = new csl.Marker(csl.Animation.None, this, "", this.homePoint, this.mapHomeIconUrl, this.mapHomeIconWidth, this.mapHomeIconHeight);
 			}
-  	  	}
+  	  	};
 
 		/***************************
   	  	 * function: clearMarkers
@@ -645,15 +645,15 @@ var csl = {
 		this.clearMarkers = function() {
                     if (this.markers) {
                         for (markerNumber in this.markers) {
-                            if (typeof this.markers[markerNumber] != 'undefined') {
-                                if (typeof this.markers[markerNumber].__gmarker != 'undefined') {
+                            if (typeof this.markers[markerNumber] !== 'undefined') {
+                                if (typeof this.markers[markerNumber].__gmarker !== 'undefined') {
                                     this.markers[markerNumber].__gmarker.setMap(null);
                                 }
                             }
                         }
                         this.markers.length = 0;
                     }
-		}
+		};
 
 		/***************************
   	  	 * function: putMarkers
@@ -770,7 +770,7 @@ var csl = {
                     ;
                 this.gmap.setZoom(newZoom);
 			}
-		}
+		};
 
 		/***************************
   	  	 * function: bounceMarkers
@@ -785,7 +785,7 @@ var csl = {
 			this.clearMarkers();
 			this.debugSearch('bounce');
 			this.putMarkers(markerList, csl.Animation.None);
-		}
+		};
 
 		/***************************
   	  	 * function: dropMarkers
@@ -800,7 +800,7 @@ var csl = {
 			this.clearMarkers();
 			this.debugSearch('dropping');
 			this.putMarkers(markerList, csl.Animation.Drop);
-		}
+		};
 
 		/***************************
   	  	 * function: private handleInfoClicks
@@ -820,7 +820,7 @@ var csl = {
 			this.infowindow.setContent(this.createMarkerContent(infoData));
 			//this.infowindow.setContent('hi');
 			this.infowindow.open(this.gmap, marker.__gmarker);
-		}
+		};
 
   	  	/***************************
   	  	 * function doGeocode()
@@ -872,7 +872,7 @@ var csl = {
                 }
 
   	  	  	);
-  	  	}
+  	  	};
 
         /***************************
   	  	 * function: __getMarkerUrl
@@ -900,7 +900,7 @@ var csl = {
             }
 
             return url;
-        }
+        };
 
         /***************************
   	  	 * function: __createAddress
@@ -929,7 +929,7 @@ var csl = {
             if (aMarker.country != '') { address += ", " + aMarker.country; }
 
             return address;
-        }
+        };
 
 		/***************************
   	  	 * function: createMarkerContent
@@ -1006,7 +1006,7 @@ var csl = {
                     ;
 
 			return complete_html;
-		}
+		};
 
         /**
          * Return a proper search address for directions.
@@ -1024,7 +1024,7 @@ var csl = {
                 }
             }
             return searchAddress;
-        }
+        };
 
         /**
          * debug the search mechanism
@@ -1040,7 +1040,7 @@ var csl = {
                 {
                 }
 			}
-		}
+		};
 
 		/***************************
   	  	 * function: saneValue
@@ -1062,7 +1062,7 @@ var csl = {
 				name = name.value;
 			}
 			return name;
-		}
+		};
 
 		/***************************
   	  	 * function: loadMarkers
@@ -1137,7 +1137,7 @@ var csl = {
                                 }
                             });
                     }
-		}
+		};
 
 		/***************************
   	  	 * function: tagFilter
@@ -1154,7 +1154,7 @@ var csl = {
 			this.loadMarkers(this.lastCenter, this.lastRadius, tag_to_search_for);
 			jQuery('#map_box_image').hide();
 			jQuery('#map_box_map').show();
-		 }
+		 };
 
 		/***************************
   	  	 * function: searchLocations
@@ -1182,7 +1182,7 @@ var csl = {
 				var radius = this.saneValue('radiusSelect');
 				this.loadMarkers(this.gmap.getCenter(), radius, tag_to_search_for);
 			}
-		}
+		};
 
 		/***************************
   	  	 * function: createSidebar
@@ -1503,5 +1503,5 @@ jQuery('#document').ready(
                 if (jQuery('div#sl_div').is(":visible")) {
                     InitializeTheMap();
                 }
-    }
+    };
 );
