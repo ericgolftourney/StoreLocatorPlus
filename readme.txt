@@ -5,7 +5,7 @@ Donate link: http://www.charlestonsw.com/product/store-locator-plus-2/
 Tags: google,bing,map,directory,location,place,store,dealer,shop,business,retail,brick,mortar,coordinates,latitude,longitude,geo,geocoding,miles,kilometers,locator,finder,search,mapper,zipcode,name,radius
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 3.9.2
+Stable tag: 3.9.3
 
 A high end location management system that makes it easy to put a store location finder on your site.  Extensive premium add-on library available!
 
@@ -285,7 +285,11 @@ You will need to go to the new "Store Pages" tab and re-enable some of your sett
 Updating from a version 3.8.6 or earlier?
 You will likely need to reset your home and destination map markers.
 
-= 3.9.2 (March 2013) =
+= 3.9.3 =
+
+* Enhancement: Better debugging with Debug Bar hooks.
+
+= 3.9.2 =
 
 * Enhancement: Store Locator Plus themes are now in the free base product.
 * Enhancement: Fix some of the CSS themes.
@@ -298,7 +302,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Make manage locations less "wrappy" on location info.
 * Fix: Popup Email Form URL now addresses the correct file location.
 
-= 3.9.1 (February 27th 2013) =
+= 3.9.1 =
 
 * Enhancement: Speed up [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) bulk upload.
 * Enhancement: Clean up [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) bulk upload messages.
@@ -307,7 +311,7 @@ You will likely need to reset your home and destination map markers.
 * Fix: map directions link when upgrade is made from the 3.8.X release with broken maps.googleapis.com setting.
 * Fix: Workaround the dbDelta() bug, stop creating duplicate database indexes.
 
-= 3.9 (February 2013) =
+= 3.9 =
 
 * Change: Store Pages is no longer a license key based add-on, it requires a separate .zip download.
 * Enhancement: Add [slp_addlocation_fieldvalue fitler](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/location-management-actions-filters/)
