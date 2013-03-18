@@ -25,16 +25,16 @@ var csl = {
 	{
 		this.anim2 = function(imgObj, url) {
 			imgObj.src=url;
-		}
+		};
 
 		this.anim = function(name, type) {
-			if (type==0)
+			if (type===0)
 				document.images[name].src="/core/images/"+name+".gif";
-			if (type==1)
+			if (type===1)
 				document.images[name].src="/core/images/"+name+"_over.gif";
-			if (type==2)
+			if (type===2)
 				document.images[name].src="/core/images/"+name+"_down.gif";
-		}
+		};
 	},
 
     /***************************************************************************
