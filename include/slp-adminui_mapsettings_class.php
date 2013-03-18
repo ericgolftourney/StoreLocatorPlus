@@ -985,17 +985,17 @@ class SLPlus_AdminUI_MapSettings {
         $slpDescription .= ob_get_clean();
         $slpDescription .= '</div>';
 
-        /**
-         * Tags Section
-         */
-        $slpDescription .= "<div class='section_column'>";
-        $slpDescription .= '<h2>'.__('Tags (Pro Pack)', 'csa-slplus').'</h2>';
-        $slpDescription .= '<div class="section_column_content">';
 
         //----------------------------------------------------------------------
         // Pro Pack Enabled
         //
         if ($this->plugin->license->packages['Pro Pack']->isenabled) {
+            /**
+             * Tags Section
+             */
+            $slpDescription .= "<div class='section_column'>";
+            $slpDescription .= '<h2>'.__('Tags (Pro Pack)', 'csa-slplus').'</h2>';
+            $slpDescription .= '<div class="section_column_content">';
             $slpDescription .= $this->plugin->helper->CreateCheckboxDiv(
                 '_show_tag_search',
                 __('Tag Input','csa-slplus'),
@@ -1012,14 +1012,11 @@ class SLPlus_AdminUI_MapSettings {
                 __('Add "any" to tags pulldown','csa-slplus'),
                 __('Add an "any" selection on the tag pulldown list thus allowing the user to show all locations in the area, not just those matching a selected tag.', 'csa-slplus')
                 );
+            ob_start();
+            do_action('slp_add_search_form_tag_setting');
+            $slpDescription .= ob_get_clean();
+            $slpDescription .= '</div></div>';
         }
-
-
-        ob_start();
-        do_action('slp_add_search_form_tag_setting');
-        $slpDescription .= ob_get_clean();
-
-        $slpDescription .= '</div></div>';
 
         // Search Form Labels
         //
