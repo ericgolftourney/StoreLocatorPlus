@@ -296,6 +296,9 @@ You will likely need to reset your home and destination map markers.
 = 3.9.3 =
 
 * Enhancement: Better debugging with Debug Bar hooks.
+* Enhancement: Drop duplicate language files in ./core/languages.
+* Enhancement: Load textdomain (for language support) in the proper place (init).
+* Enhancement: Give pot/po/mo language files the proper name and the proper directory (./languages).
 
 = 3.9.2 =
 
