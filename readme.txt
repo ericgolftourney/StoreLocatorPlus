@@ -150,9 +150,11 @@ Here is the process, in case you are wondering:
 1. I run php makepot.php for the plugin.
 2. I send you a csa-slplus.pot file similar to [this one](http://wp.me/a36f2N-2aA).
 3. You send me back a po file named after the specific locale such as csa-slplus-es_MX.po
-4. I generate the .mo file for that locale and ship the entire thing in the next release.
-5. You tell me which premium plugin or add-on pack that I created that you would like to have.
-6. The world is a happier place, especially for my friends that have as much trouble reading English as I do just about any other language!
+4. I generate the .mo file for that locale with the msgfmt -o filename.mo filename.po command.
+5. I ship the pot, po, and mo files in the next release.
+6. Users see your translation text when their WordPress install is setup for the matching locale.
+7. You tell me which premium plugin or add-on pack that I created that you would like to have.
+8. The world is a happier place, especially for my friends that have as much trouble reading English as I do just about any other language!
 
 == Installation ==
 
