@@ -146,6 +146,8 @@ I will send you the translation files that WordPress creates, you send back the 
 Offer available to first complete translation of this plugin or for notable updates to existing translation files.
 Upon request I will also put a link to your site in the "special thanks" section.
 
+Any EASIER way to help with translations?  Load the (Codestyling Localization plugin)[http://wordpress.org/extend/plugins/codestyling-localization/] and then find it under "Tools/Localization" in your admin panel.
+
 Here is the process, in case you are wondering:
 1. I run php makepot.php for the plugin.
 2. I send you a csa-slplus.pot file similar to [this one](http://wp.me/a36f2N-2aA).
