@@ -1,299 +1,104 @@
-# Copyright (C) 2012 Store Locator Plus
+# Copyright (C) 2013 Store Locator Plus
 # This file is distributed under the same license as the Store Locator Plus package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Store Locator Plus 2.6.2\n"
+"Project-Id-Version: Store Locator Plus 3.9.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/store-locator-le\n"
-"POT-Creation-Date: 2012-04-17 21:33:25+00:00\n"
+"POT-Creation-Date: 2013-03-20 03:42:14+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2012-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: WPCSL-generic/classes/CSL-notifications_class.php:43
-msgid "<p><strong><a href=\"%s\">%s</a> needs attention: </strong>"
+#: WPCSL-generic/classes/CSL-helper_class.php:95
+msgid "Click me to see the debugging goodness..."
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:573
+#: WPCSL-generic/classes/CSL-notifications_class.php:89
+msgid "needs attention"
+msgstr ""
+
+#: WPCSL-generic/classes/CSL-notifications_class.php:128
+msgid "wants you to know"
+msgstr ""
+
+#: WPCSL-generic/classes/CSL-notifications_class.php:140
+msgid "<p><strong><a href=\"%s\">%s</a> %s: </strong>"
+msgstr ""
+
+#: WPCSL-generic/classes/CSL-plugin.php:686
 msgid "DEBUG: No driver found."
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:585
-#: WPCSL-generic/classes/CSL-plugin.php:586
+#: WPCSL-generic/classes/CSL-plugin.php:698
+#: WPCSL-generic/classes/CSL-plugin.php:699
 msgid "Support"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:589
+#: WPCSL-generic/classes/CSL-plugin.php:702
 msgid "Purchase"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:590
+#: WPCSL-generic/classes/CSL-plugin.php:703
 msgid "Buy Now"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:593
+#: WPCSL-generic/classes/CSL-plugin.php:706
+#: include/slp-adminui_mapsettings_class.php:500
 msgid "Settings"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:670
+#: WPCSL-generic/classes/CSL-plugin.php:779
 msgid "DEBUG: could not locate driver:"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:722
-#: WPCSL-generic/classes/CSL-themes_class.php:117
+#: WPCSL-generic/classes/CSL-plugin.php:830
+#: WPCSL-generic/classes/CSL-themes_class.php:121
 msgid "Display Settings"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:766
+#: WPCSL-generic/classes/CSL-plugin.php:884
 msgid ""
 "Your PHP settings have disabled exec(), your locale list cannot be "
 "determined."
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:784
+#: WPCSL-generic/classes/CSL-plugin.php:902
 msgid "This is based on your current locale, which is set to "
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:852
+#: WPCSL-generic/classes/CSL-plugin.php:953
+msgid "This will disable the notification asking you to rate our product."
+msgstr ""
+
+#: WPCSL-generic/classes/CSL-plugin.php:1050
 msgid "DEBUG: Shortcode called with attributes:"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:857
+#: WPCSL-generic/classes/CSL-plugin.php:1055
 msgid "DEBUG: Shortcode called with no attributes."
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:906
+#: WPCSL-generic/classes/CSL-plugin.php:1104
 msgid "DEBUG: Not OK To Show"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-plugin.php:974
+#: WPCSL-generic/classes/CSL-plugin.php:1172
 msgid "No products found"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-settings_class.php:23
+#: WPCSL-generic/classes/CSL-settings_class.php:30
 msgid "Save Changes"
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-settings_class.php:423
-msgid "The following optional add-ons are available"
+#: WPCSL-generic/classes/CSL-settings_class.php:321
+msgid "Program Error: section <em>%s</em> not defined."
 msgstr ""
 
-#: WPCSL-generic/classes/CSL-themes_class.php:118
+#: WPCSL-generic/classes/CSL-themes_class.php:122
 msgid "Select A Theme"
-msgstr ""
-
-#: core/add-locations.php:29
-msgid "Store Locator Plus - Add Locations"
-msgstr ""
-
-#: core/add-locations.php:62
-msgid "Added Succesfully"
-msgstr ""
-
-#: core/add-locations.php:116
-msgid "The CSV file has too many fields."
-msgstr ""
-
-#: core/add-locations.php:120
-msgid "Got %d expected less than %d."
-msgstr ""
-
-#: core/add-locations.php:133
-msgid "locations added succesfully."
-msgstr ""
-
-#: core/add-locations.php:139
-msgid "File could not be saved, check the plugin directory permissions:"
-msgstr ""
-
-#: core/add-locations.php:148
-msgid "Uploaded file needs to be in CSV format."
-msgstr ""
-
-#: core/csl_helpers.php:112
-msgid "These settings affect how the reporting system behaves. "
-msgstr ""
-
-#: core/functions.sl.php:293
-msgid "Could not add/update address.  Error: %s."
-msgstr ""
-
-#: core/functions.sl.php:303 core/functions.sl.php:312
-#: core/functions.sl.php:319
-msgid "Address %s <font color=red>failed to geocode</font>. "
-msgstr ""
-
-#: core/functions.sl.php:304 core/functions.sl.php:320
-msgid "Received status %s."
-msgstr ""
-
-#: core/functions.sl.php:313
-msgid "Unknown Address! Received status %s."
-msgstr ""
-
-#: core/functions.sl.php:489 reporting.php:323
-msgid "Address"
-msgstr ""
-
-#: core/functions.sl.php:497
-msgid "Enter Your Address or Zip Code Above."
-msgstr ""
-
-#: core/functions.sl.php:682 core/functions.sl.php:683
-#: core/templates/map_settings.php:13 core/view-locations.php:386
-msgid "Add Locations"
-msgstr ""
-
-#: core/functions.sl.php:689 core/functions.sl.php:690
-#: core/templates/map_settings.php:16 core/variables.sl.php:14
-#: core/view-locations.php:11
-msgid "Manage Locations"
-msgstr ""
-
-#: core/functions.sl.php:696 core/functions.sl.php:697
-#: core/templates/map_settings.php:10
-msgid "Map Settings"
-msgstr ""
-
-#: core/functions.sl.php:708 core/functions.sl.php:709
-msgid "Reports"
-msgstr ""
-
-#: core/map-designer.php:164
-msgid "Successful Update"
-msgstr ""
-
-#: core/map-designer.php:236
-msgid "Normal"
-msgstr ""
-
-#: core/map-designer.php:237
-msgid "Satellite"
-msgstr ""
-
-#: core/map-designer.php:238
-msgid "Hybrid"
-msgstr ""
-
-#: core/map-designer.php:239
-msgid "Physical"
-msgstr ""
-
-#: core/map-designer.php:335
-msgid ""
-"Please re-select your <b>Home Icon</b> and <b>Destination Icon</b> below, so "
-"that they show up properly on your map."
-msgstr ""
-
-#: core/map-designer.php:375
-msgid "Search Form"
-msgstr ""
-
-#: core/map-designer.php:387
-msgid "Map"
-msgstr ""
-
-#: core/map-designer.php:412
-msgid "Plugin Info"
-msgstr ""
-
-#: core/search-links.php:55
-msgid "for your search of"
-msgstr ""
-
-#: core/search-links.php:57
-msgid "Clear&nbsp;Results"
-msgstr ""
-
-#: core/search-links.php:65
-msgid "Results"
-msgstr ""
-
-#: core/search-links.php:67
-msgid "total"
-msgstr ""
-
-#: core/search-links.php:79
-msgid "Previous"
-msgstr ""
-
-#: core/search-links.php:90
-msgid "Next"
-msgstr ""
-
-#: core/templates/add_location_address.php:9
-msgid "Enter An Address"
-msgstr ""
-
-#: core/templates/add_location_address.php:14
-#: core/templates/edit_location_address.php:8
-msgid "Name of Location"
-msgstr ""
-
-#: core/templates/add_location_address.php:17
-#: core/templates/edit_location_address.php:11
-msgid "Street - Line 1"
-msgstr ""
-
-#: core/templates/add_location_address.php:20
-#: core/templates/edit_location_address.php:14
-msgid "Street - Line 2"
-msgstr ""
-
-#: core/templates/add_location_address.php:23
-#: core/templates/edit_location_address.php:17
-msgid "City, State, ZIP"
-msgstr ""
-
-#: core/templates/add_location_address.php:29
-#: core/templates/edit_location_address.php:22
-#: core/templates/settings_mapform.php:152
-msgid "Country"
-msgstr ""
-
-#: core/templates/add_location_address.php:32
-#: core/templates/add_location_address.php:64
-msgid "Add Location"
-msgstr ""
-
-#: core/templates/add_location_address.php:39 core/view-locations.php:314
-msgid "Additional Information"
-msgstr ""
-
-#: core/templates/add_location_address.php:41 core/view-locations.php:266
-#: core/view-locations.php:315
-msgid "Description"
-msgstr ""
-
-#: core/templates/add_location_address.php:44
-#: core/templates/managelocations_actionbar.php:60 core/view-locations.php:262
-#: reporting.php:374
-msgid "Tags"
-msgstr ""
-
-#: core/templates/add_location_address.php:48 core/view-locations.php:269
-#: core/view-locations.php:317
-msgid "URL"
-msgstr ""
-
-#: core/templates/add_location_address.php:51
-msgid "email"
-msgstr ""
-
-#: core/templates/add_location_address.php:54 core/view-locations.php:275
-#: core/view-locations.php:319
-msgid "Hours"
-msgstr ""
-
-#: core/templates/add_location_address.php:57 core/view-locations.php:278
-#: core/view-locations.php:320
-msgid "Phone"
-msgstr ""
-
-#: core/templates/add_location_address.php:60 core/view-locations.php:321
-msgid "Image URL (shown with location)"
 msgstr ""
 
 #: core/templates/email_form.php:5
@@ -312,623 +117,1455 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: core/templates/managelocations_actionbar.php:11
+#: core/templates/search_and_map.php:13
+msgid "Enter Your Address or Zip Code Above."
+msgstr ""
+
+#: core/templates/search_form.php:29
+msgid "--Search By City--"
+msgstr ""
+
+#: core/templates/search_form.php:50
+msgid "--Search By State--"
+msgstr ""
+
+#: core/templates/search_form.php:69
+msgid "--Search By Country--"
+msgstr ""
+
+#: core/templates/search_form.php:142
+msgid "Name of Store"
+msgstr ""
+
+#: downloadcsv.php:119 downloadcsv.php:125
+msgid "Cheatin' huh?"
+msgstr ""
+
+#: include/class.location.php:327
+msgid "Could not update %s, location id %d."
+msgstr ""
+
+#: include/class.location.php:337
+msgid "Could not add %s as a new location"
+msgstr ""
+
+#: include/slp-adminui_managelocations_class.php:176
+msgid "Could not delete the locations.  "
+msgstr ""
+
+#: include/slp-adminui_managelocations_class.php:180
+#: include/storelocatorplus-adminui_class.php:485
+msgid "Error: %s."
+msgstr ""
+
+#: include/slp-adminui_managelocations_class.php:184
+msgid "It appears the delete was for no records."
+msgstr ""
+
+#: include/slp-adminui_managelocations_class.php:186
+#: include/storelocatorplus-adminui_class.php:491
+msgid "No error logged."
+msgstr ""
+
+#: include/slp-adminui_managelocations_class.php:187
+#: include/storelocatorplus-adminui_class.php:492
+msgid "Query: "
+msgstr ""
+
+#: include/slp-adminui_managelocations_class.php:335
 msgid "Switch to normal view?"
 msgstr ""
 
-#: core/templates/managelocations_actionbar.php:12
+#: include/slp-adminui_managelocations_class.php:336
 msgid "Normal View"
 msgstr ""
 
-#: core/templates/managelocations_actionbar.php:14
+#: include/slp-adminui_managelocations_class.php:338
 msgid "Switch to expanded view?"
 msgstr ""
 
-#: core/templates/managelocations_actionbar.php:15
+#: include/slp-adminui_managelocations_class.php:339
 msgid "Expanded View"
 msgstr ""
 
-#: core/templates/managelocations_actionbar.php:31
-msgid "Location Actions"
+#: include/slp-adminui_managelocations_class.php:348
+msgid "Actions and Filters"
 msgstr ""
 
-#: core/templates/managelocations_actionbar.php:33
+#: include/slp-adminui_managelocations_class.php:358
 msgid "Delete selected?"
 msgstr ""
 
-#: core/templates/managelocations_actionbar.php:33
+#: include/slp-adminui_managelocations_class.php:359
 msgid "Delete Selected"
 msgstr ""
 
-#: core/templates/managelocations_actionbar.php:41
-msgid "Recode selected?"
-msgstr ""
-
-#: core/templates/managelocations_actionbar.php:41
-msgid "Recode Selected"
-msgstr ""
-
-#: core/templates/managelocations_actionbar.php:55
-msgid "Tag selected?"
-msgstr ""
-
-#: core/templates/managelocations_actionbar.php:55
-msgid "Tag Selected"
-msgstr ""
-
-#: core/templates/managelocations_actionbar.php:56
-msgid "Remove tag from selected?"
-msgstr ""
-
-#: core/templates/managelocations_actionbar.php:56
-msgid "Untag Selected"
-msgstr ""
-
-#: core/templates/managelocations_actionbar.php:67
+#: include/slp-adminui_managelocations_class.php:369
 msgid "Search Locations"
 msgstr ""
 
-#: core/templates/managelocations_actionbar.php:73
+#: include/slp-adminui_managelocations_class.php:391
 msgid "Show "
 msgstr ""
 
-#: core/templates/managelocations_actionbar.php:85
+#: include/slp-adminui_managelocations_class.php:395
 msgid " locations"
 msgstr ""
 
-#: core/templates/managelocations_actionbar.php:96
-msgid "Location Filters"
-msgstr ""
-
-#: core/templates/managelocations_actionbar.php:98
-msgid "Uncoded Only"
-msgstr ""
-
-#: core/templates/managelocations_actionbar.php:99
-msgid "Show All"
-msgstr ""
-
-#: core/templates/map_settings.php:25
-msgid "Search Settings"
-msgstr ""
-
-#: core/templates/map_settings.php:31
-msgid "Search Features"
-msgstr ""
-
-#: core/templates/map_settings.php:32
-msgid "Show Search By..."
-msgstr ""
-
-#: core/templates/map_settings.php:36
-msgid "City Pulldown"
-msgstr ""
-
-#: core/templates/map_settings.php:56
-#: core/templates/settings_searchform.php:58
-msgid "Labels"
-msgstr ""
-
-#: core/templates/map_settings.php:59
-#: core/templates/settings_searchform.php:61
-msgid "Address Input"
-msgstr ""
-
-#: core/templates/map_settings.php:61
-#: core/templates/settings_searchform.php:65
-msgid "Label for search form address entry."
-msgstr ""
-
-#: core/templates/map_settings.php:71
-#: core/templates/settings_searchform.php:77
-msgid "Radius Dropdown"
-msgstr ""
-
-#: core/templates/map_settings.php:73
-#: core/templates/settings_searchform.php:81
-msgid "Label for search form radius pulldown."
-msgstr ""
-
-#: core/templates/map_settings.php:77
-#: core/templates/settings_searchform.php:87
-msgid "Website URL"
-msgstr ""
-
-#: core/templates/map_settings.php:79
-#: core/templates/settings_searchform.php:91
-msgid "Label for website URL in search results."
-msgstr ""
-
-#: core/templates/map_settings.php:83
-#: core/templates/settings_searchform.php:97
-msgid "Instruction Message"
-msgstr ""
-
-#: core/templates/map_settings.php:85
-#: core/templates/settings_searchform.php:101
-msgid "Instruction text when map is first displayed."
-msgstr ""
-
-#: core/templates/map_settings.php:91
-msgid "Map Designer"
-msgstr ""
-
-#: core/templates/navbar.php:17
-msgid "Enter your Google API key to enable location management."
-msgstr ""
-
-#: core/templates/search_form.php:107
-msgid "Any"
-msgstr ""
-
-#: core/templates/settings_mapform.php:9
-#: core/templates/settings_searchform.php:8
-msgid "Features"
-msgstr ""
-
-#: core/templates/settings_mapform.php:11
-msgid "Default Map Type"
-msgstr ""
-
-#: core/templates/settings_mapform.php:15
-msgid "Show Map Inset Box"
-msgstr ""
-
-#: core/templates/settings_mapform.php:20
-msgid "Immediately Show Locations"
-msgstr ""
-
-#: core/templates/settings_mapform.php:25
-msgid "Immediately show up to"
-msgstr ""
-
-#: core/templates/settings_mapform.php:27
-msgid "locations."
-msgstr ""
-
-#: core/templates/settings_mapform.php:30
-msgid "Recommended Max: 50"
-msgstr ""
-
-#: core/templates/settings_mapform.php:48
-msgid "Return at most"
-msgstr ""
-
-#: core/templates/settings_mapform.php:56
-msgid "locations when searching."
-msgstr ""
-
-#: core/templates/settings_mapform.php:59
-msgid ""
-"Enter a number to limit how many results are returned during a search. The "
-"default is 25."
-msgstr ""
-
-#: core/templates/settings_mapform.php:78
-msgid "Dimensions"
-msgstr ""
-
-#: core/templates/settings_mapform.php:81
-msgid "Zoom Level"
-msgstr ""
-
-#: core/templates/settings_mapform.php:96
-msgid "Zoom  Adjustment"
-msgstr ""
-
-#: core/templates/settings_mapform.php:110
-msgid "Map Height"
-msgstr ""
-
-#: core/templates/settings_mapform.php:116
-msgid "Map Width"
-msgstr ""
-
-#: core/templates/settings_mapform.php:125
-msgid "Icons"
-msgstr ""
-
-#: core/templates/settings_mapform.php:129
-msgid "Remove Credits"
-msgstr ""
-
-#: core/templates/settings_mapform.php:134
-msgid "Home Icon"
-msgstr ""
-
-#: core/templates/settings_mapform.php:141
-msgid "Destination Icon"
-msgstr ""
-
-#: core/templates/settings_mapform.php:154
-msgid "Select Your Location"
-msgstr ""
-
-#: core/templates/settings_mapform.php:166
-msgid "Select Character Encoding"
-msgstr ""
-
-#: core/templates/settings_searchform.php:12
-msgid "Show City Pulldown"
-msgstr ""
-
-#: core/templates/settings_searchform.php:22
-msgid "Radii Options"
-msgstr ""
-
-#: core/templates/settings_searchform.php:26
-msgid ""
-"Separate each number with a comma ','. Put parenthesis '( )' around the "
-"default.</span>"
-msgstr ""
-
-#: core/templates/settings_searchform.php:32
-msgid "Distance Unit"
-msgstr ""
-
-#: core/templates/settings_searchform.php:35
-msgid "Kilometers"
-msgstr ""
-
-#: core/templates/settings_searchform.php:36
-msgid "Miles"
-msgstr ""
-
-#: core/view-locations.php:27
+#: include/slp-adminui_managelocations_class.php:486
 msgid "Store Locator Plus - Manage Locations"
 msgstr ""
 
-#: core/view-locations.php:44
-msgid "Google API Key needs to be set to activate this feature."
-msgstr ""
-
-#: core/view-locations.php:254
-msgid "Actions"
-msgstr ""
-
-#: core/view-locations.php:255
+#: include/slp-adminui_managelocations_class.php:686
 msgid "ID"
 msgstr ""
 
-#: core/view-locations.php:256
+#: include/slp-adminui_managelocations_class.php:687
+#: include/slp-adminui_mapsettings_class.php:1033
 msgid "Name"
 msgstr ""
 
-#: core/view-locations.php:257
+#: include/slp-adminui_managelocations_class.php:688
 msgid "Street"
 msgstr ""
 
-#: core/view-locations.php:258
+#: include/slp-adminui_managelocations_class.php:689
 msgid "Street2"
 msgstr ""
 
-#: core/view-locations.php:259 reporting.php:371
+#: include/slp-adminui_managelocations_class.php:690 reporting.php:372
 msgid "City"
 msgstr ""
 
-#: core/view-locations.php:260 reporting.php:372
+#: include/slp-adminui_managelocations_class.php:691 reporting.php:373
 msgid "State"
 msgstr ""
 
-#: core/view-locations.php:261 reporting.php:373
+#: include/slp-adminui_managelocations_class.php:692 reporting.php:374
 msgid "Zip"
 msgstr ""
 
-#: core/view-locations.php:272 core/view-locations.php:318
-#: core/view-locations.php:338
+#: include/slp-adminui_managelocations_class.php:693
+#: include/slp-adminui_mapsettings_class.php:360
+#: include/storelocatorplus-adminui_class.php:982
+msgid "Country"
+msgstr ""
+
+#: include/slp-adminui_managelocations_class.php:701
+#: include/slp-adminui_mapsettings_class.php:1054 reporting.php:375
+#: slp-pro/slp-pro.php:511
+msgid "Tags"
+msgstr ""
+
+#: include/slp-adminui_managelocations_class.php:702
+#: include/storelocatorplus-adminui_class.php:1115
+msgid "Description"
+msgstr ""
+
+#: include/slp-adminui_managelocations_class.php:709
+#: include/slp-adminui_managelocations_class.php:773
+#: include/storelocatorplus-adminui_class.php:1124
 msgid "Email"
 msgstr ""
 
-#: core/view-locations.php:281
+#: include/slp-adminui_managelocations_class.php:713
 msgid "Image"
 msgstr ""
 
-#: core/view-locations.php:305
-msgid "Type&nbsp;Address"
-msgstr ""
-
-#: core/view-locations.php:312
-msgid "Update"
-msgstr ""
-
-#: core/view-locations.php:312
-msgid "Cancel"
-msgstr ""
-
-#: core/view-locations.php:316
-msgid "Tags (seperate with commas)"
-msgstr ""
-
-#: core/view-locations.php:335 core/view-locations.php:341
-#: core/view-locations.php:345
+#: include/slp-adminui_managelocations_class.php:770
+#: include/slp-adminui_managelocations_class.php:776
+#: include/slp-adminui_managelocations_class.php:780
 msgid "View"
 msgstr ""
 
-#: core/view-locations.php:351
+#: include/slp-adminui_managelocations_class.php:785
 msgid "edit"
 msgstr ""
 
-#: core/view-locations.php:355
+#: include/slp-adminui_managelocations_class.php:788
 msgid "delete"
 msgstr ""
 
-#: core/view-locations.php:357
+#: include/slp-adminui_managelocations_class.php:790
 msgid "Delete %s?"
 msgstr ""
 
-#: core/view-locations.php:382
-msgid "No Locations Showing for this Search of "
+#: include/slp-adminui_managelocations_class.php:828
+msgid "Search Locations returned no matches."
 msgstr ""
 
-#: core/view-locations.php:384
-msgid "No Locations Currently in Database"
+#: include/slp-adminui_managelocations_class.php:829
+msgid "No locations have been created yet."
 msgstr ""
 
-#: include/storelocatorplus-actions_class.php:124
+#: include/slp-adminui_mapsettings_class.php:47
+msgid "Save Settings"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:303
+msgid "Look and Feel"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:307
+msgid "Remove Credits"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:308
+msgid "Remove the search provided by tagline under the map."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:316
+msgid "Force Load JavaScript"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:326
+msgid "Immediately Show Locations"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:327
 msgid ""
-"SLPLUS: The theme or a plugin is preventing trailing JavaScript from loading."
+"Display locations as soon as map loads, based on map center and default "
+"radius"
 msgstr ""
 
-#: include/storelocatorplus-actions_class.php:129
+#: include/slp-adminui_mapsettings_class.php:335
+msgid "Number To Show Initially"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:336
 msgid ""
-"SLPLUS: Google Map Interface did not load.\\n\\nCheck your Google API key "
-"and make sure you have API V2 enabled."
+"How many locations should be shown when Immediately Show Locations is "
+"checked.  Recommended maximum is 50."
 msgstr ""
 
-#: plustemplates/addlocations_bulkupload.php:3
-msgid "Bulk Upload"
+#: include/slp-adminui_mapsettings_class.php:347
+msgid "Starting Image"
 msgstr ""
 
-#: plustemplates/addlocations_bulkupload.php:10
-msgid "Upload Locations"
-msgstr ""
-
-#: plustemplates/mapsettings_labels.php:6
-msgid "Search By Tag Label"
-msgstr ""
-
-#: plustemplates/mapsettings_labels.php:10
-msgid "Label for search form tags field."
-msgstr ""
-
-#: plustemplates/mapsettings_labels.php:15
-msgid "State Pulldown Label"
-msgstr ""
-
-#: plustemplates/mapsettings_labels.php:19
+#: include/slp-adminui_mapsettings_class.php:348
 msgid ""
-"Label for state pulldown field. Use &amp;nbsp; to retain indent with no "
-"label shown."
+"If set, this image will be displayed until a search is performed.  Enter the "
+"full URL for the image."
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:11
+#: include/slp-adminui_mapsettings_class.php:353
 msgid "Disable Initial Directory"
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:21
+#: include/slp-adminui_mapsettings_class.php:354
 msgid ""
 "Do not display the listings under the map when \"immediately show locations"
 "\" is checked."
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:28
-msgid "Starting Image"
+#: include/slp-adminui_mapsettings_class.php:362
+msgid "Map Domain"
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:32
-msgid "If set, this image will be displayed until a search is performed."
+#: include/slp-adminui_mapsettings_class.php:376
+msgid "Map Language"
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:41
+#: include/slp-adminui_mapsettings_class.php:389
+msgid "Dimensions"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:394
+msgid "Zoom Level"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:395
+msgid ""
+"Initial zoom level of the map if \"immediately show locations\" is NOT "
+"selected or if only a single location is found.  0 = world view, 19 = house "
+"view."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:403
+msgid "Zoom Adjustment"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:404
+msgid ""
+"Changes how tight auto-zoom bounds the locations shown.  Lower numbers are "
+"closer to the locations."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:411
+msgid "Map Height"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:412
+msgid "The initial map height in pixels or percent of initial page height."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:420
+msgid "Height Units"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:421
+#: include/slp-adminui_mapsettings_class.php:438
+msgid "Is the width a percentage of page width or absolute pixel size?"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:428
+msgid "Map Width"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:429
+msgid ""
+"The initial map width in pixels or percent of page width. Also sets results "
+"width."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:437
+msgid "Width Units"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:443
+msgid "General"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:448
+msgid "Default Map Type"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:449
+msgid "What style Google Map should we use?"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:470
+msgid "Home Icon"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:478
+msgid "Destination Icon"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:494
+#: include/slp-adminui_mapsettings_class.php:881
+msgid "Features"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:506
+msgid "Icons"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:515
+msgid "Map"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:531
+msgid "United States"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:532
+msgid "Argentina"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:533
+msgid "Australia"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:534
+msgid "Austria"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:535
+msgid "Bahamas"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:536
+msgid "Belgium"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:537
+msgid "Brazil"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:538
+msgid "Canada"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:539
+msgid "Chile"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:540
+msgid "China"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:541
+msgid "Czech Republic"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:542
+msgid "Denmark"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:543
+msgid "Estonia"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:544
+msgid "Finland"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:545
+msgid "France"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:546
+msgid "Germany"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:547
+msgid "Greece"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:548
+msgid "Hong Kong"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:549
+msgid "Hungary"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:550
+msgid "India"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:551
+msgid "Republic of Ireland"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:552
+msgid "Israel"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:553
+msgid "Italy"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:554
+msgid "Japan"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:555
+msgid "Liechtenstein"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:556
+msgid "Mexico"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:557
+msgid "Netherlands"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:558
+msgid "New Zealand"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:559
+msgid "Norway"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:560
+msgid "Poland"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:561
+msgid "Portugal"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:562
+msgid "Russia"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:563
+msgid "Singapore"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:564
+msgid "South Africa"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:565
+msgid "South Korea"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:566
+msgid "Spain"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:567
+msgid "Sweden"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:568
+msgid "Switzerland"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:569
+msgid "Taiwan"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:570
+msgid "United Kingdom"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:585
+msgid "English"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:586
+msgid "Arabic"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:587
+msgid "Basque"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:588
+msgid "Bulgarian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:589
+msgid "Bengali"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:590
+msgid "Catalan"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:591
+msgid "Czech"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:592
+msgid "Danish"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:593
+msgid "German"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:594
+msgid "Greek"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:595
+msgid "English (Australian)"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:596
+msgid "English (Great Britain)"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:597
+msgid "Spanish"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:598
+msgid "Farsi"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:599
+msgid "Finnish"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:600
+msgid "Filipino"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:601
+msgid "French"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:602
+msgid "Galician"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:603
+msgid "Gujaratia"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:604
+msgid "Hindi"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:605
+msgid "Croatian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:606
+msgid "Hungarian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:607
+msgid "Indonesian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:608
+msgid "Italian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:609
+msgid "Hebrew"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:610
+msgid "Japanese"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:611
+msgid "Kannada"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:612
+msgid "Korean"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:613
+msgid "Lithuanian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:614
+msgid "Latvian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:615
+msgid "Malayalam"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:616
+msgid "Marthi"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:617
+msgid "Dutch"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:618
+msgid "Norwegian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:619
+msgid "Polish"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:620
+msgid "Portuguese"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:621
+msgid "Portuguese (Brazil)"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:622
+msgid "Portuguese (Portugal)"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:623
+msgid "Romanian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:624
+msgid "Russian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:625
+msgid "Slovak"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:626
+msgid "Slovenian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:627
+msgid "Serbian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:628
+msgid "Swedish"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:629
+msgid "Taglog"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:630
+msgid "Tamil"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:631
+msgid "Telugu"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:632
+msgid "Thai"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:633
+msgid "Turkish"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:634
+msgid "Ukrainian"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:635
+msgid "Vietnamese"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:636
+msgid "Chinese (Simplified)"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:637
+msgid "Chinese (Traditional)"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:654
+msgid "Successful Update"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:690
+msgid "Your home icon %s cannot be located, please select a new one."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:700
+msgid "Your destination icon %s cannot be located, please select a new one."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:756
+msgid "Location Info"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:757
+msgid "Search Results"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:761
+msgid "Max search results"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:762
+msgid "How many locations does a search return? Default is 25."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:771
 msgid "Show Tags In Output"
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:51
+#: include/slp-adminui_mapsettings_class.php:772
 msgid "Show the tags in the location output table and bubble."
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:58
+#: include/slp-adminui_mapsettings_class.php:777
 msgid "Use Email Form"
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:68
+#: include/slp-adminui_mapsettings_class.php:778
 msgid "Use email form instead of mailto: link when showing email addresses."
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:76
-msgid "Disable Scroll Wheel"
+#: include/slp-adminui_mapsettings_class.php:797
+#: include/slp-adminui_mapsettings_class.php:1077
+msgid "Labels"
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:86
-msgid "Disable the scrollwheel zoom on the maps interface."
+#: include/slp-adminui_mapsettings_class.php:800
+msgid "Website URL"
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:94
-msgid "Hide map 3d control"
+#: include/slp-adminui_mapsettings_class.php:801
+msgid "Search results text for the website link."
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:95
-msgid "Turn the large map 3D control off."
+#: include/slp-adminui_mapsettings_class.php:807
+msgid "Hours"
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:100
-msgid "Hide map scale"
+#: include/slp-adminui_mapsettings_class.php:808
+msgid "Hours label."
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:101
-msgid "Turn the map scale off."
+#: include/slp-adminui_mapsettings_class.php:814
+msgid "Phone"
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:106
-msgid "Hide map type"
+#: include/slp-adminui_mapsettings_class.php:815
+msgid "Phone label."
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:107
-msgid "Turn the map type selector off."
+#: include/slp-adminui_mapsettings_class.php:821
+msgid "Fax"
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:118
-msgid "Center Map At"
+#: include/slp-adminui_mapsettings_class.php:822
+msgid "Fax label."
 msgstr ""
 
-#: plustemplates/mapsettings_mapfeatures.php:122
+#: include/slp-adminui_mapsettings_class.php:828
+msgid "Directions"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:829
+msgid "Directions label."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:835
+msgid "Instructions"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:836
 msgid ""
-"Enter an address to serve as the initial focus for the map.  (Default: "
-"center of the country)."
+"Search results instructions shown if immediately show locations is not "
+"selected."
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:4
+#: include/slp-adminui_mapsettings_class.php:838
+msgid "Enter an address or zip code and click the find locations button."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:845
+msgid "No Results Message"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:846
+msgid "No results found message that appears under the map."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:848
+msgid "Results not found."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:858
+msgid "Results"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:872
+msgid " This is a <a href=\"%s\" target=\"csa\">Pro Pack</a> feature."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:886
+msgid "Radii Options"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:887
+msgid ""
+"Separate each number with a comma \",\". Put parenthesis \"( )\" around the "
+"default."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:893
+msgid "Distance Unit"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:897
+msgid "Kilometers"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:898
+msgid "Miles"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:911
 msgid "Hide radius selection"
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:5
+#: include/slp-adminui_mapsettings_class.php:912
 msgid ""
 "Hides the radius selection from the user, the default radius will be used."
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:10
+#: include/slp-adminui_mapsettings_class.php:919
+msgid "Show search by name box"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:920
+msgid "Shows the name search entry box to the user."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:927
 msgid "Hide address entry box"
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:11
+#: include/slp-adminui_mapsettings_class.php:928
 msgid "Hides the address entry box from the user."
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:16
-msgid "Disable search"
+#: include/slp-adminui_mapsettings_class.php:935
+msgid "Use location sensor"
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:17
+#: include/slp-adminui_mapsettings_class.php:936
 msgid ""
-"This makes the search form non-interactive.  Typically used with the "
-"immediately show locations feature with a smaller listing set."
+"This turns on the location sensor (GPS) to set the default search address.  "
+"This can be slow to load and customers are prompted whether or not to allow "
+"location sensing."
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:29
-msgid "Show State Pulldown"
+#: include/slp-adminui_mapsettings_class.php:943
+msgid "Show City Pulldown"
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:45
+#: include/slp-adminui_mapsettings_class.php:944
+msgid ""
+"Displays the city pulldown on the search form. It is built from the unique "
+"city names in your location list."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:951
 msgid "Show Country Pulldown"
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:61
+#: include/slp-adminui_mapsettings_class.php:952
+msgid ""
+"Displays the country pulldown on the search form. It is built from the "
+"unique country names in your location list."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:959
+msgid "Show State Pulldown"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:960
+msgid ""
+"Displays the state pulldown on the search form. It is built from the unique "
+"state names in your location list."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:967
+msgid "Hide Find Locations button"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:968
+msgid "Remove the \"Find Locations\" button from the search form."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:975
+msgid "Use Find Location Text Button"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:976
+msgid ""
+"Use a standard text button for \"Find Locations\" instead of the provided "
+"button images."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:997
+msgid "Tags (Pro Pack)"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:1001
 msgid "Tag Input"
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:62
+#: include/slp-adminui_mapsettings_class.php:1002
 msgid "Show the tag entry box on the search form."
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:68
+#: include/slp-adminui_mapsettings_class.php:1006
 msgid "Preselected Tag Searches"
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:75
+#: include/slp-adminui_mapsettings_class.php:1007
 msgid ""
 "Enter a comma (,) separated list of tags to show in the search pulldown, "
 "mark the default selection with parenthesis '( )'. This is a default setting "
 "that can be overriden on each page within the shortcode."
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:84
+#: include/slp-adminui_mapsettings_class.php:1012
 msgid "Add \"any\" to tags pulldown"
 msgstr ""
 
-#: plustemplates/mapsettings_searchfeatures.php:85
+#: include/slp-adminui_mapsettings_class.php:1013
 msgid ""
 "Add an \"any\" selection on the tag pulldown list thus allowing the user to "
 "show all locations in the area, not just those matching a selected tag."
 msgstr ""
 
-#: reporting.php:116
-msgid "Report Parameters"
+#: include/slp-adminui_mapsettings_class.php:1026
+#: include/storelocatorplus-ui_class.php:200 reporting.php:324
+msgid "Address"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:1027
+msgid "Search form address label."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:1034
+msgid "Search form name label."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:1040
+msgid "Radius"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:1041
+msgid "Search form radius label."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:1055
+msgid "Search form label to prefix the tag selector."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:1059
+msgid "State Label"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:1060
+msgid "Search form label to prefix the state selector."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:1064
+msgid "Find Button"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:1065
+msgid "The label on the find button, if text mode is selected."
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:1067
+msgid "Find Locations"
+msgstr ""
+
+#: include/slp-adminui_mapsettings_class.php:1085
+msgid "Search Form"
+msgstr ""
+
+#: include/storelocatorplus-actions_class.php:133
+msgid "General Settings"
+msgstr ""
+
+#: include/storelocatorplus-actions_class.php:139
+#: include/storelocatorplus-adminui_class.php:896
+msgid "Add Locations"
+msgstr ""
+
+#: include/storelocatorplus-actions_class.php:145
+msgid "Manage Locations"
+msgstr ""
+
+#: include/storelocatorplus-actions_class.php:151
+msgid "Map Settings"
+msgstr ""
+
+#: include/storelocatorplus-actions_class.php:263
+msgid "Store Pages"
+msgstr ""
+
+#: include/storelocatorplus-actions_class.php:264
+msgid "Store Page"
+msgstr ""
+
+#: include/storelocatorplus-actions_class.php:265
+msgid "Add New Store Page"
+msgstr ""
+
+#: include/storelocatorplus-actions_class.php:294
+msgid "Store Locator Plus location pages."
+msgstr ""
+
+#: include/storelocatorplus-actions_class.php:313
+msgid "Categories"
+msgstr ""
+
+#: include/storelocatorplus-actions_class.php:314
+msgid "Store Categories"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:124
+msgid "Created linked page %s for location # %s."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:253
+msgid "Google API Key"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:265
+msgid "Geocode Retries"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:297
+msgid ""
+"Check this box if your Theme or another plugin is providing Google Maps and "
+"generating warning messages.  THIS MAY BREAK THIS PLUGIN."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:306
+msgid ""
+"This is a <a href=\"http://www.charlestonsw.com/product/store-locator-plus/"
+"\">Pro Pack</a>  feature. "
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:308
+msgid "These settings affect how the Pro Pack add-on behaves. "
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:314
+msgid "Delete license"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:326
+msgid "Enable reporting"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:338
+msgid "Custom CSS"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:342
+msgid ""
+"Enter your custom CSS, preferably for SLPLUS styling only but it can be used "
+"for any page element as this will go in your page header."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:482
+msgid "Could not set the latitude and/or longitude  "
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:489
+msgid ", The latitude %s and longitude %s did not change."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:506
+#: include/storelocatorplus-adminui_class.php:522
+#: include/storelocatorplus-adminui_class.php:530
+msgid "Address %s <font color=red>failed to geocode</font>. "
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:507
+#: include/storelocatorplus-adminui_class.php:523
+#: include/storelocatorplus-adminui_class.php:532
+msgid "URL %s."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:508
+#: include/storelocatorplus-adminui_class.php:536
+msgid "Received status %s."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:510
+msgid "Total attempts %d, waited up to %4.2 seconds between request."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:524
+msgid "Unknown Address! Received status %s."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:533
+msgid "Received data %s."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:535
+msgid "Request sent to %s."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:548
+msgid "Read <a href=\"%s\">this</a> if you are having geocoding issues."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:568
+msgid ""
+"Google thinks %s is at <a href=\"%s\" target=\"_blank\">lat: %s long %s</a>"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:681
+msgid "for your search of"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:683
+msgid "Clear&nbsp;Results"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:756
+msgid "locations"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:777
+msgid "Actions"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:914
+msgid "Added Succesfully"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:968
+msgid "Name of Location"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:971
+msgid "Street - Line 1"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:974
+msgid "Street - Line 2"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:977
+msgid "City, State, ZIP"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:988
+msgid "Latitude (N/S)"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:992
+msgid "Changing the latitude is a Pro Pack feature."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:995
+msgid "Longitude (E/W)"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:999
+msgid "Changing the longitude is a Pro Pack feature."
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:1082
+msgid "Add Location"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:1083
+msgid "Update Location"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:1094
+msgid "Add"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:1094
+msgid "Update"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:1096
+msgid "Cancel"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:1112
+msgid "Additional Information"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:1118
+msgid "Tags (seperate with commas)"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:1136
+msgid "Image URL (shown with location)"
+msgstr ""
+
+#: include/storelocatorplus-adminui_class.php:1256
+msgid "Could not read icon directory %s"
+msgstr ""
+
+#: include/storelocatorplus-ajax_handler_class.php:320
+msgid "Pro Pack license could not be removed."
+msgstr ""
+
+#: include/storelocatorplus-ajax_handler_class.php:338
+msgid "Pro Pack license has been removed. Refresh the General Settings page."
+msgstr ""
+
+#: include/storelocatorplus-ui_class.php:533
+msgid "search provided by"
+msgstr ""
+
+#: include/storelocatorplus-ui_class.php:570
+msgid "Any"
 msgstr ""
 
 #: reporting.php:117
+msgid "Report Parameters"
+msgstr ""
+
+#: reporting.php:118
 msgid ""
 "Use these settings to select which data to\n"
 "                report on."
 msgstr ""
 
-#: reporting.php:131
+#: reporting.php:132
 msgid "Start Date: "
 msgstr ""
 
-#: reporting.php:152
+#: reporting.php:153
 msgid "End Date: "
 msgstr ""
 
-#: reporting.php:169
+#: reporting.php:170
 msgid "How many detail records? "
 msgstr ""
 
-#: reporting.php:190
+#: reporting.php:191
 msgid "Run Report"
 msgstr ""
 
-#: reporting.php:199
+#: reporting.php:200
 msgid "Store Locator Plus Usage"
 msgstr ""
 
-#: reporting.php:276
+#: reporting.php:277
 msgid "Total searches: <strong>%s</strong>"
 msgstr ""
 
-#: reporting.php:277
+#: reporting.php:278
 msgid "Total results: <strong>%s</strong>"
 msgstr ""
 
-#: reporting.php:285
+#: reporting.php:286
 msgid "Summary"
 msgstr ""
 
-#: reporting.php:321
+#: reporting.php:322
 msgid "Top %s Addresses Searched"
 msgstr ""
 
-#: reporting.php:324 reporting.php:375
+#: reporting.php:325 reporting.php:376
 msgid "Total"
 msgstr ""
 
-#: reporting.php:333
+#: reporting.php:334
 msgid "topsearches"
 msgstr ""
 
-#: reporting.php:368
+#: reporting.php:369
 msgid "Top %s Results Returned"
 msgstr ""
 
-#: reporting.php:370
+#: reporting.php:371
 msgid "Store"
 msgstr ""
 
-#: reporting.php:388
+#: reporting.php:389
 msgid "topresults"
 msgstr ""
 
-#: reporting.php:394
+#: reporting.php:395
 msgid "Export To CSV"
 msgstr ""
 
-#: reporting.php:396
+#: reporting.php:397
 msgid "Export all records"
 msgstr ""
 
-#: reporting.php:400
+#: reporting.php:401
 msgid "Top Searches"
 msgstr ""
 
-#: reporting.php:401
+#: reporting.php:402
 msgid "Top Results"
 msgstr ""
 
-#: reporting.php:409
+#: reporting.php:410
 msgid "Details"
 msgstr ""
 
-#: reporting.php:460
+#: reporting.php:461
 msgid "This is a Pro Pack feature."
+msgstr ""
+
+#: slp-pro/slp-pro.php:119
+msgid "Reports"
+msgstr ""
+
+#: slp-pro/slp-pro.php:205
+msgid "Bulk Upload"
+msgstr ""
+
+#: slp-pro/slp-pro.php:208
+msgid "See the %s for more details on the import format."
+msgstr ""
+
+#: slp-pro/slp-pro.php:210
+msgid "online documentation"
+msgstr ""
+
+#: slp-pro/slp-pro.php:217
+msgid "Skip First Line"
+msgstr ""
+
+#: slp-pro/slp-pro.php:218
+msgid "Skip the first line of the import file."
+msgstr ""
+
+#: slp-pro/slp-pro.php:225
+msgid "Skip Duplicates"
+msgstr ""
+
+#: slp-pro/slp-pro.php:226
+msgid ""
+"Checks the name, street, city, state, zip, and country for duplicate "
+"entries.  Skips if already in database.  Takes longer to load locations."
+msgstr ""
+
+#: slp-pro/slp-pro.php:232
+msgid "Upload Locations"
+msgstr ""
+
+#: slp-pro/slp-pro.php:326
+msgid "The CSV file has too many fields."
+msgstr ""
+
+#: slp-pro/slp-pro.php:330
+msgid "Got %d expected less than %d."
+msgstr ""
+
+#: slp-pro/slp-pro.php:344
+msgid "locations processed."
+msgstr ""
+
+#: slp-pro/slp-pro.php:350
+msgid "duplicates not added."
+msgstr ""
+
+#: slp-pro/slp-pro.php:357
+msgid "File could not be saved, check the plugin directory permissions:"
+msgstr ""
+
+#: slp-pro/slp-pro.php:365
+msgid "Uploaded file needs to be in CSV format."
+msgstr ""
+
+#: slp-pro/slp-pro.php:494
+msgid "Recode selected?"
+msgstr ""
+
+#: slp-pro/slp-pro.php:495
+msgid "Recode Selected"
+msgstr ""
+
+#: slp-pro/slp-pro.php:502
+msgid "Tag selected?"
+msgstr ""
+
+#: slp-pro/slp-pro.php:503
+msgid "Tag Selected"
+msgstr ""
+
+#: slp-pro/slp-pro.php:506
+msgid "Remove tag from selected?"
+msgstr ""
+
+#: slp-pro/slp-pro.php:507
+msgid "Untag Selected"
+msgstr ""
+
+#: slp-pro/slp-pro.php:519
+msgid "Show Uncoded"
+msgstr ""
+
+#: slp-pro/slp-pro.php:525
+msgid "Show All"
+msgstr ""
+
+#: store-locator-le.php:264
+msgid ""
+"Turn debugging off via General Settings in the Plugin Environment panel."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -936,21 +1573,20 @@ msgid "Store Locator Plus"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://www.storelocatorplus.com/"
+msgid "http://www.charlestonsw.com/products/store-locator-plus/"
 msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"An advanced system for managing multiple physical locations via a fully "
-"integrated WordPress solution. Store just a few or as many as a few thousand "
-"locations in the WordPress database using the built-in location management "
-"system."
+"Manage multiple locations with ease. Map stores or other points of interest "
+"with ease via Gooogle Maps.  This is a highly customizable, easily "
+"expandable, enterprise-class location management system."
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Cyber Sprocket Labs"
+msgid "Charleston Software Associates"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://www.cybersprocket.com"
+msgid "http://www.charlestonsw.com"
 msgstr ""
