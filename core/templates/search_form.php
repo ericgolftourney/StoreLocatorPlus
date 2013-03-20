@@ -26,7 +26,7 @@ $slp_SearchDivs = new SLPlus_UI_DivManager();
               ?>
           <div id='addy_in_city'>
               <select id='addressInput2' onchange='aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
-                  <option value=''><?php print get_option(SLPLUS_PREFIX.'_search_by_city_pd_label',__('--Search By City--','csl-slplus')); ?></option>
+                  <option value=''><?php print get_option(SLPLUS_PREFIX.'_search_by_city_pd_label',__('--Search By City--','csa-slplus')); ?></option>
                   <?php echo $cs_options?>
               </select>
           </div>
@@ -47,7 +47,7 @@ ob_start();
                   print get_option(SLPLUS_PREFIX.'_state_pd_label');
                   ?></label>
               <select id='addressInputState' onchange='aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
-                  <option value=''><?php print get_option(SLPLUS_PREFIX.'_search_by_state_pd_label',__('--Search By State--','csl-slplus')); ?></option>
+                  <option value=''><?php print get_option(SLPLUS_PREFIX.'_search_by_state_pd_label',__('--Search By State--','csa-slplus')); ?></option>
                   <?php echo $slplus_state_options?>
               </select>
           </div>
@@ -66,7 +66,7 @@ ob_start();
           ?>
           <div id='addy_in_country'>
               <select id='addressInput3' onchange='aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
-              <option value=''><?php print get_option(SLPLUS_PREFIX.'_search_by_country_pd_label',__('--Search By Country--','csl-slplus')); ?></option>
+              <option value=''><?php print get_option(SLPLUS_PREFIX.'_search_by_country_pd_label',__('--Search By Country--','csa-slplus')); ?></option>
               <?php echo $sl_country_options?>
               </select>
           </div>
@@ -139,7 +139,7 @@ ob_start();
                 global $slp_thishtml_50;
                 $slp_thishtml_50 = $slplus_plugin->UI->create_input_div(
                         'nameSearch',
-                        get_option('sl_name_label',__('Name of Store','csl-slplus')),
+                        get_option('sl_name_label',__('Name of Store','csa-slplus')),
                         '',
                         (get_option(SLPLUS_PREFIX.'_show_search_by_name',0) == 0),
                         'div_nameSearch'

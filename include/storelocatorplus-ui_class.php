@@ -530,7 +530,7 @@ class SLPlus_UI {
                                   ';'.
                     '"'.
                 '>'.
-                __('search provided by', 'csl-slplus') .
+                __('search provided by', 'csa-slplus') .
                 ' ' .
                 "<a href='". $slplus_plugin->url."' target='_blank'>".
                      $slplus_plugin->name.

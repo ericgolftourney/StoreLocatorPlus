@@ -9,7 +9,7 @@
  * Requires at least: 3.3
  * Test up to : 3.5.1
  *
- * Text Domain: csl-slplus
+ * Text Domain: csa-slplus
  * Domain Path: /languages/
  *
  */

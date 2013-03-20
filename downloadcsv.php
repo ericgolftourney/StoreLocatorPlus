@@ -116,13 +116,13 @@ if ($parts[0] == 'addr') {
 // short circuit...
 //
 } else {
-    die(__("Cheatin' huh?",'csl-slplus'));
+    die(__("Cheatin' huh?",'csa-slplus'));
 }
 
 // No parms array?  GTFO
 //
 if (is_array($queryParms)) {
-    die(__("Cheatin' huh?",'csl-slplus'));
+    die(__("Cheatin' huh?",'csa-slplus'));
 }
 
 // Run the query & output the data in a CSV
