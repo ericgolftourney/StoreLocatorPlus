@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Store Locator Plus
+# Copyright (C) 2013 Charleston Software Associates
 # This file is distributed under the same license as the Store Locator Plus package.
 msgid ""
 msgstr ""
