@@ -146,6 +146,14 @@ I will send you the translation files that WordPress creates, you send back the 
 Offer available to first complete translation of this plugin or for notable updates to existing translation files.
 Upon request I will also put a link to your site in the "special thanks" section.
 
+Here is the process, in case you are wondering:
+1. I run php makepot.php for the plugin.
+2. I send you a csa-slplus.pot file similar to [this one](http://wp.me/a36f2N-2aA).
+3. You send me back a po file named after the specific locale such as csa-slplus-es_MX.po
+4. I generate the .mo file for that locale and ship the entire thing in the next release.
+5. You tell me which premium plugin or add-on pack that I created that you would like to have.
+6. The world is a happier place, especially for my friends that have as much trouble reading English as I do just about any other language!
+
 == Installation ==
 
 = Requirements =
