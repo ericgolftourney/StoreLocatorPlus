@@ -138,6 +138,14 @@ No ratings, no food, more hours working as the Walmart Greeter, less coolness in
 
 Give me a chance to address your concerns if this plugin doesn't earn 5 stars by [contacting me](http://www.charlestonsw.com/mindset/contact-us/) directly or by posting in the [support forum](http://www.charlestonsw.com/forums/) at the CSA website.
 
+= Help Me "Speak" Your Language =
+
+Help me with translating the English words and phrases in the plugin and I will give you a premium add-on or plugin.
+I will send you the translation files that WordPress creates, you send back the translation, I add any requested premium add-on to your account.
+[Contact me](http://www.charlestonsw.com/mindset/contact-us/) to request the files and let me know which language you want to translate.
+Offer available to first complete translation of this plugin or for notable updates to existing translation files.
+Upon request I will also put a link to your site in the "special thanks" section.
+
 == Installation ==
 
 = Requirements =
