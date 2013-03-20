@@ -202,34 +202,34 @@ if ( ! class_exists( 'SLPPro' ) ) {
             if (!$this->setPlugin()) { return ''; }
             return ( $HTML .
                         '<div class="slp_bulk_upload_div section_column">' .
-                        '<h2>'.__('Bulk Upload', 'slplus-pro').'</h2>'.
+                        '<h2>'.__('Bulk Upload', 'csa-slplus').'</h2>'.
                         '<div class="section_description">'.
                         '<p>'.
-                            sprintf(__('See the %s for more details on the import format.','slplus-pro'),
+                            sprintf(__('See the %s for more details on the import format.','csa-slplus'),
                                     '<a href="http://www.charlestonsw.com/support/documentation/store-locator-plus/pro-pack-add-on/bulk-data-import/">' .
-                                    __('online documentation','slplus-pro') .
+                                    __('online documentation','csa-slplus') .
                                     '</a>'
                                     ).
                         '</p>' .
                         '<input type="file" name="csvfile" value="" id="bulk_file" size="50">' .
                         $this->plugin->helper->CreateCheckboxDiv(
                             '-bulk_skip_first_line',
-                            __('Skip First Line','slplus-pro'),
-                            __('Skip the first line of the import file.','slplus-pro'),
+                            __('Skip First Line','csa-slplus'),
+                            __('Skip the first line of the import file.','csa-slplus'),
                             SLPLUS_PREFIX,
                             false,
                             0
                         ).
                         $this->plugin->helper->CreateCheckboxDiv(
                             '-bulk_skip_duplicates',
-                            __('Skip Duplicates','slplus-pro'),
-                            __('Checks the name, street, city, state, zip, and country for duplicate entries.  Skips if already in database.  Takes longer to load locations.','slplus-pro'),
+                            __('Skip Duplicates','csa-slplus'),
+                            __('Checks the name, street, city, state, zip, and country for duplicate entries.  Skips if already in database.  Takes longer to load locations.','csa-slplus'),
                             SLPLUS_PREFIX,
                             false,
                             0
                         ).
 
-                        "<div class='form_entry'><input type='submit' value='".__('Upload Locations', 'slplus-pro')."' class='button-primary'></div>".
+                        "<div class='form_entry'><input type='submit' value='".__('Upload Locations', 'csa-slplus')."' class='button-primary'></div>".
                         '</div>' .
                         '</div>'
                     );
