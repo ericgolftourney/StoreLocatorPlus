@@ -545,7 +545,7 @@ class SLPlus_AdminUI {
                         '<div class="geocode_error">' .
                        '<strong>'.
                        sprintf(
-                           __('Read <a href="%s">this</a> if you are having geocoding issues.','csa_slplus'),
+                           __('Read <a href="%s">this</a> if you are having geocoding issues.','csa-slplus'),
                            'http://www.charlestonsw.com/support/documentation/store-locator-plus/troubleshooting/geocoding-errors/'
                            ).
                        "</strong><br/>\n" .
