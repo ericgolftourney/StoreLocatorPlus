@@ -8,6 +8,9 @@ Author: Charleston Software Associates
 Author URI: http://www.charlestonsw.com
 License: GPL3
 
+Text Domain: csa-slplus
+Domain Path: /languages/
+
 Copyright 2013  Charleston Software Associates (info@charlestonsw.com)
 
 This program is free software; you can redistribute it and/or modify
@@ -358,9 +361,4 @@ add_action('wp_ajax_license_reset_propack'      , array($slplus_plugin->AjaxHand
 add_shortcode('STORE-LOCATOR', array($slplus_plugin->UI,'render_shortcode'));
 add_shortcode('SLPLUS',array($slplus_plugin->UI,'render_shortcode'));
 add_shortcode('slplus',array($slplus_plugin->UI,'render_shortcode'));
-
-
-// Text Domains
-//
-load_plugin_textdomain('csa-slplus', false, SLPLUS_COREDIR . 'languages/');
 

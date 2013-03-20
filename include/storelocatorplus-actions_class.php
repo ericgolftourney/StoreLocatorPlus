@@ -237,6 +237,7 @@ class SLPlus_Actions {
      */
     function init() {
         if (!$this->set_Plugin()) { return; }
+        load_plugin_textdomain('csa-slplus', false, SLPLUS_PLUGINDIR . 'languages/');
 
         // Fire the SLP init starting trigger
         //
