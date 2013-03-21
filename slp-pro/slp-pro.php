@@ -502,8 +502,8 @@ if ( ! class_exists( 'SLPPro' ) ) {
          * Enqueue the reporting JavaScript.
          */
         function enqueueReportingJS() {
-            wp_enqueue_script('jquery_tablesorter', SLPLUS_COREURL  .'js/jquery.tablesorter.min.js');
-            wp_enqueue_script('slp_reporting_js'  , SLPLUS_PLUGINURL.'slp-pro/reporting.js'        );
+            wp_enqueue_script('jquery_tablesorter', SLPLUS_COREURL  .'js/jquery.tablesorter.min.js', array('jquery'));
+            wp_enqueue_script('slp_reporting_js'  , SLPLUS_PLUGINURL.'/slp-pro/reporting.js'        );
 
             // Lets get some variables into our script
             //
