@@ -59,6 +59,7 @@ if ( ! class_exists( 'SLPPro' ) ) {
             add_action('admin_menu' ,
                     array($this,'admin_menu')
                     );
+            add_action('slp_admin_init_complete'        ,array($this,'loadJSandCSS')                );
 
             // Filters
             //
@@ -480,6 +481,39 @@ if ( ! class_exists( 'SLPPro' ) ) {
                 );
         }
 
+        /**
+         * Load the JavaScript and CSS on ony our pages.
+         */
+        function loadJSandCSS() {
+
+            // Reporting
+            //
+            add_action(
+                   'admin_print_styles-store-locator-le/reporting.php',
+                    array($this->plugin->AdminUI,'enqueue_admin_stylesheet')
+                    );
+            add_action(
+                    'admin_print_scripts-store-locator-le/reporting.php',
+                    array($this,'enqueueReportingJS')
+                    );
+        }
+
+        /**
+         * Enqueue the reporting JavaScript.
+         */
+        function enqueueReportingJS() {
+            wp_enqueue_script('jquery_tablesorter', SLPLUS_COREURL  .'js/jquery.tablesorter.min.js');
+            wp_enqueue_script('slp_reporting_js'  , SLPLUS_PLUGINURL.'slp-pro/reporting.js'        );
+
+            // Lets get some variables into our script
+            //
+            $scriptData = array(
+                'plugin_url'        => SLPLUS_PLUGINURL,
+                'core_url'          => SLPLUS_COREURL,
+                );
+            wp_localize_script('slp_reporting_js','slp_pro',$scriptData);
+        }
+
          /**
           * Add the create pages button to box "C" on the action bar
           *
@@ -528,53 +562,6 @@ if ( ! class_exists( 'SLPPro' ) ) {
                     ;
 
                 return $actionBoxes;
-        }
-
-        /**
-         * Report Downloads admin header, setup JavaScript.
-         */
-        function report_downloads() {
-            ?>
-            <script type="text/javascript" src="<?php echo SLPLUS_COREURL; ?>js/jquery.tablesorter.min.js"></script>
-            <script type="text/javascript" >
-            jQuery(document).ready(
-                function($) {
-                    // Make tables sortable
-                     var tstts = $("#topsearches_table").tablesorter( {sortList: [[1,1]]} );
-                     var trtts = $("#topresults_table").tablesorter( {sortList: [[5,1]]} );
-
-                    // Export Results Button Click
-                    //
-                    jQuery("#export_results").click(
-                        function(e) {
-                            jQuery('<form action="<?php echo SLPLUS_PLUGINURL; ?>/downloadcsv.php" method="post">'+
-                                    '<input type="hidden" name="filename" value="topresults">' +
-                                    '<input type="hidden" name="query" value="' + jQuery("[name=topresults]").val() + '">' +
-                                    '<input type="hidden" name="sort"  value="' + trtts[0].config.sortList.toString() + '">' +
-                                    '<input type="hidden" name="all"   value="' + jQuery("[name=export_all]").is(':checked') + '">' +
-                                    '</form>'
-                                    ).appendTo('body').submit().remove();
-                        }
-                    );
-
-                    // Export Searches Button Click
-                    //
-                    jQuery("#export_searches").click(
-                        function(e) {
-                            jQuery('<form action="<?php echo SLPLUS_PLUGINURL; ?>/downloadcsv.php" method="post">'+
-                                    '<input type="hidden" name="filename" value="topsearches">' +
-                                    '<input type="hidden" name="query" value="' + jQuery("[name=topsearches]").val() + '">' +
-                                    '<input type="hidden" name="sort"  value="' + tstts[0].config.sortList.toString() + '">' +
-                                    '<input type="hidden" name="all"   value="' + jQuery("[name=export_all]").is(':checked') + '">' +
-                                    '</form>'
-                                    ).appendTo('body').submit().remove();
-                        }
-                    );
-
-                }
-            );
-            </script>
-            <?php
         }
     }
 
