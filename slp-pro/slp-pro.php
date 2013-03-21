@@ -42,10 +42,32 @@ class SLPPro {
     private $url;
     private $adminMode = false;
 
+    //------------------------------------------------------
+    // METHODS
+    //------------------------------------------------------
+
+    /**
+     * Make the Pro Pack plugin a singleton.
+     *
+     * @static
+     */
+    public static function init() {
+        static $instance = false;
+        if ( !$instance ) {
+            load_plugin_textdomain( 'csa-slplus', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+            $instance = new SLPPro;
+        }
+        return $instance;
+    }
+
     /**
      * Constructor
+     *
+     * add_action('slp_init_complete'          ,array($this,'slp_init')                            );
+     *  add_action('slp_admin_menu_starting'    ,array($this,'admin_menu')                          );
+     *
      */
-    function __construct() {
+    function SLPPro() {
         $this->url  = plugins_url('',__FILE__);
         $this->dir  = plugin_dir_path(__FILE__);
         $this->slug = plugin_basename(__FILE__);
@@ -572,6 +594,10 @@ class SLPPro {
 //
 global $slplus_plugin;
 $slplus_plugin->ProPack = new SLPPro();
+
+// Make a Pro Pack singleton
+//
+add_action( 'init', array( 'SLPPro', 'init' ) );
 
 // AJAX Listeners
 //
