@@ -311,6 +311,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Drop duplicate language files in ./core/languages.
 * Enhancement: Load textdomain (for language support) in the proper place (init).
 * Enhancement: Give pot/po/mo language files the proper name and the proper directory (./languages).
+* Fix: Stop Pro Pack reporting JavaScript from loading on all pages.
 
 = 3.9.2 =
 
