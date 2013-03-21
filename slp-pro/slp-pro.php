@@ -590,15 +590,10 @@ class SLPPro {
     }
 }
 
-// Instantiate ourselves as an object
-//
-global $slplus_plugin;
-$slplus_plugin->ProPack = new SLPPro();
-
 // Make a Pro Pack singleton
 //
 add_action( 'init', array( 'SLPPro', 'init' ) );
 
 // AJAX Listeners
 //
-add_action('wp_ajax_slp_download_report_csv', array($slplus_plugin->ProPack,'downloadReportCSV'));
+add_action('wp_ajax_slp_download_report_csv', array('SLPPro','downloadReportCSV'));
