@@ -13,7 +13,7 @@ jQuery(document).ready(
         //
         jQuery("#export_results").click(
             function(e) {
-                jQuery('<form action="'+slp_pro.plugin_url+'/downloadcsv.php" method="post">'+
+                jQuery('<form action="'+slp_pro.plugin_url+'/slp-pro/downloadcsv.php" method="post">'+
                         '<input type="hidden" name="filename" value="topresults">' +
                         '<input type="hidden" name="query" value="' + jQuery("[name=topresults]").val() + '">' +
                         '<input type="hidden" name="sort"  value="' + trtts[0].config.sortList.toString() + '">' +

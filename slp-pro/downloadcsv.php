@@ -31,7 +31,7 @@ function array_to_CSV($data)
 //===========================================================================
 
 // Database Connection
-include("./core/database-info.php");
+include("../core/database-info.php");
 $query = $_POST['query'];
 
 // CSV Header
