@@ -149,6 +149,14 @@ if (defined('SLPLUS_PLUGINDIR')) {
         require_once(SLPLUS_PLUGINDIR.'include/class.location.php');
     }
 
+
+    // Hook up the Pro Pack class
+    // TODO: this really needs to be a separate plugin.
+    //
+    if (class_exists('SLPPro') == false) {
+        require_once(SLPLUS_PLUGINDIR . '/slp-pro/slp-pro.php');
+    }
+
     /**
      * This section defines the settings for the admin menu.
      */
@@ -268,7 +276,6 @@ if (defined('SLPLUS_PLUGINDIR')) {
 
     // Pro Pack
     //
-    require_once(SLPLUS_PLUGINDIR . '/slp-pro/slp-pro.php');
     if (isset($slplus_plugin->ProPack)) {
         $slplus_plugin->ProPack->add_package();
     }
