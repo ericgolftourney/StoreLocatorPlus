@@ -95,7 +95,6 @@ class SLPlus_AjaxHandler {
         $password=DB_PASSWORD;
         $database=DB_NAME;
         $host=DB_HOST;
-        $dbPrefix = $wpdb->prefix;
         $this->setParent();
 
         $connection=mysql_connect ($host, $username, $password);
@@ -190,7 +189,6 @@ class SLPlus_AjaxHandler {
         $password=DB_PASSWORD;
         $database=DB_NAME;
         $host=DB_HOST;
-        $dbPrefix = $wpdb->prefix;
 
         $this->setParent();
 
