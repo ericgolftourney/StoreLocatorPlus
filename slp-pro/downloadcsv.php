@@ -52,7 +52,7 @@ $slpResultsTable   = $wpdb->prefix . 'slp_rep_query_results';
 $slpLocationsTable = $wpdb->prefix . 'store_locator';
 
 $expr = "/,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/";
-$parts = preg_split($expr, trim(html_entity_decode($query, ENT_QUOTES | ENT_HTML5)));
+$parts = preg_split($expr, trim(html_entity_decode($query, ENT_QUOTES)));
 $parts = preg_replace("/^\"(.*)\"$/","$1",$parts);
 
 // Return the address in CSV format from the reports
