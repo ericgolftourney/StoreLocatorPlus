@@ -42,6 +42,15 @@ class SLPPro {
     private $url;
     private $adminMode = false;
 
+    /**
+     * A toggle to let us know the Pro Pack package has been added.
+     *
+     * TODO: remove on separation from main product
+     *
+     * @var boolean $packageAdded
+     */
+    private $packageAdded = false;
+
     //------------------------------------------------------
     // METHODS
     //------------------------------------------------------
@@ -63,9 +72,6 @@ class SLPPro {
     /**
      * Constructor
      *
-     * add_action('slp_init_complete'          ,array($this,'slp_init')                            );
-     *  add_action('slp_admin_menu_starting'    ,array($this,'admin_menu')                          );
-     *
      */
     function SLPPro() {
         $this->url  = plugins_url('',__FILE__);
@@ -74,10 +80,8 @@ class SLPPro {
 
         // Admin / Nav Menus (start of admin stack)
         //
-        add_action('admin_menu' ,
-                array($this,'admin_menu')
-                );
-        add_action('slp_admin_init_complete'        ,array($this,'loadJSandCSS')                );
+        add_action('slp_admin_menu_starting'        ,array($this,'admin_menu'                   ));
+        add_action('slp_admin_init_complete'        ,array($this,'loadJSandCSS'                 ));
 
         // Filters
         //
@@ -85,7 +89,6 @@ class SLPPro {
         add_filter('slp_shortcode_atts'             ,array($this,'extend_main_shortcode')       );
         add_filter('slp_action_boxes'               ,array($this,'manage_locations_actionbar')  );
         add_filter('slp_menu_items'                 ,array($this,'add_menu_items')              ,90);
-
     }
 
 
@@ -148,12 +151,13 @@ class SLPPro {
      ** Configure the Pro Pack.
      **/
     function add_package() {
-        global $slplus_plugin;
+        if ($this->packageAdded) { return; }
+        $this->plugin->ProPack = $this;
 
         // Setup metadata
         //
         $myPurl = 'http://www.charlestonsw.com/product/store-locator-plus/';
-        $slplus_plugin->license->add_licensed_package(
+        $this->plugin->license->add_licensed_package(
                 array(
                     'name'              => 'Pro Pack',
                     'help_text'         => 'A variety of enhancements are provided with this package.  ' .
@@ -165,6 +169,8 @@ class SLPPro {
                     'purchase_url'      => $myPurl
                 )
             );
+
+        $this->packageAdded = true;
     }
 
     /**
@@ -189,7 +195,8 @@ class SLPPro {
      * Returns false if we can't get to the main plugin object or
      * PRO PACK IS NOT LICENSED
      *
-     * @TODO REMOVE the Pro Pack license check when this becomes an independent plugin.
+     * TODO: REMOVE the Pro Pack license check when this becomes an independent plugin.
+     * TODO: this->add_package() as well.
      *
      * @global wpCSL_plugin__slplus $slplus_plugin
      * @return boolean true if plugin property is valid
@@ -199,6 +206,11 @@ class SLPPro {
             global $slplus_plugin;
             $this->plugin = $slplus_plugin;
         }
+
+        // We only need this while we are doing licensed packages
+        //
+        $this->add_package();
+
         return (
             isset($this->plugin)    &&
             ($this->plugin != null) &&

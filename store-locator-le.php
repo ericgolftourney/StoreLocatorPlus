@@ -272,13 +272,6 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'debug_instructions'     => __('Turn debugging off via General Settings in the Plugin Environment panel.','csa-slplus')
         )
     );
-
-
-    // Pro Pack
-    //
-    if (isset($slplus_plugin->ProPack)) {
-        $slplus_plugin->ProPack->add_package();
-    }
 }
 
 //====================================================================
