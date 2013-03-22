@@ -312,7 +312,8 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Load textdomain (for language support) in the proper place (init).
 * Enhancement: Give pot/po/mo language files the proper name and the proper directory (./languages).
 * Enhancement: Get rid of unused PHP script, lessens security vulnerabilities.
-* Fix: Stop Pro Pack reporting JavaScript from loading on all pages.
+* Enhancement: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) report downloads are now AJAX based, lighter & less risky.
+* Fix: Stop [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) reporting JavaScript from loading on all pages.
 
 = 3.9.2 =
 
