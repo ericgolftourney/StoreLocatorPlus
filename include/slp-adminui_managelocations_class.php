@@ -771,9 +771,6 @@ class SLPlus_AdminUI_ManageLocations {
                     $sl_value['sl_email']=($sl_value['sl_email']!="")?
                         "<a href='mailto:$sl_value[sl_email]' target='blank'>".__("Email", 'csa-slplus')."</a>" :
                         "" ;
-                    $sl_value['sl_image']=($sl_value['sl_image']!="")?
-                        "<a href='$sl_value[sl_image]' target='blank'>".__("View", 'csa-slplus')."</a>" :
-                        "" ;
                     $sl_value['sl_description']=($sl_value['sl_description']!="")?
                         "<a onclick='alert(\"".$this->plugin->AdminUI->slp_escape($sl_value['sl_description'])."\")' href='#'>".
                         __("View", 'csa-slplus')."</a>" :
