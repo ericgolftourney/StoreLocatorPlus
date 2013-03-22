@@ -710,7 +710,6 @@ class SLPlus_AdminUI_ManageLocations {
                                 'sl_hours'       => $this->plugin->settings->get_item('label_hours','Hours','_'),
                                 'sl_phone'       => $this->plugin->settings->get_item('label_phone','Phone','_'),
                                 'sl_fax'         => $this->plugin->settings->get_item('label_fax'  ,'Fax'  ,'_'),
-                                'sl_image'       => __('Image'        ,'csa-slplus'),
                             )
                         );
 
