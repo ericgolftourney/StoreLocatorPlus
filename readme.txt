@@ -313,6 +313,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Give pot/po/mo language files the proper name and the proper directory (./languages).
 * Enhancement: Get rid of unused PHP script, lessens security vulnerabilities.
 * Enhancement: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) report downloads are now AJAX based, lighter & less risky.
+* Change: Image URL field has been removed form base product (was not being used), will be added to Enhanced Results package.
 * Fix: Stop [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) reporting JavaScript from loading on all pages.
 
 = 3.9.2 =
