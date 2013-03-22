@@ -51,6 +51,13 @@ class SLPPro {
      */
     private $packageAdded = false;
 
+    /**
+     * Is the Pro Pack enabled?
+     *
+     * @var boolean $enabled
+     */
+    public $enabled = false;
+
     //------------------------------------------------------
     // METHODS
     //------------------------------------------------------
@@ -77,6 +84,10 @@ class SLPPro {
         $this->url  = plugins_url('',__FILE__);
         $this->dir  = plugin_dir_path(__FILE__);
         $this->slug = plugin_basename(__FILE__);
+
+        // Store Locator Plus invocation complete
+        //
+        add_action('slp_invocation_complete'        ,array($this,'setPlugin'                    ));
 
         // Admin / Nav Menus (start of admin stack)
         //
@@ -171,6 +182,7 @@ class SLPPro {
             );
 
         $this->packageAdded = true;
+        $this->enabled = $this->plugin->license->packages['Pro Pack']->isenabled;
     }
 
     /**
@@ -214,7 +226,7 @@ class SLPPro {
         return (
             isset($this->plugin)    &&
             ($this->plugin != null) &&
-            $this->plugin->license->packages['Pro Pack']->isenabled
+            $this->enabled
             );
     }
 
@@ -515,6 +527,7 @@ class SLPPro {
      * Load the JavaScript and CSS on ony our pages.
      */
     function loadJSandCSS() {
+        if (!$this->setPlugin()) { return; }
 
         // Reporting
         //

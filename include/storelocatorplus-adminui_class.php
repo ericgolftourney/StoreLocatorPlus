@@ -22,6 +22,13 @@ class SLPlus_AdminUI {
      */
     private $plugin;
 
+    /**
+     * True if Pro Pack is Enabled.
+     *
+     * @var boolean $proPackEnabled
+     */
+    private $proPackEnabled = false;
+
     public $styleHandle = 'csl_slplus_admin_css';
     private $geocodeIssuesRendered = false;
 
@@ -67,6 +74,12 @@ class SLPlus_AdminUI {
             $this->parent = $slplus_plugin;
             $this->plugin = $slplus_plugin;
         }
+
+        $this->proPackEnabled = (
+            isset($this->plugin->ProPack) &&
+            $this->plugin->ProPack->enabled
+        );
+
         return (isset($this->parent) && ($this->parent != null));
     }
 
@@ -301,7 +314,7 @@ class SLPlus_AdminUI {
         // Pro Pack
         //
         $proPackMsg = (
-                $this->parent->license->packages['Pro Pack']->isenabled            ?
+                $this->proPackEnabled ?
                 '' :
                 __('This is a <a href="http://www.charlestonsw.com/product/store-locator-plus/">Pro Pack</a>  feature. ', 'csa-slplus')
                 );
@@ -344,7 +357,7 @@ class SLPlus_AdminUI {
                     ,
                 null,
                 null,
-                !$this->parent->license->packages['Pro Pack']->isenabled
+                !$this->proPackEnabled
                 );
     }
 
@@ -978,14 +991,14 @@ class SLPlus_AdminUI {
                     if ($this->parent->AdminUI->addingLocation === false) {
                     ?>
                         <label  for='latitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('Latitude (N/S)', 'csa-slplus');?></label>
-                        <?php if ($this->parent->license->packages['Pro Pack']->isenabled) { ?>
+                        <?php if ($this->proPackEnabled) { ?>
                             <input name='latitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_latitude')?>'  style='width: 40em;'><br/>
                         <?php } else { ?>
                             <input class='disabled'  name='latitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo __('Changing the latitude is a Pro Pack feature.','csa-slplus').' ('.$this->get_CurrentLocationVal('sl_latitude').')';?>'  style='width: 40em;'><br/>
                         <?php } ?>
 
                         <label  for='longitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('Longitude (E/W)', 'csa-slplus');?></label>
-                        <?php if ($this->parent->license->packages['Pro Pack']->isenabled) { ?>
+                        <?php if ($this->proPackEnabled) { ?>
                             <input name='longitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_longitude')?>'  style='width: 40em;'><br/>
                         <?php } else { ?>
                             <input class='disabled' name='longitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo __('Changing the longitude is a Pro Pack feature.','csa-slplus').' ('.$this->get_CurrentLocationVal('sl_longitude').')'; ?>'  style='width: 40em;'><br/>
