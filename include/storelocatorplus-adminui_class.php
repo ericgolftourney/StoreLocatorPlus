@@ -1137,9 +1137,6 @@ class SLPlus_AdminUI {
                     "<input    name='fax-$locID'   value='".($addform?'':$sl_value['sl_fax']  )."'>&nbsp;<small>".
                         $this->plugin->settings->get_item('label_fax','Fax','_')."</small><br>".
 
-                    "<input    name='image-$locID' value='".($addform?'':$sl_value['sl_image'])."'>&nbsp;<small>".
-                        __("Image URL (shown with location)", 'csa-slplus')."</small>" .
-
                     '</div>'
                     ;
 
