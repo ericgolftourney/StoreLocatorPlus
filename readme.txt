@@ -163,7 +163,7 @@ Here is the process, in case you are wondering:
 = Requirements =
 
 * PHP 5.2.4+ (same as WordPress 3.3.2)
-* Wordpress: 3.3.2+
+* WordPress: 3.3.2+
 
 = Main Plugin =
 
