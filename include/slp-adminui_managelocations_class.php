@@ -698,18 +698,12 @@ class SLPlus_AdminUI_ManageLocations {
             if (get_option('sl_location_table_view')!="Normal") {
                 $slpManageColumns = array_merge($slpManageColumns,
                             array(
-                                'sl_tags'       => __('Tags'     ,'csa-slplus'),
                                 'sl_description'=> __('Description'  ,'csa-slplus'),
                                 'sl_url'        => get_option('sl_website_label','Website'),
-                            )
-                        );
-
-                $slpManageColumns = array_merge($slpManageColumns,
-                            array(
-                                'sl_email'       => __('Email'        ,'csa-slplus'),
-                                'sl_hours'       => $this->plugin->settings->get_item('label_hours','Hours','_'),
-                                'sl_phone'       => $this->plugin->settings->get_item('label_phone','Phone','_'),
-                                'sl_fax'         => $this->plugin->settings->get_item('label_fax'  ,'Fax'  ,'_'),
+                                'sl_email'      => __('Email'        ,'csa-slplus'),
+                                'sl_hours'      => $this->plugin->settings->get_item('label_hours','Hours','_'),
+                                'sl_phone'      => $this->plugin->settings->get_item('label_phone','Phone','_'),
+                                'sl_fax'        => $this->plugin->settings->get_item('label_fax'  ,'Fax'  ,'_'),
                             )
                         );
 
