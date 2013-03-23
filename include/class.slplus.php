@@ -39,4 +39,23 @@ class SLPlus extends wpCSL_plugin__slplus {
         $this->themes->css_dir = SLPLUS_PLUGINDIR . 'css/';
         do_action('slp_invocation_complete');
     }
+
+    /**
+     * Add DebugMyPlugin messages.
+     *
+     * @param string $header - the header
+     * @param string $message - what you want to say
+     * @param string $file - file of the call (__FILE__)
+     * @param int $line - line number of the call (__LINE__)
+     * @return null
+     */
+    function debug($header='Store Locator Plus',$message='',$file=null,$line=null) {
+        if (!isset($GLOBALS['DebugMyPlugin'])) { return; }
+        $message =
+            (($line !== null)?" at line $line":'').
+            (($file !== null)?" in $file":'').
+            $message
+            ;
+        $GLOBALS['DebugMyPlugin']->panels['main']->addMessage($header,$message);
+    }
 }
