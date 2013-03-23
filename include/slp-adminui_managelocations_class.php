@@ -5,12 +5,23 @@
  * @package StoreLocatorPlus\AdminUI\ManageLocations
  * @author Lance Cleveland <lance@charlestonsw.com>
  * @copyright 2012-2013 Charleston Software Associates, LLC
+ *
+ * @var mixed[] $columns our column headers
  */
 class SLPlus_AdminUI_ManageLocations {
 
     //----------------------------------
     // Properties
     //----------------------------------
+
+    /**
+     * Array of our Manage Locations interface column names.
+     *
+     * key is the field name, value is the column title
+     * 
+     * @var mixed[] $columns
+     */
+    public $columns = array();
 
     /**
      * Current location as an object.
@@ -690,11 +701,11 @@ class SLPlus_AdminUI_ManageLocations {
 
             // Setup Table Columns
             //
-            $slpManageColumns = array(
+            $this->columns = array(
                     'sl_id'         =>  __('ID'       ,'csa-slplus'),
                     'sl_store'      =>  __('Name'     ,'csa-slplus'),
                     'sl_address'    =>  __('Street'   ,'csa-slplus'),
-                    'sl_address2'   =>  __('Street2'  ,'csa-slplus'),
+                    'sl_address2'   =>  __('Street 2'  ,'csa-slplus'),
                     'sl_city'       =>  __('City'     ,'csa-slplus'),
                     'sl_state'      =>  __('State'    ,'csa-slplus'),
                     'sl_zip'        =>  __('Zip'      ,'csa-slplus'),
@@ -704,7 +715,7 @@ class SLPlus_AdminUI_ManageLocations {
             // Expanded View
             //
             if (get_option('sl_location_table_view')!="Normal") {
-                $slpManageColumns = array_merge($slpManageColumns,
+                $this->columns = array_merge($this->columns,
                             array(
                                 'sl_description'=> __('Description'  ,'csa-slplus'),
                                 'sl_url'        => get_option('sl_website_label','Website'),
@@ -716,11 +727,11 @@ class SLPlus_AdminUI_ManageLocations {
                         );
 
             }
-            $slpManageColumns = apply_filters('slp_manage_location_columns', $slpManageColumns);
+            $this->columns = apply_filters('slp_manage_location_columns', $this->columns);
 
             // Get the manage locations table header
             //
-            $tableHeaderString = $this->plugin->AdminUI->manage_locations_table_header($slpManageColumns,$slpCleanURL,$opt,$dir);
+            $tableHeaderString = $this->plugin->AdminUI->manage_locations_table_header($this->columns,$slpCleanURL,$opt,$dir);
             print  "<div id='location_table_wrapper'>" .
                         "<table id='manage_locations_table' class='slplus wp-list-table widefat fixed posts' cellspacing=0>" .
                             $tableHeaderString;
@@ -753,7 +764,7 @@ class SLPlus_AdminUI_ManageLocations {
                 if (isset($_GET['edit']) && ($locID==$_GET['edit'])) {
                     print
                         "<tr id='slp_location_edit_row'>"               .
-                        "<td class='slp_locationinfoform_cell' colspan='".(count($slpManageColumns)+4)."'>".
+                        "<td class='slp_locationinfoform_cell' colspan='".(count($this->columns)+4)."'>".
                         '<input type="hidden" id="act" name="act" value="save"/>'. 
                         $this->plugin->AdminUI->createString_LocationInfoForm($sl_value, $locID) .
                         '</td></tr>';
@@ -799,7 +810,7 @@ class SLPlus_AdminUI_ManageLocations {
 
                     // Data Columns
                     //
-                    foreach ($slpManageColumns as $slpField => $slpLabel) {
+                    foreach ($this->columns as $slpField => $slpLabel) {
                         print '<td class="slp_manage_locations_cell">' . apply_filters('slp_column_data',$sl_value[$slpField], $slpField, $slpLabel) . '</td>';
                     }
 
