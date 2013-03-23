@@ -37,10 +37,17 @@ class SLPPro {
     //-------------------------
     private $dir;
     private $metadata = null;
-    public  $plugin = null;
     private $slug = null;
     private $url;
     private $adminMode = false;
+
+
+    /**
+     * The main plugin object.
+     * 
+     * @var SLPPro $plugin
+     */
+    public  $plugin;
 
     /**
      * A toggle to let us know the Pro Pack package has been added.
@@ -578,6 +585,7 @@ class SLPPro {
      * @return mixed[] column name + column labels, extended with our extra fields data
      */
     function filter_AddFieldHeadersToManageLocations($currentCols) {
+        $this->plugin->debugMP('pr','SLP Pro Column Headers',$currentCols,__FILE__,__LINE__);
         return array_merge($currentCols,
                 array(
                     'sl_tags'       => __('Tags'     ,'csa-slplus'),
