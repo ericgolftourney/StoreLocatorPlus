@@ -1119,9 +1119,6 @@ class SLPlus_AdminUI {
                     "<textarea name='description-$locID' rows='5' cols='17'>".($addform?'':$sl_value['sl_description'])."</textarea>&nbsp;<small>".
                         __("Description", 'csa-slplus')."</small><br>".
 
-                    "<input    name='tags-$locID'  value='".($addform?'':$sl_value['sl_tags'] )."'>&nbsp;<small>".
-                        __("Tags (seperate with commas)", 'csa-slplus')."</small><br>".
-
                     "<input    name='url-$locID'   value='".($addform?'':$sl_value['sl_url']  )."'>&nbsp;<small>".
                         get_option('sl_website_label','Website')."</small><br>".
 
