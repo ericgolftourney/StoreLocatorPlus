@@ -122,6 +122,16 @@ class SLPPro {
                     $this->slug
                     );
         }
+
+        // Manage Location Fields
+        // - tweak the add/edit form
+        // - tweak the manage locations column headers
+        // - tweak the manage locations column data
+        //
+        add_filter('slp_edit_location_right_column' ,array($this,'filter_AddFieldsToEditForm'                   ),15        );
+        add_filter('slp_manage_location_columns'    ,array($this,'filter_AddFieldHeadersToManageLocations'      )           );
+        add_filter('slp_column_data'                ,array($this,'filter_AddFieldDataToManageLocations'         ),90    ,3  );
+
     }
 
     /**
@@ -535,6 +545,67 @@ class SLPPro {
                     ),
                 $valid_atts
             );
+    }
+
+    /**
+     * Add extra fields that show in results output to the edit form.
+     *
+     * SLP Filter: slp_edit_location_right_column
+     *
+     * @param string $theForm the original HTML form for the manage locations edit (right side)
+     * @return string the modified HTML form
+     */
+    function filter_AddFieldsToEditForm($theHTML) {
+        $locID = $this->plugin->currentLocation->id;
+        $addform = $this->plugin->AdminUI->addingLocation;
+
+        return $theHTML .=
+            '<div id="slp_er_fields"><strong>'.__('Pro Pack','csa-slplus').'</strong><br/>'.
+                "<input name='tags-$locID' value='".($addform?'':$this->plugin->currentLocation->tags)."'> ".
+                '<small>'.
+                   __("Tags (seperate with commas)", 'csa-slplus').
+                '</small>' .
+            '</div>'
+            ;
+    }
+
+    /**
+     * Add the images column header to the manage locations table.
+     *
+     * SLP Filter: slp_manage_location_columns
+     *
+     * @param mixed[] $currentCols column name + column label for existing items
+     * @return mixed[] column name + column labels, extended with our extra fields data
+     */
+    function filter_AddFieldHeadersToManageLocations($currentCols) {
+        return array_merge($currentCols,
+                array(
+                    'sl_tags'       => __('Tags'     ,'csa-slplus'),
+                )
+            );
+    }
+
+    /**
+     * Render the extra fields on the manage location table.
+     *
+     * SLP Filter: slp_column_data
+     *
+     * @param string $theData  - the option_value field data from the database
+     * @param string $theField - the name of the field from the database (should be sl_option_value)
+     * @param string $theLabel - the column label for this column (should be 'Categories')
+     * @return type
+     */
+    function filter_AddFieldDataToManageLocations($theData,$theField,$theLabel) {
+        if (
+            ($theField === 'sl_tags') &&
+            ($theLabel === __('Tags'        ,'csa-slplus'))
+           ) {
+            $theData =($this->plugin->currentLocation->tags!='')?
+                      "<a href='".$this->plugin->currentLocation->image.
+                            "' target='blank'>".__("View", 'csa-slplus')."</a>" :
+                      "" ;
+        }
+        return $theData;
     }
 
     /**
