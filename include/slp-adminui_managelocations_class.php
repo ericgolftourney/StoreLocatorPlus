@@ -13,24 +13,32 @@ class SLPlus_AdminUI_ManageLocations {
     //----------------------------------
 
     /**
+     * Current location as an object.
+     *
+     * @var SLPlus_Location $currentLocation
+     */
+    private $currentLocation;
+
+    /**
      * The SLPlus plugin object.
      * 
      * @var SLPlus $plugin
      */
     private $plugin;
     
-    /**
-     * Current location as an object.
-     * 
-     * @var SLPlus_Location $currentLocation 
-     */
-    private $currentLocation;
+    public $settings;
 
-    public $settings = null;
     public $baseAdminURL = '';
+
     public $cleanAdminURL = '';
+
     public $hangoverURL = '';
+
     public $hiddenInputs = '';
+
+    //------------------------------------------------------
+    // METHODS
+    //------------------------------------------------------
 
     /**
      * Called when this object is created.
