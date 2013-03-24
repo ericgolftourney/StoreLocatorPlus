@@ -241,7 +241,6 @@ class SLPlus_AdminUI_MapSettings {
                         SLPLUS_PREFIX.'_label_fax'              ,
                         SLPLUS_PREFIX.'_label_hours'            ,
                         SLPLUS_PREFIX.'_label_phone'            ,
-                        SLPLUS_PREFIX.'_message_noresultsfound' ,
                         SLPLUS_PREFIX.'_tag_search_selections'  ,
                         SLPLUS_PREFIX.'-map_language'           ,
                         SLPLUS_PREFIX.'_maxreturned'            ,
