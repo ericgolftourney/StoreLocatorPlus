@@ -779,11 +779,12 @@ class SLPlus_AdminUI_MapSettings {
                 );
         }
 
-        // Filter on Results : Search Output Box
+        // FILTER: slp_settings_results_locationinfo - add input fields to results locaiton info
         //
-        $slpDescription = apply_filters('slp_add_results_settings',$slpDescription);
+        $slpDescription = apply_filters('slp_settings_results_locationinfo',$slpDescription);
+
         $slpDescription =
-            "<div class='section_column'>".
+            "<div class='section_column' id='results_location_info'>".
                 "<div class='map_designer_settings'>".
                 $slpDescription .
                 "</div>" .
