@@ -320,6 +320,7 @@ You will likely need to reset your home and destination map markers.
 * Change: No Results message customization moved from [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) to [Enhanced Results](http://www.charlestonsw.com/product/store-locator-plus-enhanced-results).
 * Fix: Stop [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) reporting JavaScript from loading on all pages.
 * Fix: Got the locale setting working again.
+* Fix: Multiple map settings fields can now have ' as valid field data.
 
 = 3.9.2 =
 
