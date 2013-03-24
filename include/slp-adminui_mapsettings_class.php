@@ -840,15 +840,11 @@ class SLPlus_AdminUI_MapSettings {
                    )
                    ;
 
-        if ($this->plugin->license->packages['Pro Pack']->isenabled) {
-            $slpDescription .= $this->CreateInputDiv(
-                    '_message_noresultsfound',
-                    __('No Results Message', 'csa-slplus'),
-                    __('No results found message that appears under the map.','csa-slplus'),
-                    SLPLUS_PREFIX,
-                    __('Results not found.','csa-slplus')
-                    );
-        }
+        // FILTER: slp_settings_results_labels - add input fields to results labels
+        //
+        $slpDescription = apply_filters('slp_settings_results_labels',$slpDescription);
+
+
         $slpDescription .= '</div>';
 
 
