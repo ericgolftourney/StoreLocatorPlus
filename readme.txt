@@ -313,6 +313,8 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Give pot/po/mo language files the proper name and the proper directory (./languages).
 * Enhancement: Get rid of unused PHP script, lessens security vulnerabilities.
 * Enhancement: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) report downloads are now AJAX based, lighter & less risky.
+* Enhancement: [Hooks & Filters](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/) add slp_manage_expanded_location_columns.
+* Enhancement: [Hooks & Filters](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/) add slp_manage_priority_location_columns.
 * Change: Image URL field has been removed form base product (was not being used), will be added to Enhanced Results package.
 * Fix: Stop [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) reporting JavaScript from loading on all pages.
 * Fix: Got the locale setting working again.
