@@ -609,9 +609,8 @@ class SLPPro {
             ($theLabel === __('Tags'        ,'csa-slplus'))
            ) {
             $theData =($this->plugin->currentLocation->tags!='')?
-                      "<a href='".$this->plugin->currentLocation->image.
-                            "' target='blank'>".__("View", 'csa-slplus')."</a>" :
-                      "" ;
+                $this->plugin->currentLocation->tags :
+                "" ;
         }
         return $theData;
     }
