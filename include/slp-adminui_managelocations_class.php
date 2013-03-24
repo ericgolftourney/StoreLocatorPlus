@@ -101,6 +101,53 @@ class SLPlus_AdminUI_ManageLocations {
     }
 
     /**
+     * Set the columns we will render on the manage locations page.
+     */
+    function set_Columns() {
+
+        // For all views
+        //
+        $this->columns = array(
+                'sl_id'         =>  __('ID'       ,'csa-slplus'),
+                'sl_store'      =>  __('Name'     ,'csa-slplus'),
+                'sl_address'    =>  __('Street'   ,'csa-slplus'),
+                'sl_address2'   =>  __('Street 2'  ,'csa-slplus'),
+                'sl_city'       =>  __('City'     ,'csa-slplus'),
+                'sl_state'      =>  __('State'    ,'csa-slplus'),
+                'sl_zip'        =>  __('Zip'      ,'csa-slplus'),
+                'sl_country'    =>  __('Country'  ,'csa-slplus'),
+            );
+
+        // FILTER: slp_manage_normal_location_columns - add columns to normal view on manage locations
+        //
+        $this->columns = apply_filters('slp_manage_priority_location_columns', $this->columns);
+
+        // Expanded View
+        //
+        if (get_option('sl_location_table_view')!="Normal") {
+            $this->columns = array_merge($this->columns,
+                        array(
+                            'sl_description'=> __('Description'  ,'csa-slplus'),
+                            'sl_url'        => get_option('sl_website_label','Website'),
+                            'sl_email'      => __('Email'        ,'csa-slplus'),
+                            'sl_hours'      => $this->plugin->settings->get_item('label_hours','Hours','_'),
+                            'sl_phone'      => $this->plugin->settings->get_item('label_phone','Phone','_'),
+                            'sl_fax'        => $this->plugin->settings->get_item('label_fax'  ,'Fax'  ,'_'),
+                        )
+                    );
+            // FILTER: slp_manage_expanded_location_columns - add columns to expanded view on manage locations
+            //
+            $this->columns = apply_filters('slp_manage_expanded_location_columns', $this->columns);
+
+        }
+
+        // For all views, add-ons go on the end by default.
+        // FILTER: slp_manage_location_columns - add columns to normal and expanded view on manage locations
+        //
+        $this->columns = apply_filters('slp_manage_location_columns', $this->columns);
+    }
+
+    /**
      * Set the plugin property to point to the primary plugin object.
      *
      * Returns false if we can't get to the main plugin object.
@@ -698,36 +745,7 @@ class SLPlus_AdminUI_ManageLocations {
         // Display a list of the locations that match our query.
         //---------------------------------------------------------
         if ($slpLocations=$wpdb->get_results($dataQuery,ARRAY_A)) {
-
-            // Setup Table Columns
-            //
-            $this->columns = array(
-                    'sl_id'         =>  __('ID'       ,'csa-slplus'),
-                    'sl_store'      =>  __('Name'     ,'csa-slplus'),
-                    'sl_address'    =>  __('Street'   ,'csa-slplus'),
-                    'sl_address2'   =>  __('Street 2'  ,'csa-slplus'),
-                    'sl_city'       =>  __('City'     ,'csa-slplus'),
-                    'sl_state'      =>  __('State'    ,'csa-slplus'),
-                    'sl_zip'        =>  __('Zip'      ,'csa-slplus'),
-                    'sl_country'    =>  __('Country'  ,'csa-slplus'),
-                );
-
-            // Expanded View
-            //
-            if (get_option('sl_location_table_view')!="Normal") {
-                $this->columns = array_merge($this->columns,
-                            array(
-                                'sl_description'=> __('Description'  ,'csa-slplus'),
-                                'sl_url'        => get_option('sl_website_label','Website'),
-                                'sl_email'      => __('Email'        ,'csa-slplus'),
-                                'sl_hours'      => $this->plugin->settings->get_item('label_hours','Hours','_'),
-                                'sl_phone'      => $this->plugin->settings->get_item('label_phone','Phone','_'),
-                                'sl_fax'        => $this->plugin->settings->get_item('label_fax'  ,'Fax'  ,'_'),
-                            )
-                        );
-
-            }
-            $this->columns = apply_filters('slp_manage_location_columns', $this->columns);
+            $this->set_Columns();
 
             // Get the manage locations table header
             //
