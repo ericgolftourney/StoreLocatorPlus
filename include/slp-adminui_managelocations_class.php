@@ -852,3 +852,5 @@ class SLPlus_AdminUI_ManageLocations {
     }
 
 }
+
+// Dad. Husband. Rum Lover. Code Geek. Not necessarily in that order.

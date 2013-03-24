@@ -878,3 +878,5 @@ add_action( 'init', array( 'SLPPro', 'init' ) );
 // AJAX Listeners
 //
 add_action('wp_ajax_slp_download_report_csv', array('SLPPro','downloadReportCSV'));
+
+// Dad. Husband. Rum Lover. Code Geek. Not necessarily in that order.
