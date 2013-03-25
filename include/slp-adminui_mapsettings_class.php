@@ -990,7 +990,7 @@ class SLPlus_AdminUI_MapSettings {
              * Tags Section
              */
             $slpDescription .= "<div class='section_column'>";
-            $slpDescription .= '<h2>'.__('Tags (Pro Pack)', 'csa-slplus').'</h2>';
+            $slpDescription .= '<h2>'.__('Tags', 'csa-slplus').'</h2>';
             $slpDescription .= '<div class="section_column_content">';
             $slpDescription .= $this->plugin->helper->CreateCheckboxDiv(
                 '_show_tag_search',
