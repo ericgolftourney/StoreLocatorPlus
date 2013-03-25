@@ -93,10 +93,8 @@ class SLPlus_AjaxHandler {
     /**
      * Handle AJAX request for OnLoad action.
      *
-     * @global type $wpdb
      */
     function csl_ajax_onload() {
-        global $wpdb;
         $username=DB_USER;
         $password=DB_PASSWORD;
         $database=DB_NAME;
