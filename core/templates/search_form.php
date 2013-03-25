@@ -1,6 +1,6 @@
 <?php
 
-global $sl_search_label, $sl_radius_label, $cs_options, $slplus_state_options, $sl_country_options;
+global $cs_options, $slplus_state_options, $sl_country_options;
 
 /**
  * The plugin object.
@@ -126,49 +126,16 @@ ob_start();
                     add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv40'),40);
                 }
 
-                /*
-                 * Name Search
-                 */
-                global $slp_thishtml_50;
-                $slp_thishtml_50 = $slplus_plugin->UI->create_input_div(
-                        'nameSearch',
-                        get_option('sl_name_label',__('Name of Store','csa-slplus')),
-                        '',
-                        (get_option(SLPLUS_PREFIX.'_show_search_by_name',0) == 0),
-                        'div_nameSearch'
-                        );
-                add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv50'),50);
-            }
-
-            /*
-             * Address input
-             */
-            global $slp_thishtml_60;
-            $slp_thishtml_60 = $slplus_plugin->UI->create_input_div(
-                    'addressInput',
-                    $sl_search_label,
-                    '',
-                    (get_option(SLPLUS_PREFIX.'_hide_address_entry',0) == 1),
-                    'add_in_address'
-                    );
-            add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv60'),60);
-            
-          //------------------------------------------------
-          // We are not hiding the radius selection
-          //
-        ob_start();
-        if (get_option(SLPLUS_PREFIX.'_hide_radius_selections',0) == 0) {
-        ?>
-            <div id='addy_in_radius'>
-                <label for='radiusSelect'><?php _e($sl_radius_label, SLPLUS_PREFIX);?></label>
-                <select id='radiusSelect'><?php echo $slplus_plugin->data['radius_options'];?></select>
-            </div>
-
-        <?php
-        } else {
-            echo $slplus_plugin->data['radius_options'];
-        }
-
-global $slp_thishtml_70;
-$slp_thishtml_70 = ob_get_clean();
-add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv70'),70);
+/*
+ * Name Search
+ */
+global $slp_thishtml_50;
+$slp_thishtml_50 = $slplus_plugin->UI->create_input_div(
+        'nameSearch',
+        get_option('sl_name_label',__('Name of Store','csa-slplus')),
+        '',
+        (get_option(SLPLUS_PREFIX.'_show_search_by_name',0) == 0),
+        'div_nameSearch'
+        );
+add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv50'),50);
+}

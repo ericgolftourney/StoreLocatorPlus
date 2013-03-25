@@ -240,13 +240,60 @@ class SLPlus_UI {
     }
 
     /**
+     * Create the default search address div.
+     *
+     * @global string $slp_thishtml_60
+     * @global SLPlus_UI_DivManager $slp_SearchDivs
+     */
+    function create_DefaultSearchDiv_Address() {
+        global $slp_thishtml_60;
+        global $slp_SearchDivs;
+        global $sl_search_label;
+        
+        $slp_thishtml_60 = $this->plugin->UI->create_input_div(
+            'addressInput',
+            $sl_search_label,
+            '',
+            (get_option(SLPLUS_PREFIX.'_hide_address_entry',0) == 1),
+            'add_in_address'
+            );
+        add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv60'),60);
+    }
+
+    /**
+     * Create the default search radius div.
+     *
+     * @global string $slp_thishtml_70
+     * @global SLPlus_UI_DivManager $slp_SearchDivs
+     */
+    function create_DefaultSearchDiv_Radius() {
+        global $slp_thishtml_70;
+        global $slp_SearchDivs;
+        global $sl_radius_label;
+        
+        if (get_option(SLPLUS_PREFIX.'_hide_radius_selections',0) == 0) {
+            $slp_thishtml_70 =
+                "<div id='addy_in_radius'>".
+                "<label for='radiusSelect'>".__($sl_radius_label, 'csa-slplus').'</label>'.
+                "<select id='radiusSelect'>".$this->plugin->data['radius_options'].'</select>'.
+                "</div>"
+                ;
+        } else {
+            $slp_thishtml_70 = $this->plugin->data['radius_options'];
+        }
+        add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv70'),70);
+    }
+
+    /**
      * Create the default search submit div.
      *
      * If we are not hiding the submit button.
      *
      * @global string $slp_thishtml_80
+     * @global SLPlus_UI_DivManager $slp_SearchDivs
      */
     function create_DefaultSearchDiv_Submit() {
+        global $slp_thishtml_80;        
         global $slp_SearchDivs;
         if (get_option(SLPLUS_PREFIX.'_disable_search') == 0) {
 
@@ -278,7 +325,6 @@ class SLPlus_UI {
                 $button_style = 'type="submit" class="slp_ui_button"';
             }
 
-            global $slp_thishtml_80;
             $slp_thishtml_80 =
                 "<div id='radius_in_submit'>".
                     "<input $button_style " .
@@ -297,6 +343,8 @@ class SLPlus_UI {
      *
      * FILTER: slp_search_form_divs
      * FILTER: slp_search_form_html
+     *
+     * @global SLPlus_UI_DivManager $slp_SearchDivs
      */
     function create_DefaultSearchForm() {
         if(!$this->setPlugin()) { return; }
@@ -304,8 +352,10 @@ class SLPlus_UI {
         global $slp_SearchDivs;
         $slp_SearchDivs = new SLPlus_UI_DivManager();
 
-        // Submit Div
+        // Create our search form elements.
         //
+        $this->create_DefaultSearchDiv_Address();
+        $this->create_DefaultSearchDiv_Radius();
         $this->create_DefaultSearchDiv_Submit();
 
         // The search_form template sets up a bunch of DIV filters for the search form.
