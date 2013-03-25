@@ -12,6 +12,12 @@ class SLPlus_UI {
     //-------------------------------------
     // Properties
     //-------------------------------------
+
+    /**
+     * True if this is a ThemeForest theme.
+     *
+     * @var boolean $usintThemeForest
+     */
     private $usingThemeForest = false;
     public  $resultsString = '';
 
@@ -19,8 +25,10 @@ class SLPlus_UI {
     // Methods
     //----------------------------------
 
-    /*************************************
-     * The Constructor
+    /**
+     * Instantiate the UI Class.
+     *
+     * @param mixed[] $params
      */
     function __construct($params = null) {
         $this->usingThemeForest = function_exists('webtreats_formatter');
@@ -34,13 +42,12 @@ class SLPlus_UI {
         }
     }
 
-
     /**
      * Set the plugin property to point to the primary plugin object.
      *
      * Returns false if we can't get to the main plugin object.
      *
-     * @global wpCSL_plugin__slplus $slplus_plugin
+     * @global SLPlus $slplus_plugin
      * @return boolean true if plugin property is valid
      */
     function setPlugin() {
