@@ -822,14 +822,11 @@ var csl = {
 			this.infowindow.open(this.gmap, marker.__gmarker);
 		};
 
-  	  	/***************************
-  	  	 * function doGeocode()
-  	  	 * usage:
-  	  	 * Call to start the geocode of the address and display it on the map if possible
-  	  	 * make sure to call init first
-  	  	 * parameters: none
-  	  	 * returns: none
-  	  	 */
+        /**
+         * Geocode an address on the search input field and display on map.
+         * 
+         * @return {undefined}
+         */
   	  	this.doGeocode = function() {
 			var geocoder = new google.maps.Geocoder();
   	  	  	var _this = this;
