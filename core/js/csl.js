@@ -443,7 +443,6 @@ var csl = {
 		this.disableScroll = null;
 		this.disableDir = null;
 		this.distanceUnit = null;
-		this.load_locations = null;
 		this.map3dControl = null;
 		this.mapCountry = null;
 		this.mapDomain = null;
@@ -499,7 +498,6 @@ var csl = {
                 this.debugMode = !!slplus.debug_mode;
                 this.disableDir = !!slplus.disable_dir;
                 this.distanceUnit = slplus.distance_unit;
-                this.load_locations = !!slplus.load_locations;
                 this.mapCountry = slplus.map_country;
                 this.mapDomain = slplus.map_domain;
                 this.mapHomeIconUrl = slplus.map_home_icon;
@@ -565,7 +563,8 @@ var csl = {
                 }
 
                 //load all the markers
-                if (this.load_locations === '1') {
+                if (slplus.load_locations === '1') {
+//alert('load locations for '+this.saneValue('addressInput',null));
                     if (this.saneValue('addressInput', null) === null || this.saneValue('addressInput', null) === '') {
                         this.forceAll = true;
 
@@ -578,9 +577,6 @@ var csl = {
                         var radius = this.saneValue('radiusSelect');
                         this.loadMarkers(center, radius, tag_to_search_for);
                     }
-                }
-                else {
-                    this.load_locations = '0';
                 }
             }
         };
