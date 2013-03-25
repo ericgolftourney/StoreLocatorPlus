@@ -598,19 +598,17 @@ class SLPlus_AdminUI {
      * 
      * @global type $sl_google_map_country
      * @global type $sl_location_table_view
-     * @global type $sl_search_label
      * @global type $sl_zoom_level
      * @global type $sl_zoom_tweak
      * @global type $sl_use_name_search
-     * @global type $sl_radius_label
      * @global type $sl_website_label
      * @global type $sl_load_locations_default
      * @global type $sl_distance_unit
      */
     function initialize_variables() {
         global $sl_google_map_country, $sl_location_table_view,
-            $sl_search_label, $sl_zoom_level, $sl_zoom_tweak, $sl_use_name_search,
-            $sl_radius_label, $sl_website_label, $sl_load_locations_default,
+            $sl_zoom_level, $sl_zoom_tweak, $sl_use_name_search,
+            $sl_website_label, $sl_load_locations_default,
             $sl_distance_unit;
 
         $sl_distance_unit=get_option('sl_distance_unit');
@@ -627,11 +625,6 @@ class SLPlus_AdminUI {
         if (empty($sl_website_label)) {
             $sl_website_label="Website";
             add_option('sl_website_label', $sl_website_label);
-            }
-        $sl_radius_label=get_option('sl_radius_label');
-        if (empty($sl_radius_label)) {
-            $sl_radius_label="Radius";
-            add_option('sl_radius_label', $sl_radius_label);
             }
         $sl_map_type=get_option('sl_map_type');
         if (isset($sl_map_type)) {
@@ -655,11 +648,6 @@ class SLPlus_AdminUI {
         $sl_zoom_tweak=get_option('sl_zoom_tweak','1');
         add_option('sl_zoom_tweak', $sl_zoom_tweak);
 
-        $sl_search_label=get_option('sl_search_label');
-        if (empty($sl_search_label)) {
-            $sl_search_label="Address";
-            add_option('sl_search_label', $sl_search_label);
-            }
         $sl_location_table_view=get_option('sl_location_table_view');
         if (empty($sl_location_table_view)) {
             $sl_location_table_view="Normal";

@@ -248,11 +248,10 @@ class SLPlus_UI {
     function create_DefaultSearchDiv_Address() {
         global $slp_thishtml_60;
         global $slp_SearchDivs;
-        global $sl_search_label;
         
         $slp_thishtml_60 = $this->plugin->UI->create_input_div(
             'addressInput',
-            $sl_search_label,
+            get_option('sl_search_label',__('Address','csa-slplus')),
             '',
             (get_option(SLPLUS_PREFIX.'_hide_address_entry',0) == 1),
             'add_in_address'
@@ -269,12 +268,13 @@ class SLPlus_UI {
     function create_DefaultSearchDiv_Radius() {
         global $slp_thishtml_70;
         global $slp_SearchDivs;
-        global $sl_radius_label;
         
         if (get_option(SLPLUS_PREFIX.'_hide_radius_selections',0) == 0) {
             $slp_thishtml_70 =
                 "<div id='addy_in_radius'>".
-                "<label for='radiusSelect'>".__($sl_radius_label, 'csa-slplus').'</label>'.
+                "<label for='radiusSelect'>".
+                get_option('sl_radius_label','').
+                '</label>'.
                 "<select id='radiusSelect'>".$this->plugin->data['radius_options'].'</select>'.
                 "</div>"
                 ;
@@ -450,8 +450,6 @@ class SLPlus_UI {
      *
      *
      * @global type $wpdb
-     * @global type $sl_search_label
-     * @global type $sl_radius_label
      * @global type $cs_options
      * @global type $sl_country_options
      * @global type $slplus_state_options
@@ -464,7 +462,7 @@ class SLPlus_UI {
              return sprintf(__('%s is not ready','csa-slplus'),__('Store Locator Plus','csa-slplus'));
         }
 
-        global  $wpdb, $sl_search_label, $sl_radius_label, $cs_options, $sl_country_options, $slplus_state_options;
+        global  $wpdb, $cs_options, $sl_country_options, $slplus_state_options;
 
         // Get Approved Shortcode Attributes
         $attributes =
@@ -482,8 +480,6 @@ class SLPlus_UI {
         //
         $this->plugin->helper->loadPluginData();
 
-
-        $sl_search_label   = get_option('sl_search_label',__('Address',SLPLUS_PREFIX));
         $unit_display      = get_option('sl_distance_unit','mi');
 
         $this->plugin->data['radius_options'] =
@@ -541,7 +537,6 @@ class SLPlus_UI {
         $columns += (get_option('sl_use_city_search',0)!=1) ? 1 : 0;
         $columns += (get_option('sl_use_country_search',0)!=1) ? 1 : 0;
         $columns += (get_option('slplus_show_state_pd',0)!=1) ? 1 : 0;
-        $sl_radius_label=get_option('sl_radius_label','');
 
         // Set our flag for later processing
         // of JavaScript files
