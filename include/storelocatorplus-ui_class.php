@@ -64,11 +64,11 @@ class SLPlus_UI {
      * the assumed matching label option will be "settingid_label" for WP get_option()
      * the a href ID will be "settingid_toggle"
      *
-     * @param string $setting - the ID for the setting
-     * @param string $label - the default label to show
-     * @param boolean $isChecked - default on/off state of checkbox
-     * @param string $onClick - the onClick javascript
-     * @return string - the slider HTML
+     * @param string $setting the ID for the setting
+     * @param string $label the default label to show
+     * @param boolean $isChecked default on/off state of checkbox
+     * @param string $onClick the onClick javascript
+     * @return string the slider HTML
      */
     function CreateSliderButton($setting=null, $label='', $isChecked = true, $onClick='') {
         if ($setting === null) { return ''; }
