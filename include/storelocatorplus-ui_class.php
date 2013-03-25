@@ -13,6 +13,11 @@ class SLPlus_UI {
     // Properties
     //-------------------------------------
 
+    /**
+     * The custom string format used in JS printf for under-the-map results.
+     * 
+     * @var string $resultsString
+     */
     public  $resultsString = '';
 
     //----------------------------------
