@@ -602,24 +602,17 @@ class SLPlus_AdminUI {
      * @global type $sl_zoom_tweak
      * @global type $sl_use_name_search
      * @global type $sl_website_label
-     * @global type $sl_load_locations_default
      * @global type $sl_distance_unit
      */
     function initialize_variables() {
         global $sl_google_map_country, $sl_location_table_view,
             $sl_zoom_level, $sl_zoom_tweak, $sl_use_name_search,
-            $sl_website_label, $sl_load_locations_default,
-            $sl_distance_unit;
+            $sl_website_label, $sl_distance_unit;
 
         $sl_distance_unit=get_option('sl_distance_unit');
         if (empty($sl_distance_unit)) {
             $sl_distance_unit="miles";
             add_option('sl_distance_unit', $sl_distance_unit);
-            }
-        $sl_load_locations_default=get_option('sl_load_locations_default');
-        if (empty($sl_load_locations_default)) {
-            $sl_load_locations_default="1";
-            add_option('sl_load_locations_default', $sl_load_locations_default);
             }
         $sl_website_label=get_option('sl_website_label');
         if (empty($sl_website_label)) {

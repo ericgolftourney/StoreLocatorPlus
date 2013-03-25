@@ -611,7 +611,7 @@ class SLPlus_UI {
             'disable_scroll'    => (get_option(SLPLUS_PREFIX.'_disable_scrollwheel')==1),
             'disable_dir'       => (get_option(SLPLUS_PREFIX.'_disable_initialdirectory' )==1),
             'distance_unit'     => esc_attr(get_option('sl_distance_unit'),'miles'),
-            'load_locations'    => (get_option('sl_load_locations_default')==1),
+            'load_locations'    => (get_option('sl_load_locations_default','1')==1),
             'label_directions'  => esc_attr(get_option(SLPLUS_PREFIX.'_label_directions',   'Directions')  ),
             'label_fax'         => esc_attr(get_option(SLPLUS_PREFIX.'_label_fax',          'Fax: ')         ),
             'label_hours'       => esc_attr(get_option(SLPLUS_PREFIX.'_label_hours',        'Hours: ')       ),
