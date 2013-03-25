@@ -122,7 +122,7 @@ ob_start();
                           //
                           } else {
                               $tag_selections = explode(",", $tag_selections);
-                              add_action('slp_render_search_form_tag_list',array('SLPlus_UI','slp_render_search_form_tag_list'),10,2);
+                              add_action('slp_render_search_form_tag_list',array($slplus_plugin->UI,'slp_render_search_form_tag_list'),10,2);
                               do_action('slp_render_search_form_tag_list',$tag_selections,(get_option(SLPLUS_PREFIX.'_show_tag_any')==1));
                           }
                       ?>
