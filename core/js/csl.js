@@ -1337,11 +1337,10 @@ var csl = {
 var cslmap;
 var cslutils;
 
-/***************************
- * function InitializeTheMap()
+/**
+ * Setup the map settings and get it rendered.
  *
- * Setup the map settings and get id rendered.
- *
+ * @returns {undefined}
  */
 function InitializeTheMap() {
 	cslutils = new csl.Utils();
