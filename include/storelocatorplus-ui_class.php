@@ -13,12 +13,6 @@ class SLPlus_UI {
     // Properties
     //-------------------------------------
 
-    /**
-     * True if this is a ThemeForest theme.
-     *
-     * @var boolean $usintThemeForest
-     */
-    private $usingThemeForest = false;
     public  $resultsString = '';
 
     //----------------------------------
@@ -31,7 +25,6 @@ class SLPlus_UI {
      * @param mixed[] $params
      */
     function __construct($params = null) {
-        $this->usingThemeForest = function_exists('webtreats_formatter');
 
         // Do the setting override or initial settings.
         //
