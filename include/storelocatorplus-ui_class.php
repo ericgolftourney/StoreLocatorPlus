@@ -240,6 +240,57 @@ class SLPlus_UI {
     }
 
     /**
+     * Create the default search submit div.
+     *
+     * If we are not hiding the submit button.
+     *
+     * @global string $slp_thishtml_80
+     */
+    function create_DefaultSearchDiv_Submit() {
+        global $slp_SearchDivs;
+        if (get_option(SLPLUS_PREFIX.'_disable_search') == 0) {
+
+            // Find Button Is An Image
+            //
+            if ($this->plugin->settings->get_item('disable_find_image','0','_') === '0') {
+                $sl_theme_base=SLPLUS_UPLOADURL."/images";
+                $sl_theme_path=SLPLUS_UPLOADDIR."/images";
+
+                if (!file_exists($sl_theme_path."/search_button.png")) {
+                    $sl_theme_base=SLPLUS_PLUGINURL."/images";
+                    $sl_theme_path=SLPLUS_COREDIR."/images";
+                }
+
+                $sub_img=$sl_theme_base."/search_button.png";
+                $mousedown=(file_exists($sl_theme_path."/search_button_down.png"))?
+                    "onmousedown=\"this.src='$sl_theme_base/search_button_down.png'\" onmouseup=\"this.src='$sl_theme_base/search_button.png'\"" :
+                    "";
+                $mouseover=(file_exists($sl_theme_path."/search_button_over.png"))?
+                    "onmouseover=\"this.src='$sl_theme_base/search_button_over.png'\" onmouseout=\"this.src='$sl_theme_base/search_button.png'\"" :
+                    "";
+                $button_style=(file_exists($sl_theme_path."/search_button.png"))?
+                    "type='image' class='slp_ui_image_button' src='$sub_img' $mousedown $mouseover" :
+                    "type='submit'  class='slp_ui_button'";
+
+            // Find Button Image Is Disabled
+            //
+            } else {
+                $button_style = 'type="submit" class="slp_ui_button"';
+            }
+
+            global $slp_thishtml_80;
+            $slp_thishtml_80 =
+                "<div id='radius_in_submit'>".
+                    "<input $button_style " .
+                        "value='".get_option(SLPLUS_PREFIX.'_find_button_label','Find Locations')."' ".
+                        "id='addressSubmit'/>".
+                "</div>"
+                ;
+            add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv80'),80);
+        }
+    }
+
+    /**
      * Render the search form for the map.
      *
      * SLP Action: slp_render_search_form
@@ -249,6 +300,13 @@ class SLPlus_UI {
      */
     function create_DefaultSearchForm() {
         if(!$this->setPlugin()) { return; }
+
+        global $slp_SearchDivs;
+        $slp_SearchDivs = new SLPlus_UI_DivManager();
+
+        // Submit Div
+        //
+        $this->create_DefaultSearchDiv_Submit();
 
         // The search_form template sets up a bunch of DIV filters for the search form.
         //

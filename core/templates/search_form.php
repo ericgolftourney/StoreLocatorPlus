@@ -9,7 +9,8 @@ global $sl_search_label, $sl_radius_label, $cs_options, $slplus_state_options, $
  */
 global $slplus_plugin;
 
-$slp_SearchDivs = new SLPlus_UI_DivManager();
+global $slp_SearchDivs;
+
           //------------------------------------------------
           // Show City Pulldown Is Enabled
           //
@@ -168,52 +169,6 @@ ob_start();
             echo $slplus_plugin->data['radius_options'];
         }
 
-
 global $slp_thishtml_70;
 $slp_thishtml_70 = ob_get_clean();
 add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv70'),70);
-
-//------------------------------------------------
-// We are not hiding the submit button
-//
-if (get_option(SLPLUS_PREFIX.'_disable_search') == 0) {
-    ob_start();
-
-    // Find Button Is An Image
-    //
-    if ($slplus_plugin->settings->get_item('disable_find_image','0','_') === '0') {
-        $sl_theme_base=SLPLUS_UPLOADURL."/images";
-        $sl_theme_path=SLPLUS_UPLOADDIR."/images";
-
-        if (!file_exists($sl_theme_path."/search_button.png")) {
-            $sl_theme_base=SLPLUS_PLUGINURL."/images";
-            $sl_theme_path=SLPLUS_COREDIR."/images";
-        }
-
-        $sub_img=$sl_theme_base."/search_button.png";
-        $mousedown=(file_exists($sl_theme_path."/search_button_down.png"))?
-            "onmousedown=\"this.src='$sl_theme_base/search_button_down.png'\" onmouseup=\"this.src='$sl_theme_base/search_button.png'\"" :
-            "";
-        $mouseover=(file_exists($sl_theme_path."/search_button_over.png"))?
-            "onmouseover=\"this.src='$sl_theme_base/search_button_over.png'\" onmouseout=\"this.src='$sl_theme_base/search_button.png'\"" :
-            "";
-        $button_style=(file_exists($sl_theme_path."/search_button.png"))?
-            "type='image' class='slp_ui_image_button' src='$sub_img' $mousedown $mouseover" :
-            "type='submit'  class='slp_ui_button'";
-
-    // Find Button Image Is Disabled
-    //
-    } else {
-        $button_style = 'type="submit" class="slp_ui_button"';
-    }
-
-    global $slp_thishtml_80;
-    $slp_thishtml_80 =
-        "<div id='radius_in_submit'>".
-            "<input $button_style " .
-                "value='".get_option(SLPLUS_PREFIX.'_find_button_label','Find Locations')."' ".
-                "id='addressSubmit'/>".
-        "</div>"
-        ;
-    add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv80'),80);
-}
