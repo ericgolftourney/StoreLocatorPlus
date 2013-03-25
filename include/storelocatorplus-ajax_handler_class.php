@@ -146,7 +146,7 @@ class SLPlus_AjaxHandler {
         $query = sprintf(
             "SELECT *,".
             "( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
-            "FROM ${dbPrefix}store_locator ".
+            "FROM {$this->db->prefix}store_locator ".
             "WHERE sl_longitude<>'' and sl_longitude<>'' %s %s ".
             "HAVING (sl_distance < '%s') ".
             'ORDER BY sl_distance ASC '.
@@ -241,11 +241,10 @@ class SLPlus_AjaxHandler {
         get_option(SLPLUS_PREFIX.'_maxreturned') :
         '25';
 
-        $max = mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned']);
         $query = sprintf(
             "SELECT *,".
             "( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
-            "FROM ${dbPrefix}store_locator ".
+            "FROM {$this->db->prefix}store_locator ".
             "WHERE sl_longitude<>'' and sl_longitude<>'' %s %s ".
             "HAVING (sl_distance < '%s') ".
             'ORDER BY sl_distance ASC '.
@@ -269,7 +268,7 @@ class SLPlus_AjaxHandler {
         //
         if (get_option(SLPLUS_PREFIX.'-reporting_enabled','off') === 'on') {
             $qry = sprintf(
-                    "INSERT INTO ${dbPrefix}slp_rep_query ".
+                    "INSERT INTO {$this->db->prefix}slp_rep_query ".
                                "(slp_repq_query,slp_repq_tags,slp_repq_address,slp_repq_radius) ".
                         "values ('%s','%s','%s','%s')",
                         mysql_real_escape_string($_SERVER['QUERY_STRING']),
@@ -294,7 +293,7 @@ class SLPlus_AjaxHandler {
                 if (get_option(SLPLUS_PREFIX.'-reporting_enabled') === "on") {
                     $wpdb->query(
                         sprintf(
-                            "INSERT INTO ${dbPrefix}slp_rep_query_results
+                            "INSERT INTO {$this->db->prefix}slp_rep_query_results
                                 (slp_repq_id,sl_id) values (%d,%d)",
                                 $slp_QueryID,
                                 $row['sl_id']
