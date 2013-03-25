@@ -430,7 +430,7 @@ var csl = {
 
   	  	//php passed vars set in init
 		this.debug_mode = null;
-  	  	this.address = null; //y
+  	  	this.address = null;
   	  	this.canvasID = null;
   	  	this.draggable = true;
   	  	this.tilt = 45; //n
@@ -491,7 +491,7 @@ var csl = {
   	  	this.__init = function() {
 
             if (typeof slplus !== 'undefined') {
-                this.address = slplus.map_country;
+                this.country = slplus.map_country;
                 this.zoom = slplus.zoom_level;
                 this.mapType = slplus.map_type;
                 this.disableScroll = !!slplus.disable_scroll;
@@ -519,6 +519,17 @@ var csl = {
                 if (!this.disableDir) {
                     this.loadedOnce = true;
                 }
+
+                // Setup address
+                // Use the entry form value if set, otherwise use the country
+                //
+                var addressInput = this.getSearchAddress();
+                if (typeof addressInput === 'undefined') {
+                    this.address = this.country
+                } else {
+                    this.address = addressInput;
+                }
+
             } else {
                 alert('Store Locator Plus script not loaded properly.');
             }
@@ -562,24 +573,14 @@ var csl = {
                     this.addMarkerAtCenter();
                 }
 
-                //load all the markers
+                // If immediately show locations is enabled.
+                //
                 if (slplus.load_locations === '1') {
-
-                    // We have no address to search from, use map center
-                    //
-                    if (this.saneValue('addressInput', null) === null || this.saneValue('addressInput', null) === '') {
                         this.homePoint = center;
                         this.addMarkerAtCenter();
                         var tag_to_search_for = this.saneValue('tag_to_search_for', '');
                         var radius = this.saneValue('radiusSelect');
                         this.loadMarkers(center, radius, tag_to_search_for);
-
-                    // We have an address
-                    //
-                    } else {
-                        this.forceAll = true;
-                        this.loadMarkers(null, null, this.saneValue('tag_to_search_for', null));
-                    }
                 }
             }
         };
@@ -829,6 +830,7 @@ var csl = {
   	  	this.doGeocode = function() {
 			var geocoder = new google.maps.Geocoder();
   	  	  	var _this = this;
+
   	  	  	geocoder.geocode(
 				{
 					'address': this.address
@@ -1160,10 +1162,10 @@ var csl = {
   	  	 * returns: none
   	  	 */
 		this.searchLocations = function() {
-                    var address = this.saneValue('addressInput', '');
-                    jQuery('#map_box_image').hide();
+            var address = this.saneValue('addressInput', '');
+            jQuery('#map_box_image').hide();
 		    jQuery('#map_box_map').show();
-                    google.maps.event.trigger(this.gmap, 'resize');
+            google.maps.event.trigger(this.gmap, 'resize');
 
 			// Address was given, use it...
 			//

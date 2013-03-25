@@ -315,6 +315,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Eliminate unused variables and speed up front end UI a tick.
 * Enhancement: Default CSS theme is now Default, Old.
 * Enhancement: Default CSS theme has been updated to take elements I liked from Clean Simple White.
+* Enhancement: Immediately show locations now shows home marker where base of search is centered.
 * Enhancement: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) report downloads are now AJAX based, lighter & less risky.
 * Enhancement: [Hooks & Filters](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/) add slp_manage_expanded_location_columns.
 * Enhancement: [Hooks & Filters](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/) add slp_manage_priority_location_columns.
