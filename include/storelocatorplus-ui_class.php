@@ -243,10 +243,30 @@ class SLPlus_UI {
      * Render the search form for the map.
      *
      * SLP Action: slp_render_search_form
+     *
+     * FILTER: slp_search_form_divs
+     * FILTER: slp_search_form_html
      */
     function create_DefaultSearchForm() {
         if(!$this->setPlugin()) { return; }
-        echo apply_filters('slp_search_form_html',$this->plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_form.php'));
+
+        // The search_form template sets up a bunch of DIV filters for the search form.
+        //
+        // apply_filters actually builds the output HTML from those div filters.
+        //
+        $HTML =
+            "<form onsubmit='cslmap.searchLocations(); return false;' id='searchForm' action=''>".
+            "<table  id='search_table' border='0' cellpadding='3px' class='sl_header'>".
+                "<tbody id='search_table_body'>".
+                    "<tr id='search_form_table_row'>".
+                        "<td id='search_form_table_cell' valign='top'>".
+                            "<div id='address_search'>".
+            $this->plugin->helper->get_string_from_phpexec(SLPLUS_COREDIR . 'templates/search_form.php') .
+            apply_filters('slp_search_form_divs','') .
+            '</div></td></tr></tbody></table></form>'
+            ;
+        
+        echo apply_filters('slp_search_form_html',$HTML);
     }
 
     /**

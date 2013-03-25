@@ -10,14 +10,6 @@ global $sl_search_label, $sl_radius_label, $cs_options, $slplus_state_options, $
 global $slplus_plugin;
 
 $slp_SearchDivs = new SLPlus_UI_DivManager();
-?>
-<form onsubmit='cslmap.searchLocations(); return false;' id='searchForm' action=''>
-    <table  id='search_table' border='0' cellpadding='3px' class='sl_header'>
-        <tbody id='search_table_body'>
-            <tr id='search_form_table_row'>
-                <td id='search_form_table_cell' valign='top'>
-                    <div id='address_search'>
-          <?php
           //------------------------------------------------
           // Show City Pulldown Is Enabled
           //
@@ -227,11 +219,3 @@ if (get_option(SLPLUS_PREFIX.'_disable_search') == 0) {
         ;
     add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv80'),80);
 }
-
-// Render each of the divs in the order specified
-// by the filters we've setup.
-//
-echo 
-    apply_filters('slp_search_form_divs','') .
-    '</div></td></tr></tbody></table></form>'
-    ;
