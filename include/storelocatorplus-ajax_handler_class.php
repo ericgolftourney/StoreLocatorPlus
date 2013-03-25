@@ -15,7 +15,13 @@ class SLPlus_AjaxHandler {
     //-------------------------------------
     // Properties
     //-------------------------------------
-    public $parent = null;
+    
+    /**
+     * The plugin object.
+     * 
+     * @var SLPlus $plugin 
+     */
+    public $plugin;
 
 
     //----------------------------------
@@ -29,19 +35,19 @@ class SLPlus_AjaxHandler {
     }
 
     /**
-     * Set the parent property to point to the primary plugin object.
+     * Set the plugin property to point to the primary plugin object.
      *
      * Returns false if we can't get to the main plugin object.
      *
      * @global wpCSL_plugin__slplus $slplus_plugin
      * @return boolean true if plugin property is valid
      */
-    function setParent() {
-        if (!isset($this->parent) || ($this->parent == null)) {
+    function setPlugin() {
+        if (!isset($this->plugin) || ($this->plugin == null)) {
             global $slplus_plugin;
-            $this->parent = $slplus_plugin;
+            $this->plugin = $slplus_plugin;
         }
-        return (isset($this->parent) && ($this->parent != null));
+        return (isset($this->plugin) && ($this->plugin != null));
     }
 
     /**
@@ -99,14 +105,14 @@ class SLPlus_AjaxHandler {
 
         $connection=mysql_connect ($host, $username, $password);
         if (!$connection) {
-            die (json_encode( array('success' => false, 'slp_version' => $this->parent->version, 'response' => 'Not connected : ' . mysql_error())));
+            die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Not connected : ' . mysql_error())));
         }
 
         // Set the active MySQL database
         $db_selected = mysql_select_db($database, $connection);
         mysql_query("SET NAMES utf8");
         if (!$db_selected) {
-          die (json_encode( array('success' => false, 'slp_version' => $this->parent->version, 'response' => 'Can\'t use db : ' . mysql_error())));
+          die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Can\'t use db : ' . mysql_error())));
         }
 
         $num_initial_displayed=trim(get_option('sl_num_initial_displayed','25'));
@@ -170,7 +176,7 @@ class SLPlus_AjaxHandler {
         echo json_encode( 
                 array(  'success'       => true,
                         'count'         => count($response) ,
-                        'slp_version'   => $this->parent->version,
+                        'slp_version'   => $this->plugin->version,
                         'type'          => 'load',
                         'response'      => $response
                     )
@@ -190,7 +196,7 @@ class SLPlus_AjaxHandler {
         $database=DB_NAME;
         $host=DB_HOST;
 
-        $this->setParent();
+        $this->setPlugin();
 
         // Get parameters from URL
         $center_lat = $_POST["lat"];
@@ -201,11 +207,11 @@ class SLPlus_AjaxHandler {
         // Set the active MySQL database
         //
         $connection=mysql_connect ($host, $username, $password);
-        if (!$connection) { die(json_encode( array('success' => false, 'slp_version' => $this->parent->version, 'response' => 'Not connected : ' . mysql_error()))); }
+        if (!$connection) { die(json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Not connected : ' . mysql_error()))); }
         $db_selected = mysql_select_db($database, $connection);
         mysql_query("SET NAMES utf8");
         if (!$db_selected) {
-            die (json_encode( array('success' => false, 'slp_version' => $this->parent->version, 'response' => 'Can\'t use db : ' . mysql_error())));
+            die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Can\'t use db : ' . mysql_error())));
         }
 
         // If tags are passed filter to just those tags
@@ -255,7 +261,7 @@ class SLPlus_AjaxHandler {
 
         $result = mysql_query(apply_filters('slp_mysql_search_query',$query));
         if (!$result) {
-            die(json_encode( array('success' => false, 'slp_version' => $this->parent->version, 'query' => $query, 'response' => 'Invalid query: ' . mysql_error())));
+            die(json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'query' => $query, 'response' => 'Invalid query: ' . mysql_error())));
         }
 
         // Reporting
@@ -302,7 +308,7 @@ class SLPlus_AjaxHandler {
                 array(  'success'       => true,
                         'count'         => count($response),
                         'option'        => $_POST['address'],
-                        'slp_version'   => $this->parent->version,
+                        'slp_version'   => $this->plugin->version,
                         'type'          => 'search',
                         'dbquery'       => $query,
                         'response'      => $response
