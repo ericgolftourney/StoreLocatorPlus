@@ -730,7 +730,7 @@ var csl = {
 					(function(infoData, marker) {
 						return function() {
 							_this.__handleInfoClicks.call(_this, infoData, marker);
-						}
+						};
 					})(markerList[markerNumber], this.markers[markerNumber]));
 				}
 			}
