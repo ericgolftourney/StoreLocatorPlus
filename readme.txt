@@ -312,6 +312,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Load textdomain (for language support) in the proper place (init).
 * Enhancement: Give pot/po/mo language files the proper name and the proper directory (./languages).
 * Enhancement: Get rid of unused PHP script, lessens security vulnerabilities.
+* Enhancement: Elminate unused variables and speed up front end UI a tick.
 * Enhancement: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) report downloads are now AJAX based, lighter & less risky.
 * Enhancement: [Hooks & Filters](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/) add slp_manage_expanded_location_columns.
 * Enhancement: [Hooks & Filters](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/) add slp_manage_priority_location_columns.
