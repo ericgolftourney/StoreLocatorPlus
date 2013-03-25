@@ -1372,8 +1372,7 @@ function InitializeTheMap() {
             slplus.use_sensor = false;
             cslmap.doGeocode();            
         }
-    }
-    else {
+    } else {
         cslmap.doGeocode();
     }
 }
