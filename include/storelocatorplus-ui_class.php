@@ -132,14 +132,19 @@ class SLPlus_UI {
     /**
      * Create a search form input div.
      */
-    function create_input_div($fldID=null,$label='',$placeholder='',$hidden=false,$divID=null) {
+    function create_input_div($fldID=null,$label='',$placeholder='',$hidden=false,$divID=null,$default='') {
         if ($fldID === null) { return; }
         if ($divID === null) { $divID = $fldID; }
+
+        // Escape output for special char friendliness
+        //
+        if ($default     !==''){ $default     = esc_html($default);     }
+        if ($placeholder !==''){ $placeholder = esc_html($placeholder); }
 
         $content =
             ($hidden?'':"<div id='$divID' class='search_item'>") .
                 (($hidden || ($label === '')) ? '' : "<label for='$fldID'>$label</label>") .
-                "<input type='".($hidden?'hidden':'text')."' id='$fldID' name='$fldID' placeholder='$placeholder' size='50' value='' />" .
+                "<input type='".($hidden?'hidden':'text')."' id='$fldID' name='$fldID' placeholder='$placeholder' size='50' value='$default' />" .
             ($hidden?'':"</div>")
             ;
         return $content;
@@ -242,20 +247,24 @@ class SLPlus_UI {
     /**
      * Create the default search address div.
      *
+     * FILTER: slp_search_default_address
+     *
      * @global string $slp_thishtml_60
      * @global SLPlus_UI_DivManager $slp_SearchDivs
      */
     function create_DefaultSearchDiv_Address() {
         global $slp_thishtml_60;
         global $slp_SearchDivs;
-        
+
         $slp_thishtml_60 = $this->plugin->UI->create_input_div(
             'addressInput',
             get_option('sl_search_label',__('Address','csa-slplus')),
             '',
             (get_option(SLPLUS_PREFIX.'_hide_address_entry',0) == 1),
-            'add_in_address'
+            'add_in_address',
+            apply_filters('slp_search_default_address','')
             );
+
         add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv60'),60);
     }
 
