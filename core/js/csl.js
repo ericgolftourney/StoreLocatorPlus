@@ -577,7 +577,6 @@ var csl = {
                     // We have an address
                     //
                     } else {
-alert('ddy');
                         this.forceAll = true;
                         this.loadMarkers(null, null, this.saneValue('tag_to_search_for', null));
                     }
