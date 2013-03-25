@@ -564,18 +564,22 @@ var csl = {
 
                 //load all the markers
                 if (slplus.load_locations === '1') {
-//alert('load locations for '+this.saneValue('addressInput',null));
-                    if (this.saneValue('addressInput', null) === null || this.saneValue('addressInput', null) === '') {
-                        this.forceAll = true;
 
-                        this.loadMarkers(null, null, this.saneValue('tag_to_search_for', null));
-                    }
-                    else {
+                    // We have no address to search from, use map center
+                    //
+                    if (this.saneValue('addressInput', null) === null || this.saneValue('addressInput', null) === '') {
                         this.homePoint = center;
                         this.addMarkerAtCenter();
                         var tag_to_search_for = this.saneValue('tag_to_search_for', '');
                         var radius = this.saneValue('radiusSelect');
                         this.loadMarkers(center, radius, tag_to_search_for);
+
+                    // We have an address
+                    //
+                    } else {
+alert('ddy');
+                        this.forceAll = true;
+                        this.loadMarkers(null, null, this.saneValue('tag_to_search_for', null));
                     }
                 }
             }

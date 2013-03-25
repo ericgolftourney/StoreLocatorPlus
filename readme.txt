@@ -325,6 +325,7 @@ You will likely need to reset your home and destination map markers.
 * Fix: Stop [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) reporting JavaScript from loading on all pages.
 * Fix: Got the locale setting working again.
 * Fix: Multiple map settings fields can now have ' as valid field data.
+* Fix: Immediately show locations works again.
 
 = 3.9.2 =
 
