@@ -1379,7 +1379,7 @@ function InitializeTheMap() {
  * When the document has been loaded...
  *
  */
-jQuery('#document').ready(
+jQuery(document).ready(
     function() {
                 /*---------------------------------
                  * formparams minified js
