@@ -617,7 +617,7 @@ class SLPlus_UI {
             'label_hours'       => esc_attr(get_option(SLPLUS_PREFIX.'_label_hours',        'Hours: ')       ),
             'label_phone'       => esc_attr(get_option(SLPLUS_PREFIX.'_label_phone',        'Phone: ')       ),
             'map_3dcontrol'     => (get_option(SLPLUS_PREFIX.'_disable_largemapcontrol3d')==0),
-            'map_country'       => $this->plugin->Actions->SetMapCenter(),
+            'map_country'       => $this->set_MapCenter(),
             'map_domain'        => get_option('sl_google_map_domain','maps.google.com'),
             'map_home_icon'     => $this->plugin->data['sl_map_home_icon'],
             'map_home_sizew'    => $this->plugin->data['home_size'][0],
@@ -642,6 +642,16 @@ class SLPlus_UI {
             );
         wp_localize_script('csl_script','slplus',$scriptData);
     }
+
+    /**
+     * Set the starting point for the center of the map.
+     *
+     * Uses country by default.
+     */
+    function set_MapCenter() {
+        return apply_filters('slp_map_center',esc_attr(get_option('sl_google_map_country','United States')));
+    }
+
 
     /**
      * Set the default results string for stuff under the map.

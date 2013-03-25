@@ -323,23 +323,6 @@ class SLPlus_Actions {
     }
 
     /**
-     * Set the starting point for the center of the map.
-     *
-     * Uses country by default.
-     */
-    function SetMapCenter() {
-        global $slplus_plugin;
-        $customAddress = get_option(SLPLUS_PREFIX.'_map_center');
-        if (
-            (preg_replace('/\W/','',$customAddress) != '') &&
-            $slplus_plugin->license->packages['Pro Pack']->isenabled
-            ) {
-            return str_replace(array("\r\n","\n","\r"),', ',esc_attr($customAddress));
-        }
-        return esc_attr(get_option('sl_google_map_country','United States'));
-    }
-
-    /**
      * This is called whenever the WordPress wp_enqueue_scripts action is called.
      */
     static function wp_enqueue_scripts() {
