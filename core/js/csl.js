@@ -525,7 +525,7 @@ var csl = {
                 //
                 var addressInput = this.getSearchAddress();
                 if (typeof addressInput === 'undefined') {
-                    this.address = this.country
+                    this.address = this.country;
                 } else {
                     this.address = addressInput;
                 }
