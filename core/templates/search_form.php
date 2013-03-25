@@ -151,9 +151,7 @@ ob_start();
                     'add_in_address'
                     );
             add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv60'),60);
-          ?>
-
-          <?php
+            
           //------------------------------------------------
           // We are not hiding the radius selection
           //
