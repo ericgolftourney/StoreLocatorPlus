@@ -101,7 +101,7 @@ class SLPlus_AjaxHandler {
         $password=DB_PASSWORD;
         $database=DB_NAME;
         $host=DB_HOST;
-        $this->setParent();
+        $this->setPlugin();
 
         $connection=mysql_connect ($host, $username, $password);
         if (!$connection) {
