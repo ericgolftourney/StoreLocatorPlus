@@ -231,7 +231,7 @@ if (get_option(SLPLUS_PREFIX.'_disable_search') == 0) {
 // Render each of the divs in the order specified
 // by the filters we've setup.
 //
-echo $slplus_plugin->UI->rawDeal(apply_filters('slp_search_form_divs',''));
-
-
-echo '</div></td></tr></tbody></table></form>';
+echo 
+    apply_filters('slp_search_form_divs','') .
+    '</div></td></tr></tbody></table></form>'
+    ;
