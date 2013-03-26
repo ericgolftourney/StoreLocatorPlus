@@ -252,6 +252,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'rate_url'              => 'http://wordpress.org/extend/plugins/store-locator-le/',
             'forum_url'             => 'http://www.charlestonsw.com/forums/',
             'updater_url'           => 'http://www.charlestonsw.com/updater/index.php',
+            'broadcast_url'         => 'http://www.charlestonsw.com/signage/index.php?slug=store-locator-le',
 
             'basefile'              => SLPLUS_BASENAME,
             'plugin_path'           => SLPLUS_PLUGINDIR,
