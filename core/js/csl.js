@@ -1341,36 +1341,58 @@ var cslutils;
  * @returns {undefined}
  */
 function InitializeTheMap() {
-	cslutils = new csl.Utils();
-	cslmap = new csl.Map();
 
+    // Initialize Utilities
+    //
+	cslutils = new csl.Utils();
+
+    // Initialize the map based on sensor activity
+    //
+    // There are 4 possibilities, and we set the cslmap object as
+    // late as possible for each...
+    //
+    // 1) Sensor Active, Location Service OK
+    // 2) Sensor Active, Location Service FAIL
+    // 3) Sensor Active, But No Location Support
+    // 4) Sensor Inactive
+    //
     if (slplus.use_sensor) {
         sensor = new csl.LocationServices();
-        
-        // If the GPS Sensor is working...
-        //
         if (sensor.LocationSupport) {
             sensor.currentLocation(
+
+                // 1) Success on Location
+                //
                 function(loc) {
+                	cslmap = new csl.Map();
                     cslmap.usingSensor = true;
                     clearTimeout(sensor.location_timeout);
                     sensor.lat = loc.coords.latitude;
                     sensor.lng = loc.coords.longitude;
                     cslmap.__buildMap(new google.maps.LatLng(loc.coords.latitude, loc.coords.longitude));
                 },
+
+                // 2) Failed on location
+                //
                 function(error) {
                     clearTimeout(sensor.location_timeout);
+                	cslmap = new csl.Map();
                     cslmap.doGeocode();
                 }
             );
             
-        // GPS Sensor Not Working (like IE8)
+        // 3) GPS Sensor Not Working (like IE8)
         //
         } else {
             slplus.use_sensor = false;
+        	cslmap = new csl.Map();
             cslmap.doGeocode();            
         }
+
+    // 4) No Sensor
+    //
     } else {
+    	cslmap = new csl.Map();
         cslmap.doGeocode();
     }
 }
