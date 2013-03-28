@@ -282,7 +282,7 @@ class SLPlus_UI {
             $slp_thishtml_70 =
                 "<div id='addy_in_radius'>".
                 "<label for='radiusSelect'>".
-                get_option('sl_radius_label','').
+                get_option('sl_radius_label','Within').
                 '</label>'.
                 "<select id='radiusSelect'>".$this->plugin->data['radius_options'].'</select>'.
                 "</div>"
