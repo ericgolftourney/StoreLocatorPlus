@@ -296,15 +296,8 @@ class SLPlus_Location {
         //
         $this->pageData = apply_filters('slp_location_page_attributes', $this->pageData);
 
-        // Show some details if debug mode is enabled
-        //
-        $this->plugin->helper->bugout(
-                '<pre>'.print_r($this->pageData,true).'</pre>',
-                '',
-                'SLPlus_Location.set_PageData()',
-                __FILE__,
-                __LINE__
-                );
+        // Debugging
+        $this->plugin->debugMP('pr','location.set_PageData() post-filter',$this->pageData,__FILE__,__LINE__);
 
         return $this->pageData;
     }
