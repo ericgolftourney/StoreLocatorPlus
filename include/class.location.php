@@ -198,15 +198,12 @@ class SLPlus_Location {
 
             // Debugging Output (if flag turned on)
             //
-            $this->plugin->helper->bugout(
-                    (($touched_pageID != $this->linked_postid) ? 'Created':'Updated') .
-                       " location page $touched_pageID with <pre>" .
-                       print_r($this->pageData,true).'</pre>',
-                    '',
-                    'SLPlus_Location.crupdate_Page()',
-                    __FILE__,
-                    __LINE__
-                    );
+            $header = 
+                    'location.crupdate_Page() page # ' . 
+                    $touched_pageID . 
+                    (($touched_pageID != $this->linked_postid) ? 'Created':'Updated')
+                    ;
+           $this->plugin->debugMP('pr',$header,$this->pageData,__FILE__,__LINE__);
 
             // If we created a page or changed the page ID,
             // set it in our location property and make it
@@ -221,11 +218,8 @@ class SLPlus_Location {
         // We got an error... oh shit...
         //
         } else {
-            $this->plugin->notifications->add_notice('error',
-                    'Could not create or update the custom page for this location. <pre>'.
-                    print_r($touched_pageID->get_error_messages(),true).
-                    '</pre>'
-                    );
+            $this->plugin->notifications->add_notice('error','Could not create or update the custom page for this location.');
+            $this->plugin->debugMP('pr','location.crupdate_Page() failed',$touched_pageID->get_error_messages(),__FILE__,__LINE__);
         }
 
 
