@@ -271,7 +271,7 @@ class SLPlus_Location {
             $this->pageData = array(
                 'ID'            => $this->linked_postid,
             );
-
+           $this->plugin->debugMP('pr','location.set_PageData() pre-existing post ID ',$this,__FILE__,__LINE__);
 
         // No page yet, default please.
         //
