@@ -185,11 +185,14 @@ class SLPlus_Location {
         if ($this->linked_postid > 0) {
             $touched_pageID = wp_update_post($this->pageData);
             $crupdateOK = ($touched_pageID > 0);
+            $this->plugin->debugMP('msg','location.crupdate_Page() update post',$this,__FILE__,__LINE__);
+
 
         // Create a new page.
         } else {
             $touched_pageID = wp_insert_post($this->pageData, true);
             $crupdateOK = !is_wp_error($touched_pageID);
+            $this->plugin->debugMP('msg','location.crupdate_Page() insert post',$this,__FILE__,__LINE__);
         }
 
         // Ok - we are good...
@@ -266,6 +269,7 @@ class SLPlus_Location {
     public function set_PageData() {
 
         // We have an existing page
+        // should feed a wp_update_post not wp_insert_post
         //
         if ($this->linked_postid > 0) {
             $this->pageData = array(
@@ -283,6 +287,7 @@ class SLPlus_Location {
                 'post_title'    => $this->store,
                 'post_content'  => ''
             );
+           $this->plugin->debugMP('pr','location.set_PageData() new post ID ',$this,__FILE__,__LINE__);
         }
 
         // Apply our location page data filters.
