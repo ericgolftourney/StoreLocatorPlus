@@ -185,14 +185,14 @@ class SLPlus_Location {
         if ($this->linked_postid > 0) {
             $touched_pageID = wp_update_post($this->pageData);
             $crupdateOK = ($touched_pageID > 0);
-            $this->plugin->debugMP('msg','location.crupdate_Page() update post',$this,__FILE__,__LINE__);
+            $this->plugin->debugMP('msg','location.crupdate_Page()','update post',__FILE__,__LINE__);
 
 
         // Create a new page.
         } else {
             $touched_pageID = wp_insert_post($this->pageData, true);
             $crupdateOK = !is_wp_error($touched_pageID);
-            $this->plugin->debugMP('msg','location.crupdate_Page() insert post',$this,__FILE__,__LINE__);
+            $this->plugin->debugMP('msg','location.crupdate_Page()','insert post',__FILE__,__LINE__);
         }
 
         // Ok - we are good...
@@ -275,7 +275,15 @@ class SLPlus_Location {
             $this->pageData = array(
                 'ID'            => $this->linked_postid,
             );
-           $this->plugin->debugMP('pr','location.set_PageData() pre-existing post ID ',$this,__FILE__,__LINE__);
+           $this->plugin->debugMP(
+                   'msg',
+                   'location.set_PageData()',
+                   ' pre-existing post ID ' . $this->linked_postid . '<br/>' .
+                   '   this pageType ' . $this->pageType . '<br/>' .
+                   '   this pageDefaultStatus ' . $this->pageDefaultStatus . '<br/>' .
+                   '   this store ' . $this->store
+                   ,__FILE__,__LINE__
+                   );
 
         // No page yet, default please.
         //
@@ -287,7 +295,15 @@ class SLPlus_Location {
                 'post_title'    => $this->store,
                 'post_content'  => ''
             );
-           $this->plugin->debugMP('pr','location.set_PageData() new post ID ',$this,__FILE__,__LINE__);
+           $this->plugin->debugMP(
+                   'msg',
+                   'location.set_PageData()',
+                   ' new post ID ' . $this->linked_postid . '<br/>' .
+                   '   this pageType ' . $this->pageType . '<br/>' .
+                   '   this pageDefaultStatus ' . $this->pageDefaultStatus . '<br/>' .
+                   '   this store ' . $this->store
+                   ,__FILE__,__LINE__
+                   );
         }
 
         // Apply our location page data filters.
@@ -402,8 +418,16 @@ class SLPlus_Location {
             //
             $this->settings = maybe_unserialize($this->option_value);
 
+            // Debugging Output
+            //
+            $this->plugin->debugMP('pr','location.set_PropertiesViaArray()',$locationData,__FILE__,__LINE__);
+
             return true;
         }
+
+        // Debugging Output
+        //
+        $this->plugin->debugMP('msg','location.set_PropertiesViaArray()','ERROR: location data not in array format.',__FILE__,__LINE__);
         return false;
     }
 
