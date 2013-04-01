@@ -307,6 +307,7 @@ You will likely need to reset your home and destination map markers.
 
 = 3.9.4 =
 
+* Enhancement: Top Labels CSS Theme modified, drop coloring and shadows.
 * Change: Add-on packs updater URL.
 
 = 3.9.3 =
