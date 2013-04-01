@@ -52,9 +52,10 @@ class SLPlus extends wpCSL_plugin__slplus {
      */
     function debugMP($type='msg', $header='Store Locator Plus',$message='',$file=null,$line=null) {
         if (!isset($GLOBALS['DebugMyPlugin'])) { return; }
-        switch ($type):
+        switch (strtolower($type)):
             case 'pr':
                 $GLOBALS['DebugMyPlugin']->panels['main']->addPR($header,$message,$file,$line);
+                break;
             default:
                 $GLOBALS['DebugMyPlugin']->panels['main']->addMessage($header,$message,$file,$line);
         endswitch;
