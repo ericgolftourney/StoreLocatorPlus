@@ -19,6 +19,14 @@ class SLPlus_Updates {
      * @var string
      */
     public $update_path;
+
+    /**
+     * The global plugin.
+     * 
+     * @var \SLPlus
+     */
+    private $plugin;
+
     /**
      * Plugin Slug (plugin_directory/plugin_file.php)
      * @var string
@@ -29,6 +37,7 @@ class SLPlus_Updates {
      * @var string
      */
     public $slug;
+
     /**
      * Initialize a new instance of the WordPress Auto-Update class
      * @param string $current_version
@@ -37,14 +46,19 @@ class SLPlus_Updates {
      */
     function __construct($current_version, $update_path, $plugin_slug)
     {
+        global $slplus_plugin;
+
         // Set the class public variables
+        $this->plugin = $slplus_plugin;
         $this->current_version = $current_version;
         $this->update_path = $update_path;
         $this->plugin_slug = $plugin_slug;
         list ($t1, $t2) = explode('/', $plugin_slug);
         $this->slug = str_replace('.php', '', $t2);
+
         // define the alternative API for updating checking
         add_filter('pre_set_site_transient_update_plugins', array(&$this, 'check_update'));
+        
         // Define the alternative response for information checking
         add_filter('plugins_api', array(&$this, 'check_info'), 10, 3);
     }
@@ -84,6 +98,7 @@ class SLPlus_Updates {
      */
     public function check_info($false, $action, $arg)
     {
+        $this->plugin->debugMP('msg','SLPlus_Updates.check_info()','this slug '.$this->slug.' arg slug '.$arg->slug,__FILE__,__LINE__);
         if (isset($this->slug) && isset($arg->slug) && ($arg->slug === $this->slug)) {
             $information = $this->getRemote_information();
             return $information;
