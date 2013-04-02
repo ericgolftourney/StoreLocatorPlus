@@ -57,10 +57,10 @@ class SLPlus_Updates {
         $this->slug = str_replace('.php', '', $t2);
 
         // define the alternative API for updating checking
-        add_filter('pre_set_site_transient_update_plugins', array(&$this, 'check_update'));
+        add_filter('pre_set_site_transient_update_plugins', array($this, 'check_update'));
         
         // Define the alternative response for information checking
-        add_filter('plugins_api', array(&$this, 'check_info'), 10, 3);
+        add_filter('plugins_api', array($this, 'check_info'), 10, 3);
     }
     /**
      * Add our self-hosted autoupdate plugin to the filter transient
@@ -91,19 +91,19 @@ class SLPlus_Updates {
     /**
      * Add our self-hosted description to the filter
      *
-     * @param boolean $false
+     * @param mixed $orig original incoming args
      * @param array $action
      * @param object $arg
      * @return bool|object
      */
-    public function check_info($false, $action, $arg)
+    public function check_info($orig, $action, $arg)
     {
-        $this->plugin->debugMP('msg','SLPlus_Updates.check_info()','this slug '.$this->slug.' arg slug '.$arg->slug,__FILE__,__LINE__);
+        error_log('this slug '.$this->slug.' arg slug ' . $arg->slug);
         if (isset($this->slug) && isset($arg->slug) && ($arg->slug === $this->slug)) {
             $information = $this->getRemote_information();
             return $information;
         }
-        return false;
+        return $orig;
     }
     /**
      * Return the remote version
