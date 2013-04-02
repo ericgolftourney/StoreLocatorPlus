@@ -79,7 +79,9 @@ class SLPlus_Updates {
         $remote_version = $this->getRemote_version();
 
         // If a newer version is available, add the update
-        error_log('slug ' . $this->slug . ' current version ' . $this->current_version . ' remote version ' . $remote_version);
+        if (isset($GLOBALS['DebugMyPlugin'])) {
+            error_log('slug ' . $this->slug . ' current version ' . $this->current_version . ' remote version ' . $remote_version);
+        }
         if (version_compare($this->current_version, $remote_version, '<')) {
             $obj = new stdClass();
             $obj->slug = $this->slug;
@@ -101,11 +103,15 @@ class SLPlus_Updates {
      */
     public function check_info($orig, $action, $arg)
     {
-        error_log('check info for action ' . $action . ' arg slug ' . $arg->slug);
+        if (isset($GLOBALS['DebugMyPlugin'])) {
+            error_log('check info for action ' . $action . ' arg slug ' . $arg->slug);
+        }
         if (!isset($this->plugin->infoFetched[$arg->slug])) {
             $information = $this->getRemote_information($arg->slug);
             $this->plugin->infoFetched[$arg->slug] = true;
-            error_log(' plugin info '. print_r($information,true));
+            if (isset($GLOBALS['DebugMyPlugin'])) {
+                error_log(' plugin info '. print_r($information,true));
+            }
             return $information;
         }
         return $orig;
@@ -130,10 +136,14 @@ class SLPlus_Updates {
         if ($slug===null) { $slug = $this->slug; }
         $request = wp_remote_post($this->update_path, array('body' => array('action' => 'info', 'slug' => $slug)));
         if (!is_wp_error($request) || wp_remote_retrieve_response_code($request) === 200) {
-            error_log('retrieved remote info for ' . $slug);
+            if (isset($GLOBALS['DebugMyPlugin'])) {
+                error_log('retrieved remote info for ' . $slug);
+            }
             return unserialize($request['body']);
         }
-        error_log('remote info retrieval failed for ' . $slug);
+        if (isset($GLOBALS['DebugMyPlugin'])) {
+            error_log('remote info retrieval failed for ' . $slug);
+        }
         return false;
     }
     /**
