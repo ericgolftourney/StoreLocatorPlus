@@ -71,11 +71,6 @@ class SLPlus_Updates {
             $obj->package = $this->update_path;
             $transient->response[$this->plugin_slug] = $obj;
         }
-
-//            print '<pre>';
-//            var_dump($transient);
-//            print '</pre>';
-
         return $transient;
     }
     /**
