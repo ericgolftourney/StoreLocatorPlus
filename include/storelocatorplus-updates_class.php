@@ -52,10 +52,10 @@ class SLPlus_Updates {
         // Set the class public variables
         $this->plugin = $slplus_plugin;
         $this->current_version = $current_version;
-        $this->update_path = $update_path;
         $this->plugin_slug = $plugin_slug;
         list ($t1, $t2) = explode('/', $plugin_slug);
         $this->slug = str_replace('.php', '', $t2);
+        $this->update_path = $update_path . '?slug='.$this->slug;
 
         // define the alternative API for updating checking
         add_filter('pre_set_site_transient_update_plugins', array($this, 'check_update'));
@@ -101,10 +101,11 @@ class SLPlus_Updates {
      */
     public function check_info($orig, $action, $arg)
     {
-        error_log('check info for arg slug ' . $arg->slug);
+        error_log('check info for action ' . $action . ' arg slug ' . $arg->slug);
         if (!isset($this->plugin->infoFetched[$arg->slug])) {
             $information = $this->getRemote_information($arg->slug);
             $this->plugin->infoFetched[$arg->slug] = true;
+            error_log(' plugin info '. print_r($information,true));
             return $information;
         }
         return $orig;
