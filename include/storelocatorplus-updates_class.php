@@ -77,7 +77,9 @@ class SLPlus_Updates {
 
         // Get the remote version
         $remote_version = $this->getRemote_version();
+
         // If a newer version is available, add the update
+        error_log('slug ' . $this->slug . ' current version ' . $this->current_version . ' remote version ' . $remote_version);
         if (version_compare($this->current_version, $remote_version, '<')) {
             $obj = new stdClass();
             $obj->slug = $this->slug;
@@ -91,9 +93,6 @@ class SLPlus_Updates {
     
     /**
      * Add our self-hosted description to the filter
-     *
-     * TODO: Make this work for inactive plugins.
-     * It never gets $this->slug == $arg-slug because $this->slug only loops active plugins
      *
      * @param mixed $orig original incoming args
      * @param array $action
