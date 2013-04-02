@@ -307,8 +307,10 @@ You will likely need to reset your home and destination map markers.
 
 = 3.9.4 =
 
+* Change: Add-on packs updater URL revised to new location.
 * Enhancement: Top Labels CSS Theme modified, drop coloring and shadows.
-* Change: Add-on packs updater URL.
+* Enhancement: If radius selection is hidden and radius is set to blank or <=0, make default 2500.
+* Fix: Add-on updater no longer fails on info retrieval if the add-on is inactive.
 
 = 3.9.3 =
 

@@ -288,7 +288,7 @@ class SLPlus_UI {
                 "</div>"
                 ;
         } else {
-            $slp_thishtml_70 = $this->plugin->data['radius_options'];
+            $slp_thishtml_70 =$this->plugin->data['radius_options'];
         }
         add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv70'),70);
     }
@@ -505,6 +505,7 @@ class SLPlus_UI {
         if (get_option(SLPLUS_PREFIX.'_hide_radius_selections', 0) == 1) {
             preg_match('/\((.*?)\)/', $radiusSelections, $selectedRadius);
             $selectedRadius = preg_replace('/[^0-9]/', '', (isset($selectedRadius[1])?$selectedRadius[1]:$radiusSelections));
+            if (empty($selectedRadius) || ($selectedRadius <= 0)) { $selectedRadius = '2500'; }
             $this->plugin->data['radius_options'] =
                     "<input type='hidden' id='radiusSelect' name='radiusSelect' value='$selectedRadius'>";
 
