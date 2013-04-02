@@ -297,8 +297,7 @@ div#slp_tagline {
 /*****Search Results Area *****/
 .searchResultsTable td {
 	line-height:12px;
-	font-family: Verdana;
-	font-size:10px;
+	font-size:11px;
 	text-align:left;
 }
 .text_below_map {
@@ -324,11 +323,14 @@ div#slp_tagline {
 .results_entry {
 	cursor:pointer;
 	padding:4px;
-	border-bottom:solid silver 1px;
+	border: none;
 	background-color:transparent;
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: 500;
 }
 .results_entry:hover {
-	background-color:salmon;
+	background-color:#F9F9F9;
 }
 .results_row_left_column {
 	width:30%;
@@ -369,4 +371,10 @@ span.slp_result_phone {
 span.slp_result_contact {
     width: 100%;
     white-space: nowrap;
+}
+
+div#sl_div div.no_results_found h2 {
+   font-family: Arial;
+   font-size: 16px;
+   font-weight: 500;
 }
