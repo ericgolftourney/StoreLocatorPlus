@@ -73,6 +73,7 @@ class SLPlus_Updates {
         }
         return $transient;
     }
+    
     /**
      * Add our self-hosted description to the filter
      *
@@ -115,7 +116,7 @@ class SLPlus_Updates {
     }
     /**
      * Get a list of remote packages on this updater URL.
-     * @return bool|object
+     * @return mixed false if error on remote, unserialized list of products otherwise
      */
     public function getRemote_list()
     {
