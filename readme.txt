@@ -310,6 +310,7 @@ You will likely need to reset your home and destination map markers.
 * Change: Add-on packs updater URL revised to new location.
 * Enhancement: Top Labels CSS Theme modified, drop coloring and shadows.
 * Enhancement: If radius selection is hidden and radius is set to blank or <=0, make default 2500.
+* Fix: Add-on updater now downloads zip files from remote source properly.
 * Fix: Add-on updater no longer fails on info retrieval if the add-on is inactive.
 
 = 3.9.3 =
