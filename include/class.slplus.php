@@ -27,6 +27,13 @@ class SLPlus extends wpCSL_plugin__slplus {
     public $db;
 
     /**
+     * Array of slugs + booleans for plugins we've already fetched info for.
+     * 
+     * @var array[] named array, key = slug, value = true
+     */
+    public $infoFetched = array();
+
+    /**
      * Initialize a new SLPlus Object
      *
      * @param mixed[] $params - a named array of the plugin options for wpCSL.

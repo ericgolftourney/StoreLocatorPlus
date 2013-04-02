@@ -9,6 +9,7 @@
  * @copyright 2012-2013 Charleston Software Associates, LLC
  */
 class SLPlus_Updates {
+
     /**
      * The plugin current version
      * @var string
@@ -91,6 +92,9 @@ class SLPlus_Updates {
     /**
      * Add our self-hosted description to the filter
      *
+     * TODO: Make this work for inactive plugins.
+     * It never gets $this->slug == $arg-slug because $this->slug only loops active plugins
+     *
      * @param mixed $orig original incoming args
      * @param array $action
      * @param object $arg
@@ -98,9 +102,10 @@ class SLPlus_Updates {
      */
     public function check_info($orig, $action, $arg)
     {
-        error_log('this slug '.$this->slug.' arg slug ' . $arg->slug);
-        if (isset($this->slug) && isset($arg->slug) && ($arg->slug === $this->slug)) {
-            $information = $this->getRemote_information();
+        error_log('check info for arg slug ' . $arg->slug);
+        if (!isset($this->plugin->infoFetched[$arg->slug])) {
+            $information = $this->getRemote_information($arg->slug);
+            $this->plugin->infoFetched[$arg->slug] = true;
             return $information;
         }
         return $orig;
@@ -119,14 +124,16 @@ class SLPlus_Updates {
     }
     /**
      * Get information about the remote version
-     * @return bool|object
+     * @return mixed[] false if cannot get info, unserialized info if we could
      */
-    public function getRemote_information()
-    {
-        $request = wp_remote_post($this->update_path, array('body' => array('action' => 'info', 'slug' => $this->slug)));
+    public function getRemote_information($slug=null) {
+        if ($slug===null) { $slug = $this->slug; }
+        $request = wp_remote_post($this->update_path, array('body' => array('action' => 'info', 'slug' => $slug)));
         if (!is_wp_error($request) || wp_remote_retrieve_response_code($request) === 200) {
+            error_log('retrieved remote info for ' . $slug);
             return unserialize($request['body']);
         }
+        error_log('remote info retrieval failed for ' . $slug);
         return false;
     }
     /**
