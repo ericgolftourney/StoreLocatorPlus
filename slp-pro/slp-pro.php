@@ -567,7 +567,7 @@ class SLPPro {
         $addform = $this->plugin->AdminUI->addingLocation;
 
         return $theHTML .=
-            '<div id="slp_pro_fields"><strong>'.__('Pro Pack','csa-slplus').'</strong><br/>'.
+            '<div id="slp_pro_fields" class="slp_editform_section"><strong>'.__('Pro Pack','csa-slplus').'</strong><br/>'.
                 "<input name='tags-$locID' value='".($addform?'':$this->plugin->currentLocation->tags)."'> ".
                 '<small>'.
                    __("Tags (seperate with commas)", 'csa-slplus').
