@@ -314,6 +314,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Clean Simple White Theme modified, adjust input field padding and separation.
 * Enhancement: If radius selection is hidden and radius is set to blank or <=0, make default 2500.
 * Enhancement: [Hooks & Filters](http://www.charlestonsw.com/support/documentation/technical-documentation/store-locator-plus/slp-action-hooks-and-filters/) add slp_script_data filter.
+* Enhancement: JavaScript simplification.
 * Fix: Add-on updater now downloads zip files from remote source properly.
 * Fix: Add-on updater no longer fails on info retrieval if the add-on is inactive.
 * Fix: Hide the Google bubble shadow that looks "wonky" on older browsers.
