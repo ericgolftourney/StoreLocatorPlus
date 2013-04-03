@@ -444,7 +444,6 @@ var csl = {
 		this.disableDir = null;
 		this.distanceUnit = null;
 		this.map3dControl = null;
-		this.mapCountry = null;
 		this.mapDomain = null;
 		this.mapHomeIconUrl = null;
 		this.mapHomeIconWidth = null;
@@ -489,13 +488,11 @@ var csl = {
   	  	this.__init = function() {
 
             if (typeof slplus !== 'undefined') {
-                this.country = slplus.map_country;
                 this.mapType = slplus.map_type;
                 this.disableScroll = !!slplus.disable_scroll;
                 this.debugMode = !!slplus.debug_mode;
                 this.disableDir = !!slplus.disable_dir;
                 this.distanceUnit = slplus.distance_unit;
-                this.mapCountry = slplus.map_country;
                 this.mapDomain = slplus.map_domain;
                 this.mapHomeIconUrl = slplus.map_home_icon;
                 this.mapHomeIconWidth = slplus.map_home_icon_sizew;
@@ -520,7 +517,7 @@ var csl = {
                 //
                 var addressInput = this.getSearchAddress();
                 if (typeof addressInput === 'undefined') {
-                    this.address = this.country;
+                    this.address = slplus.map_country;
                 } else {
                     this.address = addressInput;
                 }
