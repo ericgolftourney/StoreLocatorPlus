@@ -158,7 +158,6 @@ class SLPPro {
      */
     function slp_init() {
         add_filter('slp_search_form_divs',array($this,'filter_SearchForm_AddTagSearch'),40);
-        add_filter('slp_search_form_divs',array($this,'filter_SearchForm_AddNameSearch'),50);
     }
 
     ////====================================================
@@ -581,20 +580,6 @@ class SLPPro {
                 '</small>' .
             '</div>'
             ;
-    }
-
-    /**
-     * Add name search to search form.
-     */
-    function filter_SearchForm_AddNameSearch($HTML) {
-        $HTML .= $this->plugin->UI->create_input_div(
-                'nameSearch',
-                get_option('sl_name_label',__('Name of Store','csa-slplus')),
-                '',
-                (get_option(SLPLUS_PREFIX.'_show_search_by_name',0) == 0),
-                'div_nameSearch'
-                );
-        return $HTML;
     }
 
     /**

@@ -232,7 +232,6 @@ class SLPlus_AdminUI_MapSettings {
                         'sl_map_type'                           ,
                         'sl_num_initial_displayed'              ,
                         'sl_distance_unit'                      ,
-                        'sl_name_label'                         ,
                         'sl_radius_label'                       ,
                         'sl_search_label'                       ,
                         'sl_starting_image'                     ,
@@ -267,7 +266,6 @@ class SLPlus_AdminUI_MapSettings {
                         SLPLUS_PREFIX.'_disable_search'             ,
                         SLPLUS_PREFIX.'_hide_radius_selections'     ,
                         SLPLUS_PREFIX.'_hide_address_entry'         ,
-                        SLPLUS_PREFIX.'_show_search_by_name'        ,
                         SLPLUS_PREFIX.'_use_email_form'             ,
                         SLPLUS_PREFIX.'_use_location_sensor'        ,
                         SLPLUS_PREFIX.'-force_load_js'              ,
@@ -909,15 +907,6 @@ class SLPlus_AdminUI_MapSettings {
                 SLPLUS_PREFIX,
                 !$this->plugin->license->packages['Pro Pack']->isenabled
                 ) .
-
-            $this->plugin->helper->CreateCheckboxDiv(
-                '_show_search_by_name',
-                __('Show search by name box', 'csa-slplus'),
-                __('Shows the name search entry box to the user.', 'csa-slplus') . $ppFeatureMsg,
-                SLPLUS_PREFIX,
-                !$this->plugin->license->packages['Pro Pack']->isenabled
-                ) .
-
             $this->plugin->helper->CreateCheckboxDiv(
                 '_hide_address_entry',
                 __('Hide address entry box','csa-slplus'),
@@ -1023,13 +1012,6 @@ class SLPlus_AdminUI_MapSettings {
                 __('Search form address label.','csa-slplus'),
                 '',
                 'Address / Zip'
-                ) .
-            $this->CreateInputDiv(
-                'sl_name_label',
-                __('Name', 'csa-slplus'),
-                __('Search form name label.','csa-slplus'),
-                '',
-                'Name'
                 ) .
             $this->CreateInputDiv(
                 'sl_radius_label',
