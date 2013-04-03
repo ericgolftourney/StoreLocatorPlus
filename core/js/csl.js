@@ -459,7 +459,6 @@ var csl = {
 		this.overviewControl = null;
 		this.useEmailForm = null;
 		this.websiteLabel = null;
-		this.zoomLevel = '12';
 
   	  	//gmap set variables
   	  	this.options = null;
@@ -511,7 +510,6 @@ var csl = {
                 this.overviewControl = !!(parseInt(slplus.overview_ctrl));
                 this.useEmailForm = !!slplus.use_email_form;
                 this.websiteLabel = slplus.website_label;
-                this.zoomLevel = slplus.zoom_level;
                 this.disableDefaultUI = false;
 
                 if (!this.disableDir) {
