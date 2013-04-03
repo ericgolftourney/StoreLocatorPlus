@@ -817,20 +817,6 @@ class SLPlus_UI_DivManager {
         return $content;
     }
 
-    function buildDiv40($blank) {
-        global $slp_thishtml_40;
-        $content = $this->DivStr($blank,$slp_thishtml_40);
-        $slp_thishtml_40 = '';
-        return $content;
-    }
-
-    function buildDiv50($blank) {
-        global $slp_thishtml_50;
-        $content = $this->DivStr($blank,$slp_thishtml_50);
-        $slp_thishtml_50 = '';
-        return $content;
-    }
-
     function buildDiv60($blank) {
         global $slp_thishtml_60;
         $content = $this->DivStr($blank,$slp_thishtml_60);

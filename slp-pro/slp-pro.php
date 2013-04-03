@@ -95,6 +95,7 @@ class SLPPro {
         // Store Locator Plus invocation complete
         //
         add_action('slp_invocation_complete'        ,array($this,'setPlugin'                    ));
+        add_action('slp_init_complete'              ,array($this,'slp_init'                     ));
 
         // Admin / Nav Menus (start of admin stack)
         //
@@ -138,7 +139,6 @@ class SLPPro {
         add_filter('slp_edit_location_right_column'          ,array($this,'filter_AddFieldsToEditForm'                   ),15        );
         add_filter('slp_manage_expanded_location_columns'    ,array($this,'filter_AddFieldHeadersToManageLocations'      )           );
         add_filter('slp_column_data'                         ,array($this,'filter_AddFieldDataToManageLocations'         ),90    ,3  );
-
     }
 
     /**
@@ -153,8 +153,15 @@ class SLPPro {
         add_action('admin_init' ,array($this,'admin_init'));
     }
 
+    /**
+     * Do this stuff after SLP has started up.
+     */
+    function slp_init() {
+        add_filter('slp_search_form_divs',array($this,'filter_SearchForm_AddTagSearch'),40);
+        add_filter('slp_search_form_divs',array($this,'filter_SearchForm_AddNameSearch'),50);
+    }
 
-    //====================================================
+    ////====================================================
     // Helpers
     //====================================================
 
@@ -241,7 +248,7 @@ class SLPPro {
      * TODO: REMOVE the Pro Pack license check when this becomes an independent plugin.
      * TODO: this->add_package() as well.
      *
-     * @global wpCSL_plugin__slplus $slplus_plugin
+     * @global wpCSL_plugin__slplus $this->plugin
      * @return boolean true if plugin property is valid
      */
     function setPlugin() {
@@ -574,6 +581,70 @@ class SLPPro {
                 '</small>' .
             '</div>'
             ;
+    }
+
+    /**
+     * Add name search to search form.
+     */
+    function filter_SearchForm_AddNameSearch($HTML) {
+        $HTML .= $this->plugin->UI->create_input_div(
+                'nameSearch',
+                get_option('sl_name_label',__('Name of Store','csa-slplus')),
+                '',
+                (get_option(SLPLUS_PREFIX.'_show_search_by_name',0) == 0),
+                'div_nameSearch'
+                );
+        return $HTML;
+    }
+
+    /**
+     * Add tag search to search form.
+     */
+    function filter_SearchForm_AddTagSearch($HTML) {
+        if ((get_option(SLPLUS_PREFIX.'_show_tag_search',0) ==1) || isset($this->plugin->data['only_with_tag'])) {
+            $newHTML .=
+                  "<div id='search_by_tag' class='search_item' ".(isset($this->plugin->data['only_with_tag'])?"style='display:none;'":'').">".
+                      "<label for='tag_to_search_for'>".
+                          get_option(SLPLUS_PREFIX.'_search_tag_label','').
+                       "</label>"
+                    ;
+
+
+            // Tag selections
+            // only_with_tag - don't use them
+            // otherwise get it from the option setting
+            //
+            if (isset($this->plugin->data['only_with_tag'])) {
+                $tag_selections = '';
+            } else {
+                if (isset($this->plugin->data['tags_for_pulldown'])) {
+                    $tag_selections = $this->plugin->data['tags_for_pulldown'];
+                } else {
+                    $tag_selections = get_option(SLPLUS_PREFIX.'_tag_search_selections','');
+                }
+            }
+
+            // No pre-selected tags, use input box
+            //
+            if ($tag_selections == '') {
+                $newHTML .= "<input type='". (isset($this->plugin->data['only_with_tag']) ? 'hidden' : 'text') . "' ".
+                        "id='tag_to_search_for' size='50' " .
+                        "value='" . (isset($this->plugin->data['only_with_tag']) ? $this->plugin->data['only_with_tag'] : '') . "' ".
+                        "/>";
+
+            // Pulldown for pre-selected list
+            //
+            } else {
+                ob_start();
+                $tag_selections = explode(",", $tag_selections);
+                add_action('slp_render_search_form_tag_list',array($this->plugin->UI,'slp_render_search_form_tag_list'),10,2);
+                do_action('slp_render_search_form_tag_list',$tag_selections,(get_option(SLPLUS_PREFIX.'_show_tag_any')==1));
+                $newHTML .= ob_get_clean();
+            }
+            $newHTML .= '</div>';
+            return $HTML.$newHTML;
+        }
+        return $HTML;
     }
 
     /**
