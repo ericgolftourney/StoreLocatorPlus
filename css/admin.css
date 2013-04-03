@@ -373,7 +373,7 @@ div.actionbox {
 }
 
 /***************************
- * Locations: Add / Edit
+ * Locations: Add Form / Edit
  */
 div.slp_bulk_upload_div {
   background-color: #F8F7DE;
@@ -552,6 +552,15 @@ div.slp_editform_section {
     margin-bottom: 9px;
 }
 
+div.slp_editform_section small {
+    margin-left: 9px;
+}
+div.slp_editform_section A {
+    display: inline-block;
+    margin: 1px;
+    min-width: 161px;
+    padding: 3px;
+}
 
 /***************************
  * Locations: Manage

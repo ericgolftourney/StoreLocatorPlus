@@ -308,6 +308,7 @@ You will likely need to reset your home and destination map markers.
 = 3.9.4 =
 
 * Change: Add-on packs updater URL revised to new location.
+* Enhancement: Clean up the add-on pack additional edit form fields layout.
 * Enhancement: Top Labels CSS Theme modified, drop coloring and shadows, revised below map rendering.
 * Enhancement: Clean Simple White Theme modified, adjust input field padding and separation.
 * Enhancement: If radius selection is hidden and radius is set to blank or <=0, make default 2500.
