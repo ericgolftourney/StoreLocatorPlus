@@ -489,7 +489,6 @@ var csl = {
             if (typeof slplus !== 'undefined') {
                 this.mapType = slplus.map_type;
                 this.disableScroll = !!slplus.disable_scroll;
-                this.disableDir = !!slplus.disable_dir;
                 this.distanceUnit = slplus.distance_unit;
                 this.mapDomain = slplus.map_domain;
                 this.mapHomeIconUrl = slplus.map_home_icon;
@@ -506,7 +505,7 @@ var csl = {
                 this.websiteLabel = slplus.website_label;
                 this.disableDefaultUI = false;
 
-                if (!this.disableDir) {
+                if (!slplus.disable_dir) {
                     this.loadedOnce = true;
                 }
 
