@@ -308,6 +308,7 @@ You will likely need to reset your home and destination map markers.
 = 3.9.4 =
 
 * Change: Add-on packs updater URL revised to new location.
+* Change: Updates to the JavaScript processor to make [Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages) happy.
 * Enhancement: Clean up the add-on pack additional edit form fields layout.
 * Enhancement: Top Labels CSS Theme modified, drop coloring and shadows, revised below map rendering.
 * Enhancement: Clean Simple White Theme modified, adjust input field padding and separation.
