@@ -961,7 +961,7 @@ class SLPlus_AdminUI {
                     <input name='address2-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_address2')?>'><br/>
 
                     <label  for='city-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('City, State, ZIP', 'csa-slplus');?></label>
-                    <input name='city-<?php echo $this->get_CurrentLocationVal('sl_id')?>'    value='<?php echo $this->get_CurrentLocationVal('sl_city')?>'     style='width: 21.4em; margin-right: 1em;'>
+                    <input name='city-<?php echo $this->get_CurrentLocationVal('sl_id')?>'    value='<?php echo $this->get_CurrentLocationVal('sl_city')?>'     style='width: 21.4em; margin-right: 3px;'>
                     <input name='state-<?php echo $this->get_CurrentLocationVal('sl_id')?>'   value='<?php echo $this->get_CurrentLocationVal('sl_state')?>'    style='width: 7em; margin-right: 1em;'>
                     <input name='zip-<?php echo $this->get_CurrentLocationVal('sl_id')?>'     value='<?php echo $this->get_CurrentLocationVal('sl_zip')?>'      style='width: 7em;'><br/>
 
