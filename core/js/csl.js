@@ -490,7 +490,6 @@ var csl = {
 
             if (typeof slplus !== 'undefined') {
                 this.country = slplus.map_country;
-                this.zoom = slplus.zoom_level;
                 this.mapType = slplus.map_type;
                 this.disableScroll = !!slplus.disable_scroll;
                 this.debugMode = !!slplus.debug_mode;
@@ -549,7 +548,7 @@ var csl = {
                     overviewMapControl: this.overviewControl,
                     scrollwheel: !this.disableScroll,
                     center: center,
-                    zoom: parseInt(this.zoom),
+                    zoom: parseInt(slplus.zoom_level),
                     scaleControl: this.mapScaleControl,
                     overviewMapControlOptions: { opened: this.overviewControl }
                 };
