@@ -65,8 +65,35 @@
     right: 0px;
     }
 
+/**
+ * All of Store Locator Div
+ **/
+#sl_div {
+	padding:10px;
+	font-weight:bold;
+}
+#sl_div a {
+}
+#sl_div a.storelocatorlink {
+	color:#0000FF;
+}
+#sl_div a:hover.storelocatorlink {
+	color:#4444FF;
+}
+#sl_div img {
+	background-color:transparent;
+	background-image:none;
+	max-width:none;
+}
+#sl_div table, #sl_div tr, #sl_div td {
+	border:none;
+}
 
-/***** Area Above Map DIV. Contains Search Form Inputs *****/
+
+
+/**
+ * Search Form
+ **/
 .sl_header img, .sl_header td {
     border: none;
     cursor: pointer;   
@@ -167,10 +194,6 @@
 	float: none;
 	clear: both;
 }
-
-
-
-
 #addy_in_city {
     clear: both;
     float: left;
@@ -213,32 +236,19 @@
 #map_box_map {
     display: none;
 }
+/* Hide the default Google bubble shadow */
+div#map img[src='http://maps.gstatic.com/mapfiles/iws3.png'] {
+    display:none;
+}
+
+/**
+ * Tagline
+ **/
 div#slp_tagline {
     text-align: right;
     padding-right: 3px;
 }
 
-/***** Store Locator Map DIV *****/
-#sl_div {
-	padding:10px;
-	font-weight:bold;
-}
-#sl_div a {
-}
-#sl_div a.storelocatorlink {
-	color:#0000FF;
-}
-#sl_div a:hover.storelocatorlink {
-	color:#4444FF;
-}
-#sl_div img {
-	background-color:transparent;
-	background-image:none;
-	max-width:none; 
-}
-#sl_div table, #sl_div tr, #sl_div td {
-	border:none;
-}
 #sl_div #map { 
 	color:black; 
 	font-weight:normal;
