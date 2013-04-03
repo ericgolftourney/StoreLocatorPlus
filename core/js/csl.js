@@ -439,7 +439,6 @@ var csl = {
 
 		//slplus options
         this.usingSensor = false;
-		this.debugMode = null;
 		this.disableScroll = null;
 		this.disableDir = null;
 		this.distanceUnit = null;
@@ -490,7 +489,6 @@ var csl = {
             if (typeof slplus !== 'undefined') {
                 this.mapType = slplus.map_type;
                 this.disableScroll = !!slplus.disable_scroll;
-                this.debugMode = !!slplus.debug_mode;
                 this.disableDir = !!slplus.disable_dir;
                 this.distanceUnit = slplus.distance_unit;
                 this.mapDomain = slplus.map_domain;
