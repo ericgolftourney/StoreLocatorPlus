@@ -635,7 +635,6 @@ class SLPlus_UI {
             'show_tags'         => (get_option(SLPLUS_PREFIX.'_show_tags')==1),
             'overview_ctrl'     => get_option('sl_map_overview_control',0),
             'use_email_form'    => (get_option(SLPLUS_PREFIX.'_use_email_form',0)==1),
-            'use_same_window'   => ($this->plugin->settings->get_item('use_same_window')=='on'),
             'website_label'     => esc_attr(get_option('sl_website_label','Website')),
             'zoom_level'        => get_option('sl_zoom_level',12),
             'zoom_tweak'        => get_option('sl_zoom_tweak',1)

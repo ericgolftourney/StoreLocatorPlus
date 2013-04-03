@@ -458,7 +458,6 @@ var csl = {
 		this.showTags = null;
 		this.overviewControl = null;
 		this.useEmailForm = null;
-		this.useSameWindow = null;
 		this.websiteLabel = null;
 		this.zoomLevel = '12';
 
@@ -511,7 +510,6 @@ var csl = {
                 this.showTags = slplus.show_tags;
                 this.overviewControl = !!(parseInt(slplus.overview_ctrl));
                 this.useEmailForm = !!slplus.use_email_form;
-                this.useSameWindow = !!slplus.use_same_window;
                 this.websiteLabel = slplus.website_label;
                 this.zoomLevel = slplus.zoom_level;
                 this.disableDefaultUI = false;
@@ -886,12 +884,10 @@ var csl = {
             //add an http to the url
             if ((slplus.use_pages_links === "on") && (aMarker.sl_pages_url !== '')) {
                 url = aMarker.sl_pages_url;
-            }
-            else if (aMarker.url !== '') {
+            } else if (aMarker.url !== '') {
                 if (aMarker.url.indexOf("http://") === -1) {
                     aMarker.url = "http://" + aMarker.url;
                 }
-
                 if (aMarker.url.indexOf(".") !== -1) {
                     url = aMarker.url;
                 }
@@ -944,7 +940,7 @@ var csl = {
             var url = this.__getMarkerUrl(aMarker);
 
 			if (url !== '') {
-				html += "| <a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' id='slp_marker_website' class='storelocatorlink'><nobr>" + slplus.website_label +" </nobr></a>";
+				html += "| <a href='"+url+"' target='"+((slplus.use_same_window==="on")?'_self':'_blank')+"' id='slp_marker_website' class='storelocatorlink'><nobr>" + slplus.website_label +" </nobr></a>";
 			}
 
 			if (aMarker.email.indexOf("@") !== -1 && aMarker.email.indexOf(".") !== -1) {
@@ -1200,7 +1196,7 @@ var csl = {
             var url = this.__getMarkerUrl(aMarker);
 
 			if (url !== '') {
-				link = link = "<a href='"+url+"' target='"+(slplus.use_same_window?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>";
+				link = link = "<a href='"+url+"' target='"+((slplus.use_same_window==="on")?'_self':'_blank')+"' class='storelocatorlink'><nobr>" + slplus.website_label +"</nobr></a><br/>";
 			}
 
 			var elink = '';
