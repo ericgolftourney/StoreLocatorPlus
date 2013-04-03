@@ -287,6 +287,7 @@ form#manage_locations_actionbar_form {
 }
 
 /* Action Bar Specific */
+
 div#action_buttons {
     display: inline;
     margin: 12px 0px 0px 0px;
@@ -311,6 +312,7 @@ div#filter_bar_header h3
 div#slplus_actionbar {
     clear:both;
     padding-top: 1px;
+    font-size: 12px;
 }
 div#tag_block {
     width: 341px;
@@ -563,10 +565,10 @@ td.slp_manage_locations_cell {
  div.wrap table.slplus.widefat thead tr th a 
  {
     color: #EEEEFF;
-    font-weight: bold;
     text-decoration: none;    
     text-shadow: none;
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: 500;
     font-family: "Trebuchet MS", Helvetica, sans-serif; 
  }
  div.wrap table.slplus.widefat thead tr th a {
@@ -602,8 +604,16 @@ td.slp_manage_locations_cell {
     clear:both;
 }
 div.section_column .form_entry {
+    clear: both;
+    display: inline-block;
+    min-height: 18px;
     min-width: 475px;
-    padding: 6px;
+    padding: 0px;
+}
+
+.section_description {
+    font-size: 12px;
+    padding: 0px;
 }
 
 .section_description H3 {
@@ -621,6 +631,7 @@ div.section_column .form_entry {
     margin: 0px 3px 0px 6px;
     display: block;
     clear: left;
+    font-size: 12px;
 }
 .section_description label.disabled {
     color: #CCC;
@@ -646,6 +657,7 @@ div.input_note {
 
 .section_description .small {
 	width: 3em;
+    vertical-align: top;
 }
 
 .slplus_innertable td {
@@ -851,6 +863,7 @@ div.section_column h2,
     margin-top: 0px;
     padding: 0px 6px;
     background: #D4D4FF;
+    font-size: 16px;
 }
 
 .section_description {
@@ -972,4 +985,10 @@ div.csa_info_msg {
     font-weight: bold;
     font-size: 1.25em;
     
+}
+
+div#slp_edit_left_column small,
+div#slp_edit_right_column small {
+    line-height: 2em;
+    vertical-align: top;
 }
