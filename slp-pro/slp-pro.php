@@ -596,6 +596,7 @@ class SLPPro {
         return
             $html .
             $this->plugin->AdminUI->MapSettings->CreateSubheadingLabel(__('Pro Pack','csa-slplus')).
+            $this->plugin->helper->create_SimpleMessage('These features will move to the Enhanced Map add-on pack in a future release.').
             $this->plugin->AdminUI->MapSettings->CreateInputDiv(
                 'sl_starting_image',
                 __('Starting Image','csa-slplus'),
