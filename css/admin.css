@@ -160,6 +160,15 @@ div.csl-slplus-moretext {
 a.moreinfo_clicker {
     text-decoration: none;
 }
+p.message{
+    clear: both;
+    color: #999999;
+    font-size: 11px;
+    margin: -18px 0 9px;
+    padding: 0;
+    text-align: left;
+}
+}
 
 
 /*----------------------------------
