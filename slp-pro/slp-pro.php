@@ -136,13 +136,14 @@ class SLPPro {
         // - tweak the manage locations column headers
         // - tweak the manage locations column data
         //
-        add_filter('slp_edit_location_right_column'          ,array($this,'filter_AddFieldsToEditForm'                  ),15        );
-        add_filter('slp_manage_expanded_location_columns'    ,array($this,'filter_AddFieldHeadersToManageLocations'     )           );
-        add_filter('slp_column_data'                         ,array($this,'filter_AddFieldDataToManageLocations'        ),90    ,3  );
+        add_filter('slp_edit_location_right_column'         ,array($this,'filter_AddFieldsToEditForm'                   ),15        );
+        add_filter('slp_manage_expanded_location_columns'   ,array($this,'filter_AddFieldHeadersToManageLocations'      )           );
+        add_filter('slp_column_data'                        ,array($this,'filter_AddFieldDataToManageLocations'         ),90    ,3  );
 
         // Map Settings Page
         //
-        add_filter('slp_map_features_settings'               ,array($this,'filter_MapFeatures_AddSettings'              ),10        );
+        add_filter('slp_map_features_settings'              ,array($this,'filter_MapFeatures_AddSettings'               ),10        );
+        add_filter('slp_map_settings_searchform'            ,array($this,'filter_MapSettings_AddTagsBox'                )           );
     }
 
     /**
@@ -611,6 +612,41 @@ class SLPPro {
             ;
     }
 
+    /**
+     * Add tags box to the search form section of map settings.
+     *
+     * @param string $html starting html
+     * @return string modified HTML
+     */
+    function filter_MapSettings_AddTagsBox($html) {
+        $html .=
+            "<div class='section_column'>" .
+            '<h2>'.__('Pro Pack Tags', 'csa-slplus').'</h2>' .
+            '<div class="section_column_content">' .
+            $this->plugin->helper->CreateCheckboxDiv(
+                '_show_tag_search',
+                __('Tag Input','csa-slplus'),
+                __('Show the tag entry box on the search form.', 'csa-slplus')
+                ).
+            $this->plugin->AdminUI->MapSettings->CreateInputDiv(
+                    '_tag_search_selections',
+                    __('Preselected Tag Searches', 'csa-slplus'),
+                    __("Enter a comma (,) separated list of tags to show in the search pulldown, mark the default selection with parenthesis '( )'. This is a default setting that can be overriden on each page within the shortcode.",'csa-slplus')
+                    ).
+            $this->plugin->helper->CreateCheckboxDiv(
+                '_show_tag_any',
+                __('Add "any" to tags pulldown','csa-slplus'),
+                __('Add an "any" selection on the tag pulldown list thus allowing the user to show all locations in the area, not just those matching a selected tag.', 'csa-slplus')
+                )
+            ;
+
+            ob_start();
+            do_action('slp_add_search_form_tag_setting');
+            $html .= ob_get_clean() .
+                    '</div></div>';
+            
+            return $html;
+    }
 
     /**
      * Add tag search to search form.
