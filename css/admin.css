@@ -165,9 +165,8 @@ p.message{
     color: #999999;
     font-size: 11px;
     margin: -18px 0 9px;
-    padding: 0;
+    padding: 0 0 0 9px;
     text-align: left;
-}
 }
 
 
@@ -864,6 +863,7 @@ div.section_column_content {
 
 p.slp_admin_info {
     clear: both;
+    padding-left: 9px;
 }
 
 div.section_column h2,
