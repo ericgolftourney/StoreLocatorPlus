@@ -967,8 +967,11 @@ div.section_column h2,
 }
 
 .form-table .input_label {
-    font-weight:bold;
-    padding: 1em 0 0;
+    coor: #222;
+    font-size: 12px;
+    font-weight:500;
+    line-height: 3em;
+    padding: 0px;
     text-align: right;
     vertical-align: top;
 }
