@@ -136,9 +136,13 @@ class SLPPro {
         // - tweak the manage locations column headers
         // - tweak the manage locations column data
         //
-        add_filter('slp_edit_location_right_column'          ,array($this,'filter_AddFieldsToEditForm'                   ),15        );
-        add_filter('slp_manage_expanded_location_columns'    ,array($this,'filter_AddFieldHeadersToManageLocations'      )           );
-        add_filter('slp_column_data'                         ,array($this,'filter_AddFieldDataToManageLocations'         ),90    ,3  );
+        add_filter('slp_edit_location_right_column'          ,array($this,'filter_AddFieldsToEditForm'                  ),15        );
+        add_filter('slp_manage_expanded_location_columns'    ,array($this,'filter_AddFieldHeadersToManageLocations'     )           );
+        add_filter('slp_column_data'                         ,array($this,'filter_AddFieldDataToManageLocations'        ),90    ,3  );
+
+        // Map Settings Page
+        //
+        add_filter('slp_map_features_settings'               ,array($this,'filter_MapFeatures_AddSettings'              ),10        );
     }
 
     /**
@@ -581,6 +585,31 @@ class SLPPro {
             '</div>'
             ;
     }
+
+    /**
+     * Add map feature settings.
+     *
+     * @param string $html starting html for map feature settings
+     * @return string modified HTML
+     */
+    function filter_MapFeatures_AddSettings($html) {
+        return
+            $html .
+            $this->plugin->AdminUI->MapSettings->CreateSubheadingLabel(__('Pro Pack','csa-slplus')).
+            $this->plugin->AdminUI->MapSettings->CreateInputDiv(
+                'sl_starting_image',
+                __('Starting Image','csa-slplus'),
+                __('If set, this image will be displayed until a search is performed.  Enter the full URL for the image.','csa-slplus'),
+                ''
+                ) .
+            $this->plugin->helper->CreateCheckboxDiv(
+                '_disable_initialdirectory',
+                __('Disable Initial Directory','csa-slplus'),
+                __('Do not display the listings under the map when "immediately show locations" is checked.', 'csa-slplus')
+                )
+            ;
+    }
+
 
     /**
      * Add tag search to search form.
