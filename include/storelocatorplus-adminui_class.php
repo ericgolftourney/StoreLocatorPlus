@@ -319,14 +319,11 @@ class SLPlus_AdminUI {
                 __('This is a <a href="http://www.charlestonsw.com/product/store-locator-plus/">Pro Pack</a>  feature. ', 'csa-slplus')
                 );
         $slp_rep_desc = __('These settings affect how the Pro Pack add-on behaves. ', 'csa-slplus');
-        if (!$this->parent->license->AmIEnabled(true, "SLPLUS-PRO")) {
-            $slp_rep_desc .= '<br/><br/>'.$proPackMsg;
-        } else {
+        if ($this->parent->license->AmIEnabled(true, "SLPLUS-PRO")) {
             $slp_rep_desc .= '<span style="float:right;">(<a href="#" onClick="'.
                     'jQuery.post(ajaxurl,{action: \'license_reset_propack\'},function(response){alert(response);});'.
                     '">'.__('Delete license','csa-slplus').'</a>)</span>';
         }
-        $slp_rep_desc .= '<br/><br/>';
         $this->parent->settings->add_section(
             array(
                 'name'        => 'Pro Pack',
