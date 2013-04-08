@@ -270,7 +270,7 @@ if (defined('SLPLUS_PLUGINDIR')) {
 
             'display_settings'       => true,
             'has_packages'           => true,
-            'show_locale'            => false, // Locale in wpCSL is only for money output
+            'show_locale'            => false, 
             'debug_instructions'     => __('Turn debugging off via General Settings in the Plugin Environment panel.','csa-slplus')
         )
     );

@@ -305,9 +305,9 @@ You will need to go to the new "Store Pages" tab and re-enable some of your sett
 Updating from a version 3.8.6 or earlier?
 You will likely need to reset your home and destination map markers.
 
-= 3.9.5 (tbd) =
+= 3.9.5 =
 
-* Fix: locale issues (again).
+* Fix: locale issues (again), makes plugin happy on MS servers.
 
 = 3.9.4 =
 
