@@ -384,7 +384,7 @@ class SLPlus_Actions {
     function wp_head() {
         $output = strip_tags($this->plugin->settings->get_item('custom_css',''));
         if ($output != '') {
-            echo '<!-- SLP Pro Pack Custom CSS -->'."\n".'<style type="text/css">'."\n" . $output . '</style>'."\n\n";
+            echo '<!-- SLP Custom CSS -->'."\n".'<style type="text/css">'."\n" . $output . '</style>'."\n\n";
         }
     }
 
