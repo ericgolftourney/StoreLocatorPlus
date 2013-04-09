@@ -742,23 +742,6 @@ class SLPlus_AdminUI_MapSettings {
                     __('How many locations does a search return? Default is 25.','csa-slplus')
                     );
 
-        //--------
-        // Pro Pack : Search Results Settings
-        //
-        if ($this->plugin->license->packages['Pro Pack']->isenabled) {
-            $slpDescription .= $this->plugin->helper->CreateCheckboxDiv(
-                '_show_tags',
-                __('Show Tags In Output','csa-slplus'),
-                __('Show the tags in the location output table and bubble.', 'csa-slplus')
-                );
-
-            $slpDescription .= $this->plugin->helper->CreateCheckboxDiv(
-                '_use_email_form',
-                __('Use Email Form','csa-slplus'),
-                __('Use email form instead of mailto: link when showing email addresses.', 'csa-slplus')
-                );
-        }
-
         // FILTER: slp_settings_results_locationinfo - add input fields to results locaiton info
         //
         $slpDescription = apply_filters('slp_settings_results_locationinfo',$slpDescription);

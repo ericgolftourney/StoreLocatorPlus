@@ -116,7 +116,7 @@ class SLPPro {
     //====================================================
 
     /**
-     * WordPress admin_init hook for Tagalong.
+     * WordPress admin_init hook for Pro Pack.
      */
     function admin_init(){
 
@@ -144,6 +144,28 @@ class SLPPro {
         //
         add_filter('slp_map_features_settings'              ,array($this,'filter_MapFeatures_AddSettings'               ),10        );
         add_filter('slp_map_settings_searchform'            ,array($this,'filter_MapSettings_AddTagsBox'                )           );
+        add_filter('slp_settings_results_locationinfo'      ,array($this,'filter_MapResults_LocationAddSettings'        )           );
+    }
+
+    /**
+     * This is adding some settings to the Map Settings / Results / Location Info Panel
+     */
+    function filter_MapResults_LocationAddSettings($HTML) {
+        $HTML .=
+            $this->plugin->AdminUI->MapSettings->CreateSubheadingLabel(__('Pro Pack','csa-slp-em')) .
+            $this->plugin->helper->CreateCheckboxDiv(
+                '_show_tags',
+                __('Show Tags In Output','csa-slplus'),
+                __('Show the tags in the location output table and bubble.', 'csa-slplus')
+                );
+
+            $this->plugin->helper->CreateCheckboxDiv(
+                '_use_email_form',
+                __('Use Email Form','csa-slplus'),
+                __('Use email form instead of mailto: link when showing email addresses.', 'csa-slplus')
+                );
+
+        return $HTML;
     }
 
     /**
