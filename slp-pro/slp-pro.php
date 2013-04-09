@@ -577,14 +577,39 @@ class SLPPro {
         $locID = $this->plugin->currentLocation->id;
         $addform = $this->plugin->AdminUI->addingLocation;
 
-        return $theHTML .=
+        $theHTML .=
             '<div id="slp_pro_fields" class="slp_editform_section"><strong>'.__('Pro Pack','csa-slplus').'</strong><br/>'.
                 "<input name='tags-$locID' value='".($addform?'':$this->plugin->currentLocation->tags)."'> ".
                 '<small>'.
                    __("Tags (seperate with commas)", 'csa-slplus').
-                '</small>' .
+                '</small>'
+                ;
+        
+        // Edit Location Only
+        //
+        if ($this->plugin->AdminUI->addingLocation === false) {
+            $theHTML .=
+                '<br/>'.
+                "<input ".
+                    "name='latitude-".$this->plugin->currentLocation->id."' ".
+                    "value='".$this->plugin->currentLocation->latitude  ."' ".
+                    ">".
+                '<small>'.
+                    __('Latitude (N/S)', 'csa-slplus').
+                '</small>'.
+                '<br/>'.
+                "<input name='longitude-".$this->plugin->currentLocation->id."' value='".$this->plugin->currentLocation->longitude."'>".
+                '<small>'.
+                    __('Longitude (E/W)', 'csa-slplus').
+                '</small>'
+                ;
+        }
+        
+        $theHTML .=
             '</div>'
             ;
+
+        return $theHTML;
     }
 
     /**

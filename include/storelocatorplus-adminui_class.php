@@ -964,26 +964,6 @@ class SLPlus_AdminUI {
 
                     <label  for='country-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('Country', 'csa-slplus');?></label>
                     <input name='country-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_country')?>'  style='width: 40em;'><br/>
-
-                    <?php
-                    if ($this->parent->AdminUI->addingLocation === false) {
-                    ?>
-                        <label  for='latitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('Latitude (N/S)', 'csa-slplus');?></label>
-                        <?php if ($this->proPackEnabled) { ?>
-                            <input name='latitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_latitude')?>'  style='width: 40em;'><br/>
-                        <?php } else { ?>
-                            <input class='disabled'  name='latitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo __('Changing the latitude is a Pro Pack feature.','csa-slplus').' ('.$this->get_CurrentLocationVal('sl_latitude').')';?>'  style='width: 40em;'><br/>
-                        <?php } ?>
-
-                        <label  for='longitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>'><?php _e('Longitude (E/W)', 'csa-slplus');?></label>
-                        <?php if ($this->proPackEnabled) { ?>
-                            <input name='longitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo $this->get_CurrentLocationVal('sl_longitude')?>'  style='width: 40em;'><br/>
-                        <?php } else { ?>
-                            <input class='disabled' name='longitude-<?php echo $this->get_CurrentLocationVal('sl_id')?>' value='<?php echo __('Changing the longitude is a Pro Pack feature.','csa-slplus').' ('.$this->get_CurrentLocationVal('sl_longitude').')'; ?>'  style='width: 40em;'><br/>
-                        <?php
-                        }
-                    }
-                    ?>
                     </div>
                 </td>
             </tr>
@@ -1071,6 +1051,12 @@ class SLPlus_AdminUI {
                      ' - '. $this->plugin->currentLocation->linked_postid :
                      ''
                      );
+            if (
+                    is_numeric($this->plugin->currentLocation->latitude) &&
+                    is_numeric($this->plugin->currentLocation->longitude)
+               ) {
+                $idString .= __(' at ').$this->plugin->currentLocation->latitude.','.$this->plugin->currentLocation->longitude;
+            }
             $slpEditForm .= 
                     ($addform? '' : "<span class='slp-edit-location-id'>Location # $idString</span>") .
                     "<div id='slp_form_buttons'>" .
