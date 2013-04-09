@@ -818,14 +818,6 @@ class SLPlus_AdminUI_MapSettings {
      *
      */
      function search_form_settings() {
-        $ppFeatureMsg = (!$this->plugin->license->packages['Pro Pack']->isenabled ?
-                sprintf(
-                        __(' This is a <a href="%s" target="csa">Pro Pack</a> feature.', 'csa-slplus'),
-                        $this->plugin->purchase_url
-                        ) :
-                ''
-             );
-
         $slpDescription =
             "<div id='search_settings'>" .
                 "<div class='section_column'>" .
@@ -857,7 +849,7 @@ class SLPlus_AdminUI_MapSettings {
             $this->plugin->helper->CreateCheckboxDiv(
                 '_disable_find_image',
                 __('Use Find Location Text Button','csa-slplus'),
-                __('Use a standard text button for "Find Locations" instead of the provided button images.', 'csa-slplus') . $ppFeatureMsg,
+                __('Use a standard text button for "Find Locations" instead of the provided button images.', 'csa-slplus'),
                 SLPLUS_PREFIX,
                 false,
                 1

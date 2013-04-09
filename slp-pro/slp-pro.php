@@ -183,48 +183,48 @@ class SLPPro {
             $this->plugin->helper->CreateCheckboxDiv(
                 '_hide_radius_selections',
                 __('Hide radius selection','csa-slplus'),
-                __('Hides the radius selection from the user, the default radius will be used.', 'csa-slplus') . $ppFeatureMsg,
+                __('Hides the radius selection from the user, the default radius will be used.', 'csa-slplus'),
                 SLPLUS_PREFIX
                 ) .
             $this->plugin->helper->CreateCheckboxDiv(
                 '_hide_address_entry',
                 __('Hide address entry box','csa-slplus'),
-                __('Hides the address entry box from the user.', 'csa-slplus') . $ppFeatureMsg,
+                __('Hides the address entry box from the user.', 'csa-slplus'),
                 SLPLUS_PREFIX
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
                 '_use_location_sensor',
                 __('Use location sensor', 'csa-slplus'),
-                __('This turns on the location sensor (GPS) to set the default search address.  This can be slow to load and customers are prompted whether or not to allow location sensing.', 'csa-slplus') . $ppFeatureMsg,
+                __('This turns on the location sensor (GPS) to set the default search address.  This can be slow to load and customers are prompted whether or not to allow location sensing.', 'csa-slplus'),
                 SLPLUS_PREFIX
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
                 'sl_use_city_search',
                 __('Show City Pulldown','csa-slplus'),
-                __('Displays the city pulldown on the search form. It is built from the unique city names in your location list.','csa-slplus') . $ppFeatureMsg,
+                __('Displays the city pulldown on the search form. It is built from the unique city names in your location list.','csa-slplus'),
                 ''
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
                 'sl_use_country_search',
                 __('Show Country Pulldown','csa-slplus'),
-                __('Displays the country pulldown on the search form. It is built from the unique country names in your location list.','csa-slplus') . $ppFeatureMsg,
+                __('Displays the country pulldown on the search form. It is built from the unique country names in your location list.','csa-slplus'),
                 ''
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
                 'slplus_show_state_pd',
                 __('Show State Pulldown','csa-slplus'),
-                __('Displays the state pulldown on the search form. It is built from the unique state names in your location list.','csa-slplus') . $ppFeatureMsg,
+                __('Displays the state pulldown on the search form. It is built from the unique state names in your location list.','csa-slplus'),
                 ''
                 ) .
 
             $this->plugin->helper->CreateCheckboxDiv(
                 '_disable_search',
                 __('Hide Find Locations button','csa-slplus'),
-                __('Remove the "Find Locations" button from the search form.', 'csa-slplus') . $ppFeatureMsg,
+                __('Remove the "Find Locations" button from the search form.', 'csa-slplus'),
                 SLPLUS_PREFIX
                 );
 
