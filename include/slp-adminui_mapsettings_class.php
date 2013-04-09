@@ -932,3 +932,5 @@ class SLPlus_AdminUI_MapSettings {
          );
      }
 }
+
+// Dad. Husband. Rum Lover. Code Geek. Not necessarily in that order.
