@@ -146,6 +146,7 @@ class SLPPro {
         add_filter('slp_map_settings_searchform'            ,array($this,'filter_MapSettings_AddTagsBox'                )           );
         add_filter('slp_settings_results_locationinfo'      ,array($this,'filter_MapResults_LocationAddSettings'        )           );
         add_filter('slp_save_map_settings_checkboxes'       ,array($this,'filter_SaveMapSettings'                       )           );
+        add_filter('slp_settings_search_features'           ,array($this,'filter_MapSettings_Search_FeaturesAddSettings'),11        );
     }
 
     /**
@@ -170,6 +171,67 @@ class SLPPro {
     }
 
     /**
+     * Add Pro Pack settings to the search form features section.
+     *
+     * @param string $HTML incoming HTML
+     * @return string augmented HTML
+     */
+    function filter_MapSettings_Search_FeaturesAddSettings($HTML) {
+        $HTML .=
+            $this->plugin->AdminUI->MapSettings->CreateSubheadingLabel(__('Pro Pack','csa-slp-em')) .
+            $this->plugin->helper->create_SimpleMessage('These features will move to the Enhanced Search add-on pack in a future release.').
+            $this->plugin->helper->CreateCheckboxDiv(
+                '_hide_radius_selections',
+                __('Hide radius selection','csa-slplus'),
+                __('Hides the radius selection from the user, the default radius will be used.', 'csa-slplus') . $ppFeatureMsg,
+                SLPLUS_PREFIX
+                ) .
+            $this->plugin->helper->CreateCheckboxDiv(
+                '_hide_address_entry',
+                __('Hide address entry box','csa-slplus'),
+                __('Hides the address entry box from the user.', 'csa-slplus') . $ppFeatureMsg,
+                SLPLUS_PREFIX
+                ) .
+
+            $this->plugin->helper->CreateCheckboxDiv(
+                '_use_location_sensor',
+                __('Use location sensor', 'csa-slplus'),
+                __('This turns on the location sensor (GPS) to set the default search address.  This can be slow to load and customers are prompted whether or not to allow location sensing.', 'csa-slplus') . $ppFeatureMsg,
+                SLPLUS_PREFIX
+                ) .
+
+            $this->plugin->helper->CreateCheckboxDiv(
+                'sl_use_city_search',
+                __('Show City Pulldown','csa-slplus'),
+                __('Displays the city pulldown on the search form. It is built from the unique city names in your location list.','csa-slplus') . $ppFeatureMsg,
+                ''
+                ) .
+
+            $this->plugin->helper->CreateCheckboxDiv(
+                'sl_use_country_search',
+                __('Show Country Pulldown','csa-slplus'),
+                __('Displays the country pulldown on the search form. It is built from the unique country names in your location list.','csa-slplus') . $ppFeatureMsg,
+                ''
+                ) .
+
+            $this->plugin->helper->CreateCheckboxDiv(
+                'slplus_show_state_pd',
+                __('Show State Pulldown','csa-slplus'),
+                __('Displays the state pulldown on the search form. It is built from the unique state names in your location list.','csa-slplus') . $ppFeatureMsg,
+                ''
+                ) .
+
+            $this->plugin->helper->CreateCheckboxDiv(
+                '_disable_search',
+                __('Hide Find Locations button','csa-slplus'),
+                __('Remove the "Find Locations" button from the search form.', 'csa-slplus') . $ppFeatureMsg,
+                SLPLUS_PREFIX
+                );
+
+        return $HTML;
+    }
+
+    /**
      * Save our Pro Pack checkboxes from the map settings page.
      *
      * @param string[] $cbArray array of checkbox names to be saved
@@ -179,7 +241,14 @@ class SLPPro {
         return array_merge($cbArray,
                 array(
                         SLPLUS_PREFIX.'_show_tags'                  ,
-                        SLPLUS_PREFIX.'_use_email_form'
+                        SLPLUS_PREFIX.'_use_email_form'             ,
+                        SLPLUS_PREFIX.'_hide_radius_selections'     ,
+                        SLPLUS_PREFIX.'_hide_address_entry'         ,
+                        SLPLUS_PREFIX.'_use_location_sensor'        ,
+                        'sl_use_city_search'                        ,
+                        'sl_use_country_search'                     ,
+                        'slplus_show_state_pd'                      ,
+                        SLPLUS_PREFIX.'_disable_search'            
                     )
                 );
     }
