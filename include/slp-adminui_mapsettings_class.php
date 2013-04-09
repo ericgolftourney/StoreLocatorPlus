@@ -243,9 +243,6 @@ class SLPlus_AdminUI_MapSettings {
                         SLPLUS_PREFIX.'_tag_search_selections'  ,
                         SLPLUS_PREFIX.'-map_language'           ,
                         SLPLUS_PREFIX.'_maxreturned'            ,
-                        SLPLUS_PREFIX.'_search_tag_label'       ,
-                        SLPLUS_PREFIX.'_state_pd_label'         ,
-                        SLPLUS_PREFIX.'_find_button_label'      ,
                     )
                 );
             foreach ($BoxesToHit as $JustAnotherBox) {
@@ -888,32 +885,8 @@ class SLPlus_AdminUI_MapSettings {
                 )
             ;
 
-        //----------------------------------------------------------------------
-        // Pro Pack Enabled
-        //
-        if ($this->plugin->license->packages['Pro Pack']->isenabled) {
-            $settingsHTML .=
-                $this->CreateInputDiv(
-                    '_search_tag_label',
-                    __('Tags', 'csa-slplus'),
-                    __('Search form label to prefix the tag selector.','csa-slplus')
-                    ) .
-                $this->CreateInputDiv(
-                    '_state_pd_label',
-                    __('State Label', 'csa-slplus'),
-                    __('Search form label to prefix the state selector.','csa-slplus')
-                    ).
-                $this->CreateInputDiv(
-                    '_find_button_label',
-                    __('Find Button', 'csa-slplus'),
-                    __('The label on the find button, if text mode is selected.','csa-slplus'),
-                    SLPLUS_PREFIX,
-                    __('Find Locations','csa-slplus')
-                    );
-        }
-
         // FILTER: slp_settings_search_labels
-        $slpDescription = apply_filters('slp_settings_search_labels',$slpDescription);
+        $settingsHTML = apply_filters('slp_settings_search_labels',$settingsHTML);
 
         // Legacy Action Call to setup new features
         // This really should have been a filter.

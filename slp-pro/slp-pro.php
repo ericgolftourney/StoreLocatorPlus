@@ -145,8 +145,13 @@ class SLPPro {
         add_filter('slp_map_features_settings'              ,array($this,'filter_MapFeatures_AddSettings'               ),10        );
         add_filter('slp_map_settings_searchform'            ,array($this,'filter_MapSettings_AddTagsBox'                )           );
         add_filter('slp_settings_results_locationinfo'      ,array($this,'filter_MapResults_LocationAddSettings'        )           );
-        add_filter('slp_save_map_settings_checkboxes'       ,array($this,'filter_SaveMapSettings'                       )           );
         add_filter('slp_settings_search_features'           ,array($this,'filter_MapSettings_Search_FeaturesAddSettings'),11        );
+        add_filter('slp_settings_search_labels'             ,array($this,'filter_MapSettings_SearchLabel_AddSettings'   ),11        );
+
+        // Data Saving
+        //
+        add_filter('slp_save_map_settings_checkboxes'       ,array($this,'filter_SaveMapCBSettings'                     )           );
+        add_filter('slp_save_map_settings_inputs'           ,array($this,'filter_SaveMapInputSettings'                  )           );
     }
 
     /**
@@ -232,12 +237,42 @@ class SLPPro {
     }
 
     /**
+     * Add Pro Pack settings to the search label features section.
+     *
+     * @param string $HTML incoming HTML
+     * @return string augmented HTML
+     */
+    function filter_MapSettings_SearchLabel_AddSettings($HTML) {
+        $HTML .=
+            $this->plugin->AdminUI->MapSettings->CreateSubheadingLabel(__('Pro Pack','csa-slp-em')) .
+            $this->plugin->helper->create_SimpleMessage('These features will move to the Enhanced Search add-on pack in a future release.').
+            $this->plugin->AdminUI->MapSettings->CreateInputDiv(
+                '_search_tag_label',
+                __('Tags', 'csa-slplus'),
+                __('Search form label to prefix the tag selector.','csa-slplus')
+                ) .
+            $this->plugin->AdminUI->MapSettings->CreateInputDiv(
+                '_state_pd_label',
+                __('State Label', 'csa-slplus'),
+                __('Search form label to prefix the state selector.','csa-slplus')
+                ).
+            $this->plugin->AdminUI->MapSettings->CreateInputDiv(
+                '_find_button_label',
+                __('Find Button', 'csa-slplus'),
+                __('The label on the find button, if text mode is selected.','csa-slplus'),
+                SLPLUS_PREFIX,
+                __('Find Locations','csa-slplus')
+                );
+        return $HTML;
+    }
+
+    /**
      * Save our Pro Pack checkboxes from the map settings page.
      *
      * @param string[] $cbArray array of checkbox names to be saved
      * @return string[] augmented list of inputs to save
      */
-    function filter_SaveMapSettings($cbArray) {
+    function filter_SaveMapCBSettings($cbArray) {
         return array_merge($cbArray,
                 array(
                         SLPLUS_PREFIX.'_show_tags'                  ,
@@ -249,6 +284,22 @@ class SLPPro {
                         'sl_use_country_search'                     ,
                         'slplus_show_state_pd'                      ,
                         SLPLUS_PREFIX.'_disable_search'            
+                    )
+                );
+    }
+
+    /**
+     * Add the Pro Pack input settings to be saved on the map settings page.
+     *
+     * @param string[] $inArray names of inputs already to be saved
+     * @return string[] modified array with our Pro Pack inputs added.
+     */
+    function filter_SaveMapInputSettings($inArray) {
+        return array_merge($inArray,
+                array(
+                        SLPLUS_PREFIX.'_search_tag_label'       ,
+                        SLPLUS_PREFIX.'_state_pd_label'         ,
+                        SLPLUS_PREFIX.'_find_button_label'      ,
                     )
                 );
     }
