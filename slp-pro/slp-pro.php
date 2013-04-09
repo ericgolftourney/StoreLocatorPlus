@@ -145,6 +145,7 @@ class SLPPro {
         add_filter('slp_map_features_settings'              ,array($this,'filter_MapFeatures_AddSettings'               ),10        );
         add_filter('slp_map_settings_searchform'            ,array($this,'filter_MapSettings_AddTagsBox'                )           );
         add_filter('slp_settings_results_locationinfo'      ,array($this,'filter_MapResults_LocationAddSettings'        )           );
+        add_filter('slp_save_map_settings_checkboxes'       ,array($this,'filter_SaveMapSettings'                       )           );
     }
 
     /**
@@ -159,13 +160,28 @@ class SLPPro {
                 __('Show the tags in the location output table and bubble.', 'csa-slplus')
                 );
 
-            $this->plugin->helper->CreateCheckboxDiv(
+        $HTML .= $this->plugin->helper->CreateCheckboxDiv(
                 '_use_email_form',
                 __('Use Email Form','csa-slplus'),
                 __('Use email form instead of mailto: link when showing email addresses.', 'csa-slplus')
                 );
 
         return $HTML;
+    }
+
+    /**
+     * Save our Pro Pack checkboxes from the map settings page.
+     *
+     * @param string[] $cbArray array of checkbox names to be saved
+     * @return string[] augmented list of inputs to save
+     */
+    function filter_SaveMapSettings($cbArray) {
+        return array_merge($cbArray,
+                array(
+                        SLPLUS_PREFIX.'_show_tags'                  ,
+                        SLPLUS_PREFIX.'_use_email_form'
+                    )
+                );
     }
 
     /**
