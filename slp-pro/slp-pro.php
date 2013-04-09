@@ -136,7 +136,7 @@ class SLPPro {
         // - tweak the manage locations column headers
         // - tweak the manage locations column data
         //
-        add_filter('slp_edit_location_right_column'         ,array($this,'filter_AddFieldsToEditForm'                   ),15        );
+        add_filter('slp_edit_location_right_column'         ,array($this,'filter_AddFieldsToEditForm'                   ),11        );
         add_filter('slp_manage_expanded_location_columns'   ,array($this,'filter_AddFieldHeadersToManageLocations'      )           );
         add_filter('slp_column_data'                        ,array($this,'filter_AddFieldDataToManageLocations'         ),90    ,3  );
 
