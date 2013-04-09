@@ -929,9 +929,16 @@ class SLPlus_AdminUI_MapSettings {
                 )
                 ;
 
+        $slpDescription = apply_filters('slp_settings_search_features',$slpDescription);
+
+        // Legacy Action Call to setup new features
+        // This really should have been a filter.
+        // TODO: find all uses and deprecate
+        //
         ob_start();
         do_action('slp_add_search_form_features_setting');
         $slpDescription .= ob_get_clean();
+
         $slpDescription .= '</div>';
 
         // Search Form Labels
