@@ -705,8 +705,8 @@ class SLPlus_AdminUI {
         $tableHeaderString =
                 "<thead>
                 <tr >
-                    <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
-                    <th colspan='1'>".__("Actions", 'csa-slplus')."</th>"
+                    <th><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' class='button'></th>
+                    <th>".__("Actions", 'csa-slplus')."</th>"
                 ;
         foreach ($slpManageColumns as $slpField => $slpLabel) {
             $tableHeaderString .= $this->slpCreateColumnHeader($slpCleanURL,$slpField,$slpLabel,$opt,$dir);
