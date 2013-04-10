@@ -356,7 +356,7 @@ class SLPlus_Activate {
             // Save Image and Lanuages Files
             $filesSaved = $updater->save_important_files();
 
-            // TODO: elminate this when Pro Pack becomes a download product.
+            // TODO: elminate this when PRO becomes a download product.
             //
             if (get_option(SLPLUS_PREFIX.'-SLPLUS-PRO-lk','') == '') {
                 update_option(SLPLUS_PREFIX.'-SLPLUS-PRO-lk',get_option(SLPLUS_PREFIX.'-SLPLUS-lk',''));
