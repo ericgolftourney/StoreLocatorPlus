@@ -92,13 +92,8 @@ class SLPPro {
         $this->dir  = plugin_dir_path(__FILE__);
         $this->slug = plugin_basename(__FILE__);
 
-        // Tell SLP we are here
-        //
-        $this->plugin->register_addon($this->slug);
-
         // Store Locator Plus invocation complete
         //
-        add_action('slp_invocation_complete'        ,array($this,'setPlugin'                    ));
         add_action('slp_init_complete'              ,array($this,'slp_init'                     ));
 
         // Admin / Nav Menus (start of admin stack)
@@ -313,17 +308,19 @@ class SLPPro {
      */
     function admin_menu(){
         $this->adminMode = true;
-        if (!$this->setPlugin()) { return ''; }
+        if (!$this->enabled) { return ''; }
 
         // Admin Actions
         //
-        add_action('admin_init' ,array($this,'admin_init'));
+        add_action('admin_init'             ,array($this,'admin_init'));
     }
 
     /**
      * Do this stuff after SLP has started up.
      */
     function slp_init() {
+        if (!$this->setPlugin()) { return; }
+        $this->plugin->register_addon($this->slug);
         add_filter('slp_search_form_divs',array($this,'filter_SearchForm_AddTagSearch'),40);
     }
 
@@ -332,13 +329,19 @@ class SLPPro {
     //====================================================
 
     function add_menu_items($menuItems) {
-        if (!$this->setPlugin()) { return $menuItems; }
+        if (!$this->enabled) { return $menuItems; }
         return array_merge(
                     $menuItems,
                     array(
                         array(
-                        'label' => __('Reports','csa-slplus'),
-                        'url'   => SLPLUS_PLUGINDIR.'reporting.php'
+                            'label'     => __('Pro Pack','csa-slp-propack'),
+                            'slug'      => 'slp_propack',
+                            'class'     => $this,
+                            'function'  => 'renderPage_ProPack'
+                        ),
+                        array(
+                            'label' => __('Reports','csa-slplus'),
+                            'url'   => SLPLUS_PLUGINDIR.'reporting.php'
                         )
                     )
                 );
@@ -446,7 +449,7 @@ class SLPPro {
      * @return string - complete HTML to put in the footer.
      */
     function bulk_upload_form($HTML) {
-        if (!$this->setPlugin()) { return ''; }
+        if (!$this->enabled) { return ''; }
         return ( $HTML .
                     '<div class="slp_bulk_upload_div section_column">' .
                     '<h2>'.__('Bulk Upload', 'csa-slplus').'</h2>'.
@@ -487,8 +490,8 @@ class SLPPro {
      *
      */
     function bulk_upload_processing() {
-        if (!$this->setPlugin()) { return false; }
-
+        if (!$this->enabled) { return ''; }
+        
         // Reset the notification message to get a clean message stack.
         //
         $this->plugin->notifications->delete_all_notices();
@@ -622,7 +625,7 @@ class SLPPro {
      * @return string
      */
     function create_country_pd() {
-        if (!$this->setPlugin()) { return ''; }
+        if (!$this->enabled) { return ''; }
 
         global $wpdb;
         $myOptions = '';
@@ -661,7 +664,7 @@ class SLPPro {
      * @return string
      */
     function create_state_pd() {
-        if (!$this->setPlugin()) { return ''; }
+        if (!$this->enabled) { return ''; }
 
         global $wpdb;
         $myOptions = '';
@@ -713,7 +716,7 @@ class SLPPro {
      * @param array $valid_atts - current list of approved attributes
      */
     function extend_main_shortcode($valid_atts) {
-        if (!$this->setPlugin()) { return array(); }
+        if (!$this->enabled) { return array(); }
 
         return array_merge(
                 array(
@@ -928,7 +931,7 @@ class SLPPro {
      * Load the JavaScript and CSS on ony our pages.
      */
     function loadJSandCSS() {
-        if (!$this->setPlugin()) { return; }
+        if (!$this->enabled) { return; }
 
         // Reporting
         //
@@ -1136,7 +1139,7 @@ class SLPPro {
       * @return string
       */
      function manage_locations_actionbar($actionBoxes) {
-            if (!$this->setPlugin()) { return $actionBoxes; }
+            if (!$this->enabled) { return $actionBoxes; }
             $actionBoxes['A'][] =
                    '<p class="centerbutton">' .
                        '<a class="like-a-button" href="#" ' .
@@ -1177,6 +1180,13 @@ class SLPPro {
                 ;
 
             return $actionBoxes;
+    }
+
+    /**
+     * Render the Pro Pack settings page.
+     */
+    function renderPage_ProPack() {
+        print 'hello';
     }
 }
 

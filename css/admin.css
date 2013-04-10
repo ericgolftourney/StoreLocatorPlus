@@ -2,6 +2,15 @@
  * Anywhere
  */
 
+/* Base WP Override */
+.about-wrap h2 .nav-tab {
+    font-size: 16px;
+    margin: 0 3px -1px 0;
+    padding: 4px 10px 6px;
+    vertical-align: top;
+}
+
+/* SLP Custom */
  div#icon-edit.icon32.icon32-posts-store_page,
  #icon-Store_Locator_Plus___Map_Settings,
  #icon-Store_Locator_Plus___Reporting,
