@@ -313,11 +313,6 @@ class SLPlus_AdminUI {
         //-------------------------
         // Pro Pack
         //
-        $proPackMsg = (
-                $this->proPackEnabled ?
-                '' :
-                __('This is a <a href="http://www.charlestonsw.com/product/store-locator-plus/">Pro Pack</a>  feature. ', 'csa-slplus')
-                );
         $slp_rep_desc = __('These settings affect how the Pro Pack add-on behaves. ', 'csa-slplus');
         if ($this->parent->license->AmIEnabled(true, "SLPLUS-PRO")) {
             $slp_rep_desc .= '<span style="float:right;">(<a href="#" onClick="'.
@@ -349,8 +344,7 @@ class SLPlus_AdminUI {
                 'custom_css',
                 'textarea',
                 false,
-                __('Enter your custom CSS, preferably for SLPLUS styling only but it can be used for any page element as this will go in your page header.','csa-slplus')
-                .$proPackMsg
+                __('Enter your custom CSS, preferably for SLPLUS styling only but it can be used for any page element as this will go in your page header.','csa-slplus')               
                     ,
                 null,
                 null,
