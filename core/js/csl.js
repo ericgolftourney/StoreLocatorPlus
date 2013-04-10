@@ -822,7 +822,9 @@ var csl = {
             if ((slplus.use_pages_links === "on") && (aMarker.sl_pages_url !== '')) {
                 url = aMarker.sl_pages_url;
             } else if (aMarker.url !== '') {
-                if (aMarker.url.indexOf("http://") === -1) {
+                if ((aMarker.url.indexOf("http://" ) === -1)  &&
+                    (aMarker.url.indexOf("https://") === -1)
+                   ){
                     aMarker.url = "http://" + aMarker.url;
                 }
                 if (aMarker.url.indexOf(".") !== -1) {

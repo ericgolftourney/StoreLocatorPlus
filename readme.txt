@@ -313,6 +313,8 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Updated how to use text.
 * Enhancement: Eliminate unused email_form.php file.
 * Enhancement: Eliminate search_form.php file, invoke in a controlled class for better security.
+* Enhancement: Eliminate multiple unused JavaScript functions.  Smaller footprint in browser memory.  Lessen security footprint.
+* Fix: Allow https in the website URL of a location.
 
 = 3.9.5 =
 
