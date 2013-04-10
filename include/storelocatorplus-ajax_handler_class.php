@@ -316,6 +316,8 @@ class SLPlus_AjaxHandler {
 
     /**
      * Remove the Pro Pack license.
+     * 
+     * TODO: kill this when Pro Pack is no longer a licensed product.
      */
     function license_reset_propack() {
         if (!$this->setParent()) { die(__('Pro Pack license could not be removed.',SLPLUS_PREFIX)); }
