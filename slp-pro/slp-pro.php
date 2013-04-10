@@ -59,6 +59,19 @@ class SLPPro {
     private $packageAdded = false;
 
     /**
+     * The Pro Pack Settings Object
+     *
+     * @var wpCSL_settings__slplus $settings
+     */
+    private $ProPack_Settings;
+
+    /**
+     * The Pro Pack settings page slug.
+     */
+    private $ProPack_SettingsSlug = 'slp_propack';
+
+
+    /**
      * Is the Pro Pack enabled?
      *
      * @var boolean $enabled
@@ -310,6 +323,15 @@ class SLPPro {
         $this->adminMode = true;
         if (!$this->enabled) { return ''; }
 
+        $slugPrefix = 'store-locator-plus_page_';
+
+       // Admin Styles
+        //
+        add_action(
+                'admin_print_styles-' . $slugPrefix .$this->ProPack_SettingsSlug,
+                array($this,'action_EnqueueAdmin_CSS')
+                );
+
         // Admin Actions
         //
         add_action('admin_init'             ,array($this,'admin_init'));
@@ -337,7 +359,7 @@ class SLPPro {
                             'label'     => __('Pro Pack','csa-slp-propack'),
                             'slug'      => 'slp_propack',
                             'class'     => $this,
-                            'function'  => 'renderPage_ProPack'
+                            'function'  => 'renderPage_ProPack_Settings'
                         ),
                         array(
                             'label' => __('Reports','csa-slplus'),
@@ -728,6 +750,14 @@ class SLPPro {
                     ),
                 $valid_atts
             );
+    }
+
+    /**
+     * Enqueue the style sheet when needed.
+     */
+    function action_EnqueueAdmin_CSS() {
+        wp_enqueue_style($this->ProPack_SettingsSlug.'_style');
+        wp_enqueue_style($this->plugin->AdminUI->styleHandle);
     }
 
     /**
@@ -1185,8 +1215,66 @@ class SLPPro {
     /**
      * Render the Pro Pack settings page.
      */
-    function renderPage_ProPack() {
-        print 'hello';
+    function renderPage_ProPack_Settings() {
+        if (!$this->enabled) { return __('Pro Pack has not been activated.','csa-slplus'); }
+
+        // If we are updating settings...
+        //
+        if (isset($_REQUEST['action']) && ($_REQUEST['action']==='update')) {
+            $this->updateSettings();
+        }
+
+        // Setup and render settings page
+        //
+        $this->ProPack_Settings = new wpCSL_settings__slplus(
+            array(
+                    'no_license'        => true,
+                    'prefix'            => $this->ProPack_SettingsSlug,
+                    'css_prefix'        => $this->plugin->prefix,
+                    'url'               => $this->plugin->url,
+                    'name'              => $this->plugin->name . ' - Pro Pack',
+                    'plugin_url'        => $this->plugin->plugin_url,
+                    'render_csl_blocks' => true,
+                    'form_action'       => admin_url().'admin.php?page='.$this->ProPack_SettingsSlug
+                )
+         );
+
+        //-------------------------
+        // Navbar Section
+        //-------------------------
+        $this->ProPack_Settings->add_section(
+            array(
+                'name'          => 'Navigation',
+                'div_id'        => 'slplus_navbar',
+                'description'   => $this->plugin->AdminUI->create_Navbar(),
+                'is_topmenu'    => true,
+                'auto'          => false,
+                'headerbar'     => false
+            )
+        );
+
+        //-------------------------
+        // General Settings
+        //-------------------------
+        $sectName = __('General Settings','csa-slplus');
+        $this->ProPack_Settings->add_section(
+            array(
+                    'name'          => $sectName,
+                    'description'   => 'Pro Pack settings.',
+                    'auto'          => true
+                )
+         );
+
+        //------------------------------------------
+        // RENDER
+        //------------------------------------------
+        $this->ProPack_Settings->render_settings_page();
+    }
+
+    /**
+     * Handle updating Pro Pack settings on the custom settings page.
+     */
+    function updateSettings() {
     }
 }
 
