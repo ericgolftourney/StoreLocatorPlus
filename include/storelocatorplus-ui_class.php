@@ -537,11 +537,6 @@ class SLPlus_UI {
             }
         }
 
-        $columns = 1;
-        $columns += (get_option('sl_use_city_search',0)!=1) ? 1 : 0;
-        $columns += (get_option('sl_use_country_search',0)!=1) ? 1 : 0;
-        $columns += (get_option('slplus_show_state_pd',0)!=1) ? 1 : 0;
-
         // Set our flag for later processing
         // of JavaScript files
         //
