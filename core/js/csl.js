@@ -150,44 +150,6 @@ var csl = {
 				document.getElementById("ajaxMsg").innerHTML="Submission Successful.";
 			}
 		};
-
-		this.showArticles = function(start) {
-			xmlHttp=GetXmlHttpObject();
-			if (xmlHttp===null)
-			{
-				alert ("Browser does not support HTTP Request (1)");
-				return false;
-			}
-			var url="/display_document_info.php";
-			url=url+"?start="+start;
-			url=url+"&sid="+Math.random();
-			xmlHttp.onreadystatechange=stateChanged;
-			xmlHttp.open("GET",url,true);
-			xmlHttp.send(null);
-		};
-
-		this.doc_counter = function(the_loc) {
-			if (the_loc.search.indexOf('u=')!==-1) {
-				parts=the_loc.href.split('u=');
-				u_part=parts[1].split('&')[0];
-			}
-			else {
-				dirs=the_loc.href.split('/');
-				u_part=dirs[dirs.length-1];
-				u_part=u_part.split('?')[0].split('.')[0];
-			}
-
-			xmlHttp=GetXmlHttpObject();
-			if (xmlHttp===null)
-			{
-				alert ("Browser does not support HTTP Request (2)");
-				return false;
-			}
-			var url="/scripts/doc_counter.php";
-			url=url+"?u="+u_part;
-			xmlHttp.open("GET",url,true);
-			xmlHttp.send(null);
-		};
 	},
 
     /***************************************************************************
