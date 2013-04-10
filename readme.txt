@@ -311,6 +311,8 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) now has its own settings tab.
 * Enhancement: Improved memory consumption and performance in several areas.
 * Enhancement: Updated how to use text.
+* Enhancement: Eliminate unused email_form.php file.
+* Enhancement: Eliminate search_form.php file, invoke in a controlled class for better security.
 
 = 3.9.5 =
 
