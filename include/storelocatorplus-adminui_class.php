@@ -321,6 +321,7 @@ class SLPlus_AdminUI {
         }
 
         // Pro Pack Features
+        // TODO: Make this a separate tab.
         //
         if ($this->parent->license->AmIEnabled(true, "SLPLUS-PRO")) {
             $this->parent->settings->add_section(
