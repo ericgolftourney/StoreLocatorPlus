@@ -460,8 +460,6 @@ class SLPlus_UI {
      *
      * @global type $wpdb
      * @global type $cs_options
-     * @global type $sl_country_options
-     * @global type $slplus_state_options
      * @param type $attributes
      * @param type $content
      * @return string HTML the shortcode will render
@@ -471,7 +469,7 @@ class SLPlus_UI {
              return sprintf(__('%s is not ready','csa-slplus'),__('Store Locator Plus','csa-slplus'));
         }
 
-        global  $wpdb, $cs_options, $sl_country_options, $slplus_state_options;
+        global  $wpdb, $cs_options;
 
         // Get Approved Shortcode Attributes
         $attributes =
@@ -494,8 +492,6 @@ class SLPlus_UI {
         $this->plugin->data['radius_options'] =
                 (isset($this->plugin->data['radius_options'])?$this->plugin->data['radius_options']:'');
         $cs_options     =(isset($cs_options)        ?$cs_options     :'');
-        $sl_country_options=(isset($sl_country_options)   ?$sl_country_options:'');
-        $slplus_state_options=(isset($slplus_state_options)   ?$slplus_state_options:'');
 
         // Radius Options
         //
@@ -540,8 +536,6 @@ class SLPlus_UI {
                 }
             }
         }
-        $sl_country_options     = (isset($this->parent->ProPack) ? $this->parent->ProPack->create_country_pd() : '');
-        $slplus_state_options   = (isset($this->parent->ProPack) ? $this->parent->ProPack->create_state_pd()   : '');
 
         $columns = 1;
         $columns += (get_option('sl_use_city_search',0)!=1) ? 1 : 0;

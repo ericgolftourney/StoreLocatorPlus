@@ -1,6 +1,6 @@
 <?php
 
-global $cs_options, $slplus_state_options, $sl_country_options;
+global $cs_options;
 
 /**
  * The plugin object.
@@ -32,6 +32,7 @@ if ($cs_options != '') {
 //------------------------------------------------
 // Show State Pulldown Is Enabled
 //
+$slplus_state_options   = (isset($this->parent->ProPack) ? $this->parent->ProPack->create_state_pd()   : '');
 if ($slplus_state_options != '') {
 ob_start();
 ?>
@@ -54,6 +55,7 @@ ob_start();
 //------------------------------------------------
 // Show Country Pulldown Is Enabled
 //
+$sl_country_options     = (isset($this->parent->ProPack) ? $this->parent->ProPack->create_country_pd() : '');
 if ($sl_country_options != '') {
     ob_start();
 ?>
