@@ -820,9 +820,9 @@ class SLPlus_AdminUI_ManageLocations {
 
                     print "<tr style='background-color:$bgcol'>" .
                         "<th class='th_checkbox'><input type='checkbox' name='sl_id[]' value='$locID'></th>" .
-                        "<th class='thnowrap'>".
+                        "<th class='thnowrap'><div class='action_buttons'>".
                             $actionButtonsHTML . 
-                        "</th>"
+                        "</div></th>"
                         ;
 
                     // Data Columns
