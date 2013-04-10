@@ -134,22 +134,6 @@ var csl = {
 				callback(response);
 			});
 		};
-
-		this.GetXmlHttpObject = function() {
-			var objXMLHttp=null;
-			if (window.XMLHttpRequest) {
-				objXMLHttp=new XMLHttpRequest();
-			} else if (window.ActiveXObject) {
-				objXMLHttp=new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			return objXMLHttp;
-		};
-
-		this.stateChanged = function() {
-			if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete") {
-				document.getElementById("ajaxMsg").innerHTML="Submission Successful.";
-			}
-		};
 	},
 
     /***************************************************************************
