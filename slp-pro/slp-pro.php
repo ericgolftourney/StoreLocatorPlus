@@ -41,7 +41,6 @@ class SLPPro {
     private $url;
     private $adminMode = false;
 
-
     /**
      * The main plugin object.
      * 
@@ -1229,7 +1228,7 @@ class SLPPro {
         $this->ProPack_Settings = new wpCSL_settings__slplus(
             array(
                     'no_license'        => true,
-                    'prefix'            => $this->ProPack_SettingsSlug,
+                    'prefix'            => $this->plugin->prefix,
                     'css_prefix'        => $this->plugin->prefix,
                     'url'               => $this->plugin->url,
                     'name'              => $this->plugin->name . ' - Pro Pack',
@@ -1260,10 +1259,35 @@ class SLPPro {
         $this->ProPack_Settings->add_section(
             array(
                     'name'          => $sectName,
-                    'description'   => 'Pro Pack settings.',
+                    'description' =>
+                        __('These settings affect how the Pro Pack add-on behaves. ', 'csa-slplus') .
+                        '<span style="float:right;">(<a href="#" onClick="'.
+                        'jQuery.post(ajaxurl,{action: \'license_reset_propack\'},function(response){alert(response);});'.
+                        '">'.__('Delete license','csa-slplus').'</a>)</span>',
                     'auto'          => true
                 )
          );
+
+        $this->ProPack_Settings->add_item(
+            $sectName,
+            __('Enable reporting', 'csa-slplus'),
+            'reporting_enabled',
+            'checkbox',
+            false,
+            __('Enables tracking of searches and returned results.  The added overhead ' .
+            'can increase how long it takes to return location search results.', 'csa-slplus')
+        );
+
+        // Custom CSS Field
+        //
+        $this->ProPack_Settings->add_item(
+                $sectName,
+                __('Custom CSS','csa-slplus'),
+                'custom_css',
+                'textarea',
+                false,
+                __('Enter your custom CSS, preferably for SLPLUS styling only but it can be used for any page element as this will go in your page header.','csa-slplus')
+                );
 
         //------------------------------------------
         // RENDER
@@ -1275,6 +1299,28 @@ class SLPPro {
      * Handle updating Pro Pack settings on the custom settings page.
      */
     function updateSettings() {
+        if (!isset($_REQUEST['page']) || ($_REQUEST['page']!=$this->ProPack_SettingsSlug)) { return; }
+        if (!isset($_REQUEST['_wpnonce'])) { return; }
+
+        // Save Checkboxes
+        //
+        $BoxesToHit = array(
+            'reporting_enabled',
+        );
+        foreach ($BoxesToHit as $JustAnotherBox) {
+            $this->plugin->helper->SaveCheckBoxToDB($JustAnotherBox);
+        }
+
+        // Save Inputs
+        //
+        $BoxesToHit = array(
+            SLPLUS_PREFIX.'-custom_css',
+        );
+        foreach ($BoxesToHit as $JustAnotherBox) {
+            $this->plugin->helper->SavePostToOptionsTable($JustAnotherBox);
+        }
+
+        $this->plugin->debugMP('pr','Pro.updateSettings()',$_REQUEST,__FILE__,__LINE__);
     }
 }
 

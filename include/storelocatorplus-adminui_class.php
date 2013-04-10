@@ -309,44 +309,6 @@ class SLPlus_AdminUI {
             false,
             __('Check this box if your Theme or another plugin is providing Google Maps and generating warning messages.  THIS MAY BREAK THIS PLUGIN.', 'csa-slplus')
         );
-
-        //-------------------------
-        // Pro Pack
-        // TODO: Make this a separate tab.
-        //
-        if ($this->parent->license->AmIEnabled(true, "SLPLUS-PRO")) {
-            $this->parent->settings->add_section(
-                array(
-                    'name'        => 'Pro Pack',
-                    'description' =>
-                        __('These settings affect how the Pro Pack add-on behaves. ', 'csa-slplus') .
-                        '<span style="float:right;">(<a href="#" onClick="'.
-                        'jQuery.post(ajaxurl,{action: \'license_reset_propack\'},function(response){alert(response);});'.
-                        '">'.__('Delete license','csa-slplus').'</a>)</span>'
-                )
-            );
-
-            $this->parent->settings->add_item(
-                'Pro Pack',
-                __('Enable reporting', 'csa-slplus'),
-                'reporting_enabled',
-                'checkbox',
-                false,
-                __('Enables tracking of searches and returned results.  The added overhead ' .
-                'can increase how long it takes to return location search results.', 'csa-slplus')
-            );
-
-            // Custom CSS Field
-            //
-            $this->parent->settings->add_item(
-                    'Pro Pack',
-                    __('Custom CSS','csa-slplus'),
-                    'custom_css',
-                    'textarea',
-                    false,
-                    __('Enter your custom CSS, preferably for SLPLUS styling only but it can be used for any page element as this will go in your page header.','csa-slplus')
-                    );
-        }
     }
 
     /**
