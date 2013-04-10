@@ -367,6 +367,10 @@ div.boxbar {
    white-space: nowrap;
    width: 100%;
 }
+div.boxbar input:not([type="button"]) {
+    line-height: 15px;
+    padding: 3px;
+}
 div.actionbox,
 div.filterbox
 {
