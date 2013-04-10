@@ -340,11 +340,11 @@ class SLPPro {
                 );
     }
 
-    /**************************************
-     ** function: configure_slplus_propack
-     **
-     ** Configure the Pro Pack.
-     **/
+    /**
+     * Add the Pro Pack package to the main plugin.
+     * 
+     * @return null
+     */
     function add_package() {
         if ($this->packageAdded) { return; }
         $this->plugin->ProPack = $this;
