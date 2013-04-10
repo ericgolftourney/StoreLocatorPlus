@@ -319,13 +319,17 @@ class SLPlus_AdminUI {
                     'jQuery.post(ajaxurl,{action: \'license_reset_propack\'},function(response){alert(response);});'.
                     '">'.__('Delete license','csa-slplus').'</a>)</span>';
         }
-        $this->parent->settings->add_section(
-            array(
-                'name'        => 'Pro Pack',
-                'description' => $slp_rep_desc
-            )
-        );
+
+        // Pro Pack Features
+        //
         if ($this->parent->license->AmIEnabled(true, "SLPLUS-PRO")) {
+            $this->parent->settings->add_section(
+                array(
+                    'name'        => 'Pro Pack',
+                    'description' => $slp_rep_desc
+                )
+            );
+
             $this->parent->settings->add_item(
                 'Pro Pack',
                 __('Enable reporting', 'csa-slplus'),
@@ -335,21 +339,18 @@ class SLPlus_AdminUI {
                 __('Enables tracking of searches and returned results.  The added overhead ' .
                 'can increase how long it takes to return location search results.', 'csa-slplus')
             );
+
+            // Custom CSS Field
+            //
+            $this->parent->settings->add_item(
+                    'Pro Pack',
+                    __('Custom CSS','csa-slplus'),
+                    'custom_css',
+                    'textarea',
+                    false,
+                    __('Enter your custom CSS, preferably for SLPLUS styling only but it can be used for any page element as this will go in your page header.','csa-slplus')
+                    );
         }
-        // Custom CSS Field
-        //
-        $this->parent->settings->add_item(
-                'Pro Pack',
-                __('Custom CSS','csa-slplus'),
-                'custom_css',
-                'textarea',
-                false,
-                __('Enter your custom CSS, preferably for SLPLUS styling only but it can be used for any page element as this will go in your page header.','csa-slplus')               
-                    ,
-                null,
-                null,
-                !$this->proPackEnabled
-                );
     }
 
     /**
