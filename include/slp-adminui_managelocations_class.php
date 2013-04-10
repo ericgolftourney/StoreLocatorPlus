@@ -819,7 +819,7 @@ class SLPlus_AdminUI_ManageLocations {
                     $actionButtonsHTML = apply_filters('slp_manage_locations_actionbuttons',$actionButtonsHTML, $sl_value);
 
                     print "<tr style='background-color:$bgcol'>" .
-                        "<th><input type='checkbox' name='sl_id[]' value='$locID'></th>" .
+                        "<th class='th_checkbox'><input type='checkbox' name='sl_id[]' value='$locID'></th>" .
                         "<th class='thnowrap'>".
                             $actionButtonsHTML . 
                         "</th>"
