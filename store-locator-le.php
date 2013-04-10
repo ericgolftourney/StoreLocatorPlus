@@ -262,11 +262,6 @@ if (defined('SLPLUS_PLUGINDIR')) {
             'uses_money'            => false,
 
             'driver_type'           => 'none',
-            'driver_args'           => array(
-                    'api_key'   => get_option(SLPLUS_PREFIX.'-api_key'),
-                    'app_id'    => 'CyberSpr-',
-                    'plus_pack_enabled' => get_option(SLPLUS_PREFIX.'-SLPLUS-isenabled'),
-                    ),
 
             'display_settings'       => true,
             'has_packages'           => true,
