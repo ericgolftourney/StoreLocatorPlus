@@ -310,6 +310,7 @@ You will likely need to reset your home and destination map markers.
 * Change: Isolate more Pro Pack stuff into Pro Pack module.
 * Enhancement: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) now has its own settings tab.
 * Enhancement: Improved memory consumption and performance in several areas.
+* Enhancement: Updated how to use text.
 
 = 3.9.5 =
 
