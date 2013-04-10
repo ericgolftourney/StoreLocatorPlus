@@ -10,25 +10,6 @@ global $slplus_plugin;
 global $slp_SearchDivs;
 
 //------------------------------------------------
-// Show City Pulldown Is Enabled
-//
-$cs_options  = (isset($slplus_plugin->ProPack) ? $slplus_plugin->ProPack->create_CityPD()   : '');
-if ($cs_options != '') {
-    ob_start();
-    ?>
-<div id='addy_in_city'>
-    <select id='addressInput2' onchange='aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
-        <option value=''><?php print get_option(SLPLUS_PREFIX.'_search_by_city_pd_label',__('--Search By City--','csa-slplus')); ?></option>
-        <?php echo $cs_options?>
-    </select>
-</div>
-<?php
-  global $slp_thishtml_10;
-  $slp_thishtml_10 = ob_get_clean();
-  add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv10'),10);
-}
-
-//------------------------------------------------
 // Show State Pulldown Is Enabled
 //
 $slplus_state_options   = (isset($slplus_plugin->ProPack) ? $slplus_plugin->ProPack->create_state_pd()   : '');

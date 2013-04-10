@@ -342,7 +342,11 @@ class SLPPro {
     function slp_init() {
         if (!$this->setPlugin()) { return; }
         $this->plugin->register_addon($this->slug);
-        add_filter('slp_search_form_divs',array($this,'filter_SearchForm_AddTagSearch'),40);
+
+        add_filter('slp_search_form_divs',array($this,'filter_SearchForm_AddCityPD'     ),10);
+        add_filter('slp_search_form_divs',array($this,'filter_SearchForm_AddStatePD'    ),20);
+        add_filter('slp_search_form_divs',array($this,'filter_SearchForm_AddCountryPD'  ),30);
+        add_filter('slp_search_form_divs',array($this,'filter_SearchForm_AddTagSearch'  ),40);
     }
 
     //====================================================
@@ -939,6 +943,49 @@ class SLPPro {
             $newHTML .= '</div>';
             return $HTML.$newHTML;
         }
+        return $HTML;
+    }
+
+    /**
+     * Add City pulldown to search form.
+     * 
+     * @param string $HTML the initial pulldown HTML, typically empty.
+     */
+    function filter_SearchForm_AddCityPD($HTML) {
+        if (!$this->enabled) { return $HTML; }
+        if (get_option('sl_use_city_search',0)===0) { return $HTML; }
+
+        $onChange = 'aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}';
+        $HTML .=
+            "<div id='addy_in_city'>".
+                "<select id='addressInput2' onchange='$onChange'>".
+                    "<option value=''>".
+                        get_option(SLPLUS_PREFIX.'_search_by_city_pd_label',__('--Search By City--','csa-slplus')).
+                     '</option>'.
+                    $this->create_CityPD().
+                '</select>'.
+            '</div>'
+            ;
+        return $HTML;
+    }
+
+    /**
+     * Add Country pulldown to search form.
+     *
+     * @param string $HTML the initial pulldown HTML, typically empty.
+     */
+    function filter_SearchForm_AddCountryPD($HTML) {
+        if (!$this->enabled) { return $HTML; }
+        return $HTML;
+    }
+
+    /**
+     * Add State pulldown to search form.
+     *
+     * @param string $HTML the initial pulldown HTML, typically empty.
+     */
+    function filter_SearchForm_AddStatePD($HTML) {
+        if (!$this->enabled) { return $HTML; }
         return $HTML;
     }
 
