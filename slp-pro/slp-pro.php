@@ -92,6 +92,10 @@ class SLPPro {
         $this->dir  = plugin_dir_path(__FILE__);
         $this->slug = plugin_basename(__FILE__);
 
+        // Tell SLP we are here
+        //
+        $this->plugin->register_addon($this->slug);
+
         // Store Locator Plus invocation complete
         //
         add_action('slp_invocation_complete'        ,array($this,'setPlugin'                    ));
