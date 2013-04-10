@@ -267,7 +267,7 @@ class SLPlus_AdminUI {
             'api_key',
             'text',
             false,
-            'Your Google Maps V3 API Key.  Used for searches only. You will need to ' .
+            'Your Google Maps V3 API Key.  NOT REQUIRED. Used for searches only. You will need to ' .
             '<a href="http://code.google.com/apis/console/" target="newinfo">'.
             'go to Google</a> to get your Google Maps API Key.'
         );
