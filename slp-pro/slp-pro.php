@@ -640,6 +640,32 @@ class SLPPro {
     }
 
     /**
+     * Generate the HTML to build the city pulldown UI element.
+     * 
+     * @return string
+     */
+    function create_CityPD() {
+        if (!$this->enabled) { return ''; }
+        if (get_option('sl_use_city_search',0)===0) { return ''; }
+
+        $pdOptions = '';
+        $cs_array=$this->plugin->db->get_results(
+            "SELECT CONCAT(TRIM(sl_city), ', ', TRIM(sl_state)) as city_state " .
+                "FROM ".$this->plugin->db->prefix."store_locator " .
+                "WHERE sl_city<>'' AND sl_state<>'' AND sl_latitude<>'' AND sl_longitude<>'' " .
+                "GROUP BY city_state " .
+                "ORDER BY city_state ASC",
+            ARRAY_A);
+
+        if ($cs_array) {
+            foreach($cs_array as $sl_value) {
+                $pdOptions.="<option value='$sl_value[city_state]'>$sl_value[city_state]</option>";
+            }
+        }
+        return $pdOptions;
+    }
+
+    /**
      * Create the county pulldown list, mark the checked item.
      * 
      * @global type $wpdb
@@ -648,13 +674,13 @@ class SLPPro {
     function create_country_pd() {
         if (!$this->enabled) { return ''; }
 
-        global $wpdb;
         $myOptions = '';
 
         // If Use Country Search option is enabled
         // build our country pulldown.
         //
         if (get_option('sl_use_country_search',0)==1) {
+            global $wpdb;
             $cs_array=$wpdb->get_results(
                 "SELECT TRIM(sl_country) as country " .
                     "FROM ".$wpdb->prefix."store_locator " .
@@ -676,7 +702,6 @@ class SLPPro {
         }
         return $myOptions;
     }
-
 
     /**
      * Create the state pulldown list, mark the checked item.

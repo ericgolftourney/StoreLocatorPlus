@@ -1,7 +1,5 @@
 <?php
 
-global $cs_options;
-
 /**
  * The plugin object.
  * 
@@ -14,6 +12,7 @@ global $slp_SearchDivs;
 //------------------------------------------------
 // Show City Pulldown Is Enabled
 //
+$cs_options  = (isset($slplus_plugin->ProPack) ? $slplus_plugin->ProPack->create_CityPD()   : '');
 if ($cs_options != '') {
     ob_start();
     ?>
@@ -32,7 +31,7 @@ if ($cs_options != '') {
 //------------------------------------------------
 // Show State Pulldown Is Enabled
 //
-$slplus_state_options   = (isset($this->parent->ProPack) ? $this->parent->ProPack->create_state_pd()   : '');
+$slplus_state_options   = (isset($slplus_plugin->ProPack) ? $slplus_plugin->ProPack->create_state_pd()   : '');
 if ($slplus_state_options != '') {
 ob_start();
 ?>
@@ -55,7 +54,7 @@ ob_start();
 //------------------------------------------------
 // Show Country Pulldown Is Enabled
 //
-$sl_country_options     = (isset($this->parent->ProPack) ? $this->parent->ProPack->create_country_pd() : '');
+$sl_country_options     = (isset($slplus_plugin->ProPack) ? $slplus_plugin->ProPack->create_country_pd() : '');
 if ($sl_country_options != '') {
     ob_start();
 ?>
