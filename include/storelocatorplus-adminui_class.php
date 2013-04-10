@@ -811,7 +811,7 @@ class SLPlus_AdminUI {
      * @global type $wpdb
      */
      function renderPage_AddLocations() {
-            global $slplus_plugin,$wpdb;
+            global $wpdb;
             $this->initialize_variables();
 
             print "<div class='wrap'>
@@ -854,7 +854,7 @@ class SLPlus_AdminUI {
                 '<div id="location_table_wrapper">'.
                     "<table id='manage_locations_table' class='slplus wp-list-table widefat fixed posts' cellspacing=0>" .
                         '<tr><td class="slp_locationinfoform_cell">' .
-                            $slplus_plugin->AdminUI->createString_LocationInfoForm(array(),'', true) .
+                            $this->plugin->AdminUI->createString_LocationInfoForm(array(),'', true) .
                         '</td></tr>' .
                     '</table>' .
                 '</div>'
