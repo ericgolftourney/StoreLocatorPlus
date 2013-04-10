@@ -691,36 +691,26 @@ class SLPPro {
     /**
      * Create the state pulldown list, mark the checked item.
      *
-     * @global type $wpdb
      * @return string
      */
-    function create_state_pd() {
-        if (!$this->enabled) { return ''; }
-
-        global $wpdb;
+    function create_StatePD() {
         $myOptions = '';
+        $cs_array=$this->plugin->db->get_results(
+            "SELECT TRIM(sl_state) as state " .
+                "FROM ".$this->plugin->db->prefix."store_locator " .
+                "WHERE sl_state<>'' " .
+                    "AND sl_latitude<>'' AND sl_longitude<>'' " .
+                "GROUP BY state " .
+                "ORDER BY state ASC",
+            ARRAY_A);
 
-        // If Use State Search option is enabled
-        // build our state pulldown.
+        // If we have country data show it in the pulldown
         //
-        if (get_option('slplus_show_state_pd',0)==1) {
-            $cs_array=$wpdb->get_results(
-                "SELECT TRIM(sl_state) as state " .
-                    "FROM ".$wpdb->prefix."store_locator " .
-                    "WHERE sl_state<>'' " .
-                        "AND sl_latitude<>'' AND sl_longitude<>'' " .
-                    "GROUP BY state " .
-                    "ORDER BY state ASC",
-                ARRAY_A);
-
-            // If we have country data show it in the pulldown
-            //
-            if ($cs_array) {
-                foreach($cs_array as $sl_value) {
-                  $myOptions.=
-                    "<option value='$sl_value[state]'>" .
-                    $sl_value['state']."</option>";
-                }
+        if ($cs_array) {
+            foreach($cs_array as $sl_value) {
+              $myOptions.=
+                "<option value='$sl_value[state]'>" .
+                $sl_value['state']."</option>";
             }
         }
         return $myOptions;
@@ -981,6 +971,23 @@ class SLPPro {
      */
     function filter_SearchForm_AddStatePD($HTML) {
         if (!$this->enabled) { return $HTML; }
+        if (get_option('slplus_show_state_pd',0)===0) { return $HTML; }
+
+        $onChange = 'aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}';
+        $HTML .=
+            "<div id='addy_in_state'>".
+                "<label for='addressInputState'>".
+                    get_option(SLPLUS_PREFIX.'_state_pd_label','').
+                '</label>'.
+                "<select id='addressInputState' onchange='$onChange'>".
+                    "<option value=''>".
+                        get_option(SLPLUS_PREFIX.'_search_by_state_pd_label',__('--Search By State--','csa-slplus')).
+                     '</option>'.
+                    $this->create_StatePD().
+                '</select>'.
+            '</div>'
+            ;
+
         return $HTML;
     }
 
