@@ -22,13 +22,6 @@ class SLPlus_AdminUI {
      */
     private $plugin;
 
-    /**
-     * True if Pro Pack is Enabled.
-     *
-     * @var boolean $proPackEnabled
-     */
-    private $proPackEnabled = false;
-
     public $styleHandle = 'csl_slplus_admin_css';
     private $geocodeIssuesRendered = false;
 
@@ -74,11 +67,6 @@ class SLPlus_AdminUI {
             $this->parent = $slplus_plugin;
             $this->plugin = $slplus_plugin;
         }
-
-        $this->proPackEnabled = (
-            isset($this->plugin->ProPack) &&
-            $this->plugin->ProPack->enabled
-        );
 
         return (isset($this->parent) && ($this->parent != null));
     }
