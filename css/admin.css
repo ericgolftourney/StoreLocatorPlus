@@ -536,6 +536,10 @@ td.slp_manage_locations_cell {
     word-break: keep-all;
 }
 
+table#manage_locations_table th.th_checkbox {
+    vertical-align: top;
+}
+
  div#slp_pagination {
      margin: 0px;
      overflow: auto;
@@ -555,7 +559,7 @@ td.slp_manage_locations_cell {
  div#location_table_wrapper {
     border: 1px solid #CCCCCC;
     margin: -1px 0 0;
-    padding: 6px;
+    padding: 0px;
  }
  a.page-button {
      margin: 0px 2px;
