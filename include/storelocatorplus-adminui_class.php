@@ -312,22 +312,17 @@ class SLPlus_AdminUI {
 
         //-------------------------
         // Pro Pack
-        //
-        $slp_rep_desc = __('These settings affect how the Pro Pack add-on behaves. ', 'csa-slplus');
-        if ($this->parent->license->AmIEnabled(true, "SLPLUS-PRO")) {
-            $slp_rep_desc .= '<span style="float:right;">(<a href="#" onClick="'.
-                    'jQuery.post(ajaxurl,{action: \'license_reset_propack\'},function(response){alert(response);});'.
-                    '">'.__('Delete license','csa-slplus').'</a>)</span>';
-        }
-
-        // Pro Pack Features
         // TODO: Make this a separate tab.
         //
         if ($this->parent->license->AmIEnabled(true, "SLPLUS-PRO")) {
             $this->parent->settings->add_section(
                 array(
                     'name'        => 'Pro Pack',
-                    'description' => $slp_rep_desc
+                    'description' =>
+                        __('These settings affect how the Pro Pack add-on behaves. ', 'csa-slplus') .
+                        '<span style="float:right;">(<a href="#" onClick="'.
+                        'jQuery.post(ajaxurl,{action: \'license_reset_propack\'},function(response){alert(response);});'.
+                        '">'.__('Delete license','csa-slplus').'</a>)</span>'
                 )
             );
 
