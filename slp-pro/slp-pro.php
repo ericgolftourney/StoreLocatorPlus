@@ -648,10 +648,7 @@ class SLPPro {
      * 
      * @return string
      */
-    function create_CityPD() {
-        if (!$this->enabled) { return ''; }
-        if (get_option('sl_use_city_search',0)===0) { return ''; }
-
+    private function create_CityPD() {
         $pdOptions = '';
         $cs_array=$this->plugin->db->get_results(
             "SELECT CONCAT(TRIM(sl_city), ', ', TRIM(sl_state)) as city_state " .
@@ -660,7 +657,6 @@ class SLPPro {
                 "GROUP BY city_state " .
                 "ORDER BY city_state ASC",
             ARRAY_A);
-
         if ($cs_array) {
             foreach($cs_array as $sl_value) {
                 $pdOptions.="<option value='$sl_value[city_state]'>$sl_value[city_state]</option>";
@@ -670,38 +666,23 @@ class SLPPro {
     }
 
     /**
-     * Create the county pulldown list, mark the checked item.
+     * Create the country pulldown list, mark the checked item.
      * 
-     * @global type $wpdb
      * @return string
      */
-    function create_country_pd() {
-        if (!$this->enabled) { return ''; }
-
+    private function create_CountryPD() {
         $myOptions = '';
-
-        // If Use Country Search option is enabled
-        // build our country pulldown.
-        //
-        if (get_option('sl_use_country_search',0)==1) {
-            global $wpdb;
-            $cs_array=$wpdb->get_results(
-                "SELECT TRIM(sl_country) as country " .
-                    "FROM ".$wpdb->prefix."store_locator " .
-                    "WHERE sl_country<>'' " .
-                        "AND sl_latitude<>'' AND sl_longitude<>'' " .
-                    "GROUP BY country " .
-                    "ORDER BY country ASC",
-                ARRAY_A);
-
-            // If we have country data show it in the pulldown
-            //
-            if ($cs_array) {
-                foreach($cs_array as $sl_value) {
-                  $myOptions.=
-                    "<option value='$sl_value[country]'>" .
-                    $sl_value['country']."</option>";
-                }
+        $cs_array=$this->plugin->db->get_results(
+            "SELECT TRIM(sl_country) as country " .
+                "FROM ".$this->plugin->db->prefix."store_locator " .
+                "WHERE sl_country<>'' " .
+                    "AND sl_latitude<>'' AND sl_longitude<>'' " .
+                "GROUP BY country " .
+                "ORDER BY country ASC",
+            ARRAY_A);
+        if ($cs_array) {
+            foreach($cs_array as $sl_value) {
+              $myOptions.="<option value='{$sl_value['country']}'>{$sl_value['country']}</option>";
             }
         }
         return $myOptions;
@@ -976,6 +957,20 @@ class SLPPro {
      */
     function filter_SearchForm_AddCountryPD($HTML) {
         if (!$this->enabled) { return $HTML; }
+        if (get_option('sl_use_country_search',0)===0) { return $HTML; }
+
+        $onChange = 'aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}';
+        $HTML .=
+            "<div id='addy_in_country'>".
+                "<select id='addressInput3' onchange='$onChange'>".
+                    "<option value=''>".
+                        get_option(SLPLUS_PREFIX.'_search_by_country_pd_label',__('--Search By Country--','csa-slplus')).
+                     '</option>'.
+                    $this->create_CountryPD().
+                '</select>'.
+            '</div>'
+            ;
+
         return $HTML;
     }
 

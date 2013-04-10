@@ -31,23 +31,3 @@ ob_start();
   $slp_thishtml_20 = ob_get_clean();
   add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv20'),20);
 }
-
-//------------------------------------------------
-// Show Country Pulldown Is Enabled
-//
-$sl_country_options     = (isset($slplus_plugin->ProPack) ? $slplus_plugin->ProPack->create_country_pd() : '');
-if ($sl_country_options != '') {
-    ob_start();
-?>
-<div id='addy_in_country'>
-    <select id='addressInput3' onchange='aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>
-    <option value=''><?php print get_option(SLPLUS_PREFIX.'_search_by_country_pd_label',__('--Search By Country--','csa-slplus')); ?></option>
-    <?php echo $sl_country_options?>
-    </select>
-</div>
-<?php
-
-  global $slp_thishtml_30;
-  $slp_thishtml_30 = ob_get_clean();
-  add_filter('slp_search_form_divs',array($slp_SearchDivs,'buildDiv30'),30);
-}
