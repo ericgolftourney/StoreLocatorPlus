@@ -305,7 +305,7 @@ You will need to go to the new "Store Pages" tab and re-enable some of your sett
 Updating from a version 3.8.6 or earlier?
 You will likely need to reset your home and destination map markers.
 
-= 3.9.6 (tbd) =
+= 3.9.6 (April 10th, 2013) =
 
 * Change: Isolate more Pro Pack stuff into Pro Pack module.
 * Enhancement: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) now has its own settings tab.
@@ -315,6 +315,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Eliminate search_form.php file, invoke in a controlled class for better security.
 * Enhancement: Eliminate multiple unused JavaScript functions.  Smaller footprint in browser memory.  Lessen security footprint.
 * Fix: Allow https in the website URL of a location.
+* Fix: Fit the add-on pack updater, which buggered the main add plugin class for WordPress.
 
 = 3.9.5 =
 
