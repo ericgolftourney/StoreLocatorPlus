@@ -158,16 +158,6 @@ class SLPlus_AdminUI_MapSettings {
      }
 
     /**
-     * Generate the HTML for a sub-heading label in a settings panel.
-     * 
-     * @param string $label
-     * @return string HTML
-     */
-    function CreateSubheadingLabel($label) {
-        return "<p class='slp_admin_info'><strong>$label</strong></p>";
-    }
-
-    /**
      * Generate the HTML for a text area settings interface element.
      * 
      * @param string $boxname
@@ -285,7 +275,7 @@ class SLPlus_AdminUI_MapSettings {
         $slpDescription =
             "<div class='section_column_content'>" .
 
-            $this->CreateSubheadingLabel(__('Look and Feel','csa-slplus')) .
+            $this->plugin->helper->create_SubheadingLabel(__('Look and Feel','csa-slplus')) .
 
             $this->plugin->helper->CreateCheckboxDiv(
                     'sl_remove_credits',
@@ -325,7 +315,7 @@ class SLPlus_AdminUI_MapSettings {
 
             // Features : Country
             $slpDescription .=
-                $this->CreateSubheadingLabel(__('Country','csa-slplus')) .
+                $this->plugin->helper->create_SubheadingLabel(__('Country','csa-slplus')) .
                 "<div class='form_entry'>" .
                 "<label for='google_map_domain'>". __("Map Domain", 'csa-slplus') . "</label>" .
                 "<select name='google_map_domain'>"
@@ -354,7 +344,7 @@ class SLPlus_AdminUI_MapSettings {
             // Settings
             //
             $slpDescription =
-                $this->CreateSubheadingLabel(__('Dimensions','csa-slplus')) .
+                $this->plugin->helper->create_SubheadingLabel(__('Dimensions','csa-slplus')) .
 
                 $this->CreatePulldownDiv(
                     'sl_zoom_level',
@@ -408,7 +398,7 @@ class SLPlus_AdminUI_MapSettings {
                     '%'
                     ) .
 
-                $this->CreateSubheadingLabel(__('General','csa-slplus')) .
+                $this->plugin->helper->create_SubheadingLabel(__('General','csa-slplus')) .
 
                 $this->CreatePulldownDiv(
                     'sl_map_type',
