@@ -170,7 +170,7 @@ class SLPPro {
      */
     function filter_MapResults_LocationAddSettings($HTML) {
         $HTML .=
-            $this->plugin->AdminUI->MapSettings->CreateSubheadingLabel(__('Pro Pack','csa-slp-em')) .
+            $this->plugin->helper->create_SubheadingLabel(__('Pro Pack','csa-slp-em')) .
             $this->plugin->helper->CreateCheckboxDiv(
                 '_show_tags',
                 __('Show Tags In Output','csa-slplus'),
@@ -194,7 +194,7 @@ class SLPPro {
      */
     function filter_MapSettings_Search_FeaturesAddSettings($HTML) {
         $HTML .=
-            $this->plugin->AdminUI->MapSettings->CreateSubheadingLabel(__('Pro Pack','csa-slp-em')) .
+            $this->plugin->helper->create_SubheadingLabel(__('Pro Pack','csa-slp-em')) .
             $this->plugin->helper->create_SimpleMessage('These features will move to the Enhanced Search add-on pack in a future release.').
             $this->plugin->helper->CreateCheckboxDiv(
                 '_hide_radius_selections',
@@ -255,7 +255,7 @@ class SLPPro {
      */
     function filter_MapSettings_SearchLabel_AddSettings($HTML) {
         $HTML .=
-            $this->plugin->AdminUI->MapSettings->CreateSubheadingLabel(__('Pro Pack','csa-slp-em')) .
+            $this->plugin->helper->create_SubheadingLabel(__('Pro Pack','csa-slp-em')) .
             $this->plugin->helper->create_SimpleMessage('These features will move to the Enhanced Search add-on pack in a future release.').
             $this->plugin->AdminUI->MapSettings->CreateInputDiv(
                 '_search_tag_label',
@@ -768,12 +768,22 @@ class SLPPro {
      * @return string the modified HTML form
      */
     function filter_AddFieldsToEditForm($theHTML) {
-        $locID = $this->plugin->currentLocation->id;
         $addform = $this->plugin->AdminUI->addingLocation;
 
         $theHTML .=
-            '<div id="slp_pro_fields" class="slp_editform_section"><strong>'.__('Pro Pack','csa-slplus').'</strong><br/>'.
-                "<input name='tags-$locID' value='".($addform?'':$this->plugin->currentLocation->tags)."'> ".
+            '<div id="slp_pro_fields" class="slp_editform_section">'.
+            $this->plugin->helper->create_SubheadingLabel(__('Pro Pack','csa-slplus'))
+            ;
+
+        // Add or Edit
+        //
+        $theHTML .=
+                '<br/>'.
+                "<input ".
+                    "id='tags-edit' "   .
+                    "name='tags-"       .$this->plugin->currentLocation->id     ."' ".
+                    "value='".($addform?'':$this->plugin->currentLocation->tags)."' ".
+                    '>'.
                 '<small>'.
                    __("Tags (seperate with commas)", 'csa-slplus').
                 '</small>'
@@ -785,14 +795,19 @@ class SLPPro {
             $theHTML .=
                 '<br/>'.
                 "<input ".
+                    "id='latitude-edit' ".
                     "name='latitude-".$this->plugin->currentLocation->id."' ".
                     "value='".$this->plugin->currentLocation->latitude  ."' ".
-                    ">".
+                    '>'.
                 '<small>'.
                     __('Latitude (N/S)', 'csa-slplus').
                 '</small>'.
                 '<br/>'.
-                "<input name='longitude-".$this->plugin->currentLocation->id."' value='".$this->plugin->currentLocation->longitude."'>".
+                '<input ' .
+                    "id='latitude-edit' ".
+                    "name='longitude-".$this->plugin->currentLocation->id."' ".
+                    "value='".$this->plugin->currentLocation->longitude  ."' ".
+                    '>'.
                 '<small>'.
                     __('Longitude (E/W)', 'csa-slplus').
                 '</small>'
@@ -815,7 +830,7 @@ class SLPPro {
     function filter_MapFeatures_AddSettings($html) {
         return
             $html .
-            $this->plugin->AdminUI->MapSettings->CreateSubheadingLabel(__('Pro Pack','csa-slplus')).
+            $this->plugin->helper->create_SubheadingLabel(__('Pro Pack','csa-slplus')).
             $this->plugin->helper->create_SimpleMessage('These features will move to the Enhanced Map add-on pack in a future release.').
             $this->plugin->AdminUI->MapSettings->CreateInputDiv(
                 'sl_starting_image',
