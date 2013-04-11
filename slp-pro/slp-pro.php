@@ -804,7 +804,7 @@ class SLPPro {
                 '</small>'.
                 '<br/>'.
                 '<input ' .
-                    "id='latitude-edit' ".
+                    "id='longitude-edit' ".
                     "name='longitude-".$this->plugin->currentLocation->id."' ".
                     "value='".$this->plugin->currentLocation->longitude  ."' ".
                     '>'.
