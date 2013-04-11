@@ -122,10 +122,6 @@ class SLPPro {
     }
 
 
-    //====================================================
-    // WordPress Admin Actions
-    //====================================================
-
     /**
      * WordPress admin_init hook for Pro Pack.
      */
@@ -349,10 +345,13 @@ class SLPPro {
         add_filter('slp_search_form_divs',array($this,'filter_SearchForm_AddTagSearch'  ),40);
     }
 
-    //====================================================
-    // Helpers
-    //====================================================
 
+    /**
+     * Add the Pro Pack menu
+     *
+     * @param mixed[] $menuItems
+     * @return mixed[]
+     */
     function add_menu_items($menuItems) {
         if (!$this->enabled) { return $menuItems; }
         return array_merge(
@@ -461,11 +460,6 @@ class SLPPro {
             $this->enabled
             );
     }
-
-
-    //====================================================
-    // Pro Pack Custom Methods
-    //====================================================
 
     /**
      * Add the bulk upload form to add locations.
@@ -939,7 +933,7 @@ class SLPPro {
      */
     function filter_SearchForm_AddCityPD($HTML) {
         if (!$this->enabled) { return $HTML; }
-        if (get_option('sl_use_city_search',0)===0) { return $HTML; }
+        if (get_option('sl_use_city_search',0)=='0') { return $HTML; }
 
         $onChange = 'aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}';
         $HTML .=
@@ -962,7 +956,7 @@ class SLPPro {
      */
     function filter_SearchForm_AddCountryPD($HTML) {
         if (!$this->enabled) { return $HTML; }
-        if (get_option('sl_use_country_search',0)===0) { return $HTML; }
+        if (get_option('sl_use_country_search',0)==0) { return $HTML; }
 
         $onChange = 'aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}';
         $HTML .=
@@ -986,7 +980,7 @@ class SLPPro {
      */
     function filter_SearchForm_AddStatePD($HTML) {
         if (!$this->enabled) { return $HTML; }
-        if (get_option('slplus_show_state_pd',0)===0) { return $HTML; }
+        if (get_option('slplus_show_state_pd',0)==0) { return $HTML; }
 
         $onChange = 'aI=document.getElementById("searchForm").addressInput;if(this.value!=""){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}';
         $HTML .=
