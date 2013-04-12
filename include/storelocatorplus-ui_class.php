@@ -114,20 +114,22 @@ class SLPlus_UI {
     function ShortcodeOrSettingEnabled($attribute,$setting) {
         if (!$this->setPlugin()) { return false; }
 
-        return (
-                isset($this->plugin->data[$attribute])
-                &&
-                (                  
-                    (strcasecmp($this->plugin->data[$attribute],'true')==0)
-                    ||
-                    (
-                       ($this->plugin->data[$attribute] === null) &&
-                       (($this->plugin->settings->get_item($setting,0) == 1))
-                    )
-                )
-           );
+       // If the data attribute is set
+       //
+       // return TRUE if the value is 'true' (this is for shortcode atts)
+       // return the value of the database setting if NULL
+       if (isset($this->plugin->data[$attribute])) {
+            if (strcasecmp($this->plugin->data[$attribute],'true')==0) { return true; }
+            if (($this->plugin->data[$attribute] === null)) {
+                return ($this->plugin->settings->get_item($setting,0) == 1);
+            }
 
-        }
+       // If the data attribute is NOT set
+       // return the value of the database setting
+       } else {
+            return ($this->plugin->settings->get_item($setting,0) == 1);
+       }
+    }
 
     /**
      * Create a search form input div.
