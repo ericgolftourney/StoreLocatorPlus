@@ -117,14 +117,10 @@ class SLPlus_UI {
        // If the data attribute is set
        //
        // return TRUE if the value is 'true' (this is for shortcode atts)
-       // return the value of the database setting if NULL
        if (isset($this->plugin->data[$attribute])) {
             if (strcasecmp($this->plugin->data[$attribute],'true')==0) { return true; }
-            if (($this->plugin->data[$attribute] === null)) {
-                return ($this->plugin->settings->get_item($setting,0) == 1);
-            }
 
-       // If the data attribute is NOT set
+       // If the data attribute is NOT set or it is set and is null (isset = false if value is null)
        // return the value of the database setting
        } else {
             return ($this->plugin->settings->get_item($setting,0) == 1);
