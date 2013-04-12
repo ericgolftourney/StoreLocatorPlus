@@ -5,7 +5,7 @@ Donate link: http://www.charlestonsw.com/product/store-locator-plus-2/
 Tags: google,bing,map,directory,location,place,store,dealer,shop,business,retail,brick,mortar,coordinates,latitude,longitude,geo,geocoding,miles,kilometers,locator,finder,search,mapper,zipcode,name,radius
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 3.9.6
+Stable tag: 3.9.7
 
 A high end location management system that makes it easy to put a store location finder on your site.  Extensive premium add-on library available!
 
@@ -305,6 +305,10 @@ You will need to go to the new "Store Pages" tab and re-enable some of your sett
 Updating from a version 3.8.6 or earlier?
 You will likely need to reset your home and destination map markers.
 
+= 3.9.7 (April 11th 2013) =
+
+* Fix: logic for attribute / admin panel settings check.   Any attribute that has an admin panel setting and shortcode is not honoring settings.
+
 = 3.9.6 (April 10th, 2013) =
 
 * Change: Isolate more Pro Pack stuff into Pro Pack module.
@@ -315,7 +319,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Eliminate search_form.php file, invoke in a controlled class for better security.
 * Enhancement: Eliminate multiple unused JavaScript functions.  Smaller footprint in browser memory.  Lessen security footprint.
 * Fix: Allow https in the website URL of a location.
-* Fix: Fit the add-on pack updater, which buggered the main add plugin class for WordPress.
+* Fix: Fix the add-on pack updater, which buggered the main add plugin class for WordPress.
 
 = 3.9.5 =
 
