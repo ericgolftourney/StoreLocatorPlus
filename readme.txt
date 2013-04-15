@@ -310,6 +310,7 @@ You will likely need to reset your home and destination map markers.
 * Enhancement: Remove unused file, reducing security liability footprint.
 * Fix: New installations have "headers already sent" due to the workaround for the dbDelta bug in WordPress.  Test for index before deleting.
 * Fix: logic for attribute / admin panel settings check.   Any attribute that has an admin panel setting and shortcode is not honoring settings.
+* Fix: Google map image rendering tweaks, fixes bad map images on poorly behaved themes and other plugins.
 
 = 3.9.6 (April 10th, 2013) =
 
