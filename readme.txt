@@ -307,6 +307,7 @@ You will likely need to reset your home and destination map markers.
 
 = 3.9.7 (April 11th 2013) =
 
+* Fix: New installations have "headers already sent" due to the workaround for the dbDelta bug in WordPress.  Test for index before deleting.
 * Fix: logic for attribute / admin panel settings check.   Any attribute that has an admin panel setting and shortcode is not honoring settings.
 
 = 3.9.6 (April 10th, 2013) =
