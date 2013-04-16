@@ -167,11 +167,10 @@ Here is the process, in case you are wondering:
 
 = Main Plugin =
 
-1. Upload the `store-locator-plus` folder to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Sign up for a Google Maps API Key for your domain at http://code.google.com/apis/console/
-4. Add your locations through the 'Add Locations' page in the Store Locator admin panel
-5. Place the code '[STORE-LOCATOR]' (case-sensitive) in the body of a page or a post to display your store locator
+1. Search for "Store Locator Plus" via Plugins/Add New on your WordPress admin panel.
+2. Click install.
+3. Add your locations through the 'Add Locations' page in the Store Locator admin panel
+4. Create or edit a page and add the [SLPLUS] shortcode.
 
 = Icons =
 
