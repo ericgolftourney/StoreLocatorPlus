@@ -689,7 +689,6 @@ var csl = {
 				this.debugSearch('rebounded');
 				this.bounds = bounds;
 				this.gmap.fitBounds(this.bounds);
-                var theCenter = this.gmap.getCenter();
 
                 // Searches, use Google Bounds - and adjust by the tweak.
                 // Initial Load Only - Use "Zoom Level"
