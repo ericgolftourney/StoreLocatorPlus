@@ -1014,7 +1014,6 @@ var csl = {
 		this.loadMarkers = function(center, radius, tags) {
 
                     //determines if we need to invent real variables (usually only done at the beginning)
-                    var realsearch = true;
                     this.debugSearch('doing search@' + center + ' for radius of ' + radius);
                     if (center === null) { center = this.gmap.getCenter(); }
                     if (radius === null) { radius = 40000; }
@@ -1026,49 +1025,37 @@ var csl = {
                     var _this = this;
                     var ajax = new csl.Ajax();
 
+                    // Setup our variables sent to the AJAX listener.
+                    //
+                    var action = {
+                        address : this.saneValue('addressInput', 'no address entered'),
+                        formdata: jQuery('#searchForm').serialize(),
+                        lat     : center.lat(),
+                        lng     : center.lng(),
+                        name    : this.saneValue('nameSearch', ''),
+                        radius  : radius,
+                        tags    : tags
+                     };
+
                     // On Load
-                    if (!realsearch) {
-                        var action = {
-                            action  : 'csl_ajax_onload',
-                            lat     : center.lat(),
-                            lng     : center.lng(),
-                            tags    : tags
-                         };
-
-                        this.debugSearch(action);
-
-                        ajax.send(action, function (response) {
-                                if (typeof response.response !== 'undefined') {
-                                    _this.dropMarkers.call(_this, response.response);
-                                } else {
-                                    if (window.console) { console.log('SLP server did not send back a valid JSONP response on load.'); }
-                                }
-                            });
+                    if (slplus.load_locations === '1') {
+                        action.action = 'csl_ajax_onload';
+                        slplus.load_locations = '0';
 
                     // Search
                     } else {
-                        var name = this.saneValue('nameSearch', '');
-                        var action = {
-                            action  : 'csl_ajax_search',
-                            address : this.saneValue('addressInput', 'no address entered'),
-                            formdata: jQuery('#searchForm').serialize(),
-                            lat     : center.lat(),
-                            lng     : center.lng(),
-                            name    : name,
-                            radius  : radius,
-                            tags    : tags
-                        };
-
-                        this.debugSearch(action);
-
-                        ajax.send(action, function (response) {
-                                if (typeof response.response !== 'undefined') {
-                                                    _this.bounceMarkers.call(_this, response.response);
-                                } else {
-                                    if (window.console) { console.log('SLP server did not send back a valid JSONP response on search.'); }
-                                }
-                            });
+                        action.action = 'csl_ajax_search';
                     }
+
+                    // Send AJAX call
+                    //
+                    ajax.send(action, function (response) {
+                            if (typeof response.response !== 'undefined') {
+                                _this.bounceMarkers.call(_this, response.response);
+                            } else {
+                                if (window.console) { console.log('SLP server did not send back a valid JSONP response for ' + action.action + '.'); }
+                            }
+                        });
 		};
 
 		/***************************
