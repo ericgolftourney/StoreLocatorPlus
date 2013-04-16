@@ -456,7 +456,6 @@ class SLPlus_UI {
      * We now use $this->plugin->data to hold attribute data.
      *
      *
-     * @global type $wpdb
      * @param type $attributes
      * @param type $content
      * @return string HTML the shortcode will render
@@ -465,8 +464,6 @@ class SLPlus_UI {
          if (!$this->setPlugin()) {
              return sprintf(__('%s is not ready','csa-slplus'),__('Store Locator Plus','csa-slplus'));
         }
-
-        global  $wpdb;
 
         // Get Approved Shortcode Attributes
         $attributes =
@@ -597,6 +594,7 @@ class SLPlus_UI {
             'msg_noresults'     => $this->plugin->settings->get_item('message_noresultsfound','No results found.','_'),
             'results_string'    => apply_filters('slp_javascript_results_string',$this->resultsString),
             'show_tags'         => (get_option(SLPLUS_PREFIX.'_show_tags')==1),
+            'options'           => $this->plugin->options,
             'overview_ctrl'     => get_option('sl_map_overview_control',0),
             'use_email_form'    => (get_option(SLPLUS_PREFIX.'_use_email_form',0)==1),
             'website_label'     => esc_attr(get_option('sl_website_label','Website')),

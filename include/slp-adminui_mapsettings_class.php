@@ -323,7 +323,7 @@ class SLPlus_AdminUI_MapSettings {
             $this->CreateInputDiv(
                     'initial_radius',
                     __('Radius To Search Initially','csa-slplus'),
-                    __('What should immediately show locations use as the default search radius? Default is 10,000','csa-slplus'),
+                    __('What should immediately show locations use as the default search radius? Leave empty to use map radius default or set to a large number like 25000 to search everywhere.','csa-slplus'),
                     '',
                     $this->plugin->options['initial_radius']
                     )
