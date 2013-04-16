@@ -258,17 +258,6 @@ on the [CSL License Terms page](http://www.charlestonsw.com/products/general-eul
 This plugin has settings for many of the user-interface labels.
 I am looking into working with the WPML plugin for added support for those of you that are not in North America.
 
-= What browsers are supported? =
-
-All major browsers should work, however CSA only officially supports the current and the most recent prior release of Internet Explorer, Firefox, Chrome, and Safari.
-
-Currently this includes:
-
-* Internet Explorer (IE) 9
-* Firefox 15
-* Chrome 21
-* Safari 5
-
 == Screenshots ==
 
 The website offers [more screen shots](http://www.charlestonsw.com/product/store-locator-plus-2/) including those from the latest updates and premium add-on packages.
@@ -293,17 +282,6 @@ Visit the [Store Locator Plus Release Notes page](http://www.charlestonsw.com/su
 
 I was listing the entire change log here but with weekly/bi-weekly updates it as getting much too long.
 
-= UPGRADING TO 3.9.X =
-
-[Store Pages](http://www.charlestonsw.com/product/store-locator-plus-store-pages) users upgrading to 3.9 will need to download the separate Store Pages zip file.
-To have the v3.9 Store Pages download added to your account, please use the [contacting me](http://www.charlestonsw.com/mindset/contact-us/) form.
-Send your order number or license number for Store Pages so I can look up your order and add the download to your account.
-Your Store Pages license is no longer needed.
-You will need to go to the new "Store Pages" tab and re-enable some of your settings.
-
-Updating from a version 3.8.6 or earlier?
-You will likely need to reset your home and destination map markers.
-
 = 3.9.7 (April 11th 2013) =
 
 * Enhancement: Remove unused file, reducing security liability footprint.
@@ -311,7 +289,7 @@ You will likely need to reset your home and destination map markers.
 * Fix: logic for attribute / admin panel settings check.   Any attribute that has an admin panel setting and shortcode is not honoring settings.
 * Fix: Google map image rendering tweaks, fixes bad map images on poorly behaved themes and other plugins.
 
-= 3.9.6 (April 10th, 2013) =
+= 3.9.6 =
 
 * Change: Isolate more Pro Pack stuff into Pro Pack module.
 * Enhancement: [Pro Pack](http://www.charlestonsw.com/product/store-locator-plus) now has its own settings tab.
