@@ -375,7 +375,6 @@ var csl = {
 		this.tilesLoaded = null;
 
   	  	//php passed vars set in init
-		this.debug_mode = null;
   	  	this.address = null;
   	  	this.canvasID = null;
   	  	this.draggable = true;
