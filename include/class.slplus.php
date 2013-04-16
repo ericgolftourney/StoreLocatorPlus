@@ -45,10 +45,13 @@ class SLPlus extends wpCSL_plugin__slplus {
      *
      * Key is the name of a supported option, value is the default value.
      *
+     * Anything stored in here also gets passed to the csl.js via the slplus.options object.
+     * Reference the settings in the csl.js via slplus.options.<key>
+     *
      * @var mixed[] $options
      */
     public  $options                = array(
-        'initial_radius'        => 10000,
+        'initial_radius'        => '',
         );
 
     /**
