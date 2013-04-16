@@ -412,7 +412,6 @@ var csl = {
 		this.bounds = null;
 		this.homeAddress = null;
 		this.homePoint = null;
-		this.forceAll = false;
 		this.lastCenter = null;
 		this.lastRadius = null;
 		this.loadedOnce = false;
@@ -1016,12 +1015,6 @@ var csl = {
 
                     //determines if we need to invent real variables (usually only done at the beginning)
                     var realsearch = true;
-                    if (this.forceAll) {
-                        realsearch = false;
-                        radius = null;
-                        center = null;
-                        this.forceAll = false;
-                    }
                     this.debugSearch('doing search@' + center + ' for radius of ' + radius);
                     if (center === null) { center = this.gmap.getCenter(); }
                     if (radius === null) { radius = 40000; }
