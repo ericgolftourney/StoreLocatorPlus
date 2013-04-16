@@ -513,7 +513,20 @@ var csl = {
                         this.homePoint = center;
                         this.addMarkerAtCenter();
                         var tag_to_search_for = this.saneValue('tag_to_search_for', '');
-                        var radius = this.saneValue('radiusSelect');
+
+                        // Default radius for immediately show locations
+                        // uses setting from admin panel first,
+                        // then the default from the drop down menu,
+                        // then 10000 if neither are working.
+                        //
+                        var radius = 10000;
+                        slplus.options.initial_radius = slplus.options.initial_radius.replace(/\D/g,'');
+                        if (/^[0-9]+$/.test(slplus.options.initial_radius)) {
+                            radius = slplus.options.initial_radius;
+                        } else {
+                            radius = this.saneValue('radiusSelect');
+                        }
+
                         this.loadMarkers(center, radius, tag_to_search_for);
                 }
             }
@@ -972,17 +985,13 @@ var csl = {
 			}
 		};
 
-		/***************************
-  	  	 * function: saneValue
-  	  	 * usage:
-  	  	 * 		Gets a sane value from the document
-  	  	 * parameters:
-  	  	 * 		id:
-		 *			the id of the control to look up
-		 *		defaultValue:
-		 *			the default value to return if it doesn't exist
-  	  	 * returns: none
-  	  	 */
+        /**
+         * Get a sane value from the HTML document.
+         *
+         * @param {string} id of control to look at
+         * @param {string} default value to return
+         * @return {undef}
+         */
 		this.saneValue = function(id, defaultValue) {
 			var name = document.getElementById(id);
 			if (name === null) {
