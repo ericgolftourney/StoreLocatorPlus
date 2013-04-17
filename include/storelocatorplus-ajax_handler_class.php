@@ -97,23 +97,9 @@ class SLPlus_AjaxHandler {
     function csl_ajax_onload() {
         $this->setPlugin();
 
-
-        $username=DB_USER;
-        $password=DB_PASSWORD;
-        $database=DB_NAME;
-        $host=DB_HOST;
-        $connection=mysql_connect ($host, $username, $password);
-        if (!$connection) {
-            die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Not connected : ' . mysql_error())));
-        }
-
-        // Set the active MySQL database
-        $db_selected = mysql_select_db($database, $connection);
-        mysql_query("SET NAMES utf8");
-        if (!$db_selected) {
-          die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Can\'t use db : ' . mysql_error())));
-        }
-
+        //.......
+        // Params
+        //.......
         $num_initial_displayed=trim(get_option('sl_num_initial_displayed','25'));
 
         // If tags are passed filter to just those tags
@@ -140,6 +126,28 @@ class SLPlus_AjaxHandler {
         // Select all the rows in the markers table
         //
         $multiplier=(get_option('sl_distance_unit')=="km")? 6371 : 3959;
+
+
+        //.......
+        // MySQL
+        //.......
+        $username=DB_USER;
+        $password=DB_PASSWORD;
+        $database=DB_NAME;
+        $host=DB_HOST;
+        $connection=mysql_connect ($host, $username, $password);
+        if (!$connection) {
+            die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Not connected : ' . mysql_error())));
+        }
+        $db_selected = mysql_select_db($database, $connection);
+        mysql_query("SET NAMES utf8");
+        if (!$db_selected) {
+          die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Can\'t use db : ' . mysql_error())));
+        }
+
+        //........
+        // Query
+        //........
         $query = sprintf(
             "SELECT *,".
             "( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
@@ -157,11 +165,9 @@ class SLPlus_AjaxHandler {
             $num_initial_displayed
         );
         $result = mysql_query(apply_filters('slp_mysql_search_query',$query));
-
         if (!$result) {
           die('Invalid query: ' . mysql_error());
         }
-
 
         // Iterate through the rows, printing json nodes for each
         $response = array();
@@ -185,29 +191,17 @@ class SLPlus_AjaxHandler {
      * @global type $wpdb
      */
     function csl_ajax_search() {
-        global $wpdb;
-        $username=DB_USER;
-        $password=DB_PASSWORD;
-        $database=DB_NAME;
-        $host=DB_HOST;
-
         $this->setPlugin();
+        global $wpdb;
+
+        //.......
+        // Params
+        //.......
 
         // Get parameters from URL
         $center_lat = $_POST["lat"];
         $center_lng = $_POST["lng"];
         $radius     = $_POST["radius"];
-
-        //-----------------
-        // Set the active MySQL database
-        //
-        $connection=mysql_connect ($host, $username, $password);
-        if (!$connection) { die(json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Not connected : ' . mysql_error()))); }
-        $db_selected = mysql_select_db($database, $connection);
-        mysql_query("SET NAMES utf8");
-        if (!$db_selected) {
-            die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Can\'t use db : ' . mysql_error())));
-        }
 
         // If tags are passed filter to just those tags
         //
@@ -236,6 +230,24 @@ class SLPlus_AjaxHandler {
         get_option(SLPLUS_PREFIX.'_maxreturned') :
         '25';
 
+        //.......
+        // MySQL
+        //.......
+        $username=DB_USER;
+        $password=DB_PASSWORD;
+        $database=DB_NAME;
+        $host=DB_HOST;
+        $connection=mysql_connect ($host, $username, $password);
+        if (!$connection) { die(json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Not connected : ' . mysql_error()))); }
+        $db_selected = mysql_select_db($database, $connection);
+        mysql_query("SET NAMES utf8");
+        if (!$db_selected) {
+            die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Can\'t use db : ' . mysql_error())));
+        }
+
+        //........
+        // Query
+        //........
         $query = sprintf(
             "SELECT *,".
             "( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
@@ -252,27 +264,9 @@ class SLPlus_AjaxHandler {
             mysql_real_escape_string($radius),
             mysql_real_escape_string($option[SLPLUS_PREFIX.'_maxreturned'])
         );
-
         $result = mysql_query(apply_filters('slp_mysql_search_query',$query));
         if (!$result) {
             die(json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'query' => $query, 'response' => 'Invalid query: ' . mysql_error())));
-        }
-
-        // Reporting
-        // Insert the query into the query DB
-        //
-        if (get_option(SLPLUS_PREFIX.'-reporting_enabled','off') === 'on') {
-            $qry = sprintf(
-                    "INSERT INTO {$this->plugin->db->prefix}slp_rep_query ".
-                               "(slp_repq_query,slp_repq_tags,slp_repq_address,slp_repq_radius) ".
-                        "values ('%s','%s','%s','%s')",
-                        mysql_real_escape_string($_SERVER['QUERY_STRING']),
-                        mysql_real_escape_string($_POST['tags']),
-                        mysql_real_escape_string($_POST['address']),
-                        mysql_real_escape_string($_POST['radius'])
-                    );
-            $wpdb->query($qry);
-            $slp_QueryID = mysql_insert_id();
         }
 
         // Iterate through the rows, printing XML nodes for each
@@ -297,7 +291,24 @@ class SLPlus_AjaxHandler {
                 }
             }
         }
-        
+
+        // Reporting
+        // Insert the query into the query DB
+        //
+        if (get_option(SLPLUS_PREFIX.'-reporting_enabled','off') === 'on') {
+            $qry = sprintf(
+                    "INSERT INTO {$this->plugin->db->prefix}slp_rep_query ".
+                               "(slp_repq_query,slp_repq_tags,slp_repq_address,slp_repq_radius) ".
+                        "values ('%s','%s','%s','%s')",
+                        mysql_real_escape_string($_SERVER['QUERY_STRING']),
+                        mysql_real_escape_string($_POST['tags']),
+                        mysql_real_escape_string($_POST['address']),
+                        mysql_real_escape_string($_POST['radius'])
+                    );
+            $wpdb->query($qry);
+            $slp_QueryID = mysql_insert_id();
+        }
+
         $this->renderJSON_Response(
                 array(  'success'       => true,
                         'count'         => count($response),
