@@ -107,8 +107,8 @@ class SLPlus_AjaxHandler {
         // Get Locations
         //
         $response = array();
-        $result = $this->execute_LocationQuery('sl_num_initial_displayed');
-        while ($row = @mysql_fetch_assoc($result)){
+        $locations = $this->execute_LocationQuery('sl_num_initial_displayed');
+        foreach ($locations as $row){
             $response[] = $this->slp_add_marker($row);
         }
 
@@ -152,8 +152,8 @@ class SLPlus_AjaxHandler {
         // Get Locations
         //
         $response = array();
-        $result = $this->execute_LocationQuery(SLPLUS_PREFIX.'_maxreturned');
-        while ($row = @mysql_fetch_assoc($result)){
+        $locations = $this->execute_LocationQuery(SLPLUS_PREFIX.'_maxreturned');
+        foreach ($locations as $row){
             $thisLocation = $this->slp_add_marker($row);
             if (!empty($thisLocation)) {
                 $response[] = $thisLocation;
@@ -193,22 +193,6 @@ class SLPlus_AjaxHandler {
      * @return object a MySQL result object
      */
     function execute_LocationQuery($optName_HowMany='') {
-        // MySQL
-        //
-        $username=DB_USER;
-        $password=DB_PASSWORD;
-        $database=DB_NAME;
-        $host=DB_HOST;
-        $connection=mysql_connect ($host, $username, $password);
-        if (!$connection) {
-            die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Not connected : ' . mysql_error())));
-        }
-        $db_selected = mysql_select_db($database, $connection);
-        mysql_query("SET NAMES utf8");
-        if (!$db_selected) {
-          die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Can\'t use db : ' . mysql_error())));
-        }
-
         //........
         // SLP options that tweak the query
         //........
@@ -251,35 +235,46 @@ class SLPlus_AjaxHandler {
             $nameFilter = " AND (sl_store LIKE '%%".$posted_name."%%')";
         }
 
-        // Run the Query
+        // Set the query
+        // FILTER: slp_mysql_search_query
         //
-        $this->dbQuery = sprintf(
+        $this->dbQuery = apply_filters('slp_mysql_search_query',
             "SELECT *,".
             "( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
             "FROM {$this->plugin->db->prefix}store_locator ".
-            "WHERE sl_longitude<>'' and sl_longitude<>'' %s %s ".
-            "HAVING (sl_distance < '%s') ".
+            "WHERE sl_longitude<>'' and sl_longitude<>'' ".
+            $tagFilter.
+            $nameFilter .
+            "HAVING (sl_distance < %d) ".
             'ORDER BY sl_distance ASC '.
-            'LIMIT %s',
-            mysql_real_escape_string($_POST['lat']),
-            mysql_real_escape_string($_POST['lng']),
-            mysql_real_escape_string($_POST['lat']),
-            $tagFilter,
-            $nameFilter,
-            mysql_real_escape_string($_POST['radius']),
-            $maxReturned
-        );
+            'LIMIT %d'
+            );
 
-        // FILTER: slp_mysql_search_query
+        // Run the query
         //
-        $result = mysql_query(apply_filters('slp_mysql_search_query',$this->dbQuery));
+        // First convert our placeholder dbQuery into a string with the vars inserted.
+        // Then turn off errors so they don't munge our JSONP.
+        //
+        global $wpdb;
+        $this->dbQuery =
+            $wpdb->prepare(
+                $this->dbQuery,
+                $_POST['lat'],
+                $_POST['lng'],
+                $_POST['lat'],
+                $_POST['radius'],
+                $maxReturned
+                );
+        $wpdb->hide_errors();
+        $result = $wpdb->get_results($this->dbQuery, ARRAY_A);
 
         // Problems?  Oh crap.  Die.
         //
         if (!$result) {
             die(json_encode(array(
                 'success'       => false, 
-                'response'      => 'Invalid query: ' . mysql_error()
+                'response'      => 'Invalid query: ' . $wpdb->last_error,
+                'dbQuery'       => $this->dbQuery
             )));
         }
 
