@@ -104,35 +104,13 @@ class SLPlus_AjaxHandler {
     function csl_ajax_onload() {
         $this->setPlugin();
 
-        // Tag Filters
-        //
-        $tag_filter = '';
-        if (
-            isset($_POST['tags']) && ($_POST['tags'] != '')
-           ){
-            $posted_tag = preg_replace('/^\s+(.*?)/','$1',$_POST['tags']);
-            $posted_tag = preg_replace('/(.*?)\s+$/','$1',$posted_tag);
-            $tag_filter = " AND ( sl_tags LIKE '%%". $posted_tag ."%%') ";
-        }
-
-        // Name Filters
-        //
-        $name_filter = '';
-        if ((get_option(SLPLUS_PREFIX.'_show_name_search') == 1) &&
-            isset($_POST['name']) && ($_POST['name'] != ''))
-        {
-            $posted_name = preg_replace('/^\s+(.*?)/','$1',$_POST['name']);
-            $posted_name = preg_replace('/(.*?)\s+$/','$1',$posted_name);
-            $name_filter = " AND (sl_store LIKE '%%".$posted_name."%%')";
-        }
-
         // How Many To Fetch
         //
         $num_initial_displayed=trim(get_option('sl_num_initial_displayed','25'));
 
         // Get The Data
         //
-        $result = $this->execute_LocationQuery($tag_filter,$name_filter,$num_initial_displayed);
+        $result = $this->execute_LocationQuery($num_initial_displayed);
 
         // Iterate through the rows, printing json nodes for each
         $response = array();
@@ -160,27 +138,6 @@ class SLPlus_AjaxHandler {
         $this->setPlugin();
         global $wpdb;
 
-        // Tag Filters
-        //
-        $tag_filter = '';
-        if (
-            isset($_POST['tags']) && ($_POST['tags'] != '')
-        ){
-            $posted_tag = preg_replace('/^\s+(.*?)/','$1',$_POST['tags']);
-            $posted_tag = preg_replace('/(.*?)\s+$/','$1',$posted_tag);
-            $tag_filter = " AND ( sl_tags LIKE '%%". $posted_tag ."%%') ";
-        }
-
-        // Name Filters
-        //
-        $name_filter = '';
-        if(isset($_POST['name']) && ($_POST['name'] != ''))
-        {
-            $posted_name = preg_replace('/^\s+(.*?)/','$1',$_POST['name']);
-            $posted_name = preg_replace('/(.*?)\s+$/','$1',$posted_name);
-            $name_filter = " AND (sl_store LIKE '%%".$posted_name."%%')";
-        }
-
         // How Many To Fetch
         //
         $option[SLPLUS_PREFIX.'_maxreturned']=(trim(get_option(SLPLUS_PREFIX.'_maxreturned'))!="")?
@@ -189,7 +146,7 @@ class SLPlus_AjaxHandler {
 
         // Fetch Locations
         //
-        $result = $this->execute_LocationQuery($tag_filter,$name_filter,$option[SLPLUS_PREFIX.'_maxreturned']);
+        $result = $this->execute_LocationQuery($option[SLPLUS_PREFIX.'_maxreturned']);
 
         // Reporting
         // Insert the query into the query DB
@@ -247,12 +204,10 @@ class SLPlus_AjaxHandler {
     /**
      * Run a database query to fetch the locations the user asked for.
      *
-     * @param string $tagFilter tag filter, if any
-     * @param string $nameFilter name filter, if any
      * @param string $maxReturned how many results to max out at
      * @return object a MySQL result object
      */
-    function execute_LocationQuery($tagFilter='',$nameFilter='',$maxReturned='50') {
+    function execute_LocationQuery($maxReturned='50') {
         // MySQL
         //
         $username=DB_USER;
@@ -269,12 +224,39 @@ class SLPlus_AjaxHandler {
           die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Can\'t use db : ' . mysql_error())));
         }
 
+        //........
         // SLP options that tweak the query
-        //
-        
-        //Since miles is default, if kilometers is selected, divide by 1.609344 in order to convert the kilometer value selection back in miles
+        //........
+
+        // Since miles is default, if kilometers is selected, divide by 1.609344 in order to convert the kilometer value selection back in miles
         //
         $multiplier=(get_option('sl_distance_unit')=="km")? 6371 : 3959;
+
+        //........
+        // Post options that tweak the query
+        //........
+
+        // Tag Filters
+        //
+        $tagFilter = '';
+        if (
+            isset($_POST['tags']) && ($_POST['tags'] != '')
+           ){
+            $posted_tag = preg_replace('/^\s+(.*?)/','$1',$_POST['tags']);
+            $posted_tag = preg_replace('/(.*?)\s+$/','$1',$posted_tag);
+            $tagFilter = " AND ( sl_tags LIKE '%%". $posted_tag ."%%') ";
+        }
+
+        // Name Filters
+        //
+        $nameFilter = '';
+        if ((get_option(SLPLUS_PREFIX.'_show_name_search') == 1) &&
+            isset($_POST['name']) && ($_POST['name'] != ''))
+        {
+            $posted_name = preg_replace('/^\s+(.*?)/','$1',$_POST['name']);
+            $posted_name = preg_replace('/(.*?)\s+$/','$1',$posted_name);
+            $nameFilter = " AND (sl_store LIKE '%%".$posted_name."%%')";
+        }
 
         // Make sure max returned is ok
         //
