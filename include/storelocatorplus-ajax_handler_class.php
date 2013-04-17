@@ -161,15 +161,6 @@ class SLPlus_AjaxHandler {
         $this->setPlugin();
         global $wpdb;
 
-        //.......
-        // Params
-        //.......
-
-        // Get parameters from URL
-        $center_lat = $_POST["lat"];
-        $center_lng = $_POST["lng"];
-        $radius     = $_POST["radius"];
-
         // If tags are passed filter to just those tags
         //
         $tag_filter = '';
