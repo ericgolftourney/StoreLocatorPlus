@@ -191,6 +191,23 @@ class SLPlus_AjaxHandler {
         //
         $result = $this->execute_LocationQuery($tag_filter,$name_filter,$option[SLPLUS_PREFIX.'_maxreturned']);
 
+        // Reporting
+        // Insert the query into the query DB
+        //
+        if (get_option(SLPLUS_PREFIX.'-reporting_enabled','off') === 'on') {
+            $qry = sprintf(
+                    "INSERT INTO {$this->plugin->db->prefix}slp_rep_query ".
+                               "(slp_repq_query,slp_repq_tags,slp_repq_address,slp_repq_radius) ".
+                        "values ('%s','%s','%s','%s')",
+                        mysql_real_escape_string($_SERVER['QUERY_STRING']),
+                        mysql_real_escape_string($_POST['tags']),
+                        mysql_real_escape_string($_POST['address']),
+                        mysql_real_escape_string($_POST['radius'])
+                    );
+            $wpdb->query($qry);
+            $slp_QueryID = mysql_insert_id();
+        }
+
         // Process Locations
         //
         $response = array();
@@ -213,23 +230,6 @@ class SLPlus_AjaxHandler {
                         );
                 }
             }
-        }
-
-        // Reporting
-        // Insert the query into the query DB
-        //
-        if (get_option(SLPLUS_PREFIX.'-reporting_enabled','off') === 'on') {
-            $qry = sprintf(
-                    "INSERT INTO {$this->plugin->db->prefix}slp_rep_query ".
-                               "(slp_repq_query,slp_repq_tags,slp_repq_address,slp_repq_radius) ".
-                        "values ('%s','%s','%s','%s')",
-                        mysql_real_escape_string($_SERVER['QUERY_STRING']),
-                        mysql_real_escape_string($_POST['tags']),
-                        mysql_real_escape_string($_POST['address']),
-                        mysql_real_escape_string($_POST['radius'])
-                    );
-            $wpdb->query($qry);
-            $slp_QueryID = mysql_insert_id();
         }
 
         // Output the JSON and Exit
