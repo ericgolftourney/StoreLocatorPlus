@@ -24,6 +24,13 @@ class SLPlus_AjaxHandler {
     public $plugin;
 
 
+    /**
+     * The database query string.
+     *
+     * @var string $dbQuery
+     */
+    private $dbQuery;
+
     //----------------------------------
     // Methods
     //----------------------------------
@@ -123,51 +130,10 @@ class SLPlus_AjaxHandler {
             $name_filter = " AND (sl_store LIKE '%%".$posted_name."%%')";
         }
 
-        // Select all the rows in the markers table
-        //
-        $multiplier=(get_option('sl_distance_unit')=="km")? 6371 : 3959;
-
-
-        //.......
-        // MySQL
-        //.......
-        $username=DB_USER;
-        $password=DB_PASSWORD;
-        $database=DB_NAME;
-        $host=DB_HOST;
-        $connection=mysql_connect ($host, $username, $password);
-        if (!$connection) {
-            die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Not connected : ' . mysql_error())));
-        }
-        $db_selected = mysql_select_db($database, $connection);
-        mysql_query("SET NAMES utf8");
-        if (!$db_selected) {
-          die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Can\'t use db : ' . mysql_error())));
-        }
-
-        //........
-        // Query
-        //........
-        $query = sprintf(
-            "SELECT *,".
-            "( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
-            "FROM {$this->plugin->db->prefix}store_locator ".
-            "WHERE sl_longitude<>'' and sl_longitude<>'' %s %s ".
-            "HAVING (sl_distance < '%s') ".
-            'ORDER BY sl_distance ASC '.
-            'LIMIT %s',
-            mysql_real_escape_string($_POST['lat']),
-            mysql_real_escape_string($_POST['lng']),
-            mysql_real_escape_string($_POST['lat']),
-            $tag_filter,
-            $name_filter,
-            mysql_real_escape_string('99999'),
-            $num_initial_displayed
-        );
-        $result = mysql_query(apply_filters('slp_mysql_search_query',$query));
-        if (!$result) {
-          die('Invalid query: ' . mysql_error());
-        }
+        //.............
+        // Get The Data
+        //.............
+        $result = $this->execute_LocationQuery($_POST['lat'],$_POST['lng'],$tag_filter,$name_filter,$_POST['radius'],$num_initial_displayed);
 
         // Iterate through the rows, printing json nodes for each
         $response = array();
@@ -180,7 +146,6 @@ class SLPlus_AjaxHandler {
         $this->renderJSON_Response(
                 array(  'success'       => true,
                         'count'         => count($response) ,
-                        'slp_version'   => $this->plugin->version,
                         'type'          => 'load',
                         'response'      => $response
                     )
@@ -317,13 +282,74 @@ class SLPlus_AjaxHandler {
                 array(  'success'       => true,
                         'count'         => count($response),
                         'option'        => $_POST['address'],
-                        'slp_version'   => $this->plugin->version,
                         'type'          => 'search',
                         'dbquery'       => $query,
                         'response'      => $response
                     )
                 );
      }
+
+    /**
+     * Run a database query to fetch the locations the user asked for.
+     *
+     * @param string $lat the latitude
+     * @param string $lng the longitude
+     * @param string $tagFilter tag filter, if any
+     * @param string $nameFilter name filter, if any
+     * @param string $searchRadius radius to search within
+     * @param string $maxReturned how many results to max out at
+     * @return object a MySQL result object
+     */
+    function execute_LocationQuery($lat,$lng,$tagFilter='',$nameFilter='',$searchRadius='10000',$maxReturned='50') {
+        // MySQL
+        //
+        $username=DB_USER;
+        $password=DB_PASSWORD;
+        $database=DB_NAME;
+        $host=DB_HOST;
+        $connection=mysql_connect ($host, $username, $password);
+        if (!$connection) {
+            die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Not connected : ' . mysql_error())));
+        }
+        $db_selected = mysql_select_db($database, $connection);
+        mysql_query("SET NAMES utf8");
+        if (!$db_selected) {
+          die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Can\'t use db : ' . mysql_error())));
+        }
+
+        // SLP options that tweak the query
+        //
+        $multiplier=(get_option('sl_distance_unit')=="km")? 6371 : 3959;
+
+        // Run the Query
+        //
+        $this->dbQuery = sprintf(
+            "SELECT *,".
+            "( $multiplier * acos( cos( radians('%s') ) * cos( radians( sl_latitude ) ) * cos( radians( sl_longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( sl_latitude ) ) ) ) AS sl_distance ".
+            "FROM {$this->plugin->db->prefix}store_locator ".
+            "WHERE sl_longitude<>'' and sl_longitude<>'' %s %s ".
+            "HAVING (sl_distance < '%s') ".
+            'ORDER BY sl_distance ASC '.
+            'LIMIT %s',
+            mysql_real_escape_string($lat),
+            mysql_real_escape_string($lng),
+            mysql_real_escape_string($lat),
+            $tagFilter,
+            $nameFilter,
+            mysql_real_escape_string($searchRadius),
+            $maxReturned
+        );
+        $result = mysql_query(apply_filters('slp_mysql_search_query',$this->dbQuery));
+
+        // Problems?  Oh crap.  Die.
+        //
+        if (!$result) { die('Invalid query: ' . mysql_error()); }
+
+        // Return what we got
+        //
+        return $result;
+    }
+
 
     /**
      * Output a JSON response based on the incoming data and die.
@@ -342,10 +368,16 @@ class SLPlus_AjaxHandler {
             $data = array(
                 'success'       => false,
                 'count'         => 0,
-                'slp_version'   => $this->plugin->version,
                 'message'       => __('renderJSON_Response did not get an array()','csa-slplus')
             );
         }
+
+        $data = array_merge($data,
+                    array(
+                        'slp_version'   => $this->plugin->version,
+                        'dbQuery'       => $this->dbQuery
+                    )
+                );
 
         // Tell them what is coming...
         //
