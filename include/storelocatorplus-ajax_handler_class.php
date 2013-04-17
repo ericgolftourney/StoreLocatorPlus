@@ -133,7 +133,7 @@ class SLPlus_AjaxHandler {
         //.............
         // Get The Data
         //.............
-        $result = $this->execute_LocationQuery($_POST['lat'],$_POST['lng'],$tag_filter,$name_filter,$_POST['radius'],$num_initial_displayed);
+        $result = $this->execute_LocationQuery($tag_filter,$name_filter,$num_initial_displayed);
 
         // Iterate through the rows, printing json nodes for each
         $response = array();
@@ -196,7 +196,7 @@ class SLPlus_AjaxHandler {
         //.............
         // Get The Data
         //.............
-        $result = $this->execute_LocationQuery($_POST['lat'],$_POST['lng'],$tag_filter,$name_filter,$_POST['radius'],$option[SLPLUS_PREFIX.'_maxreturned']);
+        $result = $this->execute_LocationQuery($tag_filter,$name_filter,$option[SLPLUS_PREFIX.'_maxreturned']);
 
         // Iterate through the rows, printing XML nodes for each
         $response = array();
@@ -253,15 +253,12 @@ class SLPlus_AjaxHandler {
     /**
      * Run a database query to fetch the locations the user asked for.
      *
-     * @param string $lat the latitude
-     * @param string $lng the longitude
      * @param string $tagFilter tag filter, if any
      * @param string $nameFilter name filter, if any
-     * @param string $searchRadius radius to search within
      * @param string $maxReturned how many results to max out at
      * @return object a MySQL result object
      */
-    function execute_LocationQuery($lat,$lng,$tagFilter='',$nameFilter='',$searchRadius='10000',$maxReturned='50') {
+    function execute_LocationQuery($tagFilter='',$nameFilter='',$maxReturned='50') {
         // MySQL
         //
         $username=DB_USER;
@@ -299,12 +296,12 @@ class SLPlus_AjaxHandler {
             "HAVING (sl_distance < '%s') ".
             'ORDER BY sl_distance ASC '.
             'LIMIT %s',
-            mysql_real_escape_string($lat),
-            mysql_real_escape_string($lng),
-            mysql_real_escape_string($lat),
+            mysql_real_escape_string($_POST['lat']),
+            mysql_real_escape_string($_POST['lng']),
+            mysql_real_escape_string($_POST['lat']),
             $tagFilter,
             $nameFilter,
-            mysql_real_escape_string($searchRadius),
+            mysql_real_escape_string($_POST['radius']),
             $maxReturned
         );
 
