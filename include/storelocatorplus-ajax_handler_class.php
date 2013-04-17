@@ -95,12 +95,13 @@ class SLPlus_AjaxHandler {
      *
      */
     function csl_ajax_onload() {
+        $this->setPlugin();
+
+
         $username=DB_USER;
         $password=DB_PASSWORD;
         $database=DB_NAME;
         $host=DB_HOST;
-        $this->setPlugin();
-
         $connection=mysql_connect ($host, $username, $password);
         if (!$connection) {
             die (json_encode( array('success' => false, 'slp_version' => $this->plugin->version, 'response' => 'Not connected : ' . mysql_error())));
@@ -137,8 +138,6 @@ class SLPlus_AjaxHandler {
         }
 
         // Select all the rows in the markers table
-        // Radius was ignored in the original SLP, showing all locations up to N max
-        // that is why 99999 is hard-coded here
         //
         $multiplier=(get_option('sl_distance_unit')=="km")? 6371 : 3959;
         $query = sprintf(
@@ -170,8 +169,7 @@ class SLPlus_AjaxHandler {
             $response[] = $this->slp_add_marker($row);
         }
 
-        header( "Content-Type: application/json" );
-        echo json_encode( 
+        $this->renderJSON_Response(
                 array(  'success'       => true,
                         'count'         => count($response) ,
                         'slp_version'   => $this->plugin->version,
@@ -179,7 +177,6 @@ class SLPlus_AjaxHandler {
                         'response'      => $response
                     )
                 );
-        die();
     }
 
     /**
@@ -300,8 +297,8 @@ class SLPlus_AjaxHandler {
                 }
             }
         }
-        header( "Content-Type: application/json" );
-        echo json_encode( 
+        
+        $this->renderJSON_Response(
                 array(  'success'       => true,
                         'count'         => count($response),
                         'option'        => $_POST['address'],
@@ -311,8 +308,43 @@ class SLPlus_AjaxHandler {
                         'response'      => $response
                     )
                 );
-        die();
      }
+
+    /**
+     * Output a JSON response based on the incoming data and die.
+     *
+     * Used for AJAX processing in WordPress where a remote listener expects JSON data.
+     *
+     * @param mixed[] $data named array of keys and values to turn into JSON data
+     * @return null dies on execution
+     */
+    function renderJSON_Response($data) {
+        header( "Content-Type: application/json" );
+
+        // What do you mean we didn't get an array?
+        //
+        if (!is_array($data)) {
+            $data = array(
+                'success'       => false,
+                'count'         => 0,
+                'slp_version'   => $this->plugin->version,
+                'message'       => __('renderJSON_Response did not get an array()','csa-slplus')
+            );
+        }
+
+        // Tell them what is coming...
+        //
+        header( "Content-Type: application/json" );
+
+        // Go forth and spew data
+        //
+        echo json_encode($data);
+
+        // Then die.
+        //
+        die();
+    }
+
 
     /**
      * Remove the Pro Pack license.
