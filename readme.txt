@@ -282,10 +282,11 @@ Visit the [Store Locator Plus Release Notes page](http://www.charlestonsw.com/su
 
 I was listing the entire change log here but with weekly/bi-weekly updates it as getting much too long.
 
-= 3.9.7 (April 11th 2013) =
+= 3.9.7 (April 2013) =
 
 * Enhancement: Add immediately show locations radius setting.
 * Enhancement: Remove unused file, reducing security liability footprint.
+* Enhancement: Completely retool the location lookup AJAX listener.  Now uses WP database functions.  Faster. More secure.  Less cruft.
 * Fix: Immediately show locations once again limits it to the count noted in the settings page.
 * Fix: New installations have "headers already sent" due to the workaround for the dbDelta bug in WordPress.  Test for index before deleting.
 * Fix: logic for attribute / admin panel settings check.   Any attribute that has an admin panel setting and shortcode is not honoring settings.
