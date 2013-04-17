@@ -204,8 +204,8 @@ class SLPlus_AjaxHandler {
 
         // Return How Many?
         //
-        if (empty($optName_HowMany)) { $optName_HowMany = ''; }
-        $maxReturned = trim(get_option(SLPLUS_PREFIX.'_maxreturned','25'));
+        if (empty($optName_HowMany)) { $optName_HowMany = SLPLUS_PREFIX.'_maxreturned'; }
+        $maxReturned = trim(get_option($optName_HowMany,'25'));
         if (!is_numeric($maxReturned)) { $maxReturned = '25'; }
 
 
