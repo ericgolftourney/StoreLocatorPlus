@@ -104,16 +104,10 @@ class SLPlus_AjaxHandler {
     function csl_ajax_onload() {
         $this->setPlugin();
 
-        // How Many To Fetch
+        // Get Locations
         //
-        $num_initial_displayed=trim(get_option('sl_num_initial_displayed','25'));
-
-        // Get The Data
-        //
-        $result = $this->execute_LocationQuery($num_initial_displayed);
-
-        // Iterate through the rows, printing json nodes for each
         $response = array();
+        $result = $this->execute_LocationQuery('sl_num_initial_displayed');
         while ($row = @mysql_fetch_assoc($result)){
             $response[] = $this->slp_add_marker($row);
         }
@@ -135,18 +129,8 @@ class SLPlus_AjaxHandler {
      * @global type $wpdb
      */
     function csl_ajax_search() {
-        $this->setPlugin();
         global $wpdb;
-
-        // How Many To Fetch
-        //
-        $option[SLPLUS_PREFIX.'_maxreturned']=(trim(get_option(SLPLUS_PREFIX.'_maxreturned'))!="")?
-        get_option(SLPLUS_PREFIX.'_maxreturned') :
-        '25';
-
-        // Fetch Locations
-        //
-        $result = $this->execute_LocationQuery($option[SLPLUS_PREFIX.'_maxreturned']);
+        $this->setPlugin();
 
         // Reporting
         // Insert the query into the query DB
@@ -165,9 +149,10 @@ class SLPlus_AjaxHandler {
             $slp_QueryID = mysql_insert_id();
         }
 
-        // Process Locations
+        // Get Locations
         //
         $response = array();
+        $result = $this->execute_LocationQuery(SLPLUS_PREFIX.'_maxreturned');
         while ($row = @mysql_fetch_assoc($result)){
             $thisLocation = $this->slp_add_marker($row);
             if (!empty($thisLocation)) {
@@ -207,7 +192,7 @@ class SLPlus_AjaxHandler {
      * @param string $maxReturned how many results to max out at
      * @return object a MySQL result object
      */
-    function execute_LocationQuery($maxReturned='50') {
+    function execute_LocationQuery($optName_HowMany='') {
         // MySQL
         //
         $username=DB_USER;
@@ -228,9 +213,17 @@ class SLPlus_AjaxHandler {
         // SLP options that tweak the query
         //........
 
+        // Distance Unit (KM or MI) Modifier
         // Since miles is default, if kilometers is selected, divide by 1.609344 in order to convert the kilometer value selection back in miles
         //
         $multiplier=(get_option('sl_distance_unit')=="km")? 6371 : 3959;
+
+        // Return How Many?
+        //
+        if (empty($optName_HowMany)) { $optName_HowMany = ''; }
+        $maxReturned = trim(get_option(SLPLUS_PREFIX.'_maxreturned','25'));
+        if (!is_numeric($maxReturned)) { $maxReturned = '25'; }
+
 
         //........
         // Post options that tweak the query
@@ -257,10 +250,6 @@ class SLPlus_AjaxHandler {
             $posted_name = preg_replace('/(.*?)\s+$/','$1',$posted_name);
             $nameFilter = " AND (sl_store LIKE '%%".$posted_name."%%')";
         }
-
-        // Make sure max returned is ok
-        //
-        if (!is_numeric($maxReturned)) { $maxReturned = 50; }
 
         // Run the Query
         //
