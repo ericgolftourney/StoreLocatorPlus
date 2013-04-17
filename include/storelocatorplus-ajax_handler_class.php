@@ -104,12 +104,7 @@ class SLPlus_AjaxHandler {
     function csl_ajax_onload() {
         $this->setPlugin();
 
-        //.......
-        // Params
-        //.......
-        $num_initial_displayed=trim(get_option('sl_num_initial_displayed','25'));
-
-        // If tags are passed filter to just those tags
+        // Tag Filters
         //
         $tag_filter = '';
         if (
@@ -120,7 +115,8 @@ class SLPlus_AjaxHandler {
             $tag_filter = " AND ( sl_tags LIKE '%%". $posted_tag ."%%') ";
         }
 
-        // If store names are passed, filter show those names
+        // Name Filters
+        //
         $name_filter = '';
         if ((get_option(SLPLUS_PREFIX.'_show_name_search') == 1) &&
             isset($_POST['name']) && ($_POST['name'] != ''))
@@ -130,9 +126,12 @@ class SLPlus_AjaxHandler {
             $name_filter = " AND (sl_store LIKE '%%".$posted_name."%%')";
         }
 
-        //.............
+        // How Many To Fetch
+        //
+        $num_initial_displayed=trim(get_option('sl_num_initial_displayed','25'));
+
         // Get The Data
-        //.............
+        //
         $result = $this->execute_LocationQuery($tag_filter,$name_filter,$num_initial_displayed);
 
         // Iterate through the rows, printing json nodes for each
@@ -161,7 +160,7 @@ class SLPlus_AjaxHandler {
         $this->setPlugin();
         global $wpdb;
 
-        // If tags are passed filter to just those tags
+        // Tag Filters
         //
         $tag_filter = '';
         if (
@@ -172,6 +171,8 @@ class SLPlus_AjaxHandler {
             $tag_filter = " AND ( sl_tags LIKE '%%". $posted_tag ."%%') ";
         }
 
+        // Name Filters
+        //
         $name_filter = '';
         if(isset($_POST['name']) && ($_POST['name'] != ''))
         {
@@ -180,16 +181,18 @@ class SLPlus_AjaxHandler {
             $name_filter = " AND (sl_store LIKE '%%".$posted_name."%%')";
         }
 
+        // How Many To Fetch
+        //
         $option[SLPLUS_PREFIX.'_maxreturned']=(trim(get_option(SLPLUS_PREFIX.'_maxreturned'))!="")?
         get_option(SLPLUS_PREFIX.'_maxreturned') :
         '25';
 
-        //.............
-        // Get The Data
-        //.............
+        // Fetch Locations
+        //
         $result = $this->execute_LocationQuery($tag_filter,$name_filter,$option[SLPLUS_PREFIX.'_maxreturned']);
 
-        // Iterate through the rows, printing XML nodes for each
+        // Process Locations
+        //
         $response = array();
         while ($row = @mysql_fetch_assoc($result)){
             $thisLocation = $this->slp_add_marker($row);
