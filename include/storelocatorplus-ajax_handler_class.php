@@ -175,6 +175,8 @@ class SLPlus_AjaxHandler {
             $response[] = $this->slp_add_marker($row);
         }
 
+        // Output the JSON and Exit
+        //
         $this->renderJSON_Response(
                 array(  'success'       => true,
                         'count'         => count($response) ,
@@ -309,6 +311,8 @@ class SLPlus_AjaxHandler {
             $slp_QueryID = mysql_insert_id();
         }
 
+        // Output the JSON and Exit
+        //
         $this->renderJSON_Response(
                 array(  'success'       => true,
                         'count'         => count($response),
